@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -12,16 +13,7 @@ class CurrencyType(DataObject):
     """ Corresponds to IDD object `CurrencyType`
         If CurrencyType is not specified, it will default to USD and produce $ in the reports.
     """
-    schema = {'min-fields': 0, 'name': u'CurrencyType', 'pyname': u'CurrencyType', 'format': None, 'fields': OrderedDict([(u'monetary unit', {'name': u'Monetary Unit', 'pyname': u'monetary_unit', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `CurrencyType`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'CurrencyType', 'pyname': u'CurrencyType', 'format': None, 'fields': OrderedDict([(u'monetary unit', {'name': u'Monetary Unit', 'pyname': u'monetary_unit', 'required-field': True, 'autosizable': False, 'accepted-values': [u'USD', u'AFN', u'ALL', u'ANG', u'ARS', u'AUD', u'AWG', u'AZN', u'BAM', u'BBD', u'BGN', u'BMD', u'BND', u'BOB', u'BRL', u'BSD', u'BWP', u'BYR', u'BZD', u'CAD', u'CHF', u'CLP', u'CNY', u'COP', u'CRC', u'CUP', u'CZK', u'DKK', u'DOP', u'EEK', u'EGP', u'EUR', u'FJD', u'GBP', u'GHC', u'GIP', u'GTQ', u'GYD', u'HKD', u'HNL', u'HRK', u'HUF', u'IDR', u'ILS', u'IMP', u'INR', u'IRR', u'ISK', u'JEP', u'JMD', u'JPY', u'KGS', u'KHR', u'KPW', u'KRW', u'KYD', u'KZT', u'LAK', u'LBP', u'LKR', u'LRD', u'LTL', u'LVL', u'MKD', u'MNT', u'MUR', u'MXN', u'MYR', u'MZN', u'NAD', u'NGN', u'NIO', u'NOK', u'NPR', u'NZD', u'OMR', u'PAB', u'PEN', u'PHP', u'PKR', u'PLN', u'PYG', u'QAR', u'RON', u'RSD', u'RUB', u'SAR', u'SBD', u'SCR', u'SEK', u'SGD', u'SHP', u'SOS', u'SRD', u'SVC', u'SYP', u'THB', u'TRL', u'TRY', u'TTD', u'TVD', u'TWD', u'UAH', u'UYU', u'UZS', u'VEF', u'VND', u'XCD', u'YER', u'ZAR', u'ZWD'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def monetary_unit(self):
@@ -30,7 +22,7 @@ class CurrencyType(DataObject):
         Returns:
             str: the value of `monetary_unit` or None if not set
         """
-        return self._data["Monetary Unit"]
+        return self["Monetary Unit"]
 
     @monetary_unit.setter
     def monetary_unit(self, value=None):
@@ -57,15 +49,6 @@ class ComponentCostAdjustments(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ComponentCost:Adjustments', 'pyname': u'ComponentCostAdjustments', 'format': None, 'fields': OrderedDict([(u'miscellaneous cost per conditioned area', {'name': u'Miscellaneous Cost per Conditioned Area', 'pyname': u'miscellaneous_cost_per_conditioned_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'design and engineering fees', {'name': u'Design and Engineering Fees', 'pyname': u'design_and_engineering_fees', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'contractor fee', {'name': u'Contractor Fee', 'pyname': u'contractor_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'contingency', {'name': u'Contingency', 'pyname': u'contingency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'permits, bonding and insurance', {'name': u'Permits, Bonding and Insurance', 'pyname': u'permits_bonding_and_insurance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'commissioning fee', {'name': u'Commissioning Fee', 'pyname': u'commissioning_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'regional adjustment factor', {'name': u'Regional Adjustment Factor', 'pyname': u'regional_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ComponentCost:Adjustments`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def miscellaneous_cost_per_conditioned_area(self):
         """Get miscellaneous_cost_per_conditioned_area
@@ -73,7 +56,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `miscellaneous_cost_per_conditioned_area` or None if not set
         """
-        return self._data["Miscellaneous Cost per Conditioned Area"]
+        return self["Miscellaneous Cost per Conditioned Area"]
 
     @miscellaneous_cost_per_conditioned_area.setter
     def miscellaneous_cost_per_conditioned_area(self, value=None):
@@ -99,7 +82,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `design_and_engineering_fees` or None if not set
         """
-        return self._data["Design and Engineering Fees"]
+        return self["Design and Engineering Fees"]
 
     @design_and_engineering_fees.setter
     def design_and_engineering_fees(self, value=None):
@@ -123,7 +106,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `contractor_fee` or None if not set
         """
-        return self._data["Contractor Fee"]
+        return self["Contractor Fee"]
 
     @contractor_fee.setter
     def contractor_fee(self, value=None):
@@ -147,7 +130,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `contingency` or None if not set
         """
-        return self._data["Contingency"]
+        return self["Contingency"]
 
     @contingency.setter
     def contingency(self, value=None):
@@ -171,7 +154,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `permits_bonding_and_insurance` or None if not set
         """
-        return self._data["Permits, Bonding and Insurance"]
+        return self["Permits, Bonding and Insurance"]
 
     @permits_bonding_and_insurance.setter
     def permits_bonding_and_insurance(self, value=None):
@@ -195,7 +178,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `commissioning_fee` or None if not set
         """
-        return self._data["Commissioning Fee"]
+        return self["Commissioning Fee"]
 
     @commissioning_fee.setter
     def commissioning_fee(self, value=None):
@@ -219,7 +202,7 @@ class ComponentCostAdjustments(DataObject):
         Returns:
             float: the value of `regional_adjustment_factor` or None if not set
         """
-        return self._data["Regional Adjustment Factor"]
+        return self["Regional Adjustment Factor"]
 
     @regional_adjustment_factor.setter
     def regional_adjustment_factor(self, value=None):
@@ -249,15 +232,6 @@ class ComponentCostReference(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ComponentCost:Reference', 'pyname': u'ComponentCostReference', 'format': None, 'fields': OrderedDict([(u'reference building line item costs', {'name': u'Reference Building Line Item Costs', 'pyname': u'reference_building_line_item_costs', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$'}), (u'reference building miscellaneous cost per conditioned area', {'name': u'Reference Building Miscellaneous Cost per Conditioned Area', 'pyname': u'reference_building_miscellaneous_cost_per_conditioned_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'reference building design and engineering fees', {'name': u'Reference Building Design and Engineering Fees', 'pyname': u'reference_building_design_and_engineering_fees', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building contractor fee', {'name': u'Reference Building Contractor Fee', 'pyname': u'reference_building_contractor_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building contingency', {'name': u'Reference Building Contingency', 'pyname': u'reference_building_contingency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference building permits, bonding and insurance', {'name': u'Reference Building Permits, Bonding and Insurance', 'pyname': u'reference_building_permits_bonding_and_insurance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building commissioning fee', {'name': u'Reference Building Commissioning Fee', 'pyname': u'reference_building_commissioning_fee', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'reference building regional adjustment factor', {'name': u'Reference Building Regional Adjustment Factor', 'pyname': u'reference_building_regional_adjustment_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ComponentCost:Reference`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def reference_building_line_item_costs(self):
         """Get reference_building_line_item_costs
@@ -265,7 +239,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_line_item_costs` or None if not set
         """
-        return self._data["Reference Building Line Item Costs"]
+        return self["Reference Building Line Item Costs"]
 
     @reference_building_line_item_costs.setter
     def reference_building_line_item_costs(self, value=None):
@@ -290,7 +264,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_miscellaneous_cost_per_conditioned_area` or None if not set
         """
-        return self._data["Reference Building Miscellaneous Cost per Conditioned Area"]
+        return self["Reference Building Miscellaneous Cost per Conditioned Area"]
 
     @reference_building_miscellaneous_cost_per_conditioned_area.setter
     def reference_building_miscellaneous_cost_per_conditioned_area(self, value=None):
@@ -316,7 +290,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_design_and_engineering_fees` or None if not set
         """
-        return self._data["Reference Building Design and Engineering Fees"]
+        return self["Reference Building Design and Engineering Fees"]
 
     @reference_building_design_and_engineering_fees.setter
     def reference_building_design_and_engineering_fees(self, value=None):
@@ -340,7 +314,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_contractor_fee` or None if not set
         """
-        return self._data["Reference Building Contractor Fee"]
+        return self["Reference Building Contractor Fee"]
 
     @reference_building_contractor_fee.setter
     def reference_building_contractor_fee(self, value=None):
@@ -364,7 +338,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_contingency` or None if not set
         """
-        return self._data["Reference Building Contingency"]
+        return self["Reference Building Contingency"]
 
     @reference_building_contingency.setter
     def reference_building_contingency(self, value=None):
@@ -387,7 +361,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_permits_bonding_and_insurance` or None if not set
         """
-        return self._data["Reference Building Permits, Bonding and Insurance"]
+        return self["Reference Building Permits, Bonding and Insurance"]
 
     @reference_building_permits_bonding_and_insurance.setter
     def reference_building_permits_bonding_and_insurance(self, value=None):
@@ -411,7 +385,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_commissioning_fee` or None if not set
         """
-        return self._data["Reference Building Commissioning Fee"]
+        return self["Reference Building Commissioning Fee"]
 
     @reference_building_commissioning_fee.setter
     def reference_building_commissioning_fee(self, value=None):
@@ -435,7 +409,7 @@ class ComponentCostReference(DataObject):
         Returns:
             float: the value of `reference_building_regional_adjustment_factor` or None if not set
         """
-        return self._data["Reference Building Regional Adjustment Factor"]
+        return self["Reference Building Regional Adjustment Factor"]
 
     @reference_building_regional_adjustment_factor.setter
     def reference_building_regional_adjustment_factor(self, value=None):
@@ -459,16 +433,7 @@ class ComponentCostLineItem(DataObject):
         Each instance of this object creates a cost line item and will contribute to the total
         for a cost estimate.
     """
-    schema = {'min-fields': 0, 'name': u'ComponentCost:LineItem', 'pyname': u'ComponentCostLineItem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'type', {'name': u'Type', 'pyname': u'type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'line item type', {'name': u'Line Item Type', 'pyname': u'line_item_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'item name', {'name': u'Item Name', 'pyname': u'item_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'object end-use key', {'name': u'Object End-Use Key', 'pyname': u'object_enduse_key', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cost per each', {'name': u'Cost per Each', 'pyname': u'cost_per_each', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$'}), (u'cost per area', {'name': u'Cost per Area', 'pyname': u'cost_per_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'cost per unit of output capacity', {'name': u'Cost per Unit of Output Capacity', 'pyname': u'cost_per_unit_of_output_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per unit of output capacity per cop', {'name': u'Cost per Unit of Output Capacity per COP', 'pyname': u'cost_per_unit_of_output_capacity_per_cop', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per volume', {'name': u'Cost per Volume', 'pyname': u'cost_per_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m3'}), (u'cost per volume rate', {'name': u'Cost per Volume Rate', 'pyname': u'cost_per_volume_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(m3/s)'}), (u'cost per energy per temperature difference', {'name': u'Cost per Energy per Temperature Difference', 'pyname': u'cost_per_energy_per_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(W/K)'}), (u'quantity', {'name': u'Quantity', 'pyname': u'quantity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ComponentCost:LineItem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ComponentCost:LineItem', 'pyname': u'ComponentCostLineItem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'type', {'name': u'Type', 'pyname': u'type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'line item type', {'name': u'Line Item Type', 'pyname': u'line_item_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'General', u'Construction', u'Coil:DX', u'Coil:Cooling:DX:SingleSpeed', u'Coil:Heating:Gas', u'Chiller:Electric', u'Daylighting:Controls', u'Shading:Zone:Detailed', u'Lights', u'Generator:Photovoltaic'], 'autocalculatable': False, 'type': 'alpha'}), (u'item name', {'name': u'Item Name', 'pyname': u'item_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'object end-use key', {'name': u'Object End-Use Key', 'pyname': u'object_enduse_key', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cost per each', {'name': u'Cost per Each', 'pyname': u'cost_per_each', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$'}), (u'cost per area', {'name': u'Cost per Area', 'pyname': u'cost_per_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m2'}), (u'cost per unit of output capacity', {'name': u'Cost per Unit of Output Capacity', 'pyname': u'cost_per_unit_of_output_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per unit of output capacity per cop', {'name': u'Cost per Unit of Output Capacity per COP', 'pyname': u'cost_per_unit_of_output_capacity_per_cop', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/kW'}), (u'cost per volume', {'name': u'Cost per Volume', 'pyname': u'cost_per_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/m3'}), (u'cost per volume rate', {'name': u'Cost per Volume Rate', 'pyname': u'cost_per_volume_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(m3/s)'}), (u'cost per energy per temperature difference', {'name': u'Cost per Energy per Temperature Difference', 'pyname': u'cost_per_energy_per_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'$/(W/K)'}), (u'quantity', {'name': u'Quantity', 'pyname': u'quantity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -477,7 +442,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -500,7 +465,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             str: the value of `type` or None if not set
         """
-        return self._data["Type"]
+        return self["Type"]
 
     @type.setter
     def type(self, value=None):
@@ -523,7 +488,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             str: the value of `line_item_type` or None if not set
         """
-        return self._data["Line Item Type"]
+        return self["Line Item Type"]
 
     @line_item_type.setter
     def line_item_type(self, value=None):
@@ -547,7 +512,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             str: the value of `item_name` or None if not set
         """
-        return self._data["Item Name"]
+        return self["Item Name"]
 
     @item_name.setter
     def item_name(self, value=None):
@@ -571,7 +536,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             str: the value of `object_enduse_key` or None if not set
         """
-        return self._data["Object End-Use Key"]
+        return self["Object End-Use Key"]
 
     @object_enduse_key.setter
     def object_enduse_key(self, value=None):
@@ -595,7 +560,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_each` or None if not set
         """
-        return self._data["Cost per Each"]
+        return self["Cost per Each"]
 
     @cost_per_each.setter
     def cost_per_each(self, value=None):
@@ -619,7 +584,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_area` or None if not set
         """
-        return self._data["Cost per Area"]
+        return self["Cost per Area"]
 
     @cost_per_area.setter
     def cost_per_area(self, value=None):
@@ -643,7 +608,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_unit_of_output_capacity` or None if not set
         """
-        return self._data["Cost per Unit of Output Capacity"]
+        return self["Cost per Unit of Output Capacity"]
 
     @cost_per_unit_of_output_capacity.setter
     def cost_per_unit_of_output_capacity(self, value=None):
@@ -667,7 +632,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_unit_of_output_capacity_per_cop` or None if not set
         """
-        return self._data["Cost per Unit of Output Capacity per COP"]
+        return self["Cost per Unit of Output Capacity per COP"]
 
     @cost_per_unit_of_output_capacity_per_cop.setter
     def cost_per_unit_of_output_capacity_per_cop(self, value=None):
@@ -692,7 +657,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_volume` or None if not set
         """
-        return self._data["Cost per Volume"]
+        return self["Cost per Volume"]
 
     @cost_per_volume.setter
     def cost_per_volume(self, value=None):
@@ -716,7 +681,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_volume_rate` or None if not set
         """
-        return self._data["Cost per Volume Rate"]
+        return self["Cost per Volume Rate"]
 
     @cost_per_volume_rate.setter
     def cost_per_volume_rate(self, value=None):
@@ -740,7 +705,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `cost_per_energy_per_temperature_difference` or None if not set
         """
-        return self._data["Cost per Energy per Temperature Difference"]
+        return self["Cost per Energy per Temperature Difference"]
 
     @cost_per_energy_per_temperature_difference.setter
     def cost_per_energy_per_temperature_difference(self, value=None):
@@ -765,7 +730,7 @@ class ComponentCostLineItem(DataObject):
         Returns:
             float: the value of `quantity` or None if not set
         """
-        return self._data["Quantity"]
+        return self["Quantity"]
 
     @quantity.setter
     def quantity(self, value=None):
@@ -792,16 +757,7 @@ class UtilityCostTariff(DataObject):
         UtilityCost:Ratchet, UtilityCost:Qualify, UtilityCost:Variable and
         UtilityCost:Computation objects.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Tariff', 'pyname': u'UtilityCostTariff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'output meter name', {'name': u'Output Meter Name', 'pyname': u'output_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'conversion factor choice', {'name': u'Conversion Factor Choice', 'pyname': u'conversion_factor_choice', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy conversion factor', {'name': u'Energy Conversion Factor', 'pyname': u'energy_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'demand conversion factor', {'name': u'Demand Conversion Factor', 'pyname': u'demand_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'time of use period schedule name', {'name': u'Time of Use Period Schedule Name', 'pyname': u'time_of_use_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'season schedule name', {'name': u'Season Schedule Name', 'pyname': u'season_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'month schedule name', {'name': u'Month Schedule Name', 'pyname': u'month_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'monthly charge or variable name', {'name': u'Monthly Charge or Variable Name', 'pyname': u'monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum monthly charge or variable name', {'name': u'Minimum Monthly Charge or Variable Name', 'pyname': u'minimum_monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'real time pricing charge schedule name', {'name': u'Real Time Pricing Charge Schedule Name', 'pyname': u'real_time_pricing_charge_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'customer baseline load schedule name', {'name': u'Customer Baseline Load Schedule Name', 'pyname': u'customer_baseline_load_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'group name', {'name': u'Group Name', 'pyname': u'group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'buy or sell', {'name': u'Buy Or Sell', 'pyname': u'buy_or_sell', 'default': u'BuyFromUtility', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Tariff`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Tariff', 'pyname': u'UtilityCostTariff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'output meter name', {'name': u'Output Meter Name', 'pyname': u'output_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'conversion factor choice', {'name': u'Conversion Factor Choice', 'pyname': u'conversion_factor_choice', 'required-field': False, 'autosizable': False, 'accepted-values': [u'UserDefined', u'kWh', u'Therm', u'MMBtu', u'MJ', u'kBtu', u'MCF', u'CCF'], 'autocalculatable': False, 'type': 'alpha'}), (u'energy conversion factor', {'name': u'Energy Conversion Factor', 'pyname': u'energy_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'demand conversion factor', {'name': u'Demand Conversion Factor', 'pyname': u'demand_conversion_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'time of use period schedule name', {'name': u'Time of Use Period Schedule Name', 'pyname': u'time_of_use_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'season schedule name', {'name': u'Season Schedule Name', 'pyname': u'season_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'month schedule name', {'name': u'Month Schedule Name', 'pyname': u'month_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'required-field': False, 'autosizable': False, 'accepted-values': [u'QuarterHour', u'HalfHour', u'FullHour', u'Day', u'Week'], 'autocalculatable': False, 'type': 'alpha'}), (u'monthly charge or variable name', {'name': u'Monthly Charge or Variable Name', 'pyname': u'monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum monthly charge or variable name', {'name': u'Minimum Monthly Charge or Variable Name', 'pyname': u'minimum_monthly_charge_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'real time pricing charge schedule name', {'name': u'Real Time Pricing Charge Schedule Name', 'pyname': u'real_time_pricing_charge_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'customer baseline load schedule name', {'name': u'Customer Baseline Load Schedule Name', 'pyname': u'customer_baseline_load_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'group name', {'name': u'Group Name', 'pyname': u'group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'buy or sell', {'name': u'Buy Or Sell', 'pyname': u'buy_or_sell', 'default': u'BuyFromUtility', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BuyFromUtility', u'SellToUtility', u'NetMetering'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -810,7 +766,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -835,7 +791,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `output_meter_name` or None if not set
         """
-        return self._data["Output Meter Name"]
+        return self["Output Meter Name"]
 
     @output_meter_name.setter
     def output_meter_name(self, value=None):
@@ -859,7 +815,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `conversion_factor_choice` or None if not set
         """
-        return self._data["Conversion Factor Choice"]
+        return self["Conversion Factor Choice"]
 
     @conversion_factor_choice.setter
     def conversion_factor_choice(self, value=None):
@@ -884,7 +840,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             float: the value of `energy_conversion_factor` or None if not set
         """
-        return self._data["Energy Conversion Factor"]
+        return self["Energy Conversion Factor"]
 
     @energy_conversion_factor.setter
     def energy_conversion_factor(self, value=None):
@@ -912,7 +868,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             float: the value of `demand_conversion_factor` or None if not set
         """
-        return self._data["Demand Conversion Factor"]
+        return self["Demand Conversion Factor"]
 
     @demand_conversion_factor.setter
     def demand_conversion_factor(self, value=None):
@@ -940,7 +896,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `time_of_use_period_schedule_name` or None if not set
         """
-        return self._data["Time of Use Period Schedule Name"]
+        return self["Time of Use Period Schedule Name"]
 
     @time_of_use_period_schedule_name.setter
     def time_of_use_period_schedule_name(self, value=None):
@@ -965,7 +921,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `season_schedule_name` or None if not set
         """
-        return self._data["Season Schedule Name"]
+        return self["Season Schedule Name"]
 
     @season_schedule_name.setter
     def season_schedule_name(self, value=None):
@@ -990,7 +946,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `month_schedule_name` or None if not set
         """
-        return self._data["Month Schedule Name"]
+        return self["Month Schedule Name"]
 
     @month_schedule_name.setter
     def month_schedule_name(self, value=None):
@@ -1019,7 +975,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `demand_window_length` or None if not set
         """
-        return self._data["Demand Window Length"]
+        return self["Demand Window Length"]
 
     @demand_window_length.setter
     def demand_window_length(self, value=None):
@@ -1045,7 +1001,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `monthly_charge_or_variable_name` or None if not set
         """
-        return self._data["Monthly Charge or Variable Name"]
+        return self["Monthly Charge or Variable Name"]
 
     @monthly_charge_or_variable_name.setter
     def monthly_charge_or_variable_name(self, value=None):
@@ -1070,7 +1026,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `minimum_monthly_charge_or_variable_name` or None if not set
         """
-        return self._data["Minimum Monthly Charge or Variable Name"]
+        return self["Minimum Monthly Charge or Variable Name"]
 
     @minimum_monthly_charge_or_variable_name.setter
     def minimum_monthly_charge_or_variable_name(self, value=None):
@@ -1095,7 +1051,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `real_time_pricing_charge_schedule_name` or None if not set
         """
-        return self._data["Real Time Pricing Charge Schedule Name"]
+        return self["Real Time Pricing Charge Schedule Name"]
 
     @real_time_pricing_charge_schedule_name.setter
     def real_time_pricing_charge_schedule_name(self, value=None):
@@ -1121,7 +1077,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `customer_baseline_load_schedule_name` or None if not set
         """
-        return self._data["Customer Baseline Load Schedule Name"]
+        return self["Customer Baseline Load Schedule Name"]
 
     @customer_baseline_load_schedule_name.setter
     def customer_baseline_load_schedule_name(self, value=None):
@@ -1147,7 +1103,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `group_name` or None if not set
         """
-        return self._data["Group Name"]
+        return self["Group Name"]
 
     @group_name.setter
     def group_name(self, value=None):
@@ -1174,7 +1130,7 @@ class UtilityCostTariff(DataObject):
         Returns:
             str: the value of `buy_or_sell` or None if not set
         """
-        return self._data["Buy Or Sell"]
+        return self["Buy Or Sell"]
 
     @buy_or_sell.setter
     def buy_or_sell(self, value="BuyFromUtility"):
@@ -1204,16 +1160,7 @@ class UtilityCostQualify(DataObject):
         is shown. Multiple UtilityCost:Qualify objects can appear for the same tarriff and
         they can be based on any variable.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Qualify', 'pyname': u'UtilityCostQualify', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'qualify type', {'name': u'Qualify Type', 'pyname': u'qualify_type', 'default': u'Maximum', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold value or variable name', {'name': u'Threshold Value or Variable Name', 'pyname': u'threshold_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'threshold test', {'name': u'Threshold Test', 'pyname': u'threshold_test', 'default': u'Consecutive', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of months', {'name': u'Number of Months', 'pyname': u'number_of_months', 'maximum': 12.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Qualify`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Qualify', 'pyname': u'UtilityCostQualify', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'qualify type', {'name': u'Qualify Type', 'pyname': u'qualify_type', 'default': u'Maximum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Minimum', u'Maximum'], 'autocalculatable': False, 'type': 'alpha'}), (u'threshold value or variable name', {'name': u'Threshold Value or Variable Name', 'pyname': u'threshold_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annual', u'Summer', u'Winter', u'Spring', u'Fall'], 'autocalculatable': False, 'type': 'alpha'}), (u'threshold test', {'name': u'Threshold Test', 'pyname': u'threshold_test', 'default': u'Consecutive', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Count', u'Consecutive'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of months', {'name': u'Number of Months', 'pyname': u'number_of_months', 'maximum': 12.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1222,7 +1169,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1246,7 +1193,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -1270,7 +1217,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `variable_name` or None if not set
         """
-        return self._data["Variable Name"]
+        return self["Variable Name"]
 
     @variable_name.setter
     def variable_name(self, value=None):
@@ -1295,7 +1242,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `qualify_type` or None if not set
         """
-        return self._data["Qualify Type"]
+        return self["Qualify Type"]
 
     @qualify_type.setter
     def qualify_type(self, value="Maximum"):
@@ -1319,7 +1266,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `threshold_value_or_variable_name` or None if not set
         """
-        return self._data["Threshold Value or Variable Name"]
+        return self["Threshold Value or Variable Name"]
 
     @threshold_value_or_variable_name.setter
     def threshold_value_or_variable_name(self, value=None):
@@ -1345,7 +1292,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `season` or None if not set
         """
-        return self._data["Season"]
+        return self["Season"]
 
     @season.setter
     def season(self, value=None):
@@ -1370,7 +1317,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             str: the value of `threshold_test` or None if not set
         """
-        return self._data["Threshold Test"]
+        return self["Threshold Test"]
 
     @threshold_test.setter
     def threshold_test(self, value="Consecutive"):
@@ -1398,7 +1345,7 @@ class UtilityCostQualify(DataObject):
         Returns:
             float: the value of `number_of_months` or None if not set
         """
-        return self._data["Number of Months"]
+        return self["Number of Months"]
 
     @number_of_months.setter
     def number_of_months(self, value=None):
@@ -1429,16 +1376,7 @@ class UtilityCostChargeSimple(DataObject):
         utility bill. Multiple UtilityCost:Charge:Simple objects may be defined for a single
         tariff and they will be added together.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Simple', 'pyname': u'UtilityCostChargeSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost per unit value or variable name', {'name': u'Cost per Unit Value or Variable Name', 'pyname': u'cost_per_unit_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Charge:Simple`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Simple', 'pyname': u'UtilityCostChargeSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annual', u'Summer', u'Winter', u'Spring', u'Fall'], 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EnergyCharges', u'DemandCharges', u'ServiceCharges', u'Basis', u'Adjustment', u'Surcharge', u'Subtotal', u'Taxes', u'Total', u'NotIncluded'], 'autocalculatable': False, 'type': 'alpha'}), (u'cost per unit value or variable name', {'name': u'Cost per Unit Value or Variable Name', 'pyname': u'cost_per_unit_value_or_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1447,7 +1385,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1475,7 +1413,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -1499,7 +1437,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `source_variable` or None if not set
         """
-        return self._data["Source Variable"]
+        return self["Source Variable"]
 
     @source_variable.setter
     def source_variable(self, value=None):
@@ -1529,7 +1467,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `season` or None if not set
         """
-        return self._data["Season"]
+        return self["Season"]
 
     @season.setter
     def season(self, value=None):
@@ -1554,7 +1492,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `category_variable_name` or None if not set
         """
-        return self._data["Category Variable Name"]
+        return self["Category Variable Name"]
 
     @category_variable_name.setter
     def category_variable_name(self, value=None):
@@ -1580,7 +1518,7 @@ class UtilityCostChargeSimple(DataObject):
         Returns:
             str: the value of `cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Cost per Unit Value or Variable Name"]
+        return self["Cost per Unit Value or Variable Name"]
 
     @cost_per_unit_value_or_variable_name.setter
     def cost_per_unit_value_or_variable_name(self, value=None):
@@ -1608,16 +1546,7 @@ class UtilityCostChargeBlock(DataObject):
         in blocks of charges. Multiple UtilityCost:Charge:Block objects may be defined for a
         single tariff and they will be added together.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Block', 'pyname': u'UtilityCostChargeBlock', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'default': u'Season', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'remaining into variable', {'name': u'Remaining Into Variable', 'pyname': u'remaining_into_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size multiplier value or variable name', {'name': u'Block Size Multiplier Value or Variable Name', 'pyname': u'block_size_multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 1 value or variable name', {'name': u'Block Size 1 Value or Variable Name', 'pyname': u'block_size_1_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 1 cost per unit value or variable name', {'name': u'Block 1 Cost per Unit Value or Variable Name', 'pyname': u'block_1_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 2 value or variable name', {'name': u'Block Size 2 Value or Variable Name', 'pyname': u'block_size_2_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 2 cost per unit value or variable name', {'name': u'Block 2 Cost per Unit Value or Variable Name', 'pyname': u'block_2_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 3 value or variable name', {'name': u'Block Size 3 Value or Variable Name', 'pyname': u'block_size_3_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 3 cost per unit value or variable name', {'name': u'Block 3 Cost per Unit Value or Variable Name', 'pyname': u'block_3_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 4 value or variable name', {'name': u'Block Size 4 Value or Variable Name', 'pyname': u'block_size_4_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 4 cost per unit value or variable name', {'name': u'Block 4 Cost per Unit Value or Variable Name', 'pyname': u'block_4_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 5 value or variable name', {'name': u'Block Size 5 Value or Variable Name', 'pyname': u'block_size_5_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 5 cost per unit value or variable name', {'name': u'Block 5 Cost per Unit Value or Variable Name', 'pyname': u'block_5_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 6 value or variable name', {'name': u'Block Size 6 Value or Variable Name', 'pyname': u'block_size_6_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 6 cost per unit value or variable name', {'name': u'Block 6 Cost per Unit Value or Variable Name', 'pyname': u'block_6_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 7 value or variable name', {'name': u'Block Size 7 Value or Variable Name', 'pyname': u'block_size_7_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 7 cost per unit value or variable name', {'name': u'Block 7 Cost per Unit Value or Variable Name', 'pyname': u'block_7_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 8 value or variable name', {'name': u'Block Size 8 Value or Variable Name', 'pyname': u'block_size_8_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 8 cost per unit value or variable name', {'name': u'Block 8 Cost per Unit Value or Variable Name', 'pyname': u'block_8_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 9 value or variable name', {'name': u'Block Size 9 Value or Variable Name', 'pyname': u'block_size_9_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 9 cost per unit value or variable name', {'name': u'Block 9 Cost per Unit Value or Variable Name', 'pyname': u'block_9_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 10 value or variable name', {'name': u'Block Size 10 Value or Variable Name', 'pyname': u'block_size_10_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 10 cost per unit value or variable name', {'name': u'Block 10 Cost per Unit Value or Variable Name', 'pyname': u'block_10_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 11 value or variable name', {'name': u'Block Size 11 Value or Variable Name', 'pyname': u'block_size_11_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 11 cost per unit value or variable name', {'name': u'Block 11 Cost per Unit Value or Variable Name', 'pyname': u'block_11_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 12 value or variable name', {'name': u'Block Size 12 Value or Variable Name', 'pyname': u'block_size_12_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 12 cost per unit value or variable name', {'name': u'Block 12 Cost per Unit Value or Variable Name', 'pyname': u'block_12_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 13 value or variable name', {'name': u'Block Size 13 Value or Variable Name', 'pyname': u'block_size_13_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 13 cost per unit value or variable name', {'name': u'Block 13 Cost per Unit Value or Variable Name', 'pyname': u'block_13_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 14 value or variable name', {'name': u'Block Size 14 Value or Variable Name', 'pyname': u'block_size_14_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 14 cost per unit value or variable name', {'name': u'Block 14 Cost per Unit Value or Variable Name', 'pyname': u'block_14_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 15 value or variable name', {'name': u'Block Size 15 Value or Variable Name', 'pyname': u'block_size_15_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 15 cost per unit value or variable name', {'name': u'Block 15 Cost per Unit Value or Variable Name', 'pyname': u'block_15_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Charge:Block`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Charge:Block', 'pyname': u'UtilityCostChargeBlock', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source variable', {'name': u'Source Variable', 'pyname': u'source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season', {'name': u'Season', 'pyname': u'season', 'default': u'Season', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annual', u'Summer', u'Winter', u'Spring', u'Fall'], 'autocalculatable': False, 'type': 'alpha'}), (u'category variable name', {'name': u'Category Variable Name', 'pyname': u'category_variable_name', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EnergyCharges', u'DemandCharges', u'ServiceCharges', u'Basis', u'Adjustment', u'Surcharge', u'Subtotal', u'Taxes', u'Total', u'NotIncluded'], 'autocalculatable': False, 'type': 'alpha'}), (u'remaining into variable', {'name': u'Remaining Into Variable', 'pyname': u'remaining_into_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size multiplier value or variable name', {'name': u'Block Size Multiplier Value or Variable Name', 'pyname': u'block_size_multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 1 value or variable name', {'name': u'Block Size 1 Value or Variable Name', 'pyname': u'block_size_1_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 1 cost per unit value or variable name', {'name': u'Block 1 Cost per Unit Value or Variable Name', 'pyname': u'block_1_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 2 value or variable name', {'name': u'Block Size 2 Value or Variable Name', 'pyname': u'block_size_2_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 2 cost per unit value or variable name', {'name': u'Block 2 Cost per Unit Value or Variable Name', 'pyname': u'block_2_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 3 value or variable name', {'name': u'Block Size 3 Value or Variable Name', 'pyname': u'block_size_3_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 3 cost per unit value or variable name', {'name': u'Block 3 Cost per Unit Value or Variable Name', 'pyname': u'block_3_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 4 value or variable name', {'name': u'Block Size 4 Value or Variable Name', 'pyname': u'block_size_4_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 4 cost per unit value or variable name', {'name': u'Block 4 Cost per Unit Value or Variable Name', 'pyname': u'block_4_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 5 value or variable name', {'name': u'Block Size 5 Value or Variable Name', 'pyname': u'block_size_5_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 5 cost per unit value or variable name', {'name': u'Block 5 Cost per Unit Value or Variable Name', 'pyname': u'block_5_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 6 value or variable name', {'name': u'Block Size 6 Value or Variable Name', 'pyname': u'block_size_6_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 6 cost per unit value or variable name', {'name': u'Block 6 Cost per Unit Value or Variable Name', 'pyname': u'block_6_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 7 value or variable name', {'name': u'Block Size 7 Value or Variable Name', 'pyname': u'block_size_7_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 7 cost per unit value or variable name', {'name': u'Block 7 Cost per Unit Value or Variable Name', 'pyname': u'block_7_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 8 value or variable name', {'name': u'Block Size 8 Value or Variable Name', 'pyname': u'block_size_8_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 8 cost per unit value or variable name', {'name': u'Block 8 Cost per Unit Value or Variable Name', 'pyname': u'block_8_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 9 value or variable name', {'name': u'Block Size 9 Value or Variable Name', 'pyname': u'block_size_9_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 9 cost per unit value or variable name', {'name': u'Block 9 Cost per Unit Value or Variable Name', 'pyname': u'block_9_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 10 value or variable name', {'name': u'Block Size 10 Value or Variable Name', 'pyname': u'block_size_10_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 10 cost per unit value or variable name', {'name': u'Block 10 Cost per Unit Value or Variable Name', 'pyname': u'block_10_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 11 value or variable name', {'name': u'Block Size 11 Value or Variable Name', 'pyname': u'block_size_11_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 11 cost per unit value or variable name', {'name': u'Block 11 Cost per Unit Value or Variable Name', 'pyname': u'block_11_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 12 value or variable name', {'name': u'Block Size 12 Value or Variable Name', 'pyname': u'block_size_12_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 12 cost per unit value or variable name', {'name': u'Block 12 Cost per Unit Value or Variable Name', 'pyname': u'block_12_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 13 value or variable name', {'name': u'Block Size 13 Value or Variable Name', 'pyname': u'block_size_13_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 13 cost per unit value or variable name', {'name': u'Block 13 Cost per Unit Value or Variable Name', 'pyname': u'block_13_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 14 value or variable name', {'name': u'Block Size 14 Value or Variable Name', 'pyname': u'block_size_14_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 14 cost per unit value or variable name', {'name': u'Block 14 Cost per Unit Value or Variable Name', 'pyname': u'block_14_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block size 15 value or variable name', {'name': u'Block Size 15 Value or Variable Name', 'pyname': u'block_size_15_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'block 15 cost per unit value or variable name', {'name': u'Block 15 Cost per Unit Value or Variable Name', 'pyname': u'block_15_cost_per_unit_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1626,7 +1555,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1653,7 +1582,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -1677,7 +1606,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `source_variable` or None if not set
         """
-        return self._data["Source Variable"]
+        return self["Source Variable"]
 
     @source_variable.setter
     def source_variable(self, value=None):
@@ -1707,7 +1636,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `season` or None if not set
         """
-        return self._data["Season"]
+        return self["Season"]
 
     @season.setter
     def season(self, value="Season"):
@@ -1733,7 +1662,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `category_variable_name` or None if not set
         """
-        return self._data["Category Variable Name"]
+        return self["Category Variable Name"]
 
     @category_variable_name.setter
     def category_variable_name(self, value=None):
@@ -1759,7 +1688,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `remaining_into_variable` or None if not set
         """
-        return self._data["Remaining Into Variable"]
+        return self["Remaining Into Variable"]
 
     @remaining_into_variable.setter
     def remaining_into_variable(self, value=None):
@@ -1785,7 +1714,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_multiplier_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size Multiplier Value or Variable Name"]
+        return self["Block Size Multiplier Value or Variable Name"]
 
     @block_size_multiplier_value_or_variable_name.setter
     def block_size_multiplier_value_or_variable_name(self, value=None):
@@ -1814,7 +1743,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_1_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 1 Value or Variable Name"]
+        return self["Block Size 1 Value or Variable Name"]
 
     @block_size_1_value_or_variable_name.setter
     def block_size_1_value_or_variable_name(self, value=None):
@@ -1840,7 +1769,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_1_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 1 Cost per Unit Value or Variable Name"]
+        return self["Block 1 Cost per Unit Value or Variable Name"]
 
     @block_1_cost_per_unit_value_or_variable_name.setter
     def block_1_cost_per_unit_value_or_variable_name(self, value=None):
@@ -1865,7 +1794,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_2_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 2 Value or Variable Name"]
+        return self["Block Size 2 Value or Variable Name"]
 
     @block_size_2_value_or_variable_name.setter
     def block_size_2_value_or_variable_name(self, value=None):
@@ -1891,7 +1820,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_2_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 2 Cost per Unit Value or Variable Name"]
+        return self["Block 2 Cost per Unit Value or Variable Name"]
 
     @block_2_cost_per_unit_value_or_variable_name.setter
     def block_2_cost_per_unit_value_or_variable_name(self, value=None):
@@ -1916,7 +1845,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_3_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 3 Value or Variable Name"]
+        return self["Block Size 3 Value or Variable Name"]
 
     @block_size_3_value_or_variable_name.setter
     def block_size_3_value_or_variable_name(self, value=None):
@@ -1942,7 +1871,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_3_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 3 Cost per Unit Value or Variable Name"]
+        return self["Block 3 Cost per Unit Value or Variable Name"]
 
     @block_3_cost_per_unit_value_or_variable_name.setter
     def block_3_cost_per_unit_value_or_variable_name(self, value=None):
@@ -1967,7 +1896,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_4_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 4 Value or Variable Name"]
+        return self["Block Size 4 Value or Variable Name"]
 
     @block_size_4_value_or_variable_name.setter
     def block_size_4_value_or_variable_name(self, value=None):
@@ -1993,7 +1922,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_4_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 4 Cost per Unit Value or Variable Name"]
+        return self["Block 4 Cost per Unit Value or Variable Name"]
 
     @block_4_cost_per_unit_value_or_variable_name.setter
     def block_4_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2018,7 +1947,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_5_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 5 Value or Variable Name"]
+        return self["Block Size 5 Value or Variable Name"]
 
     @block_size_5_value_or_variable_name.setter
     def block_size_5_value_or_variable_name(self, value=None):
@@ -2044,7 +1973,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_5_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 5 Cost per Unit Value or Variable Name"]
+        return self["Block 5 Cost per Unit Value or Variable Name"]
 
     @block_5_cost_per_unit_value_or_variable_name.setter
     def block_5_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2069,7 +1998,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_6_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 6 Value or Variable Name"]
+        return self["Block Size 6 Value or Variable Name"]
 
     @block_size_6_value_or_variable_name.setter
     def block_size_6_value_or_variable_name(self, value=None):
@@ -2095,7 +2024,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_6_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 6 Cost per Unit Value or Variable Name"]
+        return self["Block 6 Cost per Unit Value or Variable Name"]
 
     @block_6_cost_per_unit_value_or_variable_name.setter
     def block_6_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2120,7 +2049,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_7_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 7 Value or Variable Name"]
+        return self["Block Size 7 Value or Variable Name"]
 
     @block_size_7_value_or_variable_name.setter
     def block_size_7_value_or_variable_name(self, value=None):
@@ -2146,7 +2075,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_7_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 7 Cost per Unit Value or Variable Name"]
+        return self["Block 7 Cost per Unit Value or Variable Name"]
 
     @block_7_cost_per_unit_value_or_variable_name.setter
     def block_7_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2171,7 +2100,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_8_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 8 Value or Variable Name"]
+        return self["Block Size 8 Value or Variable Name"]
 
     @block_size_8_value_or_variable_name.setter
     def block_size_8_value_or_variable_name(self, value=None):
@@ -2197,7 +2126,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_8_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 8 Cost per Unit Value or Variable Name"]
+        return self["Block 8 Cost per Unit Value or Variable Name"]
 
     @block_8_cost_per_unit_value_or_variable_name.setter
     def block_8_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2222,7 +2151,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_9_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 9 Value or Variable Name"]
+        return self["Block Size 9 Value or Variable Name"]
 
     @block_size_9_value_or_variable_name.setter
     def block_size_9_value_or_variable_name(self, value=None):
@@ -2248,7 +2177,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_9_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 9 Cost per Unit Value or Variable Name"]
+        return self["Block 9 Cost per Unit Value or Variable Name"]
 
     @block_9_cost_per_unit_value_or_variable_name.setter
     def block_9_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2273,7 +2202,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_10_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 10 Value or Variable Name"]
+        return self["Block Size 10 Value or Variable Name"]
 
     @block_size_10_value_or_variable_name.setter
     def block_size_10_value_or_variable_name(self, value=None):
@@ -2299,7 +2228,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_10_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 10 Cost per Unit Value or Variable Name"]
+        return self["Block 10 Cost per Unit Value or Variable Name"]
 
     @block_10_cost_per_unit_value_or_variable_name.setter
     def block_10_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2324,7 +2253,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_11_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 11 Value or Variable Name"]
+        return self["Block Size 11 Value or Variable Name"]
 
     @block_size_11_value_or_variable_name.setter
     def block_size_11_value_or_variable_name(self, value=None):
@@ -2350,7 +2279,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_11_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 11 Cost per Unit Value or Variable Name"]
+        return self["Block 11 Cost per Unit Value or Variable Name"]
 
     @block_11_cost_per_unit_value_or_variable_name.setter
     def block_11_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2375,7 +2304,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_12_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 12 Value or Variable Name"]
+        return self["Block Size 12 Value or Variable Name"]
 
     @block_size_12_value_or_variable_name.setter
     def block_size_12_value_or_variable_name(self, value=None):
@@ -2401,7 +2330,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_12_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 12 Cost per Unit Value or Variable Name"]
+        return self["Block 12 Cost per Unit Value or Variable Name"]
 
     @block_12_cost_per_unit_value_or_variable_name.setter
     def block_12_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2426,7 +2355,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_13_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 13 Value or Variable Name"]
+        return self["Block Size 13 Value or Variable Name"]
 
     @block_size_13_value_or_variable_name.setter
     def block_size_13_value_or_variable_name(self, value=None):
@@ -2452,7 +2381,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_13_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 13 Cost per Unit Value or Variable Name"]
+        return self["Block 13 Cost per Unit Value or Variable Name"]
 
     @block_13_cost_per_unit_value_or_variable_name.setter
     def block_13_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2477,7 +2406,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_14_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 14 Value or Variable Name"]
+        return self["Block Size 14 Value or Variable Name"]
 
     @block_size_14_value_or_variable_name.setter
     def block_size_14_value_or_variable_name(self, value=None):
@@ -2503,7 +2432,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_14_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 14 Cost per Unit Value or Variable Name"]
+        return self["Block 14 Cost per Unit Value or Variable Name"]
 
     @block_14_cost_per_unit_value_or_variable_name.setter
     def block_14_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2528,7 +2457,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_size_15_value_or_variable_name` or None if not set
         """
-        return self._data["Block Size 15 Value or Variable Name"]
+        return self["Block Size 15 Value or Variable Name"]
 
     @block_size_15_value_or_variable_name.setter
     def block_size_15_value_or_variable_name(self, value=None):
@@ -2554,7 +2483,7 @@ class UtilityCostChargeBlock(DataObject):
         Returns:
             str: the value of `block_15_cost_per_unit_value_or_variable_name` or None if not set
         """
-        return self._data["Block 15 Cost per Unit Value or Variable Name"]
+        return self["Block 15 Cost per Unit Value or Variable Name"]
 
     @block_15_cost_per_unit_value_or_variable_name.setter
     def block_15_cost_per_unit_value_or_variable_name(self, value=None):
@@ -2580,16 +2509,7 @@ class UtilityCostRatchet(DataObject):
         utility requires that the demand charge for a month with a low demand may be
         increased to be more consistent with a month that set a higher demand charge.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Ratchet', 'pyname': u'UtilityCostRatchet', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'baseline source variable', {'name': u'Baseline Source Variable', 'pyname': u'baseline_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'adjustment source variable', {'name': u'Adjustment Source Variable', 'pyname': u'adjustment_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season from', {'name': u'Season From', 'pyname': u'season_from', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season to', {'name': u'Season To', 'pyname': u'season_to', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'multiplier value or variable name', {'name': u'Multiplier Value or Variable Name', 'pyname': u'multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset value or variable name', {'name': u'Offset Value or Variable Name', 'pyname': u'offset_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Ratchet`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Ratchet', 'pyname': u'UtilityCostRatchet', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'baseline source variable', {'name': u'Baseline Source Variable', 'pyname': u'baseline_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'adjustment source variable', {'name': u'Adjustment Source Variable', 'pyname': u'adjustment_source_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'season from', {'name': u'Season From', 'pyname': u'season_from', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annual', u'Summer', u'Winter', u'Spring', u'Fall', u'Monthly'], 'autocalculatable': False, 'type': 'alpha'}), (u'season to', {'name': u'Season To', 'pyname': u'season_to', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Annual', u'Summer', u'Winter', u'Spring', u'Fall'], 'autocalculatable': False, 'type': 'alpha'}), (u'multiplier value or variable name', {'name': u'Multiplier Value or Variable Name', 'pyname': u'multiplier_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset value or variable name', {'name': u'Offset Value or Variable Name', 'pyname': u'offset_value_or_variable_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2598,7 +2518,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2623,7 +2543,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -2647,7 +2567,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `baseline_source_variable` or None if not set
         """
-        return self._data["Baseline Source Variable"]
+        return self["Baseline Source Variable"]
 
     @baseline_source_variable.setter
     def baseline_source_variable(self, value=None):
@@ -2674,7 +2594,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `adjustment_source_variable` or None if not set
         """
-        return self._data["Adjustment Source Variable"]
+        return self["Adjustment Source Variable"]
 
     @adjustment_source_variable.setter
     def adjustment_source_variable(self, value=None):
@@ -2701,7 +2621,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `season_from` or None if not set
         """
-        return self._data["Season From"]
+        return self["Season From"]
 
     @season_from.setter
     def season_from(self, value=None):
@@ -2727,7 +2647,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `season_to` or None if not set
         """
-        return self._data["Season To"]
+        return self["Season To"]
 
     @season_to.setter
     def season_to(self, value=None):
@@ -2753,7 +2673,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `multiplier_value_or_variable_name` or None if not set
         """
-        return self._data["Multiplier Value or Variable Name"]
+        return self["Multiplier Value or Variable Name"]
 
     @multiplier_value_or_variable_name.setter
     def multiplier_value_or_variable_name(self, value=None):
@@ -2779,7 +2699,7 @@ class UtilityCostRatchet(DataObject):
         Returns:
             str: the value of `offset_value_or_variable_name` or None if not set
         """
-        return self._data["Offset Value or Variable Name"]
+        return self["Offset Value or Variable Name"]
 
     @offset_value_or_variable_name.setter
     def offset_value_or_variable_name(self, value=None):
@@ -2804,16 +2724,7 @@ class UtilityCostVariable(DataObject):
     """ Corresponds to IDD object `UtilityCost:Variable`
         Allows for the direct entry of monthly values into a utility tariff variable.
     """
-    schema = {'min-fields': 0, 'name': u'UtilityCost:Variable', 'pyname': u'UtilityCostVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'default': u'Dimensionless', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'january value', {'name': u'January Value', 'pyname': u'january_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'february value', {'name': u'February Value', 'pyname': u'february_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'march value', {'name': u'March Value', 'pyname': u'march_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'april value', {'name': u'April Value', 'pyname': u'april_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'may value', {'name': u'May Value', 'pyname': u'may_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'june value', {'name': u'June Value', 'pyname': u'june_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'july value', {'name': u'July Value', 'pyname': u'july_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'august value', {'name': u'August Value', 'pyname': u'august_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'september value', {'name': u'September Value', 'pyname': u'september_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'october value', {'name': u'October Value', 'pyname': u'october_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'november value', {'name': u'November Value', 'pyname': u'november_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'december value', {'name': u'December Value', 'pyname': u'december_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Variable`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'UtilityCost:Variable', 'pyname': u'UtilityCostVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'default': u'Dimensionless', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Energy', u'Power', u'Dimensionless', u'Currency'], 'autocalculatable': False, 'type': 'alpha'}), (u'january value', {'name': u'January Value', 'pyname': u'january_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'february value', {'name': u'February Value', 'pyname': u'february_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'march value', {'name': u'March Value', 'pyname': u'march_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'april value', {'name': u'April Value', 'pyname': u'april_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'may value', {'name': u'May Value', 'pyname': u'may_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'june value', {'name': u'June Value', 'pyname': u'june_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'july value', {'name': u'July Value', 'pyname': u'july_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'august value', {'name': u'August Value', 'pyname': u'august_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'september value', {'name': u'September Value', 'pyname': u'september_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'october value', {'name': u'October Value', 'pyname': u'october_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'november value', {'name': u'November Value', 'pyname': u'november_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'december value', {'name': u'December Value', 'pyname': u'december_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2822,7 +2733,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2845,7 +2756,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -2869,7 +2780,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             str: the value of `variable_type` or None if not set
         """
-        return self._data["Variable Type"]
+        return self["Variable Type"]
 
     @variable_type.setter
     def variable_type(self, value="Dimensionless"):
@@ -2893,7 +2804,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `january_value` or None if not set
         """
-        return self._data["January Value"]
+        return self["January Value"]
 
     @january_value.setter
     def january_value(self, value=None):
@@ -2916,7 +2827,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `february_value` or None if not set
         """
-        return self._data["February Value"]
+        return self["February Value"]
 
     @february_value.setter
     def february_value(self, value=None):
@@ -2939,7 +2850,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `march_value` or None if not set
         """
-        return self._data["March Value"]
+        return self["March Value"]
 
     @march_value.setter
     def march_value(self, value=None):
@@ -2962,7 +2873,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `april_value` or None if not set
         """
-        return self._data["April Value"]
+        return self["April Value"]
 
     @april_value.setter
     def april_value(self, value=None):
@@ -2985,7 +2896,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `may_value` or None if not set
         """
-        return self._data["May Value"]
+        return self["May Value"]
 
     @may_value.setter
     def may_value(self, value=None):
@@ -3008,7 +2919,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `june_value` or None if not set
         """
-        return self._data["June Value"]
+        return self["June Value"]
 
     @june_value.setter
     def june_value(self, value=None):
@@ -3031,7 +2942,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `july_value` or None if not set
         """
-        return self._data["July Value"]
+        return self["July Value"]
 
     @july_value.setter
     def july_value(self, value=None):
@@ -3054,7 +2965,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `august_value` or None if not set
         """
-        return self._data["August Value"]
+        return self["August Value"]
 
     @august_value.setter
     def august_value(self, value=None):
@@ -3077,7 +2988,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `september_value` or None if not set
         """
-        return self._data["September Value"]
+        return self["September Value"]
 
     @september_value.setter
     def september_value(self, value=None):
@@ -3100,7 +3011,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `october_value` or None if not set
         """
-        return self._data["October Value"]
+        return self["October Value"]
 
     @october_value.setter
     def october_value(self, value=None):
@@ -3123,7 +3034,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `november_value` or None if not set
         """
-        return self._data["November Value"]
+        return self["November Value"]
 
     @november_value.setter
     def november_value(self, value=None):
@@ -3146,7 +3057,7 @@ class UtilityCostVariable(DataObject):
         Returns:
             float: the value of `december_value` or None if not set
         """
-        return self._data["December Value"]
+        return self["December Value"]
 
     @december_value.setter
     def december_value(self, value=None):
@@ -3173,15 +3084,6 @@ class UtilityCostComputation(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'UtilityCost:Computation', 'pyname': u'UtilityCostComputation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tariff name', {'name': u'Tariff Name', 'pyname': u'tariff_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 1', {'name': u'Compute Step 1', 'pyname': u'compute_step_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 2', {'name': u'Compute Step 2', 'pyname': u'compute_step_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 3', {'name': u'Compute Step 3', 'pyname': u'compute_step_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 4', {'name': u'Compute Step 4', 'pyname': u'compute_step_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 5', {'name': u'Compute Step 5', 'pyname': u'compute_step_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 6', {'name': u'Compute Step 6', 'pyname': u'compute_step_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 7', {'name': u'Compute Step 7', 'pyname': u'compute_step_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 8', {'name': u'Compute Step 8', 'pyname': u'compute_step_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 9', {'name': u'Compute Step 9', 'pyname': u'compute_step_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 10', {'name': u'Compute Step 10', 'pyname': u'compute_step_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 11', {'name': u'Compute Step 11', 'pyname': u'compute_step_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 12', {'name': u'Compute Step 12', 'pyname': u'compute_step_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 13', {'name': u'Compute Step 13', 'pyname': u'compute_step_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 14', {'name': u'Compute Step 14', 'pyname': u'compute_step_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 15', {'name': u'Compute Step 15', 'pyname': u'compute_step_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 16', {'name': u'Compute Step 16', 'pyname': u'compute_step_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 17', {'name': u'Compute Step 17', 'pyname': u'compute_step_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 18', {'name': u'Compute Step 18', 'pyname': u'compute_step_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 19', {'name': u'Compute Step 19', 'pyname': u'compute_step_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 20', {'name': u'Compute Step 20', 'pyname': u'compute_step_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 21', {'name': u'Compute Step 21', 'pyname': u'compute_step_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 22', {'name': u'Compute Step 22', 'pyname': u'compute_step_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 23', {'name': u'Compute Step 23', 'pyname': u'compute_step_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 24', {'name': u'Compute Step 24', 'pyname': u'compute_step_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 25', {'name': u'Compute Step 25', 'pyname': u'compute_step_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 26', {'name': u'Compute Step 26', 'pyname': u'compute_step_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 27', {'name': u'Compute Step 27', 'pyname': u'compute_step_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 28', {'name': u'Compute Step 28', 'pyname': u'compute_step_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 29', {'name': u'Compute Step 29', 'pyname': u'compute_step_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compute step 30', {'name': u'Compute Step 30', 'pyname': u'compute_step_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UtilityCost:Computation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3189,7 +3091,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3212,7 +3114,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `tariff_name` or None if not set
         """
-        return self._data["Tariff Name"]
+        return self["Tariff Name"]
 
     @tariff_name.setter
     def tariff_name(self, value=None):
@@ -3236,7 +3138,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_1` or None if not set
         """
-        return self._data["Compute Step 1"]
+        return self["Compute Step 1"]
 
     @compute_step_1.setter
     def compute_step_1(self, value=None):
@@ -3261,7 +3163,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_2` or None if not set
         """
-        return self._data["Compute Step 2"]
+        return self["Compute Step 2"]
 
     @compute_step_2.setter
     def compute_step_2(self, value=None):
@@ -3284,7 +3186,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_3` or None if not set
         """
-        return self._data["Compute Step 3"]
+        return self["Compute Step 3"]
 
     @compute_step_3.setter
     def compute_step_3(self, value=None):
@@ -3307,7 +3209,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_4` or None if not set
         """
-        return self._data["Compute Step 4"]
+        return self["Compute Step 4"]
 
     @compute_step_4.setter
     def compute_step_4(self, value=None):
@@ -3330,7 +3232,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_5` or None if not set
         """
-        return self._data["Compute Step 5"]
+        return self["Compute Step 5"]
 
     @compute_step_5.setter
     def compute_step_5(self, value=None):
@@ -3353,7 +3255,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_6` or None if not set
         """
-        return self._data["Compute Step 6"]
+        return self["Compute Step 6"]
 
     @compute_step_6.setter
     def compute_step_6(self, value=None):
@@ -3376,7 +3278,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_7` or None if not set
         """
-        return self._data["Compute Step 7"]
+        return self["Compute Step 7"]
 
     @compute_step_7.setter
     def compute_step_7(self, value=None):
@@ -3399,7 +3301,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_8` or None if not set
         """
-        return self._data["Compute Step 8"]
+        return self["Compute Step 8"]
 
     @compute_step_8.setter
     def compute_step_8(self, value=None):
@@ -3422,7 +3324,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_9` or None if not set
         """
-        return self._data["Compute Step 9"]
+        return self["Compute Step 9"]
 
     @compute_step_9.setter
     def compute_step_9(self, value=None):
@@ -3445,7 +3347,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_10` or None if not set
         """
-        return self._data["Compute Step 10"]
+        return self["Compute Step 10"]
 
     @compute_step_10.setter
     def compute_step_10(self, value=None):
@@ -3468,7 +3370,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_11` or None if not set
         """
-        return self._data["Compute Step 11"]
+        return self["Compute Step 11"]
 
     @compute_step_11.setter
     def compute_step_11(self, value=None):
@@ -3491,7 +3393,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_12` or None if not set
         """
-        return self._data["Compute Step 12"]
+        return self["Compute Step 12"]
 
     @compute_step_12.setter
     def compute_step_12(self, value=None):
@@ -3514,7 +3416,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_13` or None if not set
         """
-        return self._data["Compute Step 13"]
+        return self["Compute Step 13"]
 
     @compute_step_13.setter
     def compute_step_13(self, value=None):
@@ -3537,7 +3439,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_14` or None if not set
         """
-        return self._data["Compute Step 14"]
+        return self["Compute Step 14"]
 
     @compute_step_14.setter
     def compute_step_14(self, value=None):
@@ -3560,7 +3462,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_15` or None if not set
         """
-        return self._data["Compute Step 15"]
+        return self["Compute Step 15"]
 
     @compute_step_15.setter
     def compute_step_15(self, value=None):
@@ -3583,7 +3485,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_16` or None if not set
         """
-        return self._data["Compute Step 16"]
+        return self["Compute Step 16"]
 
     @compute_step_16.setter
     def compute_step_16(self, value=None):
@@ -3606,7 +3508,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_17` or None if not set
         """
-        return self._data["Compute Step 17"]
+        return self["Compute Step 17"]
 
     @compute_step_17.setter
     def compute_step_17(self, value=None):
@@ -3629,7 +3531,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_18` or None if not set
         """
-        return self._data["Compute Step 18"]
+        return self["Compute Step 18"]
 
     @compute_step_18.setter
     def compute_step_18(self, value=None):
@@ -3652,7 +3554,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_19` or None if not set
         """
-        return self._data["Compute Step 19"]
+        return self["Compute Step 19"]
 
     @compute_step_19.setter
     def compute_step_19(self, value=None):
@@ -3675,7 +3577,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_20` or None if not set
         """
-        return self._data["Compute Step 20"]
+        return self["Compute Step 20"]
 
     @compute_step_20.setter
     def compute_step_20(self, value=None):
@@ -3698,7 +3600,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_21` or None if not set
         """
-        return self._data["Compute Step 21"]
+        return self["Compute Step 21"]
 
     @compute_step_21.setter
     def compute_step_21(self, value=None):
@@ -3721,7 +3623,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_22` or None if not set
         """
-        return self._data["Compute Step 22"]
+        return self["Compute Step 22"]
 
     @compute_step_22.setter
     def compute_step_22(self, value=None):
@@ -3744,7 +3646,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_23` or None if not set
         """
-        return self._data["Compute Step 23"]
+        return self["Compute Step 23"]
 
     @compute_step_23.setter
     def compute_step_23(self, value=None):
@@ -3767,7 +3669,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_24` or None if not set
         """
-        return self._data["Compute Step 24"]
+        return self["Compute Step 24"]
 
     @compute_step_24.setter
     def compute_step_24(self, value=None):
@@ -3790,7 +3692,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_25` or None if not set
         """
-        return self._data["Compute Step 25"]
+        return self["Compute Step 25"]
 
     @compute_step_25.setter
     def compute_step_25(self, value=None):
@@ -3813,7 +3715,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_26` or None if not set
         """
-        return self._data["Compute Step 26"]
+        return self["Compute Step 26"]
 
     @compute_step_26.setter
     def compute_step_26(self, value=None):
@@ -3836,7 +3738,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_27` or None if not set
         """
-        return self._data["Compute Step 27"]
+        return self["Compute Step 27"]
 
     @compute_step_27.setter
     def compute_step_27(self, value=None):
@@ -3859,7 +3761,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_28` or None if not set
         """
-        return self._data["Compute Step 28"]
+        return self["Compute Step 28"]
 
     @compute_step_28.setter
     def compute_step_28(self, value=None):
@@ -3882,7 +3784,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_29` or None if not set
         """
-        return self._data["Compute Step 29"]
+        return self["Compute Step 29"]
 
     @compute_step_29.setter
     def compute_step_29(self, value=None):
@@ -3905,7 +3807,7 @@ class UtilityCostComputation(DataObject):
         Returns:
             str: the value of `compute_step_30` or None if not set
         """
-        return self._data["Compute Step 30"]
+        return self["Compute Step 30"]
 
     @compute_step_30.setter
     def compute_step_30(self, value=None):
@@ -3930,16 +3832,7 @@ class LifeCycleCostParameters(DataObject):
         LifeCycleCost:Parameters objects are the same for all the simulations. When this
         object is present the tabular report file will contain the Life-Cycle Cost Report.
     """
-    schema = {'min-fields': 11, 'name': u'LifeCycleCost:Parameters', 'pyname': u'LifeCycleCostParameters', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'discounting convention', {'name': u'Discounting Convention', 'pyname': u'discounting_convention', 'default': u'EndOfYear', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inflation approach', {'name': u'Inflation Approach', 'pyname': u'inflation_approach', 'default': u'ConstantDollar', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'real discount rate', {'name': u'Real Discount Rate', 'pyname': u'real_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'nominal discount rate', {'name': u'Nominal Discount Rate', 'pyname': u'nominal_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'inflation', {'name': u'Inflation', 'pyname': u'inflation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'base date month', {'name': u'Base Date Month', 'pyname': u'base_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'base date year', {'name': u'Base Date Year', 'pyname': u'base_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'service date month', {'name': u'Service Date Month', 'pyname': u'service_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'service date year', {'name': u'Service Date Year', 'pyname': u'service_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'length of study period in years', {'name': u'Length of Study Period in Years', 'pyname': u'length_of_study_period_in_years', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'tax rate', {'name': u'Tax rate', 'pyname': u'tax_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'depreciation method', {'name': u'Depreciation Method', 'pyname': u'depreciation_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LifeCycleCost:Parameters`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 11, 'name': u'LifeCycleCost:Parameters', 'pyname': u'LifeCycleCostParameters', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'discounting convention', {'name': u'Discounting Convention', 'pyname': u'discounting_convention', 'default': u'EndOfYear', 'required-field': False, 'autosizable': False, 'accepted-values': [u'EndOfYear', u'MidYear', u'BeginningOfYear'], 'autocalculatable': False, 'type': 'alpha'}), (u'inflation approach', {'name': u'Inflation Approach', 'pyname': u'inflation_approach', 'default': u'ConstantDollar', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ConstantDollar', u'CurrentDollar'], 'autocalculatable': False, 'type': 'alpha'}), (u'real discount rate', {'name': u'Real Discount Rate', 'pyname': u'real_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'nominal discount rate', {'name': u'Nominal Discount Rate', 'pyname': u'nominal_discount_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'inflation', {'name': u'Inflation', 'pyname': u'inflation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'base date month', {'name': u'Base Date Month', 'pyname': u'base_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'accepted-values': [u'January', u'February', u'March', u'April', u'May', u'June', u'July', u'August', u'September', u'October', u'November', u'December'], 'autocalculatable': False, 'type': 'alpha'}), (u'base date year', {'name': u'Base Date Year', 'pyname': u'base_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'service date month', {'name': u'Service Date Month', 'pyname': u'service_date_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'accepted-values': [u'January', u'February', u'March', u'April', u'May', u'June', u'July', u'August', u'September', u'October', u'November', u'December'], 'autocalculatable': False, 'type': 'alpha'}), (u'service date year', {'name': u'Service Date Year', 'pyname': u'service_date_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'length of study period in years', {'name': u'Length of Study Period in Years', 'pyname': u'length_of_study_period_in_years', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'tax rate', {'name': u'Tax rate', 'pyname': u'tax_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'depreciation method', {'name': u'Depreciation Method', 'pyname': u'depreciation_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ModifiedAcceleratedCostRecoverySystem-3year', u'ModifiedAcceleratedCostRecoverySystem-5year', u'ModifiedAcceleratedCostRecoverySystem-7year', u'ModifiedAcceleratedCostRecoverySystem-10year', u'ModifiedAcceleratedCostRecoverySystem-15year', u'ModifiedAcceleratedCostRecoverySystem-20year', u'StraightLine-27year', u'StraightLine-31year', u'StraightLine-39year', u'StraightLine-40year', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def name(self):
@@ -3948,7 +3841,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3971,7 +3864,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `discounting_convention` or None if not set
         """
-        return self._data["Discounting Convention"]
+        return self["Discounting Convention"]
 
     @discounting_convention.setter
     def discounting_convention(self, value="EndOfYear"):
@@ -3998,7 +3891,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `inflation_approach` or None if not set
         """
-        return self._data["Inflation Approach"]
+        return self["Inflation Approach"]
 
     @inflation_approach.setter
     def inflation_approach(self, value="ConstantDollar"):
@@ -4026,7 +3919,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             float: the value of `real_discount_rate` or None if not set
         """
-        return self._data["Real Discount Rate"]
+        return self["Real Discount Rate"]
 
     @real_discount_rate.setter
     def real_discount_rate(self, value=None):
@@ -4053,7 +3946,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             float: the value of `nominal_discount_rate` or None if not set
         """
-        return self._data["Nominal Discount Rate"]
+        return self["Nominal Discount Rate"]
 
     @nominal_discount_rate.setter
     def nominal_discount_rate(self, value=None):
@@ -4080,7 +3973,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             float: the value of `inflation` or None if not set
         """
-        return self._data["Inflation"]
+        return self["Inflation"]
 
     @inflation.setter
     def inflation(self, value=None):
@@ -4105,7 +3998,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `base_date_month` or None if not set
         """
-        return self._data["Base Date Month"]
+        return self["Base Date Month"]
 
     @base_date_month.setter
     def base_date_month(self, value="January"):
@@ -4130,7 +4023,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             int: the value of `base_date_year` or None if not set
         """
-        return self._data["Base Date Year"]
+        return self["Base Date Year"]
 
     @base_date_year.setter
     def base_date_year(self, value=None):
@@ -4157,7 +4050,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `service_date_month` or None if not set
         """
-        return self._data["Service Date Month"]
+        return self["Service Date Month"]
 
     @service_date_month.setter
     def service_date_month(self, value="January"):
@@ -4185,7 +4078,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             int: the value of `service_date_year` or None if not set
         """
-        return self._data["Service Date Year"]
+        return self["Service Date Year"]
 
     @service_date_year.setter
     def service_date_year(self, value=None):
@@ -4211,7 +4104,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             int: the value of `length_of_study_period_in_years` or None if not set
         """
-        return self._data["Length of Study Period in Years"]
+        return self["Length of Study Period in Years"]
 
     @length_of_study_period_in_years.setter
     def length_of_study_period_in_years(self, value=None):
@@ -4239,7 +4132,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             float: the value of `tax_rate` or None if not set
         """
-        return self._data["Tax rate"]
+        return self["Tax rate"]
 
     @tax_rate.setter
     def tax_rate(self, value=None):
@@ -4270,7 +4163,7 @@ class LifeCycleCostParameters(DataObject):
         Returns:
             str: the value of `depreciation_method` or None if not set
         """
-        return self._data["Depreciation Method"]
+        return self["Depreciation Method"]
 
     @depreciation_method.setter
     def depreciation_method(self, value="None"):
@@ -4297,16 +4190,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         study period. If costs associated with equipment do repeat but not on a regular
         schedule, use LifeCycleCost:NonrecurringCost objects instead.
     """
-    schema = {'min-fields': 7, 'name': u'LifeCycleCost:RecurringCosts', 'pyname': u'LifeCycleCostRecurringCosts', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Maintenance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period years', {'name': u'Repeat Period Years', 'pyname': u'repeat_period_years', 'default': 1, 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period months', {'name': u'Repeat Period Months', 'pyname': u'repeat_period_months', 'default': 0, 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'annual escalation rate', {'name': u'Annual escalation rate', 'pyname': u'annual_escalation_rate', 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': -0.3, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LifeCycleCost:RecurringCosts`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'LifeCycleCost:RecurringCosts', 'pyname': u'LifeCycleCostRecurringCosts', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Maintenance', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Maintenance', u'Repair', u'Operation', u'Replacement', u'MinorOverhaul', u'MajorOverhaul', u'OtherOperational'], 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ServicePeriod', u'BasePeriod'], 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period years', {'name': u'Repeat Period Years', 'pyname': u'repeat_period_years', 'default': 1, 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'repeat period months', {'name': u'Repeat Period Months', 'pyname': u'repeat_period_months', 'default': 0, 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'annual escalation rate', {'name': u'Annual escalation rate', 'pyname': u'annual_escalation_rate', 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': -0.3, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4315,7 +4199,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4338,7 +4222,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             str: the value of `category` or None if not set
         """
-        return self._data["Category"]
+        return self["Category"]
 
     @category.setter
     def category(self, value="Maintenance"):
@@ -4362,7 +4246,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             float: the value of `cost` or None if not set
         """
-        return self._data["Cost"]
+        return self["Cost"]
 
     @cost.setter
     def cost(self, value=None):
@@ -4388,7 +4272,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             str: the value of `start_of_costs` or None if not set
         """
-        return self._data["Start of Costs"]
+        return self["Start of Costs"]
 
     @start_of_costs.setter
     def start_of_costs(self, value="ServicePeriod"):
@@ -4414,7 +4298,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             int: the value of `years_from_start` or None if not set
         """
-        return self._data["Years from Start"]
+        return self["Years from Start"]
 
     @years_from_start.setter
     def years_from_start(self, value=None):
@@ -4442,7 +4326,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             int: the value of `months_from_start` or None if not set
         """
-        return self._data["Months from Start"]
+        return self["Months from Start"]
 
     @months_from_start.setter
     def months_from_start(self, value=None):
@@ -4471,7 +4355,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             int: the value of `repeat_period_years` or None if not set
         """
-        return self._data["Repeat Period Years"]
+        return self["Repeat Period Years"]
 
     @repeat_period_years.setter
     def repeat_period_years(self, value=1):
@@ -4500,7 +4384,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             int: the value of `repeat_period_months` or None if not set
         """
-        return self._data["Repeat Period Months"]
+        return self["Repeat Period Months"]
 
     @repeat_period_months.setter
     def repeat_period_months(self, value=None):
@@ -4527,7 +4411,7 @@ class LifeCycleCostRecurringCosts(DataObject):
         Returns:
             float: the value of `annual_escalation_rate` or None if not set
         """
-        return self._data["Annual escalation rate"]
+        return self["Annual escalation rate"]
 
     @annual_escalation_rate.setter
     def annual_escalation_rate(self, value=None):
@@ -4555,16 +4439,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         more than once during the study period on a regular schedule, use the
         LifeCycleCost:RecurringCost object.
     """
-    schema = {'min-fields': 0, 'name': u'LifeCycleCost:NonrecurringCost', 'pyname': u'LifeCycleCostNonrecurringCost', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Construction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LifeCycleCost:NonrecurringCost`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:NonrecurringCost', 'pyname': u'LifeCycleCostNonrecurringCost', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'category', {'name': u'Category', 'pyname': u'category', 'default': u'Construction', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Construction', u'Salvage', u'OtherCapital'], 'autocalculatable': False, 'type': 'alpha'}), (u'cost', {'name': u'Cost', 'pyname': u'cost', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'start of costs', {'name': u'Start of Costs', 'pyname': u'start_of_costs', 'default': u'ServicePeriod', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ServicePeriod', u'BasePeriod'], 'autocalculatable': False, 'type': 'alpha'}), (u'years from start', {'name': u'Years from Start', 'pyname': u'years_from_start', 'maximum': 100, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'months from start', {'name': u'Months from Start', 'pyname': u'months_from_start', 'maximum': 1200, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4573,7 +4448,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4596,7 +4471,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             str: the value of `category` or None if not set
         """
-        return self._data["Category"]
+        return self["Category"]
 
     @category.setter
     def category(self, value="Construction"):
@@ -4620,7 +4495,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             float: the value of `cost` or None if not set
         """
-        return self._data["Cost"]
+        return self["Cost"]
 
     @cost.setter
     def cost(self, value=None):
@@ -4647,7 +4522,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             str: the value of `start_of_costs` or None if not set
         """
-        return self._data["Start of Costs"]
+        return self["Start of Costs"]
 
     @start_of_costs.setter
     def start_of_costs(self, value="ServicePeriod"):
@@ -4674,7 +4549,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             int: the value of `years_from_start` or None if not set
         """
-        return self._data["Years from Start"]
+        return self["Years from Start"]
 
     @years_from_start.setter
     def years_from_start(self, value=None):
@@ -4702,7 +4577,7 @@ class LifeCycleCostNonrecurringCost(DataObject):
         Returns:
             int: the value of `months_from_start` or None if not set
         """
-        return self._data["Months from Start"]
+        return self["Months from Start"]
 
     @months_from_start.setter
     def months_from_start(self, value=None):
@@ -4731,16 +4606,7 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         annual supplement to NIST Handbook 135 in Tables Ca-1 to Ca-5 and are included in an
         EnergyPlus dataset file.
     """
-    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UsePriceEscalation', 'pyname': u'LifeCycleCostUsePriceEscalation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'escalation start year', {'name': u'Escalation Start Year', 'pyname': u'escalation_start_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'escalation start month', {'name': u'Escalation Start Month', 'pyname': u'escalation_start_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 escalation', {'name': u'Year 1 Escalation', 'pyname': u'year_1_escalation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LifeCycleCost:UsePriceEscalation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UsePriceEscalation', 'pyname': u'LifeCycleCostUsePriceEscalation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'ElectricityPurchased', u'ElectricityProduced', u'ElectricitySurplusSold', u'ElectricityNet', u'NaturalGas', u'Steam', u'Gasoline', u'Diesel', u'Coal', u'FuelOil#1', u'FuelOil#2', u'Propane', u'OtherFuel1', u'OtherFuel2', u'Water'], 'autocalculatable': False, 'type': 'alpha'}), (u'escalation start year', {'name': u'Escalation Start Year', 'pyname': u'escalation_start_year', 'maximum': 2100, 'required-field': False, 'autosizable': False, 'minimum': 1900, 'autocalculatable': False, 'type': u'integer'}), (u'escalation start month', {'name': u'Escalation Start Month', 'pyname': u'escalation_start_month', 'default': u'January', 'required-field': False, 'autosizable': False, 'accepted-values': [u'January', u'February', u'March', u'April', u'May', u'June', u'July', u'August', u'September', u'October', u'November', u'December'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 escalation', {'name': u'Year 1 Escalation', 'pyname': u'year_1_escalation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4749,7 +4615,7 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4776,7 +4642,7 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         Returns:
             str: the value of `resource` or None if not set
         """
-        return self._data["Resource"]
+        return self["Resource"]
 
     @resource.setter
     def resource(self, value=None):
@@ -4799,7 +4665,7 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         Returns:
             int: the value of `escalation_start_year` or None if not set
         """
-        return self._data["Escalation Start Year"]
+        return self["Escalation Start Year"]
 
     @escalation_start_year.setter
     def escalation_start_year(self, value=None):
@@ -4827,7 +4693,7 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         Returns:
             str: the value of `escalation_start_month` or None if not set
         """
-        return self._data["Escalation Start Month"]
+        return self["Escalation Start Month"]
 
     @escalation_start_month.setter
     def escalation_start_month(self, value="January"):
@@ -4861,13 +4727,13 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         vals = []
         year_1_escalation = self.check_value("Year 1 Escalation", year_1_escalation)
         vals.append(year_1_escalation)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class LifeCycleCostUseAdjustment(DataObject):
@@ -4878,16 +4744,7 @@ class LifeCycleCostUseAdjustment(DataObject):
         anticipated changes in the future function of the building. The adjustments begin at
         the start of the service period.
     """
-    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UseAdjustment', 'pyname': u'LifeCycleCostUseAdjustment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 multiplier', {'name': u'Year 1 Multiplier', 'pyname': u'year_1_multiplier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LifeCycleCost:UseAdjustment`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'LifeCycleCost:UseAdjustment', 'pyname': u'LifeCycleCostUseAdjustment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'resource', {'name': u'Resource', 'pyname': u'resource', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'ElectricityPurchased', u'ElectricityProduced', u'ElectricitySurplusSold', u'ElectricityNet', u'NaturalGas', u'Steam', u'Gasoline', u'Diesel', u'Coal', u'FuelOil#1', u'FuelOil#2', u'Propane', u'OtherFuel1', u'OtherFuel2', u'Water'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'year 1 multiplier', {'name': u'Year 1 Multiplier', 'pyname': u'year_1_multiplier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4896,7 +4753,7 @@ class LifeCycleCostUseAdjustment(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4919,7 +4776,7 @@ class LifeCycleCostUseAdjustment(DataObject):
         Returns:
             str: the value of `resource` or None if not set
         """
-        return self._data["Resource"]
+        return self["Resource"]
 
     @resource.setter
     def resource(self, value=None):
@@ -4949,10 +4806,10 @@ class LifeCycleCostUseAdjustment(DataObject):
         vals = []
         year_1_multiplier = self.check_value("Year 1 Multiplier", year_1_multiplier)
         vals.append(year_1_multiplier)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

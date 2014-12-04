@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -12,16 +13,7 @@ class ExteriorLights(DataObject):
     """ Corresponds to IDD object `Exterior:Lights`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:Lights', 'pyname': u'ExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'control option', {'name': u'Control Option', 'pyname': u'control_option', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Exterior:Lights`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Exterior:Lights', 'pyname': u'ExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'control option', {'name': u'Control Option', 'pyname': u'control_option', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ScheduleNameOnly', u'AstronomicalClock'], 'autocalculatable': False, 'type': 'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -30,7 +22,7 @@ class ExteriorLights(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -53,7 +45,7 @@ class ExteriorLights(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -77,7 +69,7 @@ class ExteriorLights(DataObject):
         Returns:
             float: the value of `design_level` or None if not set
         """
-        return self._data["Design Level"]
+        return self["Design Level"]
 
     @design_level.setter
     def design_level(self, value=None):
@@ -102,7 +94,7 @@ class ExteriorLights(DataObject):
         Returns:
             str: the value of `control_option` or None if not set
         """
-        return self._data["Control Option"]
+        return self["Control Option"]
 
     @control_option.setter
     def control_option(self, value=None):
@@ -126,7 +118,7 @@ class ExteriorLights(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -148,16 +140,7 @@ class ExteriorFuelEquipment(DataObject):
     """ Corresponds to IDD object `Exterior:FuelEquipment`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:FuelEquipment', 'pyname': u'ExteriorFuelEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Exterior:FuelEquipment`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Exterior:FuelEquipment', 'pyname': u'ExteriorFuelEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Diesel', u'Gasoline', u'Coal', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating', u'DistrictCooling'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -166,7 +149,7 @@ class ExteriorFuelEquipment(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -189,7 +172,7 @@ class ExteriorFuelEquipment(DataObject):
         Returns:
             str: the value of `fuel_use_type` or None if not set
         """
-        return self._data["Fuel Use Type"]
+        return self["Fuel Use Type"]
 
     @fuel_use_type.setter
     def fuel_use_type(self, value=None):
@@ -212,7 +195,7 @@ class ExteriorFuelEquipment(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -236,7 +219,7 @@ class ExteriorFuelEquipment(DataObject):
         Returns:
             float: the value of `design_level` or None if not set
         """
-        return self._data["Design Level"]
+        return self["Design Level"]
 
     @design_level.setter
     def design_level(self, value=None):
@@ -261,7 +244,7 @@ class ExteriorFuelEquipment(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -283,16 +266,7 @@ class ExteriorWaterEquipment(DataObject):
     """ Corresponds to IDD object `Exterior:WaterEquipment`
         only used for Meter type reporting, does not affect building loads
     """
-    schema = {'min-fields': 0, 'name': u'Exterior:WaterEquipment', 'pyname': u'ExteriorWaterEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'default': u'Water', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Exterior:WaterEquipment`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Exterior:WaterEquipment', 'pyname': u'ExteriorWaterEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fuel use type', {'name': u'Fuel Use Type', 'pyname': u'fuel_use_type', 'default': u'Water', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Water'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -301,7 +275,7 @@ class ExteriorWaterEquipment(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -324,7 +298,7 @@ class ExteriorWaterEquipment(DataObject):
         Returns:
             str: the value of `fuel_use_type` or None if not set
         """
-        return self._data["Fuel Use Type"]
+        return self["Fuel Use Type"]
 
     @fuel_use_type.setter
     def fuel_use_type(self, value="Water"):
@@ -348,7 +322,7 @@ class ExteriorWaterEquipment(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -372,7 +346,7 @@ class ExteriorWaterEquipment(DataObject):
         Returns:
             float: the value of `design_level` or None if not set
         """
-        return self._data["Design Level"]
+        return self["Design Level"]
 
     @design_level.setter
     def design_level(self, value=None):
@@ -396,7 +370,7 @@ class ExteriorWaterEquipment(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):

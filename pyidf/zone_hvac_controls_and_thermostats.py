@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -14,15 +15,6 @@ class ZoneControlHumidistat(DataObject):
     """
     schema = {'min-fields': 3, 'name': u'ZoneControl:Humidistat', 'pyname': u'ZoneControlHumidistat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidifying relative humidity setpoint schedule name', {'name': u'Humidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'humidifying_relative_humidity_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidifying relative humidity setpoint schedule name', {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Humidistat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -30,7 +22,7 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -53,7 +45,7 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -76,7 +68,7 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `humidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Humidifying Relative Humidity Setpoint Schedule Name"]
+        return self["Humidifying Relative Humidity Setpoint Schedule Name"]
 
     @humidifying_relative_humidity_setpoint_schedule_name.setter
     def humidifying_relative_humidity_setpoint_schedule_name(self, value=None):
@@ -100,7 +92,7 @@ class ZoneControlHumidistat(DataObject):
         Returns:
             str: the value of `dehumidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"]
+        return self["Dehumidifying Relative Humidity Setpoint Schedule Name"]
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
     def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
@@ -124,16 +116,7 @@ class ZoneControlThermostat(DataObject):
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat', 'pyname': u'ZoneControlThermostat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type schedule name', {'name': u'Control Type Schedule Name', 'pyname': u'control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 1 object type', {'name': u'Control 1 Object Type', 'pyname': u'control_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 1 name', {'name': u'Control 1 Name', 'pyname': u'control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 2 object type', {'name': u'Control 2 Object Type', 'pyname': u'control_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 2 name', {'name': u'Control 2 Name', 'pyname': u'control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 3 object type', {'name': u'Control 3 Object Type', 'pyname': u'control_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 3 name', {'name': u'Control 3 Name', 'pyname': u'control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 4 object type', {'name': u'Control 4 Object Type', 'pyname': u'control_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control 4 name', {'name': u'Control 4 Name', 'pyname': u'control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Thermostat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat', 'pyname': u'ZoneControlThermostat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type schedule name', {'name': u'Control Type Schedule Name', 'pyname': u'control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 1 object type', {'name': u'Control 1 Object Type', 'pyname': u'control_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'control 1 name', {'name': u'Control 1 Name', 'pyname': u'control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 2 object type', {'name': u'Control 2 Object Type', 'pyname': u'control_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'control 2 name', {'name': u'Control 2 Name', 'pyname': u'control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 3 object type', {'name': u'Control 3 Object Type', 'pyname': u'control_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'control 3 name', {'name': u'Control 3 Name', 'pyname': u'control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control 4 object type', {'name': u'Control 4 Object Type', 'pyname': u'control_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:SingleHeating', u'ThermostatSetpoint:SingleCooling', u'ThermostatSetpoint:SingleHeatingOrCooling', u'ThermostatSetpoint:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'control 4 name', {'name': u'Control 4 Name', 'pyname': u'control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -142,7 +125,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -165,7 +148,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
         """
-        return self._data["Zone or ZoneList Name"]
+        return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
@@ -188,7 +171,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_type_schedule_name` or None if not set
         """
-        return self._data["Control Type Schedule Name"]
+        return self["Control Type Schedule Name"]
 
     @control_type_schedule_name.setter
     def control_type_schedule_name(self, value=None):
@@ -214,7 +197,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_1_object_type` or None if not set
         """
-        return self._data["Control 1 Object Type"]
+        return self["Control 1 Object Type"]
 
     @control_1_object_type.setter
     def control_1_object_type(self, value=None):
@@ -237,7 +220,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_1_name` or None if not set
         """
-        return self._data["Control 1 Name"]
+        return self["Control 1 Name"]
 
     @control_1_name.setter
     def control_1_name(self, value=None):
@@ -262,7 +245,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_2_object_type` or None if not set
         """
-        return self._data["Control 2 Object Type"]
+        return self["Control 2 Object Type"]
 
     @control_2_object_type.setter
     def control_2_object_type(self, value=None):
@@ -285,7 +268,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_2_name` or None if not set
         """
-        return self._data["Control 2 Name"]
+        return self["Control 2 Name"]
 
     @control_2_name.setter
     def control_2_name(self, value=None):
@@ -310,7 +293,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_3_object_type` or None if not set
         """
-        return self._data["Control 3 Object Type"]
+        return self["Control 3 Object Type"]
 
     @control_3_object_type.setter
     def control_3_object_type(self, value=None):
@@ -333,7 +316,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_3_name` or None if not set
         """
-        return self._data["Control 3 Name"]
+        return self["Control 3 Name"]
 
     @control_3_name.setter
     def control_3_name(self, value=None):
@@ -358,7 +341,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_4_object_type` or None if not set
         """
-        return self._data["Control 4 Object Type"]
+        return self["Control 4 Object Type"]
 
     @control_4_object_type.setter
     def control_4_object_type(self, value=None):
@@ -381,7 +364,7 @@ class ZoneControlThermostat(DataObject):
         Returns:
             str: the value of `control_4_name` or None if not set
         """
-        return self._data["Control 4 Name"]
+        return self["Control 4 Name"]
 
     @control_4_name.setter
     def control_4_name(self, value=None):
@@ -406,16 +389,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
         of the zones on that list (but you won't be able to use the object list to
         pick only one of those zones.  Thermostat names are <Zone Name> <global Thermostat name> internally.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat:OperativeTemperature', 'pyname': u'ZoneControlThermostatOperativeTemperature', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction input mode', {'name': u'Radiative Fraction Input Mode', 'pyname': u'radiative_fraction_input_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fixed radiative fraction', {'name': u'Fixed Radiative Fraction', 'pyname': u'fixed_radiative_fraction', 'maximum<': 0.9, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'radiative fraction schedule name', {'name': u'Radiative Fraction Schedule Name', 'pyname': u'radiative_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Thermostat:OperativeTemperature`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat:OperativeTemperature', 'pyname': u'ZoneControlThermostatOperativeTemperature', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction input mode', {'name': u'Radiative Fraction Input Mode', 'pyname': u'radiative_fraction_input_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'fixed radiative fraction', {'name': u'Fixed Radiative Fraction', 'pyname': u'fixed_radiative_fraction', 'maximum<': 0.9, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'radiative fraction schedule name', {'name': u'Radiative Fraction Schedule Name', 'pyname': u'radiative_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def thermostat_name(self):
@@ -424,7 +398,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
         Returns:
             str: the value of `thermostat_name` or None if not set
         """
-        return self._data["Thermostat Name"]
+        return self["Thermostat Name"]
 
     @thermostat_name.setter
     def thermostat_name(self, value=None):
@@ -450,7 +424,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
         Returns:
             str: the value of `radiative_fraction_input_mode` or None if not set
         """
-        return self._data["Radiative Fraction Input Mode"]
+        return self["Radiative Fraction Input Mode"]
 
     @radiative_fraction_input_mode.setter
     def radiative_fraction_input_mode(self, value=None):
@@ -473,7 +447,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
         Returns:
             float: the value of `fixed_radiative_fraction` or None if not set
         """
-        return self._data["Fixed Radiative Fraction"]
+        return self["Fixed Radiative Fraction"]
 
     @fixed_radiative_fraction.setter
     def fixed_radiative_fraction(self, value=None):
@@ -497,7 +471,7 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
         Returns:
             str: the value of `radiative_fraction_schedule_name` or None if not set
         """
-        return self._data["Radiative Fraction Schedule Name"]
+        return self["Radiative Fraction Schedule Name"]
 
     @radiative_fraction_schedule_name.setter
     def radiative_fraction_schedule_name(self, value=None):
@@ -520,16 +494,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 9, 'name': u'ZoneControl:Thermostat:ThermalComfort', 'pyname': u'ZoneControlThermostatThermalComfort', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'averaging method', {'name': u'Averaging Method', 'pyname': u'averaging_method', 'default': u'PeopleAverage', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'specific people name', {'name': u'Specific People Name', 'pyname': u'specific_people_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum dry-bulb temperature setpoint', {'name': u'Minimum Dry-Bulb Temperature Setpoint', 'pyname': u'minimum_drybulb_temperature_setpoint', 'default': 0.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum dry-bulb temperature setpoint', {'name': u'Maximum Dry-Bulb Temperature Setpoint', 'pyname': u'maximum_drybulb_temperature_setpoint', 'default': 50.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal comfort control type schedule name', {'name': u'Thermal Comfort Control Type Schedule Name', 'pyname': u'thermal_comfort_control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 1 object type', {'name': u'Thermal Comfort Control 1 Object Type', 'pyname': u'thermal_comfort_control_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 1 name', {'name': u'Thermal Comfort Control 1 Name', 'pyname': u'thermal_comfort_control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 2 object type', {'name': u'Thermal Comfort Control 2 Object Type', 'pyname': u'thermal_comfort_control_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 2 name', {'name': u'Thermal Comfort Control 2 Name', 'pyname': u'thermal_comfort_control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 3 object type', {'name': u'Thermal Comfort Control 3 Object Type', 'pyname': u'thermal_comfort_control_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 3 name', {'name': u'Thermal Comfort Control 3 Name', 'pyname': u'thermal_comfort_control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 4 object type', {'name': u'Thermal Comfort Control 4 Object Type', 'pyname': u'thermal_comfort_control_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 4 name', {'name': u'Thermal Comfort Control 4 Name', 'pyname': u'thermal_comfort_control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Thermostat:ThermalComfort`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 9, 'name': u'ZoneControl:Thermostat:ThermalComfort', 'pyname': u'ZoneControlThermostatThermalComfort', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'averaging method', {'name': u'Averaging Method', 'pyname': u'averaging_method', 'default': u'PeopleAverage', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SpecificObject', u'ObjectAverage', u'PeopleAverage'], 'autocalculatable': False, 'type': 'alpha'}), (u'specific people name', {'name': u'Specific People Name', 'pyname': u'specific_people_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum dry-bulb temperature setpoint', {'name': u'Minimum Dry-Bulb Temperature Setpoint', 'pyname': u'minimum_drybulb_temperature_setpoint', 'default': 0.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum dry-bulb temperature setpoint', {'name': u'Maximum Dry-Bulb Temperature Setpoint', 'pyname': u'maximum_drybulb_temperature_setpoint', 'default': 50.0, 'maximum': 50.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal comfort control type schedule name', {'name': u'Thermal Comfort Control Type Schedule Name', 'pyname': u'thermal_comfort_control_type_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 1 object type', {'name': u'Thermal Comfort Control 1 Object Type', 'pyname': u'thermal_comfort_control_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 1 name', {'name': u'Thermal Comfort Control 1 Name', 'pyname': u'thermal_comfort_control_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 2 object type', {'name': u'Thermal Comfort Control 2 Object Type', 'pyname': u'thermal_comfort_control_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 2 name', {'name': u'Thermal Comfort Control 2 Name', 'pyname': u'thermal_comfort_control_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 3 object type', {'name': u'Thermal Comfort Control 3 Object Type', 'pyname': u'thermal_comfort_control_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 3 name', {'name': u'Thermal Comfort Control 3 Name', 'pyname': u'thermal_comfort_control_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort control 4 object type', {'name': u'Thermal Comfort Control 4 Object Type', 'pyname': u'thermal_comfort_control_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort control 4 name', {'name': u'Thermal Comfort Control 4 Name', 'pyname': u'thermal_comfort_control_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -538,7 +503,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -561,7 +526,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
         """
-        return self._data["Zone or ZoneList Name"]
+        return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
@@ -584,7 +549,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `averaging_method` or None if not set
         """
-        return self._data["Averaging Method"]
+        return self["Averaging Method"]
 
     @averaging_method.setter
     def averaging_method(self, value="PeopleAverage"):
@@ -610,7 +575,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `specific_people_name` or None if not set
         """
-        return self._data["Specific People Name"]
+        return self["Specific People Name"]
 
     @specific_people_name.setter
     def specific_people_name(self, value=None):
@@ -634,7 +599,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             float: the value of `minimum_drybulb_temperature_setpoint` or None if not set
         """
-        return self._data["Minimum Dry-Bulb Temperature Setpoint"]
+        return self["Minimum Dry-Bulb Temperature Setpoint"]
 
     @minimum_drybulb_temperature_setpoint.setter
     def minimum_drybulb_temperature_setpoint(self, value=None):
@@ -659,7 +624,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             float: the value of `maximum_drybulb_temperature_setpoint` or None if not set
         """
-        return self._data["Maximum Dry-Bulb Temperature Setpoint"]
+        return self["Maximum Dry-Bulb Temperature Setpoint"]
 
     @maximum_drybulb_temperature_setpoint.setter
     def maximum_drybulb_temperature_setpoint(self, value=50.0):
@@ -685,7 +650,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_type_schedule_name` or None if not set
         """
-        return self._data["Thermal Comfort Control Type Schedule Name"]
+        return self["Thermal Comfort Control Type Schedule Name"]
 
     @thermal_comfort_control_type_schedule_name.setter
     def thermal_comfort_control_type_schedule_name(self, value=None):
@@ -714,7 +679,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_1_object_type` or None if not set
         """
-        return self._data["Thermal Comfort Control 1 Object Type"]
+        return self["Thermal Comfort Control 1 Object Type"]
 
     @thermal_comfort_control_1_object_type.setter
     def thermal_comfort_control_1_object_type(self, value=None):
@@ -737,7 +702,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_1_name` or None if not set
         """
-        return self._data["Thermal Comfort Control 1 Name"]
+        return self["Thermal Comfort Control 1 Name"]
 
     @thermal_comfort_control_1_name.setter
     def thermal_comfort_control_1_name(self, value=None):
@@ -762,7 +727,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_2_object_type` or None if not set
         """
-        return self._data["Thermal Comfort Control 2 Object Type"]
+        return self["Thermal Comfort Control 2 Object Type"]
 
     @thermal_comfort_control_2_object_type.setter
     def thermal_comfort_control_2_object_type(self, value=None):
@@ -785,7 +750,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_2_name` or None if not set
         """
-        return self._data["Thermal Comfort Control 2 Name"]
+        return self["Thermal Comfort Control 2 Name"]
 
     @thermal_comfort_control_2_name.setter
     def thermal_comfort_control_2_name(self, value=None):
@@ -810,7 +775,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_3_object_type` or None if not set
         """
-        return self._data["Thermal Comfort Control 3 Object Type"]
+        return self["Thermal Comfort Control 3 Object Type"]
 
     @thermal_comfort_control_3_object_type.setter
     def thermal_comfort_control_3_object_type(self, value=None):
@@ -833,7 +798,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_3_name` or None if not set
         """
-        return self._data["Thermal Comfort Control 3 Name"]
+        return self["Thermal Comfort Control 3 Name"]
 
     @thermal_comfort_control_3_name.setter
     def thermal_comfort_control_3_name(self, value=None):
@@ -858,7 +823,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_4_object_type` or None if not set
         """
-        return self._data["Thermal Comfort Control 4 Object Type"]
+        return self["Thermal Comfort Control 4 Object Type"]
 
     @thermal_comfort_control_4_object_type.setter
     def thermal_comfort_control_4_object_type(self, value=None):
@@ -881,7 +846,7 @@ class ZoneControlThermostatThermalComfort(DataObject):
         Returns:
             str: the value of `thermal_comfort_control_4_name` or None if not set
         """
-        return self._data["Thermal Comfort Control 4 Name"]
+        return self["Thermal Comfort Control 4 Name"]
 
     @thermal_comfort_control_4_name.setter
     def thermal_comfort_control_4_name(self, value=None):
@@ -905,16 +870,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         This object modifies a ZoneControl:Thermostat object to effect temperature control based on
         zone air humidity conditions.
     """
-    schema = {'min-fields': 2, 'name': u'ZoneControl:Thermostat:TemperatureAndHumidity', 'pyname': u'ZoneControlThermostatTemperatureAndHumidity', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidifying relative humidity setpoint schedule name', {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'Overcool', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'overcool range input method', {'name': u'Overcool Range Input Method', 'pyname': u'overcool_range_input_method', 'default': u'Constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'overcool constant range', {'name': u'Overcool Constant Range', 'pyname': u'overcool_constant_range', 'default': 1.7, 'maximum': 3.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'overcool range schedule name', {'name': u'Overcool Range Schedule Name', 'pyname': u'overcool_range_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'overcool control ratio', {'name': u'Overcool Control Ratio', 'pyname': u'overcool_control_ratio', 'default': 3.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent/K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Thermostat:TemperatureAndHumidity`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 2, 'name': u'ZoneControl:Thermostat:TemperatureAndHumidity', 'pyname': u'ZoneControlThermostatTemperatureAndHumidity', 'format': None, 'fields': OrderedDict([(u'thermostat name', {'name': u'Thermostat Name', 'pyname': u'thermostat_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidifying relative humidity setpoint schedule name', {'name': u'Dehumidifying Relative Humidity Setpoint Schedule Name', 'pyname': u'dehumidifying_relative_humidity_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'Overcool', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Overcool', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'overcool range input method', {'name': u'Overcool Range Input Method', 'pyname': u'overcool_range_input_method', 'default': u'Constant', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'overcool constant range', {'name': u'Overcool Constant Range', 'pyname': u'overcool_constant_range', 'default': 1.7, 'maximum': 3.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'overcool range schedule name', {'name': u'Overcool Range Schedule Name', 'pyname': u'overcool_range_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'overcool control ratio', {'name': u'Overcool Control Ratio', 'pyname': u'overcool_control_ratio', 'default': 3.6, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent/K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def thermostat_name(self):
@@ -923,7 +879,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `thermostat_name` or None if not set
         """
-        return self._data["Thermostat Name"]
+        return self["Thermostat Name"]
 
     @thermostat_name.setter
     def thermostat_name(self, value=None):
@@ -954,7 +910,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `dehumidifying_relative_humidity_setpoint_schedule_name` or None if not set
         """
-        return self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"]
+        return self["Dehumidifying Relative Humidity Setpoint Schedule Name"]
 
     @dehumidifying_relative_humidity_setpoint_schedule_name.setter
     def dehumidifying_relative_humidity_setpoint_schedule_name(self, value=None):
@@ -978,7 +934,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="Overcool"):
@@ -1002,7 +958,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `overcool_range_input_method` or None if not set
         """
-        return self._data["Overcool Range Input Method"]
+        return self["Overcool Range Input Method"]
 
     @overcool_range_input_method.setter
     def overcool_range_input_method(self, value="Constant"):
@@ -1026,7 +982,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             float: the value of `overcool_constant_range` or None if not set
         """
-        return self._data["Overcool Constant Range"]
+        return self["Overcool Constant Range"]
 
     @overcool_constant_range.setter
     def overcool_constant_range(self, value=1.7):
@@ -1056,7 +1012,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             str: the value of `overcool_range_schedule_name` or None if not set
         """
-        return self._data["Overcool Range Schedule Name"]
+        return self["Overcool Range Schedule Name"]
 
     @overcool_range_schedule_name.setter
     def overcool_range_schedule_name(self, value=None):
@@ -1082,7 +1038,7 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         Returns:
             float: the value of `overcool_control_ratio` or None if not set
         """
-        return self._data["Overcool Control Ratio"]
+        return self["Overcool Control Ratio"]
 
     @overcool_control_ratio.setter
     def overcool_control_ratio(self, value=3.6):
@@ -1112,15 +1068,6 @@ class ThermostatSetpointSingleHeating(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleHeating', 'pyname': u'ThermostatSetpointSingleHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeating`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1128,7 +1075,7 @@ class ThermostatSetpointSingleHeating(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1151,7 +1098,7 @@ class ThermostatSetpointSingleHeating(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -1175,15 +1122,6 @@ class ThermostatSetpointSingleCooling(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleCooling', 'pyname': u'ThermostatSetpointSingleCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleCooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1191,7 +1129,7 @@ class ThermostatSetpointSingleCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1214,7 +1152,7 @@ class ThermostatSetpointSingleCooling(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -1238,15 +1176,6 @@ class ThermostatSetpointSingleHeatingOrCooling(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:SingleHeatingOrCooling', 'pyname': u'ThermostatSetpointSingleHeatingOrCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeatingOrCooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1254,7 +1183,7 @@ class ThermostatSetpointSingleHeatingOrCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1277,7 +1206,7 @@ class ThermostatSetpointSingleHeatingOrCooling(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -1301,15 +1230,6 @@ class ThermostatSetpointDualSetpoint(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ThermostatSetpoint:DualSetpoint', 'pyname': u'ThermostatSetpointDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling setpoint temperature schedule name', {'name': u'Cooling Setpoint Temperature Schedule Name', 'pyname': u'cooling_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:DualSetpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1317,7 +1237,7 @@ class ThermostatSetpointDualSetpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1340,7 +1260,7 @@ class ThermostatSetpointDualSetpoint(DataObject):
         Returns:
             str: the value of `heating_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Setpoint Temperature Schedule Name"]
+        return self["Heating Setpoint Temperature Schedule Name"]
 
     @heating_setpoint_temperature_schedule_name.setter
     def heating_setpoint_temperature_schedule_name(self, value=None):
@@ -1363,7 +1283,7 @@ class ThermostatSetpointDualSetpoint(DataObject):
         Returns:
             str: the value of `cooling_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Setpoint Temperature Schedule Name"]
+        return self["Cooling Setpoint Temperature Schedule Name"]
 
     @cooling_setpoint_temperature_schedule_name.setter
     def cooling_setpoint_temperature_schedule_name(self, value=None):
@@ -1387,15 +1307,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1403,7 +1314,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1426,7 +1337,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
         Returns:
             str: the value of `fanger_thermal_comfort_schedule_name` or None if not set
         """
-        return self._data["Fanger Thermal Comfort Schedule Name"]
+        return self["Fanger Thermal Comfort Schedule Name"]
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
@@ -1451,15 +1362,6 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1467,7 +1369,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1490,7 +1392,7 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
         Returns:
             str: the value of `fanger_thermal_comfort_schedule_name` or None if not set
         """
-        return self._data["Fanger Thermal Comfort Schedule Name"]
+        return self["Fanger Thermal Comfort Schedule Name"]
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
@@ -1516,15 +1418,6 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling', 'pyname': u'ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort schedule name', {'name': u'Fanger Thermal Comfort Schedule Name', 'pyname': u'fanger_thermal_comfort_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1532,7 +1425,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1555,7 +1448,7 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
         Returns:
             str: the value of `fanger_thermal_comfort_schedule_name` or None if not set
         """
-        return self._data["Fanger Thermal Comfort Schedule Name"]
+        return self["Fanger Thermal Comfort Schedule Name"]
 
     @fanger_thermal_comfort_schedule_name.setter
     def fanger_thermal_comfort_schedule_name(self, value=None):
@@ -1581,15 +1474,6 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
     """
     schema = {'min-fields': 3, 'name': u'ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint', 'pyname': u'ThermostatSetpointThermalComfortFangerDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'fanger thermal comfort heating schedule name', {'name': u'Fanger Thermal Comfort Heating Schedule Name', 'pyname': u'fanger_thermal_comfort_heating_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fanger thermal comfort cooling schedule name', {'name': u'Fanger Thermal Comfort Cooling Schedule Name', 'pyname': u'fanger_thermal_comfort_cooling_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1597,7 +1481,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1620,7 +1504,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
         Returns:
             str: the value of `fanger_thermal_comfort_heating_schedule_name` or None if not set
         """
-        return self._data["Fanger Thermal Comfort Heating Schedule Name"]
+        return self["Fanger Thermal Comfort Heating Schedule Name"]
 
     @fanger_thermal_comfort_heating_schedule_name.setter
     def fanger_thermal_comfort_heating_schedule_name(self, value=None):
@@ -1644,7 +1528,7 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
         Returns:
             str: the value of `fanger_thermal_comfort_cooling_schedule_name` or None if not set
         """
-        return self._data["Fanger Thermal Comfort Cooling Schedule Name"]
+        return self["Fanger Thermal Comfort Cooling Schedule Name"]
 
     @fanger_thermal_comfort_cooling_schedule_name.setter
     def fanger_thermal_comfort_cooling_schedule_name(self, value=None):
@@ -1670,15 +1554,6 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ZoneControl:Thermostat:StagedDualSetpoint', 'pyname': u'ZoneControlThermostatStagedDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of heating stages', {'name': u'Number of Heating Stages', 'pyname': u'number_of_heating_stages', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'heating temperature setpoint schedule name', {'name': u'Heating Temperature Setpoint Schedule Name', 'pyname': u'heating_temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating throttling temperature range', {'name': u'Heating Throttling Temperature Range', 'pyname': u'heating_throttling_temperature_range', 'default': 1.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'stage 1 heating temperature offset', {'name': u'Stage 1 Heating Temperature Offset', 'pyname': u'stage_1_heating_temperature_offset', 'maximum': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 2 heating temperature offset', {'name': u'Stage 2 Heating Temperature Offset', 'pyname': u'stage_2_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 3 heating temperature offset', {'name': u'Stage 3 Heating Temperature Offset', 'pyname': u'stage_3_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 4 heating temperature offset', {'name': u'Stage 4 Heating Temperature Offset', 'pyname': u'stage_4_heating_temperature_offset', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'number of cooling stages', {'name': u'Number of Cooling Stages', 'pyname': u'number_of_cooling_stages', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cooling temperature setpoint base schedule name', {'name': u'Cooling Temperature Setpoint Base Schedule Name', 'pyname': u'cooling_temperature_setpoint_base_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling throttling temperature range', {'name': u'Cooling Throttling Temperature Range', 'pyname': u'cooling_throttling_temperature_range', 'default': 1.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'stage 1 cooling temperature offset', {'name': u'Stage 1 Cooling Temperature Offset', 'pyname': u'stage_1_cooling_temperature_offset', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 2 cooling temperature offset', {'name': u'Stage 2 Cooling Temperature Offset', 'pyname': u'stage_2_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 3 cooling temperature offset', {'name': u'Stage 3 Cooling Temperature Offset', 'pyname': u'stage_3_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'stage 4 cooling temperature offset', {'name': u'Stage 4 Cooling Temperature Offset', 'pyname': u'stage_4_cooling_temperature_offset', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:Thermostat:StagedDualSetpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1686,7 +1561,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1709,7 +1584,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
         """
-        return self._data["Zone or ZoneList Name"]
+        return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
@@ -1732,7 +1607,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             int: the value of `number_of_heating_stages` or None if not set
         """
-        return self._data["Number of Heating Stages"]
+        return self["Number of Heating Stages"]
 
     @number_of_heating_stages.setter
     def number_of_heating_stages(self, value=None):
@@ -1758,7 +1633,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             str: the value of `heating_temperature_setpoint_schedule_name` or None if not set
         """
-        return self._data["Heating Temperature Setpoint Schedule Name"]
+        return self["Heating Temperature Setpoint Schedule Name"]
 
     @heating_temperature_setpoint_schedule_name.setter
     def heating_temperature_setpoint_schedule_name(self, value=None):
@@ -1781,7 +1656,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `heating_throttling_temperature_range` or None if not set
         """
-        return self._data["Heating Throttling Temperature Range"]
+        return self["Heating Throttling Temperature Range"]
 
     @heating_throttling_temperature_range.setter
     def heating_throttling_temperature_range(self, value=1.1):
@@ -1806,7 +1681,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_1_heating_temperature_offset` or None if not set
         """
-        return self._data["Stage 1 Heating Temperature Offset"]
+        return self["Stage 1 Heating Temperature Offset"]
 
     @stage_1_heating_temperature_offset.setter
     def stage_1_heating_temperature_offset(self, value=None):
@@ -1835,7 +1710,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_2_heating_temperature_offset` or None if not set
         """
-        return self._data["Stage 2 Heating Temperature Offset"]
+        return self["Stage 2 Heating Temperature Offset"]
 
     @stage_2_heating_temperature_offset.setter
     def stage_2_heating_temperature_offset(self, value=None):
@@ -1865,7 +1740,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_3_heating_temperature_offset` or None if not set
         """
-        return self._data["Stage 3 Heating Temperature Offset"]
+        return self["Stage 3 Heating Temperature Offset"]
 
     @stage_3_heating_temperature_offset.setter
     def stage_3_heating_temperature_offset(self, value=None):
@@ -1895,7 +1770,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_4_heating_temperature_offset` or None if not set
         """
-        return self._data["Stage 4 Heating Temperature Offset"]
+        return self["Stage 4 Heating Temperature Offset"]
 
     @stage_4_heating_temperature_offset.setter
     def stage_4_heating_temperature_offset(self, value=None):
@@ -1924,7 +1799,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             int: the value of `number_of_cooling_stages` or None if not set
         """
-        return self._data["Number of Cooling Stages"]
+        return self["Number of Cooling Stages"]
 
     @number_of_cooling_stages.setter
     def number_of_cooling_stages(self, value=None):
@@ -1950,7 +1825,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             str: the value of `cooling_temperature_setpoint_base_schedule_name` or None if not set
         """
-        return self._data["Cooling Temperature Setpoint Base Schedule Name"]
+        return self["Cooling Temperature Setpoint Base Schedule Name"]
 
     @cooling_temperature_setpoint_base_schedule_name.setter
     def cooling_temperature_setpoint_base_schedule_name(self, value=None):
@@ -1973,7 +1848,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `cooling_throttling_temperature_range` or None if not set
         """
-        return self._data["Cooling Throttling Temperature Range"]
+        return self["Cooling Throttling Temperature Range"]
 
     @cooling_throttling_temperature_range.setter
     def cooling_throttling_temperature_range(self, value=1.1):
@@ -1998,7 +1873,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_1_cooling_temperature_offset` or None if not set
         """
-        return self._data["Stage 1 Cooling Temperature Offset"]
+        return self["Stage 1 Cooling Temperature Offset"]
 
     @stage_1_cooling_temperature_offset.setter
     def stage_1_cooling_temperature_offset(self, value=None):
@@ -2027,7 +1902,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_2_cooling_temperature_offset` or None if not set
         """
-        return self._data["Stage 2 Cooling Temperature Offset"]
+        return self["Stage 2 Cooling Temperature Offset"]
 
     @stage_2_cooling_temperature_offset.setter
     def stage_2_cooling_temperature_offset(self, value=None):
@@ -2057,7 +1932,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_3_cooling_temperature_offset` or None if not set
         """
-        return self._data["Stage 3 Cooling Temperature Offset"]
+        return self["Stage 3 Cooling Temperature Offset"]
 
     @stage_3_cooling_temperature_offset.setter
     def stage_3_cooling_temperature_offset(self, value=None):
@@ -2087,7 +1962,7 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         Returns:
             float: the value of `stage_4_cooling_temperature_offset` or None if not set
         """
-        return self._data["Stage 4 Cooling Temperature Offset"]
+        return self["Stage 4 Cooling Temperature Offset"]
 
     @stage_4_cooling_temperature_offset.setter
     def stage_4_cooling_temperature_offset(self, value=None):
@@ -2117,15 +1992,6 @@ class ZoneControlContaminantController(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'ZoneControl:ContaminantController', 'pyname': u'ZoneControlContaminantController', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controlled zone name', {'name': u'Controlled Zone Name', 'pyname': u'controlled_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide control availability schedule name', {'name': u'Carbon Dioxide Control Availability Schedule Name', 'pyname': u'carbon_dioxide_control_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide setpoint schedule name', {'name': u'Carbon Dioxide Setpoint Schedule Name', 'pyname': u'carbon_dioxide_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum carbon dioxide concentration schedule name', {'name': u'Minimum Carbon Dioxide Concentration Schedule Name', 'pyname': u'minimum_carbon_dioxide_concentration_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generic contaminant control availability schedule name', {'name': u'Generic Contaminant Control Availability Schedule Name', 'pyname': u'generic_contaminant_control_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generic contaminant setpoint schedule name', {'name': u'Generic Contaminant Setpoint Schedule Name', 'pyname': u'generic_contaminant_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneControl:ContaminantController`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2133,7 +1999,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2156,7 +2022,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `controlled_zone_name` or None if not set
         """
-        return self._data["Controlled Zone Name"]
+        return self["Controlled Zone Name"]
 
     @controlled_zone_name.setter
     def controlled_zone_name(self, value=None):
@@ -2179,7 +2045,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `carbon_dioxide_control_availability_schedule_name` or None if not set
         """
-        return self._data["Carbon Dioxide Control Availability Schedule Name"]
+        return self["Carbon Dioxide Control Availability Schedule Name"]
 
     @carbon_dioxide_control_availability_schedule_name.setter
     def carbon_dioxide_control_availability_schedule_name(self, value=None):
@@ -2204,7 +2070,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `carbon_dioxide_setpoint_schedule_name` or None if not set
         """
-        return self._data["Carbon Dioxide Setpoint Schedule Name"]
+        return self["Carbon Dioxide Setpoint Schedule Name"]
 
     @carbon_dioxide_setpoint_schedule_name.setter
     def carbon_dioxide_setpoint_schedule_name(self, value=None):
@@ -2228,7 +2094,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `minimum_carbon_dioxide_concentration_schedule_name` or None if not set
         """
-        return self._data["Minimum Carbon Dioxide Concentration Schedule Name"]
+        return self["Minimum Carbon Dioxide Concentration Schedule Name"]
 
     @minimum_carbon_dioxide_concentration_schedule_name.setter
     def minimum_carbon_dioxide_concentration_schedule_name(self, value=None):
@@ -2255,7 +2121,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `generic_contaminant_control_availability_schedule_name` or None if not set
         """
-        return self._data["Generic Contaminant Control Availability Schedule Name"]
+        return self["Generic Contaminant Control Availability Schedule Name"]
 
     @generic_contaminant_control_availability_schedule_name.setter
     def generic_contaminant_control_availability_schedule_name(self, value=None):
@@ -2281,7 +2147,7 @@ class ZoneControlContaminantController(DataObject):
         Returns:
             str: the value of `generic_contaminant_setpoint_schedule_name` or None if not set
         """
-        return self._data["Generic Contaminant Setpoint Schedule Name"]
+        return self["Generic Contaminant Setpoint Schedule Name"]
 
     @generic_contaminant_setpoint_schedule_name.setter
     def generic_contaminant_setpoint_schedule_name(self, value=None):

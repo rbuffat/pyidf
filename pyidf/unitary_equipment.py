@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -15,16 +16,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         AirloopHVAC objects. This object can be used in outdoor air systems,
         outdoor air units, air loops, and as zone equipment if desired.
     """
-    schema = {'min-fields': 14, 'name': u'AirLoopHVAC:UnitarySystem', 'pyname': u'AirLoopHvacUnitarySystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'Load', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dx heating coil sizing ratio', {'name': u'DX Heating Coil Sizing Ratio', 'pyname': u'dx_heating_coil_sizing_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use doas dx cooling coil', {'name': u'Use DOAS DX Cooling Coil', 'pyname': u'use_doas_dx_cooling_coil', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'doas dx cooling coil leaving minimum air temperature', {'name': u'DOAS DX Cooling Coil Leaving Minimum Air Temperature', 'pyname': u'doas_dx_cooling_coil_leaving_minimum_air_temperature', 'default': 2.0, 'maximum': 7.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'latent load control', {'name': u'Latent Load Control', 'pyname': u'latent_load_control', 'default': u'SensibleOnlyLoadControl', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate method during cooling operation', {'name': u'Supply Air Flow Rate Method During Cooling Operation', 'pyname': u'supply_air_flow_rate_method_during_cooling_operation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during cooling operation', {'name': u'Supply Air Flow Rate Per Floor Area During Cooling Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design cooling supply air flow rate', {'name': u'Fraction of Autosized Design Cooling Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_cooling_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit of capacity during cooling operation', {'name': u'Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation', 'pyname': u'design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method during heating operation', {'name': u'Supply air Flow Rate Method During Heating Operation', 'pyname': u'supply_air_flow_rate_method_during_heating_operation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during heating operation', {'name': u'Supply Air Flow Rate Per Floor Area during Heating Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design heating supply air flow rate', {'name': u'Fraction of Autosized Design Heating Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_heating_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit of capacity during heating operation', {'name': u'Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation', 'pyname': u'design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method when no cooling or heating is required', {'name': u'Supply Air Flow Rate Method When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_method_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate when no cooling or heating is required', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area when no cooling or heating is required', {'name': u'Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), ('fraction of autosized design cooling supply air flow rate v3', {'name': 'Fraction of Autosized Design Cooling Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_cooling_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('fraction of autosized design heating supply air flow rate v3', {'name': 'Fraction of Autosized Design Heating Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_heating_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('design supply air flow rate per unit of capacity during cooling operation v3', {'name': 'Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3', 'pyname': 'design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), ('design supply air flow rate per unit of capacity during heating operation v3', {'name': 'Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3', 'pyname': 'design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'ancilliary on-cycle electric power', {'name': u'Ancilliary On-Cycle Electric Power', 'pyname': u'ancilliary_oncycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ancilliary off-cycle electric power', {'name': u'Ancilliary Off-Cycle Electric Power', 'pyname': u'ancilliary_offcycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum temperature for heat recovery', {'name': u'Maximum Temperature for Heat Recovery', 'pyname': u'maximum_temperature_for_heat_recovery', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design specification multispeed heat pump object type', {'name': u'Design Specification Multispeed Heat Pump Object Type', 'pyname': u'design_specification_multispeed_heat_pump_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design specification multispeed heat pump object name', {'name': u'Design Specification Multispeed Heat Pump Object Name', 'pyname': u'design_specification_multispeed_heat_pump_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitarySystem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 14, 'name': u'AirLoopHVAC:UnitarySystem', 'pyname': u'AirLoopHvacUnitarySystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'Load', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Load', u'SetPoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Multimode', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:MultiSpeed', u'Coil:Heating:DX:VariableSpeed', u'Coil:Heating:WaterToAirHeatPump:ParameterEstimation', u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit', u'Coil:Heating:Gas', u'Coil:Heating:Gas:MultiStage', u'Coil:Heating:Electric', u'Coil:Heating:Electric:MultiStage', u'Coil:Heating:Water', u'Coil:Heating:Steam', u'Coil:Heating:Desuperheater'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dx heating coil sizing ratio', {'name': u'DX Heating Coil Sizing Ratio', 'pyname': u'dx_heating_coil_sizing_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:TwoSpeed', u'Coil:Cooling:DX:MultiSpeed', u'Coil:Cooling:DX:VariableSpeed', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode', u'CoilSystem:Cooling:DX:HeatExchangerAssisted', u'Coil:Cooling:WaterToAirHeatPump:ParameterEstimation', u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use doas dx cooling coil', {'name': u'Use DOAS DX Cooling Coil', 'pyname': u'use_doas_dx_cooling_coil', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'doas dx cooling coil leaving minimum air temperature', {'name': u'DOAS DX Cooling Coil Leaving Minimum Air Temperature', 'pyname': u'doas_dx_cooling_coil_leaving_minimum_air_temperature', 'default': 2.0, 'maximum': 7.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'latent load control', {'name': u'Latent Load Control', 'pyname': u'latent_load_control', 'default': u'SensibleOnlyLoadControl', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SensibleOnlyLoadControl', u'LatentOnlyLoadControl', u'LatentWithSensibleLoadControl', u'LatentOrSensibleLoadControl'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate method during cooling operation', {'name': u'Supply Air Flow Rate Method During Cooling Operation', 'pyname': u'supply_air_flow_rate_method_during_cooling_operation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingValue', u'FlowPerCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during cooling operation', {'name': u'Supply Air Flow Rate Per Floor Area During Cooling Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design cooling supply air flow rate', {'name': u'Fraction of Autosized Design Cooling Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_cooling_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit of capacity during cooling operation', {'name': u'Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation', 'pyname': u'design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method during heating operation', {'name': u'Supply air Flow Rate Method During Heating Operation', 'pyname': u'supply_air_flow_rate_method_during_heating_operation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingValue', u'FlowPerHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during heating operation', {'name': u'Supply Air Flow Rate Per Floor Area during Heating Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design heating supply air flow rate', {'name': u'Fraction of Autosized Design Heating Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_heating_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit of capacity during heating operation', {'name': u'Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation', 'pyname': u'design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method when no cooling or heating is required', {'name': u'Supply Air Flow Rate Method When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_method_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingValue', u'FractionOfAutosizedHeatingValue', u'FlowPerCoolingCapacity', u'FlowPerHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate when no cooling or heating is required', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area when no cooling or heating is required', {'name': u'Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), ('fraction of autosized design cooling supply air flow rate v3', {'name': 'Fraction of Autosized Design Cooling Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_cooling_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('fraction of autosized design heating supply air flow rate v3', {'name': 'Fraction of Autosized Design Heating Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_heating_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('design supply air flow rate per unit of capacity during cooling operation v3', {'name': 'Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3', 'pyname': 'design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), ('design supply air flow rate per unit of capacity during heating operation v3', {'name': 'Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3', 'pyname': 'design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'ancilliary on-cycle electric power', {'name': u'Ancilliary On-Cycle Electric Power', 'pyname': u'ancilliary_oncycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ancilliary off-cycle electric power', {'name': u'Ancilliary Off-Cycle Electric Power', 'pyname': u'ancilliary_offcycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum temperature for heat recovery', {'name': u'Maximum Temperature for Heat Recovery', 'pyname': u'maximum_temperature_for_heat_recovery', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design specification multispeed heat pump object type', {'name': u'Design Specification Multispeed Heat Pump Object Type', 'pyname': u'design_specification_multispeed_heat_pump_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'UnitarySystemPerformance:HeatPump:Multispeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'design specification multispeed heat pump object name', {'name': u'Design Specification Multispeed Heat Pump Object Name', 'pyname': u'design_specification_multispeed_heat_pump_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -33,7 +25,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -57,7 +49,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `control_type` or None if not set
         """
-        return self._data["Control Type"]
+        return self["Control Type"]
 
     @control_type.setter
     def control_type(self, value="Load"):
@@ -83,7 +75,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -108,7 +100,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -144,7 +136,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -172,7 +164,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -196,7 +188,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -220,7 +212,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
         """
-        return self._data["Supply Fan Object Type"]
+        return self["Supply Fan Object Type"]
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
@@ -252,7 +244,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_fan_name` or None if not set
         """
-        return self._data["Supply Fan Name"]
+        return self["Supply Fan Name"]
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
@@ -276,7 +268,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value=None):
@@ -300,7 +292,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -332,7 +324,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -356,7 +348,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -380,7 +372,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `dx_heating_coil_sizing_ratio` or None if not set
         """
-        return self._data["DX Heating Coil Sizing Ratio"]
+        return self["DX Heating Coil Sizing Ratio"]
 
     @dx_heating_coil_sizing_ratio.setter
     def dx_heating_coil_sizing_ratio(self, value=1.0):
@@ -406,7 +398,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -430,7 +422,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -454,7 +446,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `use_doas_dx_cooling_coil` or None if not set
         """
-        return self._data["Use DOAS DX Cooling Coil"]
+        return self["Use DOAS DX Cooling Coil"]
 
     @use_doas_dx_cooling_coil.setter
     def use_doas_dx_cooling_coil(self, value="No"):
@@ -481,7 +473,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `doas_dx_cooling_coil_leaving_minimum_air_temperature` or None if not set
         """
-        return self._data["DOAS DX Cooling Coil Leaving Minimum Air Temperature"]
+        return self["DOAS DX Cooling Coil Leaving Minimum Air Temperature"]
 
     @doas_dx_cooling_coil_leaving_minimum_air_temperature.setter
     def doas_dx_cooling_coil_leaving_minimum_air_temperature(self, value=2.0):
@@ -510,7 +502,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `latent_load_control` or None if not set
         """
-        return self._data["Latent Load Control"]
+        return self["Latent Load Control"]
 
     @latent_load_control.setter
     def latent_load_control(self, value="SensibleOnlyLoadControl"):
@@ -540,7 +532,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
         """
-        return self._data["Supplemental Heating Coil Object Type"]
+        return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
@@ -565,7 +557,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
         """
-        return self._data["Supplemental Heating Coil Name"]
+        return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
@@ -590,7 +582,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_air_flow_rate_method_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate Method During Cooling Operation"]
+        return self["Supply Air Flow Rate Method During Cooling Operation"]
 
     @supply_air_flow_rate_method_during_cooling_operation.setter
     def supply_air_flow_rate_method_during_cooling_operation(self, value=None):
@@ -622,7 +614,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Cooling Operation"]
+        return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -649,7 +641,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area During Cooling Operation"]
+        return self["Supply Air Flow Rate Per Floor Area During Cooling Operation"]
 
     @supply_air_flow_rate_per_floor_area_during_cooling_operation.setter
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self, value=None):
@@ -676,7 +668,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
+        return self["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
@@ -702,7 +694,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"]
+        return self["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"]
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation(self, value=None):
@@ -729,7 +721,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_air_flow_rate_method_during_heating_operation` or None if not set
         """
-        return self._data["Supply air Flow Rate Method During Heating Operation"]
+        return self["Supply air Flow Rate Method During Heating Operation"]
 
     @supply_air_flow_rate_method_during_heating_operation.setter
     def supply_air_flow_rate_method_during_heating_operation(self, value=None):
@@ -761,7 +753,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Heating Operation"]
+        return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -788,7 +780,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area during Heating Operation"]
+        return self["Supply Air Flow Rate Per Floor Area during Heating Operation"]
 
     @supply_air_flow_rate_per_floor_area_during_heating_operation.setter
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self, value=None):
@@ -815,7 +807,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"]
+        return self["Fraction of Autosized Design Heating Supply Air Flow Rate"]
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self, value=None):
@@ -841,7 +833,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"]
+        return self["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"]
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation(self, value=None):
@@ -868,7 +860,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"]
+        return self["Supply Air Flow Rate Method When No Cooling or Heating is Required"]
 
     @supply_air_flow_rate_method_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(self, value=None):
@@ -904,7 +896,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Required"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Required"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self, value=None):
@@ -930,7 +922,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"]
+        return self["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"]
 
     @supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required(self, value=None):
@@ -956,7 +948,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"]
+        return self["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"]
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self, value=None):
@@ -981,7 +973,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate_v3` or None if not set
         """
-        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v3"]
+        return self["Fraction of Autosized Design Heating Supply Air Flow Rate v3"]
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate_v3(self, value=None):
@@ -1006,7 +998,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"]
+        return self["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"]
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3(self, value=None):
@@ -1032,7 +1024,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"]
+        return self["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"]
 
     @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3.setter
     def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3(self, value=None):
@@ -1058,7 +1050,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0):
@@ -1084,7 +1076,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
@@ -1110,7 +1102,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `outdoor_drybulb_temperature_sensor_node_name` or None if not set
         """
-        return self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"]
+        return self["Outdoor Dry-Bulb Temperature Sensor Node Name"]
 
     @outdoor_drybulb_temperature_sensor_node_name.setter
     def outdoor_drybulb_temperature_sensor_node_name(self, value=None):
@@ -1136,7 +1128,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
         """
-        return self._data["Maximum Cycling Rate"]
+        return self["Maximum Cycling Rate"]
 
     @maximum_cycling_rate.setter
     def maximum_cycling_rate(self, value=2.5):
@@ -1165,7 +1157,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `heat_pump_time_constant` or None if not set
         """
-        return self._data["Heat Pump Time Constant"]
+        return self["Heat Pump Time Constant"]
 
     @heat_pump_time_constant.setter
     def heat_pump_time_constant(self, value=60.0):
@@ -1194,7 +1186,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `fraction_of_oncycle_power_use` or None if not set
         """
-        return self._data["Fraction of On-Cycle Power Use"]
+        return self["Fraction of On-Cycle Power Use"]
 
     @fraction_of_oncycle_power_use.setter
     def fraction_of_oncycle_power_use(self, value=0.01):
@@ -1223,7 +1215,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `heat_pump_fan_delay_time` or None if not set
         """
-        return self._data["Heat Pump Fan Delay Time"]
+        return self["Heat Pump Fan Delay Time"]
 
     @heat_pump_fan_delay_time.setter
     def heat_pump_fan_delay_time(self, value=60.0):
@@ -1252,7 +1244,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `ancilliary_oncycle_electric_power` or None if not set
         """
-        return self._data["Ancilliary On-Cycle Electric Power"]
+        return self["Ancilliary On-Cycle Electric Power"]
 
     @ancilliary_oncycle_electric_power.setter
     def ancilliary_oncycle_electric_power(self, value=None):
@@ -1277,7 +1269,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `ancilliary_offcycle_electric_power` or None if not set
         """
-        return self._data["Ancilliary Off-Cycle Electric Power"]
+        return self["Ancilliary Off-Cycle Electric Power"]
 
     @ancilliary_offcycle_electric_power.setter
     def ancilliary_offcycle_electric_power(self, value=None):
@@ -1302,7 +1294,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
         """
-        return self._data["Design Heat Recovery Water Flow Rate"]
+        return self["Design Heat Recovery Water Flow Rate"]
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=None):
@@ -1328,7 +1320,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             float: the value of `maximum_temperature_for_heat_recovery` or None if not set
         """
-        return self._data["Maximum Temperature for Heat Recovery"]
+        return self["Maximum Temperature for Heat Recovery"]
 
     @maximum_temperature_for_heat_recovery.setter
     def maximum_temperature_for_heat_recovery(self, value=80.0):
@@ -1355,7 +1347,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `heat_recovery_water_inlet_node_name` or None if not set
         """
-        return self._data["Heat Recovery Water Inlet Node Name"]
+        return self["Heat Recovery Water Inlet Node Name"]
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
@@ -1379,7 +1371,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `heat_recovery_water_outlet_node_name` or None if not set
         """
-        return self._data["Heat Recovery Water Outlet Node Name"]
+        return self["Heat Recovery Water Outlet Node Name"]
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
@@ -1403,7 +1395,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `design_specification_multispeed_heat_pump_object_type` or None if not set
         """
-        return self._data["Design Specification Multispeed Heat Pump Object Type"]
+        return self["Design Specification Multispeed Heat Pump Object Type"]
 
     @design_specification_multispeed_heat_pump_object_type.setter
     def design_specification_multispeed_heat_pump_object_type(self, value=None):
@@ -1427,7 +1419,7 @@ class AirLoopHvacUnitarySystem(DataObject):
         Returns:
             str: the value of `design_specification_multispeed_heat_pump_object_name` or None if not set
         """
-        return self._data["Design Specification Multispeed Heat Pump Object Name"]
+        return self["Design Specification Multispeed Heat Pump Object Name"]
 
     @design_specification_multispeed_heat_pump_object_name.setter
     def design_specification_multispeed_heat_pump_object_name(self, value=None):
@@ -1453,15 +1445,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'UnitarySystemPerformance:HeatPump:Multispeed', 'pyname': u'UnitarySystemPerformanceHeatPumpMultispeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of speeds for heating', {'name': u'Number of Speeds for Heating', 'pyname': u'number_of_speeds_for_heating', 'maximum': 10, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'number of speeds for cooling', {'name': u'Number of Speeds for Cooling', 'pyname': u'number_of_speeds_for_cooling', 'maximum': 10, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'speed 1 supply air flow ratio during heating operation', {'name': u'Speed 1 Supply Air Flow Ratio During Heating Operation', 'pyname': u'speed_1_supply_air_flow_ratio_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 1 supply air flow ratio during cooling operation', {'name': u'Speed 1 Supply Air Flow Ratio During Cooling Operation', 'pyname': u'speed_1_supply_air_flow_ratio_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `UnitarySystemPerformance:HeatPump:Multispeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1469,7 +1452,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1492,7 +1475,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         Returns:
             int: the value of `number_of_speeds_for_heating` or None if not set
         """
-        return self._data["Number of Speeds for Heating"]
+        return self["Number of Speeds for Heating"]
 
     @number_of_speeds_for_heating.setter
     def number_of_speeds_for_heating(self, value=None):
@@ -1518,7 +1501,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         Returns:
             int: the value of `number_of_speeds_for_cooling` or None if not set
         """
-        return self._data["Number of Speeds for Cooling"]
+        return self["Number of Speeds for Cooling"]
 
     @number_of_speeds_for_cooling.setter
     def number_of_speeds_for_cooling(self, value=None):
@@ -1560,13 +1543,13 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         vals.append(speed_1_supply_air_flow_ratio_during_heating_operation)
         speed_1_supply_air_flow_ratio_during_cooling_operation = self.check_value("Speed 1 Supply Air Flow Ratio During Cooling Operation", speed_1_supply_air_flow_ratio_during_cooling_operation)
         vals.append(speed_1_supply_air_flow_ratio_during_cooling_operation)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
@@ -1575,16 +1558,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:UnitaryHeatOnly.
     """
-    schema = {'min-fields': 13, 'name': u'AirLoopHVAC:Unitary:Furnace:HeatOnly', 'pyname': u'AirLoopHvacUnitaryFurnaceHeatOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'furnace air inlet node name', {'name': u'Furnace Air Inlet Node Name', 'pyname': u'furnace_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'furnace air outlet node name', {'name': u'Furnace Air Outlet Node Name', 'pyname': u'furnace_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:Unitary:Furnace:HeatOnly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 13, 'name': u'AirLoopHVAC:Unitary:Furnace:HeatOnly', 'pyname': u'AirLoopHvacUnitaryFurnaceHeatOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'furnace air inlet node name', {'name': u'Furnace Air Inlet Node Name', 'pyname': u'furnace_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'furnace air outlet node name', {'name': u'Furnace Air Outlet Node Name', 'pyname': u'furnace_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1593,7 +1567,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1616,7 +1590,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1641,7 +1615,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `furnace_air_inlet_node_name` or None if not set
         """
-        return self._data["Furnace Air Inlet Node Name"]
+        return self["Furnace Air Inlet Node Name"]
 
     @furnace_air_inlet_node_name.setter
     def furnace_air_inlet_node_name(self, value=None):
@@ -1664,7 +1638,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `furnace_air_outlet_node_name` or None if not set
         """
-        return self._data["Furnace Air Outlet Node Name"]
+        return self["Furnace Air Outlet Node Name"]
 
     @furnace_air_outlet_node_name.setter
     def furnace_air_outlet_node_name(self, value=None):
@@ -1687,7 +1661,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -1716,7 +1690,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0):
@@ -1741,7 +1715,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate` or None if not set
         """
-        return self._data["Supply Air Flow Rate"]
+        return self["Supply Air Flow Rate"]
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
@@ -1766,7 +1740,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -1789,7 +1763,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
         """
-        return self._data["Supply Fan Object Type"]
+        return self["Supply Fan Object Type"]
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
@@ -1814,7 +1788,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `supply_fan_name` or None if not set
         """
-        return self._data["Supply Fan Name"]
+        return self["Supply Fan Name"]
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
@@ -1837,7 +1811,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -1861,7 +1835,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -1885,7 +1859,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -1909,16 +1883,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:UnitaryHeatCool.
     """
-    schema = {'min-fields': 17, 'name': u'AirLoopHVAC:Unitary:Furnace:HeatCool', 'pyname': u'AirLoopHvacUnitaryFurnaceHeatCool', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'furnace air inlet node name', {'name': u'Furnace Air Inlet Node Name', 'pyname': u'furnace_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'furnace air outlet node name', {'name': u'Furnace Air Outlet Node Name', 'pyname': u'furnace_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:Unitary:Furnace:HeatCool`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 17, 'name': u'AirLoopHVAC:Unitary:Furnace:HeatCool', 'pyname': u'AirLoopHvacUnitaryFurnaceHeatCool', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'furnace air inlet node name', {'name': u'Furnace Air Inlet Node Name', 'pyname': u'furnace_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'furnace air outlet node name', {'name': u'Furnace Air Outlet Node Name', 'pyname': u'furnace_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Multimode', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1927,7 +1892,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1950,7 +1915,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1978,7 +1943,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `furnace_air_inlet_node_name` or None if not set
         """
-        return self._data["Furnace Air Inlet Node Name"]
+        return self["Furnace Air Inlet Node Name"]
 
     @furnace_air_inlet_node_name.setter
     def furnace_air_inlet_node_name(self, value=None):
@@ -2001,7 +1966,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `furnace_air_outlet_node_name` or None if not set
         """
-        return self._data["Furnace Air Outlet Node Name"]
+        return self["Furnace Air Outlet Node Name"]
 
     @furnace_air_outlet_node_name.setter
     def furnace_air_outlet_node_name(self, value=None):
@@ -2024,7 +1989,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -2054,7 +2019,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0):
@@ -2079,7 +2044,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Cooling Operation"]
+        return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -2104,7 +2069,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Heating Operation"]
+        return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -2129,7 +2094,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -2158,7 +2123,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -2181,7 +2146,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
         """
-        return self._data["Supply Fan Object Type"]
+        return self["Supply Fan Object Type"]
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
@@ -2206,7 +2171,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `supply_fan_name` or None if not set
         """
-        return self._data["Supply Fan Name"]
+        return self["Supply Fan Name"]
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
@@ -2229,7 +2194,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -2253,7 +2218,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -2277,7 +2242,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -2300,7 +2265,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -2324,7 +2289,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -2347,7 +2312,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -2383,7 +2348,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -2408,7 +2373,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -2432,16 +2397,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:Unitary:Furnace:HeatOnly.
     """
-    schema = {'min-fields': 13, 'name': u'AirLoopHVAC:UnitaryHeatOnly', 'pyname': u'AirLoopHvacUnitaryHeatOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unitary system air inlet node name', {'name': u'Unitary System Air Inlet Node Name', 'pyname': u'unitary_system_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'unitary system air outlet node name', {'name': u'Unitary System Air Outlet Node Name', 'pyname': u'unitary_system_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatOnly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 13, 'name': u'AirLoopHVAC:UnitaryHeatOnly', 'pyname': u'AirLoopHvacUnitaryHeatOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unitary system air inlet node name', {'name': u'Unitary System Air Inlet Node Name', 'pyname': u'unitary_system_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'unitary system air outlet node name', {'name': u'Unitary System Air Outlet Node Name', 'pyname': u'unitary_system_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2450,7 +2406,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2473,7 +2429,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -2498,7 +2454,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `unitary_system_air_inlet_node_name` or None if not set
         """
-        return self._data["Unitary System Air Inlet Node Name"]
+        return self["Unitary System Air Inlet Node Name"]
 
     @unitary_system_air_inlet_node_name.setter
     def unitary_system_air_inlet_node_name(self, value=None):
@@ -2521,7 +2477,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `unitary_system_air_outlet_node_name` or None if not set
         """
-        return self._data["Unitary System Air Outlet Node Name"]
+        return self["Unitary System Air Outlet Node Name"]
 
     @unitary_system_air_outlet_node_name.setter
     def unitary_system_air_outlet_node_name(self, value=None):
@@ -2544,7 +2500,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -2573,7 +2529,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0):
@@ -2598,7 +2554,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate` or None if not set
         """
-        return self._data["Supply Air Flow Rate"]
+        return self["Supply Air Flow Rate"]
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
@@ -2623,7 +2579,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -2646,7 +2602,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
         """
-        return self._data["Supply Fan Object Type"]
+        return self["Supply Fan Object Type"]
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
@@ -2671,7 +2627,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `supply_fan_name` or None if not set
         """
-        return self._data["Supply Fan Name"]
+        return self["Supply Fan Name"]
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
@@ -2694,7 +2650,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -2718,7 +2674,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -2742,7 +2698,7 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -2766,16 +2722,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:Unitary:Furnace:HeatCool.
     """
-    schema = {'min-fields': 17, 'name': u'AirLoopHVAC:UnitaryHeatCool', 'pyname': u'AirLoopHvacUnitaryHeatCool', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unitary system air inlet node name', {'name': u'Unitary System Air Inlet Node Name', 'pyname': u'unitary_system_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'unitary system air outlet node name', {'name': u'Unitary System Air Outlet Node Name', 'pyname': u'unitary_system_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatCool`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 17, 'name': u'AirLoopHVAC:UnitaryHeatCool', 'pyname': u'AirLoopHvacUnitaryHeatCool', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unitary system air inlet node name', {'name': u'Unitary System Air Inlet Node Name', 'pyname': u'unitary_system_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'unitary system air outlet node name', {'name': u'Unitary System Air Outlet Node Name', 'pyname': u'unitary_system_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 80.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan object type', {'name': u'Supply Fan Object Type', 'pyname': u'supply_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Multimode', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Desuperheater', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2784,7 +2731,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2807,7 +2754,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -2832,7 +2779,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `unitary_system_air_inlet_node_name` or None if not set
         """
-        return self._data["Unitary System Air Inlet Node Name"]
+        return self["Unitary System Air Inlet Node Name"]
 
     @unitary_system_air_inlet_node_name.setter
     def unitary_system_air_inlet_node_name(self, value=None):
@@ -2855,7 +2802,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `unitary_system_air_outlet_node_name` or None if not set
         """
-        return self._data["Unitary System Air Outlet Node Name"]
+        return self["Unitary System Air Outlet Node Name"]
 
     @unitary_system_air_outlet_node_name.setter
     def unitary_system_air_outlet_node_name(self, value=None):
@@ -2878,7 +2825,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -2908,7 +2855,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=80.0):
@@ -2933,7 +2880,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Cooling Operation"]
+        return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -2958,7 +2905,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Heating Operation"]
+        return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -2983,7 +2930,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -3012,7 +2959,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -3035,7 +2982,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `supply_fan_object_type` or None if not set
         """
-        return self._data["Supply Fan Object Type"]
+        return self["Supply Fan Object Type"]
 
     @supply_fan_object_type.setter
     def supply_fan_object_type(self, value=None):
@@ -3060,7 +3007,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `supply_fan_name` or None if not set
         """
-        return self._data["Supply Fan Name"]
+        return self["Supply Fan Name"]
 
     @supply_fan_name.setter
     def supply_fan_name(self, value=None):
@@ -3083,7 +3030,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -3107,7 +3054,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -3131,7 +3078,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -3154,7 +3101,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -3179,7 +3126,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -3202,7 +3149,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -3238,7 +3185,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -3263,7 +3210,7 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -3287,16 +3234,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         expansion (DX) cooling coil, DX heating coil (air-to-air heat pump), and supplemental
         heating coil (gas, electric, hot water, or steam).
     """
-    schema = {'min-fields': 19, 'name': u'AirLoopHVAC:UnitaryHeatPump:AirToAir', 'pyname': u'AirLoopHvacUnitaryHeatPumpAirToAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:AirToAir`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 19, 'name': u'AirLoopHVAC:UnitaryHeatPump:AirToAir', 'pyname': u'AirLoopHvacUnitaryHeatPumpAirToAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:VariableSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Multimode', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3305,7 +3243,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3328,7 +3266,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3356,7 +3294,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -3379,7 +3317,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -3402,7 +3340,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Cooling Operation"]
+        return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -3427,7 +3365,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate During Heating Operation"]
+        return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -3452,7 +3390,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -3481,7 +3419,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -3504,7 +3442,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
         """
-        return self._data["Supply Air Fan Object Type"]
+        return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
@@ -3530,7 +3468,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
         """
-        return self._data["Supply Air Fan Name"]
+        return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
@@ -3554,7 +3492,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -3579,7 +3517,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -3603,7 +3541,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -3629,7 +3567,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -3653,7 +3591,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
         """
-        return self._data["Supplemental Heating Coil Object Type"]
+        return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
@@ -3677,7 +3615,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
         """
-        return self._data["Supplemental Heating Coil Name"]
+        return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
@@ -3701,7 +3639,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature from Supplemental Heater"]
+        return self["Maximum Supply Air Temperature from Supplemental Heater"]
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
@@ -3725,7 +3663,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
@@ -3751,7 +3689,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -3775,7 +3713,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -3804,7 +3742,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -3841,16 +3779,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         coil (water-to-air heat pump), and supplemental heating coil (gas, electric,
         hot water, or steam).
     """
-    schema = {'min-fields': 25, 'name': u'AirLoopHVAC:UnitaryHeatPump:WaterToAir', 'pyname': u'AirLoopHvacUnitaryHeatPumpWaterToAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence', {'name': u'Heating Convergence', 'pyname': u'heating_convergence', 'default': 0.001, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence', {'name': u'Cooling Convergence', 'pyname': u'cooling_convergence', 'default': 0.001, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat pump coil water flow mode', {'name': u'Heat Pump Coil Water Flow Mode', 'pyname': u'heat_pump_coil_water_flow_mode', 'default': u'Cycling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:WaterToAir`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 25, 'name': u'AirLoopHVAC:UnitaryHeatPump:WaterToAir', 'pyname': u'AirLoopHvacUnitaryHeatPumpWaterToAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:WaterToAirHeatPump:ParameterEstimation', u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence', {'name': u'Heating Convergence', 'pyname': u'heating_convergence', 'default': 0.001, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:WaterToAirHeatPump:ParameterEstimation', u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence', {'name': u'Cooling Convergence', 'pyname': u'cooling_convergence', 'default': 0.001, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat pump coil water flow mode', {'name': u'Heat Pump Coil Water Flow Mode', 'pyname': u'heat_pump_coil_water_flow_mode', 'default': u'Cycling', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Cycling', u'ConstantOnDemand'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3859,7 +3788,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3882,7 +3811,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3907,7 +3836,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -3930,7 +3859,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -3953,7 +3882,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate` or None if not set
         """
-        return self._data["Supply Air Flow Rate"]
+        return self["Supply Air Flow Rate"]
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
@@ -3978,7 +3907,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -4001,7 +3930,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
         """
-        return self._data["Supply Air Fan Object Type"]
+        return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
@@ -4025,7 +3954,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
         """
-        return self._data["Supply Air Fan Name"]
+        return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
@@ -4049,7 +3978,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -4072,7 +4001,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -4096,7 +4025,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `heating_convergence` or None if not set
         """
-        return self._data["Heating Convergence"]
+        return self["Heating Convergence"]
 
     @heating_convergence.setter
     def heating_convergence(self, value=0.001):
@@ -4120,7 +4049,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -4143,7 +4072,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -4167,7 +4096,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `cooling_convergence` or None if not set
         """
-        return self._data["Cooling Convergence"]
+        return self["Cooling Convergence"]
 
     @cooling_convergence.setter
     def cooling_convergence(self, value=0.001):
@@ -4191,7 +4120,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
         """
-        return self._data["Maximum Cycling Rate"]
+        return self["Maximum Cycling Rate"]
 
     @maximum_cycling_rate.setter
     def maximum_cycling_rate(self, value=2.5):
@@ -4219,7 +4148,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `heat_pump_time_constant` or None if not set
         """
-        return self._data["Heat Pump Time Constant"]
+        return self["Heat Pump Time Constant"]
 
     @heat_pump_time_constant.setter
     def heat_pump_time_constant(self, value=60.0):
@@ -4247,7 +4176,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `fraction_of_oncycle_power_use` or None if not set
         """
-        return self._data["Fraction of On-Cycle Power Use"]
+        return self["Fraction of On-Cycle Power Use"]
 
     @fraction_of_oncycle_power_use.setter
     def fraction_of_oncycle_power_use(self, value=0.01):
@@ -4275,7 +4204,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `heat_pump_fan_delay_time` or None if not set
         """
-        return self._data["Heat Pump Fan Delay Time"]
+        return self["Heat Pump Fan Delay Time"]
 
     @heat_pump_fan_delay_time.setter
     def heat_pump_fan_delay_time(self, value=60.0):
@@ -4303,7 +4232,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
         """
-        return self._data["Supplemental Heating Coil Object Type"]
+        return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
@@ -4327,7 +4256,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
         """
-        return self._data["Supplemental Heating Coil Name"]
+        return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
@@ -4351,7 +4280,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature from Supplemental Heater"]
+        return self["Maximum Supply Air Temperature from Supplemental Heater"]
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
@@ -4375,7 +4304,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
@@ -4401,7 +4330,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `outdoor_drybulb_temperature_sensor_node_name` or None if not set
         """
-        return self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"]
+        return self["Outdoor Dry-Bulb Temperature Sensor Node Name"]
 
     @outdoor_drybulb_temperature_sensor_node_name.setter
     def outdoor_drybulb_temperature_sensor_node_name(self, value=None):
@@ -4424,7 +4353,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
@@ -4448,7 +4377,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -4475,7 +4404,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -4504,7 +4433,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
         Returns:
             str: the value of `heat_pump_coil_water_flow_mode` or None if not set
         """
-        return self._data["Heat Pump Coil Water Flow Mode"]
+        return self["Heat Pump Coil Water Flow Mode"]
 
     @heat_pump_coil_water_flow_mode.setter
     def heat_pump_coil_water_flow_mode(self, value="Cycling"):
@@ -4534,16 +4463,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         flow to terminal units. Used with AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat
         or AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat.
     """
-    schema = {'min-fields': 23, 'name': u'AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass', 'pyname': u'AirLoopHvacUnitaryHeatCoolVavchangeoverBypass', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system air flow rate during cooling operation', {'name': u'System Air Flow Rate During Cooling Operation', 'pyname': u'system_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'system air flow rate during heating operation', {'name': u'System Air Flow Rate During Heating Operation', 'pyname': u'system_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'system air flow rate when no cooling or heating is needed', {'name': u'System Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'system_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate multiplier schedule name', {'name': u'Outdoor Air Flow Rate Multiplier Schedule Name', 'pyname': u'outdoor_air_flow_rate_multiplier_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'bypass duct mixer node name', {'name': u'Bypass Duct Mixer Node Name', 'pyname': u'bypass_duct_mixer_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'bypass duct splitter node name', {'name': u'Bypass Duct Splitter Node Name', 'pyname': u'bypass_duct_splitter_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'priority control mode', {'name': u'Priority Control Mode', 'pyname': u'priority_control_mode', 'default': u'ZonePriority', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outlet air temperature during cooling operation', {'name': u'Minimum Outlet Air Temperature During Cooling Operation', 'pyname': u'minimum_outlet_air_temperature_during_cooling_operation', 'default': 8.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outlet air temperature during heating operation', {'name': u'Maximum Outlet Air Temperature During Heating Operation', 'pyname': u'maximum_outlet_air_temperature_during_heating_operation', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 23, 'name': u'AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass', 'pyname': u'AirLoopHvacUnitaryHeatCoolVavchangeoverBypass', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system air flow rate during cooling operation', {'name': u'System Air Flow Rate During Cooling Operation', 'pyname': u'system_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'system air flow rate during heating operation', {'name': u'System Air Flow Rate During Heating Operation', 'pyname': u'system_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'system air flow rate when no cooling or heating is needed', {'name': u'System Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'system_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate multiplier schedule name', {'name': u'Outdoor Air Flow Rate Multiplier Schedule Name', 'pyname': u'outdoor_air_flow_rate_multiplier_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'bypass duct mixer node name', {'name': u'Bypass Duct Mixer Node Name', 'pyname': u'bypass_duct_mixer_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'bypass duct splitter node name', {'name': u'Bypass Duct Splitter Node Name', 'pyname': u'bypass_duct_splitter_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'priority control mode', {'name': u'Priority Control Mode', 'pyname': u'priority_control_mode', 'default': u'ZonePriority', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CoolingPriority', u'HeatingPriority', u'ZonePriority'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outlet air temperature during cooling operation', {'name': u'Minimum Outlet Air Temperature During Cooling Operation', 'pyname': u'minimum_outlet_air_temperature_during_cooling_operation', 'default': 8.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outlet air temperature during heating operation', {'name': u'Maximum Outlet Air Temperature During Heating Operation', 'pyname': u'maximum_outlet_air_temperature_during_heating_operation', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Multimode', u'CoolReheat'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4552,7 +4472,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4576,7 +4496,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -4603,7 +4523,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `system_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["System Air Flow Rate During Cooling Operation"]
+        return self["System Air Flow Rate During Cooling Operation"]
 
     @system_air_flow_rate_during_cooling_operation.setter
     def system_air_flow_rate_during_cooling_operation(self, value=None):
@@ -4629,7 +4549,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `system_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["System Air Flow Rate During Heating Operation"]
+        return self["System Air Flow Rate During Heating Operation"]
 
     @system_air_flow_rate_during_heating_operation.setter
     def system_air_flow_rate_during_heating_operation(self, value=None):
@@ -4655,7 +4575,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `system_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["System Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["System Air Flow Rate When No Cooling or Heating is Needed"]
 
     @system_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def system_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -4684,7 +4604,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Outdoor Air Flow Rate During Cooling Operation"]
+        return self["Outdoor Air Flow Rate During Cooling Operation"]
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
@@ -4710,7 +4630,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Outdoor Air Flow Rate During Heating Operation"]
+        return self["Outdoor Air Flow Rate During Heating Operation"]
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
@@ -4736,7 +4656,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -4765,7 +4685,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `outdoor_air_flow_rate_multiplier_schedule_name` or None if not set
         """
-        return self._data["Outdoor Air Flow Rate Multiplier Schedule Name"]
+        return self["Outdoor Air Flow Rate Multiplier Schedule Name"]
 
     @outdoor_air_flow_rate_multiplier_schedule_name.setter
     def outdoor_air_flow_rate_multiplier_schedule_name(self, value=None):
@@ -4791,7 +4711,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -4815,7 +4735,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `bypass_duct_mixer_node_name` or None if not set
         """
-        return self._data["Bypass Duct Mixer Node Name"]
+        return self["Bypass Duct Mixer Node Name"]
 
     @bypass_duct_mixer_node_name.setter
     def bypass_duct_mixer_node_name(self, value=None):
@@ -4841,7 +4761,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `bypass_duct_splitter_node_name` or None if not set
         """
-        return self._data["Bypass Duct Splitter Node Name"]
+        return self["Bypass Duct Splitter Node Name"]
 
     @bypass_duct_splitter_node_name.setter
     def bypass_duct_splitter_node_name(self, value=None):
@@ -4869,7 +4789,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -4893,7 +4813,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
         """
-        return self._data["Outdoor Air Mixer Object Type"]
+        return self["Outdoor Air Mixer Object Type"]
 
     @outdoor_air_mixer_object_type.setter
     def outdoor_air_mixer_object_type(self, value=None):
@@ -4917,7 +4837,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
         """
-        return self._data["Outdoor Air Mixer Name"]
+        return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
@@ -4941,7 +4861,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
         """
-        return self._data["Supply Air Fan Object Type"]
+        return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
@@ -4965,7 +4885,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
         """
-        return self._data["Supply Air Fan Name"]
+        return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
@@ -4989,7 +4909,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `supply_air_fan_placement` or None if not set
         """
-        return self._data["Supply Air Fan Placement"]
+        return self["Supply Air Fan Placement"]
 
     @supply_air_fan_placement.setter
     def supply_air_fan_placement(self, value=None):
@@ -5015,7 +4935,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -5044,7 +4964,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -5068,7 +4988,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -5092,7 +5012,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -5117,7 +5037,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -5141,7 +5061,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `priority_control_mode` or None if not set
         """
-        return self._data["Priority Control Mode"]
+        return self["Priority Control Mode"]
 
     @priority_control_mode.setter
     def priority_control_mode(self, value="ZonePriority"):
@@ -5170,7 +5090,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `minimum_outlet_air_temperature_during_cooling_operation` or None if not set
         """
-        return self._data["Minimum Outlet Air Temperature During Cooling Operation"]
+        return self["Minimum Outlet Air Temperature During Cooling Operation"]
 
     @minimum_outlet_air_temperature_during_cooling_operation.setter
     def minimum_outlet_air_temperature_during_cooling_operation(self, value=8.0):
@@ -5198,7 +5118,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             float: the value of `maximum_outlet_air_temperature_during_heating_operation` or None if not set
         """
-        return self._data["Maximum Outlet Air Temperature During Heating Operation"]
+        return self["Maximum Outlet Air Temperature During Heating Operation"]
 
     @maximum_outlet_air_temperature_during_heating_operation.setter
     def maximum_outlet_air_temperature_during_heating_operation(self, value=50.0):
@@ -5226,7 +5146,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
         """
-        return self._data["Dehumidification Control Type"]
+        return self["Dehumidification Control Type"]
 
     @dehumidification_control_type.setter
     def dehumidification_control_type(self, value="None"):
@@ -5264,16 +5184,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         (DX air-to-air heat pump, gas, electric, hot water, or steam), and supplemental
         heating coil (gas, electric, hot water, or steam).
     """
-    schema = {'min-fields': 31, 'name': u'AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed', 'pyname': u'AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor dry-bulb temperature for compressor operation', {'name': u'Minimum Outdoor Dry-Bulb Temperature for Compressor Operation', 'pyname': u'minimum_outdoor_drybulb_temperature_for_compressor_operation', 'default': -8.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'auxiliary on-cycle electric power', {'name': u'Auxiliary On-Cycle Electric Power', 'pyname': u'auxiliary_oncycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'auxiliary off-cycle electric power', {'name': u'Auxiliary Off-Cycle Electric Power', 'pyname': u'auxiliary_offcycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum temperature for heat recovery', {'name': u'Maximum Temperature for Heat Recovery', 'pyname': u'maximum_temperature_for_heat_recovery', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'number of speeds for heating', {'name': u'Number of Speeds for Heating', 'pyname': u'number_of_speeds_for_heating', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of speeds for cooling', {'name': u'Number of Speeds for Cooling', 'pyname': u'number_of_speeds_for_cooling', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer'}), (u'speed 1 supply air flow rate during heating operation', {'name': u'Speed 1 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_1_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 2 supply air flow rate during heating operation', {'name': u'Speed 2 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_2_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 3 supply air flow rate during heating operation', {'name': u'Speed 3 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_3_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 4 supply air flow rate during heating operation', {'name': u'Speed 4 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_4_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 1 supply air flow rate during cooling operation', {'name': u'Speed 1 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_1_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 2 supply air flow rate during cooling operation', {'name': u'Speed 2 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_2_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 3 supply air flow rate during cooling operation', {'name': u'Speed 3 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_3_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 4 supply air flow rate during cooling operation', {'name': u'Speed 4 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_4_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 31, 'name': u'AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed', 'pyname': u'AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'controlling zone or thermostat location', {'name': u'Controlling Zone or Thermostat Location', 'pyname': u'controlling_zone_or_thermostat_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:MultiSpeed', u'Coil:Heating:Electric:MultiStage', u'Coil:Heating:Gas:MultiStage', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor dry-bulb temperature for compressor operation', {'name': u'Minimum Outdoor Dry-Bulb Temperature for Compressor Operation', 'pyname': u'minimum_outdoor_drybulb_temperature_for_compressor_operation', 'default': -8.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:MultiSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'auxiliary on-cycle electric power', {'name': u'Auxiliary On-Cycle Electric Power', 'pyname': u'auxiliary_oncycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'auxiliary off-cycle electric power', {'name': u'Auxiliary Off-Cycle Electric Power', 'pyname': u'auxiliary_offcycle_electric_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'design heat recovery water flow rate', {'name': u'Design Heat Recovery Water Flow Rate', 'pyname': u'design_heat_recovery_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum temperature for heat recovery', {'name': u'Maximum Temperature for Heat Recovery', 'pyname': u'maximum_temperature_for_heat_recovery', 'default': 80.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'heat recovery water inlet node name', {'name': u'Heat Recovery Water Inlet Node Name', 'pyname': u'heat_recovery_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat recovery water outlet node name', {'name': u'Heat Recovery Water Outlet Node Name', 'pyname': u'heat_recovery_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'number of speeds for heating', {'name': u'Number of Speeds for Heating', 'pyname': u'number_of_speeds_for_heating', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of speeds for cooling', {'name': u'Number of Speeds for Cooling', 'pyname': u'number_of_speeds_for_cooling', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer'}), (u'speed 1 supply air flow rate during heating operation', {'name': u'Speed 1 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_1_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 2 supply air flow rate during heating operation', {'name': u'Speed 2 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_2_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 3 supply air flow rate during heating operation', {'name': u'Speed 3 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_3_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 4 supply air flow rate during heating operation', {'name': u'Speed 4 Supply Air Flow Rate During Heating Operation', 'pyname': u'speed_4_supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 1 supply air flow rate during cooling operation', {'name': u'Speed 1 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_1_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 2 supply air flow rate during cooling operation', {'name': u'Speed 2 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_2_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 3 supply air flow rate during cooling operation', {'name': u'Speed 3 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_3_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'speed 4 supply air flow rate during cooling operation', {'name': u'Speed 4 Supply Air Flow Rate During Cooling Operation', 'pyname': u'speed_4_supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -5282,7 +5193,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5305,7 +5216,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -5330,7 +5241,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -5353,7 +5264,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -5376,7 +5287,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `controlling_zone_or_thermostat_location` or None if not set
         """
-        return self._data["Controlling Zone or Thermostat Location"]
+        return self["Controlling Zone or Thermostat Location"]
 
     @controlling_zone_or_thermostat_location.setter
     def controlling_zone_or_thermostat_location(self, value=None):
@@ -5399,7 +5310,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
         """
-        return self._data["Supply Air Fan Object Type"]
+        return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
@@ -5423,7 +5334,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
         """
-        return self._data["Supply Air Fan Name"]
+        return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
@@ -5447,7 +5358,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supply_air_fan_placement` or None if not set
         """
-        return self._data["Supply Air Fan Placement"]
+        return self["Supply Air Fan Placement"]
 
     @supply_air_fan_placement.setter
     def supply_air_fan_placement(self, value=None):
@@ -5474,7 +5385,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
         """
-        return self._data["Supply Air Fan Operating Mode Schedule Name"]
+        return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
@@ -5503,7 +5414,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -5527,7 +5438,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -5550,7 +5461,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `minimum_outdoor_drybulb_temperature_for_compressor_operation` or None if not set
         """
-        return self._data["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"]
+        return self["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"]
 
     @minimum_outdoor_drybulb_temperature_for_compressor_operation.setter
     def minimum_outdoor_drybulb_temperature_for_compressor_operation(self, value=-8.0):
@@ -5577,7 +5488,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -5601,7 +5512,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -5625,7 +5536,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
         """
-        return self._data["Supplemental Heating Coil Object Type"]
+        return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
@@ -5649,7 +5560,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
         """
-        return self._data["Supplemental Heating Coil Name"]
+        return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
@@ -5673,7 +5584,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature from Supplemental Heater"]
+        return self["Maximum Supply Air Temperature from Supplemental Heater"]
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
     def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
@@ -5697,7 +5608,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
         """
-        return self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
     def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
@@ -5723,7 +5634,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `auxiliary_oncycle_electric_power` or None if not set
         """
-        return self._data["Auxiliary On-Cycle Electric Power"]
+        return self["Auxiliary On-Cycle Electric Power"]
 
     @auxiliary_oncycle_electric_power.setter
     def auxiliary_oncycle_electric_power(self, value=None):
@@ -5747,7 +5658,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `auxiliary_offcycle_electric_power` or None if not set
         """
-        return self._data["Auxiliary Off-Cycle Electric Power"]
+        return self["Auxiliary Off-Cycle Electric Power"]
 
     @auxiliary_offcycle_electric_power.setter
     def auxiliary_offcycle_electric_power(self, value=None):
@@ -5771,7 +5682,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `design_heat_recovery_water_flow_rate` or None if not set
         """
-        return self._data["Design Heat Recovery Water Flow Rate"]
+        return self["Design Heat Recovery Water Flow Rate"]
 
     @design_heat_recovery_water_flow_rate.setter
     def design_heat_recovery_water_flow_rate(self, value=None):
@@ -5797,7 +5708,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `maximum_temperature_for_heat_recovery` or None if not set
         """
-        return self._data["Maximum Temperature for Heat Recovery"]
+        return self["Maximum Temperature for Heat Recovery"]
 
     @maximum_temperature_for_heat_recovery.setter
     def maximum_temperature_for_heat_recovery(self, value=80.0):
@@ -5823,7 +5734,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `heat_recovery_water_inlet_node_name` or None if not set
         """
-        return self._data["Heat Recovery Water Inlet Node Name"]
+        return self["Heat Recovery Water Inlet Node Name"]
 
     @heat_recovery_water_inlet_node_name.setter
     def heat_recovery_water_inlet_node_name(self, value=None):
@@ -5846,7 +5757,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             str: the value of `heat_recovery_water_outlet_node_name` or None if not set
         """
-        return self._data["Heat Recovery Water Outlet Node Name"]
+        return self["Heat Recovery Water Outlet Node Name"]
 
     @heat_recovery_water_outlet_node_name.setter
     def heat_recovery_water_outlet_node_name(self, value=None):
@@ -5869,7 +5780,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
@@ -5898,7 +5809,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             int: the value of `number_of_speeds_for_heating` or None if not set
         """
-        return self._data["Number of Speeds for Heating"]
+        return self["Number of Speeds for Heating"]
 
     @number_of_speeds_for_heating.setter
     def number_of_speeds_for_heating(self, value=None):
@@ -5926,7 +5837,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             int: the value of `number_of_speeds_for_cooling` or None if not set
         """
-        return self._data["Number of Speeds for Cooling"]
+        return self["Number of Speeds for Cooling"]
 
     @number_of_speeds_for_cooling.setter
     def number_of_speeds_for_cooling(self, value=None):
@@ -5952,7 +5863,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_1_supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Speed 1 Supply Air Flow Rate During Heating Operation"]
+        return self["Speed 1 Supply Air Flow Rate During Heating Operation"]
 
     @speed_1_supply_air_flow_rate_during_heating_operation.setter
     def speed_1_supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -5978,7 +5889,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_2_supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Speed 2 Supply Air Flow Rate During Heating Operation"]
+        return self["Speed 2 Supply Air Flow Rate During Heating Operation"]
 
     @speed_2_supply_air_flow_rate_during_heating_operation.setter
     def speed_2_supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -6004,7 +5915,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_3_supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Speed 3 Supply Air Flow Rate During Heating Operation"]
+        return self["Speed 3 Supply Air Flow Rate During Heating Operation"]
 
     @speed_3_supply_air_flow_rate_during_heating_operation.setter
     def speed_3_supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -6030,7 +5941,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_4_supply_air_flow_rate_during_heating_operation` or None if not set
         """
-        return self._data["Speed 4 Supply Air Flow Rate During Heating Operation"]
+        return self["Speed 4 Supply Air Flow Rate During Heating Operation"]
 
     @speed_4_supply_air_flow_rate_during_heating_operation.setter
     def speed_4_supply_air_flow_rate_during_heating_operation(self, value=None):
@@ -6056,7 +5967,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_1_supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Speed 1 Supply Air Flow Rate During Cooling Operation"]
+        return self["Speed 1 Supply Air Flow Rate During Cooling Operation"]
 
     @speed_1_supply_air_flow_rate_during_cooling_operation.setter
     def speed_1_supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -6082,7 +5993,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_2_supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"]
+        return self["Speed 2 Supply Air Flow Rate During Cooling Operation"]
 
     @speed_2_supply_air_flow_rate_during_cooling_operation.setter
     def speed_2_supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -6108,7 +6019,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_3_supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"]
+        return self["Speed 3 Supply Air Flow Rate During Cooling Operation"]
 
     @speed_3_supply_air_flow_rate_during_cooling_operation.setter
     def speed_3_supply_air_flow_rate_during_cooling_operation(self, value=None):
@@ -6134,7 +6045,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
         Returns:
             float: the value of `speed_4_supply_air_flow_rate_during_cooling_operation` or None if not set
         """
-        return self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"]
+        return self["Speed 4 Supply Air Flow Rate During Cooling Operation"]
 
     @speed_4_supply_air_flow_rate_during_cooling_operation.setter
     def speed_4_supply_air_flow_rate_during_cooling_operation(self, value=None):

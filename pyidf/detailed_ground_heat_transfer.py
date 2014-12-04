@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -13,16 +14,7 @@ class GroundHeatTransferControl(DataObject):
         Object determines if the Slab and Basement preprocessors
         are going to be executed.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Control', 'pyname': u'GroundHeatTransferControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run basement preprocessor', {'name': u'Run Basement Preprocessor', 'pyname': u'run_basement_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run slab preprocessor', {'name': u'Run Slab Preprocessor', 'pyname': u'run_slab_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Control`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Control', 'pyname': u'GroundHeatTransferControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'run basement preprocessor', {'name': u'Run Basement Preprocessor', 'pyname': u'run_basement_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'run slab preprocessor', {'name': u'Run Slab Preprocessor', 'pyname': u'run_slab_preprocessor', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -31,7 +23,7 @@ class GroundHeatTransferControl(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -55,7 +47,7 @@ class GroundHeatTransferControl(DataObject):
         Returns:
             str: the value of `run_basement_preprocessor` or None if not set
         """
-        return self._data["Run Basement Preprocessor"]
+        return self["Run Basement Preprocessor"]
 
     @run_basement_preprocessor.setter
     def run_basement_preprocessor(self, value="No"):
@@ -79,7 +71,7 @@ class GroundHeatTransferControl(DataObject):
         Returns:
             str: the value of `run_slab_preprocessor` or None if not set
         """
-        return self._data["Run Slab Preprocessor"]
+        return self["Run Slab Preprocessor"]
 
     @run_slab_preprocessor.setter
     def run_slab_preprocessor(self, value="No"):
@@ -103,15 +95,6 @@ class GroundHeatTransferSlabMaterials(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Materials', 'pyname': u'GroundHeatTransferSlabMaterials', 'format': None, 'fields': OrderedDict([(u'nmat: number of materials', {'name': u'NMAT: Number of materials', 'pyname': u'nmat_number_of_materials', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo: no snow', {'name': u'ALBEDO: Surface Albedo: No Snow', 'pyname': u'albedo_surface_albedo_no_snow', 'default': 0.16, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo: snow', {'name': u'ALBEDO: Surface Albedo: Snow', 'pyname': u'albedo_surface_albedo_snow', 'default': 0.4, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epslw: surface emissivity: no snow', {'name': u'EPSLW: Surface Emissivity: No Snow', 'pyname': u'epslw_surface_emissivity_no_snow', 'default': 0.94, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'epslw: surface emissivity: snow', {'name': u'EPSLW: Surface Emissivity: Snow', 'pyname': u'epslw_surface_emissivity_snow', 'default': 0.86, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'z0: surface roughness: no snow', {'name': u'Z0: Surface Roughness: No Snow', 'pyname': u'z0_surface_roughness_no_snow', 'default': 0.75, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'z0: surface roughness: snow', {'name': u'Z0: Surface Roughness: Snow', 'pyname': u'z0_surface_roughness_snow', 'default': 0.25, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'hin: indoor hconv: downward flow', {'name': u'HIN: Indoor HConv: Downward Flow', 'pyname': u'hin_indoor_hconv_downward_flow', 'default': 6.13, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: indoor hconv: upward', {'name': u'HIN: Indoor HConv: Upward', 'pyname': u'hin_indoor_hconv_upward', 'default': 9.26, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Materials`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def nmat_number_of_materials(self):
         """Get nmat_number_of_materials
@@ -119,7 +102,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `nmat_number_of_materials` or None if not set
         """
-        return self._data["NMAT: Number of materials"]
+        return self["NMAT: Number of materials"]
 
     @nmat_number_of_materials.setter
     def nmat_number_of_materials(self, value=None):
@@ -144,7 +127,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `albedo_surface_albedo_no_snow` or None if not set
         """
-        return self._data["ALBEDO: Surface Albedo: No Snow"]
+        return self["ALBEDO: Surface Albedo: No Snow"]
 
     @albedo_surface_albedo_no_snow.setter
     def albedo_surface_albedo_no_snow(self, value=0.16):
@@ -173,7 +156,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `albedo_surface_albedo_snow` or None if not set
         """
-        return self._data["ALBEDO: Surface Albedo: Snow"]
+        return self["ALBEDO: Surface Albedo: Snow"]
 
     @albedo_surface_albedo_snow.setter
     def albedo_surface_albedo_snow(self, value=0.4):
@@ -198,7 +181,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `epslw_surface_emissivity_no_snow` or None if not set
         """
-        return self._data["EPSLW: Surface Emissivity: No Snow"]
+        return self["EPSLW: Surface Emissivity: No Snow"]
 
     @epslw_surface_emissivity_no_snow.setter
     def epslw_surface_emissivity_no_snow(self, value=0.94):
@@ -225,7 +208,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `epslw_surface_emissivity_snow` or None if not set
         """
-        return self._data["EPSLW: Surface Emissivity: Snow"]
+        return self["EPSLW: Surface Emissivity: Snow"]
 
     @epslw_surface_emissivity_snow.setter
     def epslw_surface_emissivity_snow(self, value=0.86):
@@ -249,7 +232,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `z0_surface_roughness_no_snow` or None if not set
         """
-        return self._data["Z0: Surface Roughness: No Snow"]
+        return self["Z0: Surface Roughness: No Snow"]
 
     @z0_surface_roughness_no_snow.setter
     def z0_surface_roughness_no_snow(self, value=0.75):
@@ -276,7 +259,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `z0_surface_roughness_snow` or None if not set
         """
-        return self._data["Z0: Surface Roughness: Snow"]
+        return self["Z0: Surface Roughness: Snow"]
 
     @z0_surface_roughness_snow.setter
     def z0_surface_roughness_snow(self, value=0.25):
@@ -302,7 +285,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `hin_indoor_hconv_downward_flow` or None if not set
         """
-        return self._data["HIN: Indoor HConv: Downward Flow"]
+        return self["HIN: Indoor HConv: Downward Flow"]
 
     @hin_indoor_hconv_downward_flow.setter
     def hin_indoor_hconv_downward_flow(self, value=6.13):
@@ -333,7 +316,7 @@ class GroundHeatTransferSlabMaterials(DataObject):
         Returns:
             float: the value of `hin_indoor_hconv_upward` or None if not set
         """
-        return self._data["HIN: Indoor HConv: Upward"]
+        return self["HIN: Indoor HConv: Upward"]
 
     @hin_indoor_hconv_upward.setter
     def hin_indoor_hconv_upward(self, value=9.26):
@@ -360,15 +343,6 @@ class GroundHeatTransferSlabMatlProps(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:MatlProps', 'pyname': u'GroundHeatTransferSlabMatlProps', 'format': None, 'fields': OrderedDict([(u'rho: slab material density', {'name': u'RHO: Slab Material density', 'pyname': u'rho_slab_material_density', 'default': 2300.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'rho: soil density', {'name': u'RHO: Soil Density', 'pyname': u'rho_soil_density', 'default': 1200.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'cp: slab cp', {'name': u'CP: Slab CP', 'pyname': u'cp_slab_cp', 'default': 650.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'cp: soil cp', {'name': u'CP: Soil CP', 'pyname': u'cp_soil_cp', 'default': 1200.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'tcon: slab k', {'name': u'TCON: Slab k', 'pyname': u'tcon_slab_k', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'tcon: soil k', {'name': u'TCON: Soil k', 'pyname': u'tcon_soil_k', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:MatlProps`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def rho_slab_material_density(self):
         """Get rho_slab_material_density
@@ -376,7 +350,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `rho_slab_material_density` or None if not set
         """
-        return self._data["RHO: Slab Material density"]
+        return self["RHO: Slab Material density"]
 
     @rho_slab_material_density.setter
     def rho_slab_material_density(self, value=2300.0):
@@ -403,7 +377,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `rho_soil_density` or None if not set
         """
-        return self._data["RHO: Soil Density"]
+        return self["RHO: Soil Density"]
 
     @rho_soil_density.setter
     def rho_soil_density(self, value=1200.0):
@@ -430,7 +404,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `cp_slab_cp` or None if not set
         """
-        return self._data["CP: Slab CP"]
+        return self["CP: Slab CP"]
 
     @cp_slab_cp.setter
     def cp_slab_cp(self, value=650.0):
@@ -457,7 +431,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `cp_soil_cp` or None if not set
         """
-        return self._data["CP: Soil CP"]
+        return self["CP: Soil CP"]
 
     @cp_soil_cp.setter
     def cp_soil_cp(self, value=1200.0):
@@ -484,7 +458,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `tcon_slab_k` or None if not set
         """
-        return self._data["TCON: Slab k"]
+        return self["TCON: Slab k"]
 
     @tcon_slab_k.setter
     def tcon_slab_k(self, value=0.9):
@@ -511,7 +485,7 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         Returns:
             float: the value of `tcon_soil_k` or None if not set
         """
-        return self._data["TCON: Soil k"]
+        return self["TCON: Soil k"]
 
     @tcon_soil_k.setter
     def tcon_soil_k(self, value=1.0):
@@ -536,16 +510,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BoundConds`
         Supplies some of the boundary conditions used in the ground heat transfer calculations.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:BoundConds', 'pyname': u'GroundHeatTransferSlabBoundConds', 'format': None, 'fields': OrderedDict([(u'evtr: is surface evapotranspiration modeled', {'name': u'EVTR: Is surface evapotranspiration modeled', 'pyname': u'evtr_is_surface_evapotranspiration_modeled', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fixbc: is the lower boundary at a fixed temperature', {'name': u'FIXBC: is the lower boundary at a fixed temperature', 'pyname': u'fixbc_is_the_lower_boundary_at_a_fixed_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tdeepin', {'name': u'TDEEPin', 'pyname': u'tdeepin', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'usrhflag: is the ground surface h specified by the user?', {'name': u'USRHflag: Is the ground surface h specified by the user?', 'pyname': u'usrhflag_is_the_ground_surface_h_specified_by_the_user', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'userh: user specified ground surface heat transfer coefficient', {'name': u'USERH: User specified ground surface heat transfer coefficient', 'pyname': u'userh_user_specified_ground_surface_heat_transfer_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BoundConds`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:BoundConds', 'pyname': u'GroundHeatTransferSlabBoundConds', 'format': None, 'fields': OrderedDict([(u'evtr: is surface evapotranspiration modeled', {'name': u'EVTR: Is surface evapotranspiration modeled', 'pyname': u'evtr_is_surface_evapotranspiration_modeled', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'}), (u'fixbc: is the lower boundary at a fixed temperature', {'name': u'FIXBC: is the lower boundary at a fixed temperature', 'pyname': u'fixbc_is_the_lower_boundary_at_a_fixed_temperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'}), (u'tdeepin', {'name': u'TDEEPin', 'pyname': u'tdeepin', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'usrhflag: is the ground surface h specified by the user?', {'name': u'USRHflag: Is the ground surface h specified by the user?', 'pyname': u'usrhflag_is_the_ground_surface_h_specified_by_the_user', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'}), (u'userh: user specified ground surface heat transfer coefficient', {'name': u'USERH: User specified ground surface heat transfer coefficient', 'pyname': u'userh_user_specified_ground_surface_heat_transfer_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def evtr_is_surface_evapotranspiration_modeled(self):
@@ -554,7 +519,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
         Returns:
             str: the value of `evtr_is_surface_evapotranspiration_modeled` or None if not set
         """
-        return self._data["EVTR: Is surface evapotranspiration modeled"]
+        return self["EVTR: Is surface evapotranspiration modeled"]
 
     @evtr_is_surface_evapotranspiration_modeled.setter
     def evtr_is_surface_evapotranspiration_modeled(self, value=None):
@@ -582,7 +547,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
         Returns:
             str: the value of `fixbc_is_the_lower_boundary_at_a_fixed_temperature` or None if not set
         """
-        return self._data["FIXBC: is the lower boundary at a fixed temperature"]
+        return self["FIXBC: is the lower boundary at a fixed temperature"]
 
     @fixbc_is_the_lower_boundary_at_a_fixed_temperature.setter
     def fixbc_is_the_lower_boundary_at_a_fixed_temperature(self, value=None):
@@ -609,7 +574,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
         Returns:
             float: the value of `tdeepin` or None if not set
         """
-        return self._data["TDEEPin"]
+        return self["TDEEPin"]
 
     @tdeepin.setter
     def tdeepin(self, value=None):
@@ -635,7 +600,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
         Returns:
             str: the value of `usrhflag_is_the_ground_surface_h_specified_by_the_user` or None if not set
         """
-        return self._data["USRHflag: Is the ground surface h specified by the user?"]
+        return self["USRHflag: Is the ground surface h specified by the user?"]
 
     @usrhflag_is_the_ground_surface_h_specified_by_the_user.setter
     def usrhflag_is_the_ground_surface_h_specified_by_the_user(self, value=None):
@@ -662,7 +627,7 @@ class GroundHeatTransferSlabBoundConds(DataObject):
         Returns:
             float: the value of `userh_user_specified_ground_surface_heat_transfer_coefficient` or None if not set
         """
-        return self._data["USERH: User specified ground surface heat transfer coefficient"]
+        return self["USERH: User specified ground surface heat transfer coefficient"]
 
     @userh_user_specified_ground_surface_heat_transfer_coefficient.setter
     def userh_user_specified_ground_surface_heat_transfer_coefficient(self, value=None):
@@ -696,15 +661,6 @@ class GroundHeatTransferSlabBldgProps(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:BldgProps', 'pyname': u'GroundHeatTransferSlabBldgProps', 'format': None, 'fields': OrderedDict([(u'iyrs: number of years to iterate', {'name': u'IYRS: Number of years to iterate', 'pyname': u'iyrs_number_of_years_to_iterate', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'shape: slab shape', {'name': u'Shape: Slab shape', 'pyname': u'shape_slab_shape', 'maximum': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'hbldg: building height', {'name': u'HBLDG: Building height', 'pyname': u'hbldg_building_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'tin1: january indoor average temperature setpoint', {'name': u'TIN1: January Indoor Average Temperature Setpoint', 'pyname': u'tin1_january_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin2: february indoor average temperature setpoint', {'name': u'TIN2: February Indoor Average Temperature Setpoint', 'pyname': u'tin2_february_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin3: march indoor average temperature setpoint', {'name': u'TIN3: March Indoor Average Temperature Setpoint', 'pyname': u'tin3_march_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin4: april indoor average temperature setpoint', {'name': u'TIN4: April Indoor Average Temperature Setpoint', 'pyname': u'tin4_april_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin5: may indoor average temperature setpoint', {'name': u'TIN5: May Indoor Average Temperature Setpoint', 'pyname': u'tin5_may_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin6: june indoor average temperature setpoint', {'name': u'TIN6: June Indoor Average Temperature Setpoint', 'pyname': u'tin6_june_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin7: july indoor average temperature setpoint', {'name': u'TIN7: July Indoor Average Temperature Setpoint', 'pyname': u'tin7_july_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin8: august indoor average temperature setpoint', {'name': u'TIN8: August Indoor Average Temperature Setpoint', 'pyname': u'tin8_august_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin9: september indoor average temperature setpoint', {'name': u'TIN9: September Indoor Average Temperature Setpoint', 'pyname': u'tin9_september_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin10: october indoor average temperature setpoint', {'name': u'TIN10: October Indoor Average Temperature Setpoint', 'pyname': u'tin10_october_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin11: november indoor average temperature setpoint', {'name': u'TIN11: November Indoor Average Temperature Setpoint', 'pyname': u'tin11_november_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tin12: december indoor average temperature setpoint', {'name': u'TIN12: December Indoor Average Temperature Setpoint', 'pyname': u'tin12_december_indoor_average_temperature_setpoint', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'tinamp: daily indoor sine wave variation amplitude', {'name': u'TINAmp: Daily Indoor sine wave variation amplitude', 'pyname': u'tinamp_daily_indoor_sine_wave_variation_amplitude', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'convtol: convergence tolerance', {'name': u'ConvTol: Convergence Tolerance', 'pyname': u'convtol_convergence_tolerance', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BldgProps`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def iyrs_number_of_years_to_iterate(self):
         """Get iyrs_number_of_years_to_iterate
@@ -712,7 +668,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `iyrs_number_of_years_to_iterate` or None if not set
         """
-        return self._data["IYRS: Number of years to iterate"]
+        return self["IYRS: Number of years to iterate"]
 
     @iyrs_number_of_years_to_iterate.setter
     def iyrs_number_of_years_to_iterate(self, value=10.0):
@@ -742,7 +698,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `shape_slab_shape` or None if not set
         """
-        return self._data["Shape: Slab shape"]
+        return self["Shape: Slab shape"]
 
     @shape_slab_shape.setter
     def shape_slab_shape(self, value=None):
@@ -766,7 +722,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `hbldg_building_height` or None if not set
         """
-        return self._data["HBLDG: Building height"]
+        return self["HBLDG: Building height"]
 
     @hbldg_building_height.setter
     def hbldg_building_height(self, value=None):
@@ -793,7 +749,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin1_january_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN1: January Indoor Average Temperature Setpoint"]
+        return self["TIN1: January Indoor Average Temperature Setpoint"]
 
     @tin1_january_indoor_average_temperature_setpoint.setter
     def tin1_january_indoor_average_temperature_setpoint(self, value=22.0):
@@ -819,7 +775,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin2_february_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN2: February Indoor Average Temperature Setpoint"]
+        return self["TIN2: February Indoor Average Temperature Setpoint"]
 
     @tin2_february_indoor_average_temperature_setpoint.setter
     def tin2_february_indoor_average_temperature_setpoint(self, value=22.0):
@@ -845,7 +801,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin3_march_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN3: March Indoor Average Temperature Setpoint"]
+        return self["TIN3: March Indoor Average Temperature Setpoint"]
 
     @tin3_march_indoor_average_temperature_setpoint.setter
     def tin3_march_indoor_average_temperature_setpoint(self, value=22.0):
@@ -871,7 +827,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin4_april_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN4: April Indoor Average Temperature Setpoint"]
+        return self["TIN4: April Indoor Average Temperature Setpoint"]
 
     @tin4_april_indoor_average_temperature_setpoint.setter
     def tin4_april_indoor_average_temperature_setpoint(self, value=22.0):
@@ -897,7 +853,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin5_may_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN5: May Indoor Average Temperature Setpoint"]
+        return self["TIN5: May Indoor Average Temperature Setpoint"]
 
     @tin5_may_indoor_average_temperature_setpoint.setter
     def tin5_may_indoor_average_temperature_setpoint(self, value=22.0):
@@ -923,7 +879,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin6_june_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN6: June Indoor Average Temperature Setpoint"]
+        return self["TIN6: June Indoor Average Temperature Setpoint"]
 
     @tin6_june_indoor_average_temperature_setpoint.setter
     def tin6_june_indoor_average_temperature_setpoint(self, value=22.0):
@@ -949,7 +905,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin7_july_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN7: July Indoor Average Temperature Setpoint"]
+        return self["TIN7: July Indoor Average Temperature Setpoint"]
 
     @tin7_july_indoor_average_temperature_setpoint.setter
     def tin7_july_indoor_average_temperature_setpoint(self, value=22.0):
@@ -975,7 +931,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin8_august_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN8: August Indoor Average Temperature Setpoint"]
+        return self["TIN8: August Indoor Average Temperature Setpoint"]
 
     @tin8_august_indoor_average_temperature_setpoint.setter
     def tin8_august_indoor_average_temperature_setpoint(self, value=22.0):
@@ -1001,7 +957,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin9_september_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN9: September Indoor Average Temperature Setpoint"]
+        return self["TIN9: September Indoor Average Temperature Setpoint"]
 
     @tin9_september_indoor_average_temperature_setpoint.setter
     def tin9_september_indoor_average_temperature_setpoint(self, value=22.0):
@@ -1027,7 +983,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin10_october_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN10: October Indoor Average Temperature Setpoint"]
+        return self["TIN10: October Indoor Average Temperature Setpoint"]
 
     @tin10_october_indoor_average_temperature_setpoint.setter
     def tin10_october_indoor_average_temperature_setpoint(self, value=22.0):
@@ -1053,7 +1009,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin11_november_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN11: November Indoor Average Temperature Setpoint"]
+        return self["TIN11: November Indoor Average Temperature Setpoint"]
 
     @tin11_november_indoor_average_temperature_setpoint.setter
     def tin11_november_indoor_average_temperature_setpoint(self, value=22.0):
@@ -1079,7 +1035,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tin12_december_indoor_average_temperature_setpoint` or None if not set
         """
-        return self._data["TIN12: December Indoor Average Temperature Setpoint"]
+        return self["TIN12: December Indoor Average Temperature Setpoint"]
 
     @tin12_december_indoor_average_temperature_setpoint.setter
     def tin12_december_indoor_average_temperature_setpoint(self, value=22.0):
@@ -1105,7 +1061,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `tinamp_daily_indoor_sine_wave_variation_amplitude` or None if not set
         """
-        return self._data["TINAmp: Daily Indoor sine wave variation amplitude"]
+        return self["TINAmp: Daily Indoor sine wave variation amplitude"]
 
     @tinamp_daily_indoor_sine_wave_variation_amplitude.setter
     def tinamp_daily_indoor_sine_wave_variation_amplitude(self, value=None):
@@ -1133,7 +1089,7 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         Returns:
             float: the value of `convtol_convergence_tolerance` or None if not set
         """
-        return self._data["ConvTol: Convergence Tolerance"]
+        return self["ConvTol: Convergence Tolerance"]
 
     @convtol_convergence_tolerance.setter
     def convtol_convergence_tolerance(self, value=0.1):
@@ -1160,16 +1116,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         There are two possible configurations: under the slab or vertical insulation
         around the slab.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Insulation', 'pyname': u'GroundHeatTransferSlabInsulation', 'format': None, 'fields': OrderedDict([(u'rins: r value of under slab insulation', {'name': u'RINS: R value of under slab insulation', 'pyname': u'rins_r_value_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'dins: width of strip of under slab insulation', {'name': u'DINS: Width of strip of under slab insulation', 'pyname': u'dins_width_of_strip_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'rvins: r value of vertical insulation', {'name': u'RVINS: R value of vertical insulation', 'pyname': u'rvins_r_value_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'zvins: depth of vertical insulation', {'name': u'ZVINS: Depth of vertical insulation', 'pyname': u'zvins_depth_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'ivins: flag: is there vertical insulation', {'name': u'IVINS: Flag: Is there vertical insulation', 'pyname': u'ivins_flag_is_there_vertical_insulation', 'default': u'0', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'int'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Insulation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Insulation', 'pyname': u'GroundHeatTransferSlabInsulation', 'format': None, 'fields': OrderedDict([(u'rins: r value of under slab insulation', {'name': u'RINS: R value of under slab insulation', 'pyname': u'rins_r_value_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'dins: width of strip of under slab insulation', {'name': u'DINS: Width of strip of under slab insulation', 'pyname': u'dins_width_of_strip_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'rvins: r value of vertical insulation', {'name': u'RVINS: R value of vertical insulation', 'pyname': u'rvins_r_value_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'zvins: depth of vertical insulation', {'name': u'ZVINS: Depth of vertical insulation', 'pyname': u'zvins_depth_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'ivins: flag: is there vertical insulation', {'name': u'IVINS: Flag: Is there vertical insulation', 'pyname': u'ivins_flag_is_there_vertical_insulation', 'default': u'0', 'required-field': True, 'autosizable': False, 'accepted-values': [u'0', u'1'], 'autocalculatable': False, 'type': 'int'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def rins_r_value_of_under_slab_insulation(self):
@@ -1178,7 +1125,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         Returns:
             float: the value of `rins_r_value_of_under_slab_insulation` or None if not set
         """
-        return self._data["RINS: R value of under slab insulation"]
+        return self["RINS: R value of under slab insulation"]
 
     @rins_r_value_of_under_slab_insulation.setter
     def rins_r_value_of_under_slab_insulation(self, value=None):
@@ -1206,7 +1153,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         Returns:
             float: the value of `dins_width_of_strip_of_under_slab_insulation` or None if not set
         """
-        return self._data["DINS: Width of strip of under slab insulation"]
+        return self["DINS: Width of strip of under slab insulation"]
 
     @dins_width_of_strip_of_under_slab_insulation.setter
     def dins_width_of_strip_of_under_slab_insulation(self, value=None):
@@ -1234,7 +1181,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         Returns:
             float: the value of `rvins_r_value_of_vertical_insulation` or None if not set
         """
-        return self._data["RVINS: R value of vertical insulation"]
+        return self["RVINS: R value of vertical insulation"]
 
     @rvins_r_value_of_vertical_insulation.setter
     def rvins_r_value_of_vertical_insulation(self, value=None):
@@ -1262,7 +1209,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         Returns:
             float: the value of `zvins_depth_of_vertical_insulation` or None if not set
         """
-        return self._data["ZVINS: Depth of vertical insulation"]
+        return self["ZVINS: Depth of vertical insulation"]
 
     @zvins_depth_of_vertical_insulation.setter
     def zvins_depth_of_vertical_insulation(self, value=None):
@@ -1292,7 +1239,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         Returns:
             str: the value of `ivins_flag_is_there_vertical_insulation` or None if not set
         """
-        return self._data["IVINS: Flag: Is there vertical insulation"]
+        return self["IVINS: Flag: Is there vertical insulation"]
 
     @ivins_flag_is_there_vertical_insulation.setter
     def ivins_flag_is_there_vertical_insulation(self, value="0"):
@@ -1321,15 +1268,6 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:EquivalentSlab', 'pyname': u'GroundHeatTransferSlabEquivalentSlab', 'format': None, 'fields': OrderedDict([(u'apratio: the area to perimeter ratio for this slab', {'name': u'APRatio: The area to perimeter ratio for this slab', 'pyname': u'apratio_the_area_to_perimeter_ratio_for_this_slab', 'maximum': 22.0, 'required-field': True, 'autosizable': False, 'minimum': 1.5, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of slab on grade', {'name': u'SLABDEPTH: Thickness of slab on grade', 'pyname': u'slabdepth_thickness_of_slab_on_grade', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'clearance: distance from edge of slab to domain edge', {'name': u'CLEARANCE: Distance from edge of slab to domain edge', 'pyname': u'clearance_distance_from_edge_of_slab_to_domain_edge', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'zclearance: distance from bottom of slab to domain bottom', {'name': u'ZCLEARANCE: Distance from bottom of slab to domain bottom', 'pyname': u'zclearance_distance_from_bottom_of_slab_to_domain_bottom', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:EquivalentSlab`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
         """Get apratio_the_area_to_perimeter_ratio_for_this_slab
@@ -1337,7 +1275,7 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
         Returns:
             float: the value of `apratio_the_area_to_perimeter_ratio_for_this_slab` or None if not set
         """
-        return self._data["APRatio: The area to perimeter ratio for this slab"]
+        return self["APRatio: The area to perimeter ratio for this slab"]
 
     @apratio_the_area_to_perimeter_ratio_for_this_slab.setter
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self, value=None):
@@ -1364,7 +1302,7 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
         Returns:
             float: the value of `slabdepth_thickness_of_slab_on_grade` or None if not set
         """
-        return self._data["SLABDEPTH: Thickness of slab on grade"]
+        return self["SLABDEPTH: Thickness of slab on grade"]
 
     @slabdepth_thickness_of_slab_on_grade.setter
     def slabdepth_thickness_of_slab_on_grade(self, value=0.1):
@@ -1396,7 +1334,7 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
         Returns:
             float: the value of `clearance_distance_from_edge_of_slab_to_domain_edge` or None if not set
         """
-        return self._data["CLEARANCE: Distance from edge of slab to domain edge"]
+        return self["CLEARANCE: Distance from edge of slab to domain edge"]
 
     @clearance_distance_from_edge_of_slab_to_domain_edge.setter
     def clearance_distance_from_edge_of_slab_to_domain_edge(self, value=15.0):
@@ -1425,7 +1363,7 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
         Returns:
             float: the value of `zclearance_distance_from_bottom_of_slab_to_domain_bottom` or None if not set
         """
-        return self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"]
+        return self["ZCLEARANCE: Distance from bottom of slab to domain bottom"]
 
     @zclearance_distance_from_bottom_of_slab_to_domain_bottom.setter
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self, value=15.0):
@@ -1456,15 +1394,6 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:AutoGrid', 'pyname': u'GroundHeatTransferSlabAutoGrid', 'format': None, 'fields': OrderedDict([(u'slabx: x dimension of the building slab', {'name': u'SLABX: X dimension of the building slab', 'pyname': u'slabx_x_dimension_of_the_building_slab', 'required-field': True, 'autosizable': False, 'minimum': 6.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slaby: y dimension of the building slab', {'name': u'SLABY: Y dimension of the building slab', 'pyname': u'slaby_y_dimension_of_the_building_slab', 'required-field': True, 'autosizable': False, 'minimum': 6.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of slab on grade', {'name': u'SLABDEPTH: Thickness of slab on grade', 'pyname': u'slabdepth_thickness_of_slab_on_grade', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'clearance: distance from edge of slab to domain edge', {'name': u'CLEARANCE: Distance from edge of slab to domain edge', 'pyname': u'clearance_distance_from_edge_of_slab_to_domain_edge', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'zclearance: distance from bottom of slab to domain bottom', {'name': u'ZCLEARANCE: Distance from bottom of slab to domain bottom', 'pyname': u'zclearance_distance_from_bottom_of_slab_to_domain_bottom', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:AutoGrid`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def slabx_x_dimension_of_the_building_slab(self):
         """Get slabx_x_dimension_of_the_building_slab
@@ -1472,7 +1401,7 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         Returns:
             float: the value of `slabx_x_dimension_of_the_building_slab` or None if not set
         """
-        return self._data["SLABX: X dimension of the building slab"]
+        return self["SLABX: X dimension of the building slab"]
 
     @slabx_x_dimension_of_the_building_slab.setter
     def slabx_x_dimension_of_the_building_slab(self, value=None):
@@ -1498,7 +1427,7 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         Returns:
             float: the value of `slaby_y_dimension_of_the_building_slab` or None if not set
         """
-        return self._data["SLABY: Y dimension of the building slab"]
+        return self["SLABY: Y dimension of the building slab"]
 
     @slaby_y_dimension_of_the_building_slab.setter
     def slaby_y_dimension_of_the_building_slab(self, value=None):
@@ -1524,7 +1453,7 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         Returns:
             float: the value of `slabdepth_thickness_of_slab_on_grade` or None if not set
         """
-        return self._data["SLABDEPTH: Thickness of slab on grade"]
+        return self["SLABDEPTH: Thickness of slab on grade"]
 
     @slabdepth_thickness_of_slab_on_grade.setter
     def slabdepth_thickness_of_slab_on_grade(self, value=0.1):
@@ -1549,7 +1478,7 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         Returns:
             float: the value of `clearance_distance_from_edge_of_slab_to_domain_edge` or None if not set
         """
-        return self._data["CLEARANCE: Distance from edge of slab to domain edge"]
+        return self["CLEARANCE: Distance from edge of slab to domain edge"]
 
     @clearance_distance_from_edge_of_slab_to_domain_edge.setter
     def clearance_distance_from_edge_of_slab_to_domain_edge(self, value=15.0):
@@ -1574,7 +1503,7 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         Returns:
             float: the value of `zclearance_distance_from_bottom_of_slab_to_domain_bottom` or None if not set
         """
-        return self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"]
+        return self["ZCLEARANCE: Distance from bottom of slab to domain bottom"]
 
     @zclearance_distance_from_bottom_of_slab_to_domain_bottom.setter
     def zclearance_distance_from_bottom_of_slab_to_domain_bottom(self, value=15.0):
@@ -1601,15 +1530,6 @@ class GroundHeatTransferSlabManualGrid(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:ManualGrid', 'pyname': u'GroundHeatTransferSlabManualGrid', 'format': None, 'fields': OrderedDict([(u'nx: number of cells in the x direction', {'name': u'NX: Number of cells in the X direction', 'pyname': u'nx_number_of_cells_in_the_x_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ny: number of cells in the y direction', {'name': u'NY: Number of cells in the Y direction', 'pyname': u'ny_number_of_cells_in_the_y_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nz: number of cells in the z direction', {'name': u'NZ: Number of cells in the Z direction', 'pyname': u'nz_number_of_cells_in_the_z_direction', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ibox: x direction cell indicator of slab edge', {'name': u'IBOX: X direction cell indicator of slab edge', 'pyname': u'ibox_x_direction_cell_indicator_of_slab_edge', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'jbox: y direction cell indicator of slab edge', {'name': u'JBOX: Y direction cell indicator of slab edge', 'pyname': u'jbox_y_direction_cell_indicator_of_slab_edge', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:ManualGrid`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def nx_number_of_cells_in_the_x_direction(self):
         """Get nx_number_of_cells_in_the_x_direction
@@ -1617,7 +1537,7 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         Returns:
             float: the value of `nx_number_of_cells_in_the_x_direction` or None if not set
         """
-        return self._data["NX: Number of cells in the X direction"]
+        return self["NX: Number of cells in the X direction"]
 
     @nx_number_of_cells_in_the_x_direction.setter
     def nx_number_of_cells_in_the_x_direction(self, value=None):
@@ -1641,7 +1561,7 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         Returns:
             float: the value of `ny_number_of_cells_in_the_y_direction` or None if not set
         """
-        return self._data["NY: Number of cells in the Y direction"]
+        return self["NY: Number of cells in the Y direction"]
 
     @ny_number_of_cells_in_the_y_direction.setter
     def ny_number_of_cells_in_the_y_direction(self, value=None):
@@ -1665,7 +1585,7 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         Returns:
             float: the value of `nz_number_of_cells_in_the_z_direction` or None if not set
         """
-        return self._data["NZ: Number of cells in the Z direction"]
+        return self["NZ: Number of cells in the Z direction"]
 
     @nz_number_of_cells_in_the_z_direction.setter
     def nz_number_of_cells_in_the_z_direction(self, value=None):
@@ -1689,7 +1609,7 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         Returns:
             float: the value of `ibox_x_direction_cell_indicator_of_slab_edge` or None if not set
         """
-        return self._data["IBOX: X direction cell indicator of slab edge"]
+        return self["IBOX: X direction cell indicator of slab edge"]
 
     @ibox_x_direction_cell_indicator_of_slab_edge.setter
     def ibox_x_direction_cell_indicator_of_slab_edge(self, value=None):
@@ -1713,7 +1633,7 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         Returns:
             float: the value of `jbox_y_direction_cell_indicator_of_slab_edge` or None if not set
         """
-        return self._data["JBOX: Y direction cell indicator of slab edge"]
+        return self["JBOX: Y direction cell indicator of slab edge"]
 
     @jbox_y_direction_cell_indicator_of_slab_edge.setter
     def jbox_y_direction_cell_indicator_of_slab_edge(self, value=None):
@@ -1738,15 +1658,6 @@ class GroundHeatTransferBasementSimParameters(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:SimParameters', 'pyname': u'GroundHeatTransferBasementSimParameters', 'format': None, 'fields': OrderedDict([(u'f: multiplier for the adi solution', {'name': u'F: Multiplier for the ADI solution', 'pyname': u'f_multiplier_for_the_adi_solution', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'iyrs: maximum number of yearly iterations:', {'name': u'IYRS: Maximum number of yearly iterations:', 'pyname': u'iyrs_maximum_number_of_yearly_iterations', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SimParameters`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def f_multiplier_for_the_adi_solution(self):
         """Get f_multiplier_for_the_adi_solution
@@ -1754,7 +1665,7 @@ class GroundHeatTransferBasementSimParameters(DataObject):
         Returns:
             float: the value of `f_multiplier_for_the_adi_solution` or None if not set
         """
-        return self._data["F: Multiplier for the ADI solution"]
+        return self["F: Multiplier for the ADI solution"]
 
     @f_multiplier_for_the_adi_solution.setter
     def f_multiplier_for_the_adi_solution(self, value=None):
@@ -1780,7 +1691,7 @@ class GroundHeatTransferBasementSimParameters(DataObject):
         Returns:
             float: the value of `iyrs_maximum_number_of_yearly_iterations` or None if not set
         """
-        return self._data["IYRS: Maximum number of yearly iterations:"]
+        return self["IYRS: Maximum number of yearly iterations:"]
 
     @iyrs_maximum_number_of_yearly_iterations.setter
     def iyrs_maximum_number_of_yearly_iterations(self, value=15.0):
@@ -1807,15 +1718,6 @@ class GroundHeatTransferBasementMatlProps(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:MatlProps', 'pyname': u'GroundHeatTransferBasementMatlProps', 'format': None, 'fields': OrderedDict([(u'nmat: number of materials in this domain', {'name': u'NMAT: Number of materials in this domain', 'pyname': u'nmat_number_of_materials_in_this_domain', 'maximum': 6.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'density for foundation wall', {'name': u'Density for Foundation Wall', 'pyname': u'density_for_foundation_wall', 'default': 2243.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for floor slab', {'name': u'density for Floor Slab', 'pyname': u'density_for_floor_slab', 'default': 2243.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for ceiling', {'name': u'density for Ceiling', 'pyname': u'density_for_ceiling', 'default': 311.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for soil', {'name': u'density for Soil', 'pyname': u'density_for_soil', 'default': 1500.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for gravel', {'name': u'density for Gravel', 'pyname': u'density_for_gravel', 'default': 2000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'density for wood', {'name': u'density for Wood', 'pyname': u'density_for_wood', 'default': 449.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'specific heat for foundation wall', {'name': u'Specific heat for foundation wall', 'pyname': u'specific_heat_for_foundation_wall', 'default': 880.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for floor slab', {'name': u'Specific heat for floor slab', 'pyname': u'specific_heat_for_floor_slab', 'default': 880.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for ceiling', {'name': u'Specific heat for ceiling', 'pyname': u'specific_heat_for_ceiling', 'default': 1530.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for soil', {'name': u'Specific heat for soil', 'pyname': u'specific_heat_for_soil', 'default': 840.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for gravel', {'name': u'Specific heat for gravel', 'pyname': u'specific_heat_for_gravel', 'default': 720.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'specific heat for wood', {'name': u'Specific heat for wood', 'pyname': u'specific_heat_for_wood', 'default': 1530.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg-K'}), (u'thermal conductivity for foundation wall', {'name': u'Thermal conductivity for foundation wall', 'pyname': u'thermal_conductivity_for_foundation_wall', 'default': 1.4, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for floor slab', {'name': u'Thermal conductivity for floor slab', 'pyname': u'thermal_conductivity_for_floor_slab', 'default': 1.4, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for ceiling', {'name': u'Thermal conductivity for ceiling', 'pyname': u'thermal_conductivity_for_ceiling', 'default': 0.09, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for soil', {'name': u'thermal conductivity for soil', 'pyname': u'thermal_conductivity_for_soil', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for gravel', {'name': u'thermal conductivity for gravel', 'pyname': u'thermal_conductivity_for_gravel', 'default': 1.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'thermal conductivity for wood', {'name': u'thermal conductivity for wood', 'pyname': u'thermal_conductivity_for_wood', 'default': 0.12, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:MatlProps`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def nmat_number_of_materials_in_this_domain(self):
         """Get nmat_number_of_materials_in_this_domain
@@ -1823,7 +1725,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `nmat_number_of_materials_in_this_domain` or None if not set
         """
-        return self._data["NMAT: Number of materials in this domain"]
+        return self["NMAT: Number of materials in this domain"]
 
     @nmat_number_of_materials_in_this_domain.setter
     def nmat_number_of_materials_in_this_domain(self, value=None):
@@ -1847,7 +1749,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_foundation_wall` or None if not set
         """
-        return self._data["Density for Foundation Wall"]
+        return self["Density for Foundation Wall"]
 
     @density_for_foundation_wall.setter
     def density_for_foundation_wall(self, value=2243.0):
@@ -1872,7 +1774,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_floor_slab` or None if not set
         """
-        return self._data["density for Floor Slab"]
+        return self["density for Floor Slab"]
 
     @density_for_floor_slab.setter
     def density_for_floor_slab(self, value=2243.0):
@@ -1897,7 +1799,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_ceiling` or None if not set
         """
-        return self._data["density for Ceiling"]
+        return self["density for Ceiling"]
 
     @density_for_ceiling.setter
     def density_for_ceiling(self, value=311.0):
@@ -1922,7 +1824,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_soil` or None if not set
         """
-        return self._data["density for Soil"]
+        return self["density for Soil"]
 
     @density_for_soil.setter
     def density_for_soil(self, value=1500.0):
@@ -1947,7 +1849,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_gravel` or None if not set
         """
-        return self._data["density for Gravel"]
+        return self["density for Gravel"]
 
     @density_for_gravel.setter
     def density_for_gravel(self, value=2000.0):
@@ -1972,7 +1874,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `density_for_wood` or None if not set
         """
-        return self._data["density for Wood"]
+        return self["density for Wood"]
 
     @density_for_wood.setter
     def density_for_wood(self, value=449.0):
@@ -1997,7 +1899,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_foundation_wall` or None if not set
         """
-        return self._data["Specific heat for foundation wall"]
+        return self["Specific heat for foundation wall"]
 
     @specific_heat_for_foundation_wall.setter
     def specific_heat_for_foundation_wall(self, value=880.0):
@@ -2022,7 +1924,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_floor_slab` or None if not set
         """
-        return self._data["Specific heat for floor slab"]
+        return self["Specific heat for floor slab"]
 
     @specific_heat_for_floor_slab.setter
     def specific_heat_for_floor_slab(self, value=880.0):
@@ -2047,7 +1949,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_ceiling` or None if not set
         """
-        return self._data["Specific heat for ceiling"]
+        return self["Specific heat for ceiling"]
 
     @specific_heat_for_ceiling.setter
     def specific_heat_for_ceiling(self, value=1530.0):
@@ -2072,7 +1974,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_soil` or None if not set
         """
-        return self._data["Specific heat for soil"]
+        return self["Specific heat for soil"]
 
     @specific_heat_for_soil.setter
     def specific_heat_for_soil(self, value=840.0):
@@ -2097,7 +1999,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_gravel` or None if not set
         """
-        return self._data["Specific heat for gravel"]
+        return self["Specific heat for gravel"]
 
     @specific_heat_for_gravel.setter
     def specific_heat_for_gravel(self, value=720.0):
@@ -2122,7 +2024,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `specific_heat_for_wood` or None if not set
         """
-        return self._data["Specific heat for wood"]
+        return self["Specific heat for wood"]
 
     @specific_heat_for_wood.setter
     def specific_heat_for_wood(self, value=1530.0):
@@ -2147,7 +2049,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_foundation_wall` or None if not set
         """
-        return self._data["Thermal conductivity for foundation wall"]
+        return self["Thermal conductivity for foundation wall"]
 
     @thermal_conductivity_for_foundation_wall.setter
     def thermal_conductivity_for_foundation_wall(self, value=1.4):
@@ -2172,7 +2074,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_floor_slab` or None if not set
         """
-        return self._data["Thermal conductivity for floor slab"]
+        return self["Thermal conductivity for floor slab"]
 
     @thermal_conductivity_for_floor_slab.setter
     def thermal_conductivity_for_floor_slab(self, value=1.4):
@@ -2197,7 +2099,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_ceiling` or None if not set
         """
-        return self._data["Thermal conductivity for ceiling"]
+        return self["Thermal conductivity for ceiling"]
 
     @thermal_conductivity_for_ceiling.setter
     def thermal_conductivity_for_ceiling(self, value=0.09):
@@ -2222,7 +2124,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_soil` or None if not set
         """
-        return self._data["thermal conductivity for soil"]
+        return self["thermal conductivity for soil"]
 
     @thermal_conductivity_for_soil.setter
     def thermal_conductivity_for_soil(self, value=1.1):
@@ -2247,7 +2149,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_gravel` or None if not set
         """
-        return self._data["thermal conductivity for gravel"]
+        return self["thermal conductivity for gravel"]
 
     @thermal_conductivity_for_gravel.setter
     def thermal_conductivity_for_gravel(self, value=1.9):
@@ -2272,7 +2174,7 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         Returns:
             float: the value of `thermal_conductivity_for_wood` or None if not set
         """
-        return self._data["thermal conductivity for wood"]
+        return self["thermal conductivity for wood"]
 
     @thermal_conductivity_for_wood.setter
     def thermal_conductivity_for_wood(self, value=0.12):
@@ -2296,16 +2198,7 @@ class GroundHeatTransferBasementInsulation(DataObject):
         Describes the insulation used on an exterior basement wall for the Basement
         preprocessor ground heat transfer simulation.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Insulation', 'pyname': u'GroundHeatTransferBasementInsulation', 'format': None, 'fields': OrderedDict([(u'rext: r value of any exterior insulation', {'name': u'REXT: R Value of any exterior insulation', 'pyname': u'rext_r_value_of_any_exterior_insulation', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'insfull: flag: is the wall fully insulated?', {'name': u'INSFULL: Flag: Is the wall fully insulated?', 'pyname': u'insfull_flag_is_the_wall_fully_insulated', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Insulation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Insulation', 'pyname': u'GroundHeatTransferBasementInsulation', 'format': None, 'fields': OrderedDict([(u'rext: r value of any exterior insulation', {'name': u'REXT: R Value of any exterior insulation', 'pyname': u'rext_r_value_of_any_exterior_insulation', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'insfull: flag: is the wall fully insulated?', {'name': u'INSFULL: Flag: Is the wall fully insulated?', 'pyname': u'insfull_flag_is_the_wall_fully_insulated', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def rext_r_value_of_any_exterior_insulation(self):
@@ -2314,7 +2207,7 @@ class GroundHeatTransferBasementInsulation(DataObject):
         Returns:
             float: the value of `rext_r_value_of_any_exterior_insulation` or None if not set
         """
-        return self._data["REXT: R Value of any exterior insulation"]
+        return self["REXT: R Value of any exterior insulation"]
 
     @rext_r_value_of_any_exterior_insulation.setter
     def rext_r_value_of_any_exterior_insulation(self, value=None):
@@ -2338,7 +2231,7 @@ class GroundHeatTransferBasementInsulation(DataObject):
         Returns:
             str: the value of `insfull_flag_is_the_wall_fully_insulated` or None if not set
         """
-        return self._data["INSFULL: Flag: Is the wall fully insulated?"]
+        return self["INSFULL: Flag: Is the wall fully insulated?"]
 
     @insfull_flag_is_the_wall_fully_insulated.setter
     def insfull_flag_is_the_wall_fully_insulated(self, value=None):
@@ -2362,16 +2255,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Specifies the soil surface properties for the Basement preprocessor ground
         heat transfer simulation.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:SurfaceProps', 'pyname': u'GroundHeatTransferBasementSurfaceProps', 'format': None, 'fields': OrderedDict([(u'albedo: surface albedo for no snow conditions', {'name': u'ALBEDO: Surface albedo for No snow conditions', 'pyname': u'albedo_surface_albedo_for_no_snow_conditions', 'default': 0.16, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo for snow conditions', {'name': u'ALBEDO: Surface albedo for snow conditions', 'pyname': u'albedo_surface_albedo_for_snow_conditions', 'default': 0.4, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity no snow', {'name': u'EPSLN: Surface emissivity No Snow', 'pyname': u'epsln_surface_emissivity_no_snow', 'default': 0.94, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity with snow', {'name': u'EPSLN: Surface emissivity with Snow', 'pyname': u'epsln_surface_emissivity_with_snow', 'default': 0.86, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'veght: surface roughness no snow conditions', {'name': u'VEGHT: Surface roughness No snow conditions', 'pyname': u'veght_surface_roughness_no_snow_conditions', 'default': 6.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'veght: surface roughness snow conditions', {'name': u'VEGHT: Surface roughness Snow conditions', 'pyname': u'veght_surface_roughness_snow_conditions', 'default': 0.25, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'pet: flag, potential evapotranspiration on?', {'name': u'PET: Flag, Potential evapotranspiration on?', 'pyname': u'pet_flag_potential_evapotranspiration_on', 'default': u'FALSE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SurfaceProps`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:SurfaceProps', 'pyname': u'GroundHeatTransferBasementSurfaceProps', 'format': None, 'fields': OrderedDict([(u'albedo: surface albedo for no snow conditions', {'name': u'ALBEDO: Surface albedo for No snow conditions', 'pyname': u'albedo_surface_albedo_for_no_snow_conditions', 'default': 0.16, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'albedo: surface albedo for snow conditions', {'name': u'ALBEDO: Surface albedo for snow conditions', 'pyname': u'albedo_surface_albedo_for_snow_conditions', 'default': 0.4, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity no snow', {'name': u'EPSLN: Surface emissivity No Snow', 'pyname': u'epsln_surface_emissivity_no_snow', 'default': 0.94, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'epsln: surface emissivity with snow', {'name': u'EPSLN: Surface emissivity with Snow', 'pyname': u'epsln_surface_emissivity_with_snow', 'default': 0.86, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'veght: surface roughness no snow conditions', {'name': u'VEGHT: Surface roughness No snow conditions', 'pyname': u'veght_surface_roughness_no_snow_conditions', 'default': 6.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'veght: surface roughness snow conditions', {'name': u'VEGHT: Surface roughness Snow conditions', 'pyname': u'veght_surface_roughness_snow_conditions', 'default': 0.25, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'cm'}), (u'pet: flag, potential evapotranspiration on?', {'name': u'PET: Flag, Potential evapotranspiration on?', 'pyname': u'pet_flag_potential_evapotranspiration_on', 'default': u'FALSE', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def albedo_surface_albedo_for_no_snow_conditions(self):
@@ -2380,7 +2264,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `albedo_surface_albedo_for_no_snow_conditions` or None if not set
         """
-        return self._data["ALBEDO: Surface albedo for No snow conditions"]
+        return self["ALBEDO: Surface albedo for No snow conditions"]
 
     @albedo_surface_albedo_for_no_snow_conditions.setter
     def albedo_surface_albedo_for_no_snow_conditions(self, value=0.16):
@@ -2405,7 +2289,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `albedo_surface_albedo_for_snow_conditions` or None if not set
         """
-        return self._data["ALBEDO: Surface albedo for snow conditions"]
+        return self["ALBEDO: Surface albedo for snow conditions"]
 
     @albedo_surface_albedo_for_snow_conditions.setter
     def albedo_surface_albedo_for_snow_conditions(self, value=0.4):
@@ -2430,7 +2314,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `epsln_surface_emissivity_no_snow` or None if not set
         """
-        return self._data["EPSLN: Surface emissivity No Snow"]
+        return self["EPSLN: Surface emissivity No Snow"]
 
     @epsln_surface_emissivity_no_snow.setter
     def epsln_surface_emissivity_no_snow(self, value=0.94):
@@ -2455,7 +2339,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `epsln_surface_emissivity_with_snow` or None if not set
         """
-        return self._data["EPSLN: Surface emissivity with Snow"]
+        return self["EPSLN: Surface emissivity with Snow"]
 
     @epsln_surface_emissivity_with_snow.setter
     def epsln_surface_emissivity_with_snow(self, value=0.86):
@@ -2480,7 +2364,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `veght_surface_roughness_no_snow_conditions` or None if not set
         """
-        return self._data["VEGHT: Surface roughness No snow conditions"]
+        return self["VEGHT: Surface roughness No snow conditions"]
 
     @veght_surface_roughness_no_snow_conditions.setter
     def veght_surface_roughness_no_snow_conditions(self, value=6.0):
@@ -2505,7 +2389,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             float: the value of `veght_surface_roughness_snow_conditions` or None if not set
         """
-        return self._data["VEGHT: Surface roughness Snow conditions"]
+        return self["VEGHT: Surface roughness Snow conditions"]
 
     @veght_surface_roughness_snow_conditions.setter
     def veght_surface_roughness_snow_conditions(self, value=0.25):
@@ -2530,7 +2414,7 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         Returns:
             str: the value of `pet_flag_potential_evapotranspiration_on` or None if not set
         """
-        return self._data["PET: Flag, Potential evapotranspiration on?"]
+        return self["PET: Flag, Potential evapotranspiration on?"]
 
     @pet_flag_potential_evapotranspiration_on.setter
     def pet_flag_potential_evapotranspiration_on(self, value="FALSE"):
@@ -2556,15 +2440,6 @@ class GroundHeatTransferBasementBldgData(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:BldgData', 'pyname': u'GroundHeatTransferBasementBldgData', 'format': None, 'fields': OrderedDict([(u'dwall: wall thickness', {'name': u'DWALL: Wall thickness', 'pyname': u'dwall_wall_thickness', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.2, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dslab: floor slab thickness', {'name': u'DSLAB: Floor slab thickness', 'pyname': u'dslab_floor_slab_thickness', 'default': 0.1, 'minimum>': 0.0, 'maximum': 0.25, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravxy: width of gravel pit beside basement wall', {'name': u'DGRAVXY: Width of gravel pit beside basement wall', 'pyname': u'dgravxy_width_of_gravel_pit_beside_basement_wall', 'default': 0.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravzn: gravel depth extending above the floor slab', {'name': u'DGRAVZN: Gravel depth extending above the floor slab', 'pyname': u'dgravzn_gravel_depth_extending_above_the_floor_slab', 'default': 0.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'dgravzp: gravel depth below the floor slab', {'name': u'DGRAVZP: Gravel depth below the floor slab', 'pyname': u'dgravzp_gravel_depth_below_the_floor_slab', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:BldgData`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def dwall_wall_thickness(self):
         """Get dwall_wall_thickness
@@ -2572,7 +2447,7 @@ class GroundHeatTransferBasementBldgData(DataObject):
         Returns:
             float: the value of `dwall_wall_thickness` or None if not set
         """
-        return self._data["DWALL: Wall thickness"]
+        return self["DWALL: Wall thickness"]
 
     @dwall_wall_thickness.setter
     def dwall_wall_thickness(self, value=0.2):
@@ -2598,7 +2473,7 @@ class GroundHeatTransferBasementBldgData(DataObject):
         Returns:
             float: the value of `dslab_floor_slab_thickness` or None if not set
         """
-        return self._data["DSLAB: Floor slab thickness"]
+        return self["DSLAB: Floor slab thickness"]
 
     @dslab_floor_slab_thickness.setter
     def dslab_floor_slab_thickness(self, value=0.1):
@@ -2624,7 +2499,7 @@ class GroundHeatTransferBasementBldgData(DataObject):
         Returns:
             float: the value of `dgravxy_width_of_gravel_pit_beside_basement_wall` or None if not set
         """
-        return self._data["DGRAVXY: Width of gravel pit beside basement wall"]
+        return self["DGRAVXY: Width of gravel pit beside basement wall"]
 
     @dgravxy_width_of_gravel_pit_beside_basement_wall.setter
     def dgravxy_width_of_gravel_pit_beside_basement_wall(self, value=0.3):
@@ -2649,7 +2524,7 @@ class GroundHeatTransferBasementBldgData(DataObject):
         Returns:
             float: the value of `dgravzn_gravel_depth_extending_above_the_floor_slab` or None if not set
         """
-        return self._data["DGRAVZN: Gravel depth extending above the floor slab"]
+        return self["DGRAVZN: Gravel depth extending above the floor slab"]
 
     @dgravzn_gravel_depth_extending_above_the_floor_slab.setter
     def dgravzn_gravel_depth_extending_above_the_floor_slab(self, value=0.2):
@@ -2674,7 +2549,7 @@ class GroundHeatTransferBasementBldgData(DataObject):
         Returns:
             float: the value of `dgravzp_gravel_depth_below_the_floor_slab` or None if not set
         """
-        return self._data["DGRAVZP: Gravel depth below the floor slab"]
+        return self["DGRAVZP: Gravel depth below the floor slab"]
 
     @dgravzp_gravel_depth_below_the_floor_slab.setter
     def dgravzp_gravel_depth_below_the_floor_slab(self, value=0.1):
@@ -2698,16 +2573,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Provides the information needed to simulate the inside boundary conditions for
         the Basement preprocessor ground heat transfer simulation.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Interior', 'pyname': u'GroundHeatTransferBasementInterior', 'format': None, 'fields': OrderedDict([(u'cond: flag: is the basement conditioned?', {'name': u'COND: Flag: Is the basement conditioned?', 'pyname': u'cond_flag_is_the_basement_conditioned', 'default': u'TRUE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hin: downward convection only heat transfer coefficient', {'name': u'HIN: Downward convection only heat transfer coefficient', 'pyname': u'hin_downward_convection_only_heat_transfer_coefficient', 'default': 0.92, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward convection only heat transfer coefficient', {'name': u'HIN: Upward convection only heat transfer coefficient', 'pyname': u'hin_upward_convection_only_heat_transfer_coefficient', 'default': 4.04, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal convection only heat transfer coefficient', {'name': u'HIN: Horizontal convection only heat transfer coefficient', 'pyname': u'hin_horizontal_convection_only_heat_transfer_coefficient', 'default': 3.08, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: downward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Downward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_downward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 6.13, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Upward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_upward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 9.26, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Horizontal combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 8.29, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Interior`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:Interior', 'pyname': u'GroundHeatTransferBasementInterior', 'format': None, 'fields': OrderedDict([(u'cond: flag: is the basement conditioned?', {'name': u'COND: Flag: Is the basement conditioned?', 'pyname': u'cond_flag_is_the_basement_conditioned', 'default': u'TRUE', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'}), (u'hin: downward convection only heat transfer coefficient', {'name': u'HIN: Downward convection only heat transfer coefficient', 'pyname': u'hin_downward_convection_only_heat_transfer_coefficient', 'default': 0.92, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward convection only heat transfer coefficient', {'name': u'HIN: Upward convection only heat transfer coefficient', 'pyname': u'hin_upward_convection_only_heat_transfer_coefficient', 'default': 4.04, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal convection only heat transfer coefficient', {'name': u'HIN: Horizontal convection only heat transfer coefficient', 'pyname': u'hin_horizontal_convection_only_heat_transfer_coefficient', 'default': 3.08, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: downward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Downward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_downward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 6.13, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: upward combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Upward combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_upward_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 9.26, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'hin: horizontal combined (convection and radiation) heat transfer coefficient', {'name': u'HIN: Horizontal combined (convection and radiation) heat transfer coefficient', 'pyname': u'hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient', 'default': 8.29, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def cond_flag_is_the_basement_conditioned(self):
@@ -2716,7 +2582,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             str: the value of `cond_flag_is_the_basement_conditioned` or None if not set
         """
-        return self._data["COND: Flag: Is the basement conditioned?"]
+        return self["COND: Flag: Is the basement conditioned?"]
 
     @cond_flag_is_the_basement_conditioned.setter
     def cond_flag_is_the_basement_conditioned(self, value="TRUE"):
@@ -2741,7 +2607,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_downward_convection_only_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Downward convection only heat transfer coefficient"]
+        return self["HIN: Downward convection only heat transfer coefficient"]
 
     @hin_downward_convection_only_heat_transfer_coefficient.setter
     def hin_downward_convection_only_heat_transfer_coefficient(self, value=0.92):
@@ -2766,7 +2632,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_upward_convection_only_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Upward convection only heat transfer coefficient"]
+        return self["HIN: Upward convection only heat transfer coefficient"]
 
     @hin_upward_convection_only_heat_transfer_coefficient.setter
     def hin_upward_convection_only_heat_transfer_coefficient(self, value=4.04):
@@ -2791,7 +2657,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_horizontal_convection_only_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Horizontal convection only heat transfer coefficient"]
+        return self["HIN: Horizontal convection only heat transfer coefficient"]
 
     @hin_horizontal_convection_only_heat_transfer_coefficient.setter
     def hin_horizontal_convection_only_heat_transfer_coefficient(self, value=3.08):
@@ -2816,7 +2682,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Downward combined (convection and radiation) heat transfer coefficient"]
+        return self["HIN: Downward combined (convection and radiation) heat transfer coefficient"]
 
     @hin_downward_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_downward_combined_convection_and_radiation_heat_transfer_coefficient(self, value=6.13):
@@ -2841,7 +2707,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Upward combined (convection and radiation) heat transfer coefficient"]
+        return self["HIN: Upward combined (convection and radiation) heat transfer coefficient"]
 
     @hin_upward_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_upward_combined_convection_and_radiation_heat_transfer_coefficient(self, value=9.26):
@@ -2866,7 +2732,7 @@ class GroundHeatTransferBasementInterior(DataObject):
         Returns:
             float: the value of `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient` or None if not set
         """
-        return self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"]
+        return self["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"]
 
     @hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient.setter
     def hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient(self, value=8.29):
@@ -2891,15 +2757,6 @@ class GroundHeatTransferBasementComBldg(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ComBldg', 'pyname': u'GroundHeatTransferBasementComBldg', 'format': None, 'fields': OrderedDict([(u'january average temperature', {'name': u'January average temperature', 'pyname': u'january_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'february average temperature', {'name': u'February average temperature', 'pyname': u'february_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'march average temperature', {'name': u'March average temperature', 'pyname': u'march_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'april average temperature', {'name': u'April average temperature', 'pyname': u'april_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'may average temperature', {'name': u'May average temperature', 'pyname': u'may_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'june average temperature', {'name': u'June average temperature', 'pyname': u'june_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'july average temperature', {'name': u'July average temperature', 'pyname': u'july_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'august average temperature', {'name': u'August average temperature', 'pyname': u'august_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'september average temperature', {'name': u'September average temperature', 'pyname': u'september_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'october average temperature', {'name': u'October average temperature', 'pyname': u'october_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'november average temperature', {'name': u'November average temperature', 'pyname': u'november_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'december average temperature', {'name': u'December average temperature', 'pyname': u'december_average_temperature', 'default': 22.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'daily variation sine wave amplitude', {'name': u'Daily variation sine wave amplitude', 'pyname': u'daily_variation_sine_wave_amplitude', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ComBldg`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def january_average_temperature(self):
         """Get january_average_temperature
@@ -2907,7 +2764,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `january_average_temperature` or None if not set
         """
-        return self._data["January average temperature"]
+        return self["January average temperature"]
 
     @january_average_temperature.setter
     def january_average_temperature(self, value=22.0):
@@ -2932,7 +2789,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `february_average_temperature` or None if not set
         """
-        return self._data["February average temperature"]
+        return self["February average temperature"]
 
     @february_average_temperature.setter
     def february_average_temperature(self, value=22.0):
@@ -2957,7 +2814,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `march_average_temperature` or None if not set
         """
-        return self._data["March average temperature"]
+        return self["March average temperature"]
 
     @march_average_temperature.setter
     def march_average_temperature(self, value=22.0):
@@ -2982,7 +2839,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `april_average_temperature` or None if not set
         """
-        return self._data["April average temperature"]
+        return self["April average temperature"]
 
     @april_average_temperature.setter
     def april_average_temperature(self, value=22.0):
@@ -3007,7 +2864,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `may_average_temperature` or None if not set
         """
-        return self._data["May average temperature"]
+        return self["May average temperature"]
 
     @may_average_temperature.setter
     def may_average_temperature(self, value=22.0):
@@ -3032,7 +2889,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `june_average_temperature` or None if not set
         """
-        return self._data["June average temperature"]
+        return self["June average temperature"]
 
     @june_average_temperature.setter
     def june_average_temperature(self, value=22.0):
@@ -3057,7 +2914,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `july_average_temperature` or None if not set
         """
-        return self._data["July average temperature"]
+        return self["July average temperature"]
 
     @july_average_temperature.setter
     def july_average_temperature(self, value=22.0):
@@ -3082,7 +2939,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `august_average_temperature` or None if not set
         """
-        return self._data["August average temperature"]
+        return self["August average temperature"]
 
     @august_average_temperature.setter
     def august_average_temperature(self, value=22.0):
@@ -3107,7 +2964,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `september_average_temperature` or None if not set
         """
-        return self._data["September average temperature"]
+        return self["September average temperature"]
 
     @september_average_temperature.setter
     def september_average_temperature(self, value=22.0):
@@ -3132,7 +2989,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `october_average_temperature` or None if not set
         """
-        return self._data["October average temperature"]
+        return self["October average temperature"]
 
     @october_average_temperature.setter
     def october_average_temperature(self, value=22.0):
@@ -3157,7 +3014,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `november_average_temperature` or None if not set
         """
-        return self._data["November average temperature"]
+        return self["November average temperature"]
 
     @november_average_temperature.setter
     def november_average_temperature(self, value=22.0):
@@ -3182,7 +3039,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `december_average_temperature` or None if not set
         """
-        return self._data["December average temperature"]
+        return self["December average temperature"]
 
     @december_average_temperature.setter
     def december_average_temperature(self, value=22.0):
@@ -3207,7 +3064,7 @@ class GroundHeatTransferBasementComBldg(DataObject):
         Returns:
             float: the value of `daily_variation_sine_wave_amplitude` or None if not set
         """
-        return self._data["Daily variation sine wave amplitude"]
+        return self["Daily variation sine wave amplitude"]
 
     @daily_variation_sine_wave_amplitude.setter
     def daily_variation_sine_wave_amplitude(self, value=None):
@@ -3232,16 +3089,7 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
         modeled accurately.
         The simulation default should be EquivSizing=True
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:EquivSlab', 'pyname': u'GroundHeatTransferBasementEquivSlab', 'format': None, 'fields': OrderedDict([(u'apratio: the area to perimeter ratio for this slab', {'name': u'APRatio: The area to perimeter ratio for this slab', 'pyname': u'apratio_the_area_to_perimeter_ratio_for_this_slab', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'equivsizing: flag', {'name': u'EquivSizing: Flag', 'pyname': u'equivsizing_flag', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivSlab`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:EquivSlab', 'pyname': u'GroundHeatTransferBasementEquivSlab', 'format': None, 'fields': OrderedDict([(u'apratio: the area to perimeter ratio for this slab', {'name': u'APRatio: The area to perimeter ratio for this slab', 'pyname': u'apratio_the_area_to_perimeter_ratio_for_this_slab', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'equivsizing: flag', {'name': u'EquivSizing: Flag', 'pyname': u'equivsizing_flag', 'required-field': True, 'autosizable': False, 'accepted-values': [u'TRUE', u'FALSE'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
@@ -3250,7 +3098,7 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
         Returns:
             float: the value of `apratio_the_area_to_perimeter_ratio_for_this_slab` or None if not set
         """
-        return self._data["APRatio: The area to perimeter ratio for this slab"]
+        return self["APRatio: The area to perimeter ratio for this slab"]
 
     @apratio_the_area_to_perimeter_ratio_for_this_slab.setter
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self, value=None):
@@ -3274,7 +3122,7 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
         Returns:
             str: the value of `equivsizing_flag` or None if not set
         """
-        return self._data["EquivSizing: Flag"]
+        return self["EquivSizing: Flag"]
 
     @equivsizing_flag.setter
     def equivsizing_flag(self, value=None):
@@ -3300,15 +3148,6 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:EquivAutoGrid', 'pyname': u'GroundHeatTransferBasementEquivAutoGrid', 'format': None, 'fields': OrderedDict([(u'clearance: distance from outside of wall to edge of 3-d ground domain', {'name': u'CLEARANCE: Distance from outside of wall to edge of 3-D ground domain', 'pyname': u'clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of the floor slab', {'name': u'SlabDepth: Thickness of the floor slab', 'pyname': u'slabdepth_thickness_of_the_floor_slab', 'default': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'basedepth: depth of the basement wall below grade', {'name': u'BaseDepth: Depth of the basement wall below grade', 'pyname': u'basedepth_depth_of_the_basement_wall_below_grade', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivAutoGrid`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain(self):
         """Get clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain
@@ -3316,7 +3155,7 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
         Returns:
             float: the value of `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain` or None if not set
         """
-        return self._data["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"]
+        return self["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"]
 
     @clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain.setter
     def clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain(self, value=15.0):
@@ -3341,7 +3180,7 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
         Returns:
             float: the value of `slabdepth_thickness_of_the_floor_slab` or None if not set
         """
-        return self._data["SlabDepth: Thickness of the floor slab"]
+        return self["SlabDepth: Thickness of the floor slab"]
 
     @slabdepth_thickness_of_the_floor_slab.setter
     def slabdepth_thickness_of_the_floor_slab(self, value=0.1):
@@ -3366,7 +3205,7 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
         Returns:
             float: the value of `basedepth_depth_of_the_basement_wall_below_grade` or None if not set
         """
-        return self._data["BaseDepth: Depth of the basement wall below grade"]
+        return self["BaseDepth: Depth of the basement wall below grade"]
 
     @basedepth_depth_of_the_basement_wall_below_grade.setter
     def basedepth_depth_of_the_basement_wall_below_grade(self, value=2.0):
@@ -3393,15 +3232,6 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:AutoGrid', 'pyname': u'GroundHeatTransferBasementAutoGrid', 'format': None, 'fields': OrderedDict([(u'clearance: distance from outside of wall to edge,', {'name': u'CLEARANCE: Distance from outside of wall to edge,', 'pyname': u'clearance_distance_from_outside_of_wall_to_edge_', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabx: x dimension of the building slab', {'name': u'SLABX: X dimension of the building slab', 'pyname': u'slabx_x_dimension_of_the_building_slab', 'maximum': 60.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slaby: y dimension of the building slab', {'name': u'SLABY: Y dimension of the building slab', 'pyname': u'slaby_y_dimension_of_the_building_slab', 'maximum': 60.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'concagheight: height of the foundation wall above grade', {'name': u'ConcAGHeight: Height of the foundation wall above grade', 'pyname': u'concagheight_height_of_the_foundation_wall_above_grade', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'slabdepth: thickness of the floor slab', {'name': u'SlabDepth: Thickness of the floor slab', 'pyname': u'slabdepth_thickness_of_the_floor_slab', 'default': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'basedepth: depth of the basement wall below grade', {'name': u'BaseDepth: Depth of the basement wall below grade', 'pyname': u'basedepth_depth_of_the_basement_wall_below_grade', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:AutoGrid`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def clearance_distance_from_outside_of_wall_to_edge_(self):
         """Get clearance_distance_from_outside_of_wall_to_edge_
@@ -3409,7 +3239,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `clearance_distance_from_outside_of_wall_to_edge_` or None if not set
         """
-        return self._data["CLEARANCE: Distance from outside of wall to edge,"]
+        return self["CLEARANCE: Distance from outside of wall to edge,"]
 
     @clearance_distance_from_outside_of_wall_to_edge_.setter
     def clearance_distance_from_outside_of_wall_to_edge_(self, value=15.0):
@@ -3434,7 +3264,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `slabx_x_dimension_of_the_building_slab` or None if not set
         """
-        return self._data["SLABX: X dimension of the building slab"]
+        return self["SLABX: X dimension of the building slab"]
 
     @slabx_x_dimension_of_the_building_slab.setter
     def slabx_x_dimension_of_the_building_slab(self, value=None):
@@ -3459,7 +3289,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `slaby_y_dimension_of_the_building_slab` or None if not set
         """
-        return self._data["SLABY: Y dimension of the building slab"]
+        return self["SLABY: Y dimension of the building slab"]
 
     @slaby_y_dimension_of_the_building_slab.setter
     def slaby_y_dimension_of_the_building_slab(self, value=None):
@@ -3484,7 +3314,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `concagheight_height_of_the_foundation_wall_above_grade` or None if not set
         """
-        return self._data["ConcAGHeight: Height of the foundation wall above grade"]
+        return self["ConcAGHeight: Height of the foundation wall above grade"]
 
     @concagheight_height_of_the_foundation_wall_above_grade.setter
     def concagheight_height_of_the_foundation_wall_above_grade(self, value=None):
@@ -3508,7 +3338,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `slabdepth_thickness_of_the_floor_slab` or None if not set
         """
-        return self._data["SlabDepth: Thickness of the floor slab"]
+        return self["SlabDepth: Thickness of the floor slab"]
 
     @slabdepth_thickness_of_the_floor_slab.setter
     def slabdepth_thickness_of_the_floor_slab(self, value=0.1):
@@ -3533,7 +3363,7 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
         Returns:
             float: the value of `basedepth_depth_of_the_basement_wall_below_grade` or None if not set
         """
-        return self._data["BaseDepth: Depth of the basement wall below grade"]
+        return self["BaseDepth: Depth of the basement wall below grade"]
 
     @basedepth_depth_of_the_basement_wall_below_grade.setter
     def basedepth_depth_of_the_basement_wall_below_grade(self, value=2.0):
@@ -3558,15 +3388,6 @@ class GroundHeatTransferBasementManualGrid(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ManualGrid', 'pyname': u'GroundHeatTransferBasementManualGrid', 'format': None, 'fields': OrderedDict([(u'nx: number of cells in the x direction: 20]', {'name': u'NX: Number of cells in the X direction: 20]', 'pyname': u'nx_number_of_cells_in_the_x_direction_20', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ny: number of cells in the y direction: 20]', {'name': u'NY: Number of cells in the Y direction: 20]', 'pyname': u'ny_number_of_cells_in_the_y_direction_20', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nzag: number of cells in the z direction. above grade: 4 always]', {'name': u'NZAG: Number of cells in the Z direction. above grade: 4 Always]', 'pyname': u'nzag_number_of_cells_in_the_z_direction_above_grade_4_always', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'nzbg: number of cells in z direction. below grade: 10-35]', {'name': u'NZBG: Number of cells in Z direction. below grade: 10-35]', 'pyname': u'nzbg_number_of_cells_in_z_direction_below_grade_1035', 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'ibase: x direction cell indicator of slab edge: 5-20]', {'name': u'IBASE: X direction cell indicator of slab edge: 5-20]', 'pyname': u'ibase_x_direction_cell_indicator_of_slab_edge_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'jbase: y direction cell indicator of slab edge: 5-20]', {'name': u'JBASE: Y direction cell indicator of slab edge: 5-20]', 'pyname': u'jbase_y_direction_cell_indicator_of_slab_edge_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'kbase: z direction cell indicator of the top of the floor slab: 5-20]', {'name': u'KBASE: Z direction cell indicator of the top of the floor slab: 5-20]', 'pyname': u'kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ManualGrid`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def nx_number_of_cells_in_the_x_direction_20(self):
         """Get nx_number_of_cells_in_the_x_direction_20
@@ -3574,7 +3395,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `nx_number_of_cells_in_the_x_direction_20` or None if not set
         """
-        return self._data["NX: Number of cells in the X direction: 20]"]
+        return self["NX: Number of cells in the X direction: 20]"]
 
     @nx_number_of_cells_in_the_x_direction_20.setter
     def nx_number_of_cells_in_the_x_direction_20(self, value=None):
@@ -3598,7 +3419,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `ny_number_of_cells_in_the_y_direction_20` or None if not set
         """
-        return self._data["NY: Number of cells in the Y direction: 20]"]
+        return self["NY: Number of cells in the Y direction: 20]"]
 
     @ny_number_of_cells_in_the_y_direction_20.setter
     def ny_number_of_cells_in_the_y_direction_20(self, value=None):
@@ -3622,7 +3443,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `nzag_number_of_cells_in_the_z_direction_above_grade_4_always` or None if not set
         """
-        return self._data["NZAG: Number of cells in the Z direction. above grade: 4 Always]"]
+        return self["NZAG: Number of cells in the Z direction. above grade: 4 Always]"]
 
     @nzag_number_of_cells_in_the_z_direction_above_grade_4_always.setter
     def nzag_number_of_cells_in_the_z_direction_above_grade_4_always(self, value=None):
@@ -3646,7 +3467,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `nzbg_number_of_cells_in_z_direction_below_grade_1035` or None if not set
         """
-        return self._data["NZBG: Number of cells in Z direction. below grade: 10-35]"]
+        return self["NZBG: Number of cells in Z direction. below grade: 10-35]"]
 
     @nzbg_number_of_cells_in_z_direction_below_grade_1035.setter
     def nzbg_number_of_cells_in_z_direction_below_grade_1035(self, value=None):
@@ -3670,7 +3491,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `ibase_x_direction_cell_indicator_of_slab_edge_520` or None if not set
         """
-        return self._data["IBASE: X direction cell indicator of slab edge: 5-20]"]
+        return self["IBASE: X direction cell indicator of slab edge: 5-20]"]
 
     @ibase_x_direction_cell_indicator_of_slab_edge_520.setter
     def ibase_x_direction_cell_indicator_of_slab_edge_520(self, value=None):
@@ -3693,7 +3514,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `jbase_y_direction_cell_indicator_of_slab_edge_520` or None if not set
         """
-        return self._data["JBASE: Y direction cell indicator of slab edge: 5-20]"]
+        return self["JBASE: Y direction cell indicator of slab edge: 5-20]"]
 
     @jbase_y_direction_cell_indicator_of_slab_edge_520.setter
     def jbase_y_direction_cell_indicator_of_slab_edge_520(self, value=None):
@@ -3716,7 +3537,7 @@ class GroundHeatTransferBasementManualGrid(DataObject):
         Returns:
             float: the value of `kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520` or None if not set
         """
-        return self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"]
+        return self["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"]
 
     @kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520.setter
     def kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520(self, value=None):

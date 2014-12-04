@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -14,15 +15,6 @@ class ComplianceBuilding(DataObject):
     """
     schema = {'min-fields': 1, 'name': u'Compliance:Building', 'pyname': u'ComplianceBuilding', 'format': None, 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Compliance:Building`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def building_rotation_for_appendix_g(self):
         """Get building_rotation_for_appendix_g
@@ -30,7 +22,7 @@ class ComplianceBuilding(DataObject):
         Returns:
             float: the value of `building_rotation_for_appendix_g` or None if not set
         """
-        return self._data["Building Rotation for Appendix G"]
+        return self["Building Rotation for Appendix G"]
 
     @building_rotation_for_appendix_g.setter
     def building_rotation_for_appendix_g(self, value=None):

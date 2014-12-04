@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -14,15 +15,6 @@ class HumidifierSteamElectric(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Humidifier:Steam:Electric', 'pyname': u'HumidifierSteamElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated power', {'name': u'Rated Power', 'pyname': u'rated_power', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'standby power', {'name': u'Standby Power', 'pyname': u'standby_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water storage tank name', {'name': u'Water Storage Tank Name', 'pyname': u'water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Humidifier:Steam:Electric`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -30,7 +22,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -53,7 +45,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -78,7 +70,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             float: the value of `rated_capacity` or None if not set
         """
-        return self._data["Rated Capacity"]
+        return self["Rated Capacity"]
 
     @rated_capacity.setter
     def rated_capacity(self, value=None):
@@ -104,7 +96,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             float: the value of `rated_power` or None if not set
         """
-        return self._data["Rated Power"]
+        return self["Rated Power"]
 
     @rated_power.setter
     def rated_power(self, value=None):
@@ -132,7 +124,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             float: the value of `rated_fan_power` or None if not set
         """
-        return self._data["Rated Fan Power"]
+        return self["Rated Fan Power"]
 
     @rated_fan_power.setter
     def rated_fan_power(self, value=None):
@@ -157,7 +149,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             float: the value of `standby_power` or None if not set
         """
-        return self._data["Standby Power"]
+        return self["Standby Power"]
 
     @standby_power.setter
     def standby_power(self, value=None):
@@ -182,7 +174,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -205,7 +197,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -228,7 +220,7 @@ class HumidifierSteamElectric(DataObject):
         Returns:
             str: the value of `water_storage_tank_name` or None if not set
         """
-        return self._data["Water Storage Tank Name"]
+        return self["Water Storage Tank Name"]
 
     @water_storage_tank_name.setter
     def water_storage_tank_name(self, value=None):
@@ -258,16 +250,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         desiccant dehumidifier is typically used in an AirLoopHVAC:OutdoorAirSystem,
         but can also be specified in any AirLoopHVAC.
     """
-    schema = {'min-fields': 0, 'name': u'Dehumidifier:Desiccant:NoFans', 'pyname': u'DehumidifierDesiccantNoFans', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration fan inlet node name', {'name': u'Regeneration Fan Inlet Node Name', 'pyname': u'regeneration_fan_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'leaving maximum humidity ratio setpoint', {'name': u'Leaving Maximum Humidity Ratio Setpoint', 'pyname': u'leaving_maximum_humidity_ratio_setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'nominal process air flow rate', {'name': u'Nominal Process Air Flow Rate', 'pyname': u'nominal_process_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal process air velocity', {'name': u'Nominal Process Air Velocity', 'pyname': u'nominal_process_air_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'rotor power', {'name': u'Rotor Power', 'pyname': u'rotor_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'regeneration coil object type', {'name': u'Regeneration Coil Object Type', 'pyname': u'regeneration_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration coil name', {'name': u'Regeneration Coil Name', 'pyname': u'regeneration_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration fan object type', {'name': u'Regeneration Fan Object Type', 'pyname': u'regeneration_fan_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration fan name', {'name': u'Regeneration Fan Name', 'pyname': u'regeneration_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'performance model type', {'name': u'Performance Model Type', 'pyname': u'performance_model_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'leaving dry-bulb function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving dry-bulb function of air velocity curve name', {'name': u'Leaving Dry-Bulb Function of Air Velocity Curve Name', 'pyname': u'leaving_drybulb_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of air velocity curve name', {'name': u'Leaving Humidity Ratio Function of Air Velocity Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of air velocity curve name', {'name': u'Regeneration Energy Function of Air Velocity Curve Name', 'pyname': u'regeneration_energy_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of air velocity curve name', {'name': u'Regeneration Velocity Function of Air Velocity Curve Name', 'pyname': u'regeneration_velocity_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal regeneration temperature', {'name': u'Nominal Regeneration Temperature', 'pyname': u'nominal_regeneration_temperature', 'maximum': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 40.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:NoFans`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Dehumidifier:Desiccant:NoFans', 'pyname': u'DehumidifierDesiccantNoFans', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration fan inlet node name', {'name': u'Regeneration Fan Inlet Node Name', 'pyname': u'regeneration_fan_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LeavingMaximumHumidityRatioSetpoint', u'SystemNodeMaximumHumidityRatioSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'leaving maximum humidity ratio setpoint', {'name': u'Leaving Maximum Humidity Ratio Setpoint', 'pyname': u'leaving_maximum_humidity_ratio_setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'nominal process air flow rate', {'name': u'Nominal Process Air Flow Rate', 'pyname': u'nominal_process_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal process air velocity', {'name': u'Nominal Process Air Velocity', 'pyname': u'nominal_process_air_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'rotor power', {'name': u'Rotor Power', 'pyname': u'rotor_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'regeneration coil object type', {'name': u'Regeneration Coil Object Type', 'pyname': u'regeneration_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration coil name', {'name': u'Regeneration Coil Name', 'pyname': u'regeneration_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration fan object type', {'name': u'Regeneration Fan Object Type', 'pyname': u'regeneration_fan_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fan:VariableVolume', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration fan name', {'name': u'Regeneration Fan Name', 'pyname': u'regeneration_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'performance model type', {'name': u'Performance Model Type', 'pyname': u'performance_model_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Default', u'UserCurves'], 'autocalculatable': False, 'type': 'alpha'}), (u'leaving dry-bulb function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving dry-bulb function of air velocity curve name', {'name': u'Leaving Dry-Bulb Function of Air Velocity Curve Name', 'pyname': u'leaving_drybulb_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of air velocity curve name', {'name': u'Leaving Humidity Ratio Function of Air Velocity Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of air velocity curve name', {'name': u'Regeneration Energy Function of Air Velocity Curve Name', 'pyname': u'regeneration_energy_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of air velocity curve name', {'name': u'Regeneration Velocity Function of Air Velocity Curve Name', 'pyname': u'regeneration_velocity_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal regeneration temperature', {'name': u'Nominal Regeneration Temperature', 'pyname': u'nominal_regeneration_temperature', 'maximum': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 40.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -276,7 +259,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -299,7 +282,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -324,7 +307,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `process_air_inlet_node_name` or None if not set
         """
-        return self._data["Process Air Inlet Node Name"]
+        return self["Process Air Inlet Node Name"]
 
     @process_air_inlet_node_name.setter
     def process_air_inlet_node_name(self, value=None):
@@ -348,7 +331,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `process_air_outlet_node_name` or None if not set
         """
-        return self._data["Process Air Outlet Node Name"]
+        return self["Process Air Outlet Node Name"]
 
     @process_air_outlet_node_name.setter
     def process_air_outlet_node_name(self, value=None):
@@ -372,7 +355,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_air_inlet_node_name` or None if not set
         """
-        return self._data["Regeneration Air Inlet Node Name"]
+        return self["Regeneration Air Inlet Node Name"]
 
     @regeneration_air_inlet_node_name.setter
     def regeneration_air_inlet_node_name(self, value=None):
@@ -397,7 +380,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_fan_inlet_node_name` or None if not set
         """
-        return self._data["Regeneration Fan Inlet Node Name"]
+        return self["Regeneration Fan Inlet Node Name"]
 
     @regeneration_fan_inlet_node_name.setter
     def regeneration_fan_inlet_node_name(self, value=None):
@@ -422,7 +405,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `control_type` or None if not set
         """
-        return self._data["Control Type"]
+        return self["Control Type"]
 
     @control_type.setter
     def control_type(self, value=None):
@@ -453,7 +436,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             float: the value of `leaving_maximum_humidity_ratio_setpoint` or None if not set
         """
-        return self._data["Leaving Maximum Humidity Ratio Setpoint"]
+        return self["Leaving Maximum Humidity Ratio Setpoint"]
 
     @leaving_maximum_humidity_ratio_setpoint.setter
     def leaving_maximum_humidity_ratio_setpoint(self, value=None):
@@ -479,7 +462,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             float: the value of `nominal_process_air_flow_rate` or None if not set
         """
-        return self._data["Nominal Process Air Flow Rate"]
+        return self["Nominal Process Air Flow Rate"]
 
     @nominal_process_air_flow_rate.setter
     def nominal_process_air_flow_rate(self, value=None):
@@ -504,7 +487,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             float: the value of `nominal_process_air_velocity` or None if not set
         """
-        return self._data["Nominal Process Air Velocity"]
+        return self["Nominal Process Air Velocity"]
 
     @nominal_process_air_velocity.setter
     def nominal_process_air_velocity(self, value=None):
@@ -531,7 +514,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             float: the value of `rotor_power` or None if not set
         """
-        return self._data["Rotor Power"]
+        return self["Rotor Power"]
 
     @rotor_power.setter
     def rotor_power(self, value=None):
@@ -557,7 +540,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_coil_object_type` or None if not set
         """
-        return self._data["Regeneration Coil Object Type"]
+        return self["Regeneration Coil Object Type"]
 
     @regeneration_coil_object_type.setter
     def regeneration_coil_object_type(self, value=None):
@@ -582,7 +565,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_coil_name` or None if not set
         """
-        return self._data["Regeneration Coil Name"]
+        return self["Regeneration Coil Name"]
 
     @regeneration_coil_name.setter
     def regeneration_coil_name(self, value=None):
@@ -606,7 +589,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_fan_object_type` or None if not set
         """
-        return self._data["Regeneration Fan Object Type"]
+        return self["Regeneration Fan Object Type"]
 
     @regeneration_fan_object_type.setter
     def regeneration_fan_object_type(self, value=None):
@@ -631,7 +614,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_fan_name` or None if not set
         """
-        return self._data["Regeneration Fan Name"]
+        return self["Regeneration Fan Name"]
 
     @regeneration_fan_name.setter
     def regeneration_fan_name(self, value=None):
@@ -655,7 +638,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `performance_model_type` or None if not set
         """
-        return self._data["Performance Model Type"]
+        return self["Performance Model Type"]
 
     @performance_model_type.setter
     def performance_model_type(self, value=None):
@@ -692,7 +675,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        return self._data["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+        return self["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
 
     @leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
     def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
@@ -721,7 +704,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `leaving_drybulb_function_of_air_velocity_curve_name` or None if not set
         """
-        return self._data["Leaving Dry-Bulb Function of Air Velocity Curve Name"]
+        return self["Leaving Dry-Bulb Function of Air Velocity Curve Name"]
 
     @leaving_drybulb_function_of_air_velocity_curve_name.setter
     def leaving_drybulb_function_of_air_velocity_curve_name(self, value=None):
@@ -749,7 +732,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        return self._data["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+        return self["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
 
     @leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
     def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
@@ -778,7 +761,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `leaving_humidity_ratio_function_of_air_velocity_curve_name` or None if not set
         """
-        return self._data["Leaving Humidity Ratio Function of Air Velocity Curve Name"]
+        return self["Leaving Humidity Ratio Function of Air Velocity Curve Name"]
 
     @leaving_humidity_ratio_function_of_air_velocity_curve_name.setter
     def leaving_humidity_ratio_function_of_air_velocity_curve_name(self, value=None):
@@ -806,7 +789,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        return self._data["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+        return self["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
 
     @regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
     def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
@@ -835,7 +818,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_energy_function_of_air_velocity_curve_name` or None if not set
         """
-        return self._data["Regeneration Energy Function of Air Velocity Curve Name"]
+        return self["Regeneration Energy Function of Air Velocity Curve Name"]
 
     @regeneration_energy_function_of_air_velocity_curve_name.setter
     def regeneration_energy_function_of_air_velocity_curve_name(self, value=None):
@@ -863,7 +846,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        return self._data["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+        return self["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
 
     @regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
     def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
@@ -892,7 +875,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             str: the value of `regeneration_velocity_function_of_air_velocity_curve_name` or None if not set
         """
-        return self._data["Regeneration Velocity Function of Air Velocity Curve Name"]
+        return self["Regeneration Velocity Function of Air Velocity Curve Name"]
 
     @regeneration_velocity_function_of_air_velocity_curve_name.setter
     def regeneration_velocity_function_of_air_velocity_curve_name(self, value=None):
@@ -920,7 +903,7 @@ class DehumidifierDesiccantNoFans(DataObject):
         Returns:
             float: the value of `nominal_regeneration_temperature` or None if not set
         """
-        return self._data["Nominal Regeneration Temperature"]
+        return self["Nominal Regeneration Temperature"]
 
     @nominal_regeneration_temperature.setter
     def nominal_regeneration_temperature(self, value=None):
@@ -953,16 +936,7 @@ class DehumidifierDesiccantSystem(DataObject):
         regeneration air streams. The desiccant dehumidifier is typically used
         in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC.
     """
-    schema = {'min-fields': 8, 'name': u'Dehumidifier:Desiccant:System', 'pyname': u'DehumidifierDesiccantSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'desiccant heat exchanger object type', {'name': u'Desiccant Heat Exchanger Object Type', 'pyname': u'desiccant_heat_exchanger_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'desiccant heat exchanger name', {'name': u'Desiccant Heat Exchanger Name', 'pyname': u'desiccant_heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air fan object type', {'name': u'Regeneration Air Fan Object Type', 'pyname': u'regeneration_air_fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air fan name', {'name': u'Regeneration Air Fan Name', 'pyname': u'regeneration_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air fan placement', {'name': u'Regeneration Air Fan Placement', 'pyname': u'regeneration_air_fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater object type', {'name': u'Regeneration Air Heater Object Type', 'pyname': u'regeneration_air_heater_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater name', {'name': u'Regeneration Air Heater Name', 'pyname': u'regeneration_air_heater_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration inlet air setpoint temperature', {'name': u'Regeneration Inlet Air Setpoint Temperature', 'pyname': u'regeneration_inlet_air_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'companion cooling coil object type', {'name': u'Companion Cooling Coil Object Type', 'pyname': u'companion_cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'companion cooling coil name', {'name': u'Companion Cooling Coil Name', 'pyname': u'companion_cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'companion cooling coil upstream of dehumidifier process inlet', {'name': u'Companion Cooling Coil Upstream of Dehumidifier Process Inlet', 'pyname': u'companion_cooling_coil_upstream_of_dehumidifier_process_inlet', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'companion coil regeneration air heating', {'name': u'Companion Coil Regeneration Air Heating', 'pyname': u'companion_coil_regeneration_air_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan maximum flow rate', {'name': u'Exhaust Fan Maximum Flow Rate', 'pyname': u'exhaust_fan_maximum_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust fan maximum power', {'name': u'Exhaust Fan Maximum Power', 'pyname': u'exhaust_fan_maximum_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'exhaust fan power curve name', {'name': u'Exhaust Fan Power Curve Name', 'pyname': u'exhaust_fan_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:System`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 8, 'name': u'Dehumidifier:Desiccant:System', 'pyname': u'DehumidifierDesiccantSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'desiccant heat exchanger object type', {'name': u'Desiccant Heat Exchanger Object Type', 'pyname': u'desiccant_heat_exchanger_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatExchanger:Desiccant:BalancedFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'desiccant heat exchanger name', {'name': u'Desiccant Heat Exchanger Name', 'pyname': u'desiccant_heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air fan object type', {'name': u'Regeneration Air Fan Object Type', 'pyname': u'regeneration_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air fan name', {'name': u'Regeneration Air Fan Name', 'pyname': u'regeneration_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air fan placement', {'name': u'Regeneration Air Fan Placement', 'pyname': u'regeneration_air_fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater object type', {'name': u'Regeneration Air Heater Object Type', 'pyname': u'regeneration_air_heater_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater name', {'name': u'Regeneration Air Heater Name', 'pyname': u'regeneration_air_heater_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration inlet air setpoint temperature', {'name': u'Regeneration Inlet Air Setpoint Temperature', 'pyname': u'regeneration_inlet_air_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'companion cooling coil object type', {'name': u'Companion Cooling Coil Object Type', 'pyname': u'companion_cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode'], 'autocalculatable': False, 'type': 'alpha'}), (u'companion cooling coil name', {'name': u'Companion Cooling Coil Name', 'pyname': u'companion_cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'companion cooling coil upstream of dehumidifier process inlet', {'name': u'Companion Cooling Coil Upstream of Dehumidifier Process Inlet', 'pyname': u'companion_cooling_coil_upstream_of_dehumidifier_process_inlet', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'companion coil regeneration air heating', {'name': u'Companion Coil Regeneration Air Heating', 'pyname': u'companion_coil_regeneration_air_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan maximum flow rate', {'name': u'Exhaust Fan Maximum Flow Rate', 'pyname': u'exhaust_fan_maximum_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust fan maximum power', {'name': u'Exhaust Fan Maximum Power', 'pyname': u'exhaust_fan_maximum_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'exhaust fan power curve name', {'name': u'Exhaust Fan Power Curve Name', 'pyname': u'exhaust_fan_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -971,7 +945,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -994,7 +968,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1019,7 +993,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `desiccant_heat_exchanger_object_type` or None if not set
         """
-        return self._data["Desiccant Heat Exchanger Object Type"]
+        return self["Desiccant Heat Exchanger Object Type"]
 
     @desiccant_heat_exchanger_object_type.setter
     def desiccant_heat_exchanger_object_type(self, value=None):
@@ -1042,7 +1016,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `desiccant_heat_exchanger_name` or None if not set
         """
-        return self._data["Desiccant Heat Exchanger Name"]
+        return self["Desiccant Heat Exchanger Name"]
 
     @desiccant_heat_exchanger_name.setter
     def desiccant_heat_exchanger_name(self, value=None):
@@ -1065,7 +1039,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `sensor_node_name` or None if not set
         """
-        return self._data["Sensor Node Name"]
+        return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
@@ -1088,7 +1062,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `regeneration_air_fan_object_type` or None if not set
         """
-        return self._data["Regeneration Air Fan Object Type"]
+        return self["Regeneration Air Fan Object Type"]
 
     @regeneration_air_fan_object_type.setter
     def regeneration_air_fan_object_type(self, value=None):
@@ -1111,7 +1085,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `regeneration_air_fan_name` or None if not set
         """
-        return self._data["Regeneration Air Fan Name"]
+        return self["Regeneration Air Fan Name"]
 
     @regeneration_air_fan_name.setter
     def regeneration_air_fan_name(self, value=None):
@@ -1134,7 +1108,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `regeneration_air_fan_placement` or None if not set
         """
-        return self._data["Regeneration Air Fan Placement"]
+        return self["Regeneration Air Fan Placement"]
 
     @regeneration_air_fan_placement.setter
     def regeneration_air_fan_placement(self, value="DrawThrough"):
@@ -1158,7 +1132,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `regeneration_air_heater_object_type` or None if not set
         """
-        return self._data["Regeneration Air Heater Object Type"]
+        return self["Regeneration Air Heater Object Type"]
 
     @regeneration_air_heater_object_type.setter
     def regeneration_air_heater_object_type(self, value=None):
@@ -1182,7 +1156,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `regeneration_air_heater_name` or None if not set
         """
-        return self._data["Regeneration Air Heater Name"]
+        return self["Regeneration Air Heater Name"]
 
     @regeneration_air_heater_name.setter
     def regeneration_air_heater_name(self, value=None):
@@ -1205,7 +1179,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             float: the value of `regeneration_inlet_air_setpoint_temperature` or None if not set
         """
-        return self._data["Regeneration Inlet Air Setpoint Temperature"]
+        return self["Regeneration Inlet Air Setpoint Temperature"]
 
     @regeneration_inlet_air_setpoint_temperature.setter
     def regeneration_inlet_air_setpoint_temperature(self, value=None):
@@ -1229,7 +1203,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `companion_cooling_coil_object_type` or None if not set
         """
-        return self._data["Companion Cooling Coil Object Type"]
+        return self["Companion Cooling Coil Object Type"]
 
     @companion_cooling_coil_object_type.setter
     def companion_cooling_coil_object_type(self, value=None):
@@ -1252,7 +1226,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `companion_cooling_coil_name` or None if not set
         """
-        return self._data["Companion Cooling Coil Name"]
+        return self["Companion Cooling Coil Name"]
 
     @companion_cooling_coil_name.setter
     def companion_cooling_coil_name(self, value=None):
@@ -1275,7 +1249,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `companion_cooling_coil_upstream_of_dehumidifier_process_inlet` or None if not set
         """
-        return self._data["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"]
+        return self["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"]
 
     @companion_cooling_coil_upstream_of_dehumidifier_process_inlet.setter
     def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(self, value="No"):
@@ -1301,7 +1275,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `companion_coil_regeneration_air_heating` or None if not set
         """
-        return self._data["Companion Coil Regeneration Air Heating"]
+        return self["Companion Coil Regeneration Air Heating"]
 
     @companion_coil_regeneration_air_heating.setter
     def companion_coil_regeneration_air_heating(self, value="No"):
@@ -1325,7 +1299,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             float: the value of `exhaust_fan_maximum_flow_rate` or None if not set
         """
-        return self._data["Exhaust Fan Maximum Flow Rate"]
+        return self["Exhaust Fan Maximum Flow Rate"]
 
     @exhaust_fan_maximum_flow_rate.setter
     def exhaust_fan_maximum_flow_rate(self, value=None):
@@ -1349,7 +1323,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             float: the value of `exhaust_fan_maximum_power` or None if not set
         """
-        return self._data["Exhaust Fan Maximum Power"]
+        return self["Exhaust Fan Maximum Power"]
 
     @exhaust_fan_maximum_power.setter
     def exhaust_fan_maximum_power(self, value=None):
@@ -1373,7 +1347,7 @@ class DehumidifierDesiccantSystem(DataObject):
         Returns:
             str: the value of `exhaust_fan_power_curve_name` or None if not set
         """
-        return self._data["Exhaust Fan Power Curve Name"]
+        return self["Exhaust Fan Power Curve Name"]
 
     @exhaust_fan_power_curve_name.setter
     def exhaust_fan_power_curve_name(self, value=None):

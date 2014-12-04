@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -17,15 +18,6 @@ class LoadProfilePlant(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'LoadProfile:Plant', 'pyname': u'LoadProfilePlant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'load schedule name', {'name': u'Load Schedule Name', 'pyname': u'load_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `LoadProfile:Plant`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -33,7 +25,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -56,7 +48,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -79,7 +71,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -102,7 +94,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             str: the value of `load_schedule_name` or None if not set
         """
-        return self._data["Load Schedule Name"]
+        return self["Load Schedule Name"]
 
     @load_schedule_name.setter
     def load_schedule_name(self, value=None):
@@ -126,7 +118,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             float: the value of `peak_flow_rate` or None if not set
         """
-        return self._data["Peak Flow Rate"]
+        return self["Peak Flow Rate"]
 
     @peak_flow_rate.setter
     def peak_flow_rate(self, value=None):
@@ -150,7 +142,7 @@ class LoadProfilePlant(DataObject):
         Returns:
             str: the value of `flow_rate_fraction_schedule_name` or None if not set
         """
-        return self._data["Flow Rate Fraction Schedule Name"]
+        return self["Flow Rate Fraction Schedule Name"]
 
     @flow_rate_fraction_schedule_name.setter
     def flow_rate_fraction_schedule_name(self, value=None):

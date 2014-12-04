@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -16,15 +17,6 @@ class TemperingValve(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'TemperingValve', 'pyname': u'TemperingValve', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'stream 2 source node name', {'name': u'Stream 2 Source Node Name', 'pyname': u'stream_2_source_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature setpoint node name', {'name': u'Temperature Setpoint Node Name', 'pyname': u'temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'pump outlet node name', {'name': u'Pump Outlet Node Name', 'pyname': u'pump_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `TemperingValve`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -32,7 +24,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -55,7 +47,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -79,7 +71,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -103,7 +95,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `stream_2_source_node_name` or None if not set
         """
-        return self._data["Stream 2 Source Node Name"]
+        return self["Stream 2 Source Node Name"]
 
     @stream_2_source_node_name.setter
     def stream_2_source_node_name(self, value=None):
@@ -127,7 +119,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Temperature Setpoint Node Name"]
+        return self["Temperature Setpoint Node Name"]
 
     @temperature_setpoint_node_name.setter
     def temperature_setpoint_node_name(self, value=None):
@@ -151,7 +143,7 @@ class TemperingValve(DataObject):
         Returns:
             str: the value of `pump_outlet_node_name` or None if not set
         """
-        return self._data["Pump Outlet Node Name"]
+        return self["Pump Outlet Node Name"]
 
     @pump_outlet_node_name.setter
     def pump_outlet_node_name(self, value=None):
@@ -172,16 +164,7 @@ class PlantLoop(DataObject):
     """ Corresponds to IDD object `PlantLoop`
         Defines a central plant loop.
     """
-    schema = {'min-fields': 0, 'name': u'PlantLoop', 'pyname': u'PlantLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant equipment operation scheme name', {'name': u'Plant Equipment Operation Scheme Name', 'pyname': u'plant_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop temperature setpoint node name', {'name': u'Loop Temperature Setpoint Node Name', 'pyname': u'loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'plant loop volume', {'name': u'Plant Loop Volume', 'pyname': u'plant_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'plant side inlet node name', {'name': u'Plant Side Inlet Node Name', 'pyname': u'plant_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side outlet node name', {'name': u'Plant Side Outlet Node Name', 'pyname': u'plant_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side branch list name', {'name': u'Plant Side Branch List Name', 'pyname': u'plant_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant side connector list name', {'name': u'Plant Side Connector List Name', 'pyname': u'plant_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side branch list name', {'name': u'Demand Side Branch List Name', 'pyname': u'demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side connector list name', {'name': u'Demand Side Connector List Name', 'pyname': u'demand_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant loop demand calculation scheme', {'name': u'Plant Loop Demand Calculation Scheme', 'pyname': u'plant_loop_demand_calculation_scheme', 'default': u'SingleSetpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'common pipe simulation', {'name': u'Common Pipe Simulation', 'pyname': u'common_pipe_simulation', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantLoop`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'PlantLoop', 'pyname': u'PlantLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'Steam', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant equipment operation scheme name', {'name': u'Plant Equipment Operation Scheme Name', 'pyname': u'plant_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop temperature setpoint node name', {'name': u'Loop Temperature Setpoint Node Name', 'pyname': u'loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'plant loop volume', {'name': u'Plant Loop Volume', 'pyname': u'plant_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'plant side inlet node name', {'name': u'Plant Side Inlet Node Name', 'pyname': u'plant_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side outlet node name', {'name': u'Plant Side Outlet Node Name', 'pyname': u'plant_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side branch list name', {'name': u'Plant Side Branch List Name', 'pyname': u'plant_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant side connector list name', {'name': u'Plant Side Connector List Name', 'pyname': u'plant_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side branch list name', {'name': u'Demand Side Branch List Name', 'pyname': u'demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side connector list name', {'name': u'Demand Side Connector List Name', 'pyname': u'demand_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant loop demand calculation scheme', {'name': u'Plant Loop Demand Calculation Scheme', 'pyname': u'plant_loop_demand_calculation_scheme', 'default': u'SingleSetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SingleSetpoint', u'DualSetpointDeadband'], 'autocalculatable': False, 'type': 'alpha'}), (u'common pipe simulation', {'name': u'Common Pipe Simulation', 'pyname': u'common_pipe_simulation', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CommonPipe', u'TwoWayCommonPipe', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -190,7 +173,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -213,7 +196,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `fluid_type` or None if not set
         """
-        return self._data["Fluid Type"]
+        return self["Fluid Type"]
 
     @fluid_type.setter
     def fluid_type(self, value="Water"):
@@ -237,7 +220,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `user_defined_fluid_type` or None if not set
         """
-        return self._data["User Defined Fluid Type"]
+        return self["User Defined Fluid Type"]
 
     @user_defined_fluid_type.setter
     def user_defined_fluid_type(self, value=None):
@@ -261,7 +244,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_equipment_operation_scheme_name` or None if not set
         """
-        return self._data["Plant Equipment Operation Scheme Name"]
+        return self["Plant Equipment Operation Scheme Name"]
 
     @plant_equipment_operation_scheme_name.setter
     def plant_equipment_operation_scheme_name(self, value=None):
@@ -284,7 +267,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `loop_temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Loop Temperature Setpoint Node Name"]
+        return self["Loop Temperature Setpoint Node Name"]
 
     @loop_temperature_setpoint_node_name.setter
     def loop_temperature_setpoint_node_name(self, value=None):
@@ -307,7 +290,7 @@ class PlantLoop(DataObject):
         Returns:
             float: the value of `maximum_loop_temperature` or None if not set
         """
-        return self._data["Maximum Loop Temperature"]
+        return self["Maximum Loop Temperature"]
 
     @maximum_loop_temperature.setter
     def maximum_loop_temperature(self, value=None):
@@ -331,7 +314,7 @@ class PlantLoop(DataObject):
         Returns:
             float: the value of `minimum_loop_temperature` or None if not set
         """
-        return self._data["Minimum Loop Temperature"]
+        return self["Minimum Loop Temperature"]
 
     @minimum_loop_temperature.setter
     def minimum_loop_temperature(self, value=None):
@@ -355,7 +338,7 @@ class PlantLoop(DataObject):
         Returns:
             float: the value of `maximum_loop_flow_rate` or None if not set
         """
-        return self._data["Maximum Loop Flow Rate"]
+        return self["Maximum Loop Flow Rate"]
 
     @maximum_loop_flow_rate.setter
     def maximum_loop_flow_rate(self, value=None):
@@ -380,7 +363,7 @@ class PlantLoop(DataObject):
         Returns:
             float: the value of `minimum_loop_flow_rate` or None if not set
         """
-        return self._data["Minimum Loop Flow Rate"]
+        return self["Minimum Loop Flow Rate"]
 
     @minimum_loop_flow_rate.setter
     def minimum_loop_flow_rate(self, value=None):
@@ -405,7 +388,7 @@ class PlantLoop(DataObject):
         Returns:
             float: the value of `plant_loop_volume` or None if not set
         """
-        return self._data["Plant Loop Volume"]
+        return self["Plant Loop Volume"]
 
     @plant_loop_volume.setter
     def plant_loop_volume(self, value="Autocalculate"):
@@ -431,7 +414,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_side_inlet_node_name` or None if not set
         """
-        return self._data["Plant Side Inlet Node Name"]
+        return self["Plant Side Inlet Node Name"]
 
     @plant_side_inlet_node_name.setter
     def plant_side_inlet_node_name(self, value=None):
@@ -454,7 +437,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_side_outlet_node_name` or None if not set
         """
-        return self._data["Plant Side Outlet Node Name"]
+        return self["Plant Side Outlet Node Name"]
 
     @plant_side_outlet_node_name.setter
     def plant_side_outlet_node_name(self, value=None):
@@ -477,7 +460,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_side_branch_list_name` or None if not set
         """
-        return self._data["Plant Side Branch List Name"]
+        return self["Plant Side Branch List Name"]
 
     @plant_side_branch_list_name.setter
     def plant_side_branch_list_name(self, value=None):
@@ -500,7 +483,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_side_connector_list_name` or None if not set
         """
-        return self._data["Plant Side Connector List Name"]
+        return self["Plant Side Connector List Name"]
 
     @plant_side_connector_list_name.setter
     def plant_side_connector_list_name(self, value=None):
@@ -523,7 +506,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `demand_side_inlet_node_name` or None if not set
         """
-        return self._data["Demand Side Inlet Node Name"]
+        return self["Demand Side Inlet Node Name"]
 
     @demand_side_inlet_node_name.setter
     def demand_side_inlet_node_name(self, value=None):
@@ -546,7 +529,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `demand_side_outlet_node_name` or None if not set
         """
-        return self._data["Demand Side Outlet Node Name"]
+        return self["Demand Side Outlet Node Name"]
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
@@ -569,7 +552,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `demand_side_branch_list_name` or None if not set
         """
-        return self._data["Demand Side Branch List Name"]
+        return self["Demand Side Branch List Name"]
 
     @demand_side_branch_list_name.setter
     def demand_side_branch_list_name(self, value=None):
@@ -592,7 +575,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `demand_side_connector_list_name` or None if not set
         """
-        return self._data["Demand Side Connector List Name"]
+        return self["Demand Side Connector List Name"]
 
     @demand_side_connector_list_name.setter
     def demand_side_connector_list_name(self, value=None):
@@ -615,7 +598,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `load_distribution_scheme` or None if not set
         """
-        return self._data["Load Distribution Scheme"]
+        return self["Load Distribution Scheme"]
 
     @load_distribution_scheme.setter
     def load_distribution_scheme(self, value="SequentialLoad"):
@@ -639,7 +622,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
         """
-        return self._data["Availability Manager List Name"]
+        return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
@@ -662,7 +645,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `plant_loop_demand_calculation_scheme` or None if not set
         """
-        return self._data["Plant Loop Demand Calculation Scheme"]
+        return self["Plant Loop Demand Calculation Scheme"]
 
     @plant_loop_demand_calculation_scheme.setter
     def plant_loop_demand_calculation_scheme(self, value="SingleSetpoint"):
@@ -686,7 +669,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `common_pipe_simulation` or None if not set
         """
-        return self._data["Common Pipe Simulation"]
+        return self["Common Pipe Simulation"]
 
     @common_pipe_simulation.setter
     def common_pipe_simulation(self, value="None"):
@@ -718,7 +701,7 @@ class PlantLoop(DataObject):
         Returns:
             str: the value of `pressure_simulation_type` or None if not set
         """
-        return self._data["Pressure Simulation Type"]
+        return self["Pressure Simulation Type"]
 
     @pressure_simulation_type.setter
     def pressure_simulation_type(self, value="None"):
@@ -742,16 +725,7 @@ class CondenserLoop(DataObject):
         identical except some components and operation schemes are applicable to only one
         loop type or the other.
     """
-    schema = {'min-fields': 0, 'name': u'CondenserLoop', 'pyname': u'CondenserLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser equipment operation scheme name', {'name': u'Condenser Equipment Operation Scheme Name', 'pyname': u'condenser_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser loop temperature setpoint node name', {'name': u'Condenser Loop Temperature Setpoint Node Name', 'pyname': u'condenser_loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'condenser loop volume', {'name': u'Condenser Loop Volume', 'pyname': u'condenser_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'condenser side inlet node name', {'name': u'Condenser Side Inlet Node Name', 'pyname': u'condenser_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side outlet node name', {'name': u'Condenser Side Outlet Node Name', 'pyname': u'condenser_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side branch list name', {'name': u'Condenser Side Branch List Name', 'pyname': u'condenser_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser side connector list name', {'name': u'Condenser Side Connector List Name', 'pyname': u'condenser_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser demand side branch list name', {'name': u'Condenser Demand Side Branch List Name', 'pyname': u'condenser_demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser demand side connector list name', {'name': u'Condenser Demand Side Connector List Name', 'pyname': u'condenser_demand_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `CondenserLoop`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'CondenserLoop', 'pyname': u'CondenserLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser equipment operation scheme name', {'name': u'Condenser Equipment Operation Scheme Name', 'pyname': u'condenser_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser loop temperature setpoint node name', {'name': u'Condenser Loop Temperature Setpoint Node Name', 'pyname': u'condenser_loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'condenser loop volume', {'name': u'Condenser Loop Volume', 'pyname': u'condenser_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'condenser side inlet node name', {'name': u'Condenser Side Inlet Node Name', 'pyname': u'condenser_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side outlet node name', {'name': u'Condenser Side Outlet Node Name', 'pyname': u'condenser_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side branch list name', {'name': u'Condenser Side Branch List Name', 'pyname': u'condenser_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser side connector list name', {'name': u'Condenser Side Connector List Name', 'pyname': u'condenser_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser demand side branch list name', {'name': u'Condenser Demand Side Branch List Name', 'pyname': u'condenser_demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser demand side connector list name', {'name': u'Condenser Demand Side Connector List Name', 'pyname': u'condenser_demand_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -760,7 +734,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -783,7 +757,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `fluid_type` or None if not set
         """
-        return self._data["Fluid Type"]
+        return self["Fluid Type"]
 
     @fluid_type.setter
     def fluid_type(self, value="Water"):
@@ -807,7 +781,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `user_defined_fluid_type` or None if not set
         """
-        return self._data["User Defined Fluid Type"]
+        return self["User Defined Fluid Type"]
 
     @user_defined_fluid_type.setter
     def user_defined_fluid_type(self, value=None):
@@ -831,7 +805,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_equipment_operation_scheme_name` or None if not set
         """
-        return self._data["Condenser Equipment Operation Scheme Name"]
+        return self["Condenser Equipment Operation Scheme Name"]
 
     @condenser_equipment_operation_scheme_name.setter
     def condenser_equipment_operation_scheme_name(self, value=None):
@@ -854,7 +828,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_loop_temperature_setpoint_node_name` or None if not set
         """
-        return self._data["Condenser Loop Temperature Setpoint Node Name"]
+        return self["Condenser Loop Temperature Setpoint Node Name"]
 
     @condenser_loop_temperature_setpoint_node_name.setter
     def condenser_loop_temperature_setpoint_node_name(self, value=None):
@@ -877,7 +851,7 @@ class CondenserLoop(DataObject):
         Returns:
             float: the value of `maximum_loop_temperature` or None if not set
         """
-        return self._data["Maximum Loop Temperature"]
+        return self["Maximum Loop Temperature"]
 
     @maximum_loop_temperature.setter
     def maximum_loop_temperature(self, value=None):
@@ -901,7 +875,7 @@ class CondenserLoop(DataObject):
         Returns:
             float: the value of `minimum_loop_temperature` or None if not set
         """
-        return self._data["Minimum Loop Temperature"]
+        return self["Minimum Loop Temperature"]
 
     @minimum_loop_temperature.setter
     def minimum_loop_temperature(self, value=None):
@@ -925,7 +899,7 @@ class CondenserLoop(DataObject):
         Returns:
             float: the value of `maximum_loop_flow_rate` or None if not set
         """
-        return self._data["Maximum Loop Flow Rate"]
+        return self["Maximum Loop Flow Rate"]
 
     @maximum_loop_flow_rate.setter
     def maximum_loop_flow_rate(self, value=None):
@@ -950,7 +924,7 @@ class CondenserLoop(DataObject):
         Returns:
             float: the value of `minimum_loop_flow_rate` or None if not set
         """
-        return self._data["Minimum Loop Flow Rate"]
+        return self["Minimum Loop Flow Rate"]
 
     @minimum_loop_flow_rate.setter
     def minimum_loop_flow_rate(self, value=None):
@@ -975,7 +949,7 @@ class CondenserLoop(DataObject):
         Returns:
             float: the value of `condenser_loop_volume` or None if not set
         """
-        return self._data["Condenser Loop Volume"]
+        return self["Condenser Loop Volume"]
 
     @condenser_loop_volume.setter
     def condenser_loop_volume(self, value="Autocalculate"):
@@ -1001,7 +975,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_side_inlet_node_name` or None if not set
         """
-        return self._data["Condenser Side Inlet Node Name"]
+        return self["Condenser Side Inlet Node Name"]
 
     @condenser_side_inlet_node_name.setter
     def condenser_side_inlet_node_name(self, value=None):
@@ -1024,7 +998,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_side_outlet_node_name` or None if not set
         """
-        return self._data["Condenser Side Outlet Node Name"]
+        return self["Condenser Side Outlet Node Name"]
 
     @condenser_side_outlet_node_name.setter
     def condenser_side_outlet_node_name(self, value=None):
@@ -1047,7 +1021,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_side_branch_list_name` or None if not set
         """
-        return self._data["Condenser Side Branch List Name"]
+        return self["Condenser Side Branch List Name"]
 
     @condenser_side_branch_list_name.setter
     def condenser_side_branch_list_name(self, value=None):
@@ -1070,7 +1044,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_side_connector_list_name` or None if not set
         """
-        return self._data["Condenser Side Connector List Name"]
+        return self["Condenser Side Connector List Name"]
 
     @condenser_side_connector_list_name.setter
     def condenser_side_connector_list_name(self, value=None):
@@ -1093,7 +1067,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `demand_side_inlet_node_name` or None if not set
         """
-        return self._data["Demand Side Inlet Node Name"]
+        return self["Demand Side Inlet Node Name"]
 
     @demand_side_inlet_node_name.setter
     def demand_side_inlet_node_name(self, value=None):
@@ -1116,7 +1090,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `demand_side_outlet_node_name` or None if not set
         """
-        return self._data["Demand Side Outlet Node Name"]
+        return self["Demand Side Outlet Node Name"]
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
@@ -1139,7 +1113,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_demand_side_branch_list_name` or None if not set
         """
-        return self._data["Condenser Demand Side Branch List Name"]
+        return self["Condenser Demand Side Branch List Name"]
 
     @condenser_demand_side_branch_list_name.setter
     def condenser_demand_side_branch_list_name(self, value=None):
@@ -1162,7 +1136,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `condenser_demand_side_connector_list_name` or None if not set
         """
-        return self._data["Condenser Demand Side Connector List Name"]
+        return self["Condenser Demand Side Connector List Name"]
 
     @condenser_demand_side_connector_list_name.setter
     def condenser_demand_side_connector_list_name(self, value=None):
@@ -1185,7 +1159,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `load_distribution_scheme` or None if not set
         """
-        return self._data["Load Distribution Scheme"]
+        return self["Load Distribution Scheme"]
 
     @load_distribution_scheme.setter
     def load_distribution_scheme(self, value="SequentialLoad"):
@@ -1209,7 +1183,7 @@ class CondenserLoop(DataObject):
         Returns:
             str: the value of `pressure_simulation_type` or None if not set
         """
-        return self._data["Pressure Simulation Type"]
+        return self["Pressure Simulation Type"]
 
     @pressure_simulation_type.setter
     def pressure_simulation_type(self, value="None"):
@@ -1237,15 +1211,6 @@ class PlantEquipmentList(DataObject):
     """
     schema = {'min-fields': 1, 'name': u'PlantEquipmentList', 'pyname': u'PlantEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1253,7 +1218,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1276,7 +1241,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_1_object_type` or None if not set
         """
-        return self._data["Equipment 1 Object Type"]
+        return self["Equipment 1 Object Type"]
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
@@ -1299,7 +1264,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_1_name` or None if not set
         """
-        return self._data["Equipment 1 Name"]
+        return self["Equipment 1 Name"]
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
@@ -1322,7 +1287,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_2_object_type` or None if not set
         """
-        return self._data["Equipment 2 Object Type"]
+        return self["Equipment 2 Object Type"]
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
@@ -1345,7 +1310,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_2_name` or None if not set
         """
-        return self._data["Equipment 2 Name"]
+        return self["Equipment 2 Name"]
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
@@ -1368,7 +1333,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_3_object_type` or None if not set
         """
-        return self._data["Equipment 3 Object Type"]
+        return self["Equipment 3 Object Type"]
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
@@ -1391,7 +1356,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_3_name` or None if not set
         """
-        return self._data["Equipment 3 Name"]
+        return self["Equipment 3 Name"]
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
@@ -1414,7 +1379,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_4_object_type` or None if not set
         """
-        return self._data["Equipment 4 Object Type"]
+        return self["Equipment 4 Object Type"]
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
@@ -1437,7 +1402,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_4_name` or None if not set
         """
-        return self._data["Equipment 4 Name"]
+        return self["Equipment 4 Name"]
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
@@ -1460,7 +1425,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_5_object_type` or None if not set
         """
-        return self._data["Equipment 5 Object Type"]
+        return self["Equipment 5 Object Type"]
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
@@ -1483,7 +1448,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_5_name` or None if not set
         """
-        return self._data["Equipment 5 Name"]
+        return self["Equipment 5 Name"]
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
@@ -1506,7 +1471,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_6_object_type` or None if not set
         """
-        return self._data["Equipment 6 Object Type"]
+        return self["Equipment 6 Object Type"]
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
@@ -1529,7 +1494,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_6_name` or None if not set
         """
-        return self._data["Equipment 6 Name"]
+        return self["Equipment 6 Name"]
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
@@ -1552,7 +1517,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_7_object_type` or None if not set
         """
-        return self._data["Equipment 7 Object Type"]
+        return self["Equipment 7 Object Type"]
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
@@ -1575,7 +1540,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_7_name` or None if not set
         """
-        return self._data["Equipment 7 Name"]
+        return self["Equipment 7 Name"]
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
@@ -1598,7 +1563,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_8_object_type` or None if not set
         """
-        return self._data["Equipment 8 Object Type"]
+        return self["Equipment 8 Object Type"]
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
@@ -1621,7 +1586,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_8_name` or None if not set
         """
-        return self._data["Equipment 8 Name"]
+        return self["Equipment 8 Name"]
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
@@ -1644,7 +1609,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_9_object_type` or None if not set
         """
-        return self._data["Equipment 9 Object Type"]
+        return self["Equipment 9 Object Type"]
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
@@ -1667,7 +1632,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_9_name` or None if not set
         """
-        return self._data["Equipment 9 Name"]
+        return self["Equipment 9 Name"]
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
@@ -1690,7 +1655,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_10_object_type` or None if not set
         """
-        return self._data["Equipment 10 Object Type"]
+        return self["Equipment 10 Object Type"]
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
@@ -1713,7 +1678,7 @@ class PlantEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_10_name` or None if not set
         """
-        return self._data["Equipment 10 Name"]
+        return self["Equipment 10 Name"]
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
@@ -1740,15 +1705,6 @@ class CondenserEquipmentList(DataObject):
     """
     schema = {'min-fields': 1, 'name': u'CondenserEquipmentList', 'pyname': u'CondenserEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `CondenserEquipmentList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1756,7 +1712,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1779,7 +1735,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_1_object_type` or None if not set
         """
-        return self._data["Equipment 1 Object Type"]
+        return self["Equipment 1 Object Type"]
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
@@ -1802,7 +1758,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_1_name` or None if not set
         """
-        return self._data["Equipment 1 Name"]
+        return self["Equipment 1 Name"]
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
@@ -1825,7 +1781,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_2_object_type` or None if not set
         """
-        return self._data["Equipment 2 Object Type"]
+        return self["Equipment 2 Object Type"]
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
@@ -1848,7 +1804,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_2_name` or None if not set
         """
-        return self._data["Equipment 2 Name"]
+        return self["Equipment 2 Name"]
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
@@ -1871,7 +1827,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_3_object_type` or None if not set
         """
-        return self._data["Equipment 3 Object Type"]
+        return self["Equipment 3 Object Type"]
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
@@ -1894,7 +1850,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_3_name` or None if not set
         """
-        return self._data["Equipment 3 Name"]
+        return self["Equipment 3 Name"]
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
@@ -1917,7 +1873,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_4_object_type` or None if not set
         """
-        return self._data["Equipment 4 Object Type"]
+        return self["Equipment 4 Object Type"]
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
@@ -1940,7 +1896,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_4_name` or None if not set
         """
-        return self._data["Equipment 4 Name"]
+        return self["Equipment 4 Name"]
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
@@ -1963,7 +1919,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_5_object_type` or None if not set
         """
-        return self._data["Equipment 5 Object Type"]
+        return self["Equipment 5 Object Type"]
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
@@ -1986,7 +1942,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_5_name` or None if not set
         """
-        return self._data["Equipment 5 Name"]
+        return self["Equipment 5 Name"]
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
@@ -2009,7 +1965,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_6_object_type` or None if not set
         """
-        return self._data["Equipment 6 Object Type"]
+        return self["Equipment 6 Object Type"]
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
@@ -2032,7 +1988,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_6_name` or None if not set
         """
-        return self._data["Equipment 6 Name"]
+        return self["Equipment 6 Name"]
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
@@ -2055,7 +2011,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_7_object_type` or None if not set
         """
-        return self._data["Equipment 7 Object Type"]
+        return self["Equipment 7 Object Type"]
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
@@ -2078,7 +2034,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_7_name` or None if not set
         """
-        return self._data["Equipment 7 Name"]
+        return self["Equipment 7 Name"]
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
@@ -2101,7 +2057,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_8_object_type` or None if not set
         """
-        return self._data["Equipment 8 Object Type"]
+        return self["Equipment 8 Object Type"]
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
@@ -2124,7 +2080,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_8_name` or None if not set
         """
-        return self._data["Equipment 8 Name"]
+        return self["Equipment 8 Name"]
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
@@ -2147,7 +2103,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_9_object_type` or None if not set
         """
-        return self._data["Equipment 9 Object Type"]
+        return self["Equipment 9 Object Type"]
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
@@ -2170,7 +2126,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_9_name` or None if not set
         """
-        return self._data["Equipment 9 Name"]
+        return self["Equipment 9 Name"]
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
@@ -2193,7 +2149,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_10_object_type` or None if not set
         """
-        return self._data["Equipment 10 Object Type"]
+        return self["Equipment 10 Object Type"]
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
@@ -2216,7 +2172,7 @@ class CondenserEquipmentList(DataObject):
         Returns:
             str: the value of `equipment_10_name` or None if not set
         """
-        return self._data["Equipment 10 Name"]
+        return self["Equipment 10 Name"]
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
@@ -2241,15 +2197,6 @@ class PlantEquipmentOperationUncontrolled(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'PlantEquipmentOperation:Uncontrolled', 'pyname': u'PlantEquipmentOperationUncontrolled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment list name', {'name': u'Equipment List Name', 'pyname': u'equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:Uncontrolled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2257,7 +2204,7 @@ class PlantEquipmentOperationUncontrolled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2280,7 +2227,7 @@ class PlantEquipmentOperationUncontrolled(DataObject):
         Returns:
             str: the value of `equipment_list_name` or None if not set
         """
-        return self._data["Equipment List Name"]
+        return self["Equipment List Name"]
 
     @equipment_list_name.setter
     def equipment_list_name(self, value=None):
@@ -2305,15 +2252,6 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:CoolingLoad', 'pyname': u'PlantEquipmentOperationCoolingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:CoolingLoad`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2321,7 +2259,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2344,7 +2282,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_1_lower_limit` or None if not set
         """
-        return self._data["Load Range 1 Lower Limit"]
+        return self["Load Range 1 Lower Limit"]
 
     @load_range_1_lower_limit.setter
     def load_range_1_lower_limit(self, value=None):
@@ -2368,7 +2306,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_1_upper_limit` or None if not set
         """
-        return self._data["Load Range 1 Upper Limit"]
+        return self["Load Range 1 Upper Limit"]
 
     @load_range_1_upper_limit.setter
     def load_range_1_upper_limit(self, value=None):
@@ -2392,7 +2330,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -2415,7 +2353,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_2_lower_limit` or None if not set
         """
-        return self._data["Load Range 2 Lower Limit"]
+        return self["Load Range 2 Lower Limit"]
 
     @load_range_2_lower_limit.setter
     def load_range_2_lower_limit(self, value=None):
@@ -2439,7 +2377,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_2_upper_limit` or None if not set
         """
-        return self._data["Load Range 2 Upper Limit"]
+        return self["Load Range 2 Upper Limit"]
 
     @load_range_2_upper_limit.setter
     def load_range_2_upper_limit(self, value=None):
@@ -2463,7 +2401,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -2486,7 +2424,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_3_lower_limit` or None if not set
         """
-        return self._data["Load Range 3 Lower Limit"]
+        return self["Load Range 3 Lower Limit"]
 
     @load_range_3_lower_limit.setter
     def load_range_3_lower_limit(self, value=None):
@@ -2510,7 +2448,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_3_upper_limit` or None if not set
         """
-        return self._data["Load Range 3 Upper Limit"]
+        return self["Load Range 3 Upper Limit"]
 
     @load_range_3_upper_limit.setter
     def load_range_3_upper_limit(self, value=None):
@@ -2534,7 +2472,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -2557,7 +2495,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_4_lower_limit` or None if not set
         """
-        return self._data["Load Range 4 Lower Limit"]
+        return self["Load Range 4 Lower Limit"]
 
     @load_range_4_lower_limit.setter
     def load_range_4_lower_limit(self, value=None):
@@ -2581,7 +2519,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_4_upper_limit` or None if not set
         """
-        return self._data["Load Range 4 Upper Limit"]
+        return self["Load Range 4 Upper Limit"]
 
     @load_range_4_upper_limit.setter
     def load_range_4_upper_limit(self, value=None):
@@ -2605,7 +2543,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -2628,7 +2566,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_5_lower_limit` or None if not set
         """
-        return self._data["Load Range 5 Lower Limit"]
+        return self["Load Range 5 Lower Limit"]
 
     @load_range_5_lower_limit.setter
     def load_range_5_lower_limit(self, value=None):
@@ -2652,7 +2590,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_5_upper_limit` or None if not set
         """
-        return self._data["Load Range 5 Upper Limit"]
+        return self["Load Range 5 Upper Limit"]
 
     @load_range_5_upper_limit.setter
     def load_range_5_upper_limit(self, value=None):
@@ -2676,7 +2614,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -2699,7 +2637,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_6_lower_limit` or None if not set
         """
-        return self._data["Load Range 6 Lower Limit"]
+        return self["Load Range 6 Lower Limit"]
 
     @load_range_6_lower_limit.setter
     def load_range_6_lower_limit(self, value=None):
@@ -2723,7 +2661,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_6_upper_limit` or None if not set
         """
-        return self._data["Load Range 6 Upper Limit"]
+        return self["Load Range 6 Upper Limit"]
 
     @load_range_6_upper_limit.setter
     def load_range_6_upper_limit(self, value=None):
@@ -2747,7 +2685,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -2770,7 +2708,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_7_lower_limit` or None if not set
         """
-        return self._data["Load Range 7 Lower Limit"]
+        return self["Load Range 7 Lower Limit"]
 
     @load_range_7_lower_limit.setter
     def load_range_7_lower_limit(self, value=None):
@@ -2794,7 +2732,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_7_upper_limit` or None if not set
         """
-        return self._data["Load Range 7 Upper Limit"]
+        return self["Load Range 7 Upper Limit"]
 
     @load_range_7_upper_limit.setter
     def load_range_7_upper_limit(self, value=None):
@@ -2818,7 +2756,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -2841,7 +2779,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_8_lower_limit` or None if not set
         """
-        return self._data["Load Range 8 Lower Limit"]
+        return self["Load Range 8 Lower Limit"]
 
     @load_range_8_lower_limit.setter
     def load_range_8_lower_limit(self, value=None):
@@ -2865,7 +2803,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_8_upper_limit` or None if not set
         """
-        return self._data["Load Range 8 Upper Limit"]
+        return self["Load Range 8 Upper Limit"]
 
     @load_range_8_upper_limit.setter
     def load_range_8_upper_limit(self, value=None):
@@ -2889,7 +2827,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -2912,7 +2850,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_9_lower_limit` or None if not set
         """
-        return self._data["Load Range 9 Lower Limit"]
+        return self["Load Range 9 Lower Limit"]
 
     @load_range_9_lower_limit.setter
     def load_range_9_lower_limit(self, value=None):
@@ -2936,7 +2874,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_9_upper_limit` or None if not set
         """
-        return self._data["Load Range 9 Upper Limit"]
+        return self["Load Range 9 Upper Limit"]
 
     @load_range_9_upper_limit.setter
     def load_range_9_upper_limit(self, value=None):
@@ -2960,7 +2898,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -2983,7 +2921,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_10_lower_limit` or None if not set
         """
-        return self._data["Load Range 10 Lower Limit"]
+        return self["Load Range 10 Lower Limit"]
 
     @load_range_10_lower_limit.setter
     def load_range_10_lower_limit(self, value=None):
@@ -3007,7 +2945,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             float: the value of `load_range_10_upper_limit` or None if not set
         """
-        return self._data["Load Range 10 Upper Limit"]
+        return self["Load Range 10 Upper Limit"]
 
     @load_range_10_upper_limit.setter
     def load_range_10_upper_limit(self, value=None):
@@ -3031,7 +2969,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -3056,15 +2994,6 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:HeatingLoad', 'pyname': u'PlantEquipmentOperationHeatingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:HeatingLoad`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3072,7 +3001,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3095,7 +3024,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_1_lower_limit` or None if not set
         """
-        return self._data["Load Range 1 Lower Limit"]
+        return self["Load Range 1 Lower Limit"]
 
     @load_range_1_lower_limit.setter
     def load_range_1_lower_limit(self, value=None):
@@ -3119,7 +3048,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_1_upper_limit` or None if not set
         """
-        return self._data["Load Range 1 Upper Limit"]
+        return self["Load Range 1 Upper Limit"]
 
     @load_range_1_upper_limit.setter
     def load_range_1_upper_limit(self, value=None):
@@ -3143,7 +3072,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -3166,7 +3095,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_2_lower_limit` or None if not set
         """
-        return self._data["Load Range 2 Lower Limit"]
+        return self["Load Range 2 Lower Limit"]
 
     @load_range_2_lower_limit.setter
     def load_range_2_lower_limit(self, value=None):
@@ -3190,7 +3119,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_2_upper_limit` or None if not set
         """
-        return self._data["Load Range 2 Upper Limit"]
+        return self["Load Range 2 Upper Limit"]
 
     @load_range_2_upper_limit.setter
     def load_range_2_upper_limit(self, value=None):
@@ -3214,7 +3143,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -3237,7 +3166,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_3_lower_limit` or None if not set
         """
-        return self._data["Load Range 3 Lower Limit"]
+        return self["Load Range 3 Lower Limit"]
 
     @load_range_3_lower_limit.setter
     def load_range_3_lower_limit(self, value=None):
@@ -3261,7 +3190,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_3_upper_limit` or None if not set
         """
-        return self._data["Load Range 3 Upper Limit"]
+        return self["Load Range 3 Upper Limit"]
 
     @load_range_3_upper_limit.setter
     def load_range_3_upper_limit(self, value=None):
@@ -3285,7 +3214,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -3308,7 +3237,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_4_lower_limit` or None if not set
         """
-        return self._data["Load Range 4 Lower Limit"]
+        return self["Load Range 4 Lower Limit"]
 
     @load_range_4_lower_limit.setter
     def load_range_4_lower_limit(self, value=None):
@@ -3332,7 +3261,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_4_upper_limit` or None if not set
         """
-        return self._data["Load Range 4 Upper Limit"]
+        return self["Load Range 4 Upper Limit"]
 
     @load_range_4_upper_limit.setter
     def load_range_4_upper_limit(self, value=None):
@@ -3356,7 +3285,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -3379,7 +3308,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_5_lower_limit` or None if not set
         """
-        return self._data["Load Range 5 Lower Limit"]
+        return self["Load Range 5 Lower Limit"]
 
     @load_range_5_lower_limit.setter
     def load_range_5_lower_limit(self, value=None):
@@ -3403,7 +3332,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_5_upper_limit` or None if not set
         """
-        return self._data["Load Range 5 Upper Limit"]
+        return self["Load Range 5 Upper Limit"]
 
     @load_range_5_upper_limit.setter
     def load_range_5_upper_limit(self, value=None):
@@ -3427,7 +3356,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -3450,7 +3379,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_6_lower_limit` or None if not set
         """
-        return self._data["Load Range 6 Lower Limit"]
+        return self["Load Range 6 Lower Limit"]
 
     @load_range_6_lower_limit.setter
     def load_range_6_lower_limit(self, value=None):
@@ -3474,7 +3403,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_6_upper_limit` or None if not set
         """
-        return self._data["Load Range 6 Upper Limit"]
+        return self["Load Range 6 Upper Limit"]
 
     @load_range_6_upper_limit.setter
     def load_range_6_upper_limit(self, value=None):
@@ -3498,7 +3427,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -3521,7 +3450,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_7_lower_limit` or None if not set
         """
-        return self._data["Load Range 7 Lower Limit"]
+        return self["Load Range 7 Lower Limit"]
 
     @load_range_7_lower_limit.setter
     def load_range_7_lower_limit(self, value=None):
@@ -3545,7 +3474,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_7_upper_limit` or None if not set
         """
-        return self._data["Load Range 7 Upper Limit"]
+        return self["Load Range 7 Upper Limit"]
 
     @load_range_7_upper_limit.setter
     def load_range_7_upper_limit(self, value=None):
@@ -3569,7 +3498,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -3592,7 +3521,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_8_lower_limit` or None if not set
         """
-        return self._data["Load Range 8 Lower Limit"]
+        return self["Load Range 8 Lower Limit"]
 
     @load_range_8_lower_limit.setter
     def load_range_8_lower_limit(self, value=None):
@@ -3616,7 +3545,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_8_upper_limit` or None if not set
         """
-        return self._data["Load Range 8 Upper Limit"]
+        return self["Load Range 8 Upper Limit"]
 
     @load_range_8_upper_limit.setter
     def load_range_8_upper_limit(self, value=None):
@@ -3640,7 +3569,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -3663,7 +3592,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_9_lower_limit` or None if not set
         """
-        return self._data["Load Range 9 Lower Limit"]
+        return self["Load Range 9 Lower Limit"]
 
     @load_range_9_lower_limit.setter
     def load_range_9_lower_limit(self, value=None):
@@ -3687,7 +3616,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_9_upper_limit` or None if not set
         """
-        return self._data["Load Range 9 Upper Limit"]
+        return self["Load Range 9 Upper Limit"]
 
     @load_range_9_upper_limit.setter
     def load_range_9_upper_limit(self, value=None):
@@ -3711,7 +3640,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -3734,7 +3663,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_10_lower_limit` or None if not set
         """
-        return self._data["Load Range 10 Lower Limit"]
+        return self["Load Range 10 Lower Limit"]
 
     @load_range_10_lower_limit.setter
     def load_range_10_lower_limit(self, value=None):
@@ -3758,7 +3687,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             float: the value of `load_range_10_upper_limit` or None if not set
         """
-        return self._data["Load Range 10 Upper Limit"]
+        return self["Load Range 10 Upper Limit"]
 
     @load_range_10_upper_limit.setter
     def load_range_10_upper_limit(self, value=None):
@@ -3782,7 +3711,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -3807,15 +3736,6 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDryBulb', 'pyname': u'PlantEquipmentOperationOutdoorDryBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dry-bulb temperature range 1 lower limit', {'name': u'Dry-Bulb Temperature Range 1 Lower Limit', 'pyname': u'drybulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 1 upper limit', {'name': u'Dry-Bulb Temperature Range 1 Upper Limit', 'pyname': u'drybulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 2 lower limit', {'name': u'Dry-Bulb Temperature Range 2 Lower Limit', 'pyname': u'drybulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 2 upper limit', {'name': u'Dry-Bulb Temperature Range 2 Upper Limit', 'pyname': u'drybulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 3 lower limit', {'name': u'Dry-Bulb Temperature Range 3 Lower Limit', 'pyname': u'drybulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 3 upper limit', {'name': u'Dry-Bulb Temperature Range 3 Upper Limit', 'pyname': u'drybulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 4 lower limit', {'name': u'Dry-Bulb Temperature Range 4 Lower Limit', 'pyname': u'drybulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 4 upper limit', {'name': u'Dry-Bulb Temperature Range 4 Upper Limit', 'pyname': u'drybulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 5 lower limit', {'name': u'Dry-Bulb Temperature Range 5 Lower Limit', 'pyname': u'drybulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 5 upper limit', {'name': u'Dry-Bulb Temperature Range 5 Upper Limit', 'pyname': u'drybulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 6 lower limit', {'name': u'Dry-Bulb Temperature Range 6 Lower Limit', 'pyname': u'drybulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 6 upper limit', {'name': u'Dry-Bulb Temperature Range 6 Upper Limit', 'pyname': u'drybulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 7 lower limit', {'name': u'Dry-Bulb Temperature Range 7 Lower Limit', 'pyname': u'drybulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 7 upper limit', {'name': u'Dry-Bulb Temperature Range 7 Upper Limit', 'pyname': u'drybulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 8 lower limit', {'name': u'Dry-Bulb Temperature Range 8 Lower Limit', 'pyname': u'drybulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 8 upper limit', {'name': u'Dry-Bulb Temperature Range 8 Upper Limit', 'pyname': u'drybulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 9 lower limit', {'name': u'Dry-Bulb Temperature Range 9 Lower Limit', 'pyname': u'drybulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 9 upper limit', {'name': u'Dry-Bulb Temperature Range 9 Upper Limit', 'pyname': u'drybulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 10 lower limit', {'name': u'Dry-Bulb Temperature Range 10 Lower Limit', 'pyname': u'drybulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 10 upper limit', {'name': u'Dry-Bulb Temperature Range 10 Upper Limit', 'pyname': u'drybulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulb`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3823,7 +3743,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3846,7 +3766,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_1_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 1 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 1 Lower Limit"]
 
     @drybulb_temperature_range_1_lower_limit.setter
     def drybulb_temperature_range_1_lower_limit(self, value=None):
@@ -3872,7 +3792,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_1_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 1 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 1 Upper Limit"]
 
     @drybulb_temperature_range_1_upper_limit.setter
     def drybulb_temperature_range_1_upper_limit(self, value=None):
@@ -3898,7 +3818,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -3921,7 +3841,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_2_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 2 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 2 Lower Limit"]
 
     @drybulb_temperature_range_2_lower_limit.setter
     def drybulb_temperature_range_2_lower_limit(self, value=None):
@@ -3947,7 +3867,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_2_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 2 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 2 Upper Limit"]
 
     @drybulb_temperature_range_2_upper_limit.setter
     def drybulb_temperature_range_2_upper_limit(self, value=None):
@@ -3973,7 +3893,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -3996,7 +3916,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_3_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 3 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 3 Lower Limit"]
 
     @drybulb_temperature_range_3_lower_limit.setter
     def drybulb_temperature_range_3_lower_limit(self, value=None):
@@ -4022,7 +3942,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_3_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 3 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 3 Upper Limit"]
 
     @drybulb_temperature_range_3_upper_limit.setter
     def drybulb_temperature_range_3_upper_limit(self, value=None):
@@ -4048,7 +3968,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -4071,7 +3991,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_4_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 4 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 4 Lower Limit"]
 
     @drybulb_temperature_range_4_lower_limit.setter
     def drybulb_temperature_range_4_lower_limit(self, value=None):
@@ -4097,7 +4017,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_4_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 4 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 4 Upper Limit"]
 
     @drybulb_temperature_range_4_upper_limit.setter
     def drybulb_temperature_range_4_upper_limit(self, value=None):
@@ -4123,7 +4043,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -4146,7 +4066,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_5_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 5 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 5 Lower Limit"]
 
     @drybulb_temperature_range_5_lower_limit.setter
     def drybulb_temperature_range_5_lower_limit(self, value=None):
@@ -4172,7 +4092,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_5_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 5 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 5 Upper Limit"]
 
     @drybulb_temperature_range_5_upper_limit.setter
     def drybulb_temperature_range_5_upper_limit(self, value=None):
@@ -4198,7 +4118,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -4221,7 +4141,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_6_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 6 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 6 Lower Limit"]
 
     @drybulb_temperature_range_6_lower_limit.setter
     def drybulb_temperature_range_6_lower_limit(self, value=None):
@@ -4247,7 +4167,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_6_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 6 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 6 Upper Limit"]
 
     @drybulb_temperature_range_6_upper_limit.setter
     def drybulb_temperature_range_6_upper_limit(self, value=None):
@@ -4273,7 +4193,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -4296,7 +4216,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_7_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 7 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 7 Lower Limit"]
 
     @drybulb_temperature_range_7_lower_limit.setter
     def drybulb_temperature_range_7_lower_limit(self, value=None):
@@ -4322,7 +4242,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_7_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 7 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 7 Upper Limit"]
 
     @drybulb_temperature_range_7_upper_limit.setter
     def drybulb_temperature_range_7_upper_limit(self, value=None):
@@ -4348,7 +4268,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -4371,7 +4291,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_8_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 8 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 8 Lower Limit"]
 
     @drybulb_temperature_range_8_lower_limit.setter
     def drybulb_temperature_range_8_lower_limit(self, value=None):
@@ -4397,7 +4317,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_8_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 8 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 8 Upper Limit"]
 
     @drybulb_temperature_range_8_upper_limit.setter
     def drybulb_temperature_range_8_upper_limit(self, value=None):
@@ -4423,7 +4343,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -4446,7 +4366,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_9_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 9 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 9 Lower Limit"]
 
     @drybulb_temperature_range_9_lower_limit.setter
     def drybulb_temperature_range_9_lower_limit(self, value=None):
@@ -4472,7 +4392,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_9_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 9 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 9 Upper Limit"]
 
     @drybulb_temperature_range_9_upper_limit.setter
     def drybulb_temperature_range_9_upper_limit(self, value=None):
@@ -4498,7 +4418,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -4521,7 +4441,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_10_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 10 Lower Limit"]
+        return self["Dry-Bulb Temperature Range 10 Lower Limit"]
 
     @drybulb_temperature_range_10_lower_limit.setter
     def drybulb_temperature_range_10_lower_limit(self, value=None):
@@ -4547,7 +4467,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             float: the value of `drybulb_temperature_range_10_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Range 10 Upper Limit"]
+        return self["Dry-Bulb Temperature Range 10 Upper Limit"]
 
     @drybulb_temperature_range_10_upper_limit.setter
     def drybulb_temperature_range_10_upper_limit(self, value=None):
@@ -4573,7 +4493,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -4598,15 +4518,6 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorWetBulb', 'pyname': u'PlantEquipmentOperationOutdoorWetBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wet-bulb temperature range 1 lower limit', {'name': u'Wet-Bulb Temperature Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 1 upper limit', {'name': u'Wet-Bulb Temperature Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 2 lower limit', {'name': u'Wet-Bulb Temperature Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 2 upper limit', {'name': u'Wet-Bulb Temperature Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 3 lower limit', {'name': u'Wet-Bulb Temperature Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 3 upper limit', {'name': u'Wet-Bulb Temperature Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 4 lower limit', {'name': u'Wet-Bulb Temperature Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 4 upper limit', {'name': u'Wet-Bulb Temperature Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 5 lower limit', {'name': u'Wet-Bulb Temperature Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 5 upper limit', {'name': u'Wet-Bulb Temperature Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 6 lower limit', {'name': u'Wet-Bulb Temperature Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 6 upper limit', {'name': u'Wet-Bulb Temperature Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 7 lower limit', {'name': u'Wet-Bulb Temperature Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 7 upper limit', {'name': u'Wet-Bulb Temperature Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 8 lower limit', {'name': u'Wet-Bulb Temperature Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 8 upper limit', {'name': u'Wet-Bulb Temperature Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 9 lower limit', {'name': u'Wet-Bulb Temperature Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 9 upper limit', {'name': u'Wet-Bulb Temperature Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 10 lower limit', {'name': u'Wet-Bulb Temperature Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 10 upper limit', {'name': u'Wet-Bulb Temperature Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulb`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4614,7 +4525,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4637,7 +4548,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_1_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 1 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 1 Lower Limit"]
 
     @wetbulb_temperature_range_1_lower_limit.setter
     def wetbulb_temperature_range_1_lower_limit(self, value=None):
@@ -4663,7 +4574,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_1_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 1 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 1 Upper Limit"]
 
     @wetbulb_temperature_range_1_upper_limit.setter
     def wetbulb_temperature_range_1_upper_limit(self, value=None):
@@ -4689,7 +4600,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -4712,7 +4623,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_2_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 2 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 2 Lower Limit"]
 
     @wetbulb_temperature_range_2_lower_limit.setter
     def wetbulb_temperature_range_2_lower_limit(self, value=None):
@@ -4738,7 +4649,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_2_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 2 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 2 Upper Limit"]
 
     @wetbulb_temperature_range_2_upper_limit.setter
     def wetbulb_temperature_range_2_upper_limit(self, value=None):
@@ -4764,7 +4675,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -4787,7 +4698,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_3_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 3 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 3 Lower Limit"]
 
     @wetbulb_temperature_range_3_lower_limit.setter
     def wetbulb_temperature_range_3_lower_limit(self, value=None):
@@ -4813,7 +4724,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_3_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 3 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 3 Upper Limit"]
 
     @wetbulb_temperature_range_3_upper_limit.setter
     def wetbulb_temperature_range_3_upper_limit(self, value=None):
@@ -4839,7 +4750,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -4862,7 +4773,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_4_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 4 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 4 Lower Limit"]
 
     @wetbulb_temperature_range_4_lower_limit.setter
     def wetbulb_temperature_range_4_lower_limit(self, value=None):
@@ -4888,7 +4799,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_4_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 4 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 4 Upper Limit"]
 
     @wetbulb_temperature_range_4_upper_limit.setter
     def wetbulb_temperature_range_4_upper_limit(self, value=None):
@@ -4914,7 +4825,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -4937,7 +4848,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_5_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 5 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 5 Lower Limit"]
 
     @wetbulb_temperature_range_5_lower_limit.setter
     def wetbulb_temperature_range_5_lower_limit(self, value=None):
@@ -4963,7 +4874,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_5_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 5 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 5 Upper Limit"]
 
     @wetbulb_temperature_range_5_upper_limit.setter
     def wetbulb_temperature_range_5_upper_limit(self, value=None):
@@ -4989,7 +4900,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -5012,7 +4923,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_6_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 6 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 6 Lower Limit"]
 
     @wetbulb_temperature_range_6_lower_limit.setter
     def wetbulb_temperature_range_6_lower_limit(self, value=None):
@@ -5038,7 +4949,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_6_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 6 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 6 Upper Limit"]
 
     @wetbulb_temperature_range_6_upper_limit.setter
     def wetbulb_temperature_range_6_upper_limit(self, value=None):
@@ -5064,7 +4975,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -5087,7 +4998,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_7_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 7 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 7 Lower Limit"]
 
     @wetbulb_temperature_range_7_lower_limit.setter
     def wetbulb_temperature_range_7_lower_limit(self, value=None):
@@ -5113,7 +5024,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_7_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 7 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 7 Upper Limit"]
 
     @wetbulb_temperature_range_7_upper_limit.setter
     def wetbulb_temperature_range_7_upper_limit(self, value=None):
@@ -5139,7 +5050,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -5162,7 +5073,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_8_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 8 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 8 Lower Limit"]
 
     @wetbulb_temperature_range_8_lower_limit.setter
     def wetbulb_temperature_range_8_lower_limit(self, value=None):
@@ -5188,7 +5099,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_8_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 8 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 8 Upper Limit"]
 
     @wetbulb_temperature_range_8_upper_limit.setter
     def wetbulb_temperature_range_8_upper_limit(self, value=None):
@@ -5214,7 +5125,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -5237,7 +5148,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_9_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 9 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 9 Lower Limit"]
 
     @wetbulb_temperature_range_9_lower_limit.setter
     def wetbulb_temperature_range_9_lower_limit(self, value=None):
@@ -5263,7 +5174,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_9_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 9 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 9 Upper Limit"]
 
     @wetbulb_temperature_range_9_upper_limit.setter
     def wetbulb_temperature_range_9_upper_limit(self, value=None):
@@ -5289,7 +5200,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -5312,7 +5223,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_10_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 10 Lower Limit"]
+        return self["Wet-Bulb Temperature Range 10 Lower Limit"]
 
     @wetbulb_temperature_range_10_lower_limit.setter
     def wetbulb_temperature_range_10_lower_limit(self, value=None):
@@ -5338,7 +5249,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_range_10_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Range 10 Upper Limit"]
+        return self["Wet-Bulb Temperature Range 10 Upper Limit"]
 
     @wetbulb_temperature_range_10_upper_limit.setter
     def wetbulb_temperature_range_10_upper_limit(self, value=None):
@@ -5364,7 +5275,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -5389,15 +5300,6 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorRelativeHumidity', 'pyname': u'PlantEquipmentOperationOutdoorRelativeHumidity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'relative humidity range 1 lower limit', {'name': u'Relative Humidity Range 1 Lower Limit', 'pyname': u'relative_humidity_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 1 upper limit', {'name': u'Relative Humidity Range 1 Upper Limit', 'pyname': u'relative_humidity_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 2 lower limit', {'name': u'Relative Humidity Range 2 Lower Limit', 'pyname': u'relative_humidity_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 2 upper limit', {'name': u'Relative Humidity Range 2 Upper Limit', 'pyname': u'relative_humidity_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 3 lower limit', {'name': u'Relative Humidity Range 3 Lower Limit', 'pyname': u'relative_humidity_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 3 upper limit', {'name': u'Relative Humidity Range 3 Upper Limit', 'pyname': u'relative_humidity_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 4 lower limit', {'name': u'Relative Humidity Range 4 Lower Limit', 'pyname': u'relative_humidity_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 4 upper limit', {'name': u'Relative Humidity Range 4 Upper Limit', 'pyname': u'relative_humidity_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 5 lower limit', {'name': u'Relative Humidity Range 5 Lower Limit', 'pyname': u'relative_humidity_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 5 upper limit', {'name': u'Relative Humidity Range 5 Upper Limit', 'pyname': u'relative_humidity_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 6 lower limit', {'name': u'Relative Humidity Range 6 Lower Limit', 'pyname': u'relative_humidity_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 6 upper limit', {'name': u'Relative Humidity Range 6 Upper Limit', 'pyname': u'relative_humidity_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 7 lower limit', {'name': u'Relative Humidity Range 7 Lower Limit', 'pyname': u'relative_humidity_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 7 upper limit', {'name': u'Relative Humidity Range 7 Upper Limit', 'pyname': u'relative_humidity_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 8 lower limit', {'name': u'Relative Humidity Range 8 Lower Limit', 'pyname': u'relative_humidity_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 8 upper limit', {'name': u'Relative Humidity Range 8 Upper Limit', 'pyname': u'relative_humidity_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 9 lower limit', {'name': u'Relative Humidity Range 9 Lower Limit', 'pyname': u'relative_humidity_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 9 upper limit', {'name': u'Relative Humidity Range 9 Upper Limit', 'pyname': u'relative_humidity_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 10 lower limit', {'name': u'Relative Humidity Range 10 Lower Limit', 'pyname': u'relative_humidity_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 10 upper limit', {'name': u'Relative Humidity Range 10 Upper Limit', 'pyname': u'relative_humidity_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorRelativeHumidity`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -5405,7 +5307,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5428,7 +5330,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_1_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 1 Lower Limit"]
+        return self["Relative Humidity Range 1 Lower Limit"]
 
     @relative_humidity_range_1_lower_limit.setter
     def relative_humidity_range_1_lower_limit(self, value=None):
@@ -5453,7 +5355,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_1_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 1 Upper Limit"]
+        return self["Relative Humidity Range 1 Upper Limit"]
 
     @relative_humidity_range_1_upper_limit.setter
     def relative_humidity_range_1_upper_limit(self, value=None):
@@ -5478,7 +5380,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -5501,7 +5403,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_2_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 2 Lower Limit"]
+        return self["Relative Humidity Range 2 Lower Limit"]
 
     @relative_humidity_range_2_lower_limit.setter
     def relative_humidity_range_2_lower_limit(self, value=None):
@@ -5526,7 +5428,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_2_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 2 Upper Limit"]
+        return self["Relative Humidity Range 2 Upper Limit"]
 
     @relative_humidity_range_2_upper_limit.setter
     def relative_humidity_range_2_upper_limit(self, value=None):
@@ -5551,7 +5453,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -5574,7 +5476,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_3_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 3 Lower Limit"]
+        return self["Relative Humidity Range 3 Lower Limit"]
 
     @relative_humidity_range_3_lower_limit.setter
     def relative_humidity_range_3_lower_limit(self, value=None):
@@ -5599,7 +5501,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_3_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 3 Upper Limit"]
+        return self["Relative Humidity Range 3 Upper Limit"]
 
     @relative_humidity_range_3_upper_limit.setter
     def relative_humidity_range_3_upper_limit(self, value=None):
@@ -5624,7 +5526,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -5647,7 +5549,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_4_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 4 Lower Limit"]
+        return self["Relative Humidity Range 4 Lower Limit"]
 
     @relative_humidity_range_4_lower_limit.setter
     def relative_humidity_range_4_lower_limit(self, value=None):
@@ -5672,7 +5574,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_4_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 4 Upper Limit"]
+        return self["Relative Humidity Range 4 Upper Limit"]
 
     @relative_humidity_range_4_upper_limit.setter
     def relative_humidity_range_4_upper_limit(self, value=None):
@@ -5697,7 +5599,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -5720,7 +5622,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_5_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 5 Lower Limit"]
+        return self["Relative Humidity Range 5 Lower Limit"]
 
     @relative_humidity_range_5_lower_limit.setter
     def relative_humidity_range_5_lower_limit(self, value=None):
@@ -5745,7 +5647,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_5_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 5 Upper Limit"]
+        return self["Relative Humidity Range 5 Upper Limit"]
 
     @relative_humidity_range_5_upper_limit.setter
     def relative_humidity_range_5_upper_limit(self, value=None):
@@ -5770,7 +5672,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -5793,7 +5695,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_6_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 6 Lower Limit"]
+        return self["Relative Humidity Range 6 Lower Limit"]
 
     @relative_humidity_range_6_lower_limit.setter
     def relative_humidity_range_6_lower_limit(self, value=None):
@@ -5818,7 +5720,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_6_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 6 Upper Limit"]
+        return self["Relative Humidity Range 6 Upper Limit"]
 
     @relative_humidity_range_6_upper_limit.setter
     def relative_humidity_range_6_upper_limit(self, value=None):
@@ -5843,7 +5745,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -5866,7 +5768,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_7_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 7 Lower Limit"]
+        return self["Relative Humidity Range 7 Lower Limit"]
 
     @relative_humidity_range_7_lower_limit.setter
     def relative_humidity_range_7_lower_limit(self, value=None):
@@ -5891,7 +5793,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_7_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 7 Upper Limit"]
+        return self["Relative Humidity Range 7 Upper Limit"]
 
     @relative_humidity_range_7_upper_limit.setter
     def relative_humidity_range_7_upper_limit(self, value=None):
@@ -5916,7 +5818,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -5939,7 +5841,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_8_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 8 Lower Limit"]
+        return self["Relative Humidity Range 8 Lower Limit"]
 
     @relative_humidity_range_8_lower_limit.setter
     def relative_humidity_range_8_lower_limit(self, value=None):
@@ -5964,7 +5866,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_8_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 8 Upper Limit"]
+        return self["Relative Humidity Range 8 Upper Limit"]
 
     @relative_humidity_range_8_upper_limit.setter
     def relative_humidity_range_8_upper_limit(self, value=None):
@@ -5989,7 +5891,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -6012,7 +5914,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_9_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 9 Lower Limit"]
+        return self["Relative Humidity Range 9 Lower Limit"]
 
     @relative_humidity_range_9_lower_limit.setter
     def relative_humidity_range_9_lower_limit(self, value=None):
@@ -6037,7 +5939,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_9_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 9 Upper Limit"]
+        return self["Relative Humidity Range 9 Upper Limit"]
 
     @relative_humidity_range_9_upper_limit.setter
     def relative_humidity_range_9_upper_limit(self, value=None):
@@ -6062,7 +5964,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -6085,7 +5987,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_10_lower_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 10 Lower Limit"]
+        return self["Relative Humidity Range 10 Lower Limit"]
 
     @relative_humidity_range_10_lower_limit.setter
     def relative_humidity_range_10_lower_limit(self, value=None):
@@ -6110,7 +6012,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             float: the value of `relative_humidity_range_10_upper_limit` or None if not set
         """
-        return self._data["Relative Humidity Range 10 Upper Limit"]
+        return self["Relative Humidity Range 10 Upper Limit"]
 
     @relative_humidity_range_10_upper_limit.setter
     def relative_humidity_range_10_upper_limit(self, value=None):
@@ -6135,7 +6037,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -6160,15 +6062,6 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDewpoint', 'pyname': u'PlantEquipmentOperationOutdoorDewpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dewpoint temperature range 1 lower limit', {'name': u'Dewpoint Temperature Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 1 upper limit', {'name': u'Dewpoint Temperature Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 2 lower limit', {'name': u'Dewpoint Temperature Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 2 upper limit', {'name': u'Dewpoint Temperature Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 3 lower limit', {'name': u'Dewpoint Temperature Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 3 upper limit', {'name': u'Dewpoint Temperature Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 4 lower limit', {'name': u'Dewpoint Temperature Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 4 upper limit', {'name': u'Dewpoint Temperature Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 5 lower limit', {'name': u'Dewpoint Temperature Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 5 upper limit', {'name': u'Dewpoint Temperature Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 6 lower limit', {'name': u'Dewpoint Temperature Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 6 upper limit', {'name': u'Dewpoint Temperature Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 7 lower limit', {'name': u'Dewpoint Temperature Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 7 upper limit', {'name': u'Dewpoint Temperature Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 8 lower limit', {'name': u'Dewpoint Temperature Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 8 upper limit', {'name': u'Dewpoint Temperature Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 9 lower limit', {'name': u'Dewpoint Temperature Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 9 upper limit', {'name': u'Dewpoint Temperature Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 10 lower limit', {'name': u'Dewpoint Temperature Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 10 upper limit', {'name': u'Dewpoint Temperature Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -6176,7 +6069,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6199,7 +6092,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_1_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 1 Lower Limit"]
+        return self["Dewpoint Temperature Range 1 Lower Limit"]
 
     @dewpoint_temperature_range_1_lower_limit.setter
     def dewpoint_temperature_range_1_lower_limit(self, value=None):
@@ -6225,7 +6118,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_1_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 1 Upper Limit"]
+        return self["Dewpoint Temperature Range 1 Upper Limit"]
 
     @dewpoint_temperature_range_1_upper_limit.setter
     def dewpoint_temperature_range_1_upper_limit(self, value=None):
@@ -6251,7 +6144,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -6274,7 +6167,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_2_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 2 Lower Limit"]
+        return self["Dewpoint Temperature Range 2 Lower Limit"]
 
     @dewpoint_temperature_range_2_lower_limit.setter
     def dewpoint_temperature_range_2_lower_limit(self, value=None):
@@ -6300,7 +6193,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_2_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 2 Upper Limit"]
+        return self["Dewpoint Temperature Range 2 Upper Limit"]
 
     @dewpoint_temperature_range_2_upper_limit.setter
     def dewpoint_temperature_range_2_upper_limit(self, value=None):
@@ -6326,7 +6219,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -6349,7 +6242,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_3_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 3 Lower Limit"]
+        return self["Dewpoint Temperature Range 3 Lower Limit"]
 
     @dewpoint_temperature_range_3_lower_limit.setter
     def dewpoint_temperature_range_3_lower_limit(self, value=None):
@@ -6375,7 +6268,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_3_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 3 Upper Limit"]
+        return self["Dewpoint Temperature Range 3 Upper Limit"]
 
     @dewpoint_temperature_range_3_upper_limit.setter
     def dewpoint_temperature_range_3_upper_limit(self, value=None):
@@ -6401,7 +6294,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -6424,7 +6317,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_4_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 4 Lower Limit"]
+        return self["Dewpoint Temperature Range 4 Lower Limit"]
 
     @dewpoint_temperature_range_4_lower_limit.setter
     def dewpoint_temperature_range_4_lower_limit(self, value=None):
@@ -6450,7 +6343,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_4_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 4 Upper Limit"]
+        return self["Dewpoint Temperature Range 4 Upper Limit"]
 
     @dewpoint_temperature_range_4_upper_limit.setter
     def dewpoint_temperature_range_4_upper_limit(self, value=None):
@@ -6476,7 +6369,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -6499,7 +6392,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_5_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 5 Lower Limit"]
+        return self["Dewpoint Temperature Range 5 Lower Limit"]
 
     @dewpoint_temperature_range_5_lower_limit.setter
     def dewpoint_temperature_range_5_lower_limit(self, value=None):
@@ -6525,7 +6418,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_5_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 5 Upper Limit"]
+        return self["Dewpoint Temperature Range 5 Upper Limit"]
 
     @dewpoint_temperature_range_5_upper_limit.setter
     def dewpoint_temperature_range_5_upper_limit(self, value=None):
@@ -6551,7 +6444,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -6574,7 +6467,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_6_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 6 Lower Limit"]
+        return self["Dewpoint Temperature Range 6 Lower Limit"]
 
     @dewpoint_temperature_range_6_lower_limit.setter
     def dewpoint_temperature_range_6_lower_limit(self, value=None):
@@ -6600,7 +6493,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_6_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 6 Upper Limit"]
+        return self["Dewpoint Temperature Range 6 Upper Limit"]
 
     @dewpoint_temperature_range_6_upper_limit.setter
     def dewpoint_temperature_range_6_upper_limit(self, value=None):
@@ -6626,7 +6519,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -6649,7 +6542,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_7_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 7 Lower Limit"]
+        return self["Dewpoint Temperature Range 7 Lower Limit"]
 
     @dewpoint_temperature_range_7_lower_limit.setter
     def dewpoint_temperature_range_7_lower_limit(self, value=None):
@@ -6675,7 +6568,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_7_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 7 Upper Limit"]
+        return self["Dewpoint Temperature Range 7 Upper Limit"]
 
     @dewpoint_temperature_range_7_upper_limit.setter
     def dewpoint_temperature_range_7_upper_limit(self, value=None):
@@ -6701,7 +6594,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -6724,7 +6617,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_8_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 8 Lower Limit"]
+        return self["Dewpoint Temperature Range 8 Lower Limit"]
 
     @dewpoint_temperature_range_8_lower_limit.setter
     def dewpoint_temperature_range_8_lower_limit(self, value=None):
@@ -6750,7 +6643,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_8_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 8 Upper Limit"]
+        return self["Dewpoint Temperature Range 8 Upper Limit"]
 
     @dewpoint_temperature_range_8_upper_limit.setter
     def dewpoint_temperature_range_8_upper_limit(self, value=None):
@@ -6776,7 +6669,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -6799,7 +6692,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_9_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 9 Lower Limit"]
+        return self["Dewpoint Temperature Range 9 Lower Limit"]
 
     @dewpoint_temperature_range_9_lower_limit.setter
     def dewpoint_temperature_range_9_lower_limit(self, value=None):
@@ -6825,7 +6718,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_9_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 9 Upper Limit"]
+        return self["Dewpoint Temperature Range 9 Upper Limit"]
 
     @dewpoint_temperature_range_9_upper_limit.setter
     def dewpoint_temperature_range_9_upper_limit(self, value=None):
@@ -6851,7 +6744,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -6874,7 +6767,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_10_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 10 Lower Limit"]
+        return self["Dewpoint Temperature Range 10 Lower Limit"]
 
     @dewpoint_temperature_range_10_lower_limit.setter
     def dewpoint_temperature_range_10_lower_limit(self, value=None):
@@ -6900,7 +6793,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_range_10_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Range 10 Upper Limit"]
+        return self["Dewpoint Temperature Range 10 Upper Limit"]
 
     @dewpoint_temperature_range_10_upper_limit.setter
     def dewpoint_temperature_range_10_upper_limit(self, value=None):
@@ -6926,7 +6819,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -6949,16 +6842,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         pieces of equipment which are controlled to meet the temperature setpoint at the
         component outlet node.
     """
-    schema = {'min-fields': 7, 'name': u'PlantEquipmentOperation:ComponentSetpoint', 'pyname': u'PlantEquipmentOperationComponentSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 1 node name', {'name': u'Demand Calculation 1 Node Name', 'pyname': u'demand_calculation_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 1 node name', {'name': u'Setpoint 1 Node Name', 'pyname': u'setpoint_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 flow rate', {'name': u'Component 1 Flow Rate', 'pyname': u'component_1_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 1 type', {'name': u'Operation 1 Type', 'pyname': u'operation_1_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 2 node name', {'name': u'Demand Calculation 2 Node Name', 'pyname': u'demand_calculation_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 2 node name', {'name': u'Setpoint 2 Node Name', 'pyname': u'setpoint_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 2 flow rate', {'name': u'Component 2 Flow Rate', 'pyname': u'component_2_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 2 type', {'name': u'Operation 2 Type', 'pyname': u'operation_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 3 node name', {'name': u'Demand Calculation 3 Node Name', 'pyname': u'demand_calculation_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 3 node name', {'name': u'Setpoint 3 Node Name', 'pyname': u'setpoint_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 3 flow rate', {'name': u'Component 3 Flow Rate', 'pyname': u'component_3_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 3 type', {'name': u'Operation 3 Type', 'pyname': u'operation_3_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 4 node name', {'name': u'Demand Calculation 4 Node Name', 'pyname': u'demand_calculation_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 4 node name', {'name': u'Setpoint 4 Node Name', 'pyname': u'setpoint_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 4 flow rate', {'name': u'Component 4 Flow Rate', 'pyname': u'component_4_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 4 type', {'name': u'Operation 4 Type', 'pyname': u'operation_4_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 5 node name', {'name': u'Demand Calculation 5 Node Name', 'pyname': u'demand_calculation_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 5 node name', {'name': u'Setpoint 5 Node Name', 'pyname': u'setpoint_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 5 flow rate', {'name': u'Component 5 Flow Rate', 'pyname': u'component_5_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 5 type', {'name': u'Operation 5 Type', 'pyname': u'operation_5_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 6 node name', {'name': u'Demand Calculation 6 Node Name', 'pyname': u'demand_calculation_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 6 node name', {'name': u'Setpoint 6 Node Name', 'pyname': u'setpoint_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 6 flow rate', {'name': u'Component 6 Flow Rate', 'pyname': u'component_6_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 6 type', {'name': u'Operation 6 Type', 'pyname': u'operation_6_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 7 node name', {'name': u'Demand Calculation 7 Node Name', 'pyname': u'demand_calculation_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 7 node name', {'name': u'Setpoint 7 Node Name', 'pyname': u'setpoint_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 7 flow rate', {'name': u'Component 7 Flow Rate', 'pyname': u'component_7_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 7 type', {'name': u'Operation 7 Type', 'pyname': u'operation_7_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 8 node name', {'name': u'Demand Calculation 8 Node Name', 'pyname': u'demand_calculation_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 8 node name', {'name': u'Setpoint 8 Node Name', 'pyname': u'setpoint_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 8 flow rate', {'name': u'Component 8 Flow Rate', 'pyname': u'component_8_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 8 type', {'name': u'Operation 8 Type', 'pyname': u'operation_8_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 9 node name', {'name': u'Demand Calculation 9 Node Name', 'pyname': u'demand_calculation_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 9 node name', {'name': u'Setpoint 9 Node Name', 'pyname': u'setpoint_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 9 flow rate', {'name': u'Component 9 Flow Rate', 'pyname': u'component_9_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 9 type', {'name': u'Operation 9 Type', 'pyname': u'operation_9_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 10 node name', {'name': u'Demand Calculation 10 Node Name', 'pyname': u'demand_calculation_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 10 node name', {'name': u'Setpoint 10 Node Name', 'pyname': u'setpoint_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 10 flow rate', {'name': u'Component 10 Flow Rate', 'pyname': u'component_10_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 10 type', {'name': u'Operation 10 Type', 'pyname': u'operation_10_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:ComponentSetpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'PlantEquipmentOperation:ComponentSetpoint', 'pyname': u'PlantEquipmentOperationComponentSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 1 node name', {'name': u'Demand Calculation 1 Node Name', 'pyname': u'demand_calculation_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 1 node name', {'name': u'Setpoint 1 Node Name', 'pyname': u'setpoint_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 flow rate', {'name': u'Component 1 Flow Rate', 'pyname': u'component_1_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 1 type', {'name': u'Operation 1 Type', 'pyname': u'operation_1_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 2 node name', {'name': u'Demand Calculation 2 Node Name', 'pyname': u'demand_calculation_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 2 node name', {'name': u'Setpoint 2 Node Name', 'pyname': u'setpoint_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 2 flow rate', {'name': u'Component 2 Flow Rate', 'pyname': u'component_2_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 2 type', {'name': u'Operation 2 Type', 'pyname': u'operation_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 3 node name', {'name': u'Demand Calculation 3 Node Name', 'pyname': u'demand_calculation_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 3 node name', {'name': u'Setpoint 3 Node Name', 'pyname': u'setpoint_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 3 flow rate', {'name': u'Component 3 Flow Rate', 'pyname': u'component_3_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 3 type', {'name': u'Operation 3 Type', 'pyname': u'operation_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 4 node name', {'name': u'Demand Calculation 4 Node Name', 'pyname': u'demand_calculation_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 4 node name', {'name': u'Setpoint 4 Node Name', 'pyname': u'setpoint_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 4 flow rate', {'name': u'Component 4 Flow Rate', 'pyname': u'component_4_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 4 type', {'name': u'Operation 4 Type', 'pyname': u'operation_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 5 node name', {'name': u'Demand Calculation 5 Node Name', 'pyname': u'demand_calculation_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 5 node name', {'name': u'Setpoint 5 Node Name', 'pyname': u'setpoint_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 5 flow rate', {'name': u'Component 5 Flow Rate', 'pyname': u'component_5_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 5 type', {'name': u'Operation 5 Type', 'pyname': u'operation_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 6 node name', {'name': u'Demand Calculation 6 Node Name', 'pyname': u'demand_calculation_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 6 node name', {'name': u'Setpoint 6 Node Name', 'pyname': u'setpoint_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 6 flow rate', {'name': u'Component 6 Flow Rate', 'pyname': u'component_6_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 6 type', {'name': u'Operation 6 Type', 'pyname': u'operation_6_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 7 node name', {'name': u'Demand Calculation 7 Node Name', 'pyname': u'demand_calculation_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 7 node name', {'name': u'Setpoint 7 Node Name', 'pyname': u'setpoint_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 7 flow rate', {'name': u'Component 7 Flow Rate', 'pyname': u'component_7_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 7 type', {'name': u'Operation 7 Type', 'pyname': u'operation_7_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 8 node name', {'name': u'Demand Calculation 8 Node Name', 'pyname': u'demand_calculation_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 8 node name', {'name': u'Setpoint 8 Node Name', 'pyname': u'setpoint_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 8 flow rate', {'name': u'Component 8 Flow Rate', 'pyname': u'component_8_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 8 type', {'name': u'Operation 8 Type', 'pyname': u'operation_8_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 9 node name', {'name': u'Demand Calculation 9 Node Name', 'pyname': u'demand_calculation_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 9 node name', {'name': u'Setpoint 9 Node Name', 'pyname': u'setpoint_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 9 flow rate', {'name': u'Component 9 Flow Rate', 'pyname': u'component_9_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 9 type', {'name': u'Operation 9 Type', 'pyname': u'operation_9_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 10 node name', {'name': u'Demand Calculation 10 Node Name', 'pyname': u'demand_calculation_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 10 node name', {'name': u'Setpoint 10 Node Name', 'pyname': u'setpoint_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 10 flow rate', {'name': u'Component 10 Flow Rate', 'pyname': u'component_10_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 10 type', {'name': u'Operation 10 Type', 'pyname': u'operation_10_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -6967,7 +6851,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6990,7 +6874,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_1_object_type` or None if not set
         """
-        return self._data["Equipment 1 Object Type"]
+        return self["Equipment 1 Object Type"]
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
@@ -7013,7 +6897,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_1_name` or None if not set
         """
-        return self._data["Equipment 1 Name"]
+        return self["Equipment 1 Name"]
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
@@ -7036,7 +6920,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_1_node_name` or None if not set
         """
-        return self._data["Demand Calculation 1 Node Name"]
+        return self["Demand Calculation 1 Node Name"]
 
     @demand_calculation_1_node_name.setter
     def demand_calculation_1_node_name(self, value=None):
@@ -7059,7 +6943,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_1_node_name` or None if not set
         """
-        return self._data["Setpoint 1 Node Name"]
+        return self["Setpoint 1 Node Name"]
 
     @setpoint_1_node_name.setter
     def setpoint_1_node_name(self, value=None):
@@ -7082,7 +6966,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_1_flow_rate` or None if not set
         """
-        return self._data["Component 1 Flow Rate"]
+        return self["Component 1 Flow Rate"]
 
     @component_1_flow_rate.setter
     def component_1_flow_rate(self, value=None):
@@ -7106,7 +6990,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_1_type` or None if not set
         """
-        return self._data["Operation 1 Type"]
+        return self["Operation 1 Type"]
 
     @operation_1_type.setter
     def operation_1_type(self, value=None):
@@ -7129,7 +7013,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_2_object_type` or None if not set
         """
-        return self._data["Equipment 2 Object Type"]
+        return self["Equipment 2 Object Type"]
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
@@ -7152,7 +7036,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_2_name` or None if not set
         """
-        return self._data["Equipment 2 Name"]
+        return self["Equipment 2 Name"]
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
@@ -7175,7 +7059,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_2_node_name` or None if not set
         """
-        return self._data["Demand Calculation 2 Node Name"]
+        return self["Demand Calculation 2 Node Name"]
 
     @demand_calculation_2_node_name.setter
     def demand_calculation_2_node_name(self, value=None):
@@ -7198,7 +7082,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_2_node_name` or None if not set
         """
-        return self._data["Setpoint 2 Node Name"]
+        return self["Setpoint 2 Node Name"]
 
     @setpoint_2_node_name.setter
     def setpoint_2_node_name(self, value=None):
@@ -7221,7 +7105,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_2_flow_rate` or None if not set
         """
-        return self._data["Component 2 Flow Rate"]
+        return self["Component 2 Flow Rate"]
 
     @component_2_flow_rate.setter
     def component_2_flow_rate(self, value=None):
@@ -7245,7 +7129,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_2_type` or None if not set
         """
-        return self._data["Operation 2 Type"]
+        return self["Operation 2 Type"]
 
     @operation_2_type.setter
     def operation_2_type(self, value=None):
@@ -7268,7 +7152,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_3_object_type` or None if not set
         """
-        return self._data["Equipment 3 Object Type"]
+        return self["Equipment 3 Object Type"]
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
@@ -7291,7 +7175,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_3_name` or None if not set
         """
-        return self._data["Equipment 3 Name"]
+        return self["Equipment 3 Name"]
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
@@ -7314,7 +7198,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_3_node_name` or None if not set
         """
-        return self._data["Demand Calculation 3 Node Name"]
+        return self["Demand Calculation 3 Node Name"]
 
     @demand_calculation_3_node_name.setter
     def demand_calculation_3_node_name(self, value=None):
@@ -7337,7 +7221,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_3_node_name` or None if not set
         """
-        return self._data["Setpoint 3 Node Name"]
+        return self["Setpoint 3 Node Name"]
 
     @setpoint_3_node_name.setter
     def setpoint_3_node_name(self, value=None):
@@ -7360,7 +7244,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_3_flow_rate` or None if not set
         """
-        return self._data["Component 3 Flow Rate"]
+        return self["Component 3 Flow Rate"]
 
     @component_3_flow_rate.setter
     def component_3_flow_rate(self, value=None):
@@ -7384,7 +7268,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_3_type` or None if not set
         """
-        return self._data["Operation 3 Type"]
+        return self["Operation 3 Type"]
 
     @operation_3_type.setter
     def operation_3_type(self, value=None):
@@ -7407,7 +7291,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_4_object_type` or None if not set
         """
-        return self._data["Equipment 4 Object Type"]
+        return self["Equipment 4 Object Type"]
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
@@ -7430,7 +7314,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_4_name` or None if not set
         """
-        return self._data["Equipment 4 Name"]
+        return self["Equipment 4 Name"]
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
@@ -7453,7 +7337,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_4_node_name` or None if not set
         """
-        return self._data["Demand Calculation 4 Node Name"]
+        return self["Demand Calculation 4 Node Name"]
 
     @demand_calculation_4_node_name.setter
     def demand_calculation_4_node_name(self, value=None):
@@ -7476,7 +7360,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_4_node_name` or None if not set
         """
-        return self._data["Setpoint 4 Node Name"]
+        return self["Setpoint 4 Node Name"]
 
     @setpoint_4_node_name.setter
     def setpoint_4_node_name(self, value=None):
@@ -7499,7 +7383,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_4_flow_rate` or None if not set
         """
-        return self._data["Component 4 Flow Rate"]
+        return self["Component 4 Flow Rate"]
 
     @component_4_flow_rate.setter
     def component_4_flow_rate(self, value=None):
@@ -7523,7 +7407,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_4_type` or None if not set
         """
-        return self._data["Operation 4 Type"]
+        return self["Operation 4 Type"]
 
     @operation_4_type.setter
     def operation_4_type(self, value=None):
@@ -7546,7 +7430,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_5_object_type` or None if not set
         """
-        return self._data["Equipment 5 Object Type"]
+        return self["Equipment 5 Object Type"]
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
@@ -7569,7 +7453,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_5_name` or None if not set
         """
-        return self._data["Equipment 5 Name"]
+        return self["Equipment 5 Name"]
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
@@ -7592,7 +7476,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_5_node_name` or None if not set
         """
-        return self._data["Demand Calculation 5 Node Name"]
+        return self["Demand Calculation 5 Node Name"]
 
     @demand_calculation_5_node_name.setter
     def demand_calculation_5_node_name(self, value=None):
@@ -7615,7 +7499,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_5_node_name` or None if not set
         """
-        return self._data["Setpoint 5 Node Name"]
+        return self["Setpoint 5 Node Name"]
 
     @setpoint_5_node_name.setter
     def setpoint_5_node_name(self, value=None):
@@ -7638,7 +7522,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_5_flow_rate` or None if not set
         """
-        return self._data["Component 5 Flow Rate"]
+        return self["Component 5 Flow Rate"]
 
     @component_5_flow_rate.setter
     def component_5_flow_rate(self, value=None):
@@ -7662,7 +7546,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_5_type` or None if not set
         """
-        return self._data["Operation 5 Type"]
+        return self["Operation 5 Type"]
 
     @operation_5_type.setter
     def operation_5_type(self, value=None):
@@ -7685,7 +7569,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_6_object_type` or None if not set
         """
-        return self._data["Equipment 6 Object Type"]
+        return self["Equipment 6 Object Type"]
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
@@ -7708,7 +7592,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_6_name` or None if not set
         """
-        return self._data["Equipment 6 Name"]
+        return self["Equipment 6 Name"]
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
@@ -7731,7 +7615,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_6_node_name` or None if not set
         """
-        return self._data["Demand Calculation 6 Node Name"]
+        return self["Demand Calculation 6 Node Name"]
 
     @demand_calculation_6_node_name.setter
     def demand_calculation_6_node_name(self, value=None):
@@ -7754,7 +7638,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_6_node_name` or None if not set
         """
-        return self._data["Setpoint 6 Node Name"]
+        return self["Setpoint 6 Node Name"]
 
     @setpoint_6_node_name.setter
     def setpoint_6_node_name(self, value=None):
@@ -7777,7 +7661,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_6_flow_rate` or None if not set
         """
-        return self._data["Component 6 Flow Rate"]
+        return self["Component 6 Flow Rate"]
 
     @component_6_flow_rate.setter
     def component_6_flow_rate(self, value=None):
@@ -7801,7 +7685,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_6_type` or None if not set
         """
-        return self._data["Operation 6 Type"]
+        return self["Operation 6 Type"]
 
     @operation_6_type.setter
     def operation_6_type(self, value=None):
@@ -7824,7 +7708,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_7_object_type` or None if not set
         """
-        return self._data["Equipment 7 Object Type"]
+        return self["Equipment 7 Object Type"]
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
@@ -7847,7 +7731,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_7_name` or None if not set
         """
-        return self._data["Equipment 7 Name"]
+        return self["Equipment 7 Name"]
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
@@ -7870,7 +7754,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_7_node_name` or None if not set
         """
-        return self._data["Demand Calculation 7 Node Name"]
+        return self["Demand Calculation 7 Node Name"]
 
     @demand_calculation_7_node_name.setter
     def demand_calculation_7_node_name(self, value=None):
@@ -7893,7 +7777,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_7_node_name` or None if not set
         """
-        return self._data["Setpoint 7 Node Name"]
+        return self["Setpoint 7 Node Name"]
 
     @setpoint_7_node_name.setter
     def setpoint_7_node_name(self, value=None):
@@ -7916,7 +7800,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_7_flow_rate` or None if not set
         """
-        return self._data["Component 7 Flow Rate"]
+        return self["Component 7 Flow Rate"]
 
     @component_7_flow_rate.setter
     def component_7_flow_rate(self, value=None):
@@ -7940,7 +7824,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_7_type` or None if not set
         """
-        return self._data["Operation 7 Type"]
+        return self["Operation 7 Type"]
 
     @operation_7_type.setter
     def operation_7_type(self, value=None):
@@ -7963,7 +7847,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_8_object_type` or None if not set
         """
-        return self._data["Equipment 8 Object Type"]
+        return self["Equipment 8 Object Type"]
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
@@ -7986,7 +7870,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_8_name` or None if not set
         """
-        return self._data["Equipment 8 Name"]
+        return self["Equipment 8 Name"]
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
@@ -8009,7 +7893,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_8_node_name` or None if not set
         """
-        return self._data["Demand Calculation 8 Node Name"]
+        return self["Demand Calculation 8 Node Name"]
 
     @demand_calculation_8_node_name.setter
     def demand_calculation_8_node_name(self, value=None):
@@ -8032,7 +7916,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_8_node_name` or None if not set
         """
-        return self._data["Setpoint 8 Node Name"]
+        return self["Setpoint 8 Node Name"]
 
     @setpoint_8_node_name.setter
     def setpoint_8_node_name(self, value=None):
@@ -8055,7 +7939,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_8_flow_rate` or None if not set
         """
-        return self._data["Component 8 Flow Rate"]
+        return self["Component 8 Flow Rate"]
 
     @component_8_flow_rate.setter
     def component_8_flow_rate(self, value=None):
@@ -8079,7 +7963,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_8_type` or None if not set
         """
-        return self._data["Operation 8 Type"]
+        return self["Operation 8 Type"]
 
     @operation_8_type.setter
     def operation_8_type(self, value=None):
@@ -8102,7 +7986,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_9_object_type` or None if not set
         """
-        return self._data["Equipment 9 Object Type"]
+        return self["Equipment 9 Object Type"]
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
@@ -8125,7 +8009,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_9_name` or None if not set
         """
-        return self._data["Equipment 9 Name"]
+        return self["Equipment 9 Name"]
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
@@ -8148,7 +8032,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_9_node_name` or None if not set
         """
-        return self._data["Demand Calculation 9 Node Name"]
+        return self["Demand Calculation 9 Node Name"]
 
     @demand_calculation_9_node_name.setter
     def demand_calculation_9_node_name(self, value=None):
@@ -8171,7 +8055,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_9_node_name` or None if not set
         """
-        return self._data["Setpoint 9 Node Name"]
+        return self["Setpoint 9 Node Name"]
 
     @setpoint_9_node_name.setter
     def setpoint_9_node_name(self, value=None):
@@ -8194,7 +8078,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_9_flow_rate` or None if not set
         """
-        return self._data["Component 9 Flow Rate"]
+        return self["Component 9 Flow Rate"]
 
     @component_9_flow_rate.setter
     def component_9_flow_rate(self, value=None):
@@ -8218,7 +8102,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_9_type` or None if not set
         """
-        return self._data["Operation 9 Type"]
+        return self["Operation 9 Type"]
 
     @operation_9_type.setter
     def operation_9_type(self, value=None):
@@ -8241,7 +8125,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_10_object_type` or None if not set
         """
-        return self._data["Equipment 10 Object Type"]
+        return self["Equipment 10 Object Type"]
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
@@ -8264,7 +8148,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `equipment_10_name` or None if not set
         """
-        return self._data["Equipment 10 Name"]
+        return self["Equipment 10 Name"]
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
@@ -8287,7 +8171,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `demand_calculation_10_node_name` or None if not set
         """
-        return self._data["Demand Calculation 10 Node Name"]
+        return self["Demand Calculation 10 Node Name"]
 
     @demand_calculation_10_node_name.setter
     def demand_calculation_10_node_name(self, value=None):
@@ -8310,7 +8194,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_10_node_name` or None if not set
         """
-        return self._data["Setpoint 10 Node Name"]
+        return self["Setpoint 10 Node Name"]
 
     @setpoint_10_node_name.setter
     def setpoint_10_node_name(self, value=None):
@@ -8333,7 +8217,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             float: the value of `component_10_flow_rate` or None if not set
         """
-        return self._data["Component 10 Flow Rate"]
+        return self["Component 10 Flow Rate"]
 
     @component_10_flow_rate.setter
     def component_10_flow_rate(self, value=None):
@@ -8357,7 +8241,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         Returns:
             str: the value of `operation_10_type` or None if not set
         """
-        return self._data["Operation 10 Type"]
+        return self["Operation 10 Type"]
 
     @operation_10_type.setter
     def operation_10_type(self, value=None):
@@ -8383,15 +8267,6 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDryBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorDryBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dry-bulb temperature difference range 1 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 1 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 2 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 2 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 3 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 3 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 4 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 4 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 5 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 5 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 6 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 6 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 7 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 7 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 8 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 8 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 9 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 9 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 10 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 10 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulbDifference`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8399,7 +8274,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8422,7 +8297,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `reference_temperature_node_name` or None if not set
         """
-        return self._data["Reference Temperature Node Name"]
+        return self["Reference Temperature Node Name"]
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
@@ -8445,7 +8320,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_1_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 1 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 1 Lower Limit"]
 
     @drybulb_temperature_difference_range_1_lower_limit.setter
     def drybulb_temperature_difference_range_1_lower_limit(self, value=None):
@@ -8471,7 +8346,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_1_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 1 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 1 Upper Limit"]
 
     @drybulb_temperature_difference_range_1_upper_limit.setter
     def drybulb_temperature_difference_range_1_upper_limit(self, value=None):
@@ -8497,7 +8372,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -8520,7 +8395,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_2_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 2 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 2 Lower Limit"]
 
     @drybulb_temperature_difference_range_2_lower_limit.setter
     def drybulb_temperature_difference_range_2_lower_limit(self, value=None):
@@ -8546,7 +8421,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_2_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 2 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 2 Upper Limit"]
 
     @drybulb_temperature_difference_range_2_upper_limit.setter
     def drybulb_temperature_difference_range_2_upper_limit(self, value=None):
@@ -8572,7 +8447,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -8595,7 +8470,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_3_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 3 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 3 Lower Limit"]
 
     @drybulb_temperature_difference_range_3_lower_limit.setter
     def drybulb_temperature_difference_range_3_lower_limit(self, value=None):
@@ -8621,7 +8496,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_3_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 3 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 3 Upper Limit"]
 
     @drybulb_temperature_difference_range_3_upper_limit.setter
     def drybulb_temperature_difference_range_3_upper_limit(self, value=None):
@@ -8647,7 +8522,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -8670,7 +8545,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_4_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 4 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 4 Lower Limit"]
 
     @drybulb_temperature_difference_range_4_lower_limit.setter
     def drybulb_temperature_difference_range_4_lower_limit(self, value=None):
@@ -8696,7 +8571,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_4_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 4 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 4 Upper Limit"]
 
     @drybulb_temperature_difference_range_4_upper_limit.setter
     def drybulb_temperature_difference_range_4_upper_limit(self, value=None):
@@ -8722,7 +8597,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -8745,7 +8620,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_5_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 5 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 5 Lower Limit"]
 
     @drybulb_temperature_difference_range_5_lower_limit.setter
     def drybulb_temperature_difference_range_5_lower_limit(self, value=None):
@@ -8771,7 +8646,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_5_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 5 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 5 Upper Limit"]
 
     @drybulb_temperature_difference_range_5_upper_limit.setter
     def drybulb_temperature_difference_range_5_upper_limit(self, value=None):
@@ -8797,7 +8672,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -8820,7 +8695,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_6_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 6 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 6 Lower Limit"]
 
     @drybulb_temperature_difference_range_6_lower_limit.setter
     def drybulb_temperature_difference_range_6_lower_limit(self, value=None):
@@ -8846,7 +8721,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_6_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 6 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 6 Upper Limit"]
 
     @drybulb_temperature_difference_range_6_upper_limit.setter
     def drybulb_temperature_difference_range_6_upper_limit(self, value=None):
@@ -8872,7 +8747,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -8895,7 +8770,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_7_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 7 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 7 Lower Limit"]
 
     @drybulb_temperature_difference_range_7_lower_limit.setter
     def drybulb_temperature_difference_range_7_lower_limit(self, value=None):
@@ -8921,7 +8796,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_7_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 7 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 7 Upper Limit"]
 
     @drybulb_temperature_difference_range_7_upper_limit.setter
     def drybulb_temperature_difference_range_7_upper_limit(self, value=None):
@@ -8947,7 +8822,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -8970,7 +8845,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_8_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 8 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 8 Lower Limit"]
 
     @drybulb_temperature_difference_range_8_lower_limit.setter
     def drybulb_temperature_difference_range_8_lower_limit(self, value=None):
@@ -8996,7 +8871,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_8_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 8 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 8 Upper Limit"]
 
     @drybulb_temperature_difference_range_8_upper_limit.setter
     def drybulb_temperature_difference_range_8_upper_limit(self, value=None):
@@ -9022,7 +8897,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -9045,7 +8920,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_9_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 9 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 9 Lower Limit"]
 
     @drybulb_temperature_difference_range_9_lower_limit.setter
     def drybulb_temperature_difference_range_9_lower_limit(self, value=None):
@@ -9071,7 +8946,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_9_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 9 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 9 Upper Limit"]
 
     @drybulb_temperature_difference_range_9_upper_limit.setter
     def drybulb_temperature_difference_range_9_upper_limit(self, value=None):
@@ -9097,7 +8972,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -9120,7 +8995,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_10_lower_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 10 Lower Limit"]
+        return self["Dry-Bulb Temperature Difference Range 10 Lower Limit"]
 
     @drybulb_temperature_difference_range_10_lower_limit.setter
     def drybulb_temperature_difference_range_10_lower_limit(self, value=None):
@@ -9146,7 +9021,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             float: the value of `drybulb_temperature_difference_range_10_upper_limit` or None if not set
         """
-        return self._data["Dry-Bulb Temperature Difference Range 10 Upper Limit"]
+        return self["Dry-Bulb Temperature Difference Range 10 Upper Limit"]
 
     @drybulb_temperature_difference_range_10_upper_limit.setter
     def drybulb_temperature_difference_range_10_upper_limit(self, value=None):
@@ -9172,7 +9047,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -9198,15 +9073,6 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorWetBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorWetBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'wet-bulb temperature difference range 1 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 1 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 2 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 2 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 3 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 3 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 4 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 4 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 5 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 5 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 6 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 6 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 7 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 7 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 8 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 8 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 9 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 9 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 10 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 10 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulbDifference`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -9214,7 +9080,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -9237,7 +9103,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `reference_temperature_node_name` or None if not set
         """
-        return self._data["Reference Temperature Node Name"]
+        return self["Reference Temperature Node Name"]
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
@@ -9260,7 +9126,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_1_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 1 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 1 Lower Limit"]
 
     @wetbulb_temperature_difference_range_1_lower_limit.setter
     def wetbulb_temperature_difference_range_1_lower_limit(self, value=None):
@@ -9286,7 +9152,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_1_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 1 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 1 Upper Limit"]
 
     @wetbulb_temperature_difference_range_1_upper_limit.setter
     def wetbulb_temperature_difference_range_1_upper_limit(self, value=None):
@@ -9312,7 +9178,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -9335,7 +9201,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_2_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 2 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 2 Lower Limit"]
 
     @wetbulb_temperature_difference_range_2_lower_limit.setter
     def wetbulb_temperature_difference_range_2_lower_limit(self, value=None):
@@ -9361,7 +9227,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_2_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 2 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 2 Upper Limit"]
 
     @wetbulb_temperature_difference_range_2_upper_limit.setter
     def wetbulb_temperature_difference_range_2_upper_limit(self, value=None):
@@ -9387,7 +9253,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -9410,7 +9276,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_3_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 3 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 3 Lower Limit"]
 
     @wetbulb_temperature_difference_range_3_lower_limit.setter
     def wetbulb_temperature_difference_range_3_lower_limit(self, value=None):
@@ -9436,7 +9302,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_3_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 3 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 3 Upper Limit"]
 
     @wetbulb_temperature_difference_range_3_upper_limit.setter
     def wetbulb_temperature_difference_range_3_upper_limit(self, value=None):
@@ -9462,7 +9328,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -9485,7 +9351,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_4_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 4 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 4 Lower Limit"]
 
     @wetbulb_temperature_difference_range_4_lower_limit.setter
     def wetbulb_temperature_difference_range_4_lower_limit(self, value=None):
@@ -9511,7 +9377,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_4_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 4 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 4 Upper Limit"]
 
     @wetbulb_temperature_difference_range_4_upper_limit.setter
     def wetbulb_temperature_difference_range_4_upper_limit(self, value=None):
@@ -9537,7 +9403,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -9560,7 +9426,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_5_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 5 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 5 Lower Limit"]
 
     @wetbulb_temperature_difference_range_5_lower_limit.setter
     def wetbulb_temperature_difference_range_5_lower_limit(self, value=None):
@@ -9586,7 +9452,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_5_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 5 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 5 Upper Limit"]
 
     @wetbulb_temperature_difference_range_5_upper_limit.setter
     def wetbulb_temperature_difference_range_5_upper_limit(self, value=None):
@@ -9612,7 +9478,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -9635,7 +9501,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_6_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 6 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 6 Lower Limit"]
 
     @wetbulb_temperature_difference_range_6_lower_limit.setter
     def wetbulb_temperature_difference_range_6_lower_limit(self, value=None):
@@ -9661,7 +9527,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_6_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 6 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 6 Upper Limit"]
 
     @wetbulb_temperature_difference_range_6_upper_limit.setter
     def wetbulb_temperature_difference_range_6_upper_limit(self, value=None):
@@ -9687,7 +9553,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -9710,7 +9576,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_7_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 7 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 7 Lower Limit"]
 
     @wetbulb_temperature_difference_range_7_lower_limit.setter
     def wetbulb_temperature_difference_range_7_lower_limit(self, value=None):
@@ -9736,7 +9602,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_7_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 7 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 7 Upper Limit"]
 
     @wetbulb_temperature_difference_range_7_upper_limit.setter
     def wetbulb_temperature_difference_range_7_upper_limit(self, value=None):
@@ -9762,7 +9628,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -9785,7 +9651,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_8_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 8 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 8 Lower Limit"]
 
     @wetbulb_temperature_difference_range_8_lower_limit.setter
     def wetbulb_temperature_difference_range_8_lower_limit(self, value=None):
@@ -9811,7 +9677,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_8_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 8 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 8 Upper Limit"]
 
     @wetbulb_temperature_difference_range_8_upper_limit.setter
     def wetbulb_temperature_difference_range_8_upper_limit(self, value=None):
@@ -9837,7 +9703,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -9860,7 +9726,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_9_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 9 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 9 Lower Limit"]
 
     @wetbulb_temperature_difference_range_9_lower_limit.setter
     def wetbulb_temperature_difference_range_9_lower_limit(self, value=None):
@@ -9886,7 +9752,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_9_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 9 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 9 Upper Limit"]
 
     @wetbulb_temperature_difference_range_9_upper_limit.setter
     def wetbulb_temperature_difference_range_9_upper_limit(self, value=None):
@@ -9912,7 +9778,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -9935,7 +9801,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_10_lower_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 10 Lower Limit"]
+        return self["Wet-Bulb Temperature Difference Range 10 Lower Limit"]
 
     @wetbulb_temperature_difference_range_10_lower_limit.setter
     def wetbulb_temperature_difference_range_10_lower_limit(self, value=None):
@@ -9961,7 +9827,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             float: the value of `wetbulb_temperature_difference_range_10_upper_limit` or None if not set
         """
-        return self._data["Wet-Bulb Temperature Difference Range 10 Upper Limit"]
+        return self["Wet-Bulb Temperature Difference Range 10 Upper Limit"]
 
     @wetbulb_temperature_difference_range_10_upper_limit.setter
     def wetbulb_temperature_difference_range_10_upper_limit(self, value=None):
@@ -9987,7 +9853,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -10013,15 +9879,6 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDewpointDifference', 'pyname': u'PlantEquipmentOperationOutdoorDewpointDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dewpoint temperature difference range 1 lower limit', {'name': u'Dewpoint Temperature Difference Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 1 upper limit', {'name': u'Dewpoint Temperature Difference Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 2 lower limit', {'name': u'Dewpoint Temperature Difference Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 2 upper limit', {'name': u'Dewpoint Temperature Difference Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 3 lower limit', {'name': u'Dewpoint Temperature Difference Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 3 upper limit', {'name': u'Dewpoint Temperature Difference Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 4 lower limit', {'name': u'Dewpoint Temperature Difference Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 4 upper limit', {'name': u'Dewpoint Temperature Difference Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 5 lower limit', {'name': u'Dewpoint Temperature Difference Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 5 upper limit', {'name': u'Dewpoint Temperature Difference Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 6 lower limit', {'name': u'Dewpoint Temperature Difference Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 6 upper limit', {'name': u'Dewpoint Temperature Difference Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 7 lower limit', {'name': u'Dewpoint Temperature Difference Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 7 upper limit', {'name': u'Dewpoint Temperature Difference Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 8 lower limit', {'name': u'Dewpoint Temperature Difference Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 8 upper limit', {'name': u'Dewpoint Temperature Difference Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 9 lower limit', {'name': u'Dewpoint Temperature Difference Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 9 upper limit', {'name': u'Dewpoint Temperature Difference Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 10 lower limit', {'name': u'Dewpoint Temperature Difference Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 10 upper limit', {'name': u'Dewpoint Temperature Difference Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpointDifference`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -10029,7 +9886,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -10052,7 +9909,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `reference_temperature_node_name` or None if not set
         """
-        return self._data["Reference Temperature Node Name"]
+        return self["Reference Temperature Node Name"]
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
@@ -10075,7 +9932,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_1_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 1 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 1 Lower Limit"]
 
     @dewpoint_temperature_difference_range_1_lower_limit.setter
     def dewpoint_temperature_difference_range_1_lower_limit(self, value=None):
@@ -10101,7 +9958,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_1_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 1 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 1 Upper Limit"]
 
     @dewpoint_temperature_difference_range_1_upper_limit.setter
     def dewpoint_temperature_difference_range_1_upper_limit(self, value=None):
@@ -10127,7 +9984,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_1_equipment_list_name` or None if not set
         """
-        return self._data["Range 1 Equipment List Name"]
+        return self["Range 1 Equipment List Name"]
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
@@ -10150,7 +10007,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_2_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 2 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 2 Lower Limit"]
 
     @dewpoint_temperature_difference_range_2_lower_limit.setter
     def dewpoint_temperature_difference_range_2_lower_limit(self, value=None):
@@ -10176,7 +10033,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_2_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 2 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 2 Upper Limit"]
 
     @dewpoint_temperature_difference_range_2_upper_limit.setter
     def dewpoint_temperature_difference_range_2_upper_limit(self, value=None):
@@ -10202,7 +10059,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_2_equipment_list_name` or None if not set
         """
-        return self._data["Range 2 Equipment List Name"]
+        return self["Range 2 Equipment List Name"]
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
@@ -10225,7 +10082,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_3_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 3 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 3 Lower Limit"]
 
     @dewpoint_temperature_difference_range_3_lower_limit.setter
     def dewpoint_temperature_difference_range_3_lower_limit(self, value=None):
@@ -10251,7 +10108,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_3_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 3 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 3 Upper Limit"]
 
     @dewpoint_temperature_difference_range_3_upper_limit.setter
     def dewpoint_temperature_difference_range_3_upper_limit(self, value=None):
@@ -10277,7 +10134,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_3_equipment_list_name` or None if not set
         """
-        return self._data["Range 3 Equipment List Name"]
+        return self["Range 3 Equipment List Name"]
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
@@ -10300,7 +10157,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_4_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 4 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 4 Lower Limit"]
 
     @dewpoint_temperature_difference_range_4_lower_limit.setter
     def dewpoint_temperature_difference_range_4_lower_limit(self, value=None):
@@ -10326,7 +10183,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_4_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 4 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 4 Upper Limit"]
 
     @dewpoint_temperature_difference_range_4_upper_limit.setter
     def dewpoint_temperature_difference_range_4_upper_limit(self, value=None):
@@ -10352,7 +10209,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_4_equipment_list_name` or None if not set
         """
-        return self._data["Range 4 Equipment List Name"]
+        return self["Range 4 Equipment List Name"]
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
@@ -10375,7 +10232,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_5_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 5 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 5 Lower Limit"]
 
     @dewpoint_temperature_difference_range_5_lower_limit.setter
     def dewpoint_temperature_difference_range_5_lower_limit(self, value=None):
@@ -10401,7 +10258,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_5_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 5 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 5 Upper Limit"]
 
     @dewpoint_temperature_difference_range_5_upper_limit.setter
     def dewpoint_temperature_difference_range_5_upper_limit(self, value=None):
@@ -10427,7 +10284,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_5_equipment_list_name` or None if not set
         """
-        return self._data["Range 5 Equipment List Name"]
+        return self["Range 5 Equipment List Name"]
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
@@ -10450,7 +10307,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_6_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 6 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 6 Lower Limit"]
 
     @dewpoint_temperature_difference_range_6_lower_limit.setter
     def dewpoint_temperature_difference_range_6_lower_limit(self, value=None):
@@ -10476,7 +10333,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_6_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 6 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 6 Upper Limit"]
 
     @dewpoint_temperature_difference_range_6_upper_limit.setter
     def dewpoint_temperature_difference_range_6_upper_limit(self, value=None):
@@ -10502,7 +10359,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_6_equipment_list_name` or None if not set
         """
-        return self._data["Range 6 Equipment List Name"]
+        return self["Range 6 Equipment List Name"]
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
@@ -10525,7 +10382,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_7_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 7 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 7 Lower Limit"]
 
     @dewpoint_temperature_difference_range_7_lower_limit.setter
     def dewpoint_temperature_difference_range_7_lower_limit(self, value=None):
@@ -10551,7 +10408,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_7_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 7 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 7 Upper Limit"]
 
     @dewpoint_temperature_difference_range_7_upper_limit.setter
     def dewpoint_temperature_difference_range_7_upper_limit(self, value=None):
@@ -10577,7 +10434,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_7_equipment_list_name` or None if not set
         """
-        return self._data["Range 7 Equipment List Name"]
+        return self["Range 7 Equipment List Name"]
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
@@ -10600,7 +10457,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_8_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 8 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 8 Lower Limit"]
 
     @dewpoint_temperature_difference_range_8_lower_limit.setter
     def dewpoint_temperature_difference_range_8_lower_limit(self, value=None):
@@ -10626,7 +10483,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_8_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 8 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 8 Upper Limit"]
 
     @dewpoint_temperature_difference_range_8_upper_limit.setter
     def dewpoint_temperature_difference_range_8_upper_limit(self, value=None):
@@ -10652,7 +10509,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_8_equipment_list_name` or None if not set
         """
-        return self._data["Range 8 Equipment List Name"]
+        return self["Range 8 Equipment List Name"]
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
@@ -10675,7 +10532,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_9_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 9 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 9 Lower Limit"]
 
     @dewpoint_temperature_difference_range_9_lower_limit.setter
     def dewpoint_temperature_difference_range_9_lower_limit(self, value=None):
@@ -10701,7 +10558,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_9_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 9 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 9 Upper Limit"]
 
     @dewpoint_temperature_difference_range_9_upper_limit.setter
     def dewpoint_temperature_difference_range_9_upper_limit(self, value=None):
@@ -10727,7 +10584,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_9_equipment_list_name` or None if not set
         """
-        return self._data["Range 9 Equipment List Name"]
+        return self["Range 9 Equipment List Name"]
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
@@ -10750,7 +10607,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_10_lower_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 10 Lower Limit"]
+        return self["Dewpoint Temperature Difference Range 10 Lower Limit"]
 
     @dewpoint_temperature_difference_range_10_lower_limit.setter
     def dewpoint_temperature_difference_range_10_lower_limit(self, value=None):
@@ -10776,7 +10633,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             float: the value of `dewpoint_temperature_difference_range_10_upper_limit` or None if not set
         """
-        return self._data["Dewpoint Temperature Difference Range 10 Upper Limit"]
+        return self["Dewpoint Temperature Difference Range 10 Upper Limit"]
 
     @dewpoint_temperature_difference_range_10_upper_limit.setter
     def dewpoint_temperature_difference_range_10_upper_limit(self, value=None):
@@ -10802,7 +10659,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         Returns:
             str: the value of `range_10_equipment_list_name` or None if not set
         """
-        return self._data["Range 10 Equipment List Name"]
+        return self["Range 10 Equipment List Name"]
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
@@ -10828,16 +10685,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         is -- then control scheme 2 is selected.
         Only plant equipment should be listed on a Control Scheme for this item.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperationSchemes', 'pyname': u'PlantEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperationSchemes`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperationSchemes', 'pyname': u'PlantEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -10846,7 +10694,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -10869,7 +10717,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_object_type` or None if not set
         """
-        return self._data["Control Scheme 1 Object Type"]
+        return self["Control Scheme 1 Object Type"]
 
     @control_scheme_1_object_type.setter
     def control_scheme_1_object_type(self, value=None):
@@ -10892,7 +10740,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_name` or None if not set
         """
-        return self._data["Control Scheme 1 Name"]
+        return self["Control Scheme 1 Name"]
 
     @control_scheme_1_name.setter
     def control_scheme_1_name(self, value=None):
@@ -10915,7 +10763,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 1 Schedule Name"]
+        return self["Control Scheme 1 Schedule Name"]
 
     @control_scheme_1_schedule_name.setter
     def control_scheme_1_schedule_name(self, value=None):
@@ -10938,7 +10786,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_object_type` or None if not set
         """
-        return self._data["Control Scheme 2 Object Type"]
+        return self["Control Scheme 2 Object Type"]
 
     @control_scheme_2_object_type.setter
     def control_scheme_2_object_type(self, value=None):
@@ -10961,7 +10809,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_name` or None if not set
         """
-        return self._data["Control Scheme 2 Name"]
+        return self["Control Scheme 2 Name"]
 
     @control_scheme_2_name.setter
     def control_scheme_2_name(self, value=None):
@@ -10984,7 +10832,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 2 Schedule Name"]
+        return self["Control Scheme 2 Schedule Name"]
 
     @control_scheme_2_schedule_name.setter
     def control_scheme_2_schedule_name(self, value=None):
@@ -11007,7 +10855,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_object_type` or None if not set
         """
-        return self._data["Control Scheme 3 Object Type"]
+        return self["Control Scheme 3 Object Type"]
 
     @control_scheme_3_object_type.setter
     def control_scheme_3_object_type(self, value=None):
@@ -11030,7 +10878,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_name` or None if not set
         """
-        return self._data["Control Scheme 3 Name"]
+        return self["Control Scheme 3 Name"]
 
     @control_scheme_3_name.setter
     def control_scheme_3_name(self, value=None):
@@ -11053,7 +10901,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 3 Schedule Name"]
+        return self["Control Scheme 3 Schedule Name"]
 
     @control_scheme_3_schedule_name.setter
     def control_scheme_3_schedule_name(self, value=None):
@@ -11076,7 +10924,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_object_type` or None if not set
         """
-        return self._data["Control Scheme 4 Object Type"]
+        return self["Control Scheme 4 Object Type"]
 
     @control_scheme_4_object_type.setter
     def control_scheme_4_object_type(self, value=None):
@@ -11099,7 +10947,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_name` or None if not set
         """
-        return self._data["Control Scheme 4 Name"]
+        return self["Control Scheme 4 Name"]
 
     @control_scheme_4_name.setter
     def control_scheme_4_name(self, value=None):
@@ -11122,7 +10970,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 4 Schedule Name"]
+        return self["Control Scheme 4 Schedule Name"]
 
     @control_scheme_4_schedule_name.setter
     def control_scheme_4_schedule_name(self, value=None):
@@ -11145,7 +10993,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_object_type` or None if not set
         """
-        return self._data["Control Scheme 5 Object Type"]
+        return self["Control Scheme 5 Object Type"]
 
     @control_scheme_5_object_type.setter
     def control_scheme_5_object_type(self, value=None):
@@ -11168,7 +11016,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_name` or None if not set
         """
-        return self._data["Control Scheme 5 Name"]
+        return self["Control Scheme 5 Name"]
 
     @control_scheme_5_name.setter
     def control_scheme_5_name(self, value=None):
@@ -11191,7 +11039,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 5 Schedule Name"]
+        return self["Control Scheme 5 Schedule Name"]
 
     @control_scheme_5_schedule_name.setter
     def control_scheme_5_schedule_name(self, value=None):
@@ -11214,7 +11062,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_object_type` or None if not set
         """
-        return self._data["Control Scheme 6 Object Type"]
+        return self["Control Scheme 6 Object Type"]
 
     @control_scheme_6_object_type.setter
     def control_scheme_6_object_type(self, value=None):
@@ -11237,7 +11085,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_name` or None if not set
         """
-        return self._data["Control Scheme 6 Name"]
+        return self["Control Scheme 6 Name"]
 
     @control_scheme_6_name.setter
     def control_scheme_6_name(self, value=None):
@@ -11260,7 +11108,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 6 Schedule Name"]
+        return self["Control Scheme 6 Schedule Name"]
 
     @control_scheme_6_schedule_name.setter
     def control_scheme_6_schedule_name(self, value=None):
@@ -11283,7 +11131,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_object_type` or None if not set
         """
-        return self._data["Control Scheme 7 Object Type"]
+        return self["Control Scheme 7 Object Type"]
 
     @control_scheme_7_object_type.setter
     def control_scheme_7_object_type(self, value=None):
@@ -11306,7 +11154,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_name` or None if not set
         """
-        return self._data["Control Scheme 7 Name"]
+        return self["Control Scheme 7 Name"]
 
     @control_scheme_7_name.setter
     def control_scheme_7_name(self, value=None):
@@ -11329,7 +11177,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 7 Schedule Name"]
+        return self["Control Scheme 7 Schedule Name"]
 
     @control_scheme_7_schedule_name.setter
     def control_scheme_7_schedule_name(self, value=None):
@@ -11352,7 +11200,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_object_type` or None if not set
         """
-        return self._data["Control Scheme 8 Object Type"]
+        return self["Control Scheme 8 Object Type"]
 
     @control_scheme_8_object_type.setter
     def control_scheme_8_object_type(self, value=None):
@@ -11375,7 +11223,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_name` or None if not set
         """
-        return self._data["Control Scheme 8 Name"]
+        return self["Control Scheme 8 Name"]
 
     @control_scheme_8_name.setter
     def control_scheme_8_name(self, value=None):
@@ -11398,7 +11246,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 8 Schedule Name"]
+        return self["Control Scheme 8 Schedule Name"]
 
     @control_scheme_8_schedule_name.setter
     def control_scheme_8_schedule_name(self, value=None):
@@ -11424,16 +11272,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         is -- then control scheme 2 is selected.
         Only condenser equipment should be listed on a Control Scheme for this item.
     """
-    schema = {'min-fields': 4, 'name': u'CondenserEquipmentOperationSchemes', 'pyname': u'CondenserEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `CondenserEquipmentOperationSchemes`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'CondenserEquipmentOperationSchemes', 'pyname': u'CondenserEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -11442,7 +11281,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -11465,7 +11304,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_object_type` or None if not set
         """
-        return self._data["Control Scheme 1 Object Type"]
+        return self["Control Scheme 1 Object Type"]
 
     @control_scheme_1_object_type.setter
     def control_scheme_1_object_type(self, value=None):
@@ -11488,7 +11327,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_name` or None if not set
         """
-        return self._data["Control Scheme 1 Name"]
+        return self["Control Scheme 1 Name"]
 
     @control_scheme_1_name.setter
     def control_scheme_1_name(self, value=None):
@@ -11511,7 +11350,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_1_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 1 Schedule Name"]
+        return self["Control Scheme 1 Schedule Name"]
 
     @control_scheme_1_schedule_name.setter
     def control_scheme_1_schedule_name(self, value=None):
@@ -11534,7 +11373,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_object_type` or None if not set
         """
-        return self._data["Control Scheme 2 Object Type"]
+        return self["Control Scheme 2 Object Type"]
 
     @control_scheme_2_object_type.setter
     def control_scheme_2_object_type(self, value=None):
@@ -11557,7 +11396,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_name` or None if not set
         """
-        return self._data["Control Scheme 2 Name"]
+        return self["Control Scheme 2 Name"]
 
     @control_scheme_2_name.setter
     def control_scheme_2_name(self, value=None):
@@ -11580,7 +11419,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_2_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 2 Schedule Name"]
+        return self["Control Scheme 2 Schedule Name"]
 
     @control_scheme_2_schedule_name.setter
     def control_scheme_2_schedule_name(self, value=None):
@@ -11603,7 +11442,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_object_type` or None if not set
         """
-        return self._data["Control Scheme 3 Object Type"]
+        return self["Control Scheme 3 Object Type"]
 
     @control_scheme_3_object_type.setter
     def control_scheme_3_object_type(self, value=None):
@@ -11626,7 +11465,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_name` or None if not set
         """
-        return self._data["Control Scheme 3 Name"]
+        return self["Control Scheme 3 Name"]
 
     @control_scheme_3_name.setter
     def control_scheme_3_name(self, value=None):
@@ -11649,7 +11488,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_3_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 3 Schedule Name"]
+        return self["Control Scheme 3 Schedule Name"]
 
     @control_scheme_3_schedule_name.setter
     def control_scheme_3_schedule_name(self, value=None):
@@ -11672,7 +11511,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_object_type` or None if not set
         """
-        return self._data["Control Scheme 4 Object Type"]
+        return self["Control Scheme 4 Object Type"]
 
     @control_scheme_4_object_type.setter
     def control_scheme_4_object_type(self, value=None):
@@ -11695,7 +11534,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_name` or None if not set
         """
-        return self._data["Control Scheme 4 Name"]
+        return self["Control Scheme 4 Name"]
 
     @control_scheme_4_name.setter
     def control_scheme_4_name(self, value=None):
@@ -11718,7 +11557,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_4_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 4 Schedule Name"]
+        return self["Control Scheme 4 Schedule Name"]
 
     @control_scheme_4_schedule_name.setter
     def control_scheme_4_schedule_name(self, value=None):
@@ -11741,7 +11580,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_object_type` or None if not set
         """
-        return self._data["Control Scheme 5 Object Type"]
+        return self["Control Scheme 5 Object Type"]
 
     @control_scheme_5_object_type.setter
     def control_scheme_5_object_type(self, value=None):
@@ -11764,7 +11603,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_name` or None if not set
         """
-        return self._data["Control Scheme 5 Name"]
+        return self["Control Scheme 5 Name"]
 
     @control_scheme_5_name.setter
     def control_scheme_5_name(self, value=None):
@@ -11787,7 +11626,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_5_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 5 Schedule Name"]
+        return self["Control Scheme 5 Schedule Name"]
 
     @control_scheme_5_schedule_name.setter
     def control_scheme_5_schedule_name(self, value=None):
@@ -11810,7 +11649,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_object_type` or None if not set
         """
-        return self._data["Control Scheme 6 Object Type"]
+        return self["Control Scheme 6 Object Type"]
 
     @control_scheme_6_object_type.setter
     def control_scheme_6_object_type(self, value=None):
@@ -11833,7 +11672,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_name` or None if not set
         """
-        return self._data["Control Scheme 6 Name"]
+        return self["Control Scheme 6 Name"]
 
     @control_scheme_6_name.setter
     def control_scheme_6_name(self, value=None):
@@ -11856,7 +11695,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_6_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 6 Schedule Name"]
+        return self["Control Scheme 6 Schedule Name"]
 
     @control_scheme_6_schedule_name.setter
     def control_scheme_6_schedule_name(self, value=None):
@@ -11879,7 +11718,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_object_type` or None if not set
         """
-        return self._data["Control Scheme 7 Object Type"]
+        return self["Control Scheme 7 Object Type"]
 
     @control_scheme_7_object_type.setter
     def control_scheme_7_object_type(self, value=None):
@@ -11902,7 +11741,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_name` or None if not set
         """
-        return self._data["Control Scheme 7 Name"]
+        return self["Control Scheme 7 Name"]
 
     @control_scheme_7_name.setter
     def control_scheme_7_name(self, value=None):
@@ -11925,7 +11764,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_7_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 7 Schedule Name"]
+        return self["Control Scheme 7 Schedule Name"]
 
     @control_scheme_7_schedule_name.setter
     def control_scheme_7_schedule_name(self, value=None):
@@ -11948,7 +11787,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_object_type` or None if not set
         """
-        return self._data["Control Scheme 8 Object Type"]
+        return self["Control Scheme 8 Object Type"]
 
     @control_scheme_8_object_type.setter
     def control_scheme_8_object_type(self, value=None):
@@ -11971,7 +11810,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_name` or None if not set
         """
-        return self._data["Control Scheme 8 Name"]
+        return self["Control Scheme 8 Name"]
 
     @control_scheme_8_name.setter
     def control_scheme_8_name(self, value=None):
@@ -11994,7 +11833,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         Returns:
             str: the value of `control_scheme_8_schedule_name` or None if not set
         """
-        return self._data["Control Scheme 8 Schedule Name"]
+        return self["Control Scheme 8 Schedule Name"]
 
     @control_scheme_8_schedule_name.setter
     def control_scheme_8_schedule_name(self, value=None):

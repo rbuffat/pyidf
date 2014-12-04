@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -13,16 +14,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
     """
-    schema = {'min-fields': 12, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Water', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated average water temperature', {'name': u'Rated Average Water Temperature', 'pyname': u'rated_average_water_temperature', 'default': 87.78, 'maximum': 150.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated water mass flow rate', {'name': u'Rated Water Mass Flow Rate', 'pyname': u'rated_water_mass_flow_rate', 'default': 0.063, 'minimum>': 0.0, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Kg/s'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Water`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 12, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Water', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated average water temperature', {'name': u'Rated Average Water Temperature', 'pyname': u'rated_average_water_temperature', 'default': 87.78, 'maximum': 150.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated water mass flow rate', {'name': u'Rated Water Mass Flow Rate', 'pyname': u'rated_water_mass_flow_rate', 'default': 0.063, 'minimum>': 0.0, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Kg/s'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -31,7 +23,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -79,7 +71,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -102,7 +94,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -125,7 +117,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `rated_average_water_temperature` or None if not set
         """
-        return self._data["Rated Average Water Temperature"]
+        return self["Rated Average Water Temperature"]
 
     @rated_average_water_temperature.setter
     def rated_average_water_temperature(self, value=87.78):
@@ -154,7 +146,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `rated_water_mass_flow_rate` or None if not set
         """
-        return self._data["Rated Water Mass Flow Rate"]
+        return self["Rated Water Mass Flow Rate"]
 
     @rated_water_mass_flow_rate.setter
     def rated_water_mass_flow_rate(self, value=0.063):
@@ -184,7 +176,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -214,7 +206,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -245,7 +237,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -271,7 +263,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -297,7 +289,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `maximum_water_flow_rate` or None if not set
         """
-        return self._data["Maximum Water Flow Rate"]
+        return self["Maximum Water Flow Rate"]
 
     @maximum_water_flow_rate.setter
     def maximum_water_flow_rate(self, value=None):
@@ -321,7 +313,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -345,7 +337,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `fraction_radiant` or None if not set
         """
-        return self._data["Fraction Radiant"]
+        return self["Fraction Radiant"]
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
@@ -369,7 +361,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         Returns:
             float: the value of `fraction_of_radiant_energy_incident_on_people` or None if not set
         """
-        return self._data["Fraction of Radiant Energy Incident on People"]
+        return self["Fraction of Radiant Energy Incident on People"]
 
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
@@ -408,13 +400,13 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         vals.append(surface_1_name)
         fraction_of_radiant_energy_to_surface_1 = self.check_value("Fraction of Radiant Energy to Surface 1", fraction_of_radiant_energy_to_surface_1)
         vals.append(fraction_of_radiant_energy_to_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
@@ -422,16 +414,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
     """
-    schema = {'min-fields': 11, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Steam', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveSteam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'degree of subcooling', {'name': u'Degree of SubCooling', 'pyname': u'degree_of_subcooling', 'default': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum steam flow rate', {'name': u'Maximum Steam Flow Rate', 'pyname': u'maximum_steam_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Steam`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 11, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Steam', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveSteam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'degree of subcooling', {'name': u'Degree of SubCooling', 'pyname': u'degree_of_subcooling', 'default': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum steam flow rate', {'name': u'Maximum Steam Flow Rate', 'pyname': u'maximum_steam_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -440,7 +423,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -463,7 +446,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -488,7 +471,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -511,7 +494,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -534,7 +517,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -564,7 +547,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -592,7 +575,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -618,7 +601,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -644,7 +627,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `degree_of_subcooling` or None if not set
         """
-        return self._data["Degree of SubCooling"]
+        return self["Degree of SubCooling"]
 
     @degree_of_subcooling.setter
     def degree_of_subcooling(self, value=5.0):
@@ -670,7 +653,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `maximum_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Steam Flow Rate"]
+        return self["Maximum Steam Flow Rate"]
 
     @maximum_steam_flow_rate.setter
     def maximum_steam_flow_rate(self, value=None):
@@ -694,7 +677,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -718,7 +701,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `fraction_radiant` or None if not set
         """
-        return self._data["Fraction Radiant"]
+        return self["Fraction Radiant"]
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
@@ -742,7 +725,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         Returns:
             float: the value of `fraction_of_radiant_energy_incident_on_people` or None if not set
         """
-        return self._data["Fraction of Radiant Energy Incident on People"]
+        return self["Fraction of Radiant Energy Incident on People"]
 
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
@@ -781,13 +764,13 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         vals.append(surface_1_name)
         fraction_of_radiant_energy_to_surface_1 = self.check_value("Fraction of Radiant Energy to Surface 1", fraction_of_radiant_energy_to_surface_1)
         vals.append(fraction_of_radiant_energy_to_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
@@ -795,16 +778,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
     """
-    schema = {'min-fields': 8, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Electric', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'efficiency', {'name': u'Efficiency', 'pyname': u'efficiency', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Electric`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 8, 'name': u'ZoneHVAC:Baseboard:RadiantConvective:Electric', 'pyname': u'ZoneHvacBaseboardRadiantConvectiveElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'efficiency', {'name': u'Efficiency', 'pyname': u'efficiency', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -813,7 +787,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -836,7 +810,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -861,7 +835,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -891,7 +865,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -919,7 +893,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -945,7 +919,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -971,7 +945,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `efficiency` or None if not set
         """
-        return self._data["Efficiency"]
+        return self["Efficiency"]
 
     @efficiency.setter
     def efficiency(self, value=1.0):
@@ -996,7 +970,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `fraction_radiant` or None if not set
         """
-        return self._data["Fraction Radiant"]
+        return self["Fraction Radiant"]
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
@@ -1020,7 +994,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         Returns:
             float: the value of `fraction_of_radiant_energy_incident_on_people` or None if not set
         """
-        return self._data["Fraction of Radiant Energy Incident on People"]
+        return self["Fraction of Radiant Energy Incident on People"]
 
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
@@ -1059,29 +1033,20 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         vals.append(surface_1_name)
         fraction_of_radiant_energy_to_surface_1 = self.check_value("Fraction of Radiant Energy to Surface 1", fraction_of_radiant_energy_to_surface_1)
         vals.append(fraction_of_radiant_energy_to_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneHvacBaseboardConvectiveWater(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Water`
         Hot water baseboard heater, convection-only. Natural convection hydronic heating unit.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:Baseboard:Convective:Water', 'pyname': u'ZoneHvacBaseboardConvectiveWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'u-factor times area value', {'name': u'U-Factor Times Area Value', 'pyname': u'ufactor_times_area_value', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:Convective:Water`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:Baseboard:Convective:Water', 'pyname': u'ZoneHvacBaseboardConvectiveWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'u-factor times area value', {'name': u'U-Factor Times Area Value', 'pyname': u'ufactor_times_area_value', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W/K'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1090,7 +1055,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1113,7 +1078,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1138,7 +1103,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1161,7 +1126,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1184,7 +1149,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -1214,7 +1179,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -1242,7 +1207,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -1268,7 +1233,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -1294,7 +1259,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `ufactor_times_area_value` or None if not set
         """
-        return self._data["U-Factor Times Area Value"]
+        return self["U-Factor Times Area Value"]
 
     @ufactor_times_area_value.setter
     def ufactor_times_area_value(self, value=None):
@@ -1318,7 +1283,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `maximum_water_flow_rate` or None if not set
         """
-        return self._data["Maximum Water Flow Rate"]
+        return self["Maximum Water Flow Rate"]
 
     @maximum_water_flow_rate.setter
     def maximum_water_flow_rate(self, value=None):
@@ -1343,7 +1308,7 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -1365,16 +1330,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Electric`
         Electric baseboard heater, convection-only. Natural convection electric heating unit.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:Baseboard:Convective:Electric', 'pyname': u'ZoneHvacBaseboardConvectiveElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'efficiency', {'name': u'Efficiency', 'pyname': u'efficiency', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:Convective:Electric`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:Baseboard:Convective:Electric', 'pyname': u'ZoneHvacBaseboardConvectiveElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'efficiency', {'name': u'Efficiency', 'pyname': u'efficiency', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1383,7 +1339,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1406,7 +1362,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1431,7 +1387,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -1461,7 +1417,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -1489,7 +1445,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -1515,7 +1471,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -1541,7 +1497,7 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
         Returns:
             float: the value of `efficiency` or None if not set
         """
-        return self._data["Efficiency"]
+        return self["Efficiency"]
 
     @efficiency.setter
     def efficiency(self, value=1.0):
@@ -1566,16 +1522,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         flow to the unit.
     """
-    schema = {'min-fields': 29, 'name': u'ZoneHVAC:LowTemperatureRadiant:VariableFlow', 'pyname': u'ZoneHvacLowTemperatureRadiantVariableFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hydronic tubing inside diameter', {'name': u'Hydronic Tubing Inside Diameter', 'pyname': u'hydronic_tubing_inside_diameter', 'default': 0.013, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hydronic tubing length', {'name': u'Hydronic Tubing Length', 'pyname': u'hydronic_tubing_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum hot water flow', {'name': u'Maximum Hot Water Flow', 'pyname': u'maximum_hot_water_flow', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating water inlet node name', {'name': u'Heating Water Inlet Node Name', 'pyname': u'heating_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating water outlet node name', {'name': u'Heating Water Outlet Node Name', 'pyname': u'heating_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating control throttling range', {'name': u'Heating Control Throttling Range', 'pyname': u'heating_control_throttling_range', 'default': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating control temperature schedule name', {'name': u'Heating Control Temperature Schedule Name', 'pyname': u'heating_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'CoolingDesignCapacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum cold water flow', {'name': u'Maximum Cold Water Flow', 'pyname': u'maximum_cold_water_flow', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling water inlet node name', {'name': u'Cooling Water Inlet Node Name', 'pyname': u'cooling_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling water outlet node name', {'name': u'Cooling Water Outlet Node Name', 'pyname': u'cooling_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling control throttling range', {'name': u'Cooling Control Throttling Range', 'pyname': u'cooling_control_throttling_range', 'default': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'cooling control temperature schedule name', {'name': u'Cooling Control Temperature Schedule Name', 'pyname': u'cooling_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condensation control type', {'name': u'Condensation Control Type', 'pyname': u'condensation_control_type', 'default': u'SimpleOff', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condensation control dewpoint offset', {'name': u'Condensation Control Dewpoint Offset', 'pyname': u'condensation_control_dewpoint_offset', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'number of circuits', {'name': u'Number of Circuits', 'pyname': u'number_of_circuits', 'default': u'OnePerSurface', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'circuit length', {'name': u'Circuit Length', 'pyname': u'circuit_length', 'default': 106.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:VariableFlow`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 29, 'name': u'ZoneHVAC:LowTemperatureRadiant:VariableFlow', 'pyname': u'ZoneHvacLowTemperatureRadiantVariableFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hydronic tubing inside diameter', {'name': u'Hydronic Tubing Inside Diameter', 'pyname': u'hydronic_tubing_inside_diameter', 'default': 0.013, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hydronic tubing length', {'name': u'Hydronic Tubing Length', 'pyname': u'hydronic_tubing_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum hot water flow', {'name': u'Maximum Hot Water Flow', 'pyname': u'maximum_hot_water_flow', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating water inlet node name', {'name': u'Heating Water Inlet Node Name', 'pyname': u'heating_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating water outlet node name', {'name': u'Heating Water Outlet Node Name', 'pyname': u'heating_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating control throttling range', {'name': u'Heating Control Throttling Range', 'pyname': u'heating_control_throttling_range', 'default': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating control temperature schedule name', {'name': u'Heating Control Temperature Schedule Name', 'pyname': u'heating_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'CoolingDesignCapacity', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'maximum cold water flow', {'name': u'Maximum Cold Water Flow', 'pyname': u'maximum_cold_water_flow', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling water inlet node name', {'name': u'Cooling Water Inlet Node Name', 'pyname': u'cooling_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling water outlet node name', {'name': u'Cooling Water Outlet Node Name', 'pyname': u'cooling_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling control throttling range', {'name': u'Cooling Control Throttling Range', 'pyname': u'cooling_control_throttling_range', 'default': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'cooling control temperature schedule name', {'name': u'Cooling Control Temperature Schedule Name', 'pyname': u'cooling_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condensation control type', {'name': u'Condensation Control Type', 'pyname': u'condensation_control_type', 'default': u'SimpleOff', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Off', u'SimpleOff', u'VariableOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'condensation control dewpoint offset', {'name': u'Condensation Control Dewpoint Offset', 'pyname': u'condensation_control_dewpoint_offset', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'number of circuits', {'name': u'Number of Circuits', 'pyname': u'number_of_circuits', 'default': u'OnePerSurface', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OnePerSurface', u'CalculateFromCircuitLength'], 'autocalculatable': False, 'type': 'alpha'}), (u'circuit length', {'name': u'Circuit Length', 'pyname': u'circuit_length', 'default': 106.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1584,7 +1531,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1607,7 +1554,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1632,7 +1579,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1656,7 +1603,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
         """
-        return self._data["Surface Name or Radiant Surface Group Name"]
+        return self["Surface Name or Radiant Surface Group Name"]
 
     @surface_name_or_radiant_surface_group_name.setter
     def surface_name_or_radiant_surface_group_name(self, value=None):
@@ -1682,7 +1629,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `hydronic_tubing_inside_diameter` or None if not set
         """
-        return self._data["Hydronic Tubing Inside Diameter"]
+        return self["Hydronic Tubing Inside Diameter"]
 
     @hydronic_tubing_inside_diameter.setter
     def hydronic_tubing_inside_diameter(self, value=0.013):
@@ -1708,7 +1655,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `hydronic_tubing_length` or None if not set
         """
-        return self._data["Hydronic Tubing Length"]
+        return self["Hydronic Tubing Length"]
 
     @hydronic_tubing_length.setter
     def hydronic_tubing_length(self, value=None):
@@ -1733,7 +1680,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `temperature_control_type` or None if not set
         """
-        return self._data["Temperature Control Type"]
+        return self["Temperature Control Type"]
 
     @temperature_control_type.setter
     def temperature_control_type(self, value="MeanAirTemperature"):
@@ -1758,7 +1705,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -1788,7 +1735,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -1816,7 +1763,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -1842,7 +1789,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -1868,7 +1815,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `maximum_hot_water_flow` or None if not set
         """
-        return self._data["Maximum Hot Water Flow"]
+        return self["Maximum Hot Water Flow"]
 
     @maximum_hot_water_flow.setter
     def maximum_hot_water_flow(self, value=None):
@@ -1893,7 +1840,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `heating_water_inlet_node_name` or None if not set
         """
-        return self._data["Heating Water Inlet Node Name"]
+        return self["Heating Water Inlet Node Name"]
 
     @heating_water_inlet_node_name.setter
     def heating_water_inlet_node_name(self, value=None):
@@ -1916,7 +1863,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `heating_water_outlet_node_name` or None if not set
         """
-        return self._data["Heating Water Outlet Node Name"]
+        return self["Heating Water Outlet Node Name"]
 
     @heating_water_outlet_node_name.setter
     def heating_water_outlet_node_name(self, value=None):
@@ -1939,7 +1886,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `heating_control_throttling_range` or None if not set
         """
-        return self._data["Heating Control Throttling Range"]
+        return self["Heating Control Throttling Range"]
 
     @heating_control_throttling_range.setter
     def heating_control_throttling_range(self, value=0.5):
@@ -1965,7 +1912,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `heating_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Control Temperature Schedule Name"]
+        return self["Heating Control Temperature Schedule Name"]
 
     @heating_control_temperature_schedule_name.setter
     def heating_control_temperature_schedule_name(self, value=None):
@@ -1988,7 +1935,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
         """
-        return self._data["Cooling Design Capacity Method"]
+        return self["Cooling Design Capacity Method"]
 
     @cooling_design_capacity_method.setter
     def cooling_design_capacity_method(self, value="CoolingDesignCapacity"):
@@ -2019,7 +1966,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `cooling_design_capacity` or None if not set
         """
-        return self._data["Cooling Design Capacity"]
+        return self["Cooling Design Capacity"]
 
     @cooling_design_capacity.setter
     def cooling_design_capacity(self, value=None):
@@ -2045,7 +1992,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `cooling_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Cooling Design Capacity Per Floor Area"]
+        return self["Cooling Design Capacity Per Floor Area"]
 
     @cooling_design_capacity_per_floor_area.setter
     def cooling_design_capacity_per_floor_area(self, value=None):
@@ -2071,7 +2018,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Cooling Design Capacity"]
+        return self["Fraction of Autosized Cooling Design Capacity"]
 
     @fraction_of_autosized_cooling_design_capacity.setter
     def fraction_of_autosized_cooling_design_capacity(self, value=None):
@@ -2096,7 +2043,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `maximum_cold_water_flow` or None if not set
         """
-        return self._data["Maximum Cold Water Flow"]
+        return self["Maximum Cold Water Flow"]
 
     @maximum_cold_water_flow.setter
     def maximum_cold_water_flow(self, value=None):
@@ -2121,7 +2068,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `cooling_water_inlet_node_name` or None if not set
         """
-        return self._data["Cooling Water Inlet Node Name"]
+        return self["Cooling Water Inlet Node Name"]
 
     @cooling_water_inlet_node_name.setter
     def cooling_water_inlet_node_name(self, value=None):
@@ -2144,7 +2091,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `cooling_water_outlet_node_name` or None if not set
         """
-        return self._data["Cooling Water Outlet Node Name"]
+        return self["Cooling Water Outlet Node Name"]
 
     @cooling_water_outlet_node_name.setter
     def cooling_water_outlet_node_name(self, value=None):
@@ -2167,7 +2114,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `cooling_control_throttling_range` or None if not set
         """
-        return self._data["Cooling Control Throttling Range"]
+        return self["Cooling Control Throttling Range"]
 
     @cooling_control_throttling_range.setter
     def cooling_control_throttling_range(self, value=0.5):
@@ -2193,7 +2140,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `cooling_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Control Temperature Schedule Name"]
+        return self["Cooling Control Temperature Schedule Name"]
 
     @cooling_control_temperature_schedule_name.setter
     def cooling_control_temperature_schedule_name(self, value=None):
@@ -2216,7 +2163,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `condensation_control_type` or None if not set
         """
-        return self._data["Condensation Control Type"]
+        return self["Condensation Control Type"]
 
     @condensation_control_type.setter
     def condensation_control_type(self, value="SimpleOff"):
@@ -2240,7 +2187,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `condensation_control_dewpoint_offset` or None if not set
         """
-        return self._data["Condensation Control Dewpoint Offset"]
+        return self["Condensation Control Dewpoint Offset"]
 
     @condensation_control_dewpoint_offset.setter
     def condensation_control_dewpoint_offset(self, value=1.0):
@@ -2265,7 +2212,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             str: the value of `number_of_circuits` or None if not set
         """
-        return self._data["Number of Circuits"]
+        return self["Number of Circuits"]
 
     @number_of_circuits.setter
     def number_of_circuits(self, value="OnePerSurface"):
@@ -2289,7 +2236,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         Returns:
             float: the value of `circuit_length` or None if not set
         """
-        return self._data["Circuit Length"]
+        return self["Circuit Length"]
 
     @circuit_length.setter
     def circuit_length(self, value=106.7):
@@ -2314,16 +2261,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         temperature circulating through the unit.
     """
-    schema = {'min-fields': 29, 'name': u'ZoneHVAC:LowTemperatureRadiant:ConstantFlow', 'pyname': u'ZoneHvacLowTemperatureRadiantConstantFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hydronic tubing inside diameter', {'name': u'Hydronic Tubing Inside Diameter', 'pyname': u'hydronic_tubing_inside_diameter', 'default': 0.013, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hydronic tubing length', {'name': u'Hydronic Tubing Length', 'pyname': u'hydronic_tubing_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heating water inlet node name', {'name': u'Heating Water Inlet Node Name', 'pyname': u'heating_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating water outlet node name', {'name': u'Heating Water Outlet Node Name', 'pyname': u'heating_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating high water temperature schedule name', {'name': u'Heating High Water Temperature Schedule Name', 'pyname': u'heating_high_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low water temperature schedule name', {'name': u'Heating Low Water Temperature Schedule Name', 'pyname': u'heating_low_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating high control temperature schedule name', {'name': u'Heating High Control Temperature Schedule Name', 'pyname': u'heating_high_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low control temperature schedule name', {'name': u'Heating Low Control Temperature Schedule Name', 'pyname': u'heating_low_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling water inlet node name', {'name': u'Cooling Water Inlet Node Name', 'pyname': u'cooling_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling water outlet node name', {'name': u'Cooling Water Outlet Node Name', 'pyname': u'cooling_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling high water temperature schedule name', {'name': u'Cooling High Water Temperature Schedule Name', 'pyname': u'cooling_high_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low water temperature schedule name', {'name': u'Cooling Low Water Temperature Schedule Name', 'pyname': u'cooling_low_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high control temperature schedule name', {'name': u'Cooling High Control Temperature Schedule Name', 'pyname': u'cooling_high_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low control temperature schedule name', {'name': u'Cooling Low Control Temperature Schedule Name', 'pyname': u'cooling_low_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condensation control type', {'name': u'Condensation Control Type', 'pyname': u'condensation_control_type', 'default': u'SimpleOff', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condensation control dewpoint offset', {'name': u'Condensation Control Dewpoint Offset', 'pyname': u'condensation_control_dewpoint_offset', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'number of circuits', {'name': u'Number of Circuits', 'pyname': u'number_of_circuits', 'default': u'OnePerSurface', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'circuit length', {'name': u'Circuit Length', 'pyname': u'circuit_length', 'default': 106.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:ConstantFlow`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 29, 'name': u'ZoneHVAC:LowTemperatureRadiant:ConstantFlow', 'pyname': u'ZoneHvacLowTemperatureRadiantConstantFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hydronic tubing inside diameter', {'name': u'Hydronic Tubing Inside Diameter', 'pyname': u'hydronic_tubing_inside_diameter', 'default': 0.013, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hydronic tubing length', {'name': u'Hydronic Tubing Length', 'pyname': u'hydronic_tubing_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heating water inlet node name', {'name': u'Heating Water Inlet Node Name', 'pyname': u'heating_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating water outlet node name', {'name': u'Heating Water Outlet Node Name', 'pyname': u'heating_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating high water temperature schedule name', {'name': u'Heating High Water Temperature Schedule Name', 'pyname': u'heating_high_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low water temperature schedule name', {'name': u'Heating Low Water Temperature Schedule Name', 'pyname': u'heating_low_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating high control temperature schedule name', {'name': u'Heating High Control Temperature Schedule Name', 'pyname': u'heating_high_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low control temperature schedule name', {'name': u'Heating Low Control Temperature Schedule Name', 'pyname': u'heating_low_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling water inlet node name', {'name': u'Cooling Water Inlet Node Name', 'pyname': u'cooling_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling water outlet node name', {'name': u'Cooling Water Outlet Node Name', 'pyname': u'cooling_water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling high water temperature schedule name', {'name': u'Cooling High Water Temperature Schedule Name', 'pyname': u'cooling_high_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low water temperature schedule name', {'name': u'Cooling Low Water Temperature Schedule Name', 'pyname': u'cooling_low_water_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high control temperature schedule name', {'name': u'Cooling High Control Temperature Schedule Name', 'pyname': u'cooling_high_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low control temperature schedule name', {'name': u'Cooling Low Control Temperature Schedule Name', 'pyname': u'cooling_low_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condensation control type', {'name': u'Condensation Control Type', 'pyname': u'condensation_control_type', 'default': u'SimpleOff', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Off', u'SimpleOff', u'VariableOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'condensation control dewpoint offset', {'name': u'Condensation Control Dewpoint Offset', 'pyname': u'condensation_control_dewpoint_offset', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'number of circuits', {'name': u'Number of Circuits', 'pyname': u'number_of_circuits', 'default': u'OnePerSurface', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OnePerSurface', u'CalculateFromCircuitLength'], 'autocalculatable': False, 'type': 'alpha'}), (u'circuit length', {'name': u'Circuit Length', 'pyname': u'circuit_length', 'default': 106.7, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2332,7 +2270,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2355,7 +2293,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -2380,7 +2318,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2404,7 +2342,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
         """
-        return self._data["Surface Name or Radiant Surface Group Name"]
+        return self["Surface Name or Radiant Surface Group Name"]
 
     @surface_name_or_radiant_surface_group_name.setter
     def surface_name_or_radiant_surface_group_name(self, value=None):
@@ -2430,7 +2368,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `hydronic_tubing_inside_diameter` or None if not set
         """
-        return self._data["Hydronic Tubing Inside Diameter"]
+        return self["Hydronic Tubing Inside Diameter"]
 
     @hydronic_tubing_inside_diameter.setter
     def hydronic_tubing_inside_diameter(self, value=0.013):
@@ -2455,7 +2393,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `hydronic_tubing_length` or None if not set
         """
-        return self._data["Hydronic Tubing Length"]
+        return self["Hydronic Tubing Length"]
 
     @hydronic_tubing_length.setter
     def hydronic_tubing_length(self, value=None):
@@ -2480,7 +2418,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `temperature_control_type` or None if not set
         """
-        return self._data["Temperature Control Type"]
+        return self["Temperature Control Type"]
 
     @temperature_control_type.setter
     def temperature_control_type(self, value="MeanAirTemperature"):
@@ -2505,7 +2443,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `rated_flow_rate` or None if not set
         """
-        return self._data["Rated Flow Rate"]
+        return self["Rated Flow Rate"]
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
@@ -2529,7 +2467,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -2557,7 +2495,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -2583,7 +2521,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -2607,7 +2545,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -2632,7 +2570,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -2656,7 +2594,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_water_inlet_node_name` or None if not set
         """
-        return self._data["Heating Water Inlet Node Name"]
+        return self["Heating Water Inlet Node Name"]
 
     @heating_water_inlet_node_name.setter
     def heating_water_inlet_node_name(self, value=None):
@@ -2679,7 +2617,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_water_outlet_node_name` or None if not set
         """
-        return self._data["Heating Water Outlet Node Name"]
+        return self["Heating Water Outlet Node Name"]
 
     @heating_water_outlet_node_name.setter
     def heating_water_outlet_node_name(self, value=None):
@@ -2702,7 +2640,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_high_water_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating High Water Temperature Schedule Name"]
+        return self["Heating High Water Temperature Schedule Name"]
 
     @heating_high_water_temperature_schedule_name.setter
     def heating_high_water_temperature_schedule_name(self, value=None):
@@ -2736,7 +2674,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_low_water_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Low Water Temperature Schedule Name"]
+        return self["Heating Low Water Temperature Schedule Name"]
 
     @heating_low_water_temperature_schedule_name.setter
     def heating_low_water_temperature_schedule_name(self, value=None):
@@ -2759,7 +2697,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_high_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating High Control Temperature Schedule Name"]
+        return self["Heating High Control Temperature Schedule Name"]
 
     @heating_high_control_temperature_schedule_name.setter
     def heating_high_control_temperature_schedule_name(self, value=None):
@@ -2782,7 +2720,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `heating_low_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Low Control Temperature Schedule Name"]
+        return self["Heating Low Control Temperature Schedule Name"]
 
     @heating_low_control_temperature_schedule_name.setter
     def heating_low_control_temperature_schedule_name(self, value=None):
@@ -2805,7 +2743,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_water_inlet_node_name` or None if not set
         """
-        return self._data["Cooling Water Inlet Node Name"]
+        return self["Cooling Water Inlet Node Name"]
 
     @cooling_water_inlet_node_name.setter
     def cooling_water_inlet_node_name(self, value=None):
@@ -2828,7 +2766,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_water_outlet_node_name` or None if not set
         """
-        return self._data["Cooling Water Outlet Node Name"]
+        return self["Cooling Water Outlet Node Name"]
 
     @cooling_water_outlet_node_name.setter
     def cooling_water_outlet_node_name(self, value=None):
@@ -2851,7 +2789,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_high_water_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling High Water Temperature Schedule Name"]
+        return self["Cooling High Water Temperature Schedule Name"]
 
     @cooling_high_water_temperature_schedule_name.setter
     def cooling_high_water_temperature_schedule_name(self, value=None):
@@ -2876,7 +2814,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_low_water_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Low Water Temperature Schedule Name"]
+        return self["Cooling Low Water Temperature Schedule Name"]
 
     @cooling_low_water_temperature_schedule_name.setter
     def cooling_low_water_temperature_schedule_name(self, value=None):
@@ -2899,7 +2837,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_high_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling High Control Temperature Schedule Name"]
+        return self["Cooling High Control Temperature Schedule Name"]
 
     @cooling_high_control_temperature_schedule_name.setter
     def cooling_high_control_temperature_schedule_name(self, value=None):
@@ -2922,7 +2860,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `cooling_low_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Low Control Temperature Schedule Name"]
+        return self["Cooling Low Control Temperature Schedule Name"]
 
     @cooling_low_control_temperature_schedule_name.setter
     def cooling_low_control_temperature_schedule_name(self, value=None):
@@ -2945,7 +2883,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `condensation_control_type` or None if not set
         """
-        return self._data["Condensation Control Type"]
+        return self["Condensation Control Type"]
 
     @condensation_control_type.setter
     def condensation_control_type(self, value="SimpleOff"):
@@ -2969,7 +2907,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `condensation_control_dewpoint_offset` or None if not set
         """
-        return self._data["Condensation Control Dewpoint Offset"]
+        return self["Condensation Control Dewpoint Offset"]
 
     @condensation_control_dewpoint_offset.setter
     def condensation_control_dewpoint_offset(self, value=1.0):
@@ -2994,7 +2932,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             str: the value of `number_of_circuits` or None if not set
         """
-        return self._data["Number of Circuits"]
+        return self["Number of Circuits"]
 
     @number_of_circuits.setter
     def number_of_circuits(self, value="OnePerSurface"):
@@ -3018,7 +2956,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         Returns:
             float: the value of `circuit_length` or None if not set
         """
-        return self._data["Circuit Length"]
+        return self["Circuit Length"]
 
     @circuit_length.setter
     def circuit_length(self, value=106.7):
@@ -3041,16 +2979,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:Electric`
         Electric resistance low temperature radiant system
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:LowTemperatureRadiant:Electric', 'pyname': u'ZoneHvacLowTemperatureRadiantElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating throttling range', {'name': u'Heating Throttling Range', 'pyname': u'heating_throttling_range', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:Electric`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:LowTemperatureRadiant:Electric', 'pyname': u'ZoneHvacLowTemperatureRadiantElectric', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'MeanAirTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating throttling range', {'name': u'Heating Throttling Range', 'pyname': u'heating_throttling_range', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3059,7 +2988,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3082,7 +3011,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3107,7 +3036,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3131,7 +3060,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
         """
-        return self._data["Surface Name or Radiant Surface Group Name"]
+        return self["Surface Name or Radiant Surface Group Name"]
 
     @surface_name_or_radiant_surface_group_name.setter
     def surface_name_or_radiant_surface_group_name(self, value=None):
@@ -3157,7 +3086,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -3187,7 +3116,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -3215,7 +3144,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -3241,7 +3170,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -3267,7 +3196,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `temperature_control_type` or None if not set
         """
-        return self._data["Temperature Control Type"]
+        return self["Temperature Control Type"]
 
     @temperature_control_type.setter
     def temperature_control_type(self, value="MeanAirTemperature"):
@@ -3292,7 +3221,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             float: the value of `heating_throttling_range` or None if not set
         """
-        return self._data["Heating Throttling Range"]
+        return self["Heating Throttling Range"]
 
     @heating_throttling_range.setter
     def heating_throttling_range(self, value=None):
@@ -3316,7 +3245,7 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         Returns:
             str: the value of `heating_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Setpoint Temperature Schedule Name"]
+        return self["Heating Setpoint Temperature Schedule Name"]
 
     @heating_setpoint_temperature_schedule_name.setter
     def heating_setpoint_temperature_schedule_name(self, value=None):
@@ -3342,15 +3271,6 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ZoneHVAC:LowTemperatureRadiant:SurfaceGroup', 'pyname': u'ZoneHvacLowTemperatureRadiantSurfaceGroup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow fraction for surface 1', {'name': u'Flow Fraction for Surface 1', 'pyname': u'flow_fraction_for_surface_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:SurfaceGroup`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3358,7 +3278,7 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3395,13 +3315,13 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
         vals.append(surface_1_name)
         flow_fraction_for_surface_1 = self.check_value("Flow Fraction for Surface 1", flow_fraction_for_surface_1)
         vals.append(flow_fraction_for_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneHvacHighTemperatureRadiant(DataObject):
@@ -3409,16 +3329,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:HighTemperatureRadiant', 'pyname': u'ZoneHvacHighTemperatureRadiant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'combustion efficiency', {'name': u'Combustion Efficiency', 'pyname': u'combustion_efficiency', 'default': 0.9, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input converted to radiant energy', {'name': u'Fraction of Input Converted to Radiant Energy', 'pyname': u'fraction_of_input_converted_to_radiant_energy', 'default': 0.7, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input converted to latent energy', {'name': u'Fraction of Input Converted to Latent Energy', 'pyname': u'fraction_of_input_converted_to_latent_energy', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input that is lost', {'name': u'Fraction of Input that Is Lost', 'pyname': u'fraction_of_input_that_is_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'OperativeTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating throttling range', {'name': u'Heating Throttling Range', 'pyname': u'heating_throttling_range', 'default': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:HighTemperatureRadiant`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:HighTemperatureRadiant', 'pyname': u'ZoneHvacHighTemperatureRadiant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NaturalGas', u'Electricity'], 'autocalculatable': False, 'type': 'alpha'}), (u'combustion efficiency', {'name': u'Combustion Efficiency', 'pyname': u'combustion_efficiency', 'default': 0.9, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input converted to radiant energy', {'name': u'Fraction of Input Converted to Radiant Energy', 'pyname': u'fraction_of_input_converted_to_radiant_energy', 'default': 0.7, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input converted to latent energy', {'name': u'Fraction of Input Converted to Latent Energy', 'pyname': u'fraction_of_input_converted_to_latent_energy', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of input that is lost', {'name': u'Fraction of Input that Is Lost', 'pyname': u'fraction_of_input_that_is_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'OperativeTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'MeanAirTemperatureSetpoint', u'MeanRadiantTemperatureSetpoint', u'OperativeTemperatureSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating throttling range', {'name': u'Heating Throttling Range', 'pyname': u'heating_throttling_range', 'default': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'heating setpoint temperature schedule name', {'name': u'Heating Setpoint Temperature Schedule Name', 'pyname': u'heating_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy incident on people', {'name': u'Fraction of Radiant Energy Incident on People', 'pyname': u'fraction_of_radiant_energy_incident_on_people', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of radiant energy to surface 1', {'name': u'Fraction of Radiant Energy to Surface 1', 'pyname': u'fraction_of_radiant_energy_to_surface_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3427,7 +3338,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3450,7 +3361,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3475,7 +3386,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3499,7 +3410,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -3529,7 +3440,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -3556,7 +3467,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -3582,7 +3493,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=1.0):
@@ -3608,7 +3519,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `fuel_type` or None if not set
         """
-        return self._data["Fuel Type"]
+        return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value=None):
@@ -3632,7 +3543,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `combustion_efficiency` or None if not set
         """
-        return self._data["Combustion Efficiency"]
+        return self["Combustion Efficiency"]
 
     @combustion_efficiency.setter
     def combustion_efficiency(self, value=0.9):
@@ -3658,7 +3569,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `fraction_of_input_converted_to_radiant_energy` or None if not set
         """
-        return self._data["Fraction of Input Converted to Radiant Energy"]
+        return self["Fraction of Input Converted to Radiant Energy"]
 
     @fraction_of_input_converted_to_radiant_energy.setter
     def fraction_of_input_converted_to_radiant_energy(self, value=0.7):
@@ -3684,7 +3595,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `fraction_of_input_converted_to_latent_energy` or None if not set
         """
-        return self._data["Fraction of Input Converted to Latent Energy"]
+        return self["Fraction of Input Converted to Latent Energy"]
 
     @fraction_of_input_converted_to_latent_energy.setter
     def fraction_of_input_converted_to_latent_energy(self, value=None):
@@ -3708,7 +3619,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `fraction_of_input_that_is_lost` or None if not set
         """
-        return self._data["Fraction of Input that Is Lost"]
+        return self["Fraction of Input that Is Lost"]
 
     @fraction_of_input_that_is_lost.setter
     def fraction_of_input_that_is_lost(self, value=None):
@@ -3733,7 +3644,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `temperature_control_type` or None if not set
         """
-        return self._data["Temperature Control Type"]
+        return self["Temperature Control Type"]
 
     @temperature_control_type.setter
     def temperature_control_type(self, value="OperativeTemperature"):
@@ -3758,7 +3669,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `heating_throttling_range` or None if not set
         """
-        return self._data["Heating Throttling Range"]
+        return self["Heating Throttling Range"]
 
     @heating_throttling_range.setter
     def heating_throttling_range(self, value=2.0):
@@ -3783,7 +3694,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             str: the value of `heating_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Setpoint Temperature Schedule Name"]
+        return self["Heating Setpoint Temperature Schedule Name"]
 
     @heating_setpoint_temperature_schedule_name.setter
     def heating_setpoint_temperature_schedule_name(self, value=None):
@@ -3807,7 +3718,7 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         Returns:
             float: the value of `fraction_of_radiant_energy_incident_on_people` or None if not set
         """
-        return self._data["Fraction of Radiant Energy Incident on People"]
+        return self["Fraction of Radiant Energy Incident on People"]
 
     @fraction_of_radiant_energy_incident_on_people.setter
     def fraction_of_radiant_energy_incident_on_people(self, value=None):
@@ -3848,13 +3759,13 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         vals.append(surface_1_name)
         fraction_of_radiant_energy_to_surface_1 = self.check_value("Fraction of Radiant Energy to Surface 1", fraction_of_radiant_energy_to_surface_1)
         vals.append(fraction_of_radiant_energy_to_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneHvacVentilatedSlab(DataObject):
@@ -3862,16 +3773,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Ventilated slab system where outdoor air flows through hollow cores in a building
         surface (wall, ceiling, or floor).
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:VentilatedSlab', 'pyname': u'ZoneHvacVentilatedSlab', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air control type', {'name': u'Outdoor Air Control Type', 'pyname': u'outdoor_air_control_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum outdoor air fraction or temperature schedule name', {'name': u'Maximum Outdoor Air Fraction or Temperature Schedule Name', 'pyname': u'maximum_outdoor_air_fraction_or_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system configuration type', {'name': u'System Configuration Type', 'pyname': u'system_configuration_type', 'default': u'SlabOnly', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hollow core inside diameter', {'name': u'Hollow Core Inside Diameter', 'pyname': u'hollow_core_inside_diameter', 'default': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hollow core length', {'name': u'Hollow Core Length', 'pyname': u'hollow_core_length', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'number of cores', {'name': u'Number of Cores', 'pyname': u'number_of_cores', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'OutdoorDryBulbTemperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating high air temperature schedule name', {'name': u'Heating High Air Temperature Schedule Name', 'pyname': u'heating_high_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low air temperature schedule name', {'name': u'Heating Low Air Temperature Schedule Name', 'pyname': u'heating_low_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating high control temperature schedule name', {'name': u'Heating High Control Temperature Schedule Name', 'pyname': u'heating_high_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low control temperature schedule name', {'name': u'Heating Low Control Temperature Schedule Name', 'pyname': u'heating_low_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high air temperature schedule name', {'name': u'Cooling High Air Temperature Schedule Name', 'pyname': u'cooling_high_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low air temperature schedule name', {'name': u'Cooling Low Air Temperature Schedule Name', 'pyname': u'cooling_low_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high control temperature schedule name', {'name': u'Cooling High Control Temperature Schedule Name', 'pyname': u'cooling_high_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low control temperature schedule name', {'name': u'Cooling Low Control Temperature Schedule Name', 'pyname': u'cooling_low_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'return air node name', {'name': u'Return Air Node Name', 'pyname': u'return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'slab in node name', {'name': u'Slab In Node Name', 'pyname': u'slab_in_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone supply air node name', {'name': u'Zone Supply Air Node Name', 'pyname': u'zone_supply_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air node name', {'name': u'Relief Air Node Name', 'pyname': u'relief_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer outlet node name', {'name': u'Outdoor Air Mixer Outlet Node Name', 'pyname': u'outdoor_air_mixer_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan outlet node name', {'name': u'Fan Outlet Node Name', 'pyname': u'fan_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil option type', {'name': u'Coil Option Type', 'pyname': u'coil_option_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water inlet node name', {'name': u'Cold Water Inlet Node Name', 'pyname': u'cold_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:VentilatedSlab`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:VentilatedSlab', 'pyname': u'ZoneHvacVentilatedSlab', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name or radiant surface group name', {'name': u'Surface Name or Radiant Surface Group Name', 'pyname': u'surface_name_or_radiant_surface_group_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air control type', {'name': u'Outdoor Air Control Type', 'pyname': u'outdoor_air_control_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VariablePercent', u'FixedTemperature', u'FixedAmount'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum outdoor air fraction or temperature schedule name', {'name': u'Maximum Outdoor Air Fraction or Temperature Schedule Name', 'pyname': u'maximum_outdoor_air_fraction_or_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system configuration type', {'name': u'System Configuration Type', 'pyname': u'system_configuration_type', 'default': u'SlabOnly', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SlabOnly', u'SlabAndZone', u'SeriesSlabs'], 'autocalculatable': False, 'type': 'alpha'}), (u'hollow core inside diameter', {'name': u'Hollow Core Inside Diameter', 'pyname': u'hollow_core_inside_diameter', 'default': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'hollow core length', {'name': u'Hollow Core Length', 'pyname': u'hollow_core_length', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'number of cores', {'name': u'Number of Cores', 'pyname': u'number_of_cores', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'temperature control type', {'name': u'Temperature Control Type', 'pyname': u'temperature_control_type', 'default': u'OutdoorDryBulbTemperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'MeanAirTemperature', u'MeanRadiantTemperature', u'OperativeTemperature', u'OutdoorDryBulbTemperature', u'OutdoorWetBulbTemperature', u'SurfaceTemperature', u'ZoneAirDewPointTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating high air temperature schedule name', {'name': u'Heating High Air Temperature Schedule Name', 'pyname': u'heating_high_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low air temperature schedule name', {'name': u'Heating Low Air Temperature Schedule Name', 'pyname': u'heating_low_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating high control temperature schedule name', {'name': u'Heating High Control Temperature Schedule Name', 'pyname': u'heating_high_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating low control temperature schedule name', {'name': u'Heating Low Control Temperature Schedule Name', 'pyname': u'heating_low_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high air temperature schedule name', {'name': u'Cooling High Air Temperature Schedule Name', 'pyname': u'cooling_high_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low air temperature schedule name', {'name': u'Cooling Low Air Temperature Schedule Name', 'pyname': u'cooling_low_air_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling high control temperature schedule name', {'name': u'Cooling High Control Temperature Schedule Name', 'pyname': u'cooling_high_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling low control temperature schedule name', {'name': u'Cooling Low Control Temperature Schedule Name', 'pyname': u'cooling_low_control_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'return air node name', {'name': u'Return Air Node Name', 'pyname': u'return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'slab in node name', {'name': u'Slab In Node Name', 'pyname': u'slab_in_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone supply air node name', {'name': u'Zone Supply Air Node Name', 'pyname': u'zone_supply_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air node name', {'name': u'Relief Air Node Name', 'pyname': u'relief_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer outlet node name', {'name': u'Outdoor Air Mixer Outlet Node Name', 'pyname': u'outdoor_air_mixer_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan outlet node name', {'name': u'Fan Outlet Node Name', 'pyname': u'fan_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil option type', {'name': u'Coil Option Type', 'pyname': u'coil_option_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'None', u'Heating', u'Cooling', u'HeatingAndCooling'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water inlet node name', {'name': u'Cold Water Inlet Node Name', 'pyname': u'cold_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3880,7 +3782,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3903,7 +3805,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3928,7 +3830,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3952,7 +3854,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `surface_name_or_radiant_surface_group_name` or None if not set
         """
-        return self._data["Surface Name or Radiant Surface Group Name"]
+        return self["Surface Name or Radiant Surface Group Name"]
 
     @surface_name_or_radiant_surface_group_name.setter
     def surface_name_or_radiant_surface_group_name(self, value=None):
@@ -3976,7 +3878,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -4000,7 +3902,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `outdoor_air_control_type` or None if not set
         """
-        return self._data["Outdoor Air Control Type"]
+        return self["Outdoor Air Control Type"]
 
     @outdoor_air_control_type.setter
     def outdoor_air_control_type(self, value=None):
@@ -4023,7 +3925,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `minimum_outdoor_air_flow_rate` or None if not set
         """
-        return self._data["Minimum Outdoor Air Flow Rate"]
+        return self["Minimum Outdoor Air Flow Rate"]
 
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
@@ -4047,7 +3949,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `minimum_outdoor_air_schedule_name` or None if not set
         """
-        return self._data["Minimum Outdoor Air Schedule Name"]
+        return self["Minimum Outdoor Air Schedule Name"]
 
     @minimum_outdoor_air_schedule_name.setter
     def minimum_outdoor_air_schedule_name(self, value=None):
@@ -4070,7 +3972,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `maximum_outdoor_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Outdoor Air Flow Rate"]
+        return self["Maximum Outdoor Air Flow Rate"]
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
@@ -4095,7 +3997,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `maximum_outdoor_air_fraction_or_temperature_schedule_name` or None if not set
         """
-        return self._data["Maximum Outdoor Air Fraction or Temperature Schedule Name"]
+        return self["Maximum Outdoor Air Fraction or Temperature Schedule Name"]
 
     @maximum_outdoor_air_fraction_or_temperature_schedule_name.setter
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self, value=None):
@@ -4119,7 +4021,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `system_configuration_type` or None if not set
         """
-        return self._data["System Configuration Type"]
+        return self["System Configuration Type"]
 
     @system_configuration_type.setter
     def system_configuration_type(self, value="SlabOnly"):
@@ -4143,7 +4045,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `hollow_core_inside_diameter` or None if not set
         """
-        return self._data["Hollow Core Inside Diameter"]
+        return self["Hollow Core Inside Diameter"]
 
     @hollow_core_inside_diameter.setter
     def hollow_core_inside_diameter(self, value=0.05):
@@ -4169,7 +4071,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `hollow_core_length` or None if not set
         """
-        return self._data["Hollow Core Length"]
+        return self["Hollow Core Length"]
 
     @hollow_core_length.setter
     def hollow_core_length(self, value=None):
@@ -4194,7 +4096,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             float: the value of `number_of_cores` or None if not set
         """
-        return self._data["Number of Cores"]
+        return self["Number of Cores"]
 
     @number_of_cores.setter
     def number_of_cores(self, value=None):
@@ -4218,7 +4120,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `temperature_control_type` or None if not set
         """
-        return self._data["Temperature Control Type"]
+        return self["Temperature Control Type"]
 
     @temperature_control_type.setter
     def temperature_control_type(self, value="OutdoorDryBulbTemperature"):
@@ -4243,7 +4145,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_high_air_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating High Air Temperature Schedule Name"]
+        return self["Heating High Air Temperature Schedule Name"]
 
     @heating_high_air_temperature_schedule_name.setter
     def heating_high_air_temperature_schedule_name(self, value=None):
@@ -4277,7 +4179,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_low_air_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Low Air Temperature Schedule Name"]
+        return self["Heating Low Air Temperature Schedule Name"]
 
     @heating_low_air_temperature_schedule_name.setter
     def heating_low_air_temperature_schedule_name(self, value=None):
@@ -4300,7 +4202,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_high_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating High Control Temperature Schedule Name"]
+        return self["Heating High Control Temperature Schedule Name"]
 
     @heating_high_control_temperature_schedule_name.setter
     def heating_high_control_temperature_schedule_name(self, value=None):
@@ -4323,7 +4225,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_low_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Heating Low Control Temperature Schedule Name"]
+        return self["Heating Low Control Temperature Schedule Name"]
 
     @heating_low_control_temperature_schedule_name.setter
     def heating_low_control_temperature_schedule_name(self, value=None):
@@ -4346,7 +4248,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_high_air_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling High Air Temperature Schedule Name"]
+        return self["Cooling High Air Temperature Schedule Name"]
 
     @cooling_high_air_temperature_schedule_name.setter
     def cooling_high_air_temperature_schedule_name(self, value=None):
@@ -4371,7 +4273,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_low_air_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Low Air Temperature Schedule Name"]
+        return self["Cooling Low Air Temperature Schedule Name"]
 
     @cooling_low_air_temperature_schedule_name.setter
     def cooling_low_air_temperature_schedule_name(self, value=None):
@@ -4394,7 +4296,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_high_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling High Control Temperature Schedule Name"]
+        return self["Cooling High Control Temperature Schedule Name"]
 
     @cooling_high_control_temperature_schedule_name.setter
     def cooling_high_control_temperature_schedule_name(self, value=None):
@@ -4417,7 +4319,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_low_control_temperature_schedule_name` or None if not set
         """
-        return self._data["Cooling Low Control Temperature Schedule Name"]
+        return self["Cooling Low Control Temperature Schedule Name"]
 
     @cooling_low_control_temperature_schedule_name.setter
     def cooling_low_control_temperature_schedule_name(self, value=None):
@@ -4440,7 +4342,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `return_air_node_name` or None if not set
         """
-        return self._data["Return Air Node Name"]
+        return self["Return Air Node Name"]
 
     @return_air_node_name.setter
     def return_air_node_name(self, value=None):
@@ -4465,7 +4367,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `slab_in_node_name` or None if not set
         """
-        return self._data["Slab In Node Name"]
+        return self["Slab In Node Name"]
 
     @slab_in_node_name.setter
     def slab_in_node_name(self, value=None):
@@ -4489,7 +4391,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `zone_supply_air_node_name` or None if not set
         """
-        return self._data["Zone Supply Air Node Name"]
+        return self["Zone Supply Air Node Name"]
 
     @zone_supply_air_node_name.setter
     def zone_supply_air_node_name(self, value=None):
@@ -4515,7 +4417,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `outdoor_air_node_name` or None if not set
         """
-        return self._data["Outdoor Air Node Name"]
+        return self["Outdoor Air Node Name"]
 
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
@@ -4540,7 +4442,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `relief_air_node_name` or None if not set
         """
-        return self._data["Relief Air Node Name"]
+        return self["Relief Air Node Name"]
 
     @relief_air_node_name.setter
     def relief_air_node_name(self, value=None):
@@ -4564,7 +4466,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `outdoor_air_mixer_outlet_node_name` or None if not set
         """
-        return self._data["Outdoor Air Mixer Outlet Node Name"]
+        return self["Outdoor Air Mixer Outlet Node Name"]
 
     @outdoor_air_mixer_outlet_node_name.setter
     def outdoor_air_mixer_outlet_node_name(self, value=None):
@@ -4588,7 +4490,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `fan_outlet_node_name` or None if not set
         """
-        return self._data["Fan Outlet Node Name"]
+        return self["Fan Outlet Node Name"]
 
     @fan_outlet_node_name.setter
     def fan_outlet_node_name(self, value=None):
@@ -4612,7 +4514,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -4636,7 +4538,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `coil_option_type` or None if not set
         """
-        return self._data["Coil Option Type"]
+        return self["Coil Option Type"]
 
     @coil_option_type.setter
     def coil_option_type(self, value=None):
@@ -4659,7 +4561,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -4682,7 +4584,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -4705,7 +4607,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -4728,7 +4630,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -4751,7 +4653,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -4774,7 +4676,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `cold_water_inlet_node_name` or None if not set
         """
-        return self._data["Cold Water Inlet Node Name"]
+        return self["Cold Water Inlet Node Name"]
 
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
@@ -4797,7 +4699,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
         """
-        return self._data["Availability Manager List Name"]
+        return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
@@ -4821,7 +4723,7 @@ class ZoneHvacVentilatedSlab(DataObject):
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
         """
-        return self._data["Design Specification ZoneHVAC Sizing Object Name"]
+        return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
@@ -4848,15 +4750,6 @@ class ZoneHvacVentilatedSlabSlabGroup(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'ZoneHVAC:VentilatedSlab:SlabGroup', 'pyname': u'ZoneHvacVentilatedSlabSlabGroup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'core diameter for surface 1', {'name': u'Core Diameter for Surface 1', 'pyname': u'core_diameter_for_surface_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'core length for surface 1', {'name': u'Core Length for Surface 1', 'pyname': u'core_length_for_surface_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'core numbers for surface 1', {'name': u'Core Numbers for Surface 1', 'pyname': u'core_numbers_for_surface_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'slab inlet node name for surface 1', {'name': u'Slab Inlet Node Name for Surface 1', 'pyname': u'slab_inlet_node_name_for_surface_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'slab outlet node name for surface 1', {'name': u'Slab Outlet Node Name for Surface 1', 'pyname': u'slab_outlet_node_name_for_surface_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:VentilatedSlab:SlabGroup`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4864,7 +4757,7 @@ class ZoneHvacVentilatedSlabSlabGroup(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4938,10 +4831,10 @@ class ZoneHvacVentilatedSlabSlabGroup(DataObject):
         vals.append(slab_inlet_node_name_for_surface_1)
         slab_outlet_node_name_for_surface_1 = self.check_value("Slab Outlet Node Name for Surface 1", slab_outlet_node_name_for_surface_1)
         vals.append(slab_outlet_node_name_for_surface_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

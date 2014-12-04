@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -19,15 +20,6 @@ class ParametricSetValueForRun(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'Parametric:SetValueForRun', 'pyname': u'ParametricSetValueForRun', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'value for run 1', {'name': u'Value for Run 1', 'pyname': u'value_for_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Parametric:SetValueForRun`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -35,7 +27,7 @@ class ParametricSetValueForRun(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -68,13 +60,13 @@ class ParametricSetValueForRun(DataObject):
         vals = []
         value_for_run_1 = self.check_value("Value for Run 1", value_for_run_1)
         vals.append(value_for_run_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ParametricLogic(DataObject):
@@ -86,15 +78,6 @@ class ParametricLogic(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'Parametric:Logic', 'pyname': u'ParametricLogic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'parametric logic line 1', {'name': u'Parametric Logic Line 1', 'pyname': u'parametric_logic_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Parametric:Logic`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -102,7 +85,7 @@ class ParametricLogic(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -132,13 +115,13 @@ class ParametricLogic(DataObject):
         vals = []
         parametric_logic_line_1 = self.check_value("Parametric Logic Line 1", parametric_logic_line_1)
         vals.append(parametric_logic_line_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ParametricRunControl(DataObject):
@@ -146,16 +129,7 @@ class ParametricRunControl(DataObject):
         Controls which parametric runs are simulated. This object is optional. If it is not
         included, then all parametric runs are performed.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:RunControl', 'pyname': u'ParametricRunControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'perform run 1', {'name': u'Perform Run 1', 'pyname': u'perform_run_1', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Parametric:RunControl`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 2, 'name': u'Parametric:RunControl', 'pyname': u'ParametricRunControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'perform run 1', {'name': u'Perform Run 1', 'pyname': u'perform_run_1', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': True, 'required-object': False}
 
     @property
     def name(self):
@@ -164,7 +138,7 @@ class ParametricRunControl(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -195,13 +169,13 @@ class ParametricRunControl(DataObject):
         vals = []
         perform_run_1 = self.check_value("Perform Run 1", perform_run_1)
         vals.append(perform_run_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ParametricFileNameSuffix(DataObject):
@@ -211,15 +185,6 @@ class ParametricFileNameSuffix(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'Parametric:FileNameSuffix', 'pyname': u'ParametricFileNameSuffix', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'suffix for file name in run 1', {'name': u'Suffix for File Name in Run 1', 'pyname': u'suffix_for_file_name_in_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Parametric:FileNameSuffix`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -227,7 +192,7 @@ class ParametricFileNameSuffix(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -257,10 +222,10 @@ class ParametricFileNameSuffix(DataObject):
         vals = []
         suffix_for_file_name_in_run_1 = self.check_value("Suffix for File Name in Run 1", suffix_for_file_name_in_run_1)
         vals.append(suffix_for_file_name_in_run_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -17,16 +18,7 @@ class RefrigerationCase(DataObject):
         surrounding environment (termed "case credits") which impacts the temperature
         and humidity in the zone where the case is located.
     """
-    schema = {'min-fields': 28, 'name': u'Refrigeration:Case', 'pyname': u'RefrigerationCase', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated ambient temperature', {'name': u'Rated Ambient Temperature', 'pyname': u'rated_ambient_temperature', 'default': 23.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated ambient relative humidity', {'name': u'Rated Ambient Relative Humidity', 'pyname': u'rated_ambient_relative_humidity', 'default': 55.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 100.0, 'unit': u'percent'}), (u'rated total cooling capacity per unit length', {'name': u'Rated Total Cooling Capacity per Unit Length', 'pyname': u'rated_total_cooling_capacity_per_unit_length', 'default': 1900.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'rated latent heat ratio', {'name': u'Rated Latent Heat Ratio', 'pyname': u'rated_latent_heat_ratio', 'default': 0.3, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'rated runtime fraction', {'name': u'Rated Runtime Fraction', 'pyname': u'rated_runtime_fraction', 'default': 0.85, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'case length', {'name': u'Case Length', 'pyname': u'case_length', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'case operating temperature', {'name': u'Case Operating Temperature', 'pyname': u'case_operating_temperature', 'default': 1.1, 'maximum<': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'latent case credit curve type', {'name': u'Latent Case Credit Curve Type', 'pyname': u'latent_case_credit_curve_type', 'default': u'CaseTemperatureMethod', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'latent case credit curve name', {'name': u'Latent Case Credit Curve Name', 'pyname': u'latent_case_credit_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'standard case fan power per unit length', {'name': u'Standard Case Fan Power per Unit Length', 'pyname': u'standard_case_fan_power_per_unit_length', 'default': 75.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'operating case fan power per unit length', {'name': u'Operating Case Fan Power per Unit Length', 'pyname': u'operating_case_fan_power_per_unit_length', 'default': 75.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'standard case lighting power per unit length', {'name': u'Standard Case Lighting Power per Unit Length', 'pyname': u'standard_case_lighting_power_per_unit_length', 'default': 90.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'installed case lighting power per unit length', {'name': u'Installed Case Lighting Power per Unit Length', 'pyname': u'installed_case_lighting_power_per_unit_length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'case lighting schedule name', {'name': u'Case Lighting Schedule Name', 'pyname': u'case_lighting_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of lighting energy to case', {'name': u'Fraction of Lighting Energy to Case', 'pyname': u'fraction_of_lighting_energy_to_case', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'case anti-sweat heater power per unit length', {'name': u'Case Anti-Sweat Heater Power per Unit Length', 'pyname': u'case_antisweat_heater_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'minimum anti-sweat heater power per unit length', {'name': u'Minimum Anti-Sweat Heater Power per Unit Length', 'pyname': u'minimum_antisweat_heater_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'anti-sweat heater control type', {'name': u'Anti-Sweat Heater Control Type', 'pyname': u'antisweat_heater_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'humidity at zero anti-sweat heater energy', {'name': u'Humidity at Zero Anti-Sweat Heater Energy', 'pyname': u'humidity_at_zero_antisweat_heater_energy', 'default': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'case height', {'name': u'Case Height', 'pyname': u'case_height', 'default': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of anti-sweat heater energy to case', {'name': u'Fraction of Anti-Sweat Heater Energy to Case', 'pyname': u'fraction_of_antisweat_heater_energy_to_case', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'case defrost power per unit length', {'name': u'Case Defrost Power per Unit Length', 'pyname': u'case_defrost_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'case defrost type', {'name': u'Case Defrost Type', 'pyname': u'case_defrost_type', 'default': u'OffCycle', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'case defrost schedule name', {'name': u'Case Defrost Schedule Name', 'pyname': u'case_defrost_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'case defrost drip-down schedule name', {'name': u'Case Defrost Drip-Down Schedule Name', 'pyname': u'case_defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost energy correction curve type', {'name': u'Defrost Energy Correction Curve Type', 'pyname': u'defrost_energy_correction_curve_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost energy correction curve name', {'name': u'Defrost Energy Correction Curve Name', 'pyname': u'defrost_energy_correction_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'under case hvac return air fraction', {'name': u'Under Case HVAC Return Air Fraction', 'pyname': u'under_case_hvac_return_air_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'refrigerated case restocking schedule name', {'name': u'Refrigerated Case Restocking Schedule Name', 'pyname': u'refrigerated_case_restocking_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'case credit fraction schedule name', {'name': u'Case Credit Fraction Schedule Name', 'pyname': u'case_credit_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design evaporator temperature or brine inlet temperature', {'name': u'Design Evaporator Temperature or Brine Inlet Temperature', 'pyname': u'design_evaporator_temperature_or_brine_inlet_temperature', 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Case`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 28, 'name': u'Refrigeration:Case', 'pyname': u'RefrigerationCase', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated ambient temperature', {'name': u'Rated Ambient Temperature', 'pyname': u'rated_ambient_temperature', 'default': 23.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated ambient relative humidity', {'name': u'Rated Ambient Relative Humidity', 'pyname': u'rated_ambient_relative_humidity', 'default': 55.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 100.0, 'unit': u'percent'}), (u'rated total cooling capacity per unit length', {'name': u'Rated Total Cooling Capacity per Unit Length', 'pyname': u'rated_total_cooling_capacity_per_unit_length', 'default': 1900.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'rated latent heat ratio', {'name': u'Rated Latent Heat Ratio', 'pyname': u'rated_latent_heat_ratio', 'default': 0.3, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'rated runtime fraction', {'name': u'Rated Runtime Fraction', 'pyname': u'rated_runtime_fraction', 'default': 0.85, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'case length', {'name': u'Case Length', 'pyname': u'case_length', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'case operating temperature', {'name': u'Case Operating Temperature', 'pyname': u'case_operating_temperature', 'default': 1.1, 'maximum<': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'latent case credit curve type', {'name': u'Latent Case Credit Curve Type', 'pyname': u'latent_case_credit_curve_type', 'default': u'CaseTemperatureMethod', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CaseTemperatureMethod', u'RelativeHumidityMethod', u'DewpointMethod'], 'autocalculatable': False, 'type': 'alpha'}), (u'latent case credit curve name', {'name': u'Latent Case Credit Curve Name', 'pyname': u'latent_case_credit_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'standard case fan power per unit length', {'name': u'Standard Case Fan Power per Unit Length', 'pyname': u'standard_case_fan_power_per_unit_length', 'default': 75.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'operating case fan power per unit length', {'name': u'Operating Case Fan Power per Unit Length', 'pyname': u'operating_case_fan_power_per_unit_length', 'default': 75.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'standard case lighting power per unit length', {'name': u'Standard Case Lighting Power per Unit Length', 'pyname': u'standard_case_lighting_power_per_unit_length', 'default': 90.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'installed case lighting power per unit length', {'name': u'Installed Case Lighting Power per Unit Length', 'pyname': u'installed_case_lighting_power_per_unit_length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'case lighting schedule name', {'name': u'Case Lighting Schedule Name', 'pyname': u'case_lighting_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of lighting energy to case', {'name': u'Fraction of Lighting Energy to Case', 'pyname': u'fraction_of_lighting_energy_to_case', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'case anti-sweat heater power per unit length', {'name': u'Case Anti-Sweat Heater Power per Unit Length', 'pyname': u'case_antisweat_heater_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'minimum anti-sweat heater power per unit length', {'name': u'Minimum Anti-Sweat Heater Power per Unit Length', 'pyname': u'minimum_antisweat_heater_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'anti-sweat heater control type', {'name': u'Anti-Sweat Heater Control Type', 'pyname': u'antisweat_heater_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Constant', u'Linear', u'DewpointMethod', u'HeatBalanceMethod'], 'autocalculatable': False, 'type': 'alpha'}), (u'humidity at zero anti-sweat heater energy', {'name': u'Humidity at Zero Anti-Sweat Heater Energy', 'pyname': u'humidity_at_zero_antisweat_heater_energy', 'default': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'case height', {'name': u'Case Height', 'pyname': u'case_height', 'default': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fraction of anti-sweat heater energy to case', {'name': u'Fraction of Anti-Sweat Heater Energy to Case', 'pyname': u'fraction_of_antisweat_heater_energy_to_case', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'case defrost power per unit length', {'name': u'Case Defrost Power per Unit Length', 'pyname': u'case_defrost_power_per_unit_length', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m'}), (u'case defrost type', {'name': u'Case Defrost Type', 'pyname': u'case_defrost_type', 'default': u'OffCycle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'OffCycle', u'HotGas', u'Electric', u'HotFluid', u'HotGasWithTemperatureTermination', u'ElectricWithTemperatureTermination', u'HotFluidWithTemperatureTermination'], 'autocalculatable': False, 'type': 'alpha'}), (u'case defrost schedule name', {'name': u'Case Defrost Schedule Name', 'pyname': u'case_defrost_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'case defrost drip-down schedule name', {'name': u'Case Defrost Drip-Down Schedule Name', 'pyname': u'case_defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost energy correction curve type', {'name': u'Defrost Energy Correction Curve Type', 'pyname': u'defrost_energy_correction_curve_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'CaseTemperatureMethod', u'RelativeHumidityMethod', u'DewpointMethod'], 'autocalculatable': False, 'type': 'alpha'}), (u'defrost energy correction curve name', {'name': u'Defrost Energy Correction Curve Name', 'pyname': u'defrost_energy_correction_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'under case hvac return air fraction', {'name': u'Under Case HVAC Return Air Fraction', 'pyname': u'under_case_hvac_return_air_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'refrigerated case restocking schedule name', {'name': u'Refrigerated Case Restocking Schedule Name', 'pyname': u'refrigerated_case_restocking_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'case credit fraction schedule name', {'name': u'Case Credit Fraction Schedule Name', 'pyname': u'case_credit_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design evaporator temperature or brine inlet temperature', {'name': u'Design Evaporator Temperature or Brine Inlet Temperature', 'pyname': u'design_evaporator_temperature_or_brine_inlet_temperature', 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -35,7 +27,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -58,7 +50,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -83,7 +75,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -107,7 +99,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `rated_ambient_temperature` or None if not set
         """
-        return self._data["Rated Ambient Temperature"]
+        return self["Rated Ambient Temperature"]
 
     @rated_ambient_temperature.setter
     def rated_ambient_temperature(self, value=23.9):
@@ -132,7 +124,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `rated_ambient_relative_humidity` or None if not set
         """
-        return self._data["Rated Ambient Relative Humidity"]
+        return self["Rated Ambient Relative Humidity"]
 
     @rated_ambient_relative_humidity.setter
     def rated_ambient_relative_humidity(self, value=55.0):
@@ -158,7 +150,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `rated_total_cooling_capacity_per_unit_length` or None if not set
         """
-        return self._data["Rated Total Cooling Capacity per Unit Length"]
+        return self["Rated Total Cooling Capacity per Unit Length"]
 
     @rated_total_cooling_capacity_per_unit_length.setter
     def rated_total_cooling_capacity_per_unit_length(self, value=1900.0):
@@ -183,7 +175,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `rated_latent_heat_ratio` or None if not set
         """
-        return self._data["Rated Latent Heat Ratio"]
+        return self["Rated Latent Heat Ratio"]
 
     @rated_latent_heat_ratio.setter
     def rated_latent_heat_ratio(self, value=0.3):
@@ -208,7 +200,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `rated_runtime_fraction` or None if not set
         """
-        return self._data["Rated Runtime Fraction"]
+        return self["Rated Runtime Fraction"]
 
     @rated_runtime_fraction.setter
     def rated_runtime_fraction(self, value=0.85):
@@ -233,7 +225,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `case_length` or None if not set
         """
-        return self._data["Case Length"]
+        return self["Case Length"]
 
     @case_length.setter
     def case_length(self, value=3.0):
@@ -258,7 +250,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `case_operating_temperature` or None if not set
         """
-        return self._data["Case Operating Temperature"]
+        return self["Case Operating Temperature"]
 
     @case_operating_temperature.setter
     def case_operating_temperature(self, value=1.1):
@@ -284,7 +276,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `latent_case_credit_curve_type` or None if not set
         """
-        return self._data["Latent Case Credit Curve Type"]
+        return self["Latent Case Credit Curve Type"]
 
     @latent_case_credit_curve_type.setter
     def latent_case_credit_curve_type(self, value="CaseTemperatureMethod"):
@@ -308,7 +300,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `latent_case_credit_curve_name` or None if not set
         """
-        return self._data["Latent Case Credit Curve Name"]
+        return self["Latent Case Credit Curve Name"]
 
     @latent_case_credit_curve_name.setter
     def latent_case_credit_curve_name(self, value=None):
@@ -332,7 +324,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `standard_case_fan_power_per_unit_length` or None if not set
         """
-        return self._data["Standard Case Fan Power per Unit Length"]
+        return self["Standard Case Fan Power per Unit Length"]
 
     @standard_case_fan_power_per_unit_length.setter
     def standard_case_fan_power_per_unit_length(self, value=75.0):
@@ -357,7 +349,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `operating_case_fan_power_per_unit_length` or None if not set
         """
-        return self._data["Operating Case Fan Power per Unit Length"]
+        return self["Operating Case Fan Power per Unit Length"]
 
     @operating_case_fan_power_per_unit_length.setter
     def operating_case_fan_power_per_unit_length(self, value=75.0):
@@ -382,7 +374,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `standard_case_lighting_power_per_unit_length` or None if not set
         """
-        return self._data["Standard Case Lighting Power per Unit Length"]
+        return self["Standard Case Lighting Power per Unit Length"]
 
     @standard_case_lighting_power_per_unit_length.setter
     def standard_case_lighting_power_per_unit_length(self, value=90.0):
@@ -407,7 +399,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `installed_case_lighting_power_per_unit_length` or None if not set
         """
-        return self._data["Installed Case Lighting Power per Unit Length"]
+        return self["Installed Case Lighting Power per Unit Length"]
 
     @installed_case_lighting_power_per_unit_length.setter
     def installed_case_lighting_power_per_unit_length(self, value=None):
@@ -432,7 +424,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `case_lighting_schedule_name` or None if not set
         """
-        return self._data["Case Lighting Schedule Name"]
+        return self["Case Lighting Schedule Name"]
 
     @case_lighting_schedule_name.setter
     def case_lighting_schedule_name(self, value=None):
@@ -455,7 +447,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `fraction_of_lighting_energy_to_case` or None if not set
         """
-        return self._data["Fraction of Lighting Energy to Case"]
+        return self["Fraction of Lighting Energy to Case"]
 
     @fraction_of_lighting_energy_to_case.setter
     def fraction_of_lighting_energy_to_case(self, value=1.0):
@@ -480,7 +472,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `case_antisweat_heater_power_per_unit_length` or None if not set
         """
-        return self._data["Case Anti-Sweat Heater Power per Unit Length"]
+        return self["Case Anti-Sweat Heater Power per Unit Length"]
 
     @case_antisweat_heater_power_per_unit_length.setter
     def case_antisweat_heater_power_per_unit_length(self, value=None):
@@ -504,7 +496,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `minimum_antisweat_heater_power_per_unit_length` or None if not set
         """
-        return self._data["Minimum Anti-Sweat Heater Power per Unit Length"]
+        return self["Minimum Anti-Sweat Heater Power per Unit Length"]
 
     @minimum_antisweat_heater_power_per_unit_length.setter
     def minimum_antisweat_heater_power_per_unit_length(self, value=None):
@@ -530,7 +522,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `antisweat_heater_control_type` or None if not set
         """
-        return self._data["Anti-Sweat Heater Control Type"]
+        return self["Anti-Sweat Heater Control Type"]
 
     @antisweat_heater_control_type.setter
     def antisweat_heater_control_type(self, value="None"):
@@ -554,7 +546,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `humidity_at_zero_antisweat_heater_energy` or None if not set
         """
-        return self._data["Humidity at Zero Anti-Sweat Heater Energy"]
+        return self["Humidity at Zero Anti-Sweat Heater Energy"]
 
     @humidity_at_zero_antisweat_heater_energy.setter
     def humidity_at_zero_antisweat_heater_energy(self, value=-10.0):
@@ -581,7 +573,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `case_height` or None if not set
         """
-        return self._data["Case Height"]
+        return self["Case Height"]
 
     @case_height.setter
     def case_height(self, value=1.5):
@@ -608,7 +600,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `fraction_of_antisweat_heater_energy_to_case` or None if not set
         """
-        return self._data["Fraction of Anti-Sweat Heater Energy to Case"]
+        return self["Fraction of Anti-Sweat Heater Energy to Case"]
 
     @fraction_of_antisweat_heater_energy_to_case.setter
     def fraction_of_antisweat_heater_energy_to_case(self, value=1.0):
@@ -633,7 +625,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `case_defrost_power_per_unit_length` or None if not set
         """
-        return self._data["Case Defrost Power per Unit Length"]
+        return self["Case Defrost Power per Unit Length"]
 
     @case_defrost_power_per_unit_length.setter
     def case_defrost_power_per_unit_length(self, value=None):
@@ -658,7 +650,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `case_defrost_type` or None if not set
         """
-        return self._data["Case Defrost Type"]
+        return self["Case Defrost Type"]
 
     @case_defrost_type.setter
     def case_defrost_type(self, value="OffCycle"):
@@ -682,7 +674,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `case_defrost_schedule_name` or None if not set
         """
-        return self._data["Case Defrost Schedule Name"]
+        return self["Case Defrost Schedule Name"]
 
     @case_defrost_schedule_name.setter
     def case_defrost_schedule_name(self, value=None):
@@ -706,7 +698,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `case_defrost_dripdown_schedule_name` or None if not set
         """
-        return self._data["Case Defrost Drip-Down Schedule Name"]
+        return self["Case Defrost Drip-Down Schedule Name"]
 
     @case_defrost_dripdown_schedule_name.setter
     def case_defrost_dripdown_schedule_name(self, value=None):
@@ -735,7 +727,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `defrost_energy_correction_curve_type` or None if not set
         """
-        return self._data["Defrost Energy Correction Curve Type"]
+        return self["Defrost Energy Correction Curve Type"]
 
     @defrost_energy_correction_curve_type.setter
     def defrost_energy_correction_curve_type(self, value="None"):
@@ -761,7 +753,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `defrost_energy_correction_curve_name` or None if not set
         """
-        return self._data["Defrost Energy Correction Curve Name"]
+        return self["Defrost Energy Correction Curve Name"]
 
     @defrost_energy_correction_curve_name.setter
     def defrost_energy_correction_curve_name(self, value=None):
@@ -787,7 +779,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `under_case_hvac_return_air_fraction` or None if not set
         """
-        return self._data["Under Case HVAC Return Air Fraction"]
+        return self["Under Case HVAC Return Air Fraction"]
 
     @under_case_hvac_return_air_fraction.setter
     def under_case_hvac_return_air_fraction(self, value=None):
@@ -811,7 +803,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `refrigerated_case_restocking_schedule_name` or None if not set
         """
-        return self._data["Refrigerated Case Restocking Schedule Name"]
+        return self["Refrigerated Case Restocking Schedule Name"]
 
     @refrigerated_case_restocking_schedule_name.setter
     def refrigerated_case_restocking_schedule_name(self, value=None):
@@ -836,7 +828,7 @@ class RefrigerationCase(DataObject):
         Returns:
             str: the value of `case_credit_fraction_schedule_name` or None if not set
         """
-        return self._data["Case Credit Fraction Schedule Name"]
+        return self["Case Credit Fraction Schedule Name"]
 
     @case_credit_fraction_schedule_name.setter
     def case_credit_fraction_schedule_name(self, value=None):
@@ -861,7 +853,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `design_evaporator_temperature_or_brine_inlet_temperature` or None if not set
         """
-        return self._data["Design Evaporator Temperature or Brine Inlet Temperature"]
+        return self["Design Evaporator Temperature or Brine Inlet Temperature"]
 
     @design_evaporator_temperature_or_brine_inlet_temperature.setter
     def design_evaporator_temperature_or_brine_inlet_temperature(self, value=None):
@@ -891,7 +883,7 @@ class RefrigerationCase(DataObject):
         Returns:
             float: the value of `average_refrigerant_charge_inventory` or None if not set
         """
-        return self._data["Average Refrigerant Charge Inventory"]
+        return self["Average Refrigerant Charge Inventory"]
 
     @average_refrigerant_charge_inventory.setter
     def average_refrigerant_charge_inventory(self, value=None):
@@ -918,16 +910,7 @@ class RefrigerationCompressorRack(DataObject):
         use by an optional air- or water-heating coil (Coil:Heating:Desuperheater and
         Coil:WaterHeating:Desuperheater).
     """
-    schema = {'min-fields': 25, 'name': u'Refrigeration:CompressorRack', 'pyname': u'RefrigerationCompressorRack', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heat rejection location', {'name': u'Heat Rejection Location', 'pyname': u'heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design compressor rack cop', {'name': u'Design Compressor Rack COP', 'pyname': u'design_compressor_rack_cop', 'default': 2.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'compressor rack cop function of temperature curve name', {'name': u'Compressor Rack COP Function of Temperature Curve Name', 'pyname': u'compressor_rack_cop_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design condenser fan power', {'name': u'Design Condenser Fan Power', 'pyname': u'design_condenser_fan_power', 'default': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condenser fan power function of temperature curve name', {'name': u'Condenser Fan Power Function of Temperature Curve Name', 'pyname': u'condenser_fan_power_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water-cooled condenser inlet node name', {'name': u'Water-Cooled Condenser Inlet Node Name', 'pyname': u'watercooled_condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled condenser outlet node name', {'name': u'Water-Cooled Condenser Outlet Node Name', 'pyname': u'watercooled_condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled loop flow type', {'name': u'Water-Cooled Loop Flow Type', 'pyname': u'watercooled_loop_flow_type', 'default': u'VariableFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water-cooled condenser outlet temperature schedule name', {'name': u'Water-Cooled Condenser Outlet Temperature Schedule Name', 'pyname': u'watercooled_condenser_outlet_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water-cooled condenser design flow rate', {'name': u'Water-Cooled Condenser Design Flow Rate', 'pyname': u'watercooled_condenser_design_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water-cooled condenser maximum flow rate', {'name': u'Water-Cooled Condenser Maximum Flow Rate', 'pyname': u'watercooled_condenser_maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water-cooled condenser maximum water outlet temperature', {'name': u'Water-Cooled Condenser Maximum Water Outlet Temperature', 'pyname': u'watercooled_condenser_maximum_water_outlet_temperature', 'default': 55.0, 'maximum': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water-cooled condenser minimum water inlet temperature', {'name': u'Water-Cooled Condenser Minimum Water Inlet Temperature', 'pyname': u'watercooled_condenser_minimum_water_inlet_temperature', 'default': 10.0, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'evaporative condenser availability schedule name', {'name': u'Evaporative Condenser Availability Schedule Name', 'pyname': u'evaporative_condenser_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporative condenser effectiveness', {'name': u'Evaporative Condenser Effectiveness', 'pyname': u'evaporative_condenser_effectiveness', 'default': 0.9, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'evaporative condenser air flow rate', {'name': u'Evaporative Condenser Air Flow Rate', 'pyname': u'evaporative_condenser_air_flow_rate', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design evaporative condenser water pump power', {'name': u'Design Evaporative Condenser Water Pump Power', 'pyname': u'design_evaporative_condenser_water_pump_power', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'evaporative water supply tank name', {'name': u'Evaporative Water Supply Tank Name', 'pyname': u'evaporative_water_supply_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser air inlet node name', {'name': u'Condenser Air Inlet Node Name', 'pyname': u'condenser_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigeration case name or walkin name or caseandwalkinlist name', {'name': u'Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name', 'pyname': u'refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat rejection zone name', {'name': u'Heat Rejection Zone Name', 'pyname': u'heat_rejection_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:CompressorRack`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 25, 'name': u'Refrigeration:CompressorRack', 'pyname': u'RefrigerationCompressorRack', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'heat rejection location', {'name': u'Heat Rejection Location', 'pyname': u'heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Outdoors', u'Zone'], 'autocalculatable': False, 'type': 'alpha'}), (u'design compressor rack cop', {'name': u'Design Compressor Rack COP', 'pyname': u'design_compressor_rack_cop', 'default': 2.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'compressor rack cop function of temperature curve name', {'name': u'Compressor Rack COP Function of Temperature Curve Name', 'pyname': u'compressor_rack_cop_function_of_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design condenser fan power', {'name': u'Design Condenser Fan Power', 'pyname': u'design_condenser_fan_power', 'default': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condenser fan power function of temperature curve name', {'name': u'Condenser Fan Power Function of Temperature Curve Name', 'pyname': u'condenser_fan_power_function_of_temperature_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser type', {'name': u'Condenser Type', 'pyname': u'condenser_type', 'default': u'AirCooled', 'required-field': False, 'autosizable': False, 'accepted-values': [u'AirCooled', u'EvaporativelyCooled', u'WaterCooled'], 'autocalculatable': False, 'type': 'alpha'}), (u'water-cooled condenser inlet node name', {'name': u'Water-Cooled Condenser Inlet Node Name', 'pyname': u'watercooled_condenser_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled condenser outlet node name', {'name': u'Water-Cooled Condenser Outlet Node Name', 'pyname': u'watercooled_condenser_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled loop flow type', {'name': u'Water-Cooled Loop Flow Type', 'pyname': u'watercooled_loop_flow_type', 'default': u'VariableFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VariableFlow', u'ConstantFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'water-cooled condenser outlet temperature schedule name', {'name': u'Water-Cooled Condenser Outlet Temperature Schedule Name', 'pyname': u'watercooled_condenser_outlet_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water-cooled condenser design flow rate', {'name': u'Water-Cooled Condenser Design Flow Rate', 'pyname': u'watercooled_condenser_design_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water-cooled condenser maximum flow rate', {'name': u'Water-Cooled Condenser Maximum Flow Rate', 'pyname': u'watercooled_condenser_maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water-cooled condenser maximum water outlet temperature', {'name': u'Water-Cooled Condenser Maximum Water Outlet Temperature', 'pyname': u'watercooled_condenser_maximum_water_outlet_temperature', 'default': 55.0, 'maximum': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water-cooled condenser minimum water inlet temperature', {'name': u'Water-Cooled Condenser Minimum Water Inlet Temperature', 'pyname': u'watercooled_condenser_minimum_water_inlet_temperature', 'default': 10.0, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'evaporative condenser availability schedule name', {'name': u'Evaporative Condenser Availability Schedule Name', 'pyname': u'evaporative_condenser_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporative condenser effectiveness', {'name': u'Evaporative Condenser Effectiveness', 'pyname': u'evaporative_condenser_effectiveness', 'default': 0.9, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'evaporative condenser air flow rate', {'name': u'Evaporative Condenser Air Flow Rate', 'pyname': u'evaporative_condenser_air_flow_rate', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design evaporative condenser water pump power', {'name': u'Design Evaporative Condenser Water Pump Power', 'pyname': u'design_evaporative_condenser_water_pump_power', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'evaporative water supply tank name', {'name': u'Evaporative Water Supply Tank Name', 'pyname': u'evaporative_water_supply_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser air inlet node name', {'name': u'Condenser Air Inlet Node Name', 'pyname': u'condenser_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigeration case name or walkin name or caseandwalkinlist name', {'name': u'Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name', 'pyname': u'refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat rejection zone name', {'name': u'Heat Rejection Zone Name', 'pyname': u'heat_rejection_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -936,7 +919,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -959,7 +942,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `heat_rejection_location` or None if not set
         """
-        return self._data["Heat Rejection Location"]
+        return self["Heat Rejection Location"]
 
     @heat_rejection_location.setter
     def heat_rejection_location(self, value="Outdoors"):
@@ -983,7 +966,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `design_compressor_rack_cop` or None if not set
         """
-        return self._data["Design Compressor Rack COP"]
+        return self["Design Compressor Rack COP"]
 
     @design_compressor_rack_cop.setter
     def design_compressor_rack_cop(self, value=2.0):
@@ -1010,7 +993,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `compressor_rack_cop_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Compressor Rack COP Function of Temperature Curve Name"]
+        return self["Compressor Rack COP Function of Temperature Curve Name"]
 
     @compressor_rack_cop_function_of_temperature_curve_name.setter
     def compressor_rack_cop_function_of_temperature_curve_name(self, value=None):
@@ -1036,7 +1019,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `design_condenser_fan_power` or None if not set
         """
-        return self._data["Design Condenser Fan Power"]
+        return self["Design Condenser Fan Power"]
 
     @design_condenser_fan_power.setter
     def design_condenser_fan_power(self, value=250.0):
@@ -1062,7 +1045,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `condenser_fan_power_function_of_temperature_curve_name` or None if not set
         """
-        return self._data["Condenser Fan Power Function of Temperature Curve Name"]
+        return self["Condenser Fan Power Function of Temperature Curve Name"]
 
     @condenser_fan_power_function_of_temperature_curve_name.setter
     def condenser_fan_power_function_of_temperature_curve_name(self, value=None):
@@ -1086,7 +1069,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `condenser_type` or None if not set
         """
-        return self._data["Condenser Type"]
+        return self["Condenser Type"]
 
     @condenser_type.setter
     def condenser_type(self, value="AirCooled"):
@@ -1111,7 +1094,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `watercooled_condenser_inlet_node_name` or None if not set
         """
-        return self._data["Water-Cooled Condenser Inlet Node Name"]
+        return self["Water-Cooled Condenser Inlet Node Name"]
 
     @watercooled_condenser_inlet_node_name.setter
     def watercooled_condenser_inlet_node_name(self, value=None):
@@ -1134,7 +1117,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `watercooled_condenser_outlet_node_name` or None if not set
         """
-        return self._data["Water-Cooled Condenser Outlet Node Name"]
+        return self["Water-Cooled Condenser Outlet Node Name"]
 
     @watercooled_condenser_outlet_node_name.setter
     def watercooled_condenser_outlet_node_name(self, value=None):
@@ -1157,7 +1140,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `watercooled_loop_flow_type` or None if not set
         """
-        return self._data["Water-Cooled Loop Flow Type"]
+        return self["Water-Cooled Loop Flow Type"]
 
     @watercooled_loop_flow_type.setter
     def watercooled_loop_flow_type(self, value="VariableFlow"):
@@ -1182,7 +1165,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `watercooled_condenser_outlet_temperature_schedule_name` or None if not set
         """
-        return self._data["Water-Cooled Condenser Outlet Temperature Schedule Name"]
+        return self["Water-Cooled Condenser Outlet Temperature Schedule Name"]
 
     @watercooled_condenser_outlet_temperature_schedule_name.setter
     def watercooled_condenser_outlet_temperature_schedule_name(self, value=None):
@@ -1206,7 +1189,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `watercooled_condenser_design_flow_rate` or None if not set
         """
-        return self._data["Water-Cooled Condenser Design Flow Rate"]
+        return self["Water-Cooled Condenser Design Flow Rate"]
 
     @watercooled_condenser_design_flow_rate.setter
     def watercooled_condenser_design_flow_rate(self, value=None):
@@ -1231,7 +1214,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `watercooled_condenser_maximum_flow_rate` or None if not set
         """
-        return self._data["Water-Cooled Condenser Maximum Flow Rate"]
+        return self["Water-Cooled Condenser Maximum Flow Rate"]
 
     @watercooled_condenser_maximum_flow_rate.setter
     def watercooled_condenser_maximum_flow_rate(self, value=None):
@@ -1255,7 +1238,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `watercooled_condenser_maximum_water_outlet_temperature` or None if not set
         """
-        return self._data["Water-Cooled Condenser Maximum Water Outlet Temperature"]
+        return self["Water-Cooled Condenser Maximum Water Outlet Temperature"]
 
     @watercooled_condenser_maximum_water_outlet_temperature.setter
     def watercooled_condenser_maximum_water_outlet_temperature(self, value=55.0):
@@ -1282,7 +1265,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `watercooled_condenser_minimum_water_inlet_temperature` or None if not set
         """
-        return self._data["Water-Cooled Condenser Minimum Water Inlet Temperature"]
+        return self["Water-Cooled Condenser Minimum Water Inlet Temperature"]
 
     @watercooled_condenser_minimum_water_inlet_temperature.setter
     def watercooled_condenser_minimum_water_inlet_temperature(self, value=10.0):
@@ -1309,7 +1292,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `evaporative_condenser_availability_schedule_name` or None if not set
         """
-        return self._data["Evaporative Condenser Availability Schedule Name"]
+        return self["Evaporative Condenser Availability Schedule Name"]
 
     @evaporative_condenser_availability_schedule_name.setter
     def evaporative_condenser_availability_schedule_name(self, value=None):
@@ -1337,7 +1320,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `evaporative_condenser_effectiveness` or None if not set
         """
-        return self._data["Evaporative Condenser Effectiveness"]
+        return self["Evaporative Condenser Effectiveness"]
 
     @evaporative_condenser_effectiveness.setter
     def evaporative_condenser_effectiveness(self, value=0.9):
@@ -1364,7 +1347,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `evaporative_condenser_air_flow_rate` or None if not set
         """
-        return self._data["Evaporative Condenser Air Flow Rate"]
+        return self["Evaporative Condenser Air Flow Rate"]
 
     @evaporative_condenser_air_flow_rate.setter
     def evaporative_condenser_air_flow_rate(self, value="Autocalculate"):
@@ -1391,7 +1374,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
         """
-        return self._data["Basin Heater Capacity"]
+        return self["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
     def basin_heater_capacity(self, value=200.0):
@@ -1421,7 +1404,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
         """
-        return self._data["Basin Heater Setpoint Temperature"]
+        return self["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
     def basin_heater_setpoint_temperature(self, value=2.0):
@@ -1448,7 +1431,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             float: the value of `design_evaporative_condenser_water_pump_power` or None if not set
         """
-        return self._data["Design Evaporative Condenser Water Pump Power"]
+        return self["Design Evaporative Condenser Water Pump Power"]
 
     @design_evaporative_condenser_water_pump_power.setter
     def design_evaporative_condenser_water_pump_power(self, value=1000.0):
@@ -1475,7 +1458,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `evaporative_water_supply_tank_name` or None if not set
         """
-        return self._data["Evaporative Water Supply Tank Name"]
+        return self["Evaporative Water Supply Tank Name"]
 
     @evaporative_water_supply_tank_name.setter
     def evaporative_water_supply_tank_name(self, value=None):
@@ -1500,7 +1483,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `condenser_air_inlet_node_name` or None if not set
         """
-        return self._data["Condenser Air Inlet Node Name"]
+        return self["Condenser Air Inlet Node Name"]
 
     @condenser_air_inlet_node_name.setter
     def condenser_air_inlet_node_name(self, value=None):
@@ -1528,7 +1511,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -1552,7 +1535,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name` or None if not set
         """
-        return self._data["Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"]
+        return self["Refrigeration Case Name or WalkIn Name or CaseAndWalkInList Name"]
 
     @refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name.setter
     def refrigeration_case_name_or_walkin_name_or_caseandwalkinlist_name(self, value=None):
@@ -1577,7 +1560,7 @@ class RefrigerationCompressorRack(DataObject):
         Returns:
             str: the value of `heat_rejection_zone_name` or None if not set
         """
-        return self._data["Heat Rejection Zone Name"]
+        return self["Heat Rejection Zone Name"]
 
     @heat_rejection_zone_name.setter
     def heat_rejection_zone_name(self, value=None):
@@ -1608,15 +1591,6 @@ class RefrigerationCaseAndWalkInList(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Refrigeration:CaseAndWalkInList', 'pyname': u'RefrigerationCaseAndWalkInList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'case or walkin 1 name', {'name': u'Case or WalkIn 1 Name', 'pyname': u'case_or_walkin_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:CaseAndWalkInList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1624,7 +1598,7 @@ class RefrigerationCaseAndWalkInList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1654,29 +1628,20 @@ class RefrigerationCaseAndWalkInList(DataObject):
         vals = []
         case_or_walkin_1_name = self.check_value("Case or WalkIn 1 Name", case_or_walkin_1_name)
         vals.append(case_or_walkin_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class RefrigerationCondenserAirCooled(DataObject):
     """ Corresponds to IDD object `Refrigeration:Condenser:AirCooled`
         Air cooled condenser for a refrigeration system (Refrigeration:System).
     """
-    schema = {'min-fields': 5, 'name': u'Refrigeration:Condenser:AirCooled', 'pyname': u'RefrigerationCondenserAirCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate curve name', {'name': u'Rated Effective Total Heat Rejection Rate Curve Name', 'pyname': u'rated_effective_total_heat_rejection_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'condenser fan speed control type', {'name': u'Condenser Fan Speed Control Type', 'pyname': u'condenser_fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 250.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'air inlet node name or zone name', {'name': u'Air Inlet Node Name or Zone Name', 'pyname': u'air_inlet_node_name_or_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Condenser:AirCooled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Refrigeration:Condenser:AirCooled', 'pyname': u'RefrigerationCondenserAirCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate curve name', {'name': u'Rated Effective Total Heat Rejection Rate Curve Name', 'pyname': u'rated_effective_total_heat_rejection_rate_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'condenser fan speed control type', {'name': u'Condenser Fan Speed Control Type', 'pyname': u'condenser_fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'FixedLinear', u'VariableSpeed', u'TwoSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 250.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'air inlet node name or zone name', {'name': u'Air Inlet Node Name or Zone Name', 'pyname': u'air_inlet_node_name_or_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1685,7 +1650,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1708,7 +1673,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             str: the value of `rated_effective_total_heat_rejection_rate_curve_name` or None if not set
         """
-        return self._data["Rated Effective Total Heat Rejection Rate Curve Name"]
+        return self["Rated Effective Total Heat Rejection Rate Curve Name"]
 
     @rated_effective_total_heat_rejection_rate_curve_name.setter
     def rated_effective_total_heat_rejection_rate_curve_name(self, value=None):
@@ -1736,7 +1701,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `rated_subcooling_temperature_difference` or None if not set
         """
-        return self._data["Rated Subcooling Temperature Difference"]
+        return self["Rated Subcooling Temperature Difference"]
 
     @rated_subcooling_temperature_difference.setter
     def rated_subcooling_temperature_difference(self, value=None):
@@ -1761,7 +1726,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             str: the value of `condenser_fan_speed_control_type` or None if not set
         """
-        return self._data["Condenser Fan Speed Control Type"]
+        return self["Condenser Fan Speed Control Type"]
 
     @condenser_fan_speed_control_type.setter
     def condenser_fan_speed_control_type(self, value="Fixed"):
@@ -1785,7 +1750,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `rated_fan_power` or None if not set
         """
-        return self._data["Rated Fan Power"]
+        return self["Rated Fan Power"]
 
     @rated_fan_power.setter
     def rated_fan_power(self, value=250.0):
@@ -1811,7 +1776,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `minimum_fan_air_flow_ratio` or None if not set
         """
-        return self._data["Minimum Fan Air Flow Ratio"]
+        return self["Minimum Fan Air Flow Ratio"]
 
     @minimum_fan_air_flow_ratio.setter
     def minimum_fan_air_flow_ratio(self, value=0.2):
@@ -1837,7 +1802,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             str: the value of `air_inlet_node_name_or_zone_name` or None if not set
         """
-        return self._data["Air Inlet Node Name or Zone Name"]
+        return self["Air Inlet Node Name or Zone Name"]
 
     @air_inlet_node_name_or_zone_name.setter
     def air_inlet_node_name_or_zone_name(self, value=None):
@@ -1865,7 +1830,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -1889,7 +1854,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `condenser_refrigerant_operating_charge_inventory` or None if not set
         """
-        return self._data["Condenser Refrigerant Operating Charge Inventory"]
+        return self["Condenser Refrigerant Operating Charge Inventory"]
 
     @condenser_refrigerant_operating_charge_inventory.setter
     def condenser_refrigerant_operating_charge_inventory(self, value=None):
@@ -1914,7 +1879,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `condensate_receiver_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Receiver Refrigerant Inventory"]
+        return self["Condensate Receiver Refrigerant Inventory"]
 
     @condensate_receiver_refrigerant_inventory.setter
     def condensate_receiver_refrigerant_inventory(self, value=None):
@@ -1939,7 +1904,7 @@ class RefrigerationCondenserAirCooled(DataObject):
         Returns:
             float: the value of `condensate_piping_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Piping Refrigerant Inventory"]
+        return self["Condensate Piping Refrigerant Inventory"]
 
     @condensate_piping_refrigerant_inventory.setter
     def condensate_piping_refrigerant_inventory(self, value=None):
@@ -1962,16 +1927,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
     """ Corresponds to IDD object `Refrigeration:Condenser:EvaporativeCooled`
         Evaporative-cooled condenser for a refrigeration system (Refrigeration:System).
     """
-    schema = {'min-fields': 10, 'name': u'Refrigeration:Condenser:EvaporativeCooled', 'pyname': u'RefrigerationCondenserEvaporativeCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'fan speed control type', {'name': u'Fan Speed Control Type', 'pyname': u'fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'approach temperature constant term', {'name': u'Approach Temperature Constant Term', 'pyname': u'approach_temperature_constant_term', 'default': 6.63, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 2', {'name': u'Approach Temperature Coefficient 2', 'pyname': u'approach_temperature_coefficient_2', 'default': 0.468, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 3', {'name': u'Approach Temperature Coefficient 3', 'pyname': u'approach_temperature_coefficient_3', 'default': 17.93, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 4', {'name': u'Approach Temperature Coefficient 4', 'pyname': u'approach_temperature_coefficient_4', 'default': -0.322, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': -20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'minimum capacity factor', {'name': u'Minimum Capacity Factor', 'pyname': u'minimum_capacity_factor', 'default': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'maximum capacity factor', {'name': u'Maximum Capacity Factor', 'pyname': u'maximum_capacity_factor', 'default': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated air flow rate', {'name': u'Rated Air Flow Rate', 'pyname': u'rated_air_flow_rate', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated water pump power', {'name': u'Rated Water Pump Power', 'pyname': u'rated_water_pump_power', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'evaporative water supply tank name', {'name': u'Evaporative Water Supply Tank Name', 'pyname': u'evaporative_water_supply_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporative condenser availability schedule name', {'name': u'Evaporative Condenser Availability Schedule Name', 'pyname': u'evaporative_condenser_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Condenser:EvaporativeCooled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 10, 'name': u'Refrigeration:Condenser:EvaporativeCooled', 'pyname': u'RefrigerationCondenserEvaporativeCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'fan speed control type', {'name': u'Fan Speed Control Type', 'pyname': u'fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'FixedLinear', u'VariableSpeed', u'TwoSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'approach temperature constant term', {'name': u'Approach Temperature Constant Term', 'pyname': u'approach_temperature_constant_term', 'default': 6.63, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 2', {'name': u'Approach Temperature Coefficient 2', 'pyname': u'approach_temperature_coefficient_2', 'default': 0.468, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 3', {'name': u'Approach Temperature Coefficient 3', 'pyname': u'approach_temperature_coefficient_3', 'default': 17.93, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'approach temperature coefficient 4', {'name': u'Approach Temperature Coefficient 4', 'pyname': u'approach_temperature_coefficient_4', 'default': -0.322, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'minimum': -20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'minimum capacity factor', {'name': u'Minimum Capacity Factor', 'pyname': u'minimum_capacity_factor', 'default': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'maximum capacity factor', {'name': u'Maximum Capacity Factor', 'pyname': u'maximum_capacity_factor', 'default': 5.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated air flow rate', {'name': u'Rated Air Flow Rate', 'pyname': u'rated_air_flow_rate', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'basin heater capacity', {'name': u'Basin Heater Capacity', 'pyname': u'basin_heater_capacity', 'default': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'basin heater setpoint temperature', {'name': u'Basin Heater Setpoint Temperature', 'pyname': u'basin_heater_setpoint_temperature', 'default': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated water pump power', {'name': u'Rated Water Pump Power', 'pyname': u'rated_water_pump_power', 'default': 1000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'evaporative water supply tank name', {'name': u'Evaporative Water Supply Tank Name', 'pyname': u'evaporative_water_supply_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporative condenser availability schedule name', {'name': u'Evaporative Condenser Availability Schedule Name', 'pyname': u'evaporative_condenser_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1980,7 +1936,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2003,7 +1959,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `rated_effective_total_heat_rejection_rate` or None if not set
         """
-        return self._data["Rated Effective Total Heat Rejection Rate"]
+        return self["Rated Effective Total Heat Rejection Rate"]
 
     @rated_effective_total_heat_rejection_rate.setter
     def rated_effective_total_heat_rejection_rate(self, value=None):
@@ -2029,7 +1985,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `rated_subcooling_temperature_difference` or None if not set
         """
-        return self._data["Rated Subcooling Temperature Difference"]
+        return self["Rated Subcooling Temperature Difference"]
 
     @rated_subcooling_temperature_difference.setter
     def rated_subcooling_temperature_difference(self, value=None):
@@ -2054,7 +2010,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `fan_speed_control_type` or None if not set
         """
-        return self._data["Fan Speed Control Type"]
+        return self["Fan Speed Control Type"]
 
     @fan_speed_control_type.setter
     def fan_speed_control_type(self, value="Fixed"):
@@ -2078,7 +2034,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `rated_fan_power` or None if not set
         """
-        return self._data["Rated Fan Power"]
+        return self["Rated Fan Power"]
 
     @rated_fan_power.setter
     def rated_fan_power(self, value=None):
@@ -2103,7 +2059,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `minimum_fan_air_flow_ratio` or None if not set
         """
-        return self._data["Minimum Fan Air Flow Ratio"]
+        return self["Minimum Fan Air Flow Ratio"]
 
     @minimum_fan_air_flow_ratio.setter
     def minimum_fan_air_flow_ratio(self, value=0.2):
@@ -2129,7 +2085,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `approach_temperature_constant_term` or None if not set
         """
-        return self._data["Approach Temperature Constant Term"]
+        return self["Approach Temperature Constant Term"]
 
     @approach_temperature_constant_term.setter
     def approach_temperature_constant_term(self, value=6.63):
@@ -2156,7 +2112,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `approach_temperature_coefficient_2` or None if not set
         """
-        return self._data["Approach Temperature Coefficient 2"]
+        return self["Approach Temperature Coefficient 2"]
 
     @approach_temperature_coefficient_2.setter
     def approach_temperature_coefficient_2(self, value=0.468):
@@ -2183,7 +2139,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `approach_temperature_coefficient_3` or None if not set
         """
-        return self._data["Approach Temperature Coefficient 3"]
+        return self["Approach Temperature Coefficient 3"]
 
     @approach_temperature_coefficient_3.setter
     def approach_temperature_coefficient_3(self, value=17.93):
@@ -2210,7 +2166,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `approach_temperature_coefficient_4` or None if not set
         """
-        return self._data["Approach Temperature Coefficient 4"]
+        return self["Approach Temperature Coefficient 4"]
 
     @approach_temperature_coefficient_4.setter
     def approach_temperature_coefficient_4(self, value=-0.322):
@@ -2238,7 +2194,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `minimum_capacity_factor` or None if not set
         """
-        return self._data["Minimum Capacity Factor"]
+        return self["Minimum Capacity Factor"]
 
     @minimum_capacity_factor.setter
     def minimum_capacity_factor(self, value=0.5):
@@ -2264,7 +2220,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `maximum_capacity_factor` or None if not set
         """
-        return self._data["Maximum Capacity Factor"]
+        return self["Maximum Capacity Factor"]
 
     @maximum_capacity_factor.setter
     def maximum_capacity_factor(self, value=5.0):
@@ -2290,7 +2246,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -2317,7 +2273,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `rated_air_flow_rate` or None if not set
         """
-        return self._data["Rated Air Flow Rate"]
+        return self["Rated Air Flow Rate"]
 
     @rated_air_flow_rate.setter
     def rated_air_flow_rate(self, value="autocalculate"):
@@ -2343,7 +2299,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `basin_heater_capacity` or None if not set
         """
-        return self._data["Basin Heater Capacity"]
+        return self["Basin Heater Capacity"]
 
     @basin_heater_capacity.setter
     def basin_heater_capacity(self, value=200.0):
@@ -2373,7 +2329,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `basin_heater_setpoint_temperature` or None if not set
         """
-        return self._data["Basin Heater Setpoint Temperature"]
+        return self["Basin Heater Setpoint Temperature"]
 
     @basin_heater_setpoint_temperature.setter
     def basin_heater_setpoint_temperature(self, value=2.0):
@@ -2400,7 +2356,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `rated_water_pump_power` or None if not set
         """
-        return self._data["Rated Water Pump Power"]
+        return self["Rated Water Pump Power"]
 
     @rated_water_pump_power.setter
     def rated_water_pump_power(self, value=1000.0):
@@ -2426,7 +2382,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `evaporative_water_supply_tank_name` or None if not set
         """
-        return self._data["Evaporative Water Supply Tank Name"]
+        return self["Evaporative Water Supply Tank Name"]
 
     @evaporative_water_supply_tank_name.setter
     def evaporative_water_supply_tank_name(self, value=None):
@@ -2450,7 +2406,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `evaporative_condenser_availability_schedule_name` or None if not set
         """
-        return self._data["Evaporative Condenser Availability Schedule Name"]
+        return self["Evaporative Condenser Availability Schedule Name"]
 
     @evaporative_condenser_availability_schedule_name.setter
     def evaporative_condenser_availability_schedule_name(self, value=None):
@@ -2477,7 +2433,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -2501,7 +2457,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `condenser_refrigerant_operating_charge_inventory` or None if not set
         """
-        return self._data["Condenser Refrigerant Operating Charge Inventory"]
+        return self["Condenser Refrigerant Operating Charge Inventory"]
 
     @condenser_refrigerant_operating_charge_inventory.setter
     def condenser_refrigerant_operating_charge_inventory(self, value=None):
@@ -2526,7 +2482,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `condensate_receiver_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Receiver Refrigerant Inventory"]
+        return self["Condensate Receiver Refrigerant Inventory"]
 
     @condensate_receiver_refrigerant_inventory.setter
     def condensate_receiver_refrigerant_inventory(self, value=None):
@@ -2551,7 +2507,7 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         Returns:
             float: the value of `condensate_piping_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Piping Refrigerant Inventory"]
+        return self["Condensate Piping Refrigerant Inventory"]
 
     @condensate_piping_refrigerant_inventory.setter
     def condensate_piping_refrigerant_inventory(self, value=None):
@@ -2574,16 +2530,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
     """ Corresponds to IDD object `Refrigeration:Condenser:WaterCooled`
         Water cooled condenser for a refrigeration system (Refrigeration:System).
     """
-    schema = {'min-fields': 0, 'name': u'Refrigeration:Condenser:WaterCooled', 'pyname': u'RefrigerationCondenserWaterCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated condensing temperature', {'name': u'Rated Condensing Temperature', 'pyname': u'rated_condensing_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'rated water inlet temperature', {'name': u'Rated Water Inlet Temperature', 'pyname': u'rated_water_inlet_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled loop flow type', {'name': u'Water-Cooled Loop Flow Type', 'pyname': u'watercooled_loop_flow_type', 'default': u'VariableFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water outlet temperature schedule name', {'name': u'Water Outlet Temperature Schedule Name', 'pyname': u'water_outlet_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water design flow rate', {'name': u'Water Design Flow Rate', 'pyname': u'water_design_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water maximum flow rate', {'name': u'Water Maximum Flow Rate', 'pyname': u'water_maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water maximum water outlet temperature', {'name': u'Water Maximum Water Outlet Temperature', 'pyname': u'water_maximum_water_outlet_temperature', 'default': 55.0, 'maximum': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water minimum water inlet temperature', {'name': u'Water Minimum Water Inlet Temperature', 'pyname': u'water_minimum_water_inlet_temperature', 'default': 10.0, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Condenser:WaterCooled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Refrigeration:Condenser:WaterCooled', 'pyname': u'RefrigerationCondenserWaterCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated condensing temperature', {'name': u'Rated Condensing Temperature', 'pyname': u'rated_condensing_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated subcooling temperature difference', {'name': u'Rated Subcooling Temperature Difference', 'pyname': u'rated_subcooling_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'rated water inlet temperature', {'name': u'Rated Water Inlet Temperature', 'pyname': u'rated_water_inlet_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water-cooled loop flow type', {'name': u'Water-Cooled Loop Flow Type', 'pyname': u'watercooled_loop_flow_type', 'default': u'VariableFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VariableFlow', u'ConstantFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'water outlet temperature schedule name', {'name': u'Water Outlet Temperature Schedule Name', 'pyname': u'water_outlet_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water design flow rate', {'name': u'Water Design Flow Rate', 'pyname': u'water_design_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water maximum flow rate', {'name': u'Water Maximum Flow Rate', 'pyname': u'water_maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water maximum water outlet temperature', {'name': u'Water Maximum Water Outlet Temperature', 'pyname': u'water_maximum_water_outlet_temperature', 'default': 55.0, 'maximum': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'water minimum water inlet temperature', {'name': u'Water Minimum Water Inlet Temperature', 'pyname': u'water_minimum_water_inlet_temperature', 'default': 10.0, 'maximum': 30.0, 'required-field': False, 'autosizable': False, 'minimum': 10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2592,7 +2539,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2615,7 +2562,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `rated_effective_total_heat_rejection_rate` or None if not set
         """
-        return self._data["Rated Effective Total Heat Rejection Rate"]
+        return self["Rated Effective Total Heat Rejection Rate"]
 
     @rated_effective_total_heat_rejection_rate.setter
     def rated_effective_total_heat_rejection_rate(self, value=None):
@@ -2642,7 +2589,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `rated_condensing_temperature` or None if not set
         """
-        return self._data["Rated Condensing Temperature"]
+        return self["Rated Condensing Temperature"]
 
     @rated_condensing_temperature.setter
     def rated_condensing_temperature(self, value=None):
@@ -2667,7 +2614,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `rated_subcooling_temperature_difference` or None if not set
         """
-        return self._data["Rated Subcooling Temperature Difference"]
+        return self["Rated Subcooling Temperature Difference"]
 
     @rated_subcooling_temperature_difference.setter
     def rated_subcooling_temperature_difference(self, value=None):
@@ -2692,7 +2639,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `rated_water_inlet_temperature` or None if not set
         """
-        return self._data["Rated Water Inlet Temperature"]
+        return self["Rated Water Inlet Temperature"]
 
     @rated_water_inlet_temperature.setter
     def rated_water_inlet_temperature(self, value=None):
@@ -2717,7 +2664,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `water_inlet_node_name` or None if not set
         """
-        return self._data["Water Inlet Node Name"]
+        return self["Water Inlet Node Name"]
 
     @water_inlet_node_name.setter
     def water_inlet_node_name(self, value=None):
@@ -2740,7 +2687,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `water_outlet_node_name` or None if not set
         """
-        return self._data["Water Outlet Node Name"]
+        return self["Water Outlet Node Name"]
 
     @water_outlet_node_name.setter
     def water_outlet_node_name(self, value=None):
@@ -2763,7 +2710,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `watercooled_loop_flow_type` or None if not set
         """
-        return self._data["Water-Cooled Loop Flow Type"]
+        return self["Water-Cooled Loop Flow Type"]
 
     @watercooled_loop_flow_type.setter
     def watercooled_loop_flow_type(self, value="VariableFlow"):
@@ -2787,7 +2734,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `water_outlet_temperature_schedule_name` or None if not set
         """
-        return self._data["Water Outlet Temperature Schedule Name"]
+        return self["Water Outlet Temperature Schedule Name"]
 
     @water_outlet_temperature_schedule_name.setter
     def water_outlet_temperature_schedule_name(self, value=None):
@@ -2811,7 +2758,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `water_design_flow_rate` or None if not set
         """
-        return self._data["Water Design Flow Rate"]
+        return self["Water Design Flow Rate"]
 
     @water_design_flow_rate.setter
     def water_design_flow_rate(self, value=None):
@@ -2837,7 +2784,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `water_maximum_flow_rate` or None if not set
         """
-        return self._data["Water Maximum Flow Rate"]
+        return self["Water Maximum Flow Rate"]
 
     @water_maximum_flow_rate.setter
     def water_maximum_flow_rate(self, value=None):
@@ -2861,7 +2808,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `water_maximum_water_outlet_temperature` or None if not set
         """
-        return self._data["Water Maximum Water Outlet Temperature"]
+        return self["Water Maximum Water Outlet Temperature"]
 
     @water_maximum_water_outlet_temperature.setter
     def water_maximum_water_outlet_temperature(self, value=55.0):
@@ -2888,7 +2835,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `water_minimum_water_inlet_temperature` or None if not set
         """
-        return self._data["Water Minimum Water Inlet Temperature"]
+        return self["Water Minimum Water Inlet Temperature"]
 
     @water_minimum_water_inlet_temperature.setter
     def water_minimum_water_inlet_temperature(self, value=10.0):
@@ -2916,7 +2863,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -2940,7 +2887,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `condenser_refrigerant_operating_charge_inventory` or None if not set
         """
-        return self._data["Condenser Refrigerant Operating Charge Inventory"]
+        return self["Condenser Refrigerant Operating Charge Inventory"]
 
     @condenser_refrigerant_operating_charge_inventory.setter
     def condenser_refrigerant_operating_charge_inventory(self, value=None):
@@ -2965,7 +2912,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `condensate_receiver_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Receiver Refrigerant Inventory"]
+        return self["Condensate Receiver Refrigerant Inventory"]
 
     @condensate_receiver_refrigerant_inventory.setter
     def condensate_receiver_refrigerant_inventory(self, value=None):
@@ -2990,7 +2937,7 @@ class RefrigerationCondenserWaterCooled(DataObject):
         Returns:
             float: the value of `condensate_piping_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Piping Refrigerant Inventory"]
+        return self["Condensate Piping Refrigerant Inventory"]
 
     @condensate_piping_refrigerant_inventory.setter
     def condensate_piping_refrigerant_inventory(self, value=None):
@@ -3017,16 +2964,7 @@ class RefrigerationCondenserCascade(DataObject):
         heat rejection object for one system, but acts as a refrigeration load for another
         system.
     """
-    schema = {'min-fields': 0, 'name': u'Refrigeration:Condenser:Cascade', 'pyname': u'RefrigerationCondenserCascade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated condensing temperature', {'name': u'Rated Condensing Temperature', 'pyname': u'rated_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated approach temperature difference', {'name': u'Rated Approach Temperature Difference', 'pyname': u'rated_approach_temperature_difference', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condensing temperature control type', {'name': u'Condensing Temperature Control Type', 'pyname': u'condensing_temperature_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Condenser:Cascade`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Refrigeration:Condenser:Cascade', 'pyname': u'RefrigerationCondenserCascade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated condensing temperature', {'name': u'Rated Condensing Temperature', 'pyname': u'rated_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated approach temperature difference', {'name': u'Rated Approach Temperature Difference', 'pyname': u'rated_approach_temperature_difference', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'rated effective total heat rejection rate', {'name': u'Rated Effective Total Heat Rejection Rate', 'pyname': u'rated_effective_total_heat_rejection_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condensing temperature control type', {'name': u'Condensing Temperature Control Type', 'pyname': u'condensing_temperature_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Float'], 'autocalculatable': False, 'type': 'alpha'}), (u'condenser refrigerant operating charge inventory', {'name': u'Condenser Refrigerant Operating Charge Inventory', 'pyname': u'condenser_refrigerant_operating_charge_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate receiver refrigerant inventory', {'name': u'Condensate Receiver Refrigerant Inventory', 'pyname': u'condensate_receiver_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'condensate piping refrigerant inventory', {'name': u'Condensate Piping Refrigerant Inventory', 'pyname': u'condensate_piping_refrigerant_inventory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3035,7 +2973,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3058,7 +2996,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `rated_condensing_temperature` or None if not set
         """
-        return self._data["Rated Condensing Temperature"]
+        return self["Rated Condensing Temperature"]
 
     @rated_condensing_temperature.setter
     def rated_condensing_temperature(self, value=None):
@@ -3083,7 +3021,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `rated_approach_temperature_difference` or None if not set
         """
-        return self._data["Rated Approach Temperature Difference"]
+        return self["Rated Approach Temperature Difference"]
 
     @rated_approach_temperature_difference.setter
     def rated_approach_temperature_difference(self, value=3.0):
@@ -3109,7 +3047,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `rated_effective_total_heat_rejection_rate` or None if not set
         """
-        return self._data["Rated Effective Total Heat Rejection Rate"]
+        return self["Rated Effective Total Heat Rejection Rate"]
 
     @rated_effective_total_heat_rejection_rate.setter
     def rated_effective_total_heat_rejection_rate(self, value=None):
@@ -3134,7 +3072,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             str: the value of `condensing_temperature_control_type` or None if not set
         """
-        return self._data["Condensing Temperature Control Type"]
+        return self["Condensing Temperature Control Type"]
 
     @condensing_temperature_control_type.setter
     def condensing_temperature_control_type(self, value="Fixed"):
@@ -3161,7 +3099,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `condenser_refrigerant_operating_charge_inventory` or None if not set
         """
-        return self._data["Condenser Refrigerant Operating Charge Inventory"]
+        return self["Condenser Refrigerant Operating Charge Inventory"]
 
     @condenser_refrigerant_operating_charge_inventory.setter
     def condenser_refrigerant_operating_charge_inventory(self, value=None):
@@ -3186,7 +3124,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `condensate_receiver_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Receiver Refrigerant Inventory"]
+        return self["Condensate Receiver Refrigerant Inventory"]
 
     @condensate_receiver_refrigerant_inventory.setter
     def condensate_receiver_refrigerant_inventory(self, value=None):
@@ -3211,7 +3149,7 @@ class RefrigerationCondenserCascade(DataObject):
         Returns:
             float: the value of `condensate_piping_refrigerant_inventory` or None if not set
         """
-        return self._data["Condensate Piping Refrigerant Inventory"]
+        return self["Condensate Piping Refrigerant Inventory"]
 
     @condensate_piping_refrigerant_inventory.setter
     def condensate_piping_refrigerant_inventory(self, value=None):
@@ -3235,16 +3173,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         The transcritical refrigeration system requires a single gas cooler to reject the
         system heat.
     """
-    schema = {'min-fields': 0, 'name': u'Refrigeration:GasCooler:AirCooled', 'pyname': u'RefrigerationGasCoolerAirCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated total heat rejection rate curve name', {'name': u'Rated Total Heat Rejection Rate Curve Name', 'pyname': u'rated_total_heat_rejection_rate_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gas cooler fan speed control type', {'name': u'Gas Cooler Fan Speed Control Type', 'pyname': u'gas_cooler_fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 5000.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'transition temperature', {'name': u'Transition Temperature', 'pyname': u'transition_temperature', 'default': 27.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'transcritical approach temperature', {'name': u'Transcritical Approach Temperature', 'pyname': u'transcritical_approach_temperature', 'default': 3.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'subcritical temperature difference', {'name': u'Subcritical Temperature Difference', 'pyname': u'subcritical_temperature_difference', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas cooler refrigerant operating charge inventory', {'name': u'Gas Cooler Refrigerant Operating Charge Inventory', 'pyname': u'gas_cooler_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'gas cooler receiver refrigerant inventory', {'name': u'Gas Cooler Receiver Refrigerant Inventory', 'pyname': u'gas_cooler_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'gas cooler outlet piping refrigerant inventory', {'name': u'Gas Cooler Outlet Piping Refrigerant Inventory', 'pyname': u'gas_cooler_outlet_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:GasCooler:AirCooled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Refrigeration:GasCooler:AirCooled', 'pyname': u'RefrigerationGasCoolerAirCooled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'rated total heat rejection rate curve name', {'name': u'Rated Total Heat Rejection Rate Curve Name', 'pyname': u'rated_total_heat_rejection_rate_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gas cooler fan speed control type', {'name': u'Gas Cooler Fan Speed Control Type', 'pyname': u'gas_cooler_fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'FixedLinear', u'VariableSpeed', u'TwoSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 5000.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'transition temperature', {'name': u'Transition Temperature', 'pyname': u'transition_temperature', 'default': 27.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'transcritical approach temperature', {'name': u'Transcritical Approach Temperature', 'pyname': u'transcritical_approach_temperature', 'default': 3.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'subcritical temperature difference', {'name': u'Subcritical Temperature Difference', 'pyname': u'subcritical_temperature_difference', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas cooler refrigerant operating charge inventory', {'name': u'Gas Cooler Refrigerant Operating Charge Inventory', 'pyname': u'gas_cooler_refrigerant_operating_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'gas cooler receiver refrigerant inventory', {'name': u'Gas Cooler Receiver Refrigerant Inventory', 'pyname': u'gas_cooler_receiver_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'gas cooler outlet piping refrigerant inventory', {'name': u'Gas Cooler Outlet Piping Refrigerant Inventory', 'pyname': u'gas_cooler_outlet_piping_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3253,7 +3182,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3276,7 +3205,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             str: the value of `rated_total_heat_rejection_rate_curve_name` or None if not set
         """
-        return self._data["Rated Total Heat Rejection Rate Curve Name"]
+        return self["Rated Total Heat Rejection Rate Curve Name"]
 
     @rated_total_heat_rejection_rate_curve_name.setter
     def rated_total_heat_rejection_rate_curve_name(self, value=None):
@@ -3303,7 +3232,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             str: the value of `gas_cooler_fan_speed_control_type` or None if not set
         """
-        return self._data["Gas Cooler Fan Speed Control Type"]
+        return self["Gas Cooler Fan Speed Control Type"]
 
     @gas_cooler_fan_speed_control_type.setter
     def gas_cooler_fan_speed_control_type(self, value="Fixed"):
@@ -3327,7 +3256,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `rated_fan_power` or None if not set
         """
-        return self._data["Rated Fan Power"]
+        return self["Rated Fan Power"]
 
     @rated_fan_power.setter
     def rated_fan_power(self, value=5000.0):
@@ -3353,7 +3282,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `minimum_fan_air_flow_ratio` or None if not set
         """
-        return self._data["Minimum Fan Air Flow Ratio"]
+        return self["Minimum Fan Air Flow Ratio"]
 
     @minimum_fan_air_flow_ratio.setter
     def minimum_fan_air_flow_ratio(self, value=0.2):
@@ -3379,7 +3308,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `transition_temperature` or None if not set
         """
-        return self._data["Transition Temperature"]
+        return self["Transition Temperature"]
 
     @transition_temperature.setter
     def transition_temperature(self, value=27.0):
@@ -3405,7 +3334,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `transcritical_approach_temperature` or None if not set
         """
-        return self._data["Transcritical Approach Temperature"]
+        return self["Transcritical Approach Temperature"]
 
     @transcritical_approach_temperature.setter
     def transcritical_approach_temperature(self, value=3.0):
@@ -3432,7 +3361,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `subcritical_temperature_difference` or None if not set
         """
-        return self._data["Subcritical Temperature Difference"]
+        return self["Subcritical Temperature Difference"]
 
     @subcritical_temperature_difference.setter
     def subcritical_temperature_difference(self, value=10.0):
@@ -3459,7 +3388,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `minimum_condensing_temperature` or None if not set
         """
-        return self._data["Minimum Condensing Temperature"]
+        return self["Minimum Condensing Temperature"]
 
     @minimum_condensing_temperature.setter
     def minimum_condensing_temperature(self, value=10.0):
@@ -3485,7 +3414,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -3512,7 +3441,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -3536,7 +3465,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `gas_cooler_refrigerant_operating_charge_inventory` or None if not set
         """
-        return self._data["Gas Cooler Refrigerant Operating Charge Inventory"]
+        return self["Gas Cooler Refrigerant Operating Charge Inventory"]
 
     @gas_cooler_refrigerant_operating_charge_inventory.setter
     def gas_cooler_refrigerant_operating_charge_inventory(self, value=None):
@@ -3561,7 +3490,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `gas_cooler_receiver_refrigerant_inventory` or None if not set
         """
-        return self._data["Gas Cooler Receiver Refrigerant Inventory"]
+        return self["Gas Cooler Receiver Refrigerant Inventory"]
 
     @gas_cooler_receiver_refrigerant_inventory.setter
     def gas_cooler_receiver_refrigerant_inventory(self, value=None):
@@ -3586,7 +3515,7 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         Returns:
             float: the value of `gas_cooler_outlet_piping_refrigerant_inventory` or None if not set
         """
-        return self._data["Gas Cooler Outlet Piping Refrigerant Inventory"]
+        return self["Gas Cooler Outlet Piping Refrigerant Inventory"]
 
     @gas_cooler_outlet_piping_refrigerant_inventory.setter
     def gas_cooler_outlet_piping_refrigerant_inventory(self, value=None):
@@ -3615,15 +3544,6 @@ class RefrigerationTransferLoadList(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Refrigeration:TransferLoadList', 'pyname': u'RefrigerationTransferLoadList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'cascade condenser name or secondary system 1 name', {'name': u'Cascade Condenser Name or Secondary System 1 Name', 'pyname': u'cascade_condenser_name_or_secondary_system_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:TransferLoadList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3631,7 +3551,7 @@ class RefrigerationTransferLoadList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3661,13 +3581,13 @@ class RefrigerationTransferLoadList(DataObject):
         vals = []
         cascade_condenser_name_or_secondary_system_1_name = self.check_value("Cascade Condenser Name or Secondary System 1 Name", cascade_condenser_name_or_secondary_system_1_name)
         vals.append(cascade_condenser_name_or_secondary_system_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class RefrigerationSubcooler(DataObject):
@@ -3678,16 +3598,7 @@ class RefrigerationSubcooler(DataObject):
         A mechanical subcooler is used to transfer cooling capacity from one refrigeration
         system to another.
     """
-    schema = {'min-fields': 5, 'name': u'Refrigeration:Subcooler', 'pyname': u'RefrigerationSubcooler', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'subcooler type', {'name': u'Subcooler Type', 'pyname': u'subcooler_type', 'default': u'LiquidSuction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'liquid suction design subcooling temperature difference', {'name': u'Liquid Suction Design Subcooling Temperature Difference', 'pyname': u'liquid_suction_design_subcooling_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'design liquid inlet temperature', {'name': u'Design Liquid Inlet Temperature', 'pyname': u'design_liquid_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design vapor inlet temperature', {'name': u'Design Vapor Inlet Temperature', 'pyname': u'design_vapor_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'capacity-providing system', {'name': u'Capacity-Providing System', 'pyname': u'capacityproviding_system', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outlet control temperature', {'name': u'Outlet Control Temperature', 'pyname': u'outlet_control_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Subcooler`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Refrigeration:Subcooler', 'pyname': u'RefrigerationSubcooler', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'subcooler type', {'name': u'Subcooler Type', 'pyname': u'subcooler_type', 'default': u'LiquidSuction', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Mechanical', u'LiquidSuction'], 'autocalculatable': False, 'type': 'alpha'}), (u'liquid suction design subcooling temperature difference', {'name': u'Liquid Suction Design Subcooling Temperature Difference', 'pyname': u'liquid_suction_design_subcooling_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'design liquid inlet temperature', {'name': u'Design Liquid Inlet Temperature', 'pyname': u'design_liquid_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design vapor inlet temperature', {'name': u'Design Vapor Inlet Temperature', 'pyname': u'design_vapor_inlet_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'capacity-providing system', {'name': u'Capacity-Providing System', 'pyname': u'capacityproviding_system', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outlet control temperature', {'name': u'Outlet Control Temperature', 'pyname': u'outlet_control_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3696,7 +3607,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3719,7 +3630,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             str: the value of `subcooler_type` or None if not set
         """
-        return self._data["Subcooler Type"]
+        return self["Subcooler Type"]
 
     @subcooler_type.setter
     def subcooler_type(self, value="LiquidSuction"):
@@ -3744,7 +3655,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             float: the value of `liquid_suction_design_subcooling_temperature_difference` or None if not set
         """
-        return self._data["Liquid Suction Design Subcooling Temperature Difference"]
+        return self["Liquid Suction Design Subcooling Temperature Difference"]
 
     @liquid_suction_design_subcooling_temperature_difference.setter
     def liquid_suction_design_subcooling_temperature_difference(self, value=None):
@@ -3770,7 +3681,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             float: the value of `design_liquid_inlet_temperature` or None if not set
         """
-        return self._data["Design Liquid Inlet Temperature"]
+        return self["Design Liquid Inlet Temperature"]
 
     @design_liquid_inlet_temperature.setter
     def design_liquid_inlet_temperature(self, value=None):
@@ -3796,7 +3707,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             float: the value of `design_vapor_inlet_temperature` or None if not set
         """
-        return self._data["Design Vapor Inlet Temperature"]
+        return self["Design Vapor Inlet Temperature"]
 
     @design_vapor_inlet_temperature.setter
     def design_vapor_inlet_temperature(self, value=None):
@@ -3824,7 +3735,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             str: the value of `capacityproviding_system` or None if not set
         """
-        return self._data["Capacity-Providing System"]
+        return self["Capacity-Providing System"]
 
     @capacityproviding_system.setter
     def capacityproviding_system(self, value=None):
@@ -3849,7 +3760,7 @@ class RefrigerationSubcooler(DataObject):
         Returns:
             float: the value of `outlet_control_temperature` or None if not set
         """
-        return self._data["Outlet Control Temperature"]
+        return self["Outlet Control Temperature"]
 
     @outlet_control_temperature.setter
     def outlet_control_temperature(self, value=None):
@@ -3874,16 +3785,7 @@ class RefrigerationCompressor(DataObject):
         Refrigeration system compressor. Data is available for many compressors
         in the RefrigerationCompressor.idf dataset
     """
-    schema = {'min-fields': 6, 'name': u'Refrigeration:Compressor', 'pyname': u'RefrigerationCompressor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigeration compressor power curve name', {'name': u'Refrigeration Compressor Power Curve Name', 'pyname': u'refrigeration_compressor_power_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration compressor capacity curve name', {'name': u'Refrigeration Compressor Capacity Curve Name', 'pyname': u'refrigeration_compressor_capacity_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated superheat', {'name': u'Rated Superheat', 'pyname': u'rated_superheat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'rated return gas temperature', {'name': u'Rated Return Gas Temperature', 'pyname': u'rated_return_gas_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated liquid temperature', {'name': u'Rated Liquid Temperature', 'pyname': u'rated_liquid_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated subcooling', {'name': u'Rated Subcooling', 'pyname': u'rated_subcooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'mode of operation', {'name': u'Mode of Operation', 'pyname': u'mode_of_operation', 'default': u'Subcritical', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'transcritical compressor power curve name', {'name': u'Transcritical Compressor Power Curve Name', 'pyname': u'transcritical_compressor_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transcritical compressor capacity curve name', {'name': u'Transcritical Compressor Capacity Curve Name', 'pyname': u'transcritical_compressor_capacity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:Compressor`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 6, 'name': u'Refrigeration:Compressor', 'pyname': u'RefrigerationCompressor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigeration compressor power curve name', {'name': u'Refrigeration Compressor Power Curve Name', 'pyname': u'refrigeration_compressor_power_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration compressor capacity curve name', {'name': u'Refrigeration Compressor Capacity Curve Name', 'pyname': u'refrigeration_compressor_capacity_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated superheat', {'name': u'Rated Superheat', 'pyname': u'rated_superheat', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'rated return gas temperature', {'name': u'Rated Return Gas Temperature', 'pyname': u'rated_return_gas_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated liquid temperature', {'name': u'Rated Liquid Temperature', 'pyname': u'rated_liquid_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated subcooling', {'name': u'Rated Subcooling', 'pyname': u'rated_subcooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'mode of operation', {'name': u'Mode of Operation', 'pyname': u'mode_of_operation', 'default': u'Subcritical', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Subcritical', u'Transcritical'], 'autocalculatable': False, 'type': 'alpha'}), (u'transcritical compressor power curve name', {'name': u'Transcritical Compressor Power Curve Name', 'pyname': u'transcritical_compressor_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transcritical compressor capacity curve name', {'name': u'Transcritical Compressor Capacity Curve Name', 'pyname': u'transcritical_compressor_capacity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3892,7 +3794,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3915,7 +3817,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `refrigeration_compressor_power_curve_name` or None if not set
         """
-        return self._data["Refrigeration Compressor Power Curve Name"]
+        return self["Refrigeration Compressor Power Curve Name"]
 
     @refrigeration_compressor_power_curve_name.setter
     def refrigeration_compressor_power_curve_name(self, value=None):
@@ -3948,7 +3850,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `refrigeration_compressor_capacity_curve_name` or None if not set
         """
-        return self._data["Refrigeration Compressor Capacity Curve Name"]
+        return self["Refrigeration Compressor Capacity Curve Name"]
 
     @refrigeration_compressor_capacity_curve_name.setter
     def refrigeration_compressor_capacity_curve_name(self, value=None):
@@ -3981,7 +3883,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             float: the value of `rated_superheat` or None if not set
         """
-        return self._data["Rated Superheat"]
+        return self["Rated Superheat"]
 
     @rated_superheat.setter
     def rated_superheat(self, value=None):
@@ -4008,7 +3910,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             float: the value of `rated_return_gas_temperature` or None if not set
         """
-        return self._data["Rated Return Gas Temperature"]
+        return self["Rated Return Gas Temperature"]
 
     @rated_return_gas_temperature.setter
     def rated_return_gas_temperature(self, value=None):
@@ -4035,7 +3937,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             float: the value of `rated_liquid_temperature` or None if not set
         """
-        return self._data["Rated Liquid Temperature"]
+        return self["Rated Liquid Temperature"]
 
     @rated_liquid_temperature.setter
     def rated_liquid_temperature(self, value=None):
@@ -4062,7 +3964,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             float: the value of `rated_subcooling` or None if not set
         """
-        return self._data["Rated Subcooling"]
+        return self["Rated Subcooling"]
 
     @rated_subcooling.setter
     def rated_subcooling(self, value=None):
@@ -4089,7 +3991,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -4113,7 +4015,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `mode_of_operation` or None if not set
         """
-        return self._data["Mode of Operation"]
+        return self["Mode of Operation"]
 
     @mode_of_operation.setter
     def mode_of_operation(self, value="Subcritical"):
@@ -4137,7 +4039,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `transcritical_compressor_power_curve_name` or None if not set
         """
-        return self._data["Transcritical Compressor Power Curve Name"]
+        return self["Transcritical Compressor Power Curve Name"]
 
     @transcritical_compressor_power_curve_name.setter
     def transcritical_compressor_power_curve_name(self, value=None):
@@ -4160,7 +4062,7 @@ class RefrigerationCompressor(DataObject):
         Returns:
             str: the value of `transcritical_compressor_capacity_curve_name` or None if not set
         """
-        return self._data["Transcritical Compressor Capacity Curve Name"]
+        return self["Transcritical Compressor Capacity Curve Name"]
 
     @transcritical_compressor_capacity_curve_name.setter
     def transcritical_compressor_capacity_curve_name(self, value=None):
@@ -4188,15 +4090,6 @@ class RefrigerationCompressorList(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'Refrigeration:CompressorList', 'pyname': u'RefrigerationCompressorList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'refrigeration compressor 1 name', {'name': u'Refrigeration Compressor 1 Name', 'pyname': u'refrigeration_compressor_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:CompressorList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4204,7 +4097,7 @@ class RefrigerationCompressorList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4234,13 +4127,13 @@ class RefrigerationCompressorList(DataObject):
         vals = []
         refrigeration_compressor_1_name = self.check_value("Refrigeration Compressor 1 Name", refrigeration_compressor_1_name)
         vals.append(refrigeration_compressor_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class RefrigerationSystem(DataObject):
@@ -4249,16 +4142,7 @@ class RefrigerationSystem(DataObject):
         other objects to define the refrigeration load(s), the compressor(s), and the
         condenser.
     """
-    schema = {'min-fields': 7, 'name': u'Refrigeration:System', 'pyname': u'RefrigerationSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration transfer load or transferload list name', {'name': u'Refrigeration Transfer Load or TransferLoad List Name', 'pyname': u'refrigeration_transfer_load_or_transferload_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration condenser name', {'name': u'Refrigeration Condenser Name', 'pyname': u'refrigeration_condenser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor or compressorlist name', {'name': u'Compressor or CompressorList Name', 'pyname': u'compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'suction temperature control type', {'name': u'Suction Temperature Control Type', 'pyname': u'suction_temperature_control_type', 'default': u'ConstantSuctionTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical subcooler name', {'name': u'Mechanical Subcooler Name', 'pyname': u'mechanical_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'liquid suction heat exchanger subcooler name', {'name': u'Liquid Suction Heat Exchanger Subcooler Name', 'pyname': u'liquid_suction_heat_exchanger_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping', {'name': u'Sum UA Suction Piping', 'pyname': u'sum_ua_suction_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'suction piping zone name', {'name': u'Suction Piping Zone Name', 'pyname': u'suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of compressor stages', {'name': u'Number of Compressor Stages', 'pyname': u'number_of_compressor_stages', 'default': u'1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'int'}), (u'intercooler type', {'name': u'Intercooler Type', 'pyname': u'intercooler_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'shell-and-coil intercooler effectiveness', {'name': u'Shell-and-Coil Intercooler Effectiveness', 'pyname': u'shellandcoil_intercooler_effectiveness', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'high-stage compressor or compressorlist name', {'name': u'High-Stage Compressor or CompressorList Name', 'pyname': u'highstage_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:System`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'Refrigeration:System', 'pyname': u'RefrigerationSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration transfer load or transferload list name', {'name': u'Refrigeration Transfer Load or TransferLoad List Name', 'pyname': u'refrigeration_transfer_load_or_transferload_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration condenser name', {'name': u'Refrigeration Condenser Name', 'pyname': u'refrigeration_condenser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor or compressorlist name', {'name': u'Compressor or CompressorList Name', 'pyname': u'compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'suction temperature control type', {'name': u'Suction Temperature Control Type', 'pyname': u'suction_temperature_control_type', 'default': u'ConstantSuctionTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FloatSuctionTemperature', u'ConstantSuctionTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical subcooler name', {'name': u'Mechanical Subcooler Name', 'pyname': u'mechanical_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'liquid suction heat exchanger subcooler name', {'name': u'Liquid Suction Heat Exchanger Subcooler Name', 'pyname': u'liquid_suction_heat_exchanger_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping', {'name': u'Sum UA Suction Piping', 'pyname': u'sum_ua_suction_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'suction piping zone name', {'name': u'Suction Piping Zone Name', 'pyname': u'suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of compressor stages', {'name': u'Number of Compressor Stages', 'pyname': u'number_of_compressor_stages', 'default': u'1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'1', u'2'], 'autocalculatable': False, 'type': 'int'}), (u'intercooler type', {'name': u'Intercooler Type', 'pyname': u'intercooler_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Flash Intercooler', u'Shell-and-Coil Intercooler'], 'autocalculatable': False, 'type': 'alpha'}), (u'shell-and-coil intercooler effectiveness', {'name': u'Shell-and-Coil Intercooler Effectiveness', 'pyname': u'shellandcoil_intercooler_effectiveness', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'high-stage compressor or compressorlist name', {'name': u'High-Stage Compressor or CompressorList Name', 'pyname': u'highstage_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4267,7 +4151,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4290,7 +4174,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
         """
-        return self._data["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
+        return self["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
     @refrigerated_case_or_walkin_or_caseandwalkinlist_name.setter
     def refrigerated_case_or_walkin_or_caseandwalkinlist_name(self, value=None):
@@ -4318,7 +4202,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `refrigeration_transfer_load_or_transferload_list_name` or None if not set
         """
-        return self._data["Refrigeration Transfer Load or TransferLoad List Name"]
+        return self["Refrigeration Transfer Load or TransferLoad List Name"]
 
     @refrigeration_transfer_load_or_transferload_list_name.setter
     def refrigeration_transfer_load_or_transferload_list_name(self, value=None):
@@ -4347,7 +4231,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `refrigeration_condenser_name` or None if not set
         """
-        return self._data["Refrigeration Condenser Name"]
+        return self["Refrigeration Condenser Name"]
 
     @refrigeration_condenser_name.setter
     def refrigeration_condenser_name(self, value=None):
@@ -4370,7 +4254,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `compressor_or_compressorlist_name` or None if not set
         """
-        return self._data["Compressor or CompressorList Name"]
+        return self["Compressor or CompressorList Name"]
 
     @compressor_or_compressorlist_name.setter
     def compressor_or_compressorlist_name(self, value=None):
@@ -4393,7 +4277,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             float: the value of `minimum_condensing_temperature` or None if not set
         """
-        return self._data["Minimum Condensing Temperature"]
+        return self["Minimum Condensing Temperature"]
 
     @minimum_condensing_temperature.setter
     def minimum_condensing_temperature(self, value=None):
@@ -4419,7 +4303,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `refrigeration_system_working_fluid_type` or None if not set
         """
-        return self._data["Refrigeration System Working Fluid Type"]
+        return self["Refrigeration System Working Fluid Type"]
 
     @refrigeration_system_working_fluid_type.setter
     def refrigeration_system_working_fluid_type(self, value=None):
@@ -4447,7 +4331,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `suction_temperature_control_type` or None if not set
         """
-        return self._data["Suction Temperature Control Type"]
+        return self["Suction Temperature Control Type"]
 
     @suction_temperature_control_type.setter
     def suction_temperature_control_type(self, value="ConstantSuctionTemperature"):
@@ -4471,7 +4355,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `mechanical_subcooler_name` or None if not set
         """
-        return self._data["Mechanical Subcooler Name"]
+        return self["Mechanical Subcooler Name"]
 
     @mechanical_subcooler_name.setter
     def mechanical_subcooler_name(self, value=None):
@@ -4497,7 +4381,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `liquid_suction_heat_exchanger_subcooler_name` or None if not set
         """
-        return self._data["Liquid Suction Heat Exchanger Subcooler Name"]
+        return self["Liquid Suction Heat Exchanger Subcooler Name"]
 
     @liquid_suction_heat_exchanger_subcooler_name.setter
     def liquid_suction_heat_exchanger_subcooler_name(self, value=None):
@@ -4522,7 +4406,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             float: the value of `sum_ua_suction_piping` or None if not set
         """
-        return self._data["Sum UA Suction Piping"]
+        return self["Sum UA Suction Piping"]
 
     @sum_ua_suction_piping.setter
     def sum_ua_suction_piping(self, value=None):
@@ -4547,7 +4431,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `suction_piping_zone_name` or None if not set
         """
-        return self._data["Suction Piping Zone Name"]
+        return self["Suction Piping Zone Name"]
 
     @suction_piping_zone_name.setter
     def suction_piping_zone_name(self, value=None):
@@ -4573,7 +4457,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -4597,7 +4481,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `number_of_compressor_stages` or None if not set
         """
-        return self._data["Number of Compressor Stages"]
+        return self["Number of Compressor Stages"]
 
     @number_of_compressor_stages.setter
     def number_of_compressor_stages(self, value="1"):
@@ -4621,7 +4505,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `intercooler_type` or None if not set
         """
-        return self._data["Intercooler Type"]
+        return self["Intercooler Type"]
 
     @intercooler_type.setter
     def intercooler_type(self, value="None"):
@@ -4645,7 +4529,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             float: the value of `shellandcoil_intercooler_effectiveness` or None if not set
         """
-        return self._data["Shell-and-Coil Intercooler Effectiveness"]
+        return self["Shell-and-Coil Intercooler Effectiveness"]
 
     @shellandcoil_intercooler_effectiveness.setter
     def shellandcoil_intercooler_effectiveness(self, value=0.8):
@@ -4669,7 +4553,7 @@ class RefrigerationSystem(DataObject):
         Returns:
             str: the value of `highstage_compressor_or_compressorlist_name` or None if not set
         """
-        return self._data["High-Stage Compressor or CompressorList Name"]
+        return self["High-Stage Compressor or CompressorList Name"]
 
     @highstage_compressor_or_compressorlist_name.setter
     def highstage_compressor_or_compressorlist_name(self, value=None):
@@ -4693,16 +4577,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         medium-temperature loads or a two stage system with both medium- and low-temperature
         loads.
     """
-    schema = {'min-fields': 0, 'name': u'Refrigeration:TranscriticalSystem', 'pyname': u'RefrigerationTranscriticalSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'system type', {'name': u'System Type', 'pyname': u'system_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'medium temperature refrigerated case or walkin or caseandwalkinlist name', {'name': u'Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low temperature refrigerated case or walkin or caseandwalkinlist name', {'name': u'Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration gas cooler name', {'name': u'Refrigeration Gas Cooler Name', 'pyname': u'refrigeration_gas_cooler_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high pressure compressor or compressorlist name', {'name': u'High Pressure Compressor or CompressorList Name', 'pyname': u'high_pressure_compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low pressure compressor or compressorlist name', {'name': u'Low Pressure Compressor or CompressorList Name', 'pyname': u'low_pressure_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'receiver pressure', {'name': u'Receiver Pressure', 'pyname': u'receiver_pressure', 'default': 4000000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'subcooler effectiveness', {'name': u'Subcooler Effectiveness', 'pyname': u'subcooler_effectiveness', 'default': 0.4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping for medium temperature loads', {'name': u'Sum UA Suction Piping for Medium Temperature Loads', 'pyname': u'sum_ua_suction_piping_for_medium_temperature_loads', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'medium temperature suction piping zone name', {'name': u'Medium Temperature Suction Piping Zone Name', 'pyname': u'medium_temperature_suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping for low temperature loads', {'name': u'Sum UA Suction Piping for Low Temperature Loads', 'pyname': u'sum_ua_suction_piping_for_low_temperature_loads', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'low temperature suction piping zone name', {'name': u'Low Temperature Suction Piping Zone Name', 'pyname': u'low_temperature_suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:TranscriticalSystem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Refrigeration:TranscriticalSystem', 'pyname': u'RefrigerationTranscriticalSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'system type', {'name': u'System Type', 'pyname': u'system_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SingleStage', u'TwoStage'], 'autocalculatable': False, 'type': 'alpha'}), (u'medium temperature refrigerated case or walkin or caseandwalkinlist name', {'name': u'Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low temperature refrigerated case or walkin or caseandwalkinlist name', {'name': u'Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration gas cooler name', {'name': u'Refrigeration Gas Cooler Name', 'pyname': u'refrigeration_gas_cooler_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high pressure compressor or compressorlist name', {'name': u'High Pressure Compressor or CompressorList Name', 'pyname': u'high_pressure_compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low pressure compressor or compressorlist name', {'name': u'Low Pressure Compressor or CompressorList Name', 'pyname': u'low_pressure_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'receiver pressure', {'name': u'Receiver Pressure', 'pyname': u'receiver_pressure', 'default': 4000000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'subcooler effectiveness', {'name': u'Subcooler Effectiveness', 'pyname': u'subcooler_effectiveness', 'default': 0.4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping for medium temperature loads', {'name': u'Sum UA Suction Piping for Medium Temperature Loads', 'pyname': u'sum_ua_suction_piping_for_medium_temperature_loads', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'medium temperature suction piping zone name', {'name': u'Medium Temperature Suction Piping Zone Name', 'pyname': u'medium_temperature_suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping for low temperature loads', {'name': u'Sum UA Suction Piping for Low Temperature Loads', 'pyname': u'sum_ua_suction_piping_for_low_temperature_loads', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'low temperature suction piping zone name', {'name': u'Low Temperature Suction Piping Zone Name', 'pyname': u'low_temperature_suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4711,7 +4586,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4734,7 +4609,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `system_type` or None if not set
         """
-        return self._data["System Type"]
+        return self["System Type"]
 
     @system_type.setter
     def system_type(self, value=None):
@@ -4757,7 +4632,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
         """
-        return self._data["Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
+        return self["Medium Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
     @medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name.setter
     def medium_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name(self, value=None):
@@ -4785,7 +4660,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
         """
-        return self._data["Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
+        return self["Low Temperature Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
     @low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name.setter
     def low_temperature_refrigerated_case_or_walkin_or_caseandwalkinlist_name(self, value=None):
@@ -4813,7 +4688,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `refrigeration_gas_cooler_name` or None if not set
         """
-        return self._data["Refrigeration Gas Cooler Name"]
+        return self["Refrigeration Gas Cooler Name"]
 
     @refrigeration_gas_cooler_name.setter
     def refrigeration_gas_cooler_name(self, value=None):
@@ -4836,7 +4711,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `high_pressure_compressor_or_compressorlist_name` or None if not set
         """
-        return self._data["High Pressure Compressor or CompressorList Name"]
+        return self["High Pressure Compressor or CompressorList Name"]
 
     @high_pressure_compressor_or_compressorlist_name.setter
     def high_pressure_compressor_or_compressorlist_name(self, value=None):
@@ -4859,7 +4734,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `low_pressure_compressor_or_compressorlist_name` or None if not set
         """
-        return self._data["Low Pressure Compressor or CompressorList Name"]
+        return self["Low Pressure Compressor or CompressorList Name"]
 
     @low_pressure_compressor_or_compressorlist_name.setter
     def low_pressure_compressor_or_compressorlist_name(self, value=None):
@@ -4882,7 +4757,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             float: the value of `receiver_pressure` or None if not set
         """
-        return self._data["Receiver Pressure"]
+        return self["Receiver Pressure"]
 
     @receiver_pressure.setter
     def receiver_pressure(self, value=4000000.0):
@@ -4907,7 +4782,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             float: the value of `subcooler_effectiveness` or None if not set
         """
-        return self._data["Subcooler Effectiveness"]
+        return self["Subcooler Effectiveness"]
 
     @subcooler_effectiveness.setter
     def subcooler_effectiveness(self, value=0.4):
@@ -4931,7 +4806,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `refrigeration_system_working_fluid_type` or None if not set
         """
-        return self._data["Refrigeration System Working Fluid Type"]
+        return self["Refrigeration System Working Fluid Type"]
 
     @refrigeration_system_working_fluid_type.setter
     def refrigeration_system_working_fluid_type(self, value=None):
@@ -4959,7 +4834,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             float: the value of `sum_ua_suction_piping_for_medium_temperature_loads` or None if not set
         """
-        return self._data["Sum UA Suction Piping for Medium Temperature Loads"]
+        return self["Sum UA Suction Piping for Medium Temperature Loads"]
 
     @sum_ua_suction_piping_for_medium_temperature_loads.setter
     def sum_ua_suction_piping_for_medium_temperature_loads(self, value=None):
@@ -4984,7 +4859,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `medium_temperature_suction_piping_zone_name` or None if not set
         """
-        return self._data["Medium Temperature Suction Piping Zone Name"]
+        return self["Medium Temperature Suction Piping Zone Name"]
 
     @medium_temperature_suction_piping_zone_name.setter
     def medium_temperature_suction_piping_zone_name(self, value=None):
@@ -5010,7 +4885,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             float: the value of `sum_ua_suction_piping_for_low_temperature_loads` or None if not set
         """
-        return self._data["Sum UA Suction Piping for Low Temperature Loads"]
+        return self["Sum UA Suction Piping for Low Temperature Loads"]
 
     @sum_ua_suction_piping_for_low_temperature_loads.setter
     def sum_ua_suction_piping_for_low_temperature_loads(self, value=None):
@@ -5035,7 +4910,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `low_temperature_suction_piping_zone_name` or None if not set
         """
-        return self._data["Low Temperature Suction Piping Zone Name"]
+        return self["Low Temperature Suction Piping Zone Name"]
 
     @low_temperature_suction_piping_zone_name.setter
     def low_temperature_suction_piping_zone_name(self, value=None):
@@ -5061,7 +4936,7 @@ class RefrigerationTranscriticalSystem(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -5087,16 +4962,7 @@ class RefrigerationSecondarySystem(DataObject):
         (Refrigeration:System). The SecondarySystem object simulates a heat exchanger that
         is an evaporator, or refrigeration load, on the primary refrigeration system.
     """
-    schema = {'min-fields': 14, 'name': u'Refrigeration:SecondarySystem', 'pyname': u'RefrigerationSecondarySystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'circulating fluid type', {'name': u'Circulating Fluid Type', 'pyname': u'circulating_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'circulating fluid name', {'name': u'Circulating Fluid Name', 'pyname': u'circulating_fluid_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporator capacity', {'name': u'Evaporator Capacity', 'pyname': u'evaporator_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'evaporator flow rate for secondary fluid', {'name': u'Evaporator Flow Rate for Secondary Fluid', 'pyname': u'evaporator_flow_rate_for_secondary_fluid', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'M3/s'}), (u'evaporator evaporating temperature', {'name': u'Evaporator Evaporating Temperature', 'pyname': u'evaporator_evaporating_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'evaporator approach temperature difference', {'name': u'Evaporator Approach Temperature Difference', 'pyname': u'evaporator_approach_temperature_difference', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'evaporator range temperature difference', {'name': u'Evaporator Range Temperature Difference', 'pyname': u'evaporator_range_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'number of pumps in loop', {'name': u'Number of Pumps in Loop', 'pyname': u'number_of_pumps_in_loop', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'total pump flow rate', {'name': u'Total Pump Flow Rate', 'pyname': u'total_pump_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'M3/s'}), (u'total pump power', {'name': u'Total Pump Power', 'pyname': u'total_pump_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'total pump head', {'name': u'Total Pump Head', 'pyname': u'total_pump_head', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'phasechange circulating rate', {'name': u'PhaseChange Circulating Rate', 'pyname': u'phasechange_circulating_rate', 'default': 2.5, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'pump drive type', {'name': u'Pump Drive Type', 'pyname': u'pump_drive_type', 'default': u'Constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable speed pump cubic curve name', {'name': u'Variable Speed Pump Cubic Curve Name', 'pyname': u'variable_speed_pump_cubic_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump motor heat to fluid', {'name': u'Pump Motor Heat to Fluid', 'pyname': u'pump_motor_heat_to_fluid', 'default': 0.85, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sum ua distribution piping', {'name': u'Sum UA Distribution Piping', 'pyname': u'sum_ua_distribution_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'distribution piping zone name', {'name': u'Distribution Piping Zone Name', 'pyname': u'distribution_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua receiver/separator shell', {'name': u'Sum UA Receiver/Separator Shell', 'pyname': u'sum_ua_receiver_or_separator_shell', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'receiver/separator zone name', {'name': u'Receiver/Separator Zone Name', 'pyname': u'receiver_or_separator_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporator refrigerant inventory', {'name': u'Evaporator Refrigerant Inventory', 'pyname': u'evaporator_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:SecondarySystem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 14, 'name': u'Refrigeration:SecondarySystem', 'pyname': u'RefrigerationSecondarySystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'circulating fluid type', {'name': u'Circulating Fluid Type', 'pyname': u'circulating_fluid_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'FluidAlwaysLiquid', u'FluidPhaseChange'], 'autocalculatable': False, 'type': 'alpha'}), (u'circulating fluid name', {'name': u'Circulating Fluid Name', 'pyname': u'circulating_fluid_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporator capacity', {'name': u'Evaporator Capacity', 'pyname': u'evaporator_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'evaporator flow rate for secondary fluid', {'name': u'Evaporator Flow Rate for Secondary Fluid', 'pyname': u'evaporator_flow_rate_for_secondary_fluid', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'M3/s'}), (u'evaporator evaporating temperature', {'name': u'Evaporator Evaporating Temperature', 'pyname': u'evaporator_evaporating_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'evaporator approach temperature difference', {'name': u'Evaporator Approach Temperature Difference', 'pyname': u'evaporator_approach_temperature_difference', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'evaporator range temperature difference', {'name': u'Evaporator Range Temperature Difference', 'pyname': u'evaporator_range_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'DeltaC'}), (u'number of pumps in loop', {'name': u'Number of Pumps in Loop', 'pyname': u'number_of_pumps_in_loop', 'default': 1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'total pump flow rate', {'name': u'Total Pump Flow Rate', 'pyname': u'total_pump_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'M3/s'}), (u'total pump power', {'name': u'Total Pump Power', 'pyname': u'total_pump_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'total pump head', {'name': u'Total Pump Head', 'pyname': u'total_pump_head', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'phasechange circulating rate', {'name': u'PhaseChange Circulating Rate', 'pyname': u'phasechange_circulating_rate', 'default': 2.5, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'pump drive type', {'name': u'Pump Drive Type', 'pyname': u'pump_drive_type', 'default': u'Constant', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Variable'], 'autocalculatable': False, 'type': 'alpha'}), (u'variable speed pump cubic curve name', {'name': u'Variable Speed Pump Cubic Curve Name', 'pyname': u'variable_speed_pump_cubic_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump motor heat to fluid', {'name': u'Pump Motor Heat to Fluid', 'pyname': u'pump_motor_heat_to_fluid', 'default': 0.85, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.5, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'sum ua distribution piping', {'name': u'Sum UA Distribution Piping', 'pyname': u'sum_ua_distribution_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'distribution piping zone name', {'name': u'Distribution Piping Zone Name', 'pyname': u'distribution_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua receiver/separator shell', {'name': u'Sum UA Receiver/Separator Shell', 'pyname': u'sum_ua_receiver_or_separator_shell', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'receiver/separator zone name', {'name': u'Receiver/Separator Zone Name', 'pyname': u'receiver_or_separator_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'evaporator refrigerant inventory', {'name': u'Evaporator Refrigerant Inventory', 'pyname': u'evaporator_refrigerant_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -5105,7 +4971,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5128,7 +4994,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `refrigerated_case_or_walkin_or_caseandwalkinlist_name` or None if not set
         """
-        return self._data["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
+        return self["Refrigerated Case or Walkin or CaseAndWalkInList Name"]
 
     @refrigerated_case_or_walkin_or_caseandwalkinlist_name.setter
     def refrigerated_case_or_walkin_or_caseandwalkinlist_name(self, value=None):
@@ -5154,7 +5020,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `circulating_fluid_type` or None if not set
         """
-        return self._data["Circulating Fluid Type"]
+        return self["Circulating Fluid Type"]
 
     @circulating_fluid_type.setter
     def circulating_fluid_type(self, value=None):
@@ -5187,7 +5053,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `circulating_fluid_name` or None if not set
         """
-        return self._data["Circulating Fluid Name"]
+        return self["Circulating Fluid Name"]
 
     @circulating_fluid_name.setter
     def circulating_fluid_name(self, value=None):
@@ -5211,7 +5077,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_capacity` or None if not set
         """
-        return self._data["Evaporator Capacity"]
+        return self["Evaporator Capacity"]
 
     @evaporator_capacity.setter
     def evaporator_capacity(self, value=None):
@@ -5239,7 +5105,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_flow_rate_for_secondary_fluid` or None if not set
         """
-        return self._data["Evaporator Flow Rate for Secondary Fluid"]
+        return self["Evaporator Flow Rate for Secondary Fluid"]
 
     @evaporator_flow_rate_for_secondary_fluid.setter
     def evaporator_flow_rate_for_secondary_fluid(self, value=None):
@@ -5267,7 +5133,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_evaporating_temperature` or None if not set
         """
-        return self._data["Evaporator Evaporating Temperature"]
+        return self["Evaporator Evaporating Temperature"]
 
     @evaporator_evaporating_temperature.setter
     def evaporator_evaporating_temperature(self, value=None):
@@ -5295,7 +5161,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_approach_temperature_difference` or None if not set
         """
-        return self._data["Evaporator Approach Temperature Difference"]
+        return self["Evaporator Approach Temperature Difference"]
 
     @evaporator_approach_temperature_difference.setter
     def evaporator_approach_temperature_difference(self, value=None):
@@ -5324,7 +5190,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_range_temperature_difference` or None if not set
         """
-        return self._data["Evaporator Range Temperature Difference"]
+        return self["Evaporator Range Temperature Difference"]
 
     @evaporator_range_temperature_difference.setter
     def evaporator_range_temperature_difference(self, value=None):
@@ -5352,7 +5218,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             int: the value of `number_of_pumps_in_loop` or None if not set
         """
-        return self._data["Number of Pumps in Loop"]
+        return self["Number of Pumps in Loop"]
 
     @number_of_pumps_in_loop.setter
     def number_of_pumps_in_loop(self, value=1):
@@ -5376,7 +5242,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `total_pump_flow_rate` or None if not set
         """
-        return self._data["Total Pump Flow Rate"]
+        return self["Total Pump Flow Rate"]
 
     @total_pump_flow_rate.setter
     def total_pump_flow_rate(self, value=None):
@@ -5404,7 +5270,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `total_pump_power` or None if not set
         """
-        return self._data["Total Pump Power"]
+        return self["Total Pump Power"]
 
     @total_pump_power.setter
     def total_pump_power(self, value=None):
@@ -5429,7 +5295,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `total_pump_head` or None if not set
         """
-        return self._data["Total Pump Head"]
+        return self["Total Pump Head"]
 
     @total_pump_head.setter
     def total_pump_head(self, value=None):
@@ -5454,7 +5320,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `phasechange_circulating_rate` or None if not set
         """
-        return self._data["PhaseChange Circulating Rate"]
+        return self["PhaseChange Circulating Rate"]
 
     @phasechange_circulating_rate.setter
     def phasechange_circulating_rate(self, value=2.5):
@@ -5482,7 +5348,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `pump_drive_type` or None if not set
         """
-        return self._data["Pump Drive Type"]
+        return self["Pump Drive Type"]
 
     @pump_drive_type.setter
     def pump_drive_type(self, value="Constant"):
@@ -5506,7 +5372,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `variable_speed_pump_cubic_curve_name` or None if not set
         """
-        return self._data["Variable Speed Pump Cubic Curve Name"]
+        return self["Variable Speed Pump Cubic Curve Name"]
 
     @variable_speed_pump_cubic_curve_name.setter
     def variable_speed_pump_cubic_curve_name(self, value=None):
@@ -5531,7 +5397,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `pump_motor_heat_to_fluid` or None if not set
         """
-        return self._data["Pump Motor Heat to Fluid"]
+        return self["Pump Motor Heat to Fluid"]
 
     @pump_motor_heat_to_fluid.setter
     def pump_motor_heat_to_fluid(self, value=0.85):
@@ -5561,7 +5427,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `sum_ua_distribution_piping` or None if not set
         """
-        return self._data["Sum UA Distribution Piping"]
+        return self["Sum UA Distribution Piping"]
 
     @sum_ua_distribution_piping.setter
     def sum_ua_distribution_piping(self, value=None):
@@ -5586,7 +5452,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `distribution_piping_zone_name` or None if not set
         """
-        return self._data["Distribution Piping Zone Name"]
+        return self["Distribution Piping Zone Name"]
 
     @distribution_piping_zone_name.setter
     def distribution_piping_zone_name(self, value=None):
@@ -5612,7 +5478,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `sum_ua_receiver_or_separator_shell` or None if not set
         """
-        return self._data["Sum UA Receiver/Separator Shell"]
+        return self["Sum UA Receiver/Separator Shell"]
 
     @sum_ua_receiver_or_separator_shell.setter
     def sum_ua_receiver_or_separator_shell(self, value=None):
@@ -5637,7 +5503,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `receiver_or_separator_zone_name` or None if not set
         """
-        return self._data["Receiver/Separator Zone Name"]
+        return self["Receiver/Separator Zone Name"]
 
     @receiver_or_separator_zone_name.setter
     def receiver_or_separator_zone_name(self, value=None):
@@ -5663,7 +5529,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             float: the value of `evaporator_refrigerant_inventory` or None if not set
         """
-        return self._data["Evaporator Refrigerant Inventory"]
+        return self["Evaporator Refrigerant Inventory"]
 
     @evaporator_refrigerant_inventory.setter
     def evaporator_refrigerant_inventory(self, value=None):
@@ -5690,7 +5556,7 @@ class RefrigerationSecondarySystem(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -5716,16 +5582,7 @@ class RefrigerationWalkIn(DataObject):
         descriptions for heat transfer surfaces facing multiple zones to determine
         performance.
     """
-    schema = {'min-fields': 28, 'name': u'Refrigeration:WalkIn', 'pyname': u'RefrigerationWalkIn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated coil cooling capacity', {'name': u'Rated Coil Cooling Capacity', 'pyname': u'rated_coil_cooling_capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'operating temperature', {'name': u'Operating Temperature', 'pyname': u'operating_temperature', 'maximum<': 20.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated cooling source temperature', {'name': u'Rated Cooling Source Temperature', 'pyname': u'rated_cooling_source_temperature', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated total heating power', {'name': u'Rated Total Heating Power', 'pyname': u'rated_total_heating_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating power schedule name', {'name': u'Heating Power Schedule Name', 'pyname': u'heating_power_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated cooling coil fan power', {'name': u'Rated Cooling Coil Fan Power', 'pyname': u'rated_cooling_coil_fan_power', 'default': 375.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated circulation fan power', {'name': u'Rated Circulation Fan Power', 'pyname': u'rated_circulation_fan_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated total lighting power', {'name': u'Rated Total Lighting Power', 'pyname': u'rated_total_lighting_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'lighting schedule name', {'name': u'Lighting Schedule Name', 'pyname': u'lighting_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost type', {'name': u'Defrost Type', 'pyname': u'defrost_type', 'default': u'Electric', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost control type', {'name': u'Defrost Control Type', 'pyname': u'defrost_control_type', 'default': u'TimeSchedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost schedule name', {'name': u'Defrost Schedule Name', 'pyname': u'defrost_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost drip-down schedule name', {'name': u'Defrost Drip-Down Schedule Name', 'pyname': u'defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost power', {'name': u'Defrost Power', 'pyname': u'defrost_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature termination defrost fraction to ice', {'name': u'Temperature Termination Defrost Fraction to Ice', 'pyname': u'temperature_termination_defrost_fraction_to_ice', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'restocking schedule name', {'name': u'Restocking Schedule Name', 'pyname': u'restocking_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'insulated floor surface area', {'name': u'Insulated Floor Surface Area', 'pyname': u'insulated_floor_surface_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'insulated floor u-value', {'name': u'Insulated Floor U-Value', 'pyname': u'insulated_floor_uvalue', 'default': 0.3154, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total insulated surface area facing zone 1', {'name': u'Total Insulated Surface Area Facing Zone 1', 'pyname': u'total_insulated_surface_area_facing_zone_1', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'insulated surface u-value facing zone 1', {'name': u'Insulated Surface U-Value Facing Zone 1', 'pyname': u'insulated_surface_uvalue_facing_zone_1', 'default': 0.3154, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'area of glass reach in doors facing zone 1', {'name': u'Area of Glass Reach In Doors Facing Zone 1', 'pyname': u'area_of_glass_reach_in_doors_facing_zone_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'height of glass reach in doors facing zone 1', {'name': u'Height of Glass Reach In Doors Facing Zone 1', 'pyname': u'height_of_glass_reach_in_doors_facing_zone_1', 'default': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'glass reach in door u value facing zone 1', {'name': u'Glass Reach In Door U Value Facing Zone 1', 'pyname': u'glass_reach_in_door_u_value_facing_zone_1', 'default': 1.136, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'glass reach in door opening schedule name facing zone 1', {'name': u'Glass Reach In Door Opening Schedule Name Facing Zone 1', 'pyname': u'glass_reach_in_door_opening_schedule_name_facing_zone_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'area of stocking doors facing zone 1', {'name': u'Area of Stocking Doors Facing Zone 1', 'pyname': u'area_of_stocking_doors_facing_zone_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'height of stocking doors facing zone 1', {'name': u'Height of Stocking Doors Facing Zone 1', 'pyname': u'height_of_stocking_doors_facing_zone_1', 'default': 3.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'stocking door u value facing zone 1', {'name': u'Stocking Door U Value Facing Zone 1', 'pyname': u'stocking_door_u_value_facing_zone_1', 'default': 0.3785, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'stocking door opening schedule name facing zone 1', {'name': u'Stocking Door Opening Schedule Name Facing Zone 1', 'pyname': u'stocking_door_opening_schedule_name_facing_zone_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'stocking door opening protection type facing zone 1', {'name': u'Stocking Door Opening Protection Type Facing Zone 1', 'pyname': u'stocking_door_opening_protection_type_facing_zone_1', 'default': u'AirCurtain', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:WalkIn`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 28, 'name': u'Refrigeration:WalkIn', 'pyname': u'RefrigerationWalkIn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated coil cooling capacity', {'name': u'Rated Coil Cooling Capacity', 'pyname': u'rated_coil_cooling_capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'operating temperature', {'name': u'Operating Temperature', 'pyname': u'operating_temperature', 'maximum<': 20.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated cooling source temperature', {'name': u'Rated Cooling Source Temperature', 'pyname': u'rated_cooling_source_temperature', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated total heating power', {'name': u'Rated Total Heating Power', 'pyname': u'rated_total_heating_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating power schedule name', {'name': u'Heating Power Schedule Name', 'pyname': u'heating_power_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated cooling coil fan power', {'name': u'Rated Cooling Coil Fan Power', 'pyname': u'rated_cooling_coil_fan_power', 'default': 375.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated circulation fan power', {'name': u'Rated Circulation Fan Power', 'pyname': u'rated_circulation_fan_power', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated total lighting power', {'name': u'Rated Total Lighting Power', 'pyname': u'rated_total_lighting_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'lighting schedule name', {'name': u'Lighting Schedule Name', 'pyname': u'lighting_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost type', {'name': u'Defrost Type', 'pyname': u'defrost_type', 'default': u'Electric', 'required-field': False, 'autosizable': False, 'accepted-values': [u'HotFluid', u'Electric', u'None', u'OffCycle'], 'autocalculatable': False, 'type': 'alpha'}), (u'defrost control type', {'name': u'Defrost Control Type', 'pyname': u'defrost_control_type', 'default': u'TimeSchedule', 'required-field': False, 'autosizable': False, 'accepted-values': [u'TimeSchedule', u'TemperatureTermination'], 'autocalculatable': False, 'type': 'alpha'}), (u'defrost schedule name', {'name': u'Defrost Schedule Name', 'pyname': u'defrost_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost drip-down schedule name', {'name': u'Defrost Drip-Down Schedule Name', 'pyname': u'defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost power', {'name': u'Defrost Power', 'pyname': u'defrost_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature termination defrost fraction to ice', {'name': u'Temperature Termination Defrost Fraction to Ice', 'pyname': u'temperature_termination_defrost_fraction_to_ice', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'restocking schedule name', {'name': u'Restocking Schedule Name', 'pyname': u'restocking_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'}), (u'insulated floor surface area', {'name': u'Insulated Floor Surface Area', 'pyname': u'insulated_floor_surface_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'insulated floor u-value', {'name': u'Insulated Floor U-Value', 'pyname': u'insulated_floor_uvalue', 'default': 0.3154, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'total insulated surface area facing zone 1', {'name': u'Total Insulated Surface Area Facing Zone 1', 'pyname': u'total_insulated_surface_area_facing_zone_1', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'insulated surface u-value facing zone 1', {'name': u'Insulated Surface U-Value Facing Zone 1', 'pyname': u'insulated_surface_uvalue_facing_zone_1', 'default': 0.3154, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'area of glass reach in doors facing zone 1', {'name': u'Area of Glass Reach In Doors Facing Zone 1', 'pyname': u'area_of_glass_reach_in_doors_facing_zone_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'height of glass reach in doors facing zone 1', {'name': u'Height of Glass Reach In Doors Facing Zone 1', 'pyname': u'height_of_glass_reach_in_doors_facing_zone_1', 'default': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'glass reach in door u value facing zone 1', {'name': u'Glass Reach In Door U Value Facing Zone 1', 'pyname': u'glass_reach_in_door_u_value_facing_zone_1', 'default': 1.136, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'glass reach in door opening schedule name facing zone 1', {'name': u'Glass Reach In Door Opening Schedule Name Facing Zone 1', 'pyname': u'glass_reach_in_door_opening_schedule_name_facing_zone_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'area of stocking doors facing zone 1', {'name': u'Area of Stocking Doors Facing Zone 1', 'pyname': u'area_of_stocking_doors_facing_zone_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'height of stocking doors facing zone 1', {'name': u'Height of Stocking Doors Facing Zone 1', 'pyname': u'height_of_stocking_doors_facing_zone_1', 'default': 3.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'stocking door u value facing zone 1', {'name': u'Stocking Door U Value Facing Zone 1', 'pyname': u'stocking_door_u_value_facing_zone_1', 'default': 0.3785, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'stocking door opening schedule name facing zone 1', {'name': u'Stocking Door Opening Schedule Name Facing Zone 1', 'pyname': u'stocking_door_opening_schedule_name_facing_zone_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'stocking door opening protection type facing zone 1', {'name': u'Stocking Door Opening Protection Type Facing Zone 1', 'pyname': u'stocking_door_opening_protection_type_facing_zone_1', 'default': u'AirCurtain', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'AirCurtain', u'StripCurtain'], 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -5734,7 +5591,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5757,7 +5614,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -5782,7 +5639,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_coil_cooling_capacity` or None if not set
         """
-        return self._data["Rated Coil Cooling Capacity"]
+        return self["Rated Coil Cooling Capacity"]
 
     @rated_coil_cooling_capacity.setter
     def rated_coil_cooling_capacity(self, value=None):
@@ -5806,7 +5663,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `operating_temperature` or None if not set
         """
-        return self._data["Operating Temperature"]
+        return self["Operating Temperature"]
 
     @operating_temperature.setter
     def operating_temperature(self, value=None):
@@ -5831,7 +5688,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_cooling_source_temperature` or None if not set
         """
-        return self._data["Rated Cooling Source Temperature"]
+        return self["Rated Cooling Source Temperature"]
 
     @rated_cooling_source_temperature.setter
     def rated_cooling_source_temperature(self, value=None):
@@ -5861,7 +5718,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_total_heating_power` or None if not set
         """
-        return self._data["Rated Total Heating Power"]
+        return self["Rated Total Heating Power"]
 
     @rated_total_heating_power.setter
     def rated_total_heating_power(self, value=None):
@@ -5887,7 +5744,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `heating_power_schedule_name` or None if not set
         """
-        return self._data["Heating Power Schedule Name"]
+        return self["Heating Power Schedule Name"]
 
     @heating_power_schedule_name.setter
     def heating_power_schedule_name(self, value=None):
@@ -5915,7 +5772,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_cooling_coil_fan_power` or None if not set
         """
-        return self._data["Rated Cooling Coil Fan Power"]
+        return self["Rated Cooling Coil Fan Power"]
 
     @rated_cooling_coil_fan_power.setter
     def rated_cooling_coil_fan_power(self, value=375.0):
@@ -5940,7 +5797,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_circulation_fan_power` or None if not set
         """
-        return self._data["Rated Circulation Fan Power"]
+        return self["Rated Circulation Fan Power"]
 
     @rated_circulation_fan_power.setter
     def rated_circulation_fan_power(self, value=None):
@@ -5964,7 +5821,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `rated_total_lighting_power` or None if not set
         """
-        return self._data["Rated Total Lighting Power"]
+        return self["Rated Total Lighting Power"]
 
     @rated_total_lighting_power.setter
     def rated_total_lighting_power(self, value=None):
@@ -5989,7 +5846,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `lighting_schedule_name` or None if not set
         """
-        return self._data["Lighting Schedule Name"]
+        return self["Lighting Schedule Name"]
 
     @lighting_schedule_name.setter
     def lighting_schedule_name(self, value=None):
@@ -6014,7 +5871,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `defrost_type` or None if not set
         """
-        return self._data["Defrost Type"]
+        return self["Defrost Type"]
 
     @defrost_type.setter
     def defrost_type(self, value="Electric"):
@@ -6040,7 +5897,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `defrost_control_type` or None if not set
         """
-        return self._data["Defrost Control Type"]
+        return self["Defrost Control Type"]
 
     @defrost_control_type.setter
     def defrost_control_type(self, value="TimeSchedule"):
@@ -6064,7 +5921,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `defrost_schedule_name` or None if not set
         """
-        return self._data["Defrost Schedule Name"]
+        return self["Defrost Schedule Name"]
 
     @defrost_schedule_name.setter
     def defrost_schedule_name(self, value=None):
@@ -6088,7 +5945,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `defrost_dripdown_schedule_name` or None if not set
         """
-        return self._data["Defrost Drip-Down Schedule Name"]
+        return self["Defrost Drip-Down Schedule Name"]
 
     @defrost_dripdown_schedule_name.setter
     def defrost_dripdown_schedule_name(self, value=None):
@@ -6117,7 +5974,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `defrost_power` or None if not set
         """
-        return self._data["Defrost Power"]
+        return self["Defrost Power"]
 
     @defrost_power.setter
     def defrost_power(self, value=None):
@@ -6142,7 +5999,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `temperature_termination_defrost_fraction_to_ice` or None if not set
         """
-        return self._data["Temperature Termination Defrost Fraction to Ice"]
+        return self["Temperature Termination Defrost Fraction to Ice"]
 
     @temperature_termination_defrost_fraction_to_ice.setter
     def temperature_termination_defrost_fraction_to_ice(self, value=None):
@@ -6170,7 +6027,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             str: the value of `restocking_schedule_name` or None if not set
         """
-        return self._data["Restocking Schedule Name"]
+        return self["Restocking Schedule Name"]
 
     @restocking_schedule_name.setter
     def restocking_schedule_name(self, value=None):
@@ -6195,7 +6052,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `average_refrigerant_charge_inventory` or None if not set
         """
-        return self._data["Average Refrigerant Charge Inventory"]
+        return self["Average Refrigerant Charge Inventory"]
 
     @average_refrigerant_charge_inventory.setter
     def average_refrigerant_charge_inventory(self, value=None):
@@ -6220,7 +6077,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `insulated_floor_surface_area` or None if not set
         """
-        return self._data["Insulated Floor Surface Area"]
+        return self["Insulated Floor Surface Area"]
 
     @insulated_floor_surface_area.setter
     def insulated_floor_surface_area(self, value=None):
@@ -6245,7 +6102,7 @@ class RefrigerationWalkIn(DataObject):
         Returns:
             float: the value of `insulated_floor_uvalue` or None if not set
         """
-        return self._data["Insulated Floor U-Value"]
+        return self["Insulated Floor U-Value"]
 
     @insulated_floor_uvalue.setter
     def insulated_floor_uvalue(self, value=0.3154):
@@ -6373,13 +6230,13 @@ class RefrigerationWalkIn(DataObject):
         vals.append(stocking_door_opening_schedule_name_facing_zone_1)
         stocking_door_opening_protection_type_facing_zone_1 = self.check_value("Stocking Door Opening Protection Type Facing Zone 1", stocking_door_opening_protection_type_facing_zone_1)
         vals.append(stocking_door_opening_protection_type_facing_zone_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class RefrigerationAirChiller(DataObject):
@@ -6391,16 +6248,7 @@ class RefrigerationAirChiller(DataObject):
         type. The air chiller model accounts for the sensible and latent heat exchange
         with the surrounding environment.
     """
-    schema = {'min-fields': 23, 'name': u'Refrigeration:AirChiller', 'pyname': u'RefrigerationAirChiller', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity rating type', {'name': u'Capacity Rating Type', 'pyname': u'capacity_rating_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated unit load factor', {'name': u'Rated Unit Load Factor', 'pyname': u'rated_unit_load_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated relative humidity', {'name': u'Rated Relative Humidity', 'pyname': u'rated_relative_humidity', 'default': 85.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'rated cooling source temperature', {'name': u'Rated Cooling Source Temperature', 'pyname': u'rated_cooling_source_temperature', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated temperature difference dt1', {'name': u'Rated Temperature Difference DT1', 'pyname': u'rated_temperature_difference_dt1', 'maximum': 20.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature difference between inlet air and evaporating temperature', {'name': u'Maximum Temperature Difference Between Inlet Air and Evaporating Temperature', 'pyname': u'maximum_temperature_difference_between_inlet_air_and_evaporating_temperature', 'maximum': 25.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'coil material correction factor', {'name': u'Coil Material Correction Factor', 'pyname': u'coil_material_correction_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'refrigerant correction factor', {'name': u'Refrigerant Correction Factor', 'pyname': u'refrigerant_correction_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'capacity correction curve type', {'name': u'Capacity Correction Curve Type', 'pyname': u'capacity_correction_curve_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'capacity correction curve name', {'name': u'Capacity Correction Curve Name', 'pyname': u'capacity_correction_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shr60 correction factor', {'name': u'SHR60 Correction Factor', 'pyname': u'shr60_correction_factor', 'default': 1.48, 'maximum': 1.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'rated total heating power', {'name': u'Rated Total Heating Power', 'pyname': u'rated_total_heating_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating power schedule name', {'name': u'Heating Power Schedule Name', 'pyname': u'heating_power_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan speed control type', {'name': u'Fan Speed Control Type', 'pyname': u'fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 375.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated air flow', {'name': u'Rated Air Flow', 'pyname': u'rated_air_flow', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'defrost type', {'name': u'Defrost Type', 'pyname': u'defrost_type', 'default': u'Electric', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost control type', {'name': u'Defrost Control Type', 'pyname': u'defrost_control_type', 'default': u'TimeSchedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'defrost schedule name', {'name': u'Defrost Schedule Name', 'pyname': u'defrost_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost drip-down schedule name', {'name': u'Defrost Drip-Down Schedule Name', 'pyname': u'defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost power', {'name': u'Defrost Power', 'pyname': u'defrost_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature termination defrost fraction to ice', {'name': u'Temperature Termination Defrost Fraction to Ice', 'pyname': u'temperature_termination_defrost_fraction_to_ice', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'vertical location', {'name': u'Vertical Location', 'pyname': u'vertical_location', 'default': u'Middle', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Refrigeration:AirChiller`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 23, 'name': u'Refrigeration:AirChiller', 'pyname': u'RefrigerationAirChiller', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity rating type', {'name': u'Capacity Rating Type', 'pyname': u'capacity_rating_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'UnitLoadFactorSensibleOnly', u'CapacityTotalSpecificConditions', u'EuropeanSC1Standard', u'EuropeanSC1NominalWet', u'EuropeanSC2Standard', u'EuropeanSC2NominalWet', u'EuropeanSC3Standard', u'FixedLinear', u'EuropeanSC3NominalWet', u'EuropeanSC4Standard', u'EuropeanSC4NominalWet', u'EuropeanSC5Standard', u'EuropeanSC5NominalWet'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated unit load factor', {'name': u'Rated Unit Load Factor', 'pyname': u'rated_unit_load_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated relative humidity', {'name': u'Rated Relative Humidity', 'pyname': u'rated_relative_humidity', 'default': 85.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'rated cooling source temperature', {'name': u'Rated Cooling Source Temperature', 'pyname': u'rated_cooling_source_temperature', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'rated temperature difference dt1', {'name': u'Rated Temperature Difference DT1', 'pyname': u'rated_temperature_difference_dt1', 'maximum': 20.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature difference between inlet air and evaporating temperature', {'name': u'Maximum Temperature Difference Between Inlet Air and Evaporating Temperature', 'pyname': u'maximum_temperature_difference_between_inlet_air_and_evaporating_temperature', 'maximum': 25.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'coil material correction factor', {'name': u'Coil Material Correction Factor', 'pyname': u'coil_material_correction_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'refrigerant correction factor', {'name': u'Refrigerant Correction Factor', 'pyname': u'refrigerant_correction_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'capacity correction curve type', {'name': u'Capacity Correction Curve Type', 'pyname': u'capacity_correction_curve_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearSHR60', u'QuadraticSHR', u'European', u'TabularRHxDT1xTRoom'], 'autocalculatable': False, 'type': 'alpha'}), (u'capacity correction curve name', {'name': u'Capacity Correction Curve Name', 'pyname': u'capacity_correction_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shr60 correction factor', {'name': u'SHR60 Correction Factor', 'pyname': u'shr60_correction_factor', 'default': 1.48, 'maximum': 1.67, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'rated total heating power', {'name': u'Rated Total Heating Power', 'pyname': u'rated_total_heating_power', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating power schedule name', {'name': u'Heating Power Schedule Name', 'pyname': u'heating_power_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan speed control type', {'name': u'Fan Speed Control Type', 'pyname': u'fan_speed_control_type', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'FixedLinear', u'VariableSpeed', u'TwoSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'default': 375.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated air flow', {'name': u'Rated Air Flow', 'pyname': u'rated_air_flow', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum fan air flow ratio', {'name': u'Minimum Fan Air Flow Ratio', 'pyname': u'minimum_fan_air_flow_ratio', 'default': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'defrost type', {'name': u'Defrost Type', 'pyname': u'defrost_type', 'default': u'Electric', 'required-field': False, 'autosizable': False, 'accepted-values': [u'HotFluid', u'Electric', u'None', u'OffCycle'], 'autocalculatable': False, 'type': 'alpha'}), (u'defrost control type', {'name': u'Defrost Control Type', 'pyname': u'defrost_control_type', 'default': u'TimeSchedule', 'required-field': False, 'autosizable': False, 'accepted-values': [u'TimeSchedule', u'TemperatureTermination'], 'autocalculatable': False, 'type': 'alpha'}), (u'defrost schedule name', {'name': u'Defrost Schedule Name', 'pyname': u'defrost_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost drip-down schedule name', {'name': u'Defrost Drip-Down Schedule Name', 'pyname': u'defrost_dripdown_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'defrost power', {'name': u'Defrost Power', 'pyname': u'defrost_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'temperature termination defrost fraction to ice', {'name': u'Temperature Termination Defrost Fraction to Ice', 'pyname': u'temperature_termination_defrost_fraction_to_ice', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'vertical location', {'name': u'Vertical Location', 'pyname': u'vertical_location', 'default': u'Middle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Ceiling', u'Middle', u'Floor'], 'autocalculatable': False, 'type': 'alpha'}), (u'average refrigerant charge inventory', {'name': u'Average Refrigerant Charge Inventory', 'pyname': u'average_refrigerant_charge_inventory', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -6409,7 +6257,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6432,7 +6280,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -6457,7 +6305,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `capacity_rating_type` or None if not set
         """
-        return self._data["Capacity Rating Type"]
+        return self["Capacity Rating Type"]
 
     @capacity_rating_type.setter
     def capacity_rating_type(self, value=None):
@@ -6484,7 +6332,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_unit_load_factor` or None if not set
         """
-        return self._data["Rated Unit Load Factor"]
+        return self["Rated Unit Load Factor"]
 
     @rated_unit_load_factor.setter
     def rated_unit_load_factor(self, value=None):
@@ -6514,7 +6362,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_capacity` or None if not set
         """
-        return self._data["Rated Capacity"]
+        return self["Rated Capacity"]
 
     @rated_capacity.setter
     def rated_capacity(self, value=None):
@@ -6544,7 +6392,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_relative_humidity` or None if not set
         """
-        return self._data["Rated Relative Humidity"]
+        return self["Rated Relative Humidity"]
 
     @rated_relative_humidity.setter
     def rated_relative_humidity(self, value=85.0):
@@ -6572,7 +6420,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_cooling_source_temperature` or None if not set
         """
-        return self._data["Rated Cooling Source Temperature"]
+        return self["Rated Cooling Source Temperature"]
 
     @rated_cooling_source_temperature.setter
     def rated_cooling_source_temperature(self, value=None):
@@ -6602,7 +6450,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_temperature_difference_dt1` or None if not set
         """
-        return self._data["Rated Temperature Difference DT1"]
+        return self["Rated Temperature Difference DT1"]
 
     @rated_temperature_difference_dt1.setter
     def rated_temperature_difference_dt1(self, value=None):
@@ -6629,7 +6477,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `maximum_temperature_difference_between_inlet_air_and_evaporating_temperature` or None if not set
         """
-        return self._data["Maximum Temperature Difference Between Inlet Air and Evaporating Temperature"]
+        return self["Maximum Temperature Difference Between Inlet Air and Evaporating Temperature"]
 
     @maximum_temperature_difference_between_inlet_air_and_evaporating_temperature.setter
     def maximum_temperature_difference_between_inlet_air_and_evaporating_temperature(self, value=None):
@@ -6657,7 +6505,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `coil_material_correction_factor` or None if not set
         """
-        return self._data["Coil Material Correction Factor"]
+        return self["Coil Material Correction Factor"]
 
     @coil_material_correction_factor.setter
     def coil_material_correction_factor(self, value=1.0):
@@ -6683,7 +6531,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `refrigerant_correction_factor` or None if not set
         """
-        return self._data["Refrigerant Correction Factor"]
+        return self["Refrigerant Correction Factor"]
 
     @refrigerant_correction_factor.setter
     def refrigerant_correction_factor(self, value=1.0):
@@ -6709,7 +6557,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `capacity_correction_curve_type` or None if not set
         """
-        return self._data["Capacity Correction Curve Type"]
+        return self["Capacity Correction Curve Type"]
 
     @capacity_correction_curve_type.setter
     def capacity_correction_curve_type(self, value=None):
@@ -6734,7 +6582,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `capacity_correction_curve_name` or None if not set
         """
-        return self._data["Capacity Correction Curve Name"]
+        return self["Capacity Correction Curve Name"]
 
     @capacity_correction_curve_name.setter
     def capacity_correction_curve_name(self, value=None):
@@ -6760,7 +6608,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `shr60_correction_factor` or None if not set
         """
-        return self._data["SHR60 Correction Factor"]
+        return self["SHR60 Correction Factor"]
 
     @shr60_correction_factor.setter
     def shr60_correction_factor(self, value=1.48):
@@ -6787,7 +6635,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_total_heating_power` or None if not set
         """
-        return self._data["Rated Total Heating Power"]
+        return self["Rated Total Heating Power"]
 
     @rated_total_heating_power.setter
     def rated_total_heating_power(self, value=None):
@@ -6813,7 +6661,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `heating_power_schedule_name` or None if not set
         """
-        return self._data["Heating Power Schedule Name"]
+        return self["Heating Power Schedule Name"]
 
     @heating_power_schedule_name.setter
     def heating_power_schedule_name(self, value=None):
@@ -6839,7 +6687,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `fan_speed_control_type` or None if not set
         """
-        return self._data["Fan Speed Control Type"]
+        return self["Fan Speed Control Type"]
 
     @fan_speed_control_type.setter
     def fan_speed_control_type(self, value="Fixed"):
@@ -6863,7 +6711,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_fan_power` or None if not set
         """
-        return self._data["Rated Fan Power"]
+        return self["Rated Fan Power"]
 
     @rated_fan_power.setter
     def rated_fan_power(self, value=375.0):
@@ -6888,7 +6736,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `rated_air_flow` or None if not set
         """
-        return self._data["Rated Air Flow"]
+        return self["Rated Air Flow"]
 
     @rated_air_flow.setter
     def rated_air_flow(self, value=None):
@@ -6912,7 +6760,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `minimum_fan_air_flow_ratio` or None if not set
         """
-        return self._data["Minimum Fan Air Flow Ratio"]
+        return self["Minimum Fan Air Flow Ratio"]
 
     @minimum_fan_air_flow_ratio.setter
     def minimum_fan_air_flow_ratio(self, value=0.2):
@@ -6938,7 +6786,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `defrost_type` or None if not set
         """
-        return self._data["Defrost Type"]
+        return self["Defrost Type"]
 
     @defrost_type.setter
     def defrost_type(self, value="Electric"):
@@ -6964,7 +6812,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `defrost_control_type` or None if not set
         """
-        return self._data["Defrost Control Type"]
+        return self["Defrost Control Type"]
 
     @defrost_control_type.setter
     def defrost_control_type(self, value="TimeSchedule"):
@@ -6988,7 +6836,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `defrost_schedule_name` or None if not set
         """
-        return self._data["Defrost Schedule Name"]
+        return self["Defrost Schedule Name"]
 
     @defrost_schedule_name.setter
     def defrost_schedule_name(self, value=None):
@@ -7012,7 +6860,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `defrost_dripdown_schedule_name` or None if not set
         """
-        return self._data["Defrost Drip-Down Schedule Name"]
+        return self["Defrost Drip-Down Schedule Name"]
 
     @defrost_dripdown_schedule_name.setter
     def defrost_dripdown_schedule_name(self, value=None):
@@ -7041,7 +6889,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `defrost_power` or None if not set
         """
-        return self._data["Defrost Power"]
+        return self["Defrost Power"]
 
     @defrost_power.setter
     def defrost_power(self, value=None):
@@ -7066,7 +6914,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `temperature_termination_defrost_fraction_to_ice` or None if not set
         """
-        return self._data["Temperature Termination Defrost Fraction to Ice"]
+        return self["Temperature Termination Defrost Fraction to Ice"]
 
     @temperature_termination_defrost_fraction_to_ice.setter
     def temperature_termination_defrost_fraction_to_ice(self, value=None):
@@ -7094,7 +6942,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             str: the value of `vertical_location` or None if not set
         """
-        return self._data["Vertical Location"]
+        return self["Vertical Location"]
 
     @vertical_location.setter
     def vertical_location(self, value="Middle"):
@@ -7118,7 +6966,7 @@ class RefrigerationAirChiller(DataObject):
         Returns:
             float: the value of `average_refrigerant_charge_inventory` or None if not set
         """
-        return self._data["Average Refrigerant Charge Inventory"]
+        return self["Average Refrigerant Charge Inventory"]
 
     @average_refrigerant_charge_inventory.setter
     def average_refrigerant_charge_inventory(self, value=None):
@@ -7148,15 +6996,6 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
     """
     schema = {'min-fields': 6, 'name': u'ZoneHVAC:RefrigerationChillerSet', 'pyname': u'ZoneHvacRefrigerationChillerSet', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'air chiller  name', {'name': u'Air Chiller  Name', 'pyname': u'air_chiller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:RefrigerationChillerSet`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -7164,7 +7003,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -7187,7 +7026,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -7212,7 +7051,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -7236,7 +7075,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -7263,7 +7102,7 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -7296,13 +7135,13 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         vals = []
         air_chiller_name = self.check_value("Air Chiller  Name", air_chiller_name)
         vals.append(air_chiller_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class MatrixTwoDimension(DataObject):
@@ -7313,15 +7152,6 @@ class MatrixTwoDimension(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Matrix:TwoDimension', 'pyname': u'MatrixTwoDimension', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of rows', {'name': u'Number of Rows', 'pyname': u'number_of_rows', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'number of columns', {'name': u'Number of Columns', 'pyname': u'number_of_columns', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'value', {'name': u'Value', 'pyname': u'value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Matrix:TwoDimension`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -7329,7 +7159,7 @@ class MatrixTwoDimension(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -7352,7 +7182,7 @@ class MatrixTwoDimension(DataObject):
         Returns:
             int: the value of `number_of_rows` or None if not set
         """
-        return self._data["Number of Rows"]
+        return self["Number of Rows"]
 
     @number_of_rows.setter
     def number_of_rows(self, value=None):
@@ -7375,7 +7205,7 @@ class MatrixTwoDimension(DataObject):
         Returns:
             int: the value of `number_of_columns` or None if not set
         """
-        return self._data["Number of Columns"]
+        return self["Number of Columns"]
 
     @number_of_columns.setter
     def number_of_columns(self, value=None):
@@ -7405,10 +7235,10 @@ class MatrixTwoDimension(DataObject):
         vals = []
         value = self.check_value("Value", value)
         vals.append(value)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

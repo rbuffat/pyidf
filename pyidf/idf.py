@@ -8,6 +8,7 @@ Do not expect (yet) that it actually works!
 Generation date: 2014-12-04
 
 """
+import six
 import re
 import logging
 from collections import OrderedDict
@@ -68,12 +69,12 @@ from energyplus import *
 from electric_load_center import *
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
 
 
 class IDF(object):
-    """ Represens an EnergyPlus IDF input file
+    """ Represents an EnergyPlus IDF input file
     """
 
     required_objects = ["building", "globalgeometryrules"]
@@ -6234,7 +6235,21 @@ class IDF(object):
         raise ValueError("No DataDictionary known for {}".format(internal_name))
 
     def __getitem__(self, val):
-        self._data[val]
+        if isinstance(val, six.string_types):
+            return self._data[val.lower()]
+        elif isinstance(val, int):
+            i = 0
+            for objs in self._data.values():
+                for obj in objs:
+                    i += 1
+                    if i  == val:
+                        return obj
+    
+    def __len__(self):
+        count = 0
+        for objs in self._data.values():
+            count += len(objs)
+        return count
 
     def __iter__(self):
         for val in self._data.values():

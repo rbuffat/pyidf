@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -15,15 +16,6 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
     """
     schema = {'min-fields': 4, 'name': u'AirTerminal:SingleDuct:Uncontrolled', 'pyname': u'AirTerminalSingleDuctUncontrolled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone supply air node name', {'name': u'Zone Supply Air Node Name', 'pyname': u'zone_supply_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:Uncontrolled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -31,7 +23,7 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -79,7 +71,7 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
         Returns:
             str: the value of `zone_supply_air_node_name` or None if not set
         """
-        return self._data["Zone Supply Air Node Name"]
+        return self["Zone Supply Air Node Name"]
 
     @zone_supply_air_node_name.setter
     def zone_supply_air_node_name(self, value=None):
@@ -102,7 +94,7 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -125,16 +117,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Central air system terminal unit, single duct, constant volume, with reheat coil (hot
         water, electric, gas, or steam).
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ConstantVolume:Reheat', 'pyname': u'AirTerminalSingleDuctConstantVolumeReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ConstantVolume:Reheat', 'pyname': u'AirTerminalSingleDuctConstantVolumeReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -143,7 +126,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -166,7 +149,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -191,7 +174,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -214,7 +197,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -237,7 +220,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -261,7 +244,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -287,7 +270,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -310,7 +293,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -333,7 +316,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -359,7 +342,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -385,7 +368,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -409,7 +392,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         Returns:
             float: the value of `maximum_reheat_air_temperature` or None if not set
         """
-        return self._data["Maximum Reheat Air Temperature"]
+        return self["Maximum Reheat Air Temperature"]
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
@@ -433,16 +416,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:NoReheat`
         Central air system terminal unit, single duct, variable volume, with no reheat coil.
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:NoReheat', 'pyname': u'AirTerminalSingleDuctVavNoReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow input method', {'name': u'Zone Minimum Air Flow Input Method', 'pyname': u'zone_minimum_air_flow_input_method', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'constant minimum air flow fraction', {'name': u'Constant Minimum Air Flow Fraction', 'pyname': u'constant_minimum_air_flow_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fixed minimum air flow rate', {'name': u'Fixed Minimum Air Flow Rate', 'pyname': u'fixed_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum air flow fraction schedule name', {'name': u'Minimum Air Flow Fraction Schedule Name', 'pyname': u'minimum_air_flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:NoReheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:NoReheat', 'pyname': u'AirTerminalSingleDuctVavNoReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow input method', {'name': u'Zone Minimum Air Flow Input Method', 'pyname': u'zone_minimum_air_flow_input_method', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Constant', u'FixedFlowRate', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'constant minimum air flow fraction', {'name': u'Constant Minimum Air Flow Fraction', 'pyname': u'constant_minimum_air_flow_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fixed minimum air flow rate', {'name': u'Fixed Minimum Air Flow Rate', 'pyname': u'fixed_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum air flow fraction schedule name', {'name': u'Minimum Air Flow Fraction Schedule Name', 'pyname': u'minimum_air_flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -451,7 +425,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -474,7 +448,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -499,7 +473,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -522,7 +496,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -545,7 +519,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -569,7 +543,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `zone_minimum_air_flow_input_method` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Input Method"]
+        return self["Zone Minimum Air Flow Input Method"]
 
     @zone_minimum_air_flow_input_method.setter
     def zone_minimum_air_flow_input_method(self, value=None):
@@ -595,7 +569,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Constant Minimum Air Flow Fraction"]
+        return self["Constant Minimum Air Flow Fraction"]
 
     @constant_minimum_air_flow_fraction.setter
     def constant_minimum_air_flow_fraction(self, value=None):
@@ -622,7 +596,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             float: the value of `fixed_minimum_air_flow_rate` or None if not set
         """
-        return self._data["Fixed Minimum Air Flow Rate"]
+        return self["Fixed Minimum Air Flow Rate"]
 
     @fixed_minimum_air_flow_rate.setter
     def fixed_minimum_air_flow_rate(self, value=None):
@@ -650,7 +624,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `minimum_air_flow_fraction_schedule_name` or None if not set
         """
-        return self._data["Minimum Air Flow Fraction Schedule Name"]
+        return self["Minimum Air Flow Fraction Schedule Name"]
 
     @minimum_air_flow_fraction_schedule_name.setter
     def minimum_air_flow_fraction_schedule_name(self, value=None):
@@ -677,7 +651,7 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
         """
-        return self._data["Design Specification Outdoor Air Object Name"]
+        return self["Design Specification Outdoor Air Object Name"]
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
@@ -705,16 +679,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Central air system terminal unit, single duct, variable volume, with reheat coil (hot
         water, electric, gas, or steam).
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:Reheat', 'pyname': u'AirTerminalSingleDuctVavReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'damper air outlet node name', {'name': u'Damper Air Outlet Node Name', 'pyname': u'damper_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow input method', {'name': u'Zone Minimum Air Flow Input Method', 'pyname': u'zone_minimum_air_flow_input_method', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'constant minimum air flow fraction', {'name': u'Constant Minimum Air Flow Fraction', 'pyname': u'constant_minimum_air_flow_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fixed minimum air flow rate', {'name': u'Fixed Minimum Air Flow Rate', 'pyname': u'fixed_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum air flow fraction schedule name', {'name': u'Minimum Air Flow Fraction Schedule Name', 'pyname': u'minimum_air_flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'damper heating action', {'name': u'Damper Heating Action', 'pyname': u'damper_heating_action', 'default': u'Normal', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow per zone floor area during reheat', {'name': u'Maximum Flow per Zone Floor Area During Reheat', 'pyname': u'maximum_flow_per_zone_floor_area_during_reheat', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s-m2'}), (u'maximum flow fraction during reheat', {'name': u'Maximum Flow Fraction During Reheat', 'pyname': u'maximum_flow_fraction_during_reheat', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:Reheat', 'pyname': u'AirTerminalSingleDuctVavReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'damper air outlet node name', {'name': u'Damper Air Outlet Node Name', 'pyname': u'damper_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow input method', {'name': u'Zone Minimum Air Flow Input Method', 'pyname': u'zone_minimum_air_flow_input_method', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Constant', u'FixedFlowRate', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'constant minimum air flow fraction', {'name': u'Constant Minimum Air Flow Fraction', 'pyname': u'constant_minimum_air_flow_fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fixed minimum air flow rate', {'name': u'Fixed Minimum Air Flow Rate', 'pyname': u'fixed_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum air flow fraction schedule name', {'name': u'Minimum Air Flow Fraction Schedule Name', 'pyname': u'minimum_air_flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'damper heating action', {'name': u'Damper Heating Action', 'pyname': u'damper_heating_action', 'default': u'Normal', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Normal', u'Reverse'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow per zone floor area during reheat', {'name': u'Maximum Flow per Zone Floor Area During Reheat', 'pyname': u'maximum_flow_per_zone_floor_area_during_reheat', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s-m2'}), (u'maximum flow fraction during reheat', {'name': u'Maximum Flow Fraction During Reheat', 'pyname': u'maximum_flow_fraction_during_reheat', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -723,7 +688,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -746,7 +711,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -771,7 +736,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `damper_air_outlet_node_name` or None if not set
         """
-        return self._data["Damper Air Outlet Node Name"]
+        return self["Damper Air Outlet Node Name"]
 
     @damper_air_outlet_node_name.setter
     def damper_air_outlet_node_name(self, value=None):
@@ -796,7 +761,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -820,7 +785,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -844,7 +809,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `zone_minimum_air_flow_input_method` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Input Method"]
+        return self["Zone Minimum Air Flow Input Method"]
 
     @zone_minimum_air_flow_input_method.setter
     def zone_minimum_air_flow_input_method(self, value=None):
@@ -870,7 +835,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `constant_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Constant Minimum Air Flow Fraction"]
+        return self["Constant Minimum Air Flow Fraction"]
 
     @constant_minimum_air_flow_fraction.setter
     def constant_minimum_air_flow_fraction(self, value=None):
@@ -897,7 +862,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `fixed_minimum_air_flow_rate` or None if not set
         """
-        return self._data["Fixed Minimum Air Flow Rate"]
+        return self["Fixed Minimum Air Flow Rate"]
 
     @fixed_minimum_air_flow_rate.setter
     def fixed_minimum_air_flow_rate(self, value=None):
@@ -925,7 +890,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `minimum_air_flow_fraction_schedule_name` or None if not set
         """
-        return self._data["Minimum Air Flow Fraction Schedule Name"]
+        return self["Minimum Air Flow Fraction Schedule Name"]
 
     @minimum_air_flow_fraction_schedule_name.setter
     def minimum_air_flow_fraction_schedule_name(self, value=None):
@@ -952,7 +917,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -975,7 +940,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -998,7 +963,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -1024,7 +989,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -1050,7 +1015,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -1075,7 +1040,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -1099,7 +1064,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `damper_heating_action` or None if not set
         """
-        return self._data["Damper Heating Action"]
+        return self["Damper Heating Action"]
 
     @damper_heating_action.setter
     def damper_heating_action(self, value="Normal"):
@@ -1123,7 +1088,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `maximum_flow_per_zone_floor_area_during_reheat` or None if not set
         """
-        return self._data["Maximum Flow per Zone Floor Area During Reheat"]
+        return self["Maximum Flow per Zone Floor Area During Reheat"]
 
     @maximum_flow_per_zone_floor_area_during_reheat.setter
     def maximum_flow_per_zone_floor_area_during_reheat(self, value=None):
@@ -1153,7 +1118,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `maximum_flow_fraction_during_reheat` or None if not set
         """
-        return self._data["Maximum Flow Fraction During Reheat"]
+        return self["Maximum Flow Fraction During Reheat"]
 
     @maximum_flow_fraction_during_reheat.setter
     def maximum_flow_fraction_during_reheat(self, value=None):
@@ -1184,7 +1149,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             float: the value of `maximum_reheat_air_temperature` or None if not set
         """
-        return self._data["Maximum Reheat Air Temperature"]
+        return self["Maximum Reheat Air Temperature"]
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
@@ -1210,7 +1175,7 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
         """
-        return self._data["Design Specification Outdoor Air Object Name"]
+        return self["Design Specification Outdoor Air Object Name"]
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
@@ -1241,16 +1206,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         low static pressure through an underfloor plenum. The fan is used to control the flow
         of conditioned air that enters the space.
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan', 'pyname': u'AirTerminalSingleDuctVavReheatVariableSpeedFan', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cooling air flow rate', {'name': u'Maximum Cooling Air Flow Rate', 'pyname': u'maximum_cooling_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum heating air flow rate', {'name': u'Maximum Heating Air Flow Rate', 'pyname': u'maximum_heating_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating coil air inlet node name', {'name': u'Heating Coil Air Inlet Node Name', 'pyname': u'heating_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan', 'pyname': u'AirTerminalSingleDuctVavReheatVariableSpeedFan', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cooling air flow rate', {'name': u'Maximum Cooling Air Flow Rate', 'pyname': u'maximum_cooling_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum heating air flow rate', {'name': u'Maximum Heating Air Flow Rate', 'pyname': u'maximum_heating_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating coil air inlet node name', {'name': u'Heating Coil Air Inlet Node Name', 'pyname': u'heating_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:VariableVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1259,7 +1215,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1282,7 +1238,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1307,7 +1263,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `maximum_cooling_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Cooling Air Flow Rate"]
+        return self["Maximum Cooling Air Flow Rate"]
 
     @maximum_cooling_air_flow_rate.setter
     def maximum_cooling_air_flow_rate(self, value=None):
@@ -1331,7 +1287,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `maximum_heating_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Heating Air Flow Rate"]
+        return self["Maximum Heating Air Flow Rate"]
 
     @maximum_heating_air_flow_rate.setter
     def maximum_heating_air_flow_rate(self, value=None):
@@ -1355,7 +1311,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `zone_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Fraction"]
+        return self["Zone Minimum Air Flow Fraction"]
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
@@ -1380,7 +1336,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -1406,7 +1362,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -1432,7 +1388,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `heating_coil_air_inlet_node_name` or None if not set
         """
-        return self._data["Heating Coil Air Inlet Node Name"]
+        return self["Heating Coil Air Inlet Node Name"]
 
     @heating_coil_air_inlet_node_name.setter
     def heating_coil_air_inlet_node_name(self, value=None):
@@ -1458,7 +1414,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -1484,7 +1440,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `fan_object_type` or None if not set
         """
-        return self._data["Fan Object Type"]
+        return self["Fan Object Type"]
 
     @fan_object_type.setter
     def fan_object_type(self, value=None):
@@ -1507,7 +1463,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -1530,7 +1486,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -1553,7 +1509,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -1576,7 +1532,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -1602,7 +1558,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -1628,7 +1584,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
         """
-        return self._data["Heating Convergence Tolerance"]
+        return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
@@ -1653,15 +1609,6 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
     """
     schema = {'min-fields': 6, 'name': u'AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat', 'pyname': u'AirTerminalSingleDuctVavHeatAndCoolNoReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1669,7 +1616,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1692,7 +1639,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1717,7 +1664,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -1742,7 +1689,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -1765,7 +1712,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -1789,7 +1736,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
         Returns:
             float: the value of `zone_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Fraction"]
+        return self["Zone Minimum Air Flow Fraction"]
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
@@ -1813,16 +1760,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Central air system terminal unit, single duct, variable volume for both cooling and
         heating, with reheat coil (hot water, electric, gas, or steam).
     """
-    schema = {'min-fields': 12, 'name': u'AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat', 'pyname': u'AirTerminalSingleDuctVavHeatAndCoolReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'damper air outlet node name', {'name': u'Damper Air Outlet Node Name', 'pyname': u'damper_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 12, 'name': u'AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat', 'pyname': u'AirTerminalSingleDuctVavHeatAndCoolReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'damper air outlet node name', {'name': u'Damper Air Outlet Node Name', 'pyname': u'damper_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum reheat air temperature', {'name': u'Maximum Reheat Air Temperature', 'pyname': u'maximum_reheat_air_temperature', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1831,7 +1769,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1854,7 +1792,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1879,7 +1817,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `damper_air_outlet_node_name` or None if not set
         """
-        return self._data["Damper Air Outlet Node Name"]
+        return self["Damper Air Outlet Node Name"]
 
     @damper_air_outlet_node_name.setter
     def damper_air_outlet_node_name(self, value=None):
@@ -1904,7 +1842,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -1928,7 +1866,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -1952,7 +1890,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `zone_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Fraction"]
+        return self["Zone Minimum Air Flow Fraction"]
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=None):
@@ -1977,7 +1915,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -2003,7 +1941,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -2026,7 +1964,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -2049,7 +1987,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -2075,7 +2013,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -2101,7 +2039,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -2126,7 +2064,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -2150,7 +2088,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
         Returns:
             float: the value of `maximum_reheat_air_temperature` or None if not set
         """
-        return self._data["Maximum Reheat Air Temperature"]
+        return self["Maximum Reheat Air Temperature"]
 
     @maximum_reheat_air_temperature.setter
     def maximum_reheat_air_temperature(self, value=None):
@@ -2175,16 +2113,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Central air system terminal unit, single duct, variable volume, series powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:SeriesPIU:Reheat', 'pyname': u'AirTerminalSingleDuctSeriesPiuReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum primary air flow rate', {'name': u'Maximum Primary Air Flow Rate', 'pyname': u'maximum_primary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum primary air flow fraction', {'name': u'Minimum Primary Air Flow Fraction', 'pyname': u'minimum_primary_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil air inlet node name', {'name': u'Reheat Coil Air Inlet Node Name', 'pyname': u'reheat_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:SeriesPIU:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:SeriesPIU:Reheat', 'pyname': u'AirTerminalSingleDuctSeriesPiuReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum primary air flow rate', {'name': u'Maximum Primary Air Flow Rate', 'pyname': u'maximum_primary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum primary air flow fraction', {'name': u'Minimum Primary Air Flow Fraction', 'pyname': u'minimum_primary_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil air inlet node name', {'name': u'Reheat Coil Air Inlet Node Name', 'pyname': u'reheat_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2193,7 +2122,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2216,7 +2145,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -2241,7 +2170,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -2265,7 +2194,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_primary_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Primary Air Flow Rate"]
+        return self["Maximum Primary Air Flow Rate"]
 
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
@@ -2289,7 +2218,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `minimum_primary_air_flow_fraction` or None if not set
         """
-        return self._data["Minimum Primary Air Flow Fraction"]
+        return self["Minimum Primary Air Flow Fraction"]
 
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
@@ -2313,7 +2242,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `supply_air_inlet_node_name` or None if not set
         """
-        return self._data["Supply Air Inlet Node Name"]
+        return self["Supply Air Inlet Node Name"]
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
@@ -2336,7 +2265,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Inlet Node Name"]
+        return self["Secondary Air Inlet Node Name"]
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
@@ -2359,7 +2288,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -2382,7 +2311,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_air_inlet_node_name` or None if not set
         """
-        return self._data["Reheat Coil Air Inlet Node Name"]
+        return self["Reheat Coil Air Inlet Node Name"]
 
     @reheat_coil_air_inlet_node_name.setter
     def reheat_coil_air_inlet_node_name(self, value=None):
@@ -2405,7 +2334,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `zone_mixer_name` or None if not set
         """
-        return self._data["Zone Mixer Name"]
+        return self["Zone Mixer Name"]
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
@@ -2428,7 +2357,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -2452,7 +2381,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -2475,7 +2404,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -2498,7 +2427,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -2524,7 +2453,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -2550,7 +2479,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -2576,7 +2505,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -2599,16 +2528,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Central air system terminal unit, single duct, variable volume, parallel powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ParallelPIU:Reheat', 'pyname': u'AirTerminalSingleDuctParallelPiuReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum primary air flow rate', {'name': u'Maximum Primary Air Flow Rate', 'pyname': u'maximum_primary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum secondary air flow rate', {'name': u'Maximum Secondary Air Flow Rate', 'pyname': u'maximum_secondary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum primary air flow fraction', {'name': u'Minimum Primary Air Flow Fraction', 'pyname': u'minimum_primary_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan on flow fraction', {'name': u'Fan On Flow Fraction', 'pyname': u'fan_on_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil air inlet node name', {'name': u'Reheat Coil Air Inlet Node Name', 'pyname': u'reheat_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ParallelPIU:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ParallelPIU:Reheat', 'pyname': u'AirTerminalSingleDuctParallelPiuReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum primary air flow rate', {'name': u'Maximum Primary Air Flow Rate', 'pyname': u'maximum_primary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum secondary air flow rate', {'name': u'Maximum Secondary Air Flow Rate', 'pyname': u'maximum_secondary_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum primary air flow fraction', {'name': u'Minimum Primary Air Flow Fraction', 'pyname': u'minimum_primary_air_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan on flow fraction', {'name': u'Fan On Flow Fraction', 'pyname': u'fan_on_flow_fraction', 'maximum': 1.0, 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reheat coil air inlet node name', {'name': u'Reheat Coil Air Inlet Node Name', 'pyname': u'reheat_coil_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reheat coil object type', {'name': u'Reheat Coil Object Type', 'pyname': u'reheat_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'reheat coil name', {'name': u'Reheat Coil Name', 'pyname': u'reheat_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'hot water or steam inlet node name', {'name': u'Hot Water or Steam Inlet Node Name', 'pyname': u'hot_water_or_steam_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence tolerance', {'name': u'Convergence Tolerance', 'pyname': u'convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2617,7 +2537,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2640,7 +2560,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -2665,7 +2585,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_primary_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Primary Air Flow Rate"]
+        return self["Maximum Primary Air Flow Rate"]
 
     @maximum_primary_air_flow_rate.setter
     def maximum_primary_air_flow_rate(self, value=None):
@@ -2689,7 +2609,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_secondary_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Secondary Air Flow Rate"]
+        return self["Maximum Secondary Air Flow Rate"]
 
     @maximum_secondary_air_flow_rate.setter
     def maximum_secondary_air_flow_rate(self, value=None):
@@ -2713,7 +2633,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `minimum_primary_air_flow_fraction` or None if not set
         """
-        return self._data["Minimum Primary Air Flow Fraction"]
+        return self["Minimum Primary Air Flow Fraction"]
 
     @minimum_primary_air_flow_fraction.setter
     def minimum_primary_air_flow_fraction(self, value=None):
@@ -2737,7 +2657,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `fan_on_flow_fraction` or None if not set
         """
-        return self._data["Fan On Flow Fraction"]
+        return self["Fan On Flow Fraction"]
 
     @fan_on_flow_fraction.setter
     def fan_on_flow_fraction(self, value=None):
@@ -2762,7 +2682,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `supply_air_inlet_node_name` or None if not set
         """
-        return self._data["Supply Air Inlet Node Name"]
+        return self["Supply Air Inlet Node Name"]
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
@@ -2785,7 +2705,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Inlet Node Name"]
+        return self["Secondary Air Inlet Node Name"]
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
@@ -2808,7 +2728,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -2831,7 +2751,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_air_inlet_node_name` or None if not set
         """
-        return self._data["Reheat Coil Air Inlet Node Name"]
+        return self["Reheat Coil Air Inlet Node Name"]
 
     @reheat_coil_air_inlet_node_name.setter
     def reheat_coil_air_inlet_node_name(self, value=None):
@@ -2855,7 +2775,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `zone_mixer_name` or None if not set
         """
-        return self._data["Zone Mixer Name"]
+        return self["Zone Mixer Name"]
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
@@ -2878,7 +2798,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -2902,7 +2822,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_object_type` or None if not set
         """
-        return self._data["Reheat Coil Object Type"]
+        return self["Reheat Coil Object Type"]
 
     @reheat_coil_object_type.setter
     def reheat_coil_object_type(self, value=None):
@@ -2925,7 +2845,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `reheat_coil_name` or None if not set
         """
-        return self._data["Reheat Coil Name"]
+        return self["Reheat Coil Name"]
 
     @reheat_coil_name.setter
     def reheat_coil_name(self, value=None):
@@ -2948,7 +2868,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water or Steam Flow Rate"]
+        return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
@@ -2974,7 +2894,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water or Steam Flow Rate"]
+        return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
@@ -3000,7 +2920,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             str: the value of `hot_water_or_steam_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water or Steam Inlet Node Name"]
+        return self["Hot Water or Steam Inlet Node Name"]
 
     @hot_water_or_steam_inlet_node_name.setter
     def hot_water_or_steam_inlet_node_name(self, value=None):
@@ -3026,7 +2946,7 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
         Returns:
             float: the value of `convergence_tolerance` or None if not set
         """
-        return self._data["Convergence Tolerance"]
+        return self["Convergence Tolerance"]
 
     @convergence_tolerance.setter
     def convergence_tolerance(self, value=0.001):
@@ -3049,16 +2969,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Central air system terminal unit, single duct, variable volume, induction unit with
         hot water reheat coil and chilled water recool coil.
     """
-    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction', 'pyname': u'AirTerminalSingleDuctConstantVolumeFourPipeInduction', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum total air flow rate', {'name': u'Maximum Total Air Flow Rate', 'pyname': u'maximum_total_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'induction ratio', {'name': u'Induction Ratio', 'pyname': u'induction_ratio', 'default': 2.5, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'induced air inlet node name', {'name': u'Induced Air Inlet Node Name', 'pyname': u'induced_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water inlet node name', {'name': u'Hot Water Inlet Node Name', 'pyname': u'hot_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold water inlet node name', {'name': u'Cold Water Inlet Node Name', 'pyname': u'cold_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water flow rate', {'name': u'Maximum Hot Water Flow Rate', 'pyname': u'maximum_hot_water_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water flow rate', {'name': u'Minimum Hot Water Flow Rate', 'pyname': u'minimum_hot_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cold water flow rate', {'name': u'Maximum Cold Water Flow Rate', 'pyname': u'maximum_cold_water_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum cold water flow rate', {'name': u'Minimum Cold Water Flow Rate', 'pyname': u'minimum_cold_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction', 'pyname': u'AirTerminalSingleDuctConstantVolumeFourPipeInduction', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum total air flow rate', {'name': u'Maximum Total Air Flow Rate', 'pyname': u'maximum_total_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'induction ratio', {'name': u'Induction Ratio', 'pyname': u'induction_ratio', 'default': 2.5, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'induced air inlet node name', {'name': u'Induced Air Inlet Node Name', 'pyname': u'induced_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot water inlet node name', {'name': u'Hot Water Inlet Node Name', 'pyname': u'hot_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold water inlet node name', {'name': u'Cold Water Inlet Node Name', 'pyname': u'cold_water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water flow rate', {'name': u'Maximum Hot Water Flow Rate', 'pyname': u'maximum_hot_water_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum hot water flow rate', {'name': u'Minimum Hot Water Flow Rate', 'pyname': u'minimum_hot_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cold water flow rate', {'name': u'Maximum Cold Water Flow Rate', 'pyname': u'maximum_cold_water_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum cold water flow rate', {'name': u'Minimum Cold Water Flow Rate', 'pyname': u'minimum_cold_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'zone mixer name', {'name': u'Zone Mixer Name', 'pyname': u'zone_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3067,7 +2978,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3090,7 +3001,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3115,7 +3026,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `maximum_total_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Total Air Flow Rate"]
+        return self["Maximum Total Air Flow Rate"]
 
     @maximum_total_air_flow_rate.setter
     def maximum_total_air_flow_rate(self, value=None):
@@ -3139,7 +3050,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `induction_ratio` or None if not set
         """
-        return self._data["Induction Ratio"]
+        return self["Induction Ratio"]
 
     @induction_ratio.setter
     def induction_ratio(self, value=2.5):
@@ -3164,7 +3075,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `supply_air_inlet_node_name` or None if not set
         """
-        return self._data["Supply Air Inlet Node Name"]
+        return self["Supply Air Inlet Node Name"]
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
@@ -3187,7 +3098,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `induced_air_inlet_node_name` or None if not set
         """
-        return self._data["Induced Air Inlet Node Name"]
+        return self["Induced Air Inlet Node Name"]
 
     @induced_air_inlet_node_name.setter
     def induced_air_inlet_node_name(self, value=None):
@@ -3211,7 +3122,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -3235,7 +3146,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `hot_water_inlet_node_name` or None if not set
         """
-        return self._data["Hot Water Inlet Node Name"]
+        return self["Hot Water Inlet Node Name"]
 
     @hot_water_inlet_node_name.setter
     def hot_water_inlet_node_name(self, value=None):
@@ -3261,7 +3172,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `cold_water_inlet_node_name` or None if not set
         """
-        return self._data["Cold Water Inlet Node Name"]
+        return self["Cold Water Inlet Node Name"]
 
     @cold_water_inlet_node_name.setter
     def cold_water_inlet_node_name(self, value=None):
@@ -3287,7 +3198,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
         """
-        return self._data["Heating Coil Object Type"]
+        return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
@@ -3310,7 +3221,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `heating_coil_name` or None if not set
         """
-        return self._data["Heating Coil Name"]
+        return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
@@ -3333,7 +3244,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `maximum_hot_water_flow_rate` or None if not set
         """
-        return self._data["Maximum Hot Water Flow Rate"]
+        return self["Maximum Hot Water Flow Rate"]
 
     @maximum_hot_water_flow_rate.setter
     def maximum_hot_water_flow_rate(self, value=None):
@@ -3359,7 +3270,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `minimum_hot_water_flow_rate` or None if not set
         """
-        return self._data["Minimum Hot Water Flow Rate"]
+        return self["Minimum Hot Water Flow Rate"]
 
     @minimum_hot_water_flow_rate.setter
     def minimum_hot_water_flow_rate(self, value=None):
@@ -3385,7 +3296,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
         """
-        return self._data["Heating Convergence Tolerance"]
+        return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
@@ -3409,7 +3320,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
         """
-        return self._data["Cooling Coil Object Type"]
+        return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
@@ -3432,7 +3343,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `cooling_coil_name` or None if not set
         """
-        return self._data["Cooling Coil Name"]
+        return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
@@ -3455,7 +3366,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `maximum_cold_water_flow_rate` or None if not set
         """
-        return self._data["Maximum Cold Water Flow Rate"]
+        return self["Maximum Cold Water Flow Rate"]
 
     @maximum_cold_water_flow_rate.setter
     def maximum_cold_water_flow_rate(self, value=None):
@@ -3480,7 +3391,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `minimum_cold_water_flow_rate` or None if not set
         """
-        return self._data["Minimum Cold Water Flow Rate"]
+        return self["Minimum Cold Water Flow Rate"]
 
     @minimum_cold_water_flow_rate.setter
     def minimum_cold_water_flow_rate(self, value=None):
@@ -3505,7 +3416,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             float: the value of `cooling_convergence_tolerance` or None if not set
         """
-        return self._data["Cooling Convergence Tolerance"]
+        return self["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001):
@@ -3529,7 +3440,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
         Returns:
             str: the value of `zone_mixer_name` or None if not set
         """
-        return self._data["Zone Mixer Name"]
+        return self["Zone Mixer Name"]
 
     @zone_mixer_name.setter
     def zone_mixer_name(self, value=None):
@@ -3551,16 +3462,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Central air system terminal unit, single duct, constant volume, with cooled beam
         (active or passive).
     """
-    schema = {'min-fields': 23, 'name': u'AirTerminal:SingleDuct:ConstantVolume:CooledBeam', 'pyname': u'AirTerminalSingleDuctConstantVolumeCooledBeam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooled beam type', {'name': u'Cooled Beam Type', 'pyname': u'cooled_beam_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air volumetric flow rate', {'name': u'Supply Air Volumetric Flow Rate', 'pyname': u'supply_air_volumetric_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum total chilled water volumetric flow rate', {'name': u'Maximum Total Chilled Water Volumetric Flow Rate', 'pyname': u'maximum_total_chilled_water_volumetric_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'number of beams', {'name': u'Number of Beams', 'pyname': u'number_of_beams', 'default': 'autosize', 'minimum>': 0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'integer'}), (u'beam length', {'name': u'Beam Length', 'pyname': u'beam_length', 'default': 'autosize', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'design inlet water temperature', {'name': u'Design Inlet Water Temperature', 'pyname': u'design_inlet_water_temperature', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design outlet water temperature', {'name': u'Design Outlet Water Temperature', 'pyname': u'design_outlet_water_temperature', 'default': 17.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'coil surface area per coil length', {'name': u'Coil Surface Area per Coil Length', 'pyname': u'coil_surface_area_per_coil_length', 'default': 5.422, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/m'}), (u'model parameter a', {'name': u'Model Parameter a', 'pyname': u'model_parameter_a', 'default': 15.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n1', {'name': u'Model Parameter n1', 'pyname': u'model_parameter_n1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n2', {'name': u'Model Parameter n2', 'pyname': u'model_parameter_n2', 'default': 0.84, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n3', {'name': u'Model Parameter n3', 'pyname': u'model_parameter_n3', 'default': 0.12, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter a0', {'name': u'Model Parameter a0', 'pyname': u'model_parameter_a0', 'default': 0.171, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/m'}), (u'model parameter k1', {'name': u'Model Parameter K1', 'pyname': u'model_parameter_k1', 'default': 0.0057, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n', {'name': u'Model Parameter n', 'pyname': u'model_parameter_n', 'default': 0.4, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'coefficient of induction kin', {'name': u'Coefficient of Induction Kin', 'pyname': u'coefficient_of_induction_kin', 'default': 'Autocalculate', 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'leaving pipe inside diameter', {'name': u'Leaving Pipe Inside Diameter', 'pyname': u'leaving_pipe_inside_diameter', 'default': 0.0145, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:CooledBeam`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 23, 'name': u'AirTerminal:SingleDuct:ConstantVolume:CooledBeam', 'pyname': u'AirTerminalSingleDuctConstantVolumeCooledBeam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooled beam type', {'name': u'Cooled Beam Type', 'pyname': u'cooled_beam_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Active', u'Passive'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air inlet node name', {'name': u'Supply Air Inlet Node Name', 'pyname': u'supply_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air outlet node name', {'name': u'Supply Air Outlet Node Name', 'pyname': u'supply_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water inlet node name', {'name': u'Chilled Water Inlet Node Name', 'pyname': u'chilled_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'chilled water outlet node name', {'name': u'Chilled Water Outlet Node Name', 'pyname': u'chilled_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air volumetric flow rate', {'name': u'Supply Air Volumetric Flow Rate', 'pyname': u'supply_air_volumetric_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum total chilled water volumetric flow rate', {'name': u'Maximum Total Chilled Water Volumetric Flow Rate', 'pyname': u'maximum_total_chilled_water_volumetric_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'number of beams', {'name': u'Number of Beams', 'pyname': u'number_of_beams', 'default': 'autosize', 'minimum>': 0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'integer'}), (u'beam length', {'name': u'Beam Length', 'pyname': u'beam_length', 'default': 'autosize', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'design inlet water temperature', {'name': u'Design Inlet Water Temperature', 'pyname': u'design_inlet_water_temperature', 'default': 15.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'design outlet water temperature', {'name': u'Design Outlet Water Temperature', 'pyname': u'design_outlet_water_temperature', 'default': 17.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'coil surface area per coil length', {'name': u'Coil Surface Area per Coil Length', 'pyname': u'coil_surface_area_per_coil_length', 'default': 5.422, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/m'}), (u'model parameter a', {'name': u'Model Parameter a', 'pyname': u'model_parameter_a', 'default': 15.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n1', {'name': u'Model Parameter n1', 'pyname': u'model_parameter_n1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n2', {'name': u'Model Parameter n2', 'pyname': u'model_parameter_n2', 'default': 0.84, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n3', {'name': u'Model Parameter n3', 'pyname': u'model_parameter_n3', 'default': 0.12, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter a0', {'name': u'Model Parameter a0', 'pyname': u'model_parameter_a0', 'default': 0.171, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/m'}), (u'model parameter k1', {'name': u'Model Parameter K1', 'pyname': u'model_parameter_k1', 'default': 0.0057, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'model parameter n', {'name': u'Model Parameter n', 'pyname': u'model_parameter_n', 'default': 0.4, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'coefficient of induction kin', {'name': u'Coefficient of Induction Kin', 'pyname': u'coefficient_of_induction_kin', 'default': 'Autocalculate', 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'leaving pipe inside diameter', {'name': u'Leaving Pipe Inside Diameter', 'pyname': u'leaving_pipe_inside_diameter', 'default': 0.0145, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3569,7 +3471,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3592,7 +3494,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3617,7 +3519,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `cooled_beam_type` or None if not set
         """
-        return self._data["Cooled Beam Type"]
+        return self["Cooled Beam Type"]
 
     @cooled_beam_type.setter
     def cooled_beam_type(self, value=None):
@@ -3640,7 +3542,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `supply_air_inlet_node_name` or None if not set
         """
-        return self._data["Supply Air Inlet Node Name"]
+        return self["Supply Air Inlet Node Name"]
 
     @supply_air_inlet_node_name.setter
     def supply_air_inlet_node_name(self, value=None):
@@ -3663,7 +3565,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `supply_air_outlet_node_name` or None if not set
         """
-        return self._data["Supply Air Outlet Node Name"]
+        return self["Supply Air Outlet Node Name"]
 
     @supply_air_outlet_node_name.setter
     def supply_air_outlet_node_name(self, value=None):
@@ -3686,7 +3588,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `chilled_water_inlet_node_name` or None if not set
         """
-        return self._data["Chilled Water Inlet Node Name"]
+        return self["Chilled Water Inlet Node Name"]
 
     @chilled_water_inlet_node_name.setter
     def chilled_water_inlet_node_name(self, value=None):
@@ -3709,7 +3611,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             str: the value of `chilled_water_outlet_node_name` or None if not set
         """
-        return self._data["Chilled Water Outlet Node Name"]
+        return self["Chilled Water Outlet Node Name"]
 
     @chilled_water_outlet_node_name.setter
     def chilled_water_outlet_node_name(self, value=None):
@@ -3732,7 +3634,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `supply_air_volumetric_flow_rate` or None if not set
         """
-        return self._data["Supply Air Volumetric Flow Rate"]
+        return self["Supply Air Volumetric Flow Rate"]
 
     @supply_air_volumetric_flow_rate.setter
     def supply_air_volumetric_flow_rate(self, value="autosize"):
@@ -3757,7 +3659,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `maximum_total_chilled_water_volumetric_flow_rate` or None if not set
         """
-        return self._data["Maximum Total Chilled Water Volumetric Flow Rate"]
+        return self["Maximum Total Chilled Water Volumetric Flow Rate"]
 
     @maximum_total_chilled_water_volumetric_flow_rate.setter
     def maximum_total_chilled_water_volumetric_flow_rate(self, value="autosize"):
@@ -3782,7 +3684,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             int: the value of `number_of_beams` or None if not set
         """
-        return self._data["Number of Beams"]
+        return self["Number of Beams"]
 
     @number_of_beams.setter
     def number_of_beams(self, value="autosize"):
@@ -3807,7 +3709,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `beam_length` or None if not set
         """
-        return self._data["Beam Length"]
+        return self["Beam Length"]
 
     @beam_length.setter
     def beam_length(self, value="autosize"):
@@ -3833,7 +3735,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `design_inlet_water_temperature` or None if not set
         """
-        return self._data["Design Inlet Water Temperature"]
+        return self["Design Inlet Water Temperature"]
 
     @design_inlet_water_temperature.setter
     def design_inlet_water_temperature(self, value=15.0):
@@ -3858,7 +3760,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `design_outlet_water_temperature` or None if not set
         """
-        return self._data["Design Outlet Water Temperature"]
+        return self["Design Outlet Water Temperature"]
 
     @design_outlet_water_temperature.setter
     def design_outlet_water_temperature(self, value=17.0):
@@ -3883,7 +3785,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `coil_surface_area_per_coil_length` or None if not set
         """
-        return self._data["Coil Surface Area per Coil Length"]
+        return self["Coil Surface Area per Coil Length"]
 
     @coil_surface_area_per_coil_length.setter
     def coil_surface_area_per_coil_length(self, value=5.422):
@@ -3908,7 +3810,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_a` or None if not set
         """
-        return self._data["Model Parameter a"]
+        return self["Model Parameter a"]
 
     @model_parameter_a.setter
     def model_parameter_a(self, value=15.3):
@@ -3932,7 +3834,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_n1` or None if not set
         """
-        return self._data["Model Parameter n1"]
+        return self["Model Parameter n1"]
 
     @model_parameter_n1.setter
     def model_parameter_n1(self, value=None):
@@ -3955,7 +3857,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_n2` or None if not set
         """
-        return self._data["Model Parameter n2"]
+        return self["Model Parameter n2"]
 
     @model_parameter_n2.setter
     def model_parameter_n2(self, value=0.84):
@@ -3979,7 +3881,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_n3` or None if not set
         """
-        return self._data["Model Parameter n3"]
+        return self["Model Parameter n3"]
 
     @model_parameter_n3.setter
     def model_parameter_n3(self, value=0.12):
@@ -4003,7 +3905,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_a0` or None if not set
         """
-        return self._data["Model Parameter a0"]
+        return self["Model Parameter a0"]
 
     @model_parameter_a0.setter
     def model_parameter_a0(self, value=0.171):
@@ -4029,7 +3931,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_k1` or None if not set
         """
-        return self._data["Model Parameter K1"]
+        return self["Model Parameter K1"]
 
     @model_parameter_k1.setter
     def model_parameter_k1(self, value=0.0057):
@@ -4053,7 +3955,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `model_parameter_n` or None if not set
         """
-        return self._data["Model Parameter n"]
+        return self["Model Parameter n"]
 
     @model_parameter_n.setter
     def model_parameter_n(self, value=0.4):
@@ -4077,7 +3979,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `coefficient_of_induction_kin` or None if not set
         """
-        return self._data["Coefficient of Induction Kin"]
+        return self["Coefficient of Induction Kin"]
 
     @coefficient_of_induction_kin.setter
     def coefficient_of_induction_kin(self, value="Autocalculate"):
@@ -4102,7 +4004,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         Returns:
             float: the value of `leaving_pipe_inside_diameter` or None if not set
         """
-        return self._data["Leaving Pipe Inside Diameter"]
+        return self["Leaving Pipe Inside Diameter"]
 
     @leaving_pipe_inside_diameter.setter
     def leaving_pipe_inside_diameter(self, value=0.0145):
@@ -4127,15 +4029,6 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:InletSideMixer', 'pyname': u'AirTerminalSingleDuctInletSideMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zonehvac terminal unit object type', {'name': u'ZoneHVAC Terminal Unit Object Type', 'pyname': u'zonehvac_terminal_unit_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zonehvac terminal unit name', {'name': u'ZoneHVAC Terminal Unit Name', 'pyname': u'zonehvac_terminal_unit_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit outlet node name', {'name': u'Terminal Unit Outlet Node Name', 'pyname': u'terminal_unit_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit primary air inlet node name', {'name': u'Terminal Unit Primary Air Inlet Node Name', 'pyname': u'terminal_unit_primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit secondary air inlet node name', {'name': u'Terminal Unit Secondary Air Inlet Node Name', 'pyname': u'terminal_unit_secondary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:InletSideMixer`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4143,7 +4036,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4166,7 +4059,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `zonehvac_terminal_unit_object_type` or None if not set
         """
-        return self._data["ZoneHVAC Terminal Unit Object Type"]
+        return self["ZoneHVAC Terminal Unit Object Type"]
 
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
@@ -4189,7 +4082,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `zonehvac_terminal_unit_name` or None if not set
         """
-        return self._data["ZoneHVAC Terminal Unit Name"]
+        return self["ZoneHVAC Terminal Unit Name"]
 
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
@@ -4212,7 +4105,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_outlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Outlet Node Name"]
+        return self["Terminal Unit Outlet Node Name"]
 
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
@@ -4235,7 +4128,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_primary_air_inlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Primary Air Inlet Node Name"]
+        return self["Terminal Unit Primary Air Inlet Node Name"]
 
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
@@ -4258,7 +4151,7 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Secondary Air Inlet Node Name"]
+        return self["Terminal Unit Secondary Air Inlet Node Name"]
 
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
@@ -4281,15 +4174,6 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AirTerminal:SingleDuct:SupplySideMixer', 'pyname': u'AirTerminalSingleDuctSupplySideMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zonehvac terminal unit object type', {'name': u'ZoneHVAC Terminal Unit Object Type', 'pyname': u'zonehvac_terminal_unit_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zonehvac terminal unit name', {'name': u'ZoneHVAC Terminal Unit Name', 'pyname': u'zonehvac_terminal_unit_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit outlet node name', {'name': u'Terminal Unit Outlet Node Name', 'pyname': u'terminal_unit_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit primary air inlet node name', {'name': u'Terminal Unit Primary Air Inlet Node Name', 'pyname': u'terminal_unit_primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'terminal unit secondary air inlet node name', {'name': u'Terminal Unit Secondary Air Inlet Node Name', 'pyname': u'terminal_unit_secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:SupplySideMixer`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4297,7 +4181,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4320,7 +4204,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `zonehvac_terminal_unit_object_type` or None if not set
         """
-        return self._data["ZoneHVAC Terminal Unit Object Type"]
+        return self["ZoneHVAC Terminal Unit Object Type"]
 
     @zonehvac_terminal_unit_object_type.setter
     def zonehvac_terminal_unit_object_type(self, value=None):
@@ -4343,7 +4227,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `zonehvac_terminal_unit_name` or None if not set
         """
-        return self._data["ZoneHVAC Terminal Unit Name"]
+        return self["ZoneHVAC Terminal Unit Name"]
 
     @zonehvac_terminal_unit_name.setter
     def zonehvac_terminal_unit_name(self, value=None):
@@ -4366,7 +4250,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_outlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Outlet Node Name"]
+        return self["Terminal Unit Outlet Node Name"]
 
     @terminal_unit_outlet_node_name.setter
     def terminal_unit_outlet_node_name(self, value=None):
@@ -4389,7 +4273,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_primary_air_inlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Primary Air Inlet Node Name"]
+        return self["Terminal Unit Primary Air Inlet Node Name"]
 
     @terminal_unit_primary_air_inlet_node_name.setter
     def terminal_unit_primary_air_inlet_node_name(self, value=None):
@@ -4412,7 +4296,7 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
         Returns:
             str: the value of `terminal_unit_secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Terminal Unit Secondary Air Inlet Node Name"]
+        return self["Terminal Unit Secondary Air Inlet Node Name"]
 
     @terminal_unit_secondary_air_inlet_node_name.setter
     def terminal_unit_secondary_air_inlet_node_name(self, value=None):
@@ -4435,15 +4319,6 @@ class AirTerminalDualDuctConstantVolume(DataObject):
     """
     schema = {'min-fields': 6, 'name': u'AirTerminal:DualDuct:ConstantVolume', 'pyname': u'AirTerminalDualDuctConstantVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot air inlet node name', {'name': u'Hot Air Inlet Node Name', 'pyname': u'hot_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold air inlet node name', {'name': u'Cold Air Inlet Node Name', 'pyname': u'cold_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:DualDuct:ConstantVolume`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4451,7 +4326,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4474,7 +4349,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -4499,7 +4374,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -4524,7 +4399,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             str: the value of `hot_air_inlet_node_name` or None if not set
         """
-        return self._data["Hot Air Inlet Node Name"]
+        return self["Hot Air Inlet Node Name"]
 
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
@@ -4547,7 +4422,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             str: the value of `cold_air_inlet_node_name` or None if not set
         """
-        return self._data["Cold Air Inlet Node Name"]
+        return self["Cold Air Inlet Node Name"]
 
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
@@ -4570,7 +4445,7 @@ class AirTerminalDualDuctConstantVolume(DataObject):
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Air Flow Rate"]
+        return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
@@ -4594,15 +4469,6 @@ class AirTerminalDualDuctVav(DataObject):
     """
     schema = {'min-fields': 7, 'name': u'AirTerminal:DualDuct:VAV', 'pyname': u'AirTerminalDualDuctVav', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'hot air inlet node name', {'name': u'Hot Air Inlet Node Name', 'pyname': u'hot_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold air inlet node name', {'name': u'Cold Air Inlet Node Name', 'pyname': u'cold_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum damper air flow rate', {'name': u'Maximum Damper Air Flow Rate', 'pyname': u'maximum_damper_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'zone minimum air flow fraction', {'name': u'Zone Minimum Air Flow Fraction', 'pyname': u'zone_minimum_air_flow_fraction', 'default': 0.2, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:DualDuct:VAV`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4610,7 +4476,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4633,7 +4499,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -4658,7 +4524,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -4683,7 +4549,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `hot_air_inlet_node_name` or None if not set
         """
-        return self._data["Hot Air Inlet Node Name"]
+        return self["Hot Air Inlet Node Name"]
 
     @hot_air_inlet_node_name.setter
     def hot_air_inlet_node_name(self, value=None):
@@ -4706,7 +4572,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `cold_air_inlet_node_name` or None if not set
         """
-        return self._data["Cold Air Inlet Node Name"]
+        return self["Cold Air Inlet Node Name"]
 
     @cold_air_inlet_node_name.setter
     def cold_air_inlet_node_name(self, value=None):
@@ -4729,7 +4595,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             float: the value of `maximum_damper_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Damper Air Flow Rate"]
+        return self["Maximum Damper Air Flow Rate"]
 
     @maximum_damper_air_flow_rate.setter
     def maximum_damper_air_flow_rate(self, value=None):
@@ -4753,7 +4619,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             float: the value of `zone_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Zone Minimum Air Flow Fraction"]
+        return self["Zone Minimum Air Flow Fraction"]
 
     @zone_minimum_air_flow_fraction.setter
     def zone_minimum_air_flow_fraction(self, value=0.2):
@@ -4779,7 +4645,7 @@ class AirTerminalDualDuctVav(DataObject):
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
         """
-        return self._data["Design Specification Outdoor Air Object Name"]
+        return self["Design Specification Outdoor Air Object Name"]
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
@@ -4808,16 +4674,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         One VAV duct is controlled to supply ventilation air and the other VAV duct is
         controlled to meet the zone cooling load.
     """
-    schema = {'min-fields': 7, 'name': u'AirTerminal:DualDuct:VAV:OutdoorAir', 'pyname': u'AirTerminalDualDuctVavOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'recirculated air inlet node name', {'name': u'Recirculated Air Inlet Node Name', 'pyname': u'recirculated_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum terminal air flow rate', {'name': u'Maximum Terminal Air Flow Rate', 'pyname': u'maximum_terminal_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'per person ventilation rate mode', {'name': u'Per Person Ventilation Rate Mode', 'pyname': u'per_person_ventilation_rate_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:DualDuct:VAV:OutdoorAir`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'AirTerminal:DualDuct:VAV:OutdoorAir', 'pyname': u'AirTerminalDualDuctVavOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'recirculated air inlet node name', {'name': u'Recirculated Air Inlet Node Name', 'pyname': u'recirculated_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum terminal air flow rate', {'name': u'Maximum Terminal Air Flow Rate', 'pyname': u'maximum_terminal_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'per person ventilation rate mode', {'name': u'Per Person Ventilation Rate Mode', 'pyname': u'per_person_ventilation_rate_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CurrentOccupancy', u'DesignOccupancy'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4826,7 +4683,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4849,7 +4706,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -4874,7 +4731,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -4899,7 +4756,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `outdoor_air_inlet_node_name` or None if not set
         """
-        return self._data["Outdoor Air Inlet Node Name"]
+        return self["Outdoor Air Inlet Node Name"]
 
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
@@ -4922,7 +4779,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `recirculated_air_inlet_node_name` or None if not set
         """
-        return self._data["Recirculated Air Inlet Node Name"]
+        return self["Recirculated Air Inlet Node Name"]
 
     @recirculated_air_inlet_node_name.setter
     def recirculated_air_inlet_node_name(self, value=None):
@@ -4945,7 +4802,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             float: the value of `maximum_terminal_air_flow_rate` or None if not set
         """
-        return self._data["Maximum Terminal Air Flow Rate"]
+        return self["Maximum Terminal Air Flow Rate"]
 
     @maximum_terminal_air_flow_rate.setter
     def maximum_terminal_air_flow_rate(self, value=None):
@@ -4970,7 +4827,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
         """
-        return self._data["Design Specification Outdoor Air Object Name"]
+        return self["Design Specification Outdoor Air Object Name"]
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
@@ -4998,7 +4855,7 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         Returns:
             str: the value of `per_person_ventilation_rate_mode` or None if not set
         """
-        return self._data["Per Person Ventilation Rate Mode"]
+        return self["Per Person Ventilation Rate Mode"]
 
     @per_person_ventilation_rate_mode.setter
     def per_person_ventilation_rate_mode(self, value=None):
@@ -5022,16 +4879,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Central air system air distribution unit, serves as a wrapper for a specific type of
         air terminal unit. This object is referenced in a ZoneHVAC:EquipmentList.
     """
-    schema = {'min-fields': 4, 'name': u'ZoneHVAC:AirDistributionUnit', 'pyname': u'ZoneHvacAirDistributionUnit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air distribution unit outlet node name', {'name': u'Air Distribution Unit Outlet Node Name', 'pyname': u'air_distribution_unit_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air terminal object type', {'name': u'Air Terminal Object Type', 'pyname': u'air_terminal_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air terminal name', {'name': u'Air Terminal Name', 'pyname': u'air_terminal_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal upstream leakage fraction', {'name': u'Nominal Upstream Leakage Fraction', 'pyname': u'nominal_upstream_leakage_fraction', 'default': 0.0, 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'constant downstream leakage fraction', {'name': u'Constant Downstream Leakage Fraction', 'pyname': u'constant_downstream_leakage_fraction', 'default': 0.0, 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:AirDistributionUnit`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'ZoneHVAC:AirDistributionUnit', 'pyname': u'ZoneHvacAirDistributionUnit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air distribution unit outlet node name', {'name': u'Air Distribution Unit Outlet Node Name', 'pyname': u'air_distribution_unit_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air terminal object type', {'name': u'Air Terminal Object Type', 'pyname': u'air_terminal_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirTerminal:DualDuct:ConstantVolume', u'AirTerminal:DualDuct:VAV', u'AirTerminal:SingleDuct:ConstantVolume:Reheat', u'AirTerminal:SingleDuct:VAV:Reheat', u'AirTerminal:SingleDuct:VAV:NoReheat', u'AirTerminal:SingleDuct:SeriesPIU:Reheat', u'AirTerminal:SingleDuct:ParallelPIU:Reheat', u'AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction', u'AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan', u'AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat', u'AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat', u'AirTerminal:SingleDuct:ConstantVolume:CooledBeam', u'AirTerminal:DualDuct:VAV:OutdoorAir', u'AirTerminal:SingleDuct:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'air terminal name', {'name': u'Air Terminal Name', 'pyname': u'air_terminal_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'nominal upstream leakage fraction', {'name': u'Nominal Upstream Leakage Fraction', 'pyname': u'nominal_upstream_leakage_fraction', 'default': 0.0, 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'constant downstream leakage fraction', {'name': u'Constant Downstream Leakage Fraction', 'pyname': u'constant_downstream_leakage_fraction', 'default': 0.0, 'maximum': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -5040,7 +4888,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5063,7 +4911,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             str: the value of `air_distribution_unit_outlet_node_name` or None if not set
         """
-        return self._data["Air Distribution Unit Outlet Node Name"]
+        return self["Air Distribution Unit Outlet Node Name"]
 
     @air_distribution_unit_outlet_node_name.setter
     def air_distribution_unit_outlet_node_name(self, value=None):
@@ -5086,7 +4934,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             str: the value of `air_terminal_object_type` or None if not set
         """
-        return self._data["Air Terminal Object Type"]
+        return self["Air Terminal Object Type"]
 
     @air_terminal_object_type.setter
     def air_terminal_object_type(self, value=None):
@@ -5109,7 +4957,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             str: the value of `air_terminal_name` or None if not set
         """
-        return self._data["Air Terminal Name"]
+        return self["Air Terminal Name"]
 
     @air_terminal_name.setter
     def air_terminal_name(self, value=None):
@@ -5132,7 +4980,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             float: the value of `nominal_upstream_leakage_fraction` or None if not set
         """
-        return self._data["Nominal Upstream Leakage Fraction"]
+        return self["Nominal Upstream Leakage Fraction"]
 
     @nominal_upstream_leakage_fraction.setter
     def nominal_upstream_leakage_fraction(self, value=None):
@@ -5158,7 +5006,7 @@ class ZoneHvacAirDistributionUnit(DataObject):
         Returns:
             float: the value of `constant_downstream_leakage_fraction` or None if not set
         """
-        return self._data["Constant Downstream Leakage Fraction"]
+        return self["Constant Downstream Leakage Fraction"]
 
     @constant_downstream_leakage_fraction.setter
     def constant_downstream_leakage_fraction(self, value=None):

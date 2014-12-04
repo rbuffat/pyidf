@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -15,15 +16,6 @@ class AvailabilityManagerScheduled(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'AvailabilityManager:Scheduled', 'pyname': u'AvailabilityManagerScheduled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:Scheduled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -31,7 +23,7 @@ class AvailabilityManagerScheduled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class AvailabilityManagerScheduled(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -78,15 +70,6 @@ class AvailabilityManagerScheduledOn(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'AvailabilityManager:ScheduledOn', 'pyname': u'AvailabilityManagerScheduledOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOn`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -94,7 +77,7 @@ class AvailabilityManagerScheduledOn(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -117,7 +100,7 @@ class AvailabilityManagerScheduledOn(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -141,15 +124,6 @@ class AvailabilityManagerScheduledOff(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'AvailabilityManager:ScheduledOff', 'pyname': u'AvailabilityManagerScheduledOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOff`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -157,7 +131,7 @@ class AvailabilityManagerScheduledOff(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -180,7 +154,7 @@ class AvailabilityManagerScheduledOff(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -201,16 +175,7 @@ class AvailabilityManagerOptimumStart(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:OptimumStart`
         Determines the optimal start of HVAC systems before occupancy.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:OptimumStart', 'pyname': u'AvailabilityManagerOptimumStart', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'ControlZone', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone list name', {'name': u'Zone List Name', 'pyname': u'zone_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum value for optimum start time', {'name': u'Maximum Value for Optimum Start Time', 'pyname': u'maximum_value_for_optimum_start_time', 'default': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'control algorithm', {'name': u'Control Algorithm', 'pyname': u'control_algorithm', 'default': u'AdaptiveASHRAE', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'constant temperature gradient during cooling', {'name': u'Constant Temperature Gradient during Cooling', 'pyname': u'constant_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant temperature gradient during heating', {'name': u'Constant Temperature Gradient during Heating', 'pyname': u'constant_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during cooling', {'name': u'Initial Temperature Gradient during Cooling', 'pyname': u'initial_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during heating', {'name': u'Initial Temperature Gradient during Heating', 'pyname': u'initial_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant start time', {'name': u'Constant Start Time', 'pyname': u'constant_start_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of previous days', {'name': u'Number of Previous Days', 'pyname': u'number_of_previous_days', 'default': 2, 'maximum': 5, 'required-field': False, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer', 'unit': u'days'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:OptimumStart`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'AvailabilityManager:OptimumStart', 'pyname': u'AvailabilityManagerOptimumStart', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'ControlZone', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StayOff', u'ControlZone', u'MaximumofZoneList'], 'autocalculatable': False, 'type': 'alpha'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone list name', {'name': u'Zone List Name', 'pyname': u'zone_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum value for optimum start time', {'name': u'Maximum Value for Optimum Start Time', 'pyname': u'maximum_value_for_optimum_start_time', 'default': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'control algorithm', {'name': u'Control Algorithm', 'pyname': u'control_algorithm', 'default': u'AdaptiveASHRAE', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ConstantTemperatureGradient', u'AdaptiveTemperatureGradient', u'AdaptiveASHRAE', u'ConstantStartTime'], 'autocalculatable': False, 'type': 'alpha'}), (u'constant temperature gradient during cooling', {'name': u'Constant Temperature Gradient during Cooling', 'pyname': u'constant_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant temperature gradient during heating', {'name': u'Constant Temperature Gradient during Heating', 'pyname': u'constant_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during cooling', {'name': u'Initial Temperature Gradient during Cooling', 'pyname': u'initial_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during heating', {'name': u'Initial Temperature Gradient during Heating', 'pyname': u'initial_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant start time', {'name': u'Constant Start Time', 'pyname': u'constant_start_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of previous days', {'name': u'Number of Previous Days', 'pyname': u'number_of_previous_days', 'default': 2, 'maximum': 5, 'required-field': False, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer', 'unit': u'days'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -219,7 +184,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -242,7 +207,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
         """
-        return self._data["Applicability Schedule Name"]
+        return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
@@ -265,7 +230,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `fan_schedule_name` or None if not set
         """
-        return self._data["Fan Schedule Name"]
+        return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
@@ -288,7 +253,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `control_type` or None if not set
         """
-        return self._data["Control Type"]
+        return self["Control Type"]
 
     @control_type.setter
     def control_type(self, value="ControlZone"):
@@ -312,7 +277,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -335,7 +300,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `zone_list_name` or None if not set
         """
-        return self._data["Zone List Name"]
+        return self["Zone List Name"]
 
     @zone_list_name.setter
     def zone_list_name(self, value=None):
@@ -358,7 +323,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `maximum_value_for_optimum_start_time` or None if not set
         """
-        return self._data["Maximum Value for Optimum Start Time"]
+        return self["Maximum Value for Optimum Start Time"]
 
     @maximum_value_for_optimum_start_time.setter
     def maximum_value_for_optimum_start_time(self, value=6.0):
@@ -384,7 +349,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             str: the value of `control_algorithm` or None if not set
         """
-        return self._data["Control Algorithm"]
+        return self["Control Algorithm"]
 
     @control_algorithm.setter
     def control_algorithm(self, value="AdaptiveASHRAE"):
@@ -408,7 +373,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `constant_temperature_gradient_during_cooling` or None if not set
         """
-        return self._data["Constant Temperature Gradient during Cooling"]
+        return self["Constant Temperature Gradient during Cooling"]
 
     @constant_temperature_gradient_during_cooling.setter
     def constant_temperature_gradient_during_cooling(self, value=None):
@@ -432,7 +397,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `constant_temperature_gradient_during_heating` or None if not set
         """
-        return self._data["Constant Temperature Gradient during Heating"]
+        return self["Constant Temperature Gradient during Heating"]
 
     @constant_temperature_gradient_during_heating.setter
     def constant_temperature_gradient_during_heating(self, value=None):
@@ -456,7 +421,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `initial_temperature_gradient_during_cooling` or None if not set
         """
-        return self._data["Initial Temperature Gradient during Cooling"]
+        return self["Initial Temperature Gradient during Cooling"]
 
     @initial_temperature_gradient_during_cooling.setter
     def initial_temperature_gradient_during_cooling(self, value=None):
@@ -480,7 +445,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `initial_temperature_gradient_during_heating` or None if not set
         """
-        return self._data["Initial Temperature Gradient during Heating"]
+        return self["Initial Temperature Gradient during Heating"]
 
     @initial_temperature_gradient_during_heating.setter
     def initial_temperature_gradient_during_heating(self, value=None):
@@ -504,7 +469,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             float: the value of `constant_start_time` or None if not set
         """
-        return self._data["Constant Start Time"]
+        return self["Constant Start Time"]
 
     @constant_start_time.setter
     def constant_start_time(self, value=None):
@@ -529,7 +494,7 @@ class AvailabilityManagerOptimumStart(DataObject):
         Returns:
             int: the value of `number_of_previous_days` or None if not set
         """
-        return self._data["Number of Previous Days"]
+        return self["Number of Previous Days"]
 
     @number_of_previous_days.setter
     def number_of_previous_days(self, value=2):
@@ -557,16 +522,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Determines the availability of a loop or system: whether it is on or off.
         Depending on zone temperatures, overrides Schedules and forces system Fans on.
     """
-    schema = {'min-fields': 6, 'name': u'AvailabilityManager:NightCycle', 'pyname': u'AvailabilityManagerNightCycle', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'StayOff', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thermostat tolerance', {'name': u'Thermostat Tolerance', 'pyname': u'thermostat_tolerance', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'cycling run time', {'name': u'Cycling Run Time', 'pyname': u'cycling_run_time', 'default': 3600.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:NightCycle`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 6, 'name': u'AvailabilityManager:NightCycle', 'pyname': u'AvailabilityManagerNightCycle', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'StayOff', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StayOff', u'CycleOnAny', u'CycleOnControlZone', u'CycleOnAnyZoneFansOnly'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermostat tolerance', {'name': u'Thermostat Tolerance', 'pyname': u'thermostat_tolerance', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'cycling run time', {'name': u'Cycling Run Time', 'pyname': u'cycling_run_time', 'default': 3600.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -575,7 +531,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -598,7 +554,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
         """
-        return self._data["Applicability Schedule Name"]
+        return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
@@ -621,7 +577,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             str: the value of `fan_schedule_name` or None if not set
         """
-        return self._data["Fan Schedule Name"]
+        return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
@@ -644,7 +600,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             str: the value of `control_type` or None if not set
         """
-        return self._data["Control Type"]
+        return self["Control Type"]
 
     @control_type.setter
     def control_type(self, value="StayOff"):
@@ -671,7 +627,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             float: the value of `thermostat_tolerance` or None if not set
         """
-        return self._data["Thermostat Tolerance"]
+        return self["Thermostat Tolerance"]
 
     @thermostat_tolerance.setter
     def thermostat_tolerance(self, value=1.0):
@@ -696,7 +652,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             float: the value of `cycling_run_time` or None if not set
         """
-        return self._data["Cycling Run Time"]
+        return self["Cycling Run Time"]
 
     @cycling_run_time.setter
     def cycling_run_time(self, value=3600.0):
@@ -721,7 +677,7 @@ class AvailabilityManagerNightCycle(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -747,15 +703,6 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AvailabilityManager:DifferentialThermostat', 'pyname': u'AvailabilityManagerDifferentialThermostat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hot node name', {'name': u'Hot Node Name', 'pyname': u'hot_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold node name', {'name': u'Cold Node Name', 'pyname': u'cold_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature difference on limit', {'name': u'Temperature Difference On Limit', 'pyname': u'temperature_difference_on_limit', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature difference off limit', {'name': u'Temperature Difference Off Limit', 'pyname': u'temperature_difference_off_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:DifferentialThermostat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -763,7 +710,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -786,7 +733,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         Returns:
             str: the value of `hot_node_name` or None if not set
         """
-        return self._data["Hot Node Name"]
+        return self["Hot Node Name"]
 
     @hot_node_name.setter
     def hot_node_name(self, value=None):
@@ -809,7 +756,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         Returns:
             str: the value of `cold_node_name` or None if not set
         """
-        return self._data["Cold Node Name"]
+        return self["Cold Node Name"]
 
     @cold_node_name.setter
     def cold_node_name(self, value=None):
@@ -832,7 +779,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         Returns:
             float: the value of `temperature_difference_on_limit` or None if not set
         """
-        return self._data["Temperature Difference On Limit"]
+        return self["Temperature Difference On Limit"]
 
     @temperature_difference_on_limit.setter
     def temperature_difference_on_limit(self, value=None):
@@ -856,7 +803,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         Returns:
             float: the value of `temperature_difference_off_limit` or None if not set
         """
-        return self._data["Temperature Difference Off Limit"]
+        return self["Temperature Difference Off Limit"]
 
     @temperature_difference_off_limit.setter
     def temperature_difference_off_limit(self, value=None):
@@ -881,15 +828,6 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AvailabilityManager:HighTemperatureTurnOff', 'pyname': u'AvailabilityManagerHighTemperatureTurnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOff`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -897,7 +835,7 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -920,7 +858,7 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
         Returns:
             str: the value of `sensor_node_name` or None if not set
         """
-        return self._data["Sensor Node Name"]
+        return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
@@ -943,7 +881,7 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
         Returns:
             float: the value of `temperature` or None if not set
         """
-        return self._data["Temperature"]
+        return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
@@ -967,15 +905,6 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AvailabilityManager:HighTemperatureTurnOn', 'pyname': u'AvailabilityManagerHighTemperatureTurnOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOn`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -983,7 +912,7 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1006,7 +935,7 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
         Returns:
             str: the value of `sensor_node_name` or None if not set
         """
-        return self._data["Sensor Node Name"]
+        return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
@@ -1029,7 +958,7 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
         Returns:
             float: the value of `temperature` or None if not set
         """
-        return self._data["Temperature"]
+        return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
@@ -1053,15 +982,6 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AvailabilityManager:LowTemperatureTurnOff', 'pyname': u'AvailabilityManagerLowTemperatureTurnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOff`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1069,7 +989,7 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1092,7 +1012,7 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
         Returns:
             str: the value of `sensor_node_name` or None if not set
         """
-        return self._data["Sensor Node Name"]
+        return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
@@ -1115,7 +1035,7 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
         Returns:
             float: the value of `temperature` or None if not set
         """
-        return self._data["Temperature"]
+        return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
@@ -1139,7 +1059,7 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
         """
-        return self._data["Applicability Schedule Name"]
+        return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
@@ -1163,15 +1083,6 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'AvailabilityManager:LowTemperatureTurnOn', 'pyname': u'AvailabilityManagerLowTemperatureTurnOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOn`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1179,7 +1090,7 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1202,7 +1113,7 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
         Returns:
             str: the value of `sensor_node_name` or None if not set
         """
-        return self._data["Sensor Node Name"]
+        return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
@@ -1225,7 +1136,7 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
         Returns:
             float: the value of `temperature` or None if not set
         """
-        return self._data["Temperature"]
+        return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
@@ -1250,15 +1161,6 @@ class AvailabilityManagerNightVentilation(DataObject):
     """
     schema = {'min-fields': 7, 'name': u'AvailabilityManager:NightVentilation', 'pyname': u'AvailabilityManagerNightVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation temperature schedule name', {'name': u'Ventilation Temperature Schedule Name', 'pyname': u'ventilation_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation temperature difference', {'name': u'Ventilation Temperature Difference', 'pyname': u'ventilation_temperature_difference', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'ventilation temperature low limit', {'name': u'Ventilation Temperature Low Limit', 'pyname': u'ventilation_temperature_low_limit', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'night venting flow fraction', {'name': u'Night Venting Flow Fraction', 'pyname': u'night_venting_flow_fraction', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:NightVentilation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1266,7 +1168,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1289,7 +1191,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
         """
-        return self._data["Applicability Schedule Name"]
+        return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
@@ -1312,7 +1214,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             str: the value of `fan_schedule_name` or None if not set
         """
-        return self._data["Fan Schedule Name"]
+        return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
@@ -1335,7 +1237,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             str: the value of `ventilation_temperature_schedule_name` or None if not set
         """
-        return self._data["Ventilation Temperature Schedule Name"]
+        return self["Ventilation Temperature Schedule Name"]
 
     @ventilation_temperature_schedule_name.setter
     def ventilation_temperature_schedule_name(self, value=None):
@@ -1360,7 +1262,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             float: the value of `ventilation_temperature_difference` or None if not set
         """
-        return self._data["Ventilation Temperature Difference"]
+        return self["Ventilation Temperature Difference"]
 
     @ventilation_temperature_difference.setter
     def ventilation_temperature_difference(self, value=2.0):
@@ -1387,7 +1289,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             float: the value of `ventilation_temperature_low_limit` or None if not set
         """
-        return self._data["Ventilation Temperature Low Limit"]
+        return self["Ventilation Temperature Low Limit"]
 
     @ventilation_temperature_low_limit.setter
     def ventilation_temperature_low_limit(self, value=15.0):
@@ -1414,7 +1316,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             float: the value of `night_venting_flow_fraction` or None if not set
         """
-        return self._data["Night Venting Flow Fraction"]
+        return self["Night Venting Flow Fraction"]
 
     @night_venting_flow_fraction.setter
     def night_venting_flow_fraction(self, value=1.0):
@@ -1440,7 +1342,7 @@ class AvailabilityManagerNightVentilation(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -1475,16 +1377,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         air loop and one of the zones served by that air loop also has hybrid ventilation manager,
         then zone hybrid ventilation manager is disabled.
     """
-    schema = {'min-fields': 13, 'name': u'AvailabilityManager:HybridVentilation', 'pyname': u'AvailabilityManagerHybridVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controlled zone name', {'name': u'Controlled Zone Name', 'pyname': u'controlled_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation control mode schedule name', {'name': u'Ventilation Control Mode Schedule Name', 'pyname': u'ventilation_control_mode_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor enthalpy', {'name': u'Minimum Outdoor Enthalpy', 'pyname': u'minimum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'maximum outdoor enthalpy', {'name': u'Maximum Outdoor Enthalpy', 'pyname': u'maximum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'minimum outdoor dewpoint', {'name': u'Minimum Outdoor Dewpoint', 'pyname': u'minimum_outdoor_dewpoint', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dewpoint', {'name': u'Maximum Outdoor Dewpoint', 'pyname': u'maximum_outdoor_dewpoint', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor ventilation air schedule name', {'name': u'Minimum Outdoor Ventilation Air Schedule Name', 'pyname': u'minimum_outdoor_ventilation_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening factor function of wind speed curve name', {'name': u'Opening Factor Function of Wind Speed Curve Name', 'pyname': u'opening_factor_function_of_wind_speed_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflownetwork control type schedule name', {'name': u'AirflowNetwork Control Type Schedule Name', 'pyname': u'airflownetwork_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple airflow control type schedule name', {'name': u'Simple Airflow Control Type Schedule Name', 'pyname': u'simple_airflow_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zoneventilation object name', {'name': u'ZoneVentilation Object Name', 'pyname': u'zoneventilation_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManager:HybridVentilation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 13, 'name': u'AvailabilityManager:HybridVentilation', 'pyname': u'AvailabilityManagerHybridVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controlled zone name', {'name': u'Controlled Zone Name', 'pyname': u'controlled_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation control mode schedule name', {'name': u'Ventilation Control Mode Schedule Name', 'pyname': u'ventilation_control_mode_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor enthalpy', {'name': u'Minimum Outdoor Enthalpy', 'pyname': u'minimum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'maximum outdoor enthalpy', {'name': u'Maximum Outdoor Enthalpy', 'pyname': u'maximum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'minimum outdoor dewpoint', {'name': u'Minimum Outdoor Dewpoint', 'pyname': u'minimum_outdoor_dewpoint', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dewpoint', {'name': u'Maximum Outdoor Dewpoint', 'pyname': u'maximum_outdoor_dewpoint', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor ventilation air schedule name', {'name': u'Minimum Outdoor Ventilation Air Schedule Name', 'pyname': u'minimum_outdoor_ventilation_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening factor function of wind speed curve name', {'name': u'Opening Factor Function of Wind Speed Curve Name', 'pyname': u'opening_factor_function_of_wind_speed_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflownetwork control type schedule name', {'name': u'AirflowNetwork Control Type Schedule Name', 'pyname': u'airflownetwork_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple airflow control type schedule name', {'name': u'Simple Airflow Control Type Schedule Name', 'pyname': u'simple_airflow_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zoneventilation object name', {'name': u'ZoneVentilation Object Name', 'pyname': u'zoneventilation_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1493,7 +1386,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1516,7 +1409,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -1542,7 +1435,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `controlled_zone_name` or None if not set
         """
-        return self._data["Controlled Zone Name"]
+        return self["Controlled Zone Name"]
 
     @controlled_zone_name.setter
     def controlled_zone_name(self, value=None):
@@ -1567,7 +1460,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `ventilation_control_mode_schedule_name` or None if not set
         """
-        return self._data["Ventilation Control Mode Schedule Name"]
+        return self["Ventilation Control Mode Schedule Name"]
 
     @ventilation_control_mode_schedule_name.setter
     def ventilation_control_mode_schedule_name(self, value=None):
@@ -1596,7 +1489,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `use_weather_file_rain_indicators` or None if not set
         """
-        return self._data["Use Weather File Rain Indicators"]
+        return self["Use Weather File Rain Indicators"]
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
@@ -1622,7 +1515,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `maximum_wind_speed` or None if not set
         """
-        return self._data["Maximum Wind Speed"]
+        return self["Maximum Wind Speed"]
 
     @maximum_wind_speed.setter
     def maximum_wind_speed(self, value=40.0):
@@ -1649,7 +1542,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `minimum_outdoor_temperature` or None if not set
         """
-        return self._data["Minimum Outdoor Temperature"]
+        return self["Minimum Outdoor Temperature"]
 
     @minimum_outdoor_temperature.setter
     def minimum_outdoor_temperature(self, value=-100.0):
@@ -1677,7 +1570,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `maximum_outdoor_temperature` or None if not set
         """
-        return self._data["Maximum Outdoor Temperature"]
+        return self["Maximum Outdoor Temperature"]
 
     @maximum_outdoor_temperature.setter
     def maximum_outdoor_temperature(self, value=100.0):
@@ -1705,7 +1598,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `minimum_outdoor_enthalpy` or None if not set
         """
-        return self._data["Minimum Outdoor Enthalpy"]
+        return self["Minimum Outdoor Enthalpy"]
 
     @minimum_outdoor_enthalpy.setter
     def minimum_outdoor_enthalpy(self, value=None):
@@ -1731,7 +1624,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `maximum_outdoor_enthalpy` or None if not set
         """
-        return self._data["Maximum Outdoor Enthalpy"]
+        return self["Maximum Outdoor Enthalpy"]
 
     @maximum_outdoor_enthalpy.setter
     def maximum_outdoor_enthalpy(self, value=None):
@@ -1757,7 +1650,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `minimum_outdoor_dewpoint` or None if not set
         """
-        return self._data["Minimum Outdoor Dewpoint"]
+        return self["Minimum Outdoor Dewpoint"]
 
     @minimum_outdoor_dewpoint.setter
     def minimum_outdoor_dewpoint(self, value=-100.0):
@@ -1786,7 +1679,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             float: the value of `maximum_outdoor_dewpoint` or None if not set
         """
-        return self._data["Maximum Outdoor Dewpoint"]
+        return self["Maximum Outdoor Dewpoint"]
 
     @maximum_outdoor_dewpoint.setter
     def maximum_outdoor_dewpoint(self, value=100.0):
@@ -1815,7 +1708,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `minimum_outdoor_ventilation_air_schedule_name` or None if not set
         """
-        return self._data["Minimum Outdoor Ventilation Air Schedule Name"]
+        return self["Minimum Outdoor Ventilation Air Schedule Name"]
 
     @minimum_outdoor_ventilation_air_schedule_name.setter
     def minimum_outdoor_ventilation_air_schedule_name(self, value=None):
@@ -1839,7 +1732,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `opening_factor_function_of_wind_speed_curve_name` or None if not set
         """
-        return self._data["Opening Factor Function of Wind Speed Curve Name"]
+        return self["Opening Factor Function of Wind Speed Curve Name"]
 
     @opening_factor_function_of_wind_speed_curve_name.setter
     def opening_factor_function_of_wind_speed_curve_name(self, value=None):
@@ -1866,7 +1759,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `airflownetwork_control_type_schedule_name` or None if not set
         """
-        return self._data["AirflowNetwork Control Type Schedule Name"]
+        return self["AirflowNetwork Control Type Schedule Name"]
 
     @airflownetwork_control_type_schedule_name.setter
     def airflownetwork_control_type_schedule_name(self, value=None):
@@ -1891,7 +1784,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `simple_airflow_control_type_schedule_name` or None if not set
         """
-        return self._data["Simple Airflow Control Type Schedule Name"]
+        return self["Simple Airflow Control Type Schedule Name"]
 
     @simple_airflow_control_type_schedule_name.setter
     def simple_airflow_control_type_schedule_name(self, value=None):
@@ -1917,7 +1810,7 @@ class AvailabilityManagerHybridVentilation(DataObject):
         Returns:
             str: the value of `zoneventilation_object_name` or None if not set
         """
-        return self._data["ZoneVentilation Object Name"]
+        return self["ZoneVentilation Object Name"]
 
     @zoneventilation_object_name.setter
     def zoneventilation_object_name(self, value=None):
@@ -1948,16 +1841,7 @@ class AvailabilityManagerAssignmentList(DataObject):
         The output from each availability manager is an availability status flag:
         NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
     """
-    schema = {'min-fields': 3, 'name': u'AvailabilityManagerAssignmentList', 'pyname': u'AvailabilityManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'availability manager 1 object type', {'name': u'Availability Manager 1 Object Type', 'pyname': u'availability_manager_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager 1 name', {'name': u'Availability Manager 1 Name', 'pyname': u'availability_manager_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AvailabilityManagerAssignmentList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 3, 'name': u'AvailabilityManagerAssignmentList', 'pyname': u'AvailabilityManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'availability manager 1 object type', {'name': u'Availability Manager 1 Object Type', 'pyname': u'availability_manager_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager 1 name', {'name': u'Availability Manager 1 Name', 'pyname': u'availability_manager_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1966,7 +1850,7 @@ class AvailabilityManagerAssignmentList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2003,10 +1887,10 @@ class AvailabilityManagerAssignmentList(DataObject):
         vals.append(availability_manager_1_object_type)
         availability_manager_1_name = self.check_value("Availability Manager 1 Name", availability_manager_1_name)
         vals.append(availability_manager_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

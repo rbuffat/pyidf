@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -16,15 +17,6 @@ class FanConstantVolume(DataObject):
     """
     schema = {'min-fields': 9, 'name': u'Fan:ConstantVolume', 'pyname': u'FanConstantVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Fan:ConstantVolume`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -32,7 +24,7 @@ class FanConstantVolume(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -55,7 +47,7 @@ class FanConstantVolume(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -80,7 +72,7 @@ class FanConstantVolume(DataObject):
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
         """
-        return self._data["Fan Total Efficiency"]
+        return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.7):
@@ -105,7 +97,7 @@ class FanConstantVolume(DataObject):
         Returns:
             float: the value of `pressure_rise` or None if not set
         """
-        return self._data["Pressure Rise"]
+        return self["Pressure Rise"]
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
@@ -130,7 +122,7 @@ class FanConstantVolume(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -154,7 +146,7 @@ class FanConstantVolume(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -179,7 +171,7 @@ class FanConstantVolume(DataObject):
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
         """
-        return self._data["Motor In Airstream Fraction"]
+        return self["Motor In Airstream Fraction"]
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
@@ -205,7 +197,7 @@ class FanConstantVolume(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -228,7 +220,7 @@ class FanConstantVolume(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -251,7 +243,7 @@ class FanConstantVolume(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -274,16 +266,7 @@ class FanVariableVolume(DataObject):
         Variable air volume fan where the electric power input varies according to a
         performance curve as a function of flow fraction.
     """
-    schema = {'min-fields': 17, 'name': u'Fan:VariableVolume', 'pyname': u'FanVariableVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan power minimum flow rate input method', {'name': u'Fan Power Minimum Flow Rate Input Method', 'pyname': u'fan_power_minimum_flow_rate_input_method', 'default': u'Fraction', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan power minimum flow fraction', {'name': u'Fan Power Minimum Flow Fraction', 'pyname': u'fan_power_minimum_flow_fraction', 'default': 0.25, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power minimum air flow rate', {'name': u'Fan Power Minimum Air Flow Rate', 'pyname': u'fan_power_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power coefficient 1', {'name': u'Fan Power Coefficient 1', 'pyname': u'fan_power_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 2', {'name': u'Fan Power Coefficient 2', 'pyname': u'fan_power_coefficient_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 3', {'name': u'Fan Power Coefficient 3', 'pyname': u'fan_power_coefficient_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 4', {'name': u'Fan Power Coefficient 4', 'pyname': u'fan_power_coefficient_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 5', {'name': u'Fan Power Coefficient 5', 'pyname': u'fan_power_coefficient_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Fan:VariableVolume`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 17, 'name': u'Fan:VariableVolume', 'pyname': u'FanVariableVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan power minimum flow rate input method', {'name': u'Fan Power Minimum Flow Rate Input Method', 'pyname': u'fan_power_minimum_flow_rate_input_method', 'default': u'Fraction', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fraction', u'FixedFlowRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan power minimum flow fraction', {'name': u'Fan Power Minimum Flow Fraction', 'pyname': u'fan_power_minimum_flow_fraction', 'default': 0.25, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power minimum air flow rate', {'name': u'Fan Power Minimum Air Flow Rate', 'pyname': u'fan_power_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power coefficient 1', {'name': u'Fan Power Coefficient 1', 'pyname': u'fan_power_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 2', {'name': u'Fan Power Coefficient 2', 'pyname': u'fan_power_coefficient_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 3', {'name': u'Fan Power Coefficient 3', 'pyname': u'fan_power_coefficient_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 4', {'name': u'Fan Power Coefficient 4', 'pyname': u'fan_power_coefficient_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 5', {'name': u'Fan Power Coefficient 5', 'pyname': u'fan_power_coefficient_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -292,7 +275,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -315,7 +298,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -340,7 +323,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
         """
-        return self._data["Fan Total Efficiency"]
+        return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.7):
@@ -365,7 +348,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `pressure_rise` or None if not set
         """
-        return self._data["Pressure Rise"]
+        return self["Pressure Rise"]
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
@@ -390,7 +373,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -414,7 +397,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `fan_power_minimum_flow_rate_input_method` or None if not set
         """
-        return self._data["Fan Power Minimum Flow Rate Input Method"]
+        return self["Fan Power Minimum Flow Rate Input Method"]
 
     @fan_power_minimum_flow_rate_input_method.setter
     def fan_power_minimum_flow_rate_input_method(self, value="Fraction"):
@@ -438,7 +421,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_minimum_flow_fraction` or None if not set
         """
-        return self._data["Fan Power Minimum Flow Fraction"]
+        return self["Fan Power Minimum Flow Fraction"]
 
     @fan_power_minimum_flow_fraction.setter
     def fan_power_minimum_flow_fraction(self, value=0.25):
@@ -463,7 +446,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_minimum_air_flow_rate` or None if not set
         """
-        return self._data["Fan Power Minimum Air Flow Rate"]
+        return self["Fan Power Minimum Air Flow Rate"]
 
     @fan_power_minimum_air_flow_rate.setter
     def fan_power_minimum_air_flow_rate(self, value=None):
@@ -487,7 +470,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -512,7 +495,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
         """
-        return self._data["Motor In Airstream Fraction"]
+        return self["Motor In Airstream Fraction"]
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
@@ -538,7 +521,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_coefficient_1` or None if not set
         """
-        return self._data["Fan Power Coefficient 1"]
+        return self["Fan Power Coefficient 1"]
 
     @fan_power_coefficient_1.setter
     def fan_power_coefficient_1(self, value=None):
@@ -564,7 +547,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_coefficient_2` or None if not set
         """
-        return self._data["Fan Power Coefficient 2"]
+        return self["Fan Power Coefficient 2"]
 
     @fan_power_coefficient_2.setter
     def fan_power_coefficient_2(self, value=None):
@@ -587,7 +570,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_coefficient_3` or None if not set
         """
-        return self._data["Fan Power Coefficient 3"]
+        return self["Fan Power Coefficient 3"]
 
     @fan_power_coefficient_3.setter
     def fan_power_coefficient_3(self, value=None):
@@ -610,7 +593,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_coefficient_4` or None if not set
         """
-        return self._data["Fan Power Coefficient 4"]
+        return self["Fan Power Coefficient 4"]
 
     @fan_power_coefficient_4.setter
     def fan_power_coefficient_4(self, value=None):
@@ -633,7 +616,7 @@ class FanVariableVolume(DataObject):
         Returns:
             float: the value of `fan_power_coefficient_5` or None if not set
         """
-        return self._data["Fan Power Coefficient 5"]
+        return self["Fan Power Coefficient 5"]
 
     @fan_power_coefficient_5.setter
     def fan_power_coefficient_5(self, value=None):
@@ -656,7 +639,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -679,7 +662,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -702,7 +685,7 @@ class FanVariableVolume(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -728,15 +711,6 @@ class FanOnOff(DataObject):
     """
     schema = {'min-fields': 9, 'name': u'Fan:OnOff', 'pyname': u'FanOnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.8, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan power ratio function of speed ratio curve name', {'name': u'Fan Power Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_power_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan efficiency ratio function of speed ratio curve name', {'name': u'Fan Efficiency Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_efficiency_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Fan:OnOff`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -744,7 +718,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -767,7 +741,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -792,7 +766,7 @@ class FanOnOff(DataObject):
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
         """
-        return self._data["Fan Total Efficiency"]
+        return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.6):
@@ -817,7 +791,7 @@ class FanOnOff(DataObject):
         Returns:
             float: the value of `pressure_rise` or None if not set
         """
-        return self._data["Pressure Rise"]
+        return self["Pressure Rise"]
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
@@ -842,7 +816,7 @@ class FanOnOff(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -866,7 +840,7 @@ class FanOnOff(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.8):
@@ -891,7 +865,7 @@ class FanOnOff(DataObject):
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
         """
-        return self._data["Motor In Airstream Fraction"]
+        return self["Motor In Airstream Fraction"]
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
@@ -917,7 +891,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -940,7 +914,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -963,7 +937,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `fan_power_ratio_function_of_speed_ratio_curve_name` or None if not set
         """
-        return self._data["Fan Power Ratio Function of Speed Ratio Curve Name"]
+        return self["Fan Power Ratio Function of Speed Ratio Curve Name"]
 
     @fan_power_ratio_function_of_speed_ratio_curve_name.setter
     def fan_power_ratio_function_of_speed_ratio_curve_name(self, value=None):
@@ -987,7 +961,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `fan_efficiency_ratio_function_of_speed_ratio_curve_name` or None if not set
         """
-        return self._data["Fan Efficiency Ratio Function of Speed Ratio Curve Name"]
+        return self["Fan Efficiency Ratio Function of Speed Ratio Curve Name"]
 
     @fan_efficiency_ratio_function_of_speed_ratio_curve_name.setter
     def fan_efficiency_ratio_function_of_speed_ratio_curve_name(self, value=None):
@@ -1011,7 +985,7 @@ class FanOnOff(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -1033,16 +1007,7 @@ class FanZoneExhaust(DataObject):
     """ Corresponds to IDD object `Fan:ZoneExhaust`
         Models a fan that exhausts air from a zone.
     """
-    schema = {'min-fields': 7, 'name': u'Fan:ZoneExhaust', 'pyname': u'FanZoneExhaust', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'flow fraction schedule name', {'name': u'Flow Fraction Schedule Name', 'pyname': u'flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system availability manager coupling mode', {'name': u'System Availability Manager Coupling Mode', 'pyname': u'system_availability_manager_coupling_mode', 'default': u'Coupled', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum zone temperature limit schedule name', {'name': u'Minimum Zone Temperature Limit Schedule Name', 'pyname': u'minimum_zone_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'balanced exhaust fraction schedule name', {'name': u'Balanced Exhaust Fraction Schedule Name', 'pyname': u'balanced_exhaust_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Fan:ZoneExhaust`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'Fan:ZoneExhaust', 'pyname': u'FanZoneExhaust', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'flow fraction schedule name', {'name': u'Flow Fraction Schedule Name', 'pyname': u'flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system availability manager coupling mode', {'name': u'System Availability Manager Coupling Mode', 'pyname': u'system_availability_manager_coupling_mode', 'default': u'Coupled', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coupled', u'Decoupled'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum zone temperature limit schedule name', {'name': u'Minimum Zone Temperature Limit Schedule Name', 'pyname': u'minimum_zone_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'balanced exhaust fraction schedule name', {'name': u'Balanced Exhaust Fraction Schedule Name', 'pyname': u'balanced_exhaust_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1051,7 +1016,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1074,7 +1039,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1099,7 +1064,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
         """
-        return self._data["Fan Total Efficiency"]
+        return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.6):
@@ -1124,7 +1089,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             float: the value of `pressure_rise` or None if not set
         """
-        return self._data["Pressure Rise"]
+        return self["Pressure Rise"]
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
@@ -1149,7 +1114,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -1173,7 +1138,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -1196,7 +1161,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -1219,7 +1184,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -1243,7 +1208,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `flow_fraction_schedule_name` or None if not set
         """
-        return self._data["Flow Fraction Schedule Name"]
+        return self["Flow Fraction Schedule Name"]
 
     @flow_fraction_schedule_name.setter
     def flow_fraction_schedule_name(self, value=None):
@@ -1267,7 +1232,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `system_availability_manager_coupling_mode` or None if not set
         """
-        return self._data["System Availability Manager Coupling Mode"]
+        return self["System Availability Manager Coupling Mode"]
 
     @system_availability_manager_coupling_mode.setter
     def system_availability_manager_coupling_mode(self, value="Coupled"):
@@ -1292,7 +1257,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `minimum_zone_temperature_limit_schedule_name` or None if not set
         """
-        return self._data["Minimum Zone Temperature Limit Schedule Name"]
+        return self["Minimum Zone Temperature Limit Schedule Name"]
 
     @minimum_zone_temperature_limit_schedule_name.setter
     def minimum_zone_temperature_limit_schedule_name(self, value=None):
@@ -1316,7 +1281,7 @@ class FanZoneExhaust(DataObject):
         Returns:
             str: the value of `balanced_exhaust_fraction_schedule_name` or None if not set
         """
-        return self._data["Balanced Exhaust Fraction Schedule Name"]
+        return self["Balanced Exhaust Fraction Schedule Name"]
 
     @balanced_exhaust_fraction_schedule_name.setter
     def balanced_exhaust_fraction_schedule_name(self, value=None):
@@ -1346,15 +1311,6 @@ class FanPerformanceNightVentilation(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'FanPerformance:NightVentilation', 'pyname': u'FanPerformanceNightVentilation', 'format': None, 'fields': OrderedDict([(u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor in Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `FanPerformance:NightVentilation`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def fan_name(self):
         """Get fan_name
@@ -1362,7 +1318,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -1385,7 +1341,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
         """
-        return self._data["Fan Total Efficiency"]
+        return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=None):
@@ -1409,7 +1365,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             float: the value of `pressure_rise` or None if not set
         """
-        return self._data["Pressure Rise"]
+        return self["Pressure Rise"]
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
@@ -1434,7 +1390,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -1458,7 +1414,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=None):
@@ -1482,7 +1438,7 @@ class FanPerformanceNightVentilation(DataObject):
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
         """
-        return self._data["Motor in Airstream Fraction"]
+        return self["Motor in Airstream Fraction"]
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
@@ -1509,16 +1465,7 @@ class FanComponentModel(DataObject):
         systems. It includes inputs that describe the air-distribution system as well as the
         fan, drive belt (if used), motor, and variable-frequency-drive (if used).
     """
-    schema = {'min-fields': 0, 'name': u'Fan:ComponentModel', 'pyname': u'FanComponentModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan sizing factor', {'name': u'Fan Sizing Factor', 'pyname': u'fan_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan wheel diameter', {'name': u'Fan Wheel Diameter', 'pyname': u'fan_wheel_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fan outlet area', {'name': u'Fan Outlet Area', 'pyname': u'fan_outlet_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum fan static efficiency', {'name': u'Maximum Fan Static Efficiency', 'pyname': u'maximum_fan_static_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'euler number at maximum fan static efficiency', {'name': u'Euler Number at Maximum Fan Static Efficiency', 'pyname': u'euler_number_at_maximum_fan_static_efficiency', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum dimensionless fan airflow', {'name': u'Maximum Dimensionless Fan Airflow', 'pyname': u'maximum_dimensionless_fan_airflow', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor fan pulley ratio', {'name': u'Motor Fan Pulley Ratio', 'pyname': u'motor_fan_pulley_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real'}), (u'belt maximum torque', {'name': u'Belt Maximum Torque', 'pyname': u'belt_maximum_torque', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'N-m'}), (u'belt sizing factor', {'name': u'Belt Sizing Factor', 'pyname': u'belt_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'belt fractional torque transition', {'name': u'Belt Fractional Torque Transition', 'pyname': u'belt_fractional_torque_transition', 'default': 0.167, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'motor maximum speed', {'name': u'Motor Maximum Speed', 'pyname': u'motor_maximum_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'maximum motor output power', {'name': u'Maximum Motor Output Power', 'pyname': u'maximum_motor_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'motor sizing factor', {'name': u'Motor Sizing Factor', 'pyname': u'motor_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'vfd efficiency type', {'name': u'VFD Efficiency Type', 'pyname': u'vfd_efficiency_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum vfd output power', {'name': u'Maximum VFD Output Power', 'pyname': u'maximum_vfd_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'vfd sizing factor', {'name': u'VFD Sizing Factor', 'pyname': u'vfd_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan pressure rise curve name', {'name': u'Fan Pressure Rise Curve Name', 'pyname': u'fan_pressure_rise_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'duct static pressure reset curve name', {'name': u'Duct Static Pressure Reset Curve Name', 'pyname': u'duct_static_pressure_reset_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-non-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Non-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-non-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Non-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum belt efficiency curve name', {'name': u'Maximum Belt Efficiency Curve Name', 'pyname': u'maximum_belt_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 1', {'name': u'Normalized Belt Efficiency Curve Name - Region 1', 'pyname': u'normalized_belt_efficiency_curve_name_region_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 2', {'name': u'Normalized Belt Efficiency Curve Name - Region 2', 'pyname': u'normalized_belt_efficiency_curve_name_region_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 3', {'name': u'Normalized Belt Efficiency Curve Name - Region 3', 'pyname': u'normalized_belt_efficiency_curve_name_region_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum motor efficiency curve name', {'name': u'Maximum Motor Efficiency Curve Name', 'pyname': u'maximum_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized motor efficiency curve name', {'name': u'Normalized Motor Efficiency Curve Name', 'pyname': u'normalized_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vfd efficiency curve name', {'name': u'VFD Efficiency Curve Name', 'pyname': u'vfd_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Fan:ComponentModel`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Fan:ComponentModel', 'pyname': u'FanComponentModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan sizing factor', {'name': u'Fan Sizing Factor', 'pyname': u'fan_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan wheel diameter', {'name': u'Fan Wheel Diameter', 'pyname': u'fan_wheel_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fan outlet area', {'name': u'Fan Outlet Area', 'pyname': u'fan_outlet_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum fan static efficiency', {'name': u'Maximum Fan Static Efficiency', 'pyname': u'maximum_fan_static_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'euler number at maximum fan static efficiency', {'name': u'Euler Number at Maximum Fan Static Efficiency', 'pyname': u'euler_number_at_maximum_fan_static_efficiency', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum dimensionless fan airflow', {'name': u'Maximum Dimensionless Fan Airflow', 'pyname': u'maximum_dimensionless_fan_airflow', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor fan pulley ratio', {'name': u'Motor Fan Pulley Ratio', 'pyname': u'motor_fan_pulley_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real'}), (u'belt maximum torque', {'name': u'Belt Maximum Torque', 'pyname': u'belt_maximum_torque', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'N-m'}), (u'belt sizing factor', {'name': u'Belt Sizing Factor', 'pyname': u'belt_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'belt fractional torque transition', {'name': u'Belt Fractional Torque Transition', 'pyname': u'belt_fractional_torque_transition', 'default': 0.167, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'motor maximum speed', {'name': u'Motor Maximum Speed', 'pyname': u'motor_maximum_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'maximum motor output power', {'name': u'Maximum Motor Output Power', 'pyname': u'maximum_motor_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'motor sizing factor', {'name': u'Motor Sizing Factor', 'pyname': u'motor_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'vfd efficiency type', {'name': u'VFD Efficiency Type', 'pyname': u'vfd_efficiency_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Speed', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum vfd output power', {'name': u'Maximum VFD Output Power', 'pyname': u'maximum_vfd_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'vfd sizing factor', {'name': u'VFD Sizing Factor', 'pyname': u'vfd_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan pressure rise curve name', {'name': u'Fan Pressure Rise Curve Name', 'pyname': u'fan_pressure_rise_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'duct static pressure reset curve name', {'name': u'Duct Static Pressure Reset Curve Name', 'pyname': u'duct_static_pressure_reset_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-non-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Non-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-non-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Non-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum belt efficiency curve name', {'name': u'Maximum Belt Efficiency Curve Name', 'pyname': u'maximum_belt_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 1', {'name': u'Normalized Belt Efficiency Curve Name - Region 1', 'pyname': u'normalized_belt_efficiency_curve_name_region_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 2', {'name': u'Normalized Belt Efficiency Curve Name - Region 2', 'pyname': u'normalized_belt_efficiency_curve_name_region_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 3', {'name': u'Normalized Belt Efficiency Curve Name - Region 3', 'pyname': u'normalized_belt_efficiency_curve_name_region_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum motor efficiency curve name', {'name': u'Maximum Motor Efficiency Curve Name', 'pyname': u'maximum_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized motor efficiency curve name', {'name': u'Normalized Motor Efficiency Curve Name', 'pyname': u'normalized_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vfd efficiency curve name', {'name': u'VFD Efficiency Curve Name', 'pyname': u'vfd_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1527,7 +1474,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1550,7 +1497,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -1573,7 +1520,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -1596,7 +1543,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1621,7 +1568,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -1645,7 +1592,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `minimum_flow_rate` or None if not set
         """
-        return self._data["Minimum Flow Rate"]
+        return self["Minimum Flow Rate"]
 
     @minimum_flow_rate.setter
     def minimum_flow_rate(self, value=None):
@@ -1669,7 +1616,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `fan_sizing_factor` or None if not set
         """
-        return self._data["Fan Sizing Factor"]
+        return self["Fan Sizing Factor"]
 
     @fan_sizing_factor.setter
     def fan_sizing_factor(self, value=1.0):
@@ -1695,7 +1642,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `fan_wheel_diameter` or None if not set
         """
-        return self._data["Fan Wheel Diameter"]
+        return self["Fan Wheel Diameter"]
 
     @fan_wheel_diameter.setter
     def fan_wheel_diameter(self, value=None):
@@ -1720,7 +1667,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `fan_outlet_area` or None if not set
         """
-        return self._data["Fan Outlet Area"]
+        return self["Fan Outlet Area"]
 
     @fan_outlet_area.setter
     def fan_outlet_area(self, value=None):
@@ -1745,7 +1692,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `maximum_fan_static_efficiency` or None if not set
         """
-        return self._data["Maximum Fan Static Efficiency"]
+        return self["Maximum Fan Static Efficiency"]
 
     @maximum_fan_static_efficiency.setter
     def maximum_fan_static_efficiency(self, value=None):
@@ -1771,7 +1718,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `euler_number_at_maximum_fan_static_efficiency` or None if not set
         """
-        return self._data["Euler Number at Maximum Fan Static Efficiency"]
+        return self["Euler Number at Maximum Fan Static Efficiency"]
 
     @euler_number_at_maximum_fan_static_efficiency.setter
     def euler_number_at_maximum_fan_static_efficiency(self, value=None):
@@ -1795,7 +1742,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `maximum_dimensionless_fan_airflow` or None if not set
         """
-        return self._data["Maximum Dimensionless Fan Airflow"]
+        return self["Maximum Dimensionless Fan Airflow"]
 
     @maximum_dimensionless_fan_airflow.setter
     def maximum_dimensionless_fan_airflow(self, value=None):
@@ -1821,7 +1768,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `motor_fan_pulley_ratio` or None if not set
         """
-        return self._data["Motor Fan Pulley Ratio"]
+        return self["Motor Fan Pulley Ratio"]
 
     @motor_fan_pulley_ratio.setter
     def motor_fan_pulley_ratio(self, value=1.0):
@@ -1846,7 +1793,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `belt_maximum_torque` or None if not set
         """
-        return self._data["Belt Maximum Torque"]
+        return self["Belt Maximum Torque"]
 
     @belt_maximum_torque.setter
     def belt_maximum_torque(self, value=None):
@@ -1871,7 +1818,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `belt_sizing_factor` or None if not set
         """
-        return self._data["Belt Sizing Factor"]
+        return self["Belt Sizing Factor"]
 
     @belt_sizing_factor.setter
     def belt_sizing_factor(self, value=1.0):
@@ -1897,7 +1844,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `belt_fractional_torque_transition` or None if not set
         """
-        return self._data["Belt Fractional Torque Transition"]
+        return self["Belt Fractional Torque Transition"]
 
     @belt_fractional_torque_transition.setter
     def belt_fractional_torque_transition(self, value=0.167):
@@ -1923,7 +1870,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `motor_maximum_speed` or None if not set
         """
-        return self._data["Motor Maximum Speed"]
+        return self["Motor Maximum Speed"]
 
     @motor_maximum_speed.setter
     def motor_maximum_speed(self, value=None):
@@ -1948,7 +1895,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `maximum_motor_output_power` or None if not set
         """
-        return self._data["Maximum Motor Output Power"]
+        return self["Maximum Motor Output Power"]
 
     @maximum_motor_output_power.setter
     def maximum_motor_output_power(self, value=None):
@@ -1973,7 +1920,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `motor_sizing_factor` or None if not set
         """
-        return self._data["Motor Sizing Factor"]
+        return self["Motor Sizing Factor"]
 
     @motor_sizing_factor.setter
     def motor_sizing_factor(self, value=1.0):
@@ -1999,7 +1946,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `motor_in_airstream_fraction` or None if not set
         """
-        return self._data["Motor In Airstream Fraction"]
+        return self["Motor In Airstream Fraction"]
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
@@ -2026,7 +1973,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `vfd_efficiency_type` or None if not set
         """
-        return self._data["VFD Efficiency Type"]
+        return self["VFD Efficiency Type"]
 
     @vfd_efficiency_type.setter
     def vfd_efficiency_type(self, value=None):
@@ -2052,7 +1999,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `maximum_vfd_output_power` or None if not set
         """
-        return self._data["Maximum VFD Output Power"]
+        return self["Maximum VFD Output Power"]
 
     @maximum_vfd_output_power.setter
     def maximum_vfd_output_power(self, value=None):
@@ -2077,7 +2024,7 @@ class FanComponentModel(DataObject):
         Returns:
             float: the value of `vfd_sizing_factor` or None if not set
         """
-        return self._data["VFD Sizing Factor"]
+        return self["VFD Sizing Factor"]
 
     @vfd_sizing_factor.setter
     def vfd_sizing_factor(self, value=1.0):
@@ -2103,7 +2050,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `fan_pressure_rise_curve_name` or None if not set
         """
-        return self._data["Fan Pressure Rise Curve Name"]
+        return self["Fan Pressure Rise Curve Name"]
 
     @fan_pressure_rise_curve_name.setter
     def fan_pressure_rise_curve_name(self, value=None):
@@ -2129,7 +2076,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `duct_static_pressure_reset_curve_name` or None if not set
         """
-        return self._data["Duct Static Pressure Reset Curve Name"]
+        return self["Duct Static Pressure Reset Curve Name"]
 
     @duct_static_pressure_reset_curve_name.setter
     def duct_static_pressure_reset_curve_name(self, value=None):
@@ -2156,7 +2103,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_fan_static_efficiency_curve_namenonstall_region` or None if not set
         """
-        return self._data["Normalized Fan Static Efficiency Curve Name-Non-Stall Region"]
+        return self["Normalized Fan Static Efficiency Curve Name-Non-Stall Region"]
 
     @normalized_fan_static_efficiency_curve_namenonstall_region.setter
     def normalized_fan_static_efficiency_curve_namenonstall_region(self, value=None):
@@ -2182,7 +2129,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_fan_static_efficiency_curve_namestall_region` or None if not set
         """
-        return self._data["Normalized Fan Static Efficiency Curve Name-Stall Region"]
+        return self["Normalized Fan Static Efficiency Curve Name-Stall Region"]
 
     @normalized_fan_static_efficiency_curve_namestall_region.setter
     def normalized_fan_static_efficiency_curve_namestall_region(self, value=None):
@@ -2208,7 +2155,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_dimensionless_airflow_curve_namenonstall_region` or None if not set
         """
-        return self._data["Normalized Dimensionless Airflow Curve Name-Non-Stall Region"]
+        return self["Normalized Dimensionless Airflow Curve Name-Non-Stall Region"]
 
     @normalized_dimensionless_airflow_curve_namenonstall_region.setter
     def normalized_dimensionless_airflow_curve_namenonstall_region(self, value=None):
@@ -2234,7 +2181,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_dimensionless_airflow_curve_namestall_region` or None if not set
         """
-        return self._data["Normalized Dimensionless Airflow Curve Name-Stall Region"]
+        return self["Normalized Dimensionless Airflow Curve Name-Stall Region"]
 
     @normalized_dimensionless_airflow_curve_namestall_region.setter
     def normalized_dimensionless_airflow_curve_namestall_region(self, value=None):
@@ -2260,7 +2207,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `maximum_belt_efficiency_curve_name` or None if not set
         """
-        return self._data["Maximum Belt Efficiency Curve Name"]
+        return self["Maximum Belt Efficiency Curve Name"]
 
     @maximum_belt_efficiency_curve_name.setter
     def maximum_belt_efficiency_curve_name(self, value=None):
@@ -2288,7 +2235,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_belt_efficiency_curve_name_region_1` or None if not set
         """
-        return self._data["Normalized Belt Efficiency Curve Name - Region 1"]
+        return self["Normalized Belt Efficiency Curve Name - Region 1"]
 
     @normalized_belt_efficiency_curve_name_region_1.setter
     def normalized_belt_efficiency_curve_name_region_1(self, value=None):
@@ -2315,7 +2262,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_belt_efficiency_curve_name_region_2` or None if not set
         """
-        return self._data["Normalized Belt Efficiency Curve Name - Region 2"]
+        return self["Normalized Belt Efficiency Curve Name - Region 2"]
 
     @normalized_belt_efficiency_curve_name_region_2.setter
     def normalized_belt_efficiency_curve_name_region_2(self, value=None):
@@ -2342,7 +2289,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_belt_efficiency_curve_name_region_3` or None if not set
         """
-        return self._data["Normalized Belt Efficiency Curve Name - Region 3"]
+        return self["Normalized Belt Efficiency Curve Name - Region 3"]
 
     @normalized_belt_efficiency_curve_name_region_3.setter
     def normalized_belt_efficiency_curve_name_region_3(self, value=None):
@@ -2369,7 +2316,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `maximum_motor_efficiency_curve_name` or None if not set
         """
-        return self._data["Maximum Motor Efficiency Curve Name"]
+        return self["Maximum Motor Efficiency Curve Name"]
 
     @maximum_motor_efficiency_curve_name.setter
     def maximum_motor_efficiency_curve_name(self, value=None):
@@ -2395,7 +2342,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `normalized_motor_efficiency_curve_name` or None if not set
         """
-        return self._data["Normalized Motor Efficiency Curve Name"]
+        return self["Normalized Motor Efficiency Curve Name"]
 
     @normalized_motor_efficiency_curve_name.setter
     def normalized_motor_efficiency_curve_name(self, value=None):
@@ -2421,7 +2368,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `vfd_efficiency_curve_name` or None if not set
         """
-        return self._data["VFD Efficiency Curve Name"]
+        return self["VFD Efficiency Curve Name"]
 
     @vfd_efficiency_curve_name.setter
     def vfd_efficiency_curve_name(self, value=None):
@@ -2448,7 +2395,7 @@ class FanComponentModel(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):

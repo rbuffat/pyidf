@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -13,16 +14,7 @@ class SetpointManagerScheduled(DataObject):
         The simplest Setpoint Manager simply uses a schedule to determine one
         or more setpoints. Values of the nodes are not used as input.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled', 'pyname': u'SetpointManagerScheduled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:Scheduled`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled', 'pyname': u'SetpointManagerScheduled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Temperature', u'MaximumTemperature', u'MinimumTemperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio', u'MassFlowRate', u'MaximumMassFlowRate', u'MinimumMassFlowRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -31,7 +23,7 @@ class SetpointManagerScheduled(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class SetpointManagerScheduled(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value=None):
@@ -77,7 +69,7 @@ class SetpointManagerScheduled(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -100,7 +92,7 @@ class SetpointManagerScheduled(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -123,16 +115,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         This setpoint manager places a high and low schedule value
         on one or more nodes.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled:DualSetpoint', 'pyname': u'SetpointManagerScheduledDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'high setpoint schedule name', {'name': u'High Setpoint Schedule Name', 'pyname': u'high_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low setpoint schedule name', {'name': u'Low Setpoint Schedule Name', 'pyname': u'low_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:Scheduled:DualSetpoint`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Scheduled:DualSetpoint', 'pyname': u'SetpointManagerScheduledDualSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'high setpoint schedule name', {'name': u'High Setpoint Schedule Name', 'pyname': u'high_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low setpoint schedule name', {'name': u'Low Setpoint Schedule Name', 'pyname': u'low_setpoint_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -141,7 +124,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -164,7 +147,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -188,7 +171,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         Returns:
             str: the value of `high_setpoint_schedule_name` or None if not set
         """
-        return self._data["High Setpoint Schedule Name"]
+        return self["High Setpoint Schedule Name"]
 
     @high_setpoint_schedule_name.setter
     def high_setpoint_schedule_name(self, value=None):
@@ -211,7 +194,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         Returns:
             str: the value of `low_setpoint_schedule_name` or None if not set
         """
-        return self._data["Low Setpoint Schedule Name"]
+        return self["Low Setpoint Schedule Name"]
 
     @low_setpoint_schedule_name.setter
     def low_setpoint_schedule_name(self, value=None):
@@ -234,7 +217,7 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -257,16 +240,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         The Outdoor Air Reset Setpoint Manager sets the supply air
         temperature according to the outdoor air temperature using a reset rule.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:OutdoorAirReset', 'pyname': u'SetpointManagerOutdoorAirReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint at outdoor low temperature', {'name': u'Setpoint at Outdoor Low Temperature', 'pyname': u'setpoint_at_outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature', {'name': u'Outdoor Low Temperature', 'pyname': u'outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature', {'name': u'Setpoint at Outdoor High Temperature', 'pyname': u'setpoint_at_outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature', {'name': u'Outdoor High Temperature', 'pyname': u'outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint at outdoor low temperature 2', {'name': u'Setpoint at Outdoor Low Temperature 2', 'pyname': u'setpoint_at_outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature 2', {'name': u'Outdoor Low Temperature 2', 'pyname': u'outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature 2', {'name': u'Setpoint at Outdoor High Temperature 2', 'pyname': u'setpoint_at_outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature 2', {'name': u'Outdoor High Temperature 2', 'pyname': u'outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirReset`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:OutdoorAirReset', 'pyname': u'SetpointManagerOutdoorAirReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint at outdoor low temperature', {'name': u'Setpoint at Outdoor Low Temperature', 'pyname': u'setpoint_at_outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature', {'name': u'Outdoor Low Temperature', 'pyname': u'outdoor_low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature', {'name': u'Setpoint at Outdoor High Temperature', 'pyname': u'setpoint_at_outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature', {'name': u'Outdoor High Temperature', 'pyname': u'outdoor_high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint at outdoor low temperature 2', {'name': u'Setpoint at Outdoor Low Temperature 2', 'pyname': u'setpoint_at_outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor low temperature 2', {'name': u'Outdoor Low Temperature 2', 'pyname': u'outdoor_low_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'setpoint at outdoor high temperature 2', {'name': u'Setpoint at Outdoor High Temperature 2', 'pyname': u'setpoint_at_outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'outdoor high temperature 2', {'name': u'Outdoor High Temperature 2', 'pyname': u'outdoor_high_temperature_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -275,7 +249,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -298,7 +272,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -322,7 +296,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `setpoint_at_outdoor_low_temperature` or None if not set
         """
-        return self._data["Setpoint at Outdoor Low Temperature"]
+        return self["Setpoint at Outdoor Low Temperature"]
 
     @setpoint_at_outdoor_low_temperature.setter
     def setpoint_at_outdoor_low_temperature(self, value=None):
@@ -346,7 +320,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `outdoor_low_temperature` or None if not set
         """
-        return self._data["Outdoor Low Temperature"]
+        return self["Outdoor Low Temperature"]
 
     @outdoor_low_temperature.setter
     def outdoor_low_temperature(self, value=None):
@@ -370,7 +344,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `setpoint_at_outdoor_high_temperature` or None if not set
         """
-        return self._data["Setpoint at Outdoor High Temperature"]
+        return self["Setpoint at Outdoor High Temperature"]
 
     @setpoint_at_outdoor_high_temperature.setter
     def setpoint_at_outdoor_high_temperature(self, value=None):
@@ -394,7 +368,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `outdoor_high_temperature` or None if not set
         """
-        return self._data["Outdoor High Temperature"]
+        return self["Outdoor High Temperature"]
 
     @outdoor_high_temperature.setter
     def outdoor_high_temperature(self, value=None):
@@ -418,7 +392,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -442,7 +416,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -468,7 +442,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `setpoint_at_outdoor_low_temperature_2` or None if not set
         """
-        return self._data["Setpoint at Outdoor Low Temperature 2"]
+        return self["Setpoint at Outdoor Low Temperature 2"]
 
     @setpoint_at_outdoor_low_temperature_2.setter
     def setpoint_at_outdoor_low_temperature_2(self, value=None):
@@ -493,7 +467,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `outdoor_low_temperature_2` or None if not set
         """
-        return self._data["Outdoor Low Temperature 2"]
+        return self["Outdoor Low Temperature 2"]
 
     @outdoor_low_temperature_2.setter
     def outdoor_low_temperature_2(self, value=None):
@@ -518,7 +492,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `setpoint_at_outdoor_high_temperature_2` or None if not set
         """
-        return self._data["Setpoint at Outdoor High Temperature 2"]
+        return self["Setpoint at Outdoor High Temperature 2"]
 
     @setpoint_at_outdoor_high_temperature_2.setter
     def setpoint_at_outdoor_high_temperature_2(self, value=None):
@@ -543,7 +517,7 @@ class SetpointManagerOutdoorAirReset(DataObject):
         Returns:
             float: the value of `outdoor_high_temperature_2` or None if not set
         """
-        return self._data["Outdoor High Temperature 2"]
+        return self["Outdoor High Temperature 2"]
 
     @outdoor_high_temperature_2.setter
     def outdoor_high_temperature_2(self, value=None):
@@ -569,16 +543,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         will satisfy the zone load (heating or cooling) for the control zone. This setpoint
         manager is not limited to reheat applications.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:Reheat', 'pyname': u'SetpointManagerSingleZoneReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Reheat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:Reheat', 'pyname': u'SetpointManagerSingleZoneReheat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -587,7 +552,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -610,7 +575,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -634,7 +599,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             float: the value of `minimum_supply_air_temperature` or None if not set
         """
-        return self._data["Minimum Supply Air Temperature"]
+        return self["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0):
@@ -659,7 +624,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0):
@@ -684,7 +649,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -707,7 +672,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `zone_node_name` or None if not set
         """
-        return self._data["Zone Node Name"]
+        return self["Zone Node Name"]
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
@@ -730,7 +695,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `zone_inlet_node_name` or None if not set
         """
-        return self._data["Zone Inlet Node Name"]
+        return self["Zone Inlet Node Name"]
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
@@ -753,7 +718,7 @@ class SetpointManagerSingleZoneReheat(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -778,16 +743,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         setpoint temperature for the supply air that will satisfy the zone heating load for
         the control zone.
     """
-    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Heating', 'pyname': u'SetpointManagerSingleZoneHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Heating`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Heating', 'pyname': u'SetpointManagerSingleZoneHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -796,7 +752,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -819,7 +775,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -843,7 +799,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             float: the value of `minimum_supply_air_temperature` or None if not set
         """
-        return self._data["Minimum Supply Air Temperature"]
+        return self["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0):
@@ -868,7 +824,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0):
@@ -893,7 +849,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -916,7 +872,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `zone_node_name` or None if not set
         """
-        return self._data["Zone Node Name"]
+        return self["Zone Node Name"]
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
@@ -939,7 +895,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `zone_inlet_node_name` or None if not set
         """
-        return self._data["Zone Inlet Node Name"]
+        return self["Zone Inlet Node Name"]
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
@@ -962,7 +918,7 @@ class SetpointManagerSingleZoneHeating(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -987,16 +943,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         setpoint temperature for the supply air that will satisfy the zone cooling load for
         the control zone.
     """
-    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Cooling', 'pyname': u'SetpointManagerSingleZoneCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Cooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 8, 'name': u'SetpointManager:SingleZone:Cooling', 'pyname': u'SetpointManagerSingleZoneCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum supply air temperature', {'name': u'Minimum Supply Air Temperature', 'pyname': u'minimum_supply_air_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum supply air temperature', {'name': u'Maximum Supply Air Temperature', 'pyname': u'maximum_supply_air_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone inlet node name', {'name': u'Zone Inlet Node Name', 'pyname': u'zone_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1005,7 +952,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1028,7 +975,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -1052,7 +999,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             float: the value of `minimum_supply_air_temperature` or None if not set
         """
-        return self._data["Minimum Supply Air Temperature"]
+        return self["Minimum Supply Air Temperature"]
 
     @minimum_supply_air_temperature.setter
     def minimum_supply_air_temperature(self, value=-99.0):
@@ -1077,7 +1024,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             float: the value of `maximum_supply_air_temperature` or None if not set
         """
-        return self._data["Maximum Supply Air Temperature"]
+        return self["Maximum Supply Air Temperature"]
 
     @maximum_supply_air_temperature.setter
     def maximum_supply_air_temperature(self, value=99.0):
@@ -1102,7 +1049,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -1125,7 +1072,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `zone_node_name` or None if not set
         """
-        return self._data["Zone Node Name"]
+        return self["Zone Node Name"]
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
@@ -1148,7 +1095,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `zone_inlet_node_name` or None if not set
         """
-        return self._data["Zone Inlet Node Name"]
+        return self["Zone Inlet Node Name"]
 
     @zone_inlet_node_name.setter
     def zone_inlet_node_name(self, value=None):
@@ -1171,7 +1118,7 @@ class SetpointManagerSingleZoneCooling(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -1198,15 +1145,6 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:Humidity:Minimum', 'pyname': u'SetpointManagerSingleZoneHumidityMinimum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control zone air node name', {'name': u'Control Zone Air Node Name', 'pyname': u'control_zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Minimum`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1214,7 +1152,7 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1237,7 +1175,7 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value=None):
@@ -1263,7 +1201,7 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -1289,7 +1227,7 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -1313,7 +1251,7 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `control_zone_air_node_name` or None if not set
         """
-        return self._data["Control Zone Air Node Name"]
+        return self["Control Zone Air Node Name"]
 
     @control_zone_air_node_name.setter
     def control_zone_air_node_name(self, value=None):
@@ -1340,15 +1278,6 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:SingleZone:Humidity:Maximum', 'pyname': u'SetpointManagerSingleZoneHumidityMaximum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control zone air node name', {'name': u'Control Zone Air Node Name', 'pyname': u'control_zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Maximum`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1356,7 +1285,7 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1379,7 +1308,7 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value=None):
@@ -1405,7 +1334,7 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -1431,7 +1360,7 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -1455,7 +1384,7 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `control_zone_air_node_name` or None if not set
         """
-        return self._data["Control Zone Air Node Name"]
+        return self["Control Zone Air Node Name"]
 
     @control_zone_air_node_name.setter
     def control_zone_air_node_name(self, value=None):
@@ -1479,16 +1408,7 @@ class SetpointManagerMixedAir(DataObject):
         with a Controller:OutdoorAir object. This setpoint manager is used
         to establish a temperature setpoint at the mixed air node.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:MixedAir', 'pyname': u'SetpointManagerMixedAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan inlet node name', {'name': u'Fan Inlet Node Name', 'pyname': u'fan_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan outlet node name', {'name': u'Fan Outlet Node Name', 'pyname': u'fan_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MixedAir`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:MixedAir', 'pyname': u'SetpointManagerMixedAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan inlet node name', {'name': u'Fan Inlet Node Name', 'pyname': u'fan_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan outlet node name', {'name': u'Fan Outlet Node Name', 'pyname': u'fan_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1497,7 +1417,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1520,7 +1440,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -1544,7 +1464,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `reference_setpoint_node_name` or None if not set
         """
-        return self._data["Reference Setpoint Node Name"]
+        return self["Reference Setpoint Node Name"]
 
     @reference_setpoint_node_name.setter
     def reference_setpoint_node_name(self, value=None):
@@ -1567,7 +1487,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `fan_inlet_node_name` or None if not set
         """
-        return self._data["Fan Inlet Node Name"]
+        return self["Fan Inlet Node Name"]
 
     @fan_inlet_node_name.setter
     def fan_inlet_node_name(self, value=None):
@@ -1590,7 +1510,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `fan_outlet_node_name` or None if not set
         """
-        return self._data["Fan Outlet Node Name"]
+        return self["Fan Outlet Node Name"]
 
     @fan_outlet_node_name.setter
     def fan_outlet_node_name(self, value=None):
@@ -1613,7 +1533,7 @@ class SetpointManagerMixedAir(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -1638,16 +1558,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         produce the reference setpoint condition at the
         mixed air node when mixed with the return air stream
     """
-    schema = {'min-fields': 11, 'name': u'SetpointManager:OutdoorAirPretreat', 'pyname': u'SetpointManagerOutdoorAirPretreat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 1e-05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air stream node name', {'name': u'Mixed Air Stream Node Name', 'pyname': u'mixed_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirPretreat`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 11, 'name': u'SetpointManager:OutdoorAirPretreat', 'pyname': u'SetpointManagerOutdoorAirPretreat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature', u'HumidityRatio', u'MaximumHumidityRatio', u'MinimumHumidityRatio'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': -99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 99.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 1e-05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'reference setpoint node name', {'name': u'Reference Setpoint Node Name', 'pyname': u'reference_setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air stream node name', {'name': u'Mixed Air Stream Node Name', 'pyname': u'mixed_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1656,7 +1567,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1679,7 +1590,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value=None):
@@ -1702,7 +1613,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=-99.0):
@@ -1728,7 +1639,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=99.0):
@@ -1754,7 +1665,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             float: the value of `minimum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Minimum Setpoint Humidity Ratio"]
+        return self["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=1e-05):
@@ -1782,7 +1693,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             float: the value of `maximum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Maximum Setpoint Humidity Ratio"]
+        return self["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=1.0):
@@ -1810,7 +1721,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `reference_setpoint_node_name` or None if not set
         """
-        return self._data["Reference Setpoint Node Name"]
+        return self["Reference Setpoint Node Name"]
 
     @reference_setpoint_node_name.setter
     def reference_setpoint_node_name(self, value=None):
@@ -1837,7 +1748,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `mixed_air_stream_node_name` or None if not set
         """
-        return self._data["Mixed Air Stream Node Name"]
+        return self["Mixed Air Stream Node Name"]
 
     @mixed_air_stream_node_name.setter
     def mixed_air_stream_node_name(self, value=None):
@@ -1861,7 +1772,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `outdoor_air_stream_node_name` or None if not set
         """
-        return self._data["Outdoor Air Stream Node Name"]
+        return self["Outdoor Air Stream Node Name"]
 
     @outdoor_air_stream_node_name.setter
     def outdoor_air_stream_node_name(self, value=None):
@@ -1885,7 +1796,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `return_air_stream_node_name` or None if not set
         """
-        return self._data["Return Air Stream Node Name"]
+        return self["Return Air Stream Node Name"]
 
     @return_air_stream_node_name.setter
     def return_air_stream_node_name(self, value=None):
@@ -1909,7 +1820,7 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -1934,16 +1845,7 @@ class SetpointManagerWarmest(DataObject):
         of a central forced air HVAC system according to the
         cooling demand of the warmest zone.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:Warmest', 'pyname': u'SetpointManagerWarmest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MaximumTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:Warmest`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Warmest', 'pyname': u'SetpointManagerWarmest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MaximumTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MaximumTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1952,7 +1854,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1975,7 +1877,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -1999,7 +1901,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2023,7 +1925,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0):
@@ -2048,7 +1950,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0):
@@ -2073,7 +1975,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             str: the value of `strategy` or None if not set
         """
-        return self._data["Strategy"]
+        return self["Strategy"]
 
     @strategy.setter
     def strategy(self, value="MaximumTemperature"):
@@ -2097,7 +1999,7 @@ class SetpointManagerWarmest(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -2122,16 +2024,7 @@ class SetpointManagerColdest(DataObject):
         Usually it is used in conjunction with a SetpointManager:Warmest
         resetting the temperature of the air in the cooling supply duct.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:Coldest', 'pyname': u'SetpointManagerColdest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 20.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MinimumTemperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:Coldest`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:Coldest', 'pyname': u'SetpointManagerColdest', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 20.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'MinimumTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MinimumTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2140,7 +2033,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2163,7 +2056,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -2187,7 +2080,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2211,7 +2104,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=20.0):
@@ -2236,7 +2129,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=50.0):
@@ -2261,7 +2154,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             str: the value of `strategy` or None if not set
         """
-        return self._data["Strategy"]
+        return self["Strategy"]
 
     @strategy.setter
     def strategy(self, value="MinimumTemperature"):
@@ -2285,7 +2178,7 @@ class SetpointManagerColdest(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -2309,16 +2202,7 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
         mass flow rate through a return air bypass duct
         to meet the specified temperature setpoint
     """
-    schema = {'min-fields': 4, 'name': u'SetpointManager:ReturnAirBypassFlow', 'pyname': u'SetpointManagerReturnAirBypassFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Flow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature setpoint schedule name', {'name': u'Temperature Setpoint Schedule Name', 'pyname': u'temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:ReturnAirBypassFlow`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'SetpointManager:ReturnAirBypassFlow', 'pyname': u'SetpointManagerReturnAirBypassFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Flow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow'], 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature setpoint schedule name', {'name': u'Temperature Setpoint Schedule Name', 'pyname': u'temperature_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2327,7 +2211,7 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2350,7 +2234,7 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Flow"):
@@ -2374,7 +2258,7 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2398,7 +2282,7 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
         Returns:
             str: the value of `temperature_setpoint_schedule_name` or None if not set
         """
-        return self._data["Temperature Setpoint Schedule Name"]
+        return self["Temperature Setpoint Schedule Name"]
 
     @temperature_setpoint_schedule_name.setter
     def temperature_setpoint_schedule_name(self, value=None):
@@ -2420,16 +2304,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         This setpoint manager sets both the supply air temperature
         and the supply air flow rate.
     """
-    schema = {'min-fields': 8, 'name': u'SetpointManager:WarmestTemperatureFlow', 'pyname': u'SetpointManagerWarmestTemperatureFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'TemperatureFirst', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum turndown ratio', {'name': u'Minimum Turndown Ratio', 'pyname': u'minimum_turndown_ratio', 'default': 0.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:WarmestTemperatureFlow`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 8, 'name': u'SetpointManager:WarmestTemperatureFlow', 'pyname': u'SetpointManagerWarmestTemperatureFlow', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'strategy', {'name': u'Strategy', 'pyname': u'strategy', 'default': u'TemperatureFirst', 'required-field': False, 'autosizable': False, 'accepted-values': [u'TemperatureFirst', u'FlowFirst'], 'autocalculatable': False, 'type': 'alpha'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum turndown ratio', {'name': u'Minimum Turndown Ratio', 'pyname': u'minimum_turndown_ratio', 'default': 0.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2438,7 +2313,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2461,7 +2336,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value=None):
@@ -2484,7 +2359,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2508,7 +2383,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0):
@@ -2533,7 +2408,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0):
@@ -2558,7 +2433,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             str: the value of `strategy` or None if not set
         """
-        return self._data["Strategy"]
+        return self["Strategy"]
 
     @strategy.setter
     def strategy(self, value="TemperatureFirst"):
@@ -2590,7 +2465,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -2614,7 +2489,7 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         Returns:
             float: the value of `minimum_turndown_ratio` or None if not set
         """
-        return self._data["Minimum Turndown Ratio"]
+        return self["Minimum Turndown Ratio"]
 
     @minimum_turndown_ratio.setter
     def minimum_turndown_ratio(self, value=0.2):
@@ -2642,15 +2517,6 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Heating:Average', 'pyname': u'SetpointManagerMultiZoneHeatingAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 20.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Heating:Average`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2658,7 +2524,7 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2681,7 +2547,7 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2705,7 +2571,7 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=20.0):
@@ -2730,7 +2596,7 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=50.0):
@@ -2755,7 +2621,7 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -2780,15 +2646,6 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Cooling:Average', 'pyname': u'SetpointManagerMultiZoneCoolingAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'default': 12.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'default': 18.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Cooling:Average`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2796,7 +2653,7 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2819,7 +2676,7 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2843,7 +2700,7 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=12.0):
@@ -2868,7 +2725,7 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=18.0):
@@ -2893,7 +2750,7 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -2918,15 +2775,6 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:MinimumHumidity:Average', 'pyname': u'SetpointManagerMultiZoneMinimumHumidityAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MinimumHumidity:Average`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2934,7 +2782,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2957,7 +2805,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -2981,7 +2829,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         Returns:
             float: the value of `minimum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Minimum Setpoint Humidity Ratio"]
+        return self["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.005):
@@ -3006,7 +2854,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         Returns:
             float: the value of `maximum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Maximum Setpoint Humidity Ratio"]
+        return self["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.012):
@@ -3031,7 +2879,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3056,15 +2904,6 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:MaximumHumidity:Average', 'pyname': u'SetpointManagerMultiZoneMaximumHumidityAverage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.008, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.015, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MaximumHumidity:Average`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3072,7 +2911,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3095,7 +2934,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -3119,7 +2958,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
         Returns:
             float: the value of `minimum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Minimum Setpoint Humidity Ratio"]
+        return self["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.008):
@@ -3144,7 +2983,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
         Returns:
             float: the value of `maximum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Maximum Setpoint Humidity Ratio"]
+        return self["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.015):
@@ -3169,7 +3008,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3195,15 +3034,6 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Humidity:Minimum', 'pyname': u'SetpointManagerMultiZoneHumidityMinimum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Minimum`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3211,7 +3041,7 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3234,7 +3064,7 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -3258,7 +3088,7 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         Returns:
             float: the value of `minimum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Minimum Setpoint Humidity Ratio"]
+        return self["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.005):
@@ -3283,7 +3113,7 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         Returns:
             float: the value of `maximum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Maximum Setpoint Humidity Ratio"]
+        return self["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.012):
@@ -3308,7 +3138,7 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3334,15 +3164,6 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'SetpointManager:MultiZone:Humidity:Maximum', 'pyname': u'SetpointManagerMultiZoneHumidityMaximum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum setpoint humidity ratio', {'name': u'Minimum Setpoint Humidity Ratio', 'pyname': u'minimum_setpoint_humidity_ratio', 'default': 0.008, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'maximum setpoint humidity ratio', {'name': u'Maximum Setpoint Humidity Ratio', 'pyname': u'maximum_setpoint_humidity_ratio', 'default': 0.015, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Maximum`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3350,7 +3171,7 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3373,7 +3194,7 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
         """
-        return self._data["HVAC Air Loop Name"]
+        return self["HVAC Air Loop Name"]
 
     @hvac_air_loop_name.setter
     def hvac_air_loop_name(self, value=None):
@@ -3397,7 +3218,7 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
         Returns:
             float: the value of `minimum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Minimum Setpoint Humidity Ratio"]
+        return self["Minimum Setpoint Humidity Ratio"]
 
     @minimum_setpoint_humidity_ratio.setter
     def minimum_setpoint_humidity_ratio(self, value=0.008):
@@ -3422,7 +3243,7 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
         Returns:
             float: the value of `maximum_setpoint_humidity_ratio` or None if not set
         """
-        return self._data["Maximum Setpoint Humidity Ratio"]
+        return self["Maximum Setpoint Humidity Ratio"]
 
     @maximum_setpoint_humidity_ratio.setter
     def maximum_setpoint_humidity_ratio(self, value=0.015):
@@ -3447,7 +3268,7 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3471,16 +3292,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         that is derived from the current outdoor air environmental conditions.
         The outdoor air conditions are obtained from the weather information during the simulation.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowOutdoorAirTemperature', 'pyname': u'SetpointManagerFollowOutdoorAirTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'OutdoorAirWetBulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:FollowOutdoorAirTemperature`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowOutdoorAirTemperature', 'pyname': u'SetpointManagerFollowOutdoorAirTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'OutdoorAirWetBulb', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorAirWetBulb', u'OutdoorAirDryBulb'], 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3489,7 +3301,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3512,7 +3324,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -3536,7 +3348,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             str: the value of `reference_temperature_type` or None if not set
         """
-        return self._data["Reference Temperature Type"]
+        return self["Reference Temperature Type"]
 
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="OutdoorAirWetBulb"):
@@ -3560,7 +3372,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             float: the value of `offset_temperature_difference` or None if not set
         """
-        return self._data["Offset Temperature Difference"]
+        return self["Offset Temperature Difference"]
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
@@ -3584,7 +3396,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
@@ -3608,7 +3420,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
@@ -3632,7 +3444,7 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3660,16 +3472,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         then this setpoint manager can be used to follow outdoor air conditions
         that are adjusted for altitude.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowSystemNodeTemperature', 'pyname': u'SetpointManagerFollowSystemNodeTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference node name', {'name': u'Reference Node Name', 'pyname': u'reference_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'NodeDryBulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum limit setpoint temperature', {'name': u'Maximum Limit Setpoint Temperature', 'pyname': u'maximum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum limit setpoint temperature', {'name': u'Minimum Limit Setpoint Temperature', 'pyname': u'minimum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:FollowSystemNodeTemperature`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowSystemNodeTemperature', 'pyname': u'SetpointManagerFollowSystemNodeTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'reference node name', {'name': u'Reference Node Name', 'pyname': u'reference_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'reference temperature type', {'name': u'Reference Temperature Type', 'pyname': u'reference_temperature_type', 'default': u'NodeDryBulb', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NodeWetBulb', u'NodeDryBulb'], 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum limit setpoint temperature', {'name': u'Maximum Limit Setpoint Temperature', 'pyname': u'maximum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum limit setpoint temperature', {'name': u'Minimum Limit Setpoint Temperature', 'pyname': u'minimum_limit_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3678,7 +3481,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3701,7 +3504,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -3725,7 +3528,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             str: the value of `reference_node_name` or None if not set
         """
-        return self._data["Reference Node Name"]
+        return self["Reference Node Name"]
 
     @reference_node_name.setter
     def reference_node_name(self, value=None):
@@ -3748,7 +3551,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             str: the value of `reference_temperature_type` or None if not set
         """
-        return self._data["Reference Temperature Type"]
+        return self["Reference Temperature Type"]
 
     @reference_temperature_type.setter
     def reference_temperature_type(self, value="NodeDryBulb"):
@@ -3772,7 +3575,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             float: the value of `offset_temperature_difference` or None if not set
         """
-        return self._data["Offset Temperature Difference"]
+        return self["Offset Temperature Difference"]
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
@@ -3796,7 +3599,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             float: the value of `maximum_limit_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Limit Setpoint Temperature"]
+        return self["Maximum Limit Setpoint Temperature"]
 
     @maximum_limit_setpoint_temperature.setter
     def maximum_limit_setpoint_temperature(self, value=None):
@@ -3820,7 +3623,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             float: the value of `minimum_limit_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Limit Setpoint Temperature"]
+        return self["Minimum Limit Setpoint Temperature"]
 
     @minimum_limit_setpoint_temperature.setter
     def minimum_limit_setpoint_temperature(self, value=None):
@@ -3844,7 +3647,7 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -3871,16 +3674,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         This setpoint manager is primarily intended for condenser or plant loops
         using some type of ground heat exchanger.
     """
-    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowGroundTemperature', 'pyname': u'SetpointManagerFollowGroundTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference ground temperature object type', {'name': u'Reference Ground Temperature Object Type', 'pyname': u'reference_ground_temperature_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:FollowGroundTemperature`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SetpointManager:FollowGroundTemperature', 'pyname': u'SetpointManagerFollowGroundTemperature', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Temperature', u'MinimumTemperature', u'MaximumTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'reference ground temperature object type', {'name': u'Reference Ground Temperature Object Type', 'pyname': u'reference_ground_temperature_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Site:GroundTemperature:BuildingSurface', u'Site:GroundTemperature:Shallow', u'Site:GroundTemperature:Deep', u'Site:GroundTemperature:FCfactorMethod'], 'autocalculatable': False, 'type': 'alpha'}), (u'offset temperature difference', {'name': u'Offset Temperature Difference', 'pyname': u'offset_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum setpoint temperature', {'name': u'Maximum Setpoint Temperature', 'pyname': u'maximum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum setpoint temperature', {'name': u'Minimum Setpoint Temperature', 'pyname': u'minimum_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3889,7 +3683,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3912,7 +3706,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -3936,7 +3730,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             str: the value of `reference_ground_temperature_object_type` or None if not set
         """
-        return self._data["Reference Ground Temperature Object Type"]
+        return self["Reference Ground Temperature Object Type"]
 
     @reference_ground_temperature_object_type.setter
     def reference_ground_temperature_object_type(self, value=None):
@@ -3959,7 +3753,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             float: the value of `offset_temperature_difference` or None if not set
         """
-        return self._data["Offset Temperature Difference"]
+        return self["Offset Temperature Difference"]
 
     @offset_temperature_difference.setter
     def offset_temperature_difference(self, value=None):
@@ -3983,7 +3777,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             float: the value of `maximum_setpoint_temperature` or None if not set
         """
-        return self._data["Maximum Setpoint Temperature"]
+        return self["Maximum Setpoint Temperature"]
 
     @maximum_setpoint_temperature.setter
     def maximum_setpoint_temperature(self, value=None):
@@ -4007,7 +3801,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             float: the value of `minimum_setpoint_temperature` or None if not set
         """
-        return self._data["Minimum Setpoint Temperature"]
+        return self["Minimum Setpoint Temperature"]
 
     @minimum_setpoint_temperature.setter
     def minimum_setpoint_temperature(self, value=None):
@@ -4031,7 +3825,7 @@ class SetpointManagerFollowGroundTemperature(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -4054,16 +3848,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         This setpoint manager uses one curve to determine the optimum condenser entering water temperature
         for a given timestep and two other curves to place boundary conditions on the setpoint value.
     """
-    schema = {'min-fields': 10, 'name': u'SetpointManager:CondenserEnteringReset', 'pyname': u'SetpointManagerCondenserEnteringReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'default condenser entering water temperature schedule name', {'name': u'Default Condenser Entering Water Temperature Schedule Name', 'pyname': u'default_condenser_entering_water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum design wetbulb temperature curve name', {'name': u'Minimum Design Wetbulb Temperature Curve Name', 'pyname': u'minimum_design_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outside air wetbulb temperature curve name', {'name': u'Minimum Outside Air Wetbulb Temperature Curve Name', 'pyname': u'minimum_outside_air_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'optimized cond entering water temperature curve name', {'name': u'Optimized Cond Entering Water Temperature Curve Name', 'pyname': u'optimized_cond_entering_water_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling tower design inlet air wet-bulb temperature', {'name': u'Cooling Tower Design Inlet Air Wet-Bulb Temperature', 'pyname': u'cooling_tower_design_inlet_air_wetbulb_temperature', 'default': 25.56, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 10, 'name': u'SetpointManager:CondenserEnteringReset', 'pyname': u'SetpointManagerCondenserEnteringReset', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'default condenser entering water temperature schedule name', {'name': u'Default Condenser Entering Water Temperature Schedule Name', 'pyname': u'default_condenser_entering_water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum design wetbulb temperature curve name', {'name': u'Minimum Design Wetbulb Temperature Curve Name', 'pyname': u'minimum_design_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outside air wetbulb temperature curve name', {'name': u'Minimum Outside Air Wetbulb Temperature Curve Name', 'pyname': u'minimum_outside_air_wetbulb_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'optimized cond entering water temperature curve name', {'name': u'Optimized Cond Entering Water Temperature Curve Name', 'pyname': u'optimized_cond_entering_water_temperature_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling tower design inlet air wet-bulb temperature', {'name': u'Cooling Tower Design Inlet Air Wet-Bulb Temperature', 'pyname': u'cooling_tower_design_inlet_air_wetbulb_temperature', 'default': 25.56, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4072,7 +3857,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4095,7 +3880,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -4119,7 +3904,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `default_condenser_entering_water_temperature_schedule_name` or None if not set
         """
-        return self._data["Default Condenser Entering Water Temperature Schedule Name"]
+        return self["Default Condenser Entering Water Temperature Schedule Name"]
 
     @default_condenser_entering_water_temperature_schedule_name.setter
     def default_condenser_entering_water_temperature_schedule_name(self, value=None):
@@ -4145,7 +3930,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `minimum_design_wetbulb_temperature_curve_name` or None if not set
         """
-        return self._data["Minimum Design Wetbulb Temperature Curve Name"]
+        return self["Minimum Design Wetbulb Temperature Curve Name"]
 
     @minimum_design_wetbulb_temperature_curve_name.setter
     def minimum_design_wetbulb_temperature_curve_name(self, value=None):
@@ -4169,7 +3954,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `minimum_outside_air_wetbulb_temperature_curve_name` or None if not set
         """
-        return self._data["Minimum Outside Air Wetbulb Temperature Curve Name"]
+        return self["Minimum Outside Air Wetbulb Temperature Curve Name"]
 
     @minimum_outside_air_wetbulb_temperature_curve_name.setter
     def minimum_outside_air_wetbulb_temperature_curve_name(self, value=None):
@@ -4193,7 +3978,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `optimized_cond_entering_water_temperature_curve_name` or None if not set
         """
-        return self._data["Optimized Cond Entering Water Temperature Curve Name"]
+        return self["Optimized Cond Entering Water Temperature Curve Name"]
 
     @optimized_cond_entering_water_temperature_curve_name.setter
     def optimized_cond_entering_water_temperature_curve_name(self, value=None):
@@ -4217,7 +4002,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             float: the value of `minimum_lift` or None if not set
         """
-        return self._data["Minimum Lift"]
+        return self["Minimum Lift"]
 
     @minimum_lift.setter
     def minimum_lift(self, value=11.1):
@@ -4242,7 +4027,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             float: the value of `maximum_condenser_entering_water_temperature` or None if not set
         """
-        return self._data["Maximum Condenser Entering Water Temperature"]
+        return self["Maximum Condenser Entering Water Temperature"]
 
     @maximum_condenser_entering_water_temperature.setter
     def maximum_condenser_entering_water_temperature(self, value=32.0):
@@ -4267,7 +4052,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             float: the value of `cooling_tower_design_inlet_air_wetbulb_temperature` or None if not set
         """
-        return self._data["Cooling Tower Design Inlet Air Wet-Bulb Temperature"]
+        return self["Cooling Tower Design Inlet Air Wet-Bulb Temperature"]
 
     @cooling_tower_design_inlet_air_wetbulb_temperature.setter
     def cooling_tower_design_inlet_air_wetbulb_temperature(self, value=25.56):
@@ -4292,7 +4077,7 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -4315,16 +4100,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         This setpoint manager determine the ideal optimum condenser entering water temperature
         setpoint for a given timestep.
     """
-    schema = {'min-fields': 5, 'name': u'SetpointManager:CondenserEnteringReset:Ideal', 'pyname': u'SetpointManagerCondenserEnteringResetIdeal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset:Ideal`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'SetpointManager:CondenserEnteringReset:Ideal', 'pyname': u'SetpointManagerCondenserEnteringResetIdeal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'default': u'Temperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Temperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum lift', {'name': u'Minimum Lift', 'pyname': u'minimum_lift', 'default': 11.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum condenser entering water temperature', {'name': u'Maximum Condenser Entering Water Temperature', 'pyname': u'maximum_condenser_entering_water_temperature', 'default': 32.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4333,7 +4109,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4356,7 +4132,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         Returns:
             str: the value of `control_variable` or None if not set
         """
-        return self._data["Control Variable"]
+        return self["Control Variable"]
 
     @control_variable.setter
     def control_variable(self, value="Temperature"):
@@ -4380,7 +4156,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         Returns:
             float: the value of `minimum_lift` or None if not set
         """
-        return self._data["Minimum Lift"]
+        return self["Minimum Lift"]
 
     @minimum_lift.setter
     def minimum_lift(self, value=11.1):
@@ -4405,7 +4181,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         Returns:
             float: the value of `maximum_condenser_entering_water_temperature` or None if not set
         """
-        return self._data["Maximum Condenser Entering Water Temperature"]
+        return self["Maximum Condenser Entering Water Temperature"]
 
     @maximum_condenser_entering_water_temperature.setter
     def maximum_condenser_entering_water_temperature(self, value=32.0):
@@ -4430,7 +4206,7 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -4456,15 +4232,6 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:OneStageCooling', 'pyname': u'SetpointManagerSingleZoneOneStageCooling', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling stage on supply air setpoint temperature', {'name': u'Cooling Stage On Supply Air Setpoint Temperature', 'pyname': u'cooling_stage_on_supply_air_setpoint_temperature', 'default': -99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'cooling stage off supply air setpoint temperature', {'name': u'Cooling Stage Off Supply Air Setpoint Temperature', 'pyname': u'cooling_stage_off_supply_air_setpoint_temperature', 'default': 99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageCooling`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4472,7 +4239,7 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4495,7 +4262,7 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         Returns:
             float: the value of `cooling_stage_on_supply_air_setpoint_temperature` or None if not set
         """
-        return self._data["Cooling Stage On Supply Air Setpoint Temperature"]
+        return self["Cooling Stage On Supply Air Setpoint Temperature"]
 
     @cooling_stage_on_supply_air_setpoint_temperature.setter
     def cooling_stage_on_supply_air_setpoint_temperature(self, value=-99.0):
@@ -4521,7 +4288,7 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         Returns:
             float: the value of `cooling_stage_off_supply_air_setpoint_temperature` or None if not set
         """
-        return self._data["Cooling Stage Off Supply Air Setpoint Temperature"]
+        return self["Cooling Stage Off Supply Air Setpoint Temperature"]
 
     @cooling_stage_off_supply_air_setpoint_temperature.setter
     def cooling_stage_off_supply_air_setpoint_temperature(self, value=99.0):
@@ -4547,7 +4314,7 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -4570,7 +4337,7 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):
@@ -4597,15 +4364,6 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'SetpointManager:SingleZone:OneStageHeating', 'pyname': u'SetpointManagerSingleZoneOneStageHeating', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating stage on supply air setpoint temperature', {'name': u'Heating Stage On Supply Air Setpoint Temperature', 'pyname': u'heating_stage_on_supply_air_setpoint_temperature', 'default': 99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'heating stage off supply air setpoint temperature', {'name': u'Heating Stage Off Supply Air Setpoint Temperature', 'pyname': u'heating_stage_off_supply_air_setpoint_temperature', 'default': -99.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint node or nodelist name', {'name': u'Setpoint Node or NodeList Name', 'pyname': u'setpoint_node_or_nodelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageHeating`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4613,7 +4371,7 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4636,7 +4394,7 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
         Returns:
             float: the value of `heating_stage_on_supply_air_setpoint_temperature` or None if not set
         """
-        return self._data["Heating Stage On Supply Air Setpoint Temperature"]
+        return self["Heating Stage On Supply Air Setpoint Temperature"]
 
     @heating_stage_on_supply_air_setpoint_temperature.setter
     def heating_stage_on_supply_air_setpoint_temperature(self, value=99.0):
@@ -4662,7 +4420,7 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
         Returns:
             float: the value of `heating_stage_off_supply_air_setpoint_temperature` or None if not set
         """
-        return self._data["Heating Stage Off Supply Air Setpoint Temperature"]
+        return self["Heating Stage Off Supply Air Setpoint Temperature"]
 
     @heating_stage_off_supply_air_setpoint_temperature.setter
     def heating_stage_off_supply_air_setpoint_temperature(self, value=-99.0):
@@ -4688,7 +4446,7 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
         Returns:
             str: the value of `control_zone_name` or None if not set
         """
-        return self._data["Control Zone Name"]
+        return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
@@ -4711,7 +4469,7 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
         Returns:
             str: the value of `setpoint_node_or_nodelist_name` or None if not set
         """
-        return self._data["Setpoint Node or NodeList Name"]
+        return self["Setpoint Node or NodeList Name"]
 
     @setpoint_node_or_nodelist_name.setter
     def setpoint_node_or_nodelist_name(self, value=None):

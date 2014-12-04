@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -13,16 +14,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         This object is used to describe general outdoor air requirements which
         are referenced by other objects.
     """
-    schema = {'min-fields': 1, 'name': u'DesignSpecification:OutdoorAir', 'pyname': u'DesignSpecificationOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outdoor air method', {'name': u'Outdoor Air Method', 'pyname': u'outdoor_air_method', 'default': u'Flow/Person', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air flow per person', {'name': u'Outdoor Air Flow per Person', 'pyname': u'outdoor_air_flow_per_person', 'default': 0.00944, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'outdoor air flow per zone floor area', {'name': u'Outdoor Air Flow per Zone Floor Area', 'pyname': u'outdoor_air_flow_per_zone_floor_area', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s-m2'}), (u'outdoor air flow per zone', {'name': u'Outdoor Air Flow per Zone', 'pyname': u'outdoor_air_flow_per_zone', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow air changes per hour', {'name': u'Outdoor Air Flow Air Changes per Hour', 'pyname': u'outdoor_air_flow_air_changes_per_hour', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'outdoor air flow rate fraction schedule name', {'name': u'Outdoor Air Flow Rate Fraction Schedule Name', 'pyname': u'outdoor_air_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `DesignSpecification:OutdoorAir`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 1, 'name': u'DesignSpecification:OutdoorAir', 'pyname': u'DesignSpecificationOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outdoor air method', {'name': u'Outdoor Air Method', 'pyname': u'outdoor_air_method', 'default': u'Flow/Person', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow/Person', u'Flow/Area', u'Flow/Zone', u'AirChanges/Hour', u'Sum', u'Maximum'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air flow per person', {'name': u'Outdoor Air Flow per Person', 'pyname': u'outdoor_air_flow_per_person', 'default': 0.00944, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'outdoor air flow per zone floor area', {'name': u'Outdoor Air Flow per Zone Floor Area', 'pyname': u'outdoor_air_flow_per_zone_floor_area', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s-m2'}), (u'outdoor air flow per zone', {'name': u'Outdoor Air Flow per Zone', 'pyname': u'outdoor_air_flow_per_zone', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow air changes per hour', {'name': u'Outdoor Air Flow Air Changes per Hour', 'pyname': u'outdoor_air_flow_air_changes_per_hour', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'outdoor air flow rate fraction schedule name', {'name': u'Outdoor Air Flow Rate Fraction Schedule Name', 'pyname': u'outdoor_air_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -31,7 +23,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             str: the value of `outdoor_air_method` or None if not set
         """
-        return self._data["Outdoor Air Method"]
+        return self["Outdoor Air Method"]
 
     @outdoor_air_method.setter
     def outdoor_air_method(self, value="Flow/Person"):
@@ -82,7 +74,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_per_person` or None if not set
         """
-        return self._data["Outdoor Air Flow per Person"]
+        return self["Outdoor Air Flow per Person"]
 
     @outdoor_air_flow_per_person.setter
     def outdoor_air_flow_per_person(self, value=0.00944):
@@ -110,7 +102,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_per_zone_floor_area` or None if not set
         """
-        return self._data["Outdoor Air Flow per Zone Floor Area"]
+        return self["Outdoor Air Flow per Zone Floor Area"]
 
     @outdoor_air_flow_per_zone_floor_area.setter
     def outdoor_air_flow_per_zone_floor_area(self, value=None):
@@ -136,7 +128,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_per_zone` or None if not set
         """
-        return self._data["Outdoor Air Flow per Zone"]
+        return self["Outdoor Air Flow per Zone"]
 
     @outdoor_air_flow_per_zone.setter
     def outdoor_air_flow_per_zone(self, value=None):
@@ -162,7 +154,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             float: the value of `outdoor_air_flow_air_changes_per_hour` or None if not set
         """
-        return self._data["Outdoor Air Flow Air Changes per Hour"]
+        return self["Outdoor Air Flow Air Changes per Hour"]
 
     @outdoor_air_flow_air_changes_per_hour.setter
     def outdoor_air_flow_air_changes_per_hour(self, value=None):
@@ -188,7 +180,7 @@ class DesignSpecificationOutdoorAir(DataObject):
         Returns:
             str: the value of `outdoor_air_flow_rate_fraction_schedule_name` or None if not set
         """
-        return self._data["Outdoor Air Flow Rate Fraction Schedule Name"]
+        return self["Outdoor Air Flow Rate Fraction Schedule Name"]
 
     @outdoor_air_flow_rate_fraction_schedule_name.setter
     def outdoor_air_flow_rate_fraction_schedule_name(self, value=None):
@@ -215,15 +207,6 @@ class DesignSpecificationZoneAirDistribution(DataObject):
     """
     schema = {'min-fields': 1, 'name': u'DesignSpecification:ZoneAirDistribution', 'pyname': u'DesignSpecificationZoneAirDistribution', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone air distribution effectiveness in cooling mode', {'name': u'Zone Air Distribution Effectiveness in Cooling Mode', 'pyname': u'zone_air_distribution_effectiveness_in_cooling_mode', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'zone air distribution effectiveness in heating mode', {'name': u'Zone Air Distribution Effectiveness in Heating Mode', 'pyname': u'zone_air_distribution_effectiveness_in_heating_mode', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'zone air distribution effectiveness schedule name', {'name': u'Zone Air Distribution Effectiveness Schedule Name', 'pyname': u'zone_air_distribution_effectiveness_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone secondary recirculation fraction', {'name': u'Zone Secondary Recirculation Fraction', 'pyname': u'zone_secondary_recirculation_fraction', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `DesignSpecification:ZoneAirDistribution`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -231,7 +214,7 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -254,7 +237,7 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         Returns:
             float: the value of `zone_air_distribution_effectiveness_in_cooling_mode` or None if not set
         """
-        return self._data["Zone Air Distribution Effectiveness in Cooling Mode"]
+        return self["Zone Air Distribution Effectiveness in Cooling Mode"]
 
     @zone_air_distribution_effectiveness_in_cooling_mode.setter
     def zone_air_distribution_effectiveness_in_cooling_mode(self, value=1.0):
@@ -279,7 +262,7 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         Returns:
             float: the value of `zone_air_distribution_effectiveness_in_heating_mode` or None if not set
         """
-        return self._data["Zone Air Distribution Effectiveness in Heating Mode"]
+        return self["Zone Air Distribution Effectiveness in Heating Mode"]
 
     @zone_air_distribution_effectiveness_in_heating_mode.setter
     def zone_air_distribution_effectiveness_in_heating_mode(self, value=1.0):
@@ -304,7 +287,7 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         Returns:
             str: the value of `zone_air_distribution_effectiveness_schedule_name` or None if not set
         """
-        return self._data["Zone Air Distribution Effectiveness Schedule Name"]
+        return self["Zone Air Distribution Effectiveness Schedule Name"]
 
     @zone_air_distribution_effectiveness_schedule_name.setter
     def zone_air_distribution_effectiveness_schedule_name(self, value=None):
@@ -329,7 +312,7 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         Returns:
             float: the value of `zone_secondary_recirculation_fraction` or None if not set
         """
-        return self._data["Zone Secondary Recirculation Fraction"]
+        return self["Zone Secondary Recirculation Fraction"]
 
     @zone_secondary_recirculation_fraction.setter
     def zone_secondary_recirculation_fraction(self, value=None):
@@ -358,15 +341,6 @@ class SizingParameters(DataObject):
     """
     schema = {'min-fields': 1, 'name': u'Sizing:Parameters', 'pyname': u'SizingParameters', 'format': None, 'fields': OrderedDict([(u'heating sizing factor', {'name': u'Heating Sizing Factor', 'pyname': u'heating_sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling sizing factor', {'name': u'Cooling Sizing Factor', 'pyname': u'cooling_sizing_factor', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'timesteps in averaging window', {'name': u'Timesteps in Averaging Window', 'pyname': u'timesteps_in_averaging_window', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Sizing:Parameters`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def heating_sizing_factor(self):
         """Get heating_sizing_factor
@@ -374,7 +348,7 @@ class SizingParameters(DataObject):
         Returns:
             float: the value of `heating_sizing_factor` or None if not set
         """
-        return self._data["Heating Sizing Factor"]
+        return self["Heating Sizing Factor"]
 
     @heating_sizing_factor.setter
     def heating_sizing_factor(self, value=1.0):
@@ -398,7 +372,7 @@ class SizingParameters(DataObject):
         Returns:
             float: the value of `cooling_sizing_factor` or None if not set
         """
-        return self._data["Cooling Sizing Factor"]
+        return self["Cooling Sizing Factor"]
 
     @cooling_sizing_factor.setter
     def cooling_sizing_factor(self, value=1.0):
@@ -422,7 +396,7 @@ class SizingParameters(DataObject):
         Returns:
             int: the value of `timesteps_in_averaging_window` or None if not set
         """
-        return self._data["Timesteps in Averaging Window"]
+        return self["Timesteps in Averaging Window"]
 
     @timesteps_in_averaging_window.setter
     def timesteps_in_averaging_window(self, value=None):
@@ -450,16 +424,7 @@ class SizingZone(DataObject):
         cooling and heating load and cooling, heating, and ventilation air flows are then saved
         for system level and zone component design calculations.
     """
-    schema = {'min-fields': 18, 'name': u'Sizing:Zone', 'pyname': u'SizingZone', 'format': None, 'fields': OrderedDict([(u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone cooling design supply air temperature input method', {'name': u'Zone Cooling Design Supply Air Temperature Input Method', 'pyname': u'zone_cooling_design_supply_air_temperature_input_method', 'default': u'SupplyAirTemperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone cooling design supply air temperature', {'name': u'Zone Cooling Design Supply Air Temperature', 'pyname': u'zone_cooling_design_supply_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'zone cooling design supply air temperature difference', {'name': u'Zone Cooling Design Supply Air Temperature Difference', 'pyname': u'zone_cooling_design_supply_air_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'zone heating design supply air temperature input method', {'name': u'Zone Heating Design Supply Air Temperature Input Method', 'pyname': u'zone_heating_design_supply_air_temperature_input_method', 'default': u'SupplyAirTemperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone heating design supply air temperature', {'name': u'Zone Heating Design Supply Air Temperature', 'pyname': u'zone_heating_design_supply_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'zone heating design supply air temperature difference', {'name': u'Zone Heating Design Supply Air Temperature Difference', 'pyname': u'zone_heating_design_supply_air_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'zone cooling design supply air humidity ratio', {'name': u'Zone Cooling Design Supply Air Humidity Ratio', 'pyname': u'zone_cooling_design_supply_air_humidity_ratio', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'zone heating design supply air humidity ratio', {'name': u'Zone Heating Design Supply Air Humidity Ratio', 'pyname': u'zone_heating_design_supply_air_humidity_ratio', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone heating sizing factor', {'name': u'Zone Heating Sizing Factor', 'pyname': u'zone_heating_sizing_factor', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'zone cooling sizing factor', {'name': u'Zone Cooling Sizing Factor', 'pyname': u'zone_cooling_sizing_factor', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design air flow rate', {'name': u'Cooling Design Air Flow Rate', 'pyname': u'cooling_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling minimum air flow per zone floor area', {'name': u'Cooling Minimum Air Flow per Zone Floor Area', 'pyname': u'cooling_minimum_air_flow_per_zone_floor_area', 'default': 0.000762, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'cooling minimum air flow', {'name': u'Cooling Minimum Air Flow', 'pyname': u'cooling_minimum_air_flow', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling minimum air flow fraction', {'name': u'Cooling Minimum Air Flow Fraction', 'pyname': u'cooling_minimum_air_flow_fraction', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design air flow rate', {'name': u'Heating Design Air Flow Rate', 'pyname': u'heating_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating maximum air flow per zone floor area', {'name': u'Heating Maximum Air Flow per Zone Floor Area', 'pyname': u'heating_maximum_air_flow_per_zone_floor_area', 'default': 0.002032, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'heating maximum air flow', {'name': u'Heating Maximum Air Flow', 'pyname': u'heating_maximum_air_flow', 'default': 0.1415762, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating maximum air flow fraction', {'name': u'Heating Maximum Air Flow Fraction', 'pyname': u'heating_maximum_air_flow_fraction', 'default': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design specification zone air distribution object name', {'name': u'Design Specification Zone Air Distribution Object Name', 'pyname': u'design_specification_zone_air_distribution_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Sizing:Zone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 18, 'name': u'Sizing:Zone', 'pyname': u'SizingZone', 'format': None, 'fields': OrderedDict([(u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone cooling design supply air temperature input method', {'name': u'Zone Cooling Design Supply Air Temperature Input Method', 'pyname': u'zone_cooling_design_supply_air_temperature_input_method', 'default': u'SupplyAirTemperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SupplyAirTemperature', u'TemperatureDifference'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone cooling design supply air temperature', {'name': u'Zone Cooling Design Supply Air Temperature', 'pyname': u'zone_cooling_design_supply_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'zone cooling design supply air temperature difference', {'name': u'Zone Cooling Design Supply Air Temperature Difference', 'pyname': u'zone_cooling_design_supply_air_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'zone heating design supply air temperature input method', {'name': u'Zone Heating Design Supply Air Temperature Input Method', 'pyname': u'zone_heating_design_supply_air_temperature_input_method', 'default': u'SupplyAirTemperature', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SupplyAirTemperature', u'TemperatureDifference'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone heating design supply air temperature', {'name': u'Zone Heating Design Supply Air Temperature', 'pyname': u'zone_heating_design_supply_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'zone heating design supply air temperature difference', {'name': u'Zone Heating Design Supply Air Temperature Difference', 'pyname': u'zone_heating_design_supply_air_temperature_difference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'zone cooling design supply air humidity ratio', {'name': u'Zone Cooling Design Supply Air Humidity Ratio', 'pyname': u'zone_cooling_design_supply_air_humidity_ratio', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'zone heating design supply air humidity ratio', {'name': u'Zone Heating Design Supply Air Humidity Ratio', 'pyname': u'zone_heating_design_supply_air_humidity_ratio', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone heating sizing factor', {'name': u'Zone Heating Sizing Factor', 'pyname': u'zone_heating_sizing_factor', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'zone cooling sizing factor', {'name': u'Zone Cooling Sizing Factor', 'pyname': u'zone_cooling_sizing_factor', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'DesignDay', u'DesignDayWithLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design air flow rate', {'name': u'Cooling Design Air Flow Rate', 'pyname': u'cooling_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling minimum air flow per zone floor area', {'name': u'Cooling Minimum Air Flow per Zone Floor Area', 'pyname': u'cooling_minimum_air_flow_per_zone_floor_area', 'default': 0.000762, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'cooling minimum air flow', {'name': u'Cooling Minimum Air Flow', 'pyname': u'cooling_minimum_air_flow', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling minimum air flow fraction', {'name': u'Cooling Minimum Air Flow Fraction', 'pyname': u'cooling_minimum_air_flow_fraction', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'DesignDay', u'DesignDayWithLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design air flow rate', {'name': u'Heating Design Air Flow Rate', 'pyname': u'heating_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating maximum air flow per zone floor area', {'name': u'Heating Maximum Air Flow per Zone Floor Area', 'pyname': u'heating_maximum_air_flow_per_zone_floor_area', 'default': 0.002032, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'heating maximum air flow', {'name': u'Heating Maximum Air Flow', 'pyname': u'heating_maximum_air_flow', 'default': 0.1415762, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating maximum air flow fraction', {'name': u'Heating Maximum Air Flow Fraction', 'pyname': u'heating_maximum_air_flow_fraction', 'default': 0.3, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design specification zone air distribution object name', {'name': u'Design Specification Zone Air Distribution Object Name', 'pyname': u'design_specification_zone_air_distribution_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def zone_or_zonelist_name(self):
@@ -468,7 +433,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
         """
-        return self._data["Zone or ZoneList Name"]
+        return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
@@ -491,7 +456,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `zone_cooling_design_supply_air_temperature_input_method` or None if not set
         """
-        return self._data["Zone Cooling Design Supply Air Temperature Input Method"]
+        return self["Zone Cooling Design Supply Air Temperature Input Method"]
 
     @zone_cooling_design_supply_air_temperature_input_method.setter
     def zone_cooling_design_supply_air_temperature_input_method(self, value="SupplyAirTemperature"):
@@ -515,7 +480,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature` or None if not set
         """
-        return self._data["Zone Cooling Design Supply Air Temperature"]
+        return self["Zone Cooling Design Supply Air Temperature"]
 
     @zone_cooling_design_supply_air_temperature.setter
     def zone_cooling_design_supply_air_temperature(self, value=None):
@@ -541,7 +506,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_cooling_design_supply_air_temperature_difference` or None if not set
         """
-        return self._data["Zone Cooling Design Supply Air Temperature Difference"]
+        return self["Zone Cooling Design Supply Air Temperature Difference"]
 
     @zone_cooling_design_supply_air_temperature_difference.setter
     def zone_cooling_design_supply_air_temperature_difference(self, value=None):
@@ -569,7 +534,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `zone_heating_design_supply_air_temperature_input_method` or None if not set
         """
-        return self._data["Zone Heating Design Supply Air Temperature Input Method"]
+        return self["Zone Heating Design Supply Air Temperature Input Method"]
 
     @zone_heating_design_supply_air_temperature_input_method.setter
     def zone_heating_design_supply_air_temperature_input_method(self, value="SupplyAirTemperature"):
@@ -593,7 +558,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature` or None if not set
         """
-        return self._data["Zone Heating Design Supply Air Temperature"]
+        return self["Zone Heating Design Supply Air Temperature"]
 
     @zone_heating_design_supply_air_temperature.setter
     def zone_heating_design_supply_air_temperature(self, value=None):
@@ -619,7 +584,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_heating_design_supply_air_temperature_difference` or None if not set
         """
-        return self._data["Zone Heating Design Supply Air Temperature Difference"]
+        return self["Zone Heating Design Supply Air Temperature Difference"]
 
     @zone_heating_design_supply_air_temperature_difference.setter
     def zone_heating_design_supply_air_temperature_difference(self, value=None):
@@ -647,7 +612,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_cooling_design_supply_air_humidity_ratio` or None if not set
         """
-        return self._data["Zone Cooling Design Supply Air Humidity Ratio"]
+        return self["Zone Cooling Design Supply Air Humidity Ratio"]
 
     @zone_cooling_design_supply_air_humidity_ratio.setter
     def zone_cooling_design_supply_air_humidity_ratio(self, value=None):
@@ -671,7 +636,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_heating_design_supply_air_humidity_ratio` or None if not set
         """
-        return self._data["Zone Heating Design Supply Air Humidity Ratio"]
+        return self["Zone Heating Design Supply Air Humidity Ratio"]
 
     @zone_heating_design_supply_air_humidity_ratio.setter
     def zone_heating_design_supply_air_humidity_ratio(self, value=None):
@@ -695,7 +660,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
         """
-        return self._data["Design Specification Outdoor Air Object Name"]
+        return self["Design Specification Outdoor Air Object Name"]
 
     @design_specification_outdoor_air_object_name.setter
     def design_specification_outdoor_air_object_name(self, value=None):
@@ -718,7 +683,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_heating_sizing_factor` or None if not set
         """
-        return self._data["Zone Heating Sizing Factor"]
+        return self["Zone Heating Sizing Factor"]
 
     @zone_heating_sizing_factor.setter
     def zone_heating_sizing_factor(self, value=None):
@@ -742,7 +707,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `zone_cooling_sizing_factor` or None if not set
         """
-        return self._data["Zone Cooling Sizing Factor"]
+        return self["Zone Cooling Sizing Factor"]
 
     @zone_cooling_sizing_factor.setter
     def zone_cooling_sizing_factor(self, value=None):
@@ -766,7 +731,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `cooling_design_air_flow_method` or None if not set
         """
-        return self._data["Cooling Design Air Flow Method"]
+        return self["Cooling Design Air Flow Method"]
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="DesignDay"):
@@ -790,7 +755,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `cooling_design_air_flow_rate` or None if not set
         """
-        return self._data["Cooling Design Air Flow Rate"]
+        return self["Cooling Design Air Flow Rate"]
 
     @cooling_design_air_flow_rate.setter
     def cooling_design_air_flow_rate(self, value=None):
@@ -817,7 +782,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `cooling_minimum_air_flow_per_zone_floor_area` or None if not set
         """
-        return self._data["Cooling Minimum Air Flow per Zone Floor Area"]
+        return self["Cooling Minimum Air Flow per Zone Floor Area"]
 
     @cooling_minimum_air_flow_per_zone_floor_area.setter
     def cooling_minimum_air_flow_per_zone_floor_area(self, value=0.000762):
@@ -844,7 +809,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `cooling_minimum_air_flow` or None if not set
         """
-        return self._data["Cooling Minimum Air Flow"]
+        return self["Cooling Minimum Air Flow"]
 
     @cooling_minimum_air_flow.setter
     def cooling_minimum_air_flow(self, value=None):
@@ -869,7 +834,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `cooling_minimum_air_flow_fraction` or None if not set
         """
-        return self._data["Cooling Minimum Air Flow Fraction"]
+        return self["Cooling Minimum Air Flow Fraction"]
 
     @cooling_minimum_air_flow_fraction.setter
     def cooling_minimum_air_flow_fraction(self, value=None):
@@ -895,7 +860,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `heating_design_air_flow_method` or None if not set
         """
-        return self._data["Heating Design Air Flow Method"]
+        return self["Heating Design Air Flow Method"]
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="DesignDay"):
@@ -919,7 +884,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `heating_design_air_flow_rate` or None if not set
         """
-        return self._data["Heating Design Air Flow Rate"]
+        return self["Heating Design Air Flow Rate"]
 
     @heating_design_air_flow_rate.setter
     def heating_design_air_flow_rate(self, value=None):
@@ -946,7 +911,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `heating_maximum_air_flow_per_zone_floor_area` or None if not set
         """
-        return self._data["Heating Maximum Air Flow per Zone Floor Area"]
+        return self["Heating Maximum Air Flow per Zone Floor Area"]
 
     @heating_maximum_air_flow_per_zone_floor_area.setter
     def heating_maximum_air_flow_per_zone_floor_area(self, value=0.002032):
@@ -974,7 +939,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `heating_maximum_air_flow` or None if not set
         """
-        return self._data["Heating Maximum Air Flow"]
+        return self["Heating Maximum Air Flow"]
 
     @heating_maximum_air_flow.setter
     def heating_maximum_air_flow(self, value=0.1415762):
@@ -1001,7 +966,7 @@ class SizingZone(DataObject):
         Returns:
             float: the value of `heating_maximum_air_flow_fraction` or None if not set
         """
-        return self._data["Heating Maximum Air Flow Fraction"]
+        return self["Heating Maximum Air Flow Fraction"]
 
     @heating_maximum_air_flow_fraction.setter
     def heating_maximum_air_flow_fraction(self, value=0.3):
@@ -1027,7 +992,7 @@ class SizingZone(DataObject):
         Returns:
             str: the value of `design_specification_zone_air_distribution_object_name` or None if not set
         """
-        return self._data["Design Specification Zone Air Distribution Object Name"]
+        return self["Design Specification Zone Air Distribution Object Name"]
 
     @design_specification_zone_air_distribution_object_name.setter
     def design_specification_zone_air_distribution_object_name(self, value=None):
@@ -1049,16 +1014,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         This object is used to describe general scalable zone HVAC equipment sizing which
         are referenced by other objects.
     """
-    schema = {'min-fields': 1, 'name': u'DesignSpecification:ZoneHVAC:Sizing', 'pyname': u'DesignSpecificationZoneHvacSizing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design supply air flow rate', {'name': u'Cooling Design Supply Air Flow Rate', 'pyname': u'cooling_design_supply_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling design supply air flow rate per floor area', {'name': u'Cooling Design Supply Air Flow Rate Per Floor Area', 'pyname': u'cooling_design_supply_air_flow_rate_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized cooling design supply air flow rate', {'name': u'Fraction of Autosized Cooling Design Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_cooling_design_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cooling design supply air flow rate per unit cooling capacity', {'name': u'Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity', 'pyname': u'cooling_design_supply_air_flow_rate_per_unit_cooling_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method when no cooling or heating is required', {'name': u'Supply Air Flow Rate Method When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_method_when_no_cooling_or_heating_is_required', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate when no cooling or heating is required', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area when no clg or htg is required', {'name': u'Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required', 'pyname': u'supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of design cooling supply air flow rate when no clg or htg required', {'name': u'Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required', 'pyname': u'fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of design heating supply air flow rate when no clg or htg required', {'name': u'Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required', 'pyname': u'fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design supply air flow rate', {'name': u'Heating Design Supply Air Flow Rate', 'pyname': u'heating_design_supply_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating design supply air flow rate per floor area', {'name': u'Heating Design Supply Air Flow Rate Per Floor Area', 'pyname': u'heating_design_supply_air_flow_rate_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of heating design supply air flow rate', {'name': u'Fraction of Heating Design Supply Air Flow Rate', 'pyname': u'fraction_of_heating_design_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design supply air flow rate per unit heating capacity', {'name': u'Heating Design Supply Air Flow Rate Per Unit Heating Capacity', 'pyname': u'heating_design_supply_air_flow_rate_per_unit_heating_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `DesignSpecification:ZoneHVAC:Sizing`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 1, 'name': u'DesignSpecification:ZoneHVAC:Sizing', 'pyname': u'DesignSpecificationZoneHvacSizing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design supply air flow rate', {'name': u'Cooling Design Supply Air Flow Rate', 'pyname': u'cooling_design_supply_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'cooling design supply air flow rate per floor area', {'name': u'Cooling Design Supply Air Flow Rate Per Floor Area', 'pyname': u'cooling_design_supply_air_flow_rate_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized cooling design supply air flow rate', {'name': u'Fraction of Autosized Cooling Design Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_cooling_design_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cooling design supply air flow rate per unit cooling capacity', {'name': u'Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity', 'pyname': u'cooling_design_supply_air_flow_rate_per_unit_cooling_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'supply air flow rate method when no cooling or heating is required', {'name': u'Supply Air Flow Rate Method When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_method_when_no_cooling_or_heating_is_required', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FractionOfAutosizedHeatingAirflow'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air flow rate when no cooling or heating is required', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Required', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_required', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area when no clg or htg is required', {'name': u'Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required', 'pyname': u'supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of design cooling supply air flow rate when no clg or htg required', {'name': u'Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required', 'pyname': u'fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of design heating supply air flow rate when no clg or htg required', {'name': u'Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required', 'pyname': u'fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'SupplyAirFlowRate', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'SupplyAirFlowRate', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingAirflow', u'FlowPerHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design supply air flow rate', {'name': u'Heating Design Supply Air Flow Rate', 'pyname': u'heating_design_supply_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heating design supply air flow rate per floor area', {'name': u'Heating Design Supply Air Flow Rate Per Floor Area', 'pyname': u'heating_design_supply_air_flow_rate_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of heating design supply air flow rate', {'name': u'Fraction of Heating Design Supply Air Flow Rate', 'pyname': u'fraction_of_heating_design_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design supply air flow rate per unit heating capacity', {'name': u'Heating Design Supply Air Flow Rate Per Unit Heating Capacity', 'pyname': u'heating_design_supply_air_flow_rate_per_unit_heating_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1067,7 +1023,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1090,7 +1046,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `cooling_design_air_flow_method` or None if not set
         """
-        return self._data["Cooling Design Air Flow Method"]
+        return self["Cooling Design Air Flow Method"]
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="SupplyAirFlowRate"):
@@ -1124,7 +1080,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `cooling_design_supply_air_flow_rate` or None if not set
         """
-        return self._data["Cooling Design Supply Air Flow Rate"]
+        return self["Cooling Design Supply Air Flow Rate"]
 
     @cooling_design_supply_air_flow_rate.setter
     def cooling_design_supply_air_flow_rate(self, value=None):
@@ -1151,7 +1107,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `cooling_design_supply_air_flow_rate_per_floor_area` or None if not set
         """
-        return self._data["Cooling Design Supply Air Flow Rate Per Floor Area"]
+        return self["Cooling Design Supply Air Flow Rate Per Floor Area"]
 
     @cooling_design_supply_air_flow_rate_per_floor_area.setter
     def cooling_design_supply_air_flow_rate_per_floor_area(self, value=None):
@@ -1178,7 +1134,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Autosized Cooling Design Supply Air Flow Rate"]
+        return self["Fraction of Autosized Cooling Design Supply Air Flow Rate"]
 
     @fraction_of_autosized_cooling_design_supply_air_flow_rate.setter
     def fraction_of_autosized_cooling_design_supply_air_flow_rate(self, value=None):
@@ -1205,7 +1161,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity` or None if not set
         """
-        return self._data["Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity"]
+        return self["Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity"]
 
     @cooling_design_supply_air_flow_rate_per_unit_cooling_capacity.setter
     def cooling_design_supply_air_flow_rate_per_unit_cooling_capacity(self, value=None):
@@ -1233,7 +1189,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"]
+        return self["Supply Air Flow Rate Method When No Cooling or Heating is Required"]
 
     @supply_air_flow_rate_method_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_method_when_no_cooling_or_heating_is_required(self, value="SupplyAirFlowRate"):
@@ -1267,7 +1223,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate When No Cooling or Heating is Required"]
+        return self["Supply Air Flow Rate When No Cooling or Heating is Required"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_required.setter
     def supply_air_flow_rate_when_no_cooling_or_heating_is_required(self, value=None):
@@ -1294,7 +1250,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required"]
+        return self["Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required"]
 
     @supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required.setter
     def supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required(self, value=None):
@@ -1321,7 +1277,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required` or None if not set
         """
-        return self._data["Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required"]
+        return self["Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required"]
 
     @fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required.setter
     def fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required(self, value=None):
@@ -1347,7 +1303,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required` or None if not set
         """
-        return self._data["Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required"]
+        return self["Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required"]
 
     @fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required.setter
     def fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required(self, value=None):
@@ -1373,7 +1329,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `heating_design_air_flow_method` or None if not set
         """
-        return self._data["Heating Design Air Flow Method"]
+        return self["Heating Design Air Flow Method"]
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="SupplyAirFlowRate"):
@@ -1407,7 +1363,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `heating_design_supply_air_flow_rate` or None if not set
         """
-        return self._data["Heating Design Supply Air Flow Rate"]
+        return self["Heating Design Supply Air Flow Rate"]
 
     @heating_design_supply_air_flow_rate.setter
     def heating_design_supply_air_flow_rate(self, value=None):
@@ -1434,7 +1390,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `heating_design_supply_air_flow_rate_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Supply Air Flow Rate Per Floor Area"]
+        return self["Heating Design Supply Air Flow Rate Per Floor Area"]
 
     @heating_design_supply_air_flow_rate_per_floor_area.setter
     def heating_design_supply_air_flow_rate_per_floor_area(self, value=None):
@@ -1461,7 +1417,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_heating_design_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Heating Design Supply Air Flow Rate"]
+        return self["Fraction of Heating Design Supply Air Flow Rate"]
 
     @fraction_of_heating_design_supply_air_flow_rate.setter
     def fraction_of_heating_design_supply_air_flow_rate(self, value=None):
@@ -1488,7 +1444,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `heating_design_supply_air_flow_rate_per_unit_heating_capacity` or None if not set
         """
-        return self._data["Heating Design Supply Air Flow Rate Per Unit Heating Capacity"]
+        return self["Heating Design Supply Air Flow Rate Per Unit Heating Capacity"]
 
     @heating_design_supply_air_flow_rate_per_unit_heating_capacity.setter
     def heating_design_supply_air_flow_rate_per_unit_heating_capacity(self, value=None):
@@ -1516,7 +1472,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
         """
-        return self._data["Cooling Design Capacity Method"]
+        return self["Cooling Design Capacity Method"]
 
     @cooling_design_capacity_method.setter
     def cooling_design_capacity_method(self, value="None"):
@@ -1548,7 +1504,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `cooling_design_capacity` or None if not set
         """
-        return self._data["Cooling Design Capacity"]
+        return self["Cooling Design Capacity"]
 
     @cooling_design_capacity.setter
     def cooling_design_capacity(self, value=None):
@@ -1574,7 +1530,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `cooling_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Cooling Design Capacity Per Floor Area"]
+        return self["Cooling Design Capacity Per Floor Area"]
 
     @cooling_design_capacity_per_floor_area.setter
     def cooling_design_capacity_per_floor_area(self, value=None):
@@ -1600,7 +1556,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Cooling Design Capacity"]
+        return self["Fraction of Autosized Cooling Design Capacity"]
 
     @fraction_of_autosized_cooling_design_capacity.setter
     def fraction_of_autosized_cooling_design_capacity(self, value=None):
@@ -1625,7 +1581,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="None"):
@@ -1657,7 +1613,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value=None):
@@ -1683,7 +1639,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -1709,7 +1665,7 @@ class DesignSpecificationZoneHvacSizing(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=None):
@@ -1733,16 +1689,7 @@ class SizingSystem(DataObject):
         Specifies the input needed to perform sizing calculations for a central forced air
         system design air flow, heating capacity, and cooling capacity.
     """
-    schema = {'min-fields': 27, 'name': u'Sizing:System', 'pyname': u'SizingSystem', 'format': None, 'fields': OrderedDict([(u'airloop name', {'name': u'AirLoop Name', 'pyname': u'airloop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of load to size on', {'name': u'Type of Load to Size On', 'pyname': u'type_of_load_to_size_on', 'default': u'Sensible', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design outdoor air flow rate', {'name': u'Design Outdoor Air Flow Rate', 'pyname': u'design_outdoor_air_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum system air flow ratio', {'name': u'Minimum System Air Flow Ratio', 'pyname': u'minimum_system_air_flow_ratio', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'preheat design temperature', {'name': u'Preheat Design Temperature', 'pyname': u'preheat_design_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'preheat design humidity ratio', {'name': u'Preheat Design Humidity Ratio', 'pyname': u'preheat_design_humidity_ratio', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'precool design temperature', {'name': u'Precool Design Temperature', 'pyname': u'precool_design_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'precool design humidity ratio', {'name': u'Precool Design Humidity Ratio', 'pyname': u'precool_design_humidity_ratio', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'central cooling design supply air temperature', {'name': u'Central Cooling Design Supply Air Temperature', 'pyname': u'central_cooling_design_supply_air_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'central heating design supply air temperature', {'name': u'Central Heating Design Supply Air Temperature', 'pyname': u'central_heating_design_supply_air_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'sizing option', {'name': u'Sizing Option', 'pyname': u'sizing_option', 'default': u'NonCoincident', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'100% outdoor air in cooling', {'name': u'100% Outdoor Air in Cooling', 'pyname': u'a_100_outdoor_air_in_cooling', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'100% outdoor air in heating', {'name': u'100% Outdoor Air in Heating', 'pyname': u'a_100_outdoor_air_in_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'central cooling design supply air humidity ratio', {'name': u'Central Cooling Design Supply Air Humidity Ratio', 'pyname': u'central_cooling_design_supply_air_humidity_ratio', 'default': 0.008, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'central heating design supply air humidity ratio', {'name': u'Central Heating Design Supply Air Humidity Ratio', 'pyname': u'central_heating_design_supply_air_humidity_ratio', 'default': 0.008, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design air flow rate', {'name': u'Cooling Design Air Flow Rate', 'pyname': u'cooling_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during cooling operation', {'name': u'Supply Air Flow Rate Per Floor Area During Cooling Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design cooling supply air flow rate', {'name': u'Fraction of Autosized Design Cooling Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_cooling_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit cooling capacity', {'name': u'Design Supply Air Flow Rate Per Unit Cooling Capacity', 'pyname': u'design_supply_air_flow_rate_per_unit_cooling_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design air flow rate', {'name': u'Heating Design Air Flow Rate', 'pyname': u'heating_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during heating operation', {'name': u'Supply Air Flow Rate Per Floor Area During Heating Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design heating supply air flow rate', {'name': u'Fraction of Autosized Design Heating Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_heating_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('fraction of autosized design cooling supply air flow rate v3', {'name': 'Fraction of Autosized Design Cooling Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_cooling_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit heating capacity', {'name': u'Design Supply Air Flow Rate Per Unit Heating Capacity', 'pyname': u'design_supply_air_flow_rate_per_unit_heating_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'system outdoor air method', {'name': u'System Outdoor Air Method', 'pyname': u'system_outdoor_air_method', 'default': u'ZoneSum', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone maximum outdoor air fraction', {'name': u'Zone Maximum Outdoor Air Fraction', 'pyname': u'zone_maximum_outdoor_air_fraction', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'CoolingDesignCapacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Sizing:System`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 27, 'name': u'Sizing:System', 'pyname': u'SizingSystem', 'format': None, 'fields': OrderedDict([(u'airloop name', {'name': u'AirLoop Name', 'pyname': u'airloop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of load to size on', {'name': u'Type of Load to Size On', 'pyname': u'type_of_load_to_size_on', 'default': u'Sensible', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sensible', u'VentilationRequirement'], 'autocalculatable': False, 'type': 'alpha'}), (u'design outdoor air flow rate', {'name': u'Design Outdoor Air Flow Rate', 'pyname': u'design_outdoor_air_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum system air flow ratio', {'name': u'Minimum System Air Flow Ratio', 'pyname': u'minimum_system_air_flow_ratio', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'preheat design temperature', {'name': u'Preheat Design Temperature', 'pyname': u'preheat_design_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'preheat design humidity ratio', {'name': u'Preheat Design Humidity Ratio', 'pyname': u'preheat_design_humidity_ratio', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'precool design temperature', {'name': u'Precool Design Temperature', 'pyname': u'precool_design_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'precool design humidity ratio', {'name': u'Precool Design Humidity Ratio', 'pyname': u'precool_design_humidity_ratio', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'central cooling design supply air temperature', {'name': u'Central Cooling Design Supply Air Temperature', 'pyname': u'central_cooling_design_supply_air_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'central heating design supply air temperature', {'name': u'Central Heating Design Supply Air Temperature', 'pyname': u'central_heating_design_supply_air_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'sizing option', {'name': u'Sizing Option', 'pyname': u'sizing_option', 'default': u'NonCoincident', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coincident', u'NonCoincident'], 'autocalculatable': False, 'type': 'alpha'}), (u'100% outdoor air in cooling', {'name': u'100% Outdoor Air in Cooling', 'pyname': u'a_100_outdoor_air_in_cooling', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'100% outdoor air in heating', {'name': u'100% Outdoor Air in Heating', 'pyname': u'a_100_outdoor_air_in_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'central cooling design supply air humidity ratio', {'name': u'Central Cooling Design Supply Air Humidity Ratio', 'pyname': u'central_cooling_design_supply_air_humidity_ratio', 'default': 0.008, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'central heating design supply air humidity ratio', {'name': u'Central Heating Design Supply Air Humidity Ratio', 'pyname': u'central_heating_design_supply_air_humidity_ratio', 'default': 0.008, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'cooling design air flow method', {'name': u'Cooling Design Air Flow Method', 'pyname': u'cooling_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow/System', u'DesignDay', u'FlowPerFloorArea', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design air flow rate', {'name': u'Cooling Design Air Flow Rate', 'pyname': u'cooling_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during cooling operation', {'name': u'Supply Air Flow Rate Per Floor Area During Cooling Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_cooling_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design cooling supply air flow rate', {'name': u'Fraction of Autosized Design Cooling Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_cooling_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit cooling capacity', {'name': u'Design Supply Air Flow Rate Per Unit Cooling Capacity', 'pyname': u'design_supply_air_flow_rate_per_unit_cooling_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'heating design air flow method', {'name': u'Heating Design Air Flow Method', 'pyname': u'heating_design_air_flow_method', 'default': u'DesignDay', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Flow/System', u'DesignDay', u'FlowPerFloorArea', u'FractionOfAutosizedHeatingAirflow', u'FractionOfAutosizedCoolingAirflow', u'FlowPerCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design air flow rate', {'name': u'Heating Design Air Flow Rate', 'pyname': u'heating_design_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate per floor area during heating operation', {'name': u'Supply Air Flow Rate Per Floor Area During Heating Operation', 'pyname': u'supply_air_flow_rate_per_floor_area_during_heating_operation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'fraction of autosized design heating supply air flow rate', {'name': u'Fraction of Autosized Design Heating Supply Air Flow Rate', 'pyname': u'fraction_of_autosized_design_heating_supply_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), ('fraction of autosized design cooling supply air flow rate v3', {'name': 'Fraction of Autosized Design Cooling Supply Air Flow Rate v3', 'pyname': 'fraction_of_autosized_design_cooling_supply_air_flow_rate_v3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'design supply air flow rate per unit heating capacity', {'name': u'Design Supply Air Flow Rate Per Unit Heating Capacity', 'pyname': u'design_supply_air_flow_rate_per_unit_heating_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'system outdoor air method', {'name': u'System Outdoor Air Method', 'pyname': u'system_outdoor_air_method', 'default': u'ZoneSum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ZoneSum', u'VentilationRateProcedure'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone maximum outdoor air fraction', {'name': u'Zone Maximum Outdoor Air Fraction', 'pyname': u'zone_maximum_outdoor_air_fraction', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'cooling design capacity method', {'name': u'Cooling Design Capacity Method', 'pyname': u'cooling_design_capacity_method', 'default': u'CoolingDesignCapacity', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'CoolingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedCoolingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling design capacity', {'name': u'Cooling Design Capacity', 'pyname': u'cooling_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'cooling design capacity per floor area', {'name': u'Cooling Design Capacity Per Floor Area', 'pyname': u'cooling_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized cooling design capacity', {'name': u'Fraction of Autosized Cooling Design Capacity', 'pyname': u'fraction_of_autosized_cooling_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'heating design capacity method', {'name': u'Heating Design Capacity Method', 'pyname': u'heating_design_capacity_method', 'default': u'HeatingDesignCapacity', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'HeatingDesignCapacity', u'CapacityPerFloorArea', u'FractionOfAutosizedHeatingCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating design capacity', {'name': u'Heating Design Capacity', 'pyname': u'heating_design_capacity', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heating design capacity per floor area', {'name': u'Heating Design Capacity Per Floor Area', 'pyname': u'heating_design_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'fraction of autosized heating design capacity', {'name': u'Fraction of Autosized Heating Design Capacity', 'pyname': u'fraction_of_autosized_heating_design_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def airloop_name(self):
@@ -1751,7 +1698,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `airloop_name` or None if not set
         """
-        return self._data["AirLoop Name"]
+        return self["AirLoop Name"]
 
     @airloop_name.setter
     def airloop_name(self, value=None):
@@ -1774,7 +1721,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `type_of_load_to_size_on` or None if not set
         """
-        return self._data["Type of Load to Size On"]
+        return self["Type of Load to Size On"]
 
     @type_of_load_to_size_on.setter
     def type_of_load_to_size_on(self, value="Sensible"):
@@ -1802,7 +1749,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `design_outdoor_air_flow_rate` or None if not set
         """
-        return self._data["Design Outdoor Air Flow Rate"]
+        return self["Design Outdoor Air Flow Rate"]
 
     @design_outdoor_air_flow_rate.setter
     def design_outdoor_air_flow_rate(self, value="autosize"):
@@ -1827,7 +1774,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `minimum_system_air_flow_ratio` or None if not set
         """
-        return self._data["Minimum System Air Flow Ratio"]
+        return self["Minimum System Air Flow Ratio"]
 
     @minimum_system_air_flow_ratio.setter
     def minimum_system_air_flow_ratio(self, value=None):
@@ -1851,7 +1798,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `preheat_design_temperature` or None if not set
         """
-        return self._data["Preheat Design Temperature"]
+        return self["Preheat Design Temperature"]
 
     @preheat_design_temperature.setter
     def preheat_design_temperature(self, value=None):
@@ -1875,7 +1822,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `preheat_design_humidity_ratio` or None if not set
         """
-        return self._data["Preheat Design Humidity Ratio"]
+        return self["Preheat Design Humidity Ratio"]
 
     @preheat_design_humidity_ratio.setter
     def preheat_design_humidity_ratio(self, value=None):
@@ -1899,7 +1846,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `precool_design_temperature` or None if not set
         """
-        return self._data["Precool Design Temperature"]
+        return self["Precool Design Temperature"]
 
     @precool_design_temperature.setter
     def precool_design_temperature(self, value=None):
@@ -1923,7 +1870,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `precool_design_humidity_ratio` or None if not set
         """
-        return self._data["Precool Design Humidity Ratio"]
+        return self["Precool Design Humidity Ratio"]
 
     @precool_design_humidity_ratio.setter
     def precool_design_humidity_ratio(self, value=None):
@@ -1947,7 +1894,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `central_cooling_design_supply_air_temperature` or None if not set
         """
-        return self._data["Central Cooling Design Supply Air Temperature"]
+        return self["Central Cooling Design Supply Air Temperature"]
 
     @central_cooling_design_supply_air_temperature.setter
     def central_cooling_design_supply_air_temperature(self, value=None):
@@ -1971,7 +1918,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `central_heating_design_supply_air_temperature` or None if not set
         """
-        return self._data["Central Heating Design Supply Air Temperature"]
+        return self["Central Heating Design Supply Air Temperature"]
 
     @central_heating_design_supply_air_temperature.setter
     def central_heating_design_supply_air_temperature(self, value=None):
@@ -1995,7 +1942,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `sizing_option` or None if not set
         """
-        return self._data["Sizing Option"]
+        return self["Sizing Option"]
 
     @sizing_option.setter
     def sizing_option(self, value="NonCoincident"):
@@ -2019,7 +1966,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `a_100_outdoor_air_in_cooling` or None if not set
         """
-        return self._data["100% Outdoor Air in Cooling"]
+        return self["100% Outdoor Air in Cooling"]
 
     @a_100_outdoor_air_in_cooling.setter
     def a_100_outdoor_air_in_cooling(self, value="No"):
@@ -2043,7 +1990,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `a_100_outdoor_air_in_heating` or None if not set
         """
-        return self._data["100% Outdoor Air in Heating"]
+        return self["100% Outdoor Air in Heating"]
 
     @a_100_outdoor_air_in_heating.setter
     def a_100_outdoor_air_in_heating(self, value="No"):
@@ -2067,7 +2014,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `central_cooling_design_supply_air_humidity_ratio` or None if not set
         """
-        return self._data["Central Cooling Design Supply Air Humidity Ratio"]
+        return self["Central Cooling Design Supply Air Humidity Ratio"]
 
     @central_cooling_design_supply_air_humidity_ratio.setter
     def central_cooling_design_supply_air_humidity_ratio(self, value=0.008):
@@ -2092,7 +2039,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `central_heating_design_supply_air_humidity_ratio` or None if not set
         """
-        return self._data["Central Heating Design Supply Air Humidity Ratio"]
+        return self["Central Heating Design Supply Air Humidity Ratio"]
 
     @central_heating_design_supply_air_humidity_ratio.setter
     def central_heating_design_supply_air_humidity_ratio(self, value=0.008):
@@ -2117,7 +2064,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `cooling_design_air_flow_method` or None if not set
         """
-        return self._data["Cooling Design Air Flow Method"]
+        return self["Cooling Design Air Flow Method"]
 
     @cooling_design_air_flow_method.setter
     def cooling_design_air_flow_method(self, value="DesignDay"):
@@ -2141,7 +2088,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `cooling_design_air_flow_rate` or None if not set
         """
-        return self._data["Cooling Design Air Flow Rate"]
+        return self["Cooling Design Air Flow Rate"]
 
     @cooling_design_air_flow_rate.setter
     def cooling_design_air_flow_rate(self, value=None):
@@ -2168,7 +2115,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_during_cooling_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area During Cooling Operation"]
+        return self["Supply Air Flow Rate Per Floor Area During Cooling Operation"]
 
     @supply_air_flow_rate_per_floor_area_during_cooling_operation.setter
     def supply_air_flow_rate_per_floor_area_during_cooling_operation(self, value=None):
@@ -2194,7 +2141,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
+        return self["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
@@ -2220,7 +2167,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_cooling_capacity` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit Cooling Capacity"]
+        return self["Design Supply Air Flow Rate Per Unit Cooling Capacity"]
 
     @design_supply_air_flow_rate_per_unit_cooling_capacity.setter
     def design_supply_air_flow_rate_per_unit_cooling_capacity(self, value=None):
@@ -2247,7 +2194,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `heating_design_air_flow_method` or None if not set
         """
-        return self._data["Heating Design Air Flow Method"]
+        return self["Heating Design Air Flow Method"]
 
     @heating_design_air_flow_method.setter
     def heating_design_air_flow_method(self, value="DesignDay"):
@@ -2271,7 +2218,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `heating_design_air_flow_rate` or None if not set
         """
-        return self._data["Heating Design Air Flow Rate"]
+        return self["Heating Design Air Flow Rate"]
 
     @heating_design_air_flow_rate.setter
     def heating_design_air_flow_rate(self, value=None):
@@ -2298,7 +2245,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `supply_air_flow_rate_per_floor_area_during_heating_operation` or None if not set
         """
-        return self._data["Supply Air Flow Rate Per Floor Area During Heating Operation"]
+        return self["Supply Air Flow Rate Per Floor Area During Heating Operation"]
 
     @supply_air_flow_rate_per_floor_area_during_heating_operation.setter
     def supply_air_flow_rate_per_floor_area_during_heating_operation(self, value=None):
@@ -2324,7 +2271,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate` or None if not set
         """
-        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"]
+        return self["Fraction of Autosized Design Heating Supply Air Flow Rate"]
 
     @fraction_of_autosized_design_heating_supply_air_flow_rate.setter
     def fraction_of_autosized_design_heating_supply_air_flow_rate(self, value=None):
@@ -2350,7 +2297,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"]
+        return self["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"]
 
     @fraction_of_autosized_design_cooling_supply_air_flow_rate_v3.setter
     def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self, value=None):
@@ -2376,7 +2323,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `design_supply_air_flow_rate_per_unit_heating_capacity` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit Heating Capacity"]
+        return self["Design Supply Air Flow Rate Per Unit Heating Capacity"]
 
     @design_supply_air_flow_rate_per_unit_heating_capacity.setter
     def design_supply_air_flow_rate_per_unit_heating_capacity(self, value=None):
@@ -2403,7 +2350,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `system_outdoor_air_method` or None if not set
         """
-        return self._data["System Outdoor Air Method"]
+        return self["System Outdoor Air Method"]
 
     @system_outdoor_air_method.setter
     def system_outdoor_air_method(self, value="ZoneSum"):
@@ -2427,7 +2374,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `zone_maximum_outdoor_air_fraction` or None if not set
         """
-        return self._data["Zone Maximum Outdoor Air Fraction"]
+        return self["Zone Maximum Outdoor Air Fraction"]
 
     @zone_maximum_outdoor_air_fraction.setter
     def zone_maximum_outdoor_air_fraction(self, value=1.0):
@@ -2452,7 +2399,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `cooling_design_capacity_method` or None if not set
         """
-        return self._data["Cooling Design Capacity Method"]
+        return self["Cooling Design Capacity Method"]
 
     @cooling_design_capacity_method.setter
     def cooling_design_capacity_method(self, value="CoolingDesignCapacity"):
@@ -2485,7 +2432,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `cooling_design_capacity` or None if not set
         """
-        return self._data["Cooling Design Capacity"]
+        return self["Cooling Design Capacity"]
 
     @cooling_design_capacity.setter
     def cooling_design_capacity(self, value="autosize"):
@@ -2512,7 +2459,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `cooling_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Cooling Design Capacity Per Floor Area"]
+        return self["Cooling Design Capacity Per Floor Area"]
 
     @cooling_design_capacity_per_floor_area.setter
     def cooling_design_capacity_per_floor_area(self, value=None):
@@ -2538,7 +2485,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_cooling_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Cooling Design Capacity"]
+        return self["Fraction of Autosized Cooling Design Capacity"]
 
     @fraction_of_autosized_cooling_design_capacity.setter
     def fraction_of_autosized_cooling_design_capacity(self, value=None):
@@ -2563,7 +2510,7 @@ class SizingSystem(DataObject):
         Returns:
             str: the value of `heating_design_capacity_method` or None if not set
         """
-        return self._data["Heating Design Capacity Method"]
+        return self["Heating Design Capacity Method"]
 
     @heating_design_capacity_method.setter
     def heating_design_capacity_method(self, value="HeatingDesignCapacity"):
@@ -2596,7 +2543,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `heating_design_capacity` or None if not set
         """
-        return self._data["Heating Design Capacity"]
+        return self["Heating Design Capacity"]
 
     @heating_design_capacity.setter
     def heating_design_capacity(self, value="autosize"):
@@ -2623,7 +2570,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `heating_design_capacity_per_floor_area` or None if not set
         """
-        return self._data["Heating Design Capacity Per Floor Area"]
+        return self["Heating Design Capacity Per Floor Area"]
 
     @heating_design_capacity_per_floor_area.setter
     def heating_design_capacity_per_floor_area(self, value=None):
@@ -2649,7 +2596,7 @@ class SizingSystem(DataObject):
         Returns:
             float: the value of `fraction_of_autosized_heating_design_capacity` or None if not set
         """
-        return self._data["Fraction of Autosized Heating Design Capacity"]
+        return self["Fraction of Autosized Heating Design Capacity"]
 
     @fraction_of_autosized_heating_design_capacity.setter
     def fraction_of_autosized_heating_design_capacity(self, value=None):
@@ -2675,16 +2622,7 @@ class SizingPlant(DataObject):
         such as hot or chilled water coils to calculate their maximum water flow rates. These
         flow rates are then summed for use in calculating the Plant Loop flow rates.
     """
-    schema = {'min-fields': 4, 'name': u'Sizing:Plant', 'pyname': u'SizingPlant', 'format': None, 'fields': OrderedDict([(u'plant or condenser loop name', {'name': u'Plant or Condenser Loop Name', 'pyname': u'plant_or_condenser_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop type', {'name': u'Loop Type', 'pyname': u'loop_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'design loop exit temperature', {'name': u'Design Loop Exit Temperature', 'pyname': u'design_loop_exit_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'loop design temperature difference', {'name': u'Loop Design Temperature Difference', 'pyname': u'loop_design_temperature_difference', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Sizing:Plant`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'Sizing:Plant', 'pyname': u'SizingPlant', 'format': None, 'fields': OrderedDict([(u'plant or condenser loop name', {'name': u'Plant or Condenser Loop Name', 'pyname': u'plant_or_condenser_loop_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop type', {'name': u'Loop Type', 'pyname': u'loop_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Condenser', u'Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'design loop exit temperature', {'name': u'Design Loop Exit Temperature', 'pyname': u'design_loop_exit_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'loop design temperature difference', {'name': u'Loop Design Temperature Difference', 'pyname': u'loop_design_temperature_difference', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def plant_or_condenser_loop_name(self):
@@ -2693,7 +2631,7 @@ class SizingPlant(DataObject):
         Returns:
             str: the value of `plant_or_condenser_loop_name` or None if not set
         """
-        return self._data["Plant or Condenser Loop Name"]
+        return self["Plant or Condenser Loop Name"]
 
     @plant_or_condenser_loop_name.setter
     def plant_or_condenser_loop_name(self, value=None):
@@ -2717,7 +2655,7 @@ class SizingPlant(DataObject):
         Returns:
             str: the value of `loop_type` or None if not set
         """
-        return self._data["Loop Type"]
+        return self["Loop Type"]
 
     @loop_type.setter
     def loop_type(self, value=None):
@@ -2740,7 +2678,7 @@ class SizingPlant(DataObject):
         Returns:
             float: the value of `design_loop_exit_temperature` or None if not set
         """
-        return self._data["Design Loop Exit Temperature"]
+        return self["Design Loop Exit Temperature"]
 
     @design_loop_exit_temperature.setter
     def design_loop_exit_temperature(self, value=None):
@@ -2764,7 +2702,7 @@ class SizingPlant(DataObject):
         Returns:
             float: the value of `loop_design_temperature_difference` or None if not set
         """
-        return self._data["Loop Design Temperature Difference"]
+        return self["Loop Design Temperature Difference"]
 
     @loop_design_temperature_difference.setter
     def loop_design_temperature_difference(self, value=None):
@@ -2789,16 +2727,7 @@ class OutputControlSizingStyle(DataObject):
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns"
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:Sizing:Style', 'pyname': u'OutputControlSizingStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `OutputControl:Sizing:Style`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'OutputControl:Sizing:Style', 'pyname': u'OutputControlSizingStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Comma', u'Tab', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def column_separator(self):
@@ -2807,7 +2736,7 @@ class OutputControlSizingStyle(DataObject):
         Returns:
             str: the value of `column_separator` or None if not set
         """
-        return self._data["Column Separator"]
+        return self["Column Separator"]
 
     @column_separator.setter
     def column_separator(self, value=None):

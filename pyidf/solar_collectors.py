@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -16,16 +17,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
         SolarCollectors.idf.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:FlatPlate', 'pyname': u'SolarCollectorPerformanceFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'test fluid', {'name': u'Test Fluid', 'pyname': u'test_fluid', 'default': u'Water', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'test flow rate', {'name': u'Test Flow Rate', 'pyname': u'test_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'test correlation type', {'name': u'Test Correlation Type', 'pyname': u'test_correlation_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'coefficient 1 of efficiency equation', {'name': u'Coefficient 1 of Efficiency Equation', 'pyname': u'coefficient_1_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'coefficient 2 of efficiency equation', {'name': u'Coefficient 2 of Efficiency Equation', 'pyname': u'coefficient_2_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'coefficient 3 of efficiency equation', {'name': u'Coefficient 3 of Efficiency Equation', 'pyname': u'coefficient_3_of_efficiency_equation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K2'}), (u'coefficient 2 of incident angle modifier', {'name': u'Coefficient 2 of Incident Angle Modifier', 'pyname': u'coefficient_2_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient 3 of incident angle modifier', {'name': u'Coefficient 3 of Incident Angle Modifier', 'pyname': u'coefficient_3_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollectorPerformance:FlatPlate`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:FlatPlate', 'pyname': u'SolarCollectorPerformanceFlatPlate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'test fluid', {'name': u'Test Fluid', 'pyname': u'test_fluid', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water'], 'autocalculatable': False, 'type': 'alpha'}), (u'test flow rate', {'name': u'Test Flow Rate', 'pyname': u'test_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'test correlation type', {'name': u'Test Correlation Type', 'pyname': u'test_correlation_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Inlet', u'Average', u'Outlet'], 'autocalculatable': False, 'type': 'alpha'}), (u'coefficient 1 of efficiency equation', {'name': u'Coefficient 1 of Efficiency Equation', 'pyname': u'coefficient_1_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'coefficient 2 of efficiency equation', {'name': u'Coefficient 2 of Efficiency Equation', 'pyname': u'coefficient_2_of_efficiency_equation', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'coefficient 3 of efficiency equation', {'name': u'Coefficient 3 of Efficiency Equation', 'pyname': u'coefficient_3_of_efficiency_equation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K2'}), (u'coefficient 2 of incident angle modifier', {'name': u'Coefficient 2 of Incident Angle Modifier', 'pyname': u'coefficient_2_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient 3 of incident angle modifier', {'name': u'Coefficient 3 of Incident Angle Modifier', 'pyname': u'coefficient_3_of_incident_angle_modifier', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -34,7 +26,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -57,7 +49,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `gross_area` or None if not set
         """
-        return self._data["Gross Area"]
+        return self["Gross Area"]
 
     @gross_area.setter
     def gross_area(self, value=None):
@@ -81,7 +73,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             str: the value of `test_fluid` or None if not set
         """
-        return self._data["Test Fluid"]
+        return self["Test Fluid"]
 
     @test_fluid.setter
     def test_fluid(self, value="Water"):
@@ -105,7 +97,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `test_flow_rate` or None if not set
         """
-        return self._data["Test Flow Rate"]
+        return self["Test Flow Rate"]
 
     @test_flow_rate.setter
     def test_flow_rate(self, value=None):
@@ -129,7 +121,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             str: the value of `test_correlation_type` or None if not set
         """
-        return self._data["Test Correlation Type"]
+        return self["Test Correlation Type"]
 
     @test_correlation_type.setter
     def test_correlation_type(self, value=None):
@@ -152,7 +144,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `coefficient_1_of_efficiency_equation` or None if not set
         """
-        return self._data["Coefficient 1 of Efficiency Equation"]
+        return self["Coefficient 1 of Efficiency Equation"]
 
     @coefficient_1_of_efficiency_equation.setter
     def coefficient_1_of_efficiency_equation(self, value=None):
@@ -177,7 +169,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `coefficient_2_of_efficiency_equation` or None if not set
         """
-        return self._data["Coefficient 2 of Efficiency Equation"]
+        return self["Coefficient 2 of Efficiency Equation"]
 
     @coefficient_2_of_efficiency_equation.setter
     def coefficient_2_of_efficiency_equation(self, value=None):
@@ -202,7 +194,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `coefficient_3_of_efficiency_equation` or None if not set
         """
-        return self._data["Coefficient 3 of Efficiency Equation"]
+        return self["Coefficient 3 of Efficiency Equation"]
 
     @coefficient_3_of_efficiency_equation.setter
     def coefficient_3_of_efficiency_equation(self, value=None):
@@ -227,7 +219,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `coefficient_2_of_incident_angle_modifier` or None if not set
         """
-        return self._data["Coefficient 2 of Incident Angle Modifier"]
+        return self["Coefficient 2 of Incident Angle Modifier"]
 
     @coefficient_2_of_incident_angle_modifier.setter
     def coefficient_2_of_incident_angle_modifier(self, value=None):
@@ -251,7 +243,7 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         Returns:
             float: the value of `coefficient_3_of_incident_angle_modifier` or None if not set
         """
-        return self._data["Coefficient 3 of Incident Angle Modifier"]
+        return self["Coefficient 3 of Incident Angle Modifier"]
 
     @coefficient_3_of_incident_angle_modifier.setter
     def coefficient_3_of_incident_angle_modifier(self, value=None):
@@ -279,15 +271,6 @@ class SolarCollectorFlatPlateWater(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:Water', 'pyname': u'SolarCollectorFlatPlateWater', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'solarcollectorperformance name', {'name': u'SolarCollectorPerformance Name', 'pyname': u'solarcollectorperformance_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:Water`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -295,7 +278,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -318,7 +301,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             str: the value of `solarcollectorperformance_name` or None if not set
         """
-        return self._data["SolarCollectorPerformance Name"]
+        return self["SolarCollectorPerformance Name"]
 
     @solarcollectorperformance_name.setter
     def solarcollectorperformance_name(self, value=None):
@@ -341,7 +324,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             str: the value of `surface_name` or None if not set
         """
-        return self._data["Surface Name"]
+        return self["Surface Name"]
 
     @surface_name.setter
     def surface_name(self, value=None):
@@ -364,7 +347,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -387,7 +370,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -410,7 +393,7 @@ class SolarCollectorFlatPlateWater(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -433,16 +416,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Models hybrid photovoltaic-thermal (PVT) solar collectors that convert incident solar
         energy into both electricity and useful thermal energy by heating air or water.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:PhotovoltaicThermal', 'pyname': u'SolarCollectorFlatPlatePhotovoltaicThermal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic-thermal model performance name', {'name': u'Photovoltaic-Thermal Model Performance Name', 'pyname': u'photovoltaicthermal_model_performance_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic name', {'name': u'Photovoltaic Name', 'pyname': u'photovoltaic_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal working fluid type', {'name': u'Thermal Working Fluid Type', 'pyname': u'thermal_working_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:PhotovoltaicThermal`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SolarCollector:FlatPlate:PhotovoltaicThermal', 'pyname': u'SolarCollectorFlatPlatePhotovoltaicThermal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic-thermal model performance name', {'name': u'Photovoltaic-Thermal Model Performance Name', 'pyname': u'photovoltaicthermal_model_performance_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'photovoltaic name', {'name': u'Photovoltaic Name', 'pyname': u'photovoltaic_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal working fluid type', {'name': u'Thermal Working Fluid Type', 'pyname': u'thermal_working_fluid_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Water', u'Air'], 'autocalculatable': False, 'type': 'alpha'}), (u'water inlet node name', {'name': u'Water Inlet Node Name', 'pyname': u'water_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water outlet node name', {'name': u'Water Outlet Node Name', 'pyname': u'water_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -451,7 +425,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -474,7 +448,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `surface_name` or None if not set
         """
-        return self._data["Surface Name"]
+        return self["Surface Name"]
 
     @surface_name.setter
     def surface_name(self, value=None):
@@ -497,7 +471,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `photovoltaicthermal_model_performance_name` or None if not set
         """
-        return self._data["Photovoltaic-Thermal Model Performance Name"]
+        return self["Photovoltaic-Thermal Model Performance Name"]
 
     @photovoltaicthermal_model_performance_name.setter
     def photovoltaicthermal_model_performance_name(self, value=None):
@@ -520,7 +494,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `photovoltaic_name` or None if not set
         """
-        return self._data["Photovoltaic Name"]
+        return self["Photovoltaic Name"]
 
     @photovoltaic_name.setter
     def photovoltaic_name(self, value=None):
@@ -544,7 +518,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `thermal_working_fluid_type` or None if not set
         """
-        return self._data["Thermal Working Fluid Type"]
+        return self["Thermal Working Fluid Type"]
 
     @thermal_working_fluid_type.setter
     def thermal_working_fluid_type(self, value=None):
@@ -567,7 +541,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `water_inlet_node_name` or None if not set
         """
-        return self._data["Water Inlet Node Name"]
+        return self["Water Inlet Node Name"]
 
     @water_inlet_node_name.setter
     def water_inlet_node_name(self, value=None):
@@ -590,7 +564,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `water_outlet_node_name` or None if not set
         """
-        return self._data["Water Outlet Node Name"]
+        return self["Water Outlet Node Name"]
 
     @water_outlet_node_name.setter
     def water_outlet_node_name(self, value=None):
@@ -613,7 +587,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -636,7 +610,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -659,7 +633,7 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         Returns:
             float: the value of `design_flow_rate` or None if not set
         """
-        return self._data["Design Flow Rate"]
+        return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
@@ -681,16 +655,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:PhotovoltaicThermal:Simple', 'pyname': u'SolarCollectorPerformancePhotovoltaicThermalSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fraction of surface area with active thermal collector', {'name': u'Fraction of Surface Area with Active Thermal Collector', 'pyname': u'fraction_of_surface_area_with_active_thermal_collector', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal conversion efficiency input mode type', {'name': u'Thermal Conversion Efficiency Input Mode Type', 'pyname': u'thermal_conversion_efficiency_input_mode_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'value for thermal conversion efficiency if fixed', {'name': u'Value for Thermal Conversion Efficiency if Fixed', 'pyname': u'value_for_thermal_conversion_efficiency_if_fixed', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'thermal conversion efficiency schedule name', {'name': u'Thermal Conversion Efficiency Schedule Name', 'pyname': u'thermal_conversion_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'front surface emittance', {'name': u'Front Surface Emittance', 'pyname': u'front_surface_emittance', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:PhotovoltaicThermal:Simple', 'pyname': u'SolarCollectorPerformancePhotovoltaicThermalSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fraction of surface area with active thermal collector', {'name': u'Fraction of Surface Area with Active Thermal Collector', 'pyname': u'fraction_of_surface_area_with_active_thermal_collector', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal conversion efficiency input mode type', {'name': u'Thermal Conversion Efficiency Input Mode Type', 'pyname': u'thermal_conversion_efficiency_input_mode_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'value for thermal conversion efficiency if fixed', {'name': u'Value for Thermal Conversion Efficiency if Fixed', 'pyname': u'value_for_thermal_conversion_efficiency_if_fixed', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'thermal conversion efficiency schedule name', {'name': u'Thermal Conversion Efficiency Schedule Name', 'pyname': u'thermal_conversion_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'front surface emittance', {'name': u'Front Surface Emittance', 'pyname': u'front_surface_emittance', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -699,7 +664,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -722,7 +687,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             float: the value of `fraction_of_surface_area_with_active_thermal_collector` or None if not set
         """
-        return self._data["Fraction of Surface Area with Active Thermal Collector"]
+        return self["Fraction of Surface Area with Active Thermal Collector"]
 
     @fraction_of_surface_area_with_active_thermal_collector.setter
     def fraction_of_surface_area_with_active_thermal_collector(self, value=None):
@@ -747,7 +712,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             str: the value of `thermal_conversion_efficiency_input_mode_type` or None if not set
         """
-        return self._data["Thermal Conversion Efficiency Input Mode Type"]
+        return self["Thermal Conversion Efficiency Input Mode Type"]
 
     @thermal_conversion_efficiency_input_mode_type.setter
     def thermal_conversion_efficiency_input_mode_type(self, value=None):
@@ -770,7 +735,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             float: the value of `value_for_thermal_conversion_efficiency_if_fixed` or None if not set
         """
-        return self._data["Value for Thermal Conversion Efficiency if Fixed"]
+        return self["Value for Thermal Conversion Efficiency if Fixed"]
 
     @value_for_thermal_conversion_efficiency_if_fixed.setter
     def value_for_thermal_conversion_efficiency_if_fixed(self, value=None):
@@ -795,7 +760,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             str: the value of `thermal_conversion_efficiency_schedule_name` or None if not set
         """
-        return self._data["Thermal Conversion Efficiency Schedule Name"]
+        return self["Thermal Conversion Efficiency Schedule Name"]
 
     @thermal_conversion_efficiency_schedule_name.setter
     def thermal_conversion_efficiency_schedule_name(self, value=None):
@@ -818,7 +783,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
         Returns:
             float: the value of `front_surface_emittance` or None if not set
         """
-        return self._data["Front Surface Emittance"]
+        return self["Front Surface Emittance"]
 
     @front_surface_emittance.setter
     def front_surface_emittance(self, value=0.84):
@@ -845,16 +810,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         or shading surface. The collector surface participates normally in all shading
         calculations.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollector:IntegralCollectorStorage', 'pyname': u'SolarCollectorIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'integralcollectorstorageparameters name', {'name': u'IntegralCollectorStorageParameters Name', 'pyname': u'integralcollectorstorageparameters_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'bottom surface boundary conditions type', {'name': u'Bottom Surface Boundary Conditions Type', 'pyname': u'bottom_surface_boundary_conditions_type', 'default': u'AmbientAir', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'boundary condition model name', {'name': u'Boundary Condition Model Name', 'pyname': u'boundary_condition_model_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollector:IntegralCollectorStorage`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SolarCollector:IntegralCollectorStorage', 'pyname': u'SolarCollectorIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'integralcollectorstorageparameters name', {'name': u'IntegralCollectorStorageParameters Name', 'pyname': u'integralcollectorstorageparameters_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'bottom surface boundary conditions type', {'name': u'Bottom Surface Boundary Conditions Type', 'pyname': u'bottom_surface_boundary_conditions_type', 'default': u'AmbientAir', 'required-field': True, 'autosizable': False, 'accepted-values': [u'OtherSideConditionsModel', u'AmbientAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'boundary condition model name', {'name': u'Boundary Condition Model Name', 'pyname': u'boundary_condition_model_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -863,7 +819,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -886,7 +842,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `integralcollectorstorageparameters_name` or None if not set
         """
-        return self._data["IntegralCollectorStorageParameters Name"]
+        return self["IntegralCollectorStorageParameters Name"]
 
     @integralcollectorstorageparameters_name.setter
     def integralcollectorstorageparameters_name(self, value=None):
@@ -909,7 +865,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `surface_name` or None if not set
         """
-        return self._data["Surface Name"]
+        return self["Surface Name"]
 
     @surface_name.setter
     def surface_name(self, value=None):
@@ -932,7 +888,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `bottom_surface_boundary_conditions_type` or None if not set
         """
-        return self._data["Bottom Surface Boundary Conditions Type"]
+        return self["Bottom Surface Boundary Conditions Type"]
 
     @bottom_surface_boundary_conditions_type.setter
     def bottom_surface_boundary_conditions_type(self, value="AmbientAir"):
@@ -956,7 +912,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `boundary_condition_model_name` or None if not set
         """
-        return self._data["Boundary Condition Model Name"]
+        return self["Boundary Condition Model Name"]
 
     @boundary_condition_model_name.setter
     def boundary_condition_model_name(self, value=None):
@@ -982,7 +938,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1005,7 +961,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1028,7 +984,7 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -1051,16 +1007,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Thermal and optical performance parameters for a single glazed solar collector with
         integral storage unit.
     """
-    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:IntegralCollectorStorage', 'pyname': u'SolarCollectorPerformanceIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ics collector type', {'name': u'ICS Collector Type', 'pyname': u'ics_collector_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'collector water volume', {'name': u'Collector Water Volume', 'pyname': u'collector_water_volume', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'bottom heat loss conductance', {'name': u'Bottom Heat Loss Conductance', 'pyname': u'bottom_heat_loss_conductance', 'default': 0.4, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'side heat loss conductance', {'name': u'Side Heat Loss Conductance', 'pyname': u'side_heat_loss_conductance', 'default': 0.6, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 0.8, 'minimum>': 0.5, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'm'}), (u'collector side height', {'name': u'Collector Side Height', 'pyname': u'collector_side_height', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.3, 'unit': u'm'}), (u'thermal mass of absorber plate', {'name': u'Thermal Mass of Absorber Plate', 'pyname': u'thermal_mass_of_absorber_plate', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/m2-K'}), (u'number of covers', {'name': u'Number of Covers', 'pyname': u'number_of_covers', 'default': 2, 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cover spacing', {'name': u'Cover Spacing', 'pyname': u'cover_spacing', 'default': 0.05, 'minimum>': 0.0, 'maximum': 0.2, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'refractive index of outer cover', {'name': u'Refractive Index of Outer Cover', 'pyname': u'refractive_index_of_outer_cover', 'default': 1.526, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of outer cover', {'name': u'Extinction Coefficient Times Thickness of Outer Cover', 'pyname': u'extinction_coefficient_times_thickness_of_outer_cover', 'default': 0.045, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emissivity of outer cover', {'name': u'Emissivity of Outer Cover', 'pyname': u'emissivity_of_outer_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'refractive index of inner cover', {'name': u'Refractive Index of Inner Cover', 'pyname': u'refractive_index_of_inner_cover', 'default': 1.37, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of the inner cover', {'name': u'Extinction Coefficient Times Thickness of the inner Cover', 'pyname': u'extinction_coefficient_times_thickness_of_the_inner_cover', 'default': 0.008, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emmissivity of inner cover', {'name': u'Emmissivity of Inner Cover', 'pyname': u'emmissivity_of_inner_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'absorptance of absorber plate', {'name': u'Absorptance of Absorber Plate', 'pyname': u'absorptance_of_absorber_plate', 'default': 0.96, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'emissivity of absorber plate', {'name': u'Emissivity of Absorber Plate', 'pyname': u'emissivity_of_absorber_plate', 'default': 0.3, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollectorPerformance:IntegralCollectorStorage`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'SolarCollectorPerformance:IntegralCollectorStorage', 'pyname': u'SolarCollectorPerformanceIntegralCollectorStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ics collector type', {'name': u'ICS Collector Type', 'pyname': u'ics_collector_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'RectangularTank'], 'autocalculatable': False, 'type': 'alpha'}), (u'gross area', {'name': u'Gross Area', 'pyname': u'gross_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'collector water volume', {'name': u'Collector Water Volume', 'pyname': u'collector_water_volume', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'bottom heat loss conductance', {'name': u'Bottom Heat Loss Conductance', 'pyname': u'bottom_heat_loss_conductance', 'default': 0.4, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'side heat loss conductance', {'name': u'Side Heat Loss Conductance', 'pyname': u'side_heat_loss_conductance', 'default': 0.6, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 0.8, 'minimum>': 0.5, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'm'}), (u'collector side height', {'name': u'Collector Side Height', 'pyname': u'collector_side_height', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.3, 'unit': u'm'}), (u'thermal mass of absorber plate', {'name': u'Thermal Mass of Absorber Plate', 'pyname': u'thermal_mass_of_absorber_plate', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/m2-K'}), (u'number of covers', {'name': u'Number of Covers', 'pyname': u'number_of_covers', 'default': 2, 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'cover spacing', {'name': u'Cover Spacing', 'pyname': u'cover_spacing', 'default': 0.05, 'minimum>': 0.0, 'maximum': 0.2, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'refractive index of outer cover', {'name': u'Refractive Index of Outer Cover', 'pyname': u'refractive_index_of_outer_cover', 'default': 1.526, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of outer cover', {'name': u'Extinction Coefficient Times Thickness of Outer Cover', 'pyname': u'extinction_coefficient_times_thickness_of_outer_cover', 'default': 0.045, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emissivity of outer cover', {'name': u'Emissivity of Outer Cover', 'pyname': u'emissivity_of_outer_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'refractive index of inner cover', {'name': u'Refractive Index of Inner Cover', 'pyname': u'refractive_index_of_inner_cover', 'default': 1.37, 'maximum': 2.0, 'required-field': True, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'extinction coefficient times thickness of the inner cover', {'name': u'Extinction Coefficient Times Thickness of the inner Cover', 'pyname': u'extinction_coefficient_times_thickness_of_the_inner_cover', 'default': 0.008, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'emmissivity of inner cover', {'name': u'Emmissivity of Inner Cover', 'pyname': u'emmissivity_of_inner_cover', 'default': 0.88, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'absorptance of absorber plate', {'name': u'Absorptance of Absorber Plate', 'pyname': u'absorptance_of_absorber_plate', 'default': 0.96, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'emissivity of absorber plate', {'name': u'Emissivity of Absorber Plate', 'pyname': u'emissivity_of_absorber_plate', 'default': 0.3, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1069,7 +1016,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1092,7 +1039,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             str: the value of `ics_collector_type` or None if not set
         """
-        return self._data["ICS Collector Type"]
+        return self["ICS Collector Type"]
 
     @ics_collector_type.setter
     def ics_collector_type(self, value=None):
@@ -1116,7 +1063,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `gross_area` or None if not set
         """
-        return self._data["Gross Area"]
+        return self["Gross Area"]
 
     @gross_area.setter
     def gross_area(self, value=None):
@@ -1140,7 +1087,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `collector_water_volume` or None if not set
         """
-        return self._data["Collector Water Volume"]
+        return self["Collector Water Volume"]
 
     @collector_water_volume.setter
     def collector_water_volume(self, value=None):
@@ -1164,7 +1111,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `bottom_heat_loss_conductance` or None if not set
         """
-        return self._data["Bottom Heat Loss Conductance"]
+        return self["Bottom Heat Loss Conductance"]
 
     @bottom_heat_loss_conductance.setter
     def bottom_heat_loss_conductance(self, value=0.4):
@@ -1190,7 +1137,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `side_heat_loss_conductance` or None if not set
         """
-        return self._data["Side Heat Loss Conductance"]
+        return self["Side Heat Loss Conductance"]
 
     @side_heat_loss_conductance.setter
     def side_heat_loss_conductance(self, value=0.6):
@@ -1216,7 +1163,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `aspect_ratio` or None if not set
         """
-        return self._data["Aspect Ratio"]
+        return self["Aspect Ratio"]
 
     @aspect_ratio.setter
     def aspect_ratio(self, value=0.8):
@@ -1246,7 +1193,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `collector_side_height` or None if not set
         """
-        return self._data["Collector Side Height"]
+        return self["Collector Side Height"]
 
     @collector_side_height.setter
     def collector_side_height(self, value=0.2):
@@ -1274,7 +1221,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `thermal_mass_of_absorber_plate` or None if not set
         """
-        return self._data["Thermal Mass of Absorber Plate"]
+        return self["Thermal Mass of Absorber Plate"]
 
     @thermal_mass_of_absorber_plate.setter
     def thermal_mass_of_absorber_plate(self, value=None):
@@ -1300,7 +1247,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             int: the value of `number_of_covers` or None if not set
         """
-        return self._data["Number of Covers"]
+        return self["Number of Covers"]
 
     @number_of_covers.setter
     def number_of_covers(self, value=2):
@@ -1329,7 +1276,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `cover_spacing` or None if not set
         """
-        return self._data["Cover Spacing"]
+        return self["Cover Spacing"]
 
     @cover_spacing.setter
     def cover_spacing(self, value=0.05):
@@ -1357,7 +1304,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `refractive_index_of_outer_cover` or None if not set
         """
-        return self._data["Refractive Index of Outer Cover"]
+        return self["Refractive Index of Outer Cover"]
 
     @refractive_index_of_outer_cover.setter
     def refractive_index_of_outer_cover(self, value=1.526):
@@ -1387,7 +1334,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_outer_cover` or None if not set
         """
-        return self._data["Extinction Coefficient Times Thickness of Outer Cover"]
+        return self["Extinction Coefficient Times Thickness of Outer Cover"]
 
     @extinction_coefficient_times_thickness_of_outer_cover.setter
     def extinction_coefficient_times_thickness_of_outer_cover(self, value=0.045):
@@ -1415,7 +1362,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `emissivity_of_outer_cover` or None if not set
         """
-        return self._data["Emissivity of Outer Cover"]
+        return self["Emissivity of Outer Cover"]
 
     @emissivity_of_outer_cover.setter
     def emissivity_of_outer_cover(self, value=0.88):
@@ -1443,7 +1390,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `refractive_index_of_inner_cover` or None if not set
         """
-        return self._data["Refractive Index of Inner Cover"]
+        return self["Refractive Index of Inner Cover"]
 
     @refractive_index_of_inner_cover.setter
     def refractive_index_of_inner_cover(self, value=1.37):
@@ -1472,7 +1419,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `extinction_coefficient_times_thickness_of_the_inner_cover` or None if not set
         """
-        return self._data["Extinction Coefficient Times Thickness of the inner Cover"]
+        return self["Extinction Coefficient Times Thickness of the inner Cover"]
 
     @extinction_coefficient_times_thickness_of_the_inner_cover.setter
     def extinction_coefficient_times_thickness_of_the_inner_cover(self, value=0.008):
@@ -1500,7 +1447,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `emmissivity_of_inner_cover` or None if not set
         """
-        return self._data["Emmissivity of Inner Cover"]
+        return self["Emmissivity of Inner Cover"]
 
     @emmissivity_of_inner_cover.setter
     def emmissivity_of_inner_cover(self, value=0.88):
@@ -1527,7 +1474,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `absorptance_of_absorber_plate` or None if not set
         """
-        return self._data["Absorptance of Absorber Plate"]
+        return self["Absorptance of Absorber Plate"]
 
     @absorptance_of_absorber_plate.setter
     def absorptance_of_absorber_plate(self, value=0.96):
@@ -1555,7 +1502,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
         Returns:
             float: the value of `emissivity_of_absorber_plate` or None if not set
         """
-        return self._data["Emissivity of Absorber Plate"]
+        return self["Emissivity of Absorber Plate"]
 
     @emissivity_of_absorber_plate.setter
     def emissivity_of_absorber_plate(self, value=0.3):
@@ -1584,16 +1531,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         single collector attached to one or more building or shading surfaces and to one or
         more outdoor air systems.
     """
-    schema = {'min-fields': 23, 'name': u'SolarCollector:UnglazedTranspired', 'pyname': u'SolarCollectorUnglazedTranspired', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'boundary conditions model name', {'name': u'Boundary Conditions Model Name', 'pyname': u'boundary_conditions_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node name', {'name': u'Setpoint Node Name', 'pyname': u'setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'free heating setpoint schedule name', {'name': u'Free Heating Setpoint Schedule Name', 'pyname': u'free_heating_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter of perforations in collector', {'name': u'Diameter of Perforations in Collector', 'pyname': u'diameter_of_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'distance between perforations in collector', {'name': u'Distance Between Perforations in Collector', 'pyname': u'distance_between_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'thermal emissivity of collector surface', {'name': u'Thermal Emissivity of Collector Surface', 'pyname': u'thermal_emissivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar absorbtivity of collector surface', {'name': u'Solar Absorbtivity of Collector Surface', 'pyname': u'solar_absorbtivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'effective overall height of collector', {'name': u'Effective Overall Height of Collector', 'pyname': u'effective_overall_height_of_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'effective gap thickness of plenum behind collector', {'name': u'Effective Gap Thickness of Plenum Behind Collector', 'pyname': u'effective_gap_thickness_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective cross section area of plenum behind collector', {'name': u'Effective Cross Section Area of Plenum Behind Collector', 'pyname': u'effective_cross_section_area_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'hole layout pattern for pitch', {'name': u'Hole Layout Pattern for Pitch', 'pyname': u'hole_layout_pattern_for_pitch', 'default': u'Square', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchange effectiveness correlation', {'name': u'Heat Exchange Effectiveness Correlation', 'pyname': u'heat_exchange_effectiveness_correlation', 'default': u'Kutscher1994', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of actual collector surface area to projected surface area', {'name': u'Ratio of Actual Collector Surface Area to Projected Surface Area', 'pyname': u'ratio_of_actual_collector_surface_area_to_projected_surface_area', 'default': 1.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'roughness of collector', {'name': u'Roughness of Collector', 'pyname': u'roughness_of_collector', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'collector thickness', {'name': u'Collector Thickness', 'pyname': u'collector_thickness', 'maximum': 0.007, 'required-field': False, 'autosizable': False, 'minimum': 0.0005, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effectiveness for perforations with respect to wind', {'name': u'Effectiveness for Perforations with Respect to Wind', 'pyname': u'effectiveness_for_perforations_with_respect_to_wind', 'default': 0.25, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for openings with respect to buoyancy driven flow', {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow', 'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow', 'default': 0.65, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 23, 'name': u'SolarCollector:UnglazedTranspired', 'pyname': u'SolarCollectorUnglazedTranspired', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'boundary conditions model name', {'name': u'Boundary Conditions Model Name', 'pyname': u'boundary_conditions_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint node name', {'name': u'Setpoint Node Name', 'pyname': u'setpoint_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'free heating setpoint schedule name', {'name': u'Free Heating Setpoint Schedule Name', 'pyname': u'free_heating_setpoint_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diameter of perforations in collector', {'name': u'Diameter of Perforations in Collector', 'pyname': u'diameter_of_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'distance between perforations in collector', {'name': u'Distance Between Perforations in Collector', 'pyname': u'distance_between_perforations_in_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'thermal emissivity of collector surface', {'name': u'Thermal Emissivity of Collector Surface', 'pyname': u'thermal_emissivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar absorbtivity of collector surface', {'name': u'Solar Absorbtivity of Collector Surface', 'pyname': u'solar_absorbtivity_of_collector_surface', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'effective overall height of collector', {'name': u'Effective Overall Height of Collector', 'pyname': u'effective_overall_height_of_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'effective gap thickness of plenum behind collector', {'name': u'Effective Gap Thickness of Plenum Behind Collector', 'pyname': u'effective_gap_thickness_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effective cross section area of plenum behind collector', {'name': u'Effective Cross Section Area of Plenum Behind Collector', 'pyname': u'effective_cross_section_area_of_plenum_behind_collector', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'hole layout pattern for pitch', {'name': u'Hole Layout Pattern for Pitch', 'pyname': u'hole_layout_pattern_for_pitch', 'default': u'Square', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Triangle', u'Square'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat exchange effectiveness correlation', {'name': u'Heat Exchange Effectiveness Correlation', 'pyname': u'heat_exchange_effectiveness_correlation', 'default': u'Kutscher1994', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Kutscher1994', u'VanDeckerHollandsBrunger2001'], 'autocalculatable': False, 'type': 'alpha'}), (u'ratio of actual collector surface area to projected surface area', {'name': u'Ratio of Actual Collector Surface Area to Projected Surface Area', 'pyname': u'ratio_of_actual_collector_surface_area_to_projected_surface_area', 'default': 1.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'roughness of collector', {'name': u'Roughness of Collector', 'pyname': u'roughness_of_collector', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'collector thickness', {'name': u'Collector Thickness', 'pyname': u'collector_thickness', 'maximum': 0.007, 'required-field': False, 'autosizable': False, 'minimum': 0.0005, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'effectiveness for perforations with respect to wind', {'name': u'Effectiveness for Perforations with Respect to Wind', 'pyname': u'effectiveness_for_perforations_with_respect_to_wind', 'default': 0.25, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'discharge coefficient for openings with respect to buoyancy driven flow', {'name': u'Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow', 'pyname': u'discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow', 'default': 0.65, 'minimum>': 0.0, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1602,7 +1540,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1625,7 +1563,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `boundary_conditions_model_name` or None if not set
         """
-        return self._data["Boundary Conditions Model Name"]
+        return self["Boundary Conditions Model Name"]
 
     @boundary_conditions_model_name.setter
     def boundary_conditions_model_name(self, value=None):
@@ -1649,7 +1587,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -1674,7 +1612,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1698,7 +1636,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1722,7 +1660,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `setpoint_node_name` or None if not set
         """
-        return self._data["Setpoint Node Name"]
+        return self["Setpoint Node Name"]
 
     @setpoint_node_name.setter
     def setpoint_node_name(self, value=None):
@@ -1747,7 +1685,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `zone_node_name` or None if not set
         """
-        return self._data["Zone Node Name"]
+        return self["Zone Node Name"]
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
@@ -1772,7 +1710,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `free_heating_setpoint_schedule_name` or None if not set
         """
-        return self._data["Free Heating Setpoint Schedule Name"]
+        return self["Free Heating Setpoint Schedule Name"]
 
     @free_heating_setpoint_schedule_name.setter
     def free_heating_setpoint_schedule_name(self, value=None):
@@ -1795,7 +1733,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `diameter_of_perforations_in_collector` or None if not set
         """
-        return self._data["Diameter of Perforations in Collector"]
+        return self["Diameter of Perforations in Collector"]
 
     @diameter_of_perforations_in_collector.setter
     def diameter_of_perforations_in_collector(self, value=None):
@@ -1819,7 +1757,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `distance_between_perforations_in_collector` or None if not set
         """
-        return self._data["Distance Between Perforations in Collector"]
+        return self["Distance Between Perforations in Collector"]
 
     @distance_between_perforations_in_collector.setter
     def distance_between_perforations_in_collector(self, value=None):
@@ -1843,7 +1781,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `thermal_emissivity_of_collector_surface` or None if not set
         """
-        return self._data["Thermal Emissivity of Collector Surface"]
+        return self["Thermal Emissivity of Collector Surface"]
 
     @thermal_emissivity_of_collector_surface.setter
     def thermal_emissivity_of_collector_surface(self, value=None):
@@ -1868,7 +1806,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `solar_absorbtivity_of_collector_surface` or None if not set
         """
-        return self._data["Solar Absorbtivity of Collector Surface"]
+        return self["Solar Absorbtivity of Collector Surface"]
 
     @solar_absorbtivity_of_collector_surface.setter
     def solar_absorbtivity_of_collector_surface(self, value=None):
@@ -1893,7 +1831,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effective_overall_height_of_collector` or None if not set
         """
-        return self._data["Effective Overall Height of Collector"]
+        return self["Effective Overall Height of Collector"]
 
     @effective_overall_height_of_collector.setter
     def effective_overall_height_of_collector(self, value=None):
@@ -1916,7 +1854,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effective_gap_thickness_of_plenum_behind_collector` or None if not set
         """
-        return self._data["Effective Gap Thickness of Plenum Behind Collector"]
+        return self["Effective Gap Thickness of Plenum Behind Collector"]
 
     @effective_gap_thickness_of_plenum_behind_collector.setter
     def effective_gap_thickness_of_plenum_behind_collector(self, value=None):
@@ -1941,7 +1879,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effective_cross_section_area_of_plenum_behind_collector` or None if not set
         """
-        return self._data["Effective Cross Section Area of Plenum Behind Collector"]
+        return self["Effective Cross Section Area of Plenum Behind Collector"]
 
     @effective_cross_section_area_of_plenum_behind_collector.setter
     def effective_cross_section_area_of_plenum_behind_collector(self, value=None):
@@ -1966,7 +1904,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `hole_layout_pattern_for_pitch` or None if not set
         """
-        return self._data["Hole Layout Pattern for Pitch"]
+        return self["Hole Layout Pattern for Pitch"]
 
     @hole_layout_pattern_for_pitch.setter
     def hole_layout_pattern_for_pitch(self, value="Square"):
@@ -1990,7 +1928,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `heat_exchange_effectiveness_correlation` or None if not set
         """
-        return self._data["Heat Exchange Effectiveness Correlation"]
+        return self["Heat Exchange Effectiveness Correlation"]
 
     @heat_exchange_effectiveness_correlation.setter
     def heat_exchange_effectiveness_correlation(self, value="Kutscher1994"):
@@ -2014,7 +1952,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `ratio_of_actual_collector_surface_area_to_projected_surface_area` or None if not set
         """
-        return self._data["Ratio of Actual Collector Surface Area to Projected Surface Area"]
+        return self["Ratio of Actual Collector Surface Area to Projected Surface Area"]
 
     @ratio_of_actual_collector_surface_area_to_projected_surface_area.setter
     def ratio_of_actual_collector_surface_area_to_projected_surface_area(self, value=1.0):
@@ -2042,7 +1980,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             str: the value of `roughness_of_collector` or None if not set
         """
-        return self._data["Roughness of Collector"]
+        return self["Roughness of Collector"]
 
     @roughness_of_collector.setter
     def roughness_of_collector(self, value=None):
@@ -2065,7 +2003,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `collector_thickness` or None if not set
         """
-        return self._data["Collector Thickness"]
+        return self["Collector Thickness"]
 
     @collector_thickness.setter
     def collector_thickness(self, value=None):
@@ -2093,7 +2031,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `effectiveness_for_perforations_with_respect_to_wind` or None if not set
         """
-        return self._data["Effectiveness for Perforations with Respect to Wind"]
+        return self["Effectiveness for Perforations with Respect to Wind"]
 
     @effectiveness_for_perforations_with_respect_to_wind.setter
     def effectiveness_for_perforations_with_respect_to_wind(self, value=0.25):
@@ -2120,7 +2058,7 @@ class SolarCollectorUnglazedTranspired(DataObject):
         Returns:
             float: the value of `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow` or None if not set
         """
-        return self._data["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
+        return self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"]
 
     @discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow.setter
     def discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow(self, value=0.65):
@@ -2154,13 +2092,13 @@ class SolarCollectorUnglazedTranspired(DataObject):
         vals = []
         surface_1_name = self.check_value("Surface 1 Name", surface_1_name)
         vals.append(surface_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
@@ -2170,15 +2108,6 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'SolarCollector:UnglazedTranspired:Multisystem', 'pyname': u'SolarCollectorUnglazedTranspiredMultisystem', 'format': None, 'fields': OrderedDict([(u'solar collector name', {'name': u'Solar Collector Name', 'pyname': u'solar_collector_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'outdoor air system 1 collector inlet node', {'name': u'Outdoor Air System 1 Collector Inlet Node', 'pyname': u'outdoor_air_system_1_collector_inlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 collector outlet node', {'name': u'Outdoor Air System 1 Collector Outlet Node', 'pyname': u'outdoor_air_system_1_collector_outlet_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 mixed air node', {'name': u'Outdoor Air System 1 Mixed Air Node', 'pyname': u'outdoor_air_system_1_mixed_air_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air system 1 zone node', {'name': u'Outdoor Air System 1 Zone Node', 'pyname': u'outdoor_air_system_1_zone_node', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired:Multisystem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def solar_collector_name(self):
         """Get solar_collector_name
@@ -2186,7 +2115,7 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
         Returns:
             str: the value of `solar_collector_name` or None if not set
         """
-        return self._data["Solar Collector Name"]
+        return self["Solar Collector Name"]
 
     @solar_collector_name.setter
     def solar_collector_name(self, value=None):
@@ -2238,10 +2167,10 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
         vals.append(outdoor_air_system_1_mixed_air_node)
         outdoor_air_system_1_zone_node = self.check_value("Outdoor Air System 1 Zone Node", outdoor_air_system_1_zone_node)
         vals.append(outdoor_air_system_1_zone_node)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata

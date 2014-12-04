@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -15,15 +16,6 @@ class BranchList(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'BranchList', 'pyname': u'BranchList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'branch name', {'name': u'Branch Name', 'pyname': u'branch_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `BranchList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -31,7 +23,7 @@ class BranchList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -61,29 +53,20 @@ class BranchList(DataObject):
         vals = []
         branch_name = self.check_value("Branch Name", branch_name)
         vals.append(branch_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class PumpVariableSpeed(DataObject):
     """ Corresponds to IDD object `Pump:VariableSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
     """
-    schema = {'min-fields': 14, 'name': u'Pump:VariableSpeed', 'pyname': u'PumpVariableSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the part load performance curve', {'name': u'Coefficient 1 of the Part Load Performance Curve', 'pyname': u'coefficient_1_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the part load performance curve', {'name': u'Coefficient 2 of the Part Load Performance Curve', 'pyname': u'coefficient_2_of_the_part_load_performance_curve', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the part load performance curve', {'name': u'Coefficient 3 of the Part Load Performance Curve', 'pyname': u'coefficient_3_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 4 of the part load performance curve', {'name': u'Coefficient 4 of the Part Load Performance Curve', 'pyname': u'coefficient_4_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump curve name', {'name': u'Pump Curve Name', 'pyname': u'pump_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'impeller diameter', {'name': u'Impeller Diameter', 'pyname': u'impeller_diameter', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vfd control type', {'name': u'VFD Control Type', 'pyname': u'vfd_control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump rpm schedule name', {'name': u'Pump rpm Schedule Name', 'pyname': u'pump_rpm_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum pressure schedule', {'name': u'Minimum Pressure Schedule', 'pyname': u'minimum_pressure_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Pa'}), (u'maximum pressure schedule', {'name': u'Maximum Pressure Schedule', 'pyname': u'maximum_pressure_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Pa'}), (u'minimum rpm schedule', {'name': u'Minimum RPM Schedule', 'pyname': u'minimum_rpm_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Rotations Per Minute'}), (u'maximum rpm schedule', {'name': u'Maximum RPM Schedule', 'pyname': u'maximum_rpm_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Rotations Per Minute'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:VariableSpeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 14, 'name': u'Pump:VariableSpeed', 'pyname': u'PumpVariableSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the part load performance curve', {'name': u'Coefficient 1 of the Part Load Performance Curve', 'pyname': u'coefficient_1_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the part load performance curve', {'name': u'Coefficient 2 of the Part Load Performance Curve', 'pyname': u'coefficient_2_of_the_part_load_performance_curve', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the part load performance curve', {'name': u'Coefficient 3 of the Part Load Performance Curve', 'pyname': u'coefficient_3_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 4 of the part load performance curve', {'name': u'Coefficient 4 of the Part Load Performance Curve', 'pyname': u'coefficient_4_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Continuous', u'Intermittent'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump curve name', {'name': u'Pump Curve Name', 'pyname': u'pump_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'impeller diameter', {'name': u'Impeller Diameter', 'pyname': u'impeller_diameter', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vfd control type', {'name': u'VFD Control Type', 'pyname': u'vfd_control_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ManualControl', u'PressureSetpointControl'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump rpm schedule name', {'name': u'Pump rpm Schedule Name', 'pyname': u'pump_rpm_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum pressure schedule', {'name': u'Minimum Pressure Schedule', 'pyname': u'minimum_pressure_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Pa'}), (u'maximum pressure schedule', {'name': u'Maximum Pressure Schedule', 'pyname': u'maximum_pressure_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Pa'}), (u'minimum rpm schedule', {'name': u'Minimum RPM Schedule', 'pyname': u'minimum_rpm_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Rotations Per Minute'}), (u'maximum rpm schedule', {'name': u'Maximum RPM Schedule', 'pyname': u'maximum_rpm_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list', 'unit': u'Rotations Per Minute'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -92,7 +75,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -115,7 +98,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -138,7 +121,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -161,7 +144,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `rated_flow_rate` or None if not set
         """
-        return self._data["Rated Flow Rate"]
+        return self["Rated Flow Rate"]
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
@@ -186,7 +169,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -213,7 +196,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -240,7 +223,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -267,7 +250,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -291,7 +274,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_1_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 1 of the Part Load Performance Curve"]
+        return self["Coefficient 1 of the Part Load Performance Curve"]
 
     @coefficient_1_of_the_part_load_performance_curve.setter
     def coefficient_1_of_the_part_load_performance_curve(self, value=None):
@@ -314,7 +297,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_2_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 2 of the Part Load Performance Curve"]
+        return self["Coefficient 2 of the Part Load Performance Curve"]
 
     @coefficient_2_of_the_part_load_performance_curve.setter
     def coefficient_2_of_the_part_load_performance_curve(self, value=1.0):
@@ -338,7 +321,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_3_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 3 of the Part Load Performance Curve"]
+        return self["Coefficient 3 of the Part Load Performance Curve"]
 
     @coefficient_3_of_the_part_load_performance_curve.setter
     def coefficient_3_of_the_part_load_performance_curve(self, value=None):
@@ -361,7 +344,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_4_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 4 of the Part Load Performance Curve"]
+        return self["Coefficient 4 of the Part Load Performance Curve"]
 
     @coefficient_4_of_the_part_load_performance_curve.setter
     def coefficient_4_of_the_part_load_performance_curve(self, value=None):
@@ -384,7 +367,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `minimum_flow_rate` or None if not set
         """
-        return self._data["Minimum Flow Rate"]
+        return self["Minimum Flow Rate"]
 
     @minimum_flow_rate.setter
     def minimum_flow_rate(self, value=None):
@@ -410,7 +393,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_control_type` or None if not set
         """
-        return self._data["Pump Control Type"]
+        return self["Pump Control Type"]
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
@@ -434,7 +417,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -460,7 +443,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_curve_name` or None if not set
         """
-        return self._data["Pump Curve Name"]
+        return self["Pump Curve Name"]
 
     @pump_curve_name.setter
     def pump_curve_name(self, value=None):
@@ -492,7 +475,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `impeller_diameter` or None if not set
         """
-        return self._data["Impeller Diameter"]
+        return self["Impeller Diameter"]
 
     @impeller_diameter.setter
     def impeller_diameter(self, value=None):
@@ -517,7 +500,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `vfd_control_type` or None if not set
         """
-        return self._data["VFD Control Type"]
+        return self["VFD Control Type"]
 
     @vfd_control_type.setter
     def vfd_control_type(self, value=None):
@@ -540,7 +523,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_rpm_schedule_name` or None if not set
         """
-        return self._data["Pump rpm Schedule Name"]
+        return self["Pump rpm Schedule Name"]
 
     @pump_rpm_schedule_name.setter
     def pump_rpm_schedule_name(self, value=None):
@@ -566,7 +549,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `minimum_pressure_schedule` or None if not set
         """
-        return self._data["Minimum Pressure Schedule"]
+        return self["Minimum Pressure Schedule"]
 
     @minimum_pressure_schedule.setter
     def minimum_pressure_schedule(self, value=None):
@@ -590,7 +573,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `maximum_pressure_schedule` or None if not set
         """
-        return self._data["Maximum Pressure Schedule"]
+        return self["Maximum Pressure Schedule"]
 
     @maximum_pressure_schedule.setter
     def maximum_pressure_schedule(self, value=None):
@@ -614,7 +597,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `minimum_rpm_schedule` or None if not set
         """
-        return self._data["Minimum RPM Schedule"]
+        return self["Minimum RPM Schedule"]
 
     @minimum_rpm_schedule.setter
     def minimum_rpm_schedule(self, value=None):
@@ -638,7 +621,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `maximum_rpm_schedule` or None if not set
         """
-        return self._data["Maximum RPM Schedule"]
+        return self["Maximum RPM Schedule"]
 
     @maximum_rpm_schedule.setter
     def maximum_rpm_schedule(self, value=None):
@@ -662,7 +645,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -686,7 +669,7 @@ class PumpVariableSpeed(DataObject):
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
         """
-        return self._data["Skin Loss Radiative Fraction"]
+        return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
@@ -710,16 +693,7 @@ class PumpConstantSpeed(DataObject):
     """ Corresponds to IDD object `Pump:ConstantSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
     """
-    schema = {'min-fields': 9, 'name': u'Pump:ConstantSpeed', 'pyname': u'PumpConstantSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump curve name', {'name': u'Pump Curve Name', 'pyname': u'pump_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'impeller diameter', {'name': u'Impeller Diameter', 'pyname': u'impeller_diameter', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'rotational speed', {'name': u'Rotational Speed', 'pyname': u'rotational_speed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:ConstantSpeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 9, 'name': u'Pump:ConstantSpeed', 'pyname': u'PumpConstantSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Continuous', u'Intermittent'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump curve name', {'name': u'Pump Curve Name', 'pyname': u'pump_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'impeller diameter', {'name': u'Impeller Diameter', 'pyname': u'impeller_diameter', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'rotational speed', {'name': u'Rotational Speed', 'pyname': u'rotational_speed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -728,7 +702,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -751,7 +725,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -774,7 +748,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -797,7 +771,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `rated_flow_rate` or None if not set
         """
-        return self._data["Rated Flow Rate"]
+        return self["Rated Flow Rate"]
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
@@ -822,7 +796,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -849,7 +823,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -876,7 +850,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -903,7 +877,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -927,7 +901,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `pump_control_type` or None if not set
         """
-        return self._data["Pump Control Type"]
+        return self["Pump Control Type"]
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
@@ -951,7 +925,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -977,7 +951,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `pump_curve_name` or None if not set
         """
-        return self._data["Pump Curve Name"]
+        return self["Pump Curve Name"]
 
     @pump_curve_name.setter
     def pump_curve_name(self, value=None):
@@ -1009,7 +983,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `impeller_diameter` or None if not set
         """
-        return self._data["Impeller Diameter"]
+        return self["Impeller Diameter"]
 
     @impeller_diameter.setter
     def impeller_diameter(self, value=None):
@@ -1034,7 +1008,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `rotational_speed` or None if not set
         """
-        return self._data["Rotational Speed"]
+        return self["Rotational Speed"]
 
     @rotational_speed.setter
     def rotational_speed(self, value=None):
@@ -1059,7 +1033,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1083,7 +1057,7 @@ class PumpConstantSpeed(DataObject):
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
         """
-        return self._data["Skin Loss Radiative Fraction"]
+        return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
@@ -1110,15 +1084,6 @@ class PumpVariableSpeedCondensate(DataObject):
     """
     schema = {'min-fields': 13, 'name': u'Pump:VariableSpeed:Condensate', 'pyname': u'PumpVariableSpeedCondensate', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated flow rate', {'name': u'Rated Flow Rate', 'pyname': u'rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the part load performance curve', {'name': u'Coefficient 1 of the Part Load Performance Curve', 'pyname': u'coefficient_1_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the part load performance curve', {'name': u'Coefficient 2 of the Part Load Performance Curve', 'pyname': u'coefficient_2_of_the_part_load_performance_curve', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the part load performance curve', {'name': u'Coefficient 3 of the Part Load Performance Curve', 'pyname': u'coefficient_3_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 4 of the part load performance curve', {'name': u'Coefficient 4 of the Part Load Performance Curve', 'pyname': u'coefficient_4_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Pump:VariableSpeed:Condensate`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1126,7 +1091,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1149,7 +1114,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1172,7 +1137,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1195,7 +1160,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `rated_flow_rate` or None if not set
         """
-        return self._data["Rated Flow Rate"]
+        return self["Rated Flow Rate"]
 
     @rated_flow_rate.setter
     def rated_flow_rate(self, value=None):
@@ -1220,7 +1185,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -1247,7 +1212,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -1274,7 +1239,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -1301,7 +1266,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -1325,7 +1290,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `coefficient_1_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 1 of the Part Load Performance Curve"]
+        return self["Coefficient 1 of the Part Load Performance Curve"]
 
     @coefficient_1_of_the_part_load_performance_curve.setter
     def coefficient_1_of_the_part_load_performance_curve(self, value=None):
@@ -1348,7 +1313,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `coefficient_2_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 2 of the Part Load Performance Curve"]
+        return self["Coefficient 2 of the Part Load Performance Curve"]
 
     @coefficient_2_of_the_part_load_performance_curve.setter
     def coefficient_2_of_the_part_load_performance_curve(self, value=1.0):
@@ -1372,7 +1337,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `coefficient_3_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 3 of the Part Load Performance Curve"]
+        return self["Coefficient 3 of the Part Load Performance Curve"]
 
     @coefficient_3_of_the_part_load_performance_curve.setter
     def coefficient_3_of_the_part_load_performance_curve(self, value=None):
@@ -1395,7 +1360,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `coefficient_4_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 4 of the Part Load Performance Curve"]
+        return self["Coefficient 4 of the Part Load Performance Curve"]
 
     @coefficient_4_of_the_part_load_performance_curve.setter
     def coefficient_4_of_the_part_load_performance_curve(self, value=None):
@@ -1418,7 +1383,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -1444,7 +1409,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1468,7 +1433,7 @@ class PumpVariableSpeedCondensate(DataObject):
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
         """
-        return self._data["Skin Loss Radiative Fraction"]
+        return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
@@ -1492,16 +1457,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
     """ Corresponds to IDD object `HeaderedPumps:ConstantSpeed`
         This Headered pump object describes a pump bank with more than 1 pump in parallel
     """
-    schema = {'min-fields': 9, 'name': u'HeaderedPumps:ConstantSpeed', 'pyname': u'HeaderedPumpsConstantSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'total rated flow rate', {'name': u'Total Rated Flow Rate', 'pyname': u'total_rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'number of pumps in bank', {'name': u'Number of Pumps in Bank', 'pyname': u'number_of_pumps_in_bank', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'flow sequencing control scheme', {'name': u'Flow Sequencing Control Scheme', 'pyname': u'flow_sequencing_control_scheme', 'default': u'Sequential', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `HeaderedPumps:ConstantSpeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 9, 'name': u'HeaderedPumps:ConstantSpeed', 'pyname': u'HeaderedPumpsConstantSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'total rated flow rate', {'name': u'Total Rated Flow Rate', 'pyname': u'total_rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'number of pumps in bank', {'name': u'Number of Pumps in Bank', 'pyname': u'number_of_pumps_in_bank', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'flow sequencing control scheme', {'name': u'Flow Sequencing Control Scheme', 'pyname': u'flow_sequencing_control_scheme', 'default': u'Sequential', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sequential'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Continuous', u'Intermittent'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1510,7 +1466,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1533,7 +1489,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1556,7 +1512,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1579,7 +1535,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `total_rated_flow_rate` or None if not set
         """
-        return self._data["Total Rated Flow Rate"]
+        return self["Total Rated Flow Rate"]
 
     @total_rated_flow_rate.setter
     def total_rated_flow_rate(self, value=None):
@@ -1606,7 +1562,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             int: the value of `number_of_pumps_in_bank` or None if not set
         """
-        return self._data["Number of Pumps in Bank"]
+        return self["Number of Pumps in Bank"]
 
     @number_of_pumps_in_bank.setter
     def number_of_pumps_in_bank(self, value=None):
@@ -1629,7 +1585,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `flow_sequencing_control_scheme` or None if not set
         """
-        return self._data["Flow Sequencing Control Scheme"]
+        return self["Flow Sequencing Control Scheme"]
 
     @flow_sequencing_control_scheme.setter
     def flow_sequencing_control_scheme(self, value="Sequential"):
@@ -1653,7 +1609,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -1680,7 +1636,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -1709,7 +1665,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -1736,7 +1692,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -1760,7 +1716,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `pump_control_type` or None if not set
         """
-        return self._data["Pump Control Type"]
+        return self["Pump Control Type"]
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
@@ -1784,7 +1740,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -1810,7 +1766,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1834,7 +1790,7 @@ class HeaderedPumpsConstantSpeed(DataObject):
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
         """
-        return self._data["Skin Loss Radiative Fraction"]
+        return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):
@@ -1858,16 +1814,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
     """ Corresponds to IDD object `HeaderedPumps:VariableSpeed`
         This Headered pump object describes a pump bank with more than 1 pump in parallel
     """
-    schema = {'min-fields': 14, 'name': u'HeaderedPumps:VariableSpeed', 'pyname': u'HeaderedPumpsVariableSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'total rated flow rate', {'name': u'Total Rated Flow Rate', 'pyname': u'total_rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'number of pumps in bank', {'name': u'Number of Pumps in Bank', 'pyname': u'number_of_pumps_in_bank', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'flow sequencing control scheme', {'name': u'Flow Sequencing Control Scheme', 'pyname': u'flow_sequencing_control_scheme', 'default': u'Sequential', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the part load performance curve', {'name': u'Coefficient 1 of the Part Load Performance Curve', 'pyname': u'coefficient_1_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the part load performance curve', {'name': u'Coefficient 2 of the Part Load Performance Curve', 'pyname': u'coefficient_2_of_the_part_load_performance_curve', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the part load performance curve', {'name': u'Coefficient 3 of the Part Load Performance Curve', 'pyname': u'coefficient_3_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 4 of the part load performance curve', {'name': u'Coefficient 4 of the Part Load Performance Curve', 'pyname': u'coefficient_4_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'minimum flow rate fraction', {'name': u'Minimum Flow Rate Fraction', 'pyname': u'minimum_flow_rate_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `HeaderedPumps:VariableSpeed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 14, 'name': u'HeaderedPumps:VariableSpeed', 'pyname': u'HeaderedPumpsVariableSpeed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'total rated flow rate', {'name': u'Total Rated Flow Rate', 'pyname': u'total_rated_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'number of pumps in bank', {'name': u'Number of Pumps in Bank', 'pyname': u'number_of_pumps_in_bank', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'flow sequencing control scheme', {'name': u'Flow Sequencing Control Scheme', 'pyname': u'flow_sequencing_control_scheme', 'default': u'Sequential', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sequential'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated pump head', {'name': u'Rated Pump Head', 'pyname': u'rated_pump_head', 'default': 179352.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'fraction of motor inefficiencies to fluid stream', {'name': u'Fraction of Motor Inefficiencies to Fluid Stream', 'pyname': u'fraction_of_motor_inefficiencies_to_fluid_stream', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 1 of the part load performance curve', {'name': u'Coefficient 1 of the Part Load Performance Curve', 'pyname': u'coefficient_1_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 2 of the part load performance curve', {'name': u'Coefficient 2 of the Part Load Performance Curve', 'pyname': u'coefficient_2_of_the_part_load_performance_curve', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 3 of the part load performance curve', {'name': u'Coefficient 3 of the Part Load Performance Curve', 'pyname': u'coefficient_3_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'coefficient 4 of the part load performance curve', {'name': u'Coefficient 4 of the Part Load Performance Curve', 'pyname': u'coefficient_4_of_the_part_load_performance_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'minimum flow rate fraction', {'name': u'Minimum Flow Rate Fraction', 'pyname': u'minimum_flow_rate_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'pump control type', {'name': u'Pump Control Type', 'pyname': u'pump_control_type', 'default': u'Continuous', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Continuous', u'Intermittent'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Object-list'}), (u'skin loss radiative fraction', {'name': u'Skin Loss Radiative Fraction', 'pyname': u'skin_loss_radiative_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1876,7 +1823,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1899,7 +1846,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -1922,7 +1869,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -1945,7 +1892,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `total_rated_flow_rate` or None if not set
         """
-        return self._data["Total Rated Flow Rate"]
+        return self["Total Rated Flow Rate"]
 
     @total_rated_flow_rate.setter
     def total_rated_flow_rate(self, value=None):
@@ -1972,7 +1919,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             int: the value of `number_of_pumps_in_bank` or None if not set
         """
-        return self._data["Number of Pumps in Bank"]
+        return self["Number of Pumps in Bank"]
 
     @number_of_pumps_in_bank.setter
     def number_of_pumps_in_bank(self, value=None):
@@ -1995,7 +1942,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `flow_sequencing_control_scheme` or None if not set
         """
-        return self._data["Flow Sequencing Control Scheme"]
+        return self["Flow Sequencing Control Scheme"]
 
     @flow_sequencing_control_scheme.setter
     def flow_sequencing_control_scheme(self, value="Sequential"):
@@ -2019,7 +1966,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `rated_pump_head` or None if not set
         """
-        return self._data["Rated Pump Head"]
+        return self["Rated Pump Head"]
 
     @rated_pump_head.setter
     def rated_pump_head(self, value=179352.0):
@@ -2046,7 +1993,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `rated_power_consumption` or None if not set
         """
-        return self._data["Rated Power Consumption"]
+        return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
@@ -2075,7 +2022,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `motor_efficiency` or None if not set
         """
-        return self._data["Motor Efficiency"]
+        return self["Motor Efficiency"]
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
@@ -2102,7 +2049,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `fraction_of_motor_inefficiencies_to_fluid_stream` or None if not set
         """
-        return self._data["Fraction of Motor Inefficiencies to Fluid Stream"]
+        return self["Fraction of Motor Inefficiencies to Fluid Stream"]
 
     @fraction_of_motor_inefficiencies_to_fluid_stream.setter
     def fraction_of_motor_inefficiencies_to_fluid_stream(self, value=None):
@@ -2126,7 +2073,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_1_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 1 of the Part Load Performance Curve"]
+        return self["Coefficient 1 of the Part Load Performance Curve"]
 
     @coefficient_1_of_the_part_load_performance_curve.setter
     def coefficient_1_of_the_part_load_performance_curve(self, value=None):
@@ -2149,7 +2096,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_2_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 2 of the Part Load Performance Curve"]
+        return self["Coefficient 2 of the Part Load Performance Curve"]
 
     @coefficient_2_of_the_part_load_performance_curve.setter
     def coefficient_2_of_the_part_load_performance_curve(self, value=1.0):
@@ -2173,7 +2120,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_3_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 3 of the Part Load Performance Curve"]
+        return self["Coefficient 3 of the Part Load Performance Curve"]
 
     @coefficient_3_of_the_part_load_performance_curve.setter
     def coefficient_3_of_the_part_load_performance_curve(self, value=None):
@@ -2196,7 +2143,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `coefficient_4_of_the_part_load_performance_curve` or None if not set
         """
-        return self._data["Coefficient 4 of the Part Load Performance Curve"]
+        return self["Coefficient 4 of the Part Load Performance Curve"]
 
     @coefficient_4_of_the_part_load_performance_curve.setter
     def coefficient_4_of_the_part_load_performance_curve(self, value=None):
@@ -2219,7 +2166,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `minimum_flow_rate_fraction` or None if not set
         """
-        return self._data["Minimum Flow Rate Fraction"]
+        return self["Minimum Flow Rate Fraction"]
 
     @minimum_flow_rate_fraction.setter
     def minimum_flow_rate_fraction(self, value=None):
@@ -2244,7 +2191,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_control_type` or None if not set
         """
-        return self._data["Pump Control Type"]
+        return self["Pump Control Type"]
 
     @pump_control_type.setter
     def pump_control_type(self, value="Continuous"):
@@ -2268,7 +2215,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
         """
-        return self._data["Pump Flow Rate Schedule Name"]
+        return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
@@ -2294,7 +2241,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2318,7 +2265,7 @@ class HeaderedPumpsVariableSpeed(DataObject):
         Returns:
             float: the value of `skin_loss_radiative_fraction` or None if not set
         """
-        return self._data["Skin Loss Radiative Fraction"]
+        return self["Skin Loss Radiative Fraction"]
 
     @skin_loss_radiative_fraction.setter
     def skin_loss_radiative_fraction(self, value=None):

@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -13,16 +14,7 @@ class GlobalGeometryRules(DataObject):
         Specifes the geometric rules used to describe the input of surface vertices and
         daylighting reference points.
     """
-    schema = {'min-fields': 0, 'name': u'GlobalGeometryRules', 'pyname': u'GlobalGeometryRules', 'format': None, 'fields': OrderedDict([(u'starting vertex position', {'name': u'Starting Vertex Position', 'pyname': u'starting_vertex_position', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'vertex entry direction', {'name': u'Vertex Entry Direction', 'pyname': u'vertex_entry_direction', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'coordinate system', {'name': u'Coordinate System', 'pyname': u'coordinate_system', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'daylighting reference point coordinate system', {'name': u'Daylighting Reference Point Coordinate System', 'pyname': u'daylighting_reference_point_coordinate_system', 'default': u'Relative', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'rectangular surface coordinate system', {'name': u'Rectangular Surface Coordinate System', 'pyname': u'rectangular_surface_coordinate_system', 'default': u'Relative', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': True}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GlobalGeometryRules`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GlobalGeometryRules', 'pyname': u'GlobalGeometryRules', 'format': None, 'fields': OrderedDict([(u'starting vertex position', {'name': u'Starting Vertex Position', 'pyname': u'starting_vertex_position', 'required-field': True, 'autosizable': False, 'accepted-values': [u'UpperLeftCorner', u'LowerLeftCorner', u'UpperRightCorner', u'LowerRightCorner'], 'autocalculatable': False, 'type': 'alpha'}), (u'vertex entry direction', {'name': u'Vertex Entry Direction', 'pyname': u'vertex_entry_direction', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Counterclockwise', u'Clockwise'], 'autocalculatable': False, 'type': 'alpha'}), (u'coordinate system', {'name': u'Coordinate System', 'pyname': u'coordinate_system', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Relative', u'World', u'Absolute'], 'autocalculatable': False, 'type': 'alpha'}), (u'daylighting reference point coordinate system', {'name': u'Daylighting Reference Point Coordinate System', 'pyname': u'daylighting_reference_point_coordinate_system', 'default': u'Relative', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Relative', u'World', u'Absolute'], 'autocalculatable': False, 'type': 'alpha'}), (u'rectangular surface coordinate system', {'name': u'Rectangular Surface Coordinate System', 'pyname': u'rectangular_surface_coordinate_system', 'default': u'Relative', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Relative', u'World', u'Absolute'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': True}
 
     @property
     def starting_vertex_position(self):
@@ -31,7 +23,7 @@ class GlobalGeometryRules(DataObject):
         Returns:
             str: the value of `starting_vertex_position` or None if not set
         """
-        return self._data["Starting Vertex Position"]
+        return self["Starting Vertex Position"]
 
     @starting_vertex_position.setter
     def starting_vertex_position(self, value=None):
@@ -57,7 +49,7 @@ class GlobalGeometryRules(DataObject):
         Returns:
             str: the value of `vertex_entry_direction` or None if not set
         """
-        return self._data["Vertex Entry Direction"]
+        return self["Vertex Entry Direction"]
 
     @vertex_entry_direction.setter
     def vertex_entry_direction(self, value=None):
@@ -80,7 +72,7 @@ class GlobalGeometryRules(DataObject):
         Returns:
             str: the value of `coordinate_system` or None if not set
         """
-        return self._data["Coordinate System"]
+        return self["Coordinate System"]
 
     @coordinate_system.setter
     def coordinate_system(self, value=None):
@@ -106,7 +98,7 @@ class GlobalGeometryRules(DataObject):
         Returns:
             str: the value of `daylighting_reference_point_coordinate_system` or None if not set
         """
-        return self._data["Daylighting Reference Point Coordinate System"]
+        return self["Daylighting Reference Point Coordinate System"]
 
     @daylighting_reference_point_coordinate_system.setter
     def daylighting_reference_point_coordinate_system(self, value="Relative"):
@@ -133,7 +125,7 @@ class GlobalGeometryRules(DataObject):
         Returns:
             str: the value of `rectangular_surface_coordinate_system` or None if not set
         """
-        return self._data["Rectangular Surface Coordinate System"]
+        return self["Rectangular Surface Coordinate System"]
 
     @rectangular_surface_coordinate_system.setter
     def rectangular_surface_coordinate_system(self, value="Relative"):
@@ -160,16 +152,7 @@ class GeometryTransform(DataObject):
         is to provide a single parameter that can be used to reshape the building description
         contained in the rest of the input file.
     """
-    schema = {'min-fields': 0, 'name': u'GeometryTransform', 'pyname': u'GeometryTransform', 'format': None, 'fields': OrderedDict([(u'plane of transform', {'name': u'Plane of Transform', 'pyname': u'plane_of_transform', 'default': u'XY', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'current aspect ratio', {'name': u'Current Aspect Ratio', 'pyname': u'current_aspect_ratio', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'new aspect ratio', {'name': u'New Aspect Ratio', 'pyname': u'new_aspect_ratio', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GeometryTransform`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'GeometryTransform', 'pyname': u'GeometryTransform', 'format': None, 'fields': OrderedDict([(u'plane of transform', {'name': u'Plane of Transform', 'pyname': u'plane_of_transform', 'default': u'XY', 'required-field': True, 'autosizable': False, 'accepted-values': [u'XY'], 'autocalculatable': False, 'type': 'alpha'}), (u'current aspect ratio', {'name': u'Current Aspect Ratio', 'pyname': u'current_aspect_ratio', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'new aspect ratio', {'name': u'New Aspect Ratio', 'pyname': u'new_aspect_ratio', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def plane_of_transform(self):
@@ -178,7 +161,7 @@ class GeometryTransform(DataObject):
         Returns:
             str: the value of `plane_of_transform` or None if not set
         """
-        return self._data["Plane of Transform"]
+        return self["Plane of Transform"]
 
     @plane_of_transform.setter
     def plane_of_transform(self, value="XY"):
@@ -203,7 +186,7 @@ class GeometryTransform(DataObject):
         Returns:
             float: the value of `current_aspect_ratio` or None if not set
         """
-        return self._data["Current Aspect Ratio"]
+        return self["Current Aspect Ratio"]
 
     @current_aspect_ratio.setter
     def current_aspect_ratio(self, value=None):
@@ -227,7 +210,7 @@ class GeometryTransform(DataObject):
         Returns:
             float: the value of `new_aspect_ratio` or None if not set
         """
-        return self._data["New Aspect Ratio"]
+        return self["New Aspect Ratio"]
 
     @new_aspect_ratio.setter
     def new_aspect_ratio(self, value=None):
@@ -249,16 +232,7 @@ class Zone(DataObject):
     """ Corresponds to IDD object `Zone`
         Defines a thermal zone of the building.
     """
-    schema = {'min-fields': 0, 'name': u'Zone', 'pyname': u'Zone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'direction of relative north', {'name': u'Direction of Relative North', 'pyname': u'direction_of_relative_north', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'x origin', {'name': u'X Origin', 'pyname': u'x_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y origin', {'name': u'Y Origin', 'pyname': u'y_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z origin', {'name': u'Z Origin', 'pyname': u'z_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'type', {'name': u'Type', 'pyname': u'type', 'default': 1, 'maximum': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'ceiling height', {'name': u'Ceiling Height', 'pyname': u'ceiling_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'volume', {'name': u'Volume', 'pyname': u'volume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'floor area', {'name': u'Floor Area', 'pyname': u'floor_area', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'zone inside convection algorithm', {'name': u'Zone Inside Convection Algorithm', 'pyname': u'zone_inside_convection_algorithm', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone outside convection algorithm', {'name': u'Zone Outside Convection Algorithm', 'pyname': u'zone_outside_convection_algorithm', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'part of total floor area', {'name': u'Part of Total Floor Area', 'pyname': u'part_of_total_floor_area', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Zone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Zone', 'pyname': u'Zone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'direction of relative north', {'name': u'Direction of Relative North', 'pyname': u'direction_of_relative_north', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'x origin', {'name': u'X Origin', 'pyname': u'x_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y origin', {'name': u'Y Origin', 'pyname': u'y_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'z origin', {'name': u'Z Origin', 'pyname': u'z_origin', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'type', {'name': u'Type', 'pyname': u'type', 'default': 1, 'maximum': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'ceiling height', {'name': u'Ceiling Height', 'pyname': u'ceiling_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'volume', {'name': u'Volume', 'pyname': u'volume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'floor area', {'name': u'Floor Area', 'pyname': u'floor_area', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'zone inside convection algorithm', {'name': u'Zone Inside Convection Algorithm', 'pyname': u'zone_inside_convection_algorithm', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Simple', u'TARP', u'CeilingDiffuser', u'AdaptiveConvectionAlgorithm', u'TrombeWall'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone outside convection algorithm', {'name': u'Zone Outside Convection Algorithm', 'pyname': u'zone_outside_convection_algorithm', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SimpleCombined', u'TARP', u'DOE-2', u'MoWiTT', u'AdaptiveConvectionAlgorithm'], 'autocalculatable': False, 'type': 'alpha'}), (u'part of total floor area', {'name': u'Part of Total Floor Area', 'pyname': u'part_of_total_floor_area', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -267,7 +241,7 @@ class Zone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -290,7 +264,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `direction_of_relative_north` or None if not set
         """
-        return self._data["Direction of Relative North"]
+        return self["Direction of Relative North"]
 
     @direction_of_relative_north.setter
     def direction_of_relative_north(self, value=None):
@@ -314,7 +288,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `x_origin` or None if not set
         """
-        return self._data["X Origin"]
+        return self["X Origin"]
 
     @x_origin.setter
     def x_origin(self, value=None):
@@ -338,7 +312,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `y_origin` or None if not set
         """
-        return self._data["Y Origin"]
+        return self["Y Origin"]
 
     @y_origin.setter
     def y_origin(self, value=None):
@@ -362,7 +336,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `z_origin` or None if not set
         """
-        return self._data["Z Origin"]
+        return self["Z Origin"]
 
     @z_origin.setter
     def z_origin(self, value=None):
@@ -386,7 +360,7 @@ class Zone(DataObject):
         Returns:
             int: the value of `type` or None if not set
         """
-        return self._data["Type"]
+        return self["Type"]
 
     @type.setter
     def type(self, value=1):
@@ -412,7 +386,7 @@ class Zone(DataObject):
         Returns:
             int: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1):
@@ -437,7 +411,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `ceiling_height` or None if not set
         """
-        return self._data["Ceiling Height"]
+        return self["Ceiling Height"]
 
     @ceiling_height.setter
     def ceiling_height(self, value="autocalculate"):
@@ -467,7 +441,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `volume` or None if not set
         """
-        return self._data["Volume"]
+        return self["Volume"]
 
     @volume.setter
     def volume(self, value="autocalculate"):
@@ -495,7 +469,7 @@ class Zone(DataObject):
         Returns:
             float: the value of `floor_area` or None if not set
         """
-        return self._data["Floor Area"]
+        return self["Floor Area"]
 
     @floor_area.setter
     def floor_area(self, value="autocalculate"):
@@ -523,7 +497,7 @@ class Zone(DataObject):
         Returns:
             str: the value of `zone_inside_convection_algorithm` or None if not set
         """
-        return self._data["Zone Inside Convection Algorithm"]
+        return self["Zone Inside Convection Algorithm"]
 
     @zone_inside_convection_algorithm.setter
     def zone_inside_convection_algorithm(self, value=None):
@@ -554,7 +528,7 @@ class Zone(DataObject):
         Returns:
             str: the value of `zone_outside_convection_algorithm` or None if not set
         """
-        return self._data["Zone Outside Convection Algorithm"]
+        return self["Zone Outside Convection Algorithm"]
 
     @zone_outside_convection_algorithm.setter
     def zone_outside_convection_algorithm(self, value=None):
@@ -584,7 +558,7 @@ class Zone(DataObject):
         Returns:
             str: the value of `part_of_total_floor_area` or None if not set
         """
-        return self._data["Part of Total Floor Area"]
+        return self["Part of Total Floor Area"]
 
     @part_of_total_floor_area.setter
     def part_of_total_floor_area(self, value="Yes"):
@@ -612,15 +586,6 @@ class ZoneList(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'ZoneList', 'pyname': u'ZoneList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneList`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -628,7 +593,7 @@ class ZoneList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -659,13 +624,13 @@ class ZoneList(DataObject):
         vals = []
         zone_1_name = self.check_value("Zone 1 Name", zone_1_name)
         vals.append(zone_1_name)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ZoneGroup(DataObject):
@@ -676,15 +641,6 @@ class ZoneGroup(DataObject):
     """
     schema = {'min-fields': 2, 'name': u'ZoneGroup', 'pyname': u'ZoneGroup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone list name', {'name': u'Zone List Name', 'pyname': u'zone_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone list multiplier', {'name': u'Zone List Multiplier', 'pyname': u'zone_list_multiplier', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneGroup`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -692,7 +648,7 @@ class ZoneGroup(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -716,7 +672,7 @@ class ZoneGroup(DataObject):
         Returns:
             str: the value of `zone_list_name` or None if not set
         """
-        return self._data["Zone List Name"]
+        return self["Zone List Name"]
 
     @zone_list_name.setter
     def zone_list_name(self, value=None):
@@ -739,7 +695,7 @@ class ZoneGroup(DataObject):
         Returns:
             int: the value of `zone_list_multiplier` or None if not set
         """
-        return self._data["Zone List Multiplier"]
+        return self["Zone List Multiplier"]
 
     @zone_list_multiplier.setter
     def zone_list_multiplier(self, value=1):
@@ -762,16 +718,7 @@ class BuildingSurfaceDetailed(DataObject):
     """ Corresponds to IDD object `BuildingSurface:Detailed`
         Allows for detailed entry of building heat transfer surfaces.  Does not include subsurfaces such as windows or doors.
     """
-    schema = {'min-fields': 19, 'name': u'BuildingSurface:Detailed', 'pyname': u'BuildingSurfaceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `BuildingSurface:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 19, 'name': u'BuildingSurface:Detailed', 'pyname': u'BuildingSurfaceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Floor', u'Wall', u'Ceiling', u'Roof'], 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WindExposed', u'NoWind'], 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -780,7 +727,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -803,7 +750,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `surface_type` or None if not set
         """
-        return self._data["Surface Type"]
+        return self["Surface Type"]
 
     @surface_type.setter
     def surface_type(self, value=None):
@@ -826,7 +773,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -850,7 +797,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -874,7 +821,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition` or None if not set
         """
-        return self._data["Outside Boundary Condition"]
+        return self["Outside Boundary Condition"]
 
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
@@ -897,7 +844,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -928,7 +875,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `sun_exposure` or None if not set
         """
-        return self._data["Sun Exposure"]
+        return self["Sun Exposure"]
 
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
@@ -952,7 +899,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             str: the value of `wind_exposure` or None if not set
         """
-        return self._data["Wind Exposure"]
+        return self["Wind Exposure"]
 
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
@@ -976,7 +923,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             float: the value of `view_factor_to_ground` or None if not set
         """
-        return self._data["View Factor to Ground"]
+        return self["View Factor to Ground"]
 
     @view_factor_to_ground.setter
     def view_factor_to_ground(self, value="autocalculate"):
@@ -1005,7 +952,7 @@ class BuildingSurfaceDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -1062,29 +1009,20 @@ class BuildingSurfaceDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class WallDetailed(DataObject):
     """ Corresponds to IDD object `Wall:Detailed`
         Allows for detailed entry of wall heat transfer surfaces.
     """
-    schema = {'min-fields': 18, 'name': u'Wall:Detailed', 'pyname': u'WallDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Wall:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 18, 'name': u'Wall:Detailed', 'pyname': u'WallDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WindExposed', u'NoWind'], 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1093,7 +1031,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1116,7 +1054,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -1140,7 +1078,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1164,7 +1102,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition` or None if not set
         """
-        return self._data["Outside Boundary Condition"]
+        return self["Outside Boundary Condition"]
 
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
@@ -1187,7 +1125,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -1218,7 +1156,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `sun_exposure` or None if not set
         """
-        return self._data["Sun Exposure"]
+        return self["Sun Exposure"]
 
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
@@ -1242,7 +1180,7 @@ class WallDetailed(DataObject):
         Returns:
             str: the value of `wind_exposure` or None if not set
         """
-        return self._data["Wind Exposure"]
+        return self["Wind Exposure"]
 
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
@@ -1266,7 +1204,7 @@ class WallDetailed(DataObject):
         Returns:
             float: the value of `view_factor_to_ground` or None if not set
         """
-        return self._data["View Factor to Ground"]
+        return self["View Factor to Ground"]
 
     @view_factor_to_ground.setter
     def view_factor_to_ground(self, value="autocalculate"):
@@ -1295,7 +1233,7 @@ class WallDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -1350,29 +1288,20 @@ class WallDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class RoofCeilingDetailed(DataObject):
     """ Corresponds to IDD object `RoofCeiling:Detailed`
         Allows for detailed entry of roof/ceiling heat transfer surfaces.
     """
-    schema = {'min-fields': 18, 'name': u'RoofCeiling:Detailed', 'pyname': u'RoofCeilingDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `RoofCeiling:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 18, 'name': u'RoofCeiling:Detailed', 'pyname': u'RoofCeilingDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WindExposed', u'NoWind'], 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1381,7 +1310,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1404,7 +1333,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -1428,7 +1357,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1452,7 +1381,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition` or None if not set
         """
-        return self._data["Outside Boundary Condition"]
+        return self["Outside Boundary Condition"]
 
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
@@ -1475,7 +1404,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -1506,7 +1435,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `sun_exposure` or None if not set
         """
-        return self._data["Sun Exposure"]
+        return self["Sun Exposure"]
 
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
@@ -1530,7 +1459,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             str: the value of `wind_exposure` or None if not set
         """
-        return self._data["Wind Exposure"]
+        return self["Wind Exposure"]
 
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
@@ -1554,7 +1483,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             float: the value of `view_factor_to_ground` or None if not set
         """
-        return self._data["View Factor to Ground"]
+        return self["View Factor to Ground"]
 
     @view_factor_to_ground.setter
     def view_factor_to_ground(self, value="autocalculate"):
@@ -1583,7 +1512,7 @@ class RoofCeilingDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -1638,29 +1567,20 @@ class RoofCeilingDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class FloorDetailed(DataObject):
     """ Corresponds to IDD object `Floor:Detailed`
         Allows for detailed entry of floor heat transfer surfaces.
     """
-    schema = {'min-fields': 18, 'name': u'Floor:Detailed', 'pyname': u'FloorDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 18, 'name': u'Floor:Detailed', 'pyname': u'FloorDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition', {'name': u'Outside Boundary Condition', 'pyname': u'outside_boundary_condition', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Adiabatic', u'Surface', u'Zone', u'Outdoors', u'Ground', u'GroundFCfactorMethod', u'OtherSideCoefficients', u'OtherSideConditionsModel', u'GroundSlabPreprocessorAverage', u'GroundSlabPreprocessorCore', u'GroundSlabPreprocessorPerimeter', u'GroundBasementPreprocessorAverageWall', u'GroundBasementPreprocessorAverageFloor', u'GroundBasementPreprocessorUpperWall', u'GroundBasementPreprocessorLowerWall'], 'autocalculatable': False, 'type': 'alpha'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'default': u'SunExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'wind exposure', {'name': u'Wind Exposure', 'pyname': u'wind_exposure', 'default': u'WindExposed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WindExposed', u'NoWind'], 'autocalculatable': False, 'type': 'alpha'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1669,7 +1589,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1692,7 +1612,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -1716,7 +1636,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -1740,7 +1660,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition` or None if not set
         """
-        return self._data["Outside Boundary Condition"]
+        return self["Outside Boundary Condition"]
 
     @outside_boundary_condition.setter
     def outside_boundary_condition(self, value=None):
@@ -1763,7 +1683,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -1794,7 +1714,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `sun_exposure` or None if not set
         """
-        return self._data["Sun Exposure"]
+        return self["Sun Exposure"]
 
     @sun_exposure.setter
     def sun_exposure(self, value="SunExposed"):
@@ -1818,7 +1738,7 @@ class FloorDetailed(DataObject):
         Returns:
             str: the value of `wind_exposure` or None if not set
         """
-        return self._data["Wind Exposure"]
+        return self["Wind Exposure"]
 
     @wind_exposure.setter
     def wind_exposure(self, value="WindExposed"):
@@ -1842,7 +1762,7 @@ class FloorDetailed(DataObject):
         Returns:
             float: the value of `view_factor_to_ground` or None if not set
         """
-        return self._data["View Factor to Ground"]
+        return self["View Factor to Ground"]
 
     @view_factor_to_ground.setter
     def view_factor_to_ground(self, value="autocalculate"):
@@ -1871,7 +1791,7 @@ class FloorDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -1926,13 +1846,13 @@ class FloorDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class WallExterior(DataObject):
@@ -1942,15 +1862,6 @@ class WallExterior(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Wall:Exterior', 'pyname': u'WallExterior', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Wall:Exterior`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1958,7 +1869,7 @@ class WallExterior(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1981,7 +1892,7 @@ class WallExterior(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -2005,7 +1916,7 @@ class WallExterior(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2029,7 +1940,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -2055,7 +1966,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -2082,7 +1993,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -2107,7 +2018,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -2131,7 +2042,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -2155,7 +2066,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -2179,7 +2090,7 @@ class WallExterior(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -2203,15 +2114,6 @@ class WallAdiabatic(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Wall:Adiabatic', 'pyname': u'WallAdiabatic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Wall:Adiabatic`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2219,7 +2121,7 @@ class WallAdiabatic(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2242,7 +2144,7 @@ class WallAdiabatic(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -2266,7 +2168,7 @@ class WallAdiabatic(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2290,7 +2192,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -2316,7 +2218,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -2343,7 +2245,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -2368,7 +2270,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -2392,7 +2294,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -2416,7 +2318,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -2440,7 +2342,7 @@ class WallAdiabatic(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -2464,15 +2366,6 @@ class WallUnderground(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Wall:Underground', 'pyname': u'WallUnderground', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Wall:Underground`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2480,7 +2373,7 @@ class WallUnderground(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2503,7 +2396,7 @@ class WallUnderground(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -2529,7 +2422,7 @@ class WallUnderground(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2553,7 +2446,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -2579,7 +2472,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -2606,7 +2499,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -2631,7 +2524,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -2655,7 +2548,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -2679,7 +2572,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -2703,7 +2596,7 @@ class WallUnderground(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -2727,15 +2620,6 @@ class WallInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Wall:Interzone', 'pyname': u'WallInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Wall:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -2743,7 +2627,7 @@ class WallInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2766,7 +2650,7 @@ class WallInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -2790,7 +2674,7 @@ class WallInterzone(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -2814,7 +2698,7 @@ class WallInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -2840,7 +2724,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -2866,7 +2750,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -2893,7 +2777,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -2918,7 +2802,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -2942,7 +2826,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -2966,7 +2850,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -2990,7 +2874,7 @@ class WallInterzone(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -3015,15 +2899,6 @@ class Roof(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Roof', 'pyname': u'Roof', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Roof`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3031,7 +2906,7 @@ class Roof(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3054,7 +2929,7 @@ class Roof(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -3078,7 +2953,7 @@ class Roof(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3102,7 +2977,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -3128,7 +3003,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=None):
@@ -3154,7 +3029,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -3179,7 +3054,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -3203,7 +3078,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -3227,7 +3102,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -3252,7 +3127,7 @@ class Roof(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -3277,15 +3152,6 @@ class CeilingAdiabatic(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Ceiling:Adiabatic', 'pyname': u'CeilingAdiabatic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Ceiling:Adiabatic`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3293,7 +3159,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3316,7 +3182,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -3340,7 +3206,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3364,7 +3230,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -3390,7 +3256,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=None):
@@ -3416,7 +3282,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -3441,7 +3307,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -3465,7 +3331,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -3489,7 +3355,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -3514,7 +3380,7 @@ class CeilingAdiabatic(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -3540,15 +3406,6 @@ class CeilingInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Ceiling:Interzone', 'pyname': u'CeilingInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Ceiling:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3556,7 +3413,7 @@ class CeilingInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3579,7 +3436,7 @@ class CeilingInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -3603,7 +3460,7 @@ class CeilingInterzone(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3627,7 +3484,7 @@ class CeilingInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -3653,7 +3510,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -3679,7 +3536,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=None):
@@ -3705,7 +3562,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -3730,7 +3587,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -3754,7 +3611,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -3778,7 +3635,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -3803,7 +3660,7 @@ class CeilingInterzone(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -3829,15 +3686,6 @@ class FloorGroundContact(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Floor:GroundContact', 'pyname': u'FloorGroundContact', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 180.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:GroundContact`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -3845,7 +3693,7 @@ class FloorGroundContact(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3868,7 +3716,7 @@ class FloorGroundContact(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -3894,7 +3742,7 @@ class FloorGroundContact(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -3918,7 +3766,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -3943,7 +3791,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=180.0):
@@ -3970,7 +3818,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -3995,7 +3843,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -4019,7 +3867,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -4043,7 +3891,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -4068,7 +3916,7 @@ class FloorGroundContact(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -4095,15 +3943,6 @@ class FloorAdiabatic(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Floor:Adiabatic', 'pyname': u'FloorAdiabatic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 180.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:Adiabatic`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4111,7 +3950,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4134,7 +3973,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -4158,7 +3997,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -4182,7 +4021,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -4207,7 +4046,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=180.0):
@@ -4234,7 +4073,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -4259,7 +4098,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -4283,7 +4122,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -4307,7 +4146,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -4332,7 +4171,7 @@ class FloorAdiabatic(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -4358,15 +4197,6 @@ class FloorInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Floor:Interzone', 'pyname': u'FloorInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 180.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'width', {'name': u'Width', 'pyname': u'width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -4374,7 +4204,7 @@ class FloorInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4397,7 +4227,7 @@ class FloorInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -4421,7 +4251,7 @@ class FloorInterzone(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -4445,7 +4275,7 @@ class FloorInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -4471,7 +4301,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -4496,7 +4326,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=180.0):
@@ -4523,7 +4353,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -4548,7 +4378,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -4572,7 +4402,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -4596,7 +4426,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -4621,7 +4451,7 @@ class FloorInterzone(DataObject):
         Returns:
             float: the value of `width` or None if not set
         """
-        return self._data["Width"]
+        return self["Width"]
 
     @width.setter
     def width(self, value=None):
@@ -4645,16 +4475,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Allows for detailed entry of subsurfaces
         (windows, doors, glass doors, tubular daylighting devices).
     """
-    schema = {'min-fields': 19, 'name': u'FenestrationSurface:Detailed', 'pyname': u'FenestrationSurfaceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'shading control name', {'name': u'Shading Control Name', 'pyname': u'shading_control_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'frame and divider name', {'name': u'Frame and Divider Name', 'pyname': u'frame_and_divider_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'}), (u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 x-coordinate', {'name': u'Vertex 2 X-coordinate', 'pyname': u'vertex_2_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 y-coordinate', {'name': u'Vertex 2 Y-coordinate', 'pyname': u'vertex_2_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 z-coordinate', {'name': u'Vertex 2 Z-coordinate', 'pyname': u'vertex_2_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 x-coordinate', {'name': u'Vertex 3 X-coordinate', 'pyname': u'vertex_3_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 y-coordinate', {'name': u'Vertex 3 Y-coordinate', 'pyname': u'vertex_3_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 z-coordinate', {'name': u'Vertex 3 Z-coordinate', 'pyname': u'vertex_3_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 x-coordinate', {'name': u'Vertex 4 X-coordinate', 'pyname': u'vertex_4_xcoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 y-coordinate', {'name': u'Vertex 4 Y-coordinate', 'pyname': u'vertex_4_ycoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 z-coordinate', {'name': u'Vertex 4 Z-coordinate', 'pyname': u'vertex_4_zcoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `FenestrationSurface:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 19, 'name': u'FenestrationSurface:Detailed', 'pyname': u'FenestrationSurfaceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface type', {'name': u'Surface Type', 'pyname': u'surface_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Window', u'Door', u'GlassDoor', u'TubularDaylightDome', u'TubularDaylightDiffuser'], 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor to ground', {'name': u'View Factor to Ground', 'pyname': u'view_factor_to_ground', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real'}), (u'shading control name', {'name': u'Shading Control Name', 'pyname': u'shading_control_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'frame and divider name', {'name': u'Frame and Divider Name', 'pyname': u'frame_and_divider_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'}), (u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 x-coordinate', {'name': u'Vertex 2 X-coordinate', 'pyname': u'vertex_2_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 y-coordinate', {'name': u'Vertex 2 Y-coordinate', 'pyname': u'vertex_2_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 2 z-coordinate', {'name': u'Vertex 2 Z-coordinate', 'pyname': u'vertex_2_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 x-coordinate', {'name': u'Vertex 3 X-coordinate', 'pyname': u'vertex_3_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 y-coordinate', {'name': u'Vertex 3 Y-coordinate', 'pyname': u'vertex_3_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 3 z-coordinate', {'name': u'Vertex 3 Z-coordinate', 'pyname': u'vertex_3_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 x-coordinate', {'name': u'Vertex 4 X-coordinate', 'pyname': u'vertex_4_xcoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 y-coordinate', {'name': u'Vertex 4 Y-coordinate', 'pyname': u'vertex_4_ycoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 4 z-coordinate', {'name': u'Vertex 4 Z-coordinate', 'pyname': u'vertex_4_zcoordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4663,7 +4484,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4686,7 +4507,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `surface_type` or None if not set
         """
-        return self._data["Surface Type"]
+        return self["Surface Type"]
 
     @surface_type.setter
     def surface_type(self, value=None):
@@ -4709,7 +4530,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -4733,7 +4554,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -4756,7 +4577,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -4785,7 +4606,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `view_factor_to_ground` or None if not set
         """
-        return self._data["View Factor to Ground"]
+        return self["View Factor to Ground"]
 
     @view_factor_to_ground.setter
     def view_factor_to_ground(self, value="autocalculate"):
@@ -4814,7 +4635,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `shading_control_name` or None if not set
         """
-        return self._data["Shading Control Name"]
+        return self["Shading Control Name"]
 
     @shading_control_name.setter
     def shading_control_name(self, value=None):
@@ -4840,7 +4661,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
         """
-        return self._data["Frame and Divider Name"]
+        return self["Frame and Divider Name"]
 
     @frame_and_divider_name.setter
     def frame_and_divider_name(self, value=None):
@@ -4868,7 +4689,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -4895,7 +4716,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -4924,7 +4745,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_1_xcoordinate` or None if not set
         """
-        return self._data["Vertex 1 X-coordinate"]
+        return self["Vertex 1 X-coordinate"]
 
     @vertex_1_xcoordinate.setter
     def vertex_1_xcoordinate(self, value=None):
@@ -4948,7 +4769,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_1_ycoordinate` or None if not set
         """
-        return self._data["Vertex 1 Y-coordinate"]
+        return self["Vertex 1 Y-coordinate"]
 
     @vertex_1_ycoordinate.setter
     def vertex_1_ycoordinate(self, value=None):
@@ -4972,7 +4793,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_1_zcoordinate` or None if not set
         """
-        return self._data["Vertex 1 Z-coordinate"]
+        return self["Vertex 1 Z-coordinate"]
 
     @vertex_1_zcoordinate.setter
     def vertex_1_zcoordinate(self, value=None):
@@ -4996,7 +4817,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_2_xcoordinate` or None if not set
         """
-        return self._data["Vertex 2 X-coordinate"]
+        return self["Vertex 2 X-coordinate"]
 
     @vertex_2_xcoordinate.setter
     def vertex_2_xcoordinate(self, value=None):
@@ -5020,7 +4841,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_2_ycoordinate` or None if not set
         """
-        return self._data["Vertex 2 Y-coordinate"]
+        return self["Vertex 2 Y-coordinate"]
 
     @vertex_2_ycoordinate.setter
     def vertex_2_ycoordinate(self, value=None):
@@ -5044,7 +4865,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_2_zcoordinate` or None if not set
         """
-        return self._data["Vertex 2 Z-coordinate"]
+        return self["Vertex 2 Z-coordinate"]
 
     @vertex_2_zcoordinate.setter
     def vertex_2_zcoordinate(self, value=None):
@@ -5068,7 +4889,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_3_xcoordinate` or None if not set
         """
-        return self._data["Vertex 3 X-coordinate"]
+        return self["Vertex 3 X-coordinate"]
 
     @vertex_3_xcoordinate.setter
     def vertex_3_xcoordinate(self, value=None):
@@ -5092,7 +4913,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_3_ycoordinate` or None if not set
         """
-        return self._data["Vertex 3 Y-coordinate"]
+        return self["Vertex 3 Y-coordinate"]
 
     @vertex_3_ycoordinate.setter
     def vertex_3_ycoordinate(self, value=None):
@@ -5116,7 +4937,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_3_zcoordinate` or None if not set
         """
-        return self._data["Vertex 3 Z-coordinate"]
+        return self["Vertex 3 Z-coordinate"]
 
     @vertex_3_zcoordinate.setter
     def vertex_3_zcoordinate(self, value=None):
@@ -5140,7 +4961,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_4_xcoordinate` or None if not set
         """
-        return self._data["Vertex 4 X-coordinate"]
+        return self["Vertex 4 X-coordinate"]
 
     @vertex_4_xcoordinate.setter
     def vertex_4_xcoordinate(self, value=None):
@@ -5165,7 +4986,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_4_ycoordinate` or None if not set
         """
-        return self._data["Vertex 4 Y-coordinate"]
+        return self["Vertex 4 Y-coordinate"]
 
     @vertex_4_ycoordinate.setter
     def vertex_4_ycoordinate(self, value=None):
@@ -5190,7 +5011,7 @@ class FenestrationSurfaceDetailed(DataObject):
         Returns:
             float: the value of `vertex_4_zcoordinate` or None if not set
         """
-        return self._data["Vertex 4 Z-coordinate"]
+        return self["Vertex 4 Z-coordinate"]
 
     @vertex_4_zcoordinate.setter
     def vertex_4_zcoordinate(self, value=None):
@@ -5215,15 +5036,6 @@ class Window(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Window', 'pyname': u'Window', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shading control name', {'name': u'Shading Control Name', 'pyname': u'shading_control_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'frame and divider name', {'name': u'Frame and Divider Name', 'pyname': u'frame_and_divider_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Window`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -5231,7 +5043,7 @@ class Window(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5254,7 +5066,7 @@ class Window(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -5278,7 +5090,7 @@ class Window(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -5303,7 +5115,7 @@ class Window(DataObject):
         Returns:
             str: the value of `shading_control_name` or None if not set
         """
-        return self._data["Shading Control Name"]
+        return self["Shading Control Name"]
 
     @shading_control_name.setter
     def shading_control_name(self, value=None):
@@ -5329,7 +5141,7 @@ class Window(DataObject):
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
         """
-        return self._data["Frame and Divider Name"]
+        return self["Frame and Divider Name"]
 
     @frame_and_divider_name.setter
     def frame_and_divider_name(self, value=None):
@@ -5357,7 +5169,7 @@ class Window(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -5384,7 +5196,7 @@ class Window(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -5409,7 +5221,7 @@ class Window(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -5434,7 +5246,7 @@ class Window(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -5458,7 +5270,7 @@ class Window(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -5482,15 +5294,6 @@ class Door(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Door', 'pyname': u'Door', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Door`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -5498,7 +5301,7 @@ class Door(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5521,7 +5324,7 @@ class Door(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -5545,7 +5348,7 @@ class Door(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -5570,7 +5373,7 @@ class Door(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -5597,7 +5400,7 @@ class Door(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -5622,7 +5425,7 @@ class Door(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -5647,7 +5450,7 @@ class Door(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -5671,7 +5474,7 @@ class Door(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -5695,15 +5498,6 @@ class GlazedDoor(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GlazedDoor', 'pyname': u'GlazedDoor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shading control name', {'name': u'Shading Control Name', 'pyname': u'shading_control_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'frame and divider name', {'name': u'Frame and Divider Name', 'pyname': u'frame_and_divider_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GlazedDoor`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -5711,7 +5505,7 @@ class GlazedDoor(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5734,7 +5528,7 @@ class GlazedDoor(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -5758,7 +5552,7 @@ class GlazedDoor(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -5783,7 +5577,7 @@ class GlazedDoor(DataObject):
         Returns:
             str: the value of `shading_control_name` or None if not set
         """
-        return self._data["Shading Control Name"]
+        return self["Shading Control Name"]
 
     @shading_control_name.setter
     def shading_control_name(self, value=None):
@@ -5809,7 +5603,7 @@ class GlazedDoor(DataObject):
         Returns:
             str: the value of `frame_and_divider_name` or None if not set
         """
-        return self._data["Frame and Divider Name"]
+        return self["Frame and Divider Name"]
 
     @frame_and_divider_name.setter
     def frame_and_divider_name(self, value=None):
@@ -5837,7 +5631,7 @@ class GlazedDoor(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -5864,7 +5658,7 @@ class GlazedDoor(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -5889,7 +5683,7 @@ class GlazedDoor(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -5914,7 +5708,7 @@ class GlazedDoor(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -5938,7 +5732,7 @@ class GlazedDoor(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -5963,15 +5757,6 @@ class WindowInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Window:Interzone', 'pyname': u'WindowInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Window:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -5979,7 +5764,7 @@ class WindowInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6002,7 +5787,7 @@ class WindowInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -6026,7 +5811,7 @@ class WindowInterzone(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -6051,7 +5836,7 @@ class WindowInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -6079,7 +5864,7 @@ class WindowInterzone(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -6106,7 +5891,7 @@ class WindowInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -6131,7 +5916,7 @@ class WindowInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -6156,7 +5941,7 @@ class WindowInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -6180,7 +5965,7 @@ class WindowInterzone(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -6205,15 +5990,6 @@ class DoorInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Door:Interzone', 'pyname': u'DoorInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Door:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -6221,7 +5997,7 @@ class DoorInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6244,7 +6020,7 @@ class DoorInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -6268,7 +6044,7 @@ class DoorInterzone(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -6293,7 +6069,7 @@ class DoorInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -6321,7 +6097,7 @@ class DoorInterzone(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -6348,7 +6124,7 @@ class DoorInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -6373,7 +6149,7 @@ class DoorInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -6398,7 +6174,7 @@ class DoorInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -6422,7 +6198,7 @@ class DoorInterzone(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -6447,15 +6223,6 @@ class GlazedDoorInterzone(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'GlazedDoor:Interzone', 'pyname': u'GlazedDoorInterzone', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'building surface name', {'name': u'Building Surface Name', 'pyname': u'building_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside boundary condition object', {'name': u'Outside Boundary Condition Object', 'pyname': u'outside_boundary_condition_object', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'multiplier', {'name': u'Multiplier', 'pyname': u'multiplier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `GlazedDoor:Interzone`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -6463,7 +6230,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6486,7 +6253,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -6510,7 +6277,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             str: the value of `building_surface_name` or None if not set
         """
-        return self._data["Building Surface Name"]
+        return self["Building Surface Name"]
 
     @building_surface_name.setter
     def building_surface_name(self, value=None):
@@ -6535,7 +6302,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             str: the value of `outside_boundary_condition_object` or None if not set
         """
-        return self._data["Outside Boundary Condition Object"]
+        return self["Outside Boundary Condition Object"]
 
     @outside_boundary_condition_object.setter
     def outside_boundary_condition_object(self, value=None):
@@ -6563,7 +6330,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             float: the value of `multiplier` or None if not set
         """
-        return self._data["Multiplier"]
+        return self["Multiplier"]
 
     @multiplier.setter
     def multiplier(self, value=1.0):
@@ -6590,7 +6357,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -6615,7 +6382,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -6640,7 +6407,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -6664,7 +6431,7 @@ class GlazedDoorInterzone(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -6688,16 +6455,7 @@ class WindowPropertyShadingControl(DataObject):
         switchable glazing. Referenced by the surface objects for exterior windows and glass
         doors (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
     """
-    schema = {'min-fields': 11, 'name': u'WindowProperty:ShadingControl', 'pyname': u'WindowPropertyShadingControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'shading type', {'name': u'Shading Type', 'pyname': u'shading_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction with shading name', {'name': u'Construction with Shading Name', 'pyname': u'construction_with_shading_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shading control type', {'name': u'Shading Control Type', 'pyname': u'shading_control_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint', {'name': u'Setpoint', 'pyname': u'setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2, W or deg C'}), (u'shading control is scheduled', {'name': u'Shading Control Is Scheduled', 'pyname': u'shading_control_is_scheduled', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'glare control is active', {'name': u'Glare Control Is Active', 'pyname': u'glare_control_is_active', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'shading device material name', {'name': u'Shading Device Material Name', 'pyname': u'shading_device_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of slat angle control for blinds', {'name': u'Type of Slat Angle Control for Blinds', 'pyname': u'type_of_slat_angle_control_for_blinds', 'default': u'FixedSlatAngle', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'slat angle schedule name', {'name': u'Slat Angle Schedule Name', 'pyname': u'slat_angle_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint 2', {'name': u'Setpoint 2', 'pyname': u'setpoint_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2 or deg C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WindowProperty:ShadingControl`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 11, 'name': u'WindowProperty:ShadingControl', 'pyname': u'WindowPropertyShadingControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'shading type', {'name': u'Shading Type', 'pyname': u'shading_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'InteriorShade', u'ExteriorShade', u'ExteriorScreen', u'InteriorBlind', u'ExteriorBlind', u'BetweenGlassShade', u'BetweenGlassBlind', u'SwitchableGlazing'], 'autocalculatable': False, 'type': 'alpha'}), (u'construction with shading name', {'name': u'Construction with Shading Name', 'pyname': u'construction_with_shading_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'shading control type', {'name': u'Shading Control Type', 'pyname': u'shading_control_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AlwaysOn', u'AlwaysOff', u'OnIfScheduleAllows', u'OnIfHighSolarOnWindow', u'OnIfHighHorizontalSolar', u'OnIfHighOutdoorAirTemperature', u'OnIfHighZoneAirTemperature', u'OnIfHighZoneCooling', u'OnIfHighGlare', u'MeetDaylightIlluminanceSetpoint', u'OnNightIfLowOutdoorTempAndOffDay', u'OnNightIfLowInsideTempAndOffDay', u'OnNightIfHeatingAndOffDay', u'OnNightIfLowOutdoorTempAndOnDayIfCooling', u'OnNightIfHeatingAndOnDayIfCooling', u'OffNightAndOnDayIfCoolingAndHighSolarOnWindow', u'OnNightAndOnDayIfCoolingAndHighSolarOnWindow', u'OnIfHighOutdoorAirTempAndHighSolarOnWindow', u'OnIfHighOutdoorAirTempAndHighHorizontalSolar', u'OnIfHighZoneAirTempAndHighSolarOnWindow', u'OnIfHighZoneAirTempAndHighHorizontalSolar'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint', {'name': u'Setpoint', 'pyname': u'setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2, W or deg C'}), (u'shading control is scheduled', {'name': u'Shading Control Is Scheduled', 'pyname': u'shading_control_is_scheduled', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'}), (u'glare control is active', {'name': u'Glare Control Is Active', 'pyname': u'glare_control_is_active', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'}), (u'shading device material name', {'name': u'Shading Device Material Name', 'pyname': u'shading_device_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of slat angle control for blinds', {'name': u'Type of Slat Angle Control for Blinds', 'pyname': u'type_of_slat_angle_control_for_blinds', 'default': u'FixedSlatAngle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedSlatAngle', u'ScheduledSlatAngle', u'BlockBeamSolar'], 'autocalculatable': False, 'type': 'alpha'}), (u'slat angle schedule name', {'name': u'Slat Angle Schedule Name', 'pyname': u'slat_angle_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'setpoint 2', {'name': u'Setpoint 2', 'pyname': u'setpoint_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2 or deg C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -6706,7 +6464,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -6731,7 +6489,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `shading_type` or None if not set
         """
-        return self._data["Shading Type"]
+        return self["Shading Type"]
 
     @shading_type.setter
     def shading_type(self, value=None):
@@ -6754,7 +6512,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `construction_with_shading_name` or None if not set
         """
-        return self._data["Construction with Shading Name"]
+        return self["Construction with Shading Name"]
 
     @construction_with_shading_name.setter
     def construction_with_shading_name(self, value=None):
@@ -6782,7 +6540,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `shading_control_type` or None if not set
         """
-        return self._data["Shading Control Type"]
+        return self["Shading Control Type"]
 
     @shading_control_type.setter
     def shading_control_type(self, value=None):
@@ -6825,7 +6583,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -6853,7 +6611,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             float: the value of `setpoint` or None if not set
         """
-        return self._data["Setpoint"]
+        return self["Setpoint"]
 
     @setpoint.setter
     def setpoint(self, value=None):
@@ -6881,7 +6639,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `shading_control_is_scheduled` or None if not set
         """
-        return self._data["Shading Control Is Scheduled"]
+        return self["Shading Control Is Scheduled"]
 
     @shading_control_is_scheduled.setter
     def shading_control_is_scheduled(self, value="No"):
@@ -6907,7 +6665,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `glare_control_is_active` or None if not set
         """
-        return self._data["Glare Control Is Active"]
+        return self["Glare Control Is Active"]
 
     @glare_control_is_active.setter
     def glare_control_is_active(self, value="No"):
@@ -6935,7 +6693,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `shading_device_material_name` or None if not set
         """
-        return self._data["Shading Device Material Name"]
+        return self["Shading Device Material Name"]
 
     @shading_device_material_name.setter
     def shading_device_material_name(self, value=None):
@@ -6963,7 +6721,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `type_of_slat_angle_control_for_blinds` or None if not set
         """
-        return self._data["Type of Slat Angle Control for Blinds"]
+        return self["Type of Slat Angle Control for Blinds"]
 
     @type_of_slat_angle_control_for_blinds.setter
     def type_of_slat_angle_control_for_blinds(self, value="FixedSlatAngle"):
@@ -6989,7 +6747,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             str: the value of `slat_angle_schedule_name` or None if not set
         """
-        return self._data["Slat Angle Schedule Name"]
+        return self["Slat Angle Schedule Name"]
 
     @slat_angle_schedule_name.setter
     def slat_angle_schedule_name(self, value=None):
@@ -7015,7 +6773,7 @@ class WindowPropertyShadingControl(DataObject):
         Returns:
             float: the value of `setpoint_2` or None if not set
         """
-        return self._data["Setpoint 2"]
+        return self["Setpoint 2"]
 
     @setpoint_2.setter
     def setpoint_2(self, value=None):
@@ -7044,16 +6802,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Referenced by the surface objects for exterior windows and glass doors
         (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
     """
-    schema = {'min-fields': 20, 'name': u'WindowProperty:FrameAndDivider', 'pyname': u'WindowPropertyFrameAndDivider', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'frame width', {'name': u'Frame Width', 'pyname': u'frame_width', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame outside projection', {'name': u'Frame Outside Projection', 'pyname': u'frame_outside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame inside projection', {'name': u'Frame Inside Projection', 'pyname': u'frame_inside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame conductance', {'name': u'Frame Conductance', 'pyname': u'frame_conductance', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'ratio of frame-edge glass conductance to center-of-glass conductance', {'name': u'Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance', 'pyname': u'ratio_of_frameedge_glass_conductance_to_centerofglass_conductance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'frame solar absorptance', {'name': u'Frame Solar Absorptance', 'pyname': u'frame_solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'frame visible absorptance', {'name': u'Frame Visible Absorptance', 'pyname': u'frame_visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'frame thermal hemispherical emissivity', {'name': u'Frame Thermal Hemispherical Emissivity', 'pyname': u'frame_thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'divider type', {'name': u'Divider Type', 'pyname': u'divider_type', 'default': u'DividedLite', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'divider width', {'name': u'Divider Width', 'pyname': u'divider_width', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of horizontal dividers', {'name': u'Number of Horizontal Dividers', 'pyname': u'number_of_horizontal_dividers', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of vertical dividers', {'name': u'Number of Vertical Dividers', 'pyname': u'number_of_vertical_dividers', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider outside projection', {'name': u'Divider Outside Projection', 'pyname': u'divider_outside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'divider inside projection', {'name': u'Divider Inside Projection', 'pyname': u'divider_inside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'divider conductance', {'name': u'Divider Conductance', 'pyname': u'divider_conductance', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'ratio of divider-edge glass conductance to center-of-glass conductance', {'name': u'Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance', 'pyname': u'ratio_of_divideredge_glass_conductance_to_centerofglass_conductance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'divider solar absorptance', {'name': u'Divider Solar Absorptance', 'pyname': u'divider_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider visible absorptance', {'name': u'Divider Visible Absorptance', 'pyname': u'divider_visible_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider thermal hemispherical emissivity', {'name': u'Divider Thermal Hemispherical Emissivity', 'pyname': u'divider_thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'outside reveal solar absorptance', {'name': u'Outside Reveal Solar Absorptance', 'pyname': u'outside_reveal_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'inside sill depth', {'name': u'Inside Sill Depth', 'pyname': u'inside_sill_depth', 'default': 0.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inside sill solar absorptance', {'name': u'Inside Sill Solar Absorptance', 'pyname': u'inside_sill_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'inside reveal depth', {'name': u'Inside Reveal Depth', 'pyname': u'inside_reveal_depth', 'default': 0.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'inside reveal solar absorptance', {'name': u'Inside Reveal Solar Absorptance', 'pyname': u'inside_reveal_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WindowProperty:FrameAndDivider`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 20, 'name': u'WindowProperty:FrameAndDivider', 'pyname': u'WindowPropertyFrameAndDivider', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'frame width', {'name': u'Frame Width', 'pyname': u'frame_width', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame outside projection', {'name': u'Frame Outside Projection', 'pyname': u'frame_outside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame inside projection', {'name': u'Frame Inside Projection', 'pyname': u'frame_inside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'frame conductance', {'name': u'Frame Conductance', 'pyname': u'frame_conductance', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'ratio of frame-edge glass conductance to center-of-glass conductance', {'name': u'Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance', 'pyname': u'ratio_of_frameedge_glass_conductance_to_centerofglass_conductance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'frame solar absorptance', {'name': u'Frame Solar Absorptance', 'pyname': u'frame_solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'frame visible absorptance', {'name': u'Frame Visible Absorptance', 'pyname': u'frame_visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'frame thermal hemispherical emissivity', {'name': u'Frame Thermal Hemispherical Emissivity', 'pyname': u'frame_thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'divider type', {'name': u'Divider Type', 'pyname': u'divider_type', 'default': u'DividedLite', 'required-field': True, 'autosizable': False, 'accepted-values': [u'DividedLite', u'Suspended'], 'autocalculatable': False, 'type': 'alpha'}), (u'divider width', {'name': u'Divider Width', 'pyname': u'divider_width', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of horizontal dividers', {'name': u'Number of Horizontal Dividers', 'pyname': u'number_of_horizontal_dividers', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of vertical dividers', {'name': u'Number of Vertical Dividers', 'pyname': u'number_of_vertical_dividers', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider outside projection', {'name': u'Divider Outside Projection', 'pyname': u'divider_outside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'divider inside projection', {'name': u'Divider Inside Projection', 'pyname': u'divider_inside_projection', 'default': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'divider conductance', {'name': u'Divider Conductance', 'pyname': u'divider_conductance', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'ratio of divider-edge glass conductance to center-of-glass conductance', {'name': u'Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance', 'pyname': u'ratio_of_divideredge_glass_conductance_to_centerofglass_conductance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 4.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'divider solar absorptance', {'name': u'Divider Solar Absorptance', 'pyname': u'divider_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider visible absorptance', {'name': u'Divider Visible Absorptance', 'pyname': u'divider_visible_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'divider thermal hemispherical emissivity', {'name': u'Divider Thermal Hemispherical Emissivity', 'pyname': u'divider_thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'outside reveal solar absorptance', {'name': u'Outside Reveal Solar Absorptance', 'pyname': u'outside_reveal_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'inside sill depth', {'name': u'Inside Sill Depth', 'pyname': u'inside_sill_depth', 'default': 0.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inside sill solar absorptance', {'name': u'Inside Sill Solar Absorptance', 'pyname': u'inside_sill_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'inside reveal depth', {'name': u'Inside Reveal Depth', 'pyname': u'inside_reveal_depth', 'default': 0.0, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'inside reveal solar absorptance', {'name': u'Inside Reveal Solar Absorptance', 'pyname': u'inside_reveal_solar_absorptance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -7062,7 +6811,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -7087,7 +6836,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_width` or None if not set
         """
-        return self._data["Frame Width"]
+        return self["Frame Width"]
 
     @frame_width.setter
     def frame_width(self, value=None):
@@ -7114,7 +6863,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_outside_projection` or None if not set
         """
-        return self._data["Frame Outside Projection"]
+        return self["Frame Outside Projection"]
 
     @frame_outside_projection.setter
     def frame_outside_projection(self, value=None):
@@ -7140,7 +6889,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_inside_projection` or None if not set
         """
-        return self._data["Frame Inside Projection"]
+        return self["Frame Inside Projection"]
 
     @frame_inside_projection.setter
     def frame_inside_projection(self, value=None):
@@ -7166,7 +6915,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_conductance` or None if not set
         """
-        return self._data["Frame Conductance"]
+        return self["Frame Conductance"]
 
     @frame_conductance.setter
     def frame_conductance(self, value=None):
@@ -7193,7 +6942,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `ratio_of_frameedge_glass_conductance_to_centerofglass_conductance` or None if not set
         """
-        return self._data["Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance"]
+        return self["Ratio of Frame-Edge Glass Conductance to Center-Of-Glass Conductance"]
 
     @ratio_of_frameedge_glass_conductance_to_centerofglass_conductance.setter
     def ratio_of_frameedge_glass_conductance_to_centerofglass_conductance(self, value=1.0):
@@ -7220,7 +6969,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_solar_absorptance` or None if not set
         """
-        return self._data["Frame Solar Absorptance"]
+        return self["Frame Solar Absorptance"]
 
     @frame_solar_absorptance.setter
     def frame_solar_absorptance(self, value=0.7):
@@ -7246,7 +6995,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_visible_absorptance` or None if not set
         """
-        return self._data["Frame Visible Absorptance"]
+        return self["Frame Visible Absorptance"]
 
     @frame_visible_absorptance.setter
     def frame_visible_absorptance(self, value=0.7):
@@ -7272,7 +7021,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `frame_thermal_hemispherical_emissivity` or None if not set
         """
-        return self._data["Frame Thermal Hemispherical Emissivity"]
+        return self["Frame Thermal Hemispherical Emissivity"]
 
     @frame_thermal_hemispherical_emissivity.setter
     def frame_thermal_hemispherical_emissivity(self, value=0.9):
@@ -7297,7 +7046,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             str: the value of `divider_type` or None if not set
         """
-        return self._data["Divider Type"]
+        return self["Divider Type"]
 
     @divider_type.setter
     def divider_type(self, value="DividedLite"):
@@ -7321,7 +7070,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_width` or None if not set
         """
-        return self._data["Divider Width"]
+        return self["Divider Width"]
 
     @divider_width.setter
     def divider_width(self, value=None):
@@ -7348,7 +7097,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `number_of_horizontal_dividers` or None if not set
         """
-        return self._data["Number of Horizontal Dividers"]
+        return self["Number of Horizontal Dividers"]
 
     @number_of_horizontal_dividers.setter
     def number_of_horizontal_dividers(self, value=None):
@@ -7372,7 +7121,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `number_of_vertical_dividers` or None if not set
         """
-        return self._data["Number of Vertical Dividers"]
+        return self["Number of Vertical Dividers"]
 
     @number_of_vertical_dividers.setter
     def number_of_vertical_dividers(self, value=None):
@@ -7396,7 +7145,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_outside_projection` or None if not set
         """
-        return self._data["Divider Outside Projection"]
+        return self["Divider Outside Projection"]
 
     @divider_outside_projection.setter
     def divider_outside_projection(self, value=None):
@@ -7423,7 +7172,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_inside_projection` or None if not set
         """
-        return self._data["Divider Inside Projection"]
+        return self["Divider Inside Projection"]
 
     @divider_inside_projection.setter
     def divider_inside_projection(self, value=None):
@@ -7450,7 +7199,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_conductance` or None if not set
         """
-        return self._data["Divider Conductance"]
+        return self["Divider Conductance"]
 
     @divider_conductance.setter
     def divider_conductance(self, value=None):
@@ -7477,7 +7226,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `ratio_of_divideredge_glass_conductance_to_centerofglass_conductance` or None if not set
         """
-        return self._data["Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance"]
+        return self["Ratio of Divider-Edge Glass Conductance to Center-Of-Glass Conductance"]
 
     @ratio_of_divideredge_glass_conductance_to_centerofglass_conductance.setter
     def ratio_of_divideredge_glass_conductance_to_centerofglass_conductance(self, value=1.0):
@@ -7504,7 +7253,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_solar_absorptance` or None if not set
         """
-        return self._data["Divider Solar Absorptance"]
+        return self["Divider Solar Absorptance"]
 
     @divider_solar_absorptance.setter
     def divider_solar_absorptance(self, value=None):
@@ -7529,7 +7278,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_visible_absorptance` or None if not set
         """
-        return self._data["Divider Visible Absorptance"]
+        return self["Divider Visible Absorptance"]
 
     @divider_visible_absorptance.setter
     def divider_visible_absorptance(self, value=None):
@@ -7554,7 +7303,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `divider_thermal_hemispherical_emissivity` or None if not set
         """
-        return self._data["Divider Thermal Hemispherical Emissivity"]
+        return self["Divider Thermal Hemispherical Emissivity"]
 
     @divider_thermal_hemispherical_emissivity.setter
     def divider_thermal_hemispherical_emissivity(self, value=0.9):
@@ -7580,7 +7329,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `outside_reveal_solar_absorptance` or None if not set
         """
-        return self._data["Outside Reveal Solar Absorptance"]
+        return self["Outside Reveal Solar Absorptance"]
 
     @outside_reveal_solar_absorptance.setter
     def outside_reveal_solar_absorptance(self, value=None):
@@ -7604,7 +7353,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `inside_sill_depth` or None if not set
         """
-        return self._data["Inside Sill Depth"]
+        return self["Inside Sill Depth"]
 
     @inside_sill_depth.setter
     def inside_sill_depth(self, value=None):
@@ -7629,7 +7378,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `inside_sill_solar_absorptance` or None if not set
         """
-        return self._data["Inside Sill Solar Absorptance"]
+        return self["Inside Sill Solar Absorptance"]
 
     @inside_sill_solar_absorptance.setter
     def inside_sill_solar_absorptance(self, value=None):
@@ -7653,7 +7402,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `inside_reveal_depth` or None if not set
         """
-        return self._data["Inside Reveal Depth"]
+        return self["Inside Reveal Depth"]
 
     @inside_reveal_depth.setter
     def inside_reveal_depth(self, value=None):
@@ -7684,7 +7433,7 @@ class WindowPropertyFrameAndDivider(DataObject):
         Returns:
             float: the value of `inside_reveal_solar_absorptance` or None if not set
         """
-        return self._data["Inside Reveal Solar Absorptance"]
+        return self["Inside Reveal Solar Absorptance"]
 
     @inside_reveal_solar_absorptance.setter
     def inside_reveal_solar_absorptance(self, value=None):
@@ -7706,16 +7455,7 @@ class WindowPropertyAirflowControl(DataObject):
     """ Corresponds to IDD object `WindowProperty:AirflowControl`
         Used to control forced airflow through a gap between glass layers
     """
-    schema = {'min-fields': 7, 'name': u'WindowProperty:AirflowControl', 'pyname': u'WindowPropertyAirflowControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflow source', {'name': u'Airflow Source', 'pyname': u'airflow_source', 'default': u'IndoorAir', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'airflow destination', {'name': u'Airflow Destination', 'pyname': u'airflow_destination', 'default': u'OutdoorAir', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s-m'}), (u'airflow control type', {'name': u'Airflow Control Type', 'pyname': u'airflow_control_type', 'default': u'AlwaysOnAtMaximumFlow', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'airflow is scheduled', {'name': u'Airflow Is Scheduled', 'pyname': u'airflow_is_scheduled', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'airflow multiplier schedule name', {'name': u'Airflow Multiplier Schedule Name', 'pyname': u'airflow_multiplier_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WindowProperty:AirflowControl`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 7, 'name': u'WindowProperty:AirflowControl', 'pyname': u'WindowPropertyAirflowControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflow source', {'name': u'Airflow Source', 'pyname': u'airflow_source', 'default': u'IndoorAir', 'required-field': False, 'autosizable': False, 'accepted-values': [u'IndoorAir', u'OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'airflow destination', {'name': u'Airflow Destination', 'pyname': u'airflow_destination', 'default': u'OutdoorAir', 'required-field': False, 'autosizable': False, 'accepted-values': [u'IndoorAir', u'OutdoorAir', u'ReturnAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s-m'}), (u'airflow control type', {'name': u'Airflow Control Type', 'pyname': u'airflow_control_type', 'default': u'AlwaysOnAtMaximumFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'AlwaysOnAtMaximumFlow', u'AlwaysOff', u'ScheduledOnly'], 'autocalculatable': False, 'type': 'alpha'}), (u'airflow is scheduled', {'name': u'Airflow Is Scheduled', 'pyname': u'airflow_is_scheduled', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'airflow multiplier schedule name', {'name': u'Airflow Multiplier Schedule Name', 'pyname': u'airflow_multiplier_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -7724,7 +7464,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -7748,7 +7488,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `airflow_source` or None if not set
         """
-        return self._data["Airflow Source"]
+        return self["Airflow Source"]
 
     @airflow_source.setter
     def airflow_source(self, value="IndoorAir"):
@@ -7772,7 +7512,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `airflow_destination` or None if not set
         """
-        return self._data["Airflow Destination"]
+        return self["Airflow Destination"]
 
     @airflow_destination.setter
     def airflow_destination(self, value="OutdoorAir"):
@@ -7796,7 +7536,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             float: the value of `maximum_flow_rate` or None if not set
         """
-        return self._data["Maximum Flow Rate"]
+        return self["Maximum Flow Rate"]
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
@@ -7822,7 +7562,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `airflow_control_type` or None if not set
         """
-        return self._data["Airflow Control Type"]
+        return self["Airflow Control Type"]
 
     @airflow_control_type.setter
     def airflow_control_type(self, value="AlwaysOnAtMaximumFlow"):
@@ -7848,7 +7588,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `airflow_is_scheduled` or None if not set
         """
-        return self._data["Airflow Is Scheduled"]
+        return self["Airflow Is Scheduled"]
 
     @airflow_is_scheduled.setter
     def airflow_is_scheduled(self, value="No"):
@@ -7873,7 +7613,7 @@ class WindowPropertyAirflowControl(DataObject):
         Returns:
             str: the value of `airflow_multiplier_schedule_name` or None if not set
         """
-        return self._data["Airflow Multiplier Schedule Name"]
+        return self["Airflow Multiplier Schedule Name"]
 
     @airflow_multiplier_schedule_name.setter
     def airflow_multiplier_schedule_name(self, value=None):
@@ -7899,15 +7639,6 @@ class WindowPropertyStormWindow(DataObject):
     """
     schema = {'min-fields': 7, 'name': u'WindowProperty:StormWindow', 'pyname': u'WindowPropertyStormWindow', 'format': None, 'fields': OrderedDict([(u'window name', {'name': u'Window Name', 'pyname': u'window_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storm glass layer name', {'name': u'Storm Glass Layer Name', 'pyname': u'storm_glass_layer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance between storm glass layer and adjacent glass', {'name': u'Distance Between Storm Glass Layer and Adjacent Glass', 'pyname': u'distance_between_storm_glass_layer_and_adjacent_glass', 'default': 0.05, 'minimum>': 0.0, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'month that storm glass layer is put on', {'name': u'Month that Storm Glass Layer is Put On', 'pyname': u'month_that_storm_glass_layer_is_put_on', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of month that storm glass layer is put on', {'name': u'Day of Month that Storm Glass Layer is Put On', 'pyname': u'day_of_month_that_storm_glass_layer_is_put_on', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'month that storm glass layer is taken off', {'name': u'Month that Storm Glass Layer is Taken Off', 'pyname': u'month_that_storm_glass_layer_is_taken_off', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of month that storm glass layer is taken off', {'name': u'Day of Month that Storm Glass Layer is Taken Off', 'pyname': u'day_of_month_that_storm_glass_layer_is_taken_off', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WindowProperty:StormWindow`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def window_name(self):
         """Get window_name
@@ -7915,7 +7646,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             str: the value of `window_name` or None if not set
         """
-        return self._data["Window Name"]
+        return self["Window Name"]
 
     @window_name.setter
     def window_name(self, value=None):
@@ -7940,7 +7671,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             str: the value of `storm_glass_layer_name` or None if not set
         """
-        return self._data["Storm Glass Layer Name"]
+        return self["Storm Glass Layer Name"]
 
     @storm_glass_layer_name.setter
     def storm_glass_layer_name(self, value=None):
@@ -7966,7 +7697,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             float: the value of `distance_between_storm_glass_layer_and_adjacent_glass` or None if not set
         """
-        return self._data["Distance Between Storm Glass Layer and Adjacent Glass"]
+        return self["Distance Between Storm Glass Layer and Adjacent Glass"]
 
     @distance_between_storm_glass_layer_and_adjacent_glass.setter
     def distance_between_storm_glass_layer_and_adjacent_glass(self, value=0.05):
@@ -7992,7 +7723,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             int: the value of `month_that_storm_glass_layer_is_put_on` or None if not set
         """
-        return self._data["Month that Storm Glass Layer is Put On"]
+        return self["Month that Storm Glass Layer is Put On"]
 
     @month_that_storm_glass_layer_is_put_on.setter
     def month_that_storm_glass_layer_is_put_on(self, value=None):
@@ -8017,7 +7748,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             int: the value of `day_of_month_that_storm_glass_layer_is_put_on` or None if not set
         """
-        return self._data["Day of Month that Storm Glass Layer is Put On"]
+        return self["Day of Month that Storm Glass Layer is Put On"]
 
     @day_of_month_that_storm_glass_layer_is_put_on.setter
     def day_of_month_that_storm_glass_layer_is_put_on(self, value=None):
@@ -8042,7 +7773,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             int: the value of `month_that_storm_glass_layer_is_taken_off` or None if not set
         """
-        return self._data["Month that Storm Glass Layer is Taken Off"]
+        return self["Month that Storm Glass Layer is Taken Off"]
 
     @month_that_storm_glass_layer_is_taken_off.setter
     def month_that_storm_glass_layer_is_taken_off(self, value=None):
@@ -8067,7 +7798,7 @@ class WindowPropertyStormWindow(DataObject):
         Returns:
             int: the value of `day_of_month_that_storm_glass_layer_is_taken_off` or None if not set
         """
-        return self._data["Day of Month that Storm Glass Layer is Taken Off"]
+        return self["Day of Month that Storm Glass Layer is Taken Off"]
 
     @day_of_month_that_storm_glass_layer_is_taken_off.setter
     def day_of_month_that_storm_glass_layer_is_taken_off(self, value=None):
@@ -8093,15 +7824,6 @@ class InternalMass(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'InternalMass', 'pyname': u'InternalMass', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface area', {'name': u'Surface Area', 'pyname': u'surface_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `InternalMass`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8109,7 +7831,7 @@ class InternalMass(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8132,7 +7854,7 @@ class InternalMass(DataObject):
         Returns:
             str: the value of `construction_name` or None if not set
         """
-        return self._data["Construction Name"]
+        return self["Construction Name"]
 
     @construction_name.setter
     def construction_name(self, value=None):
@@ -8156,7 +7878,7 @@ class InternalMass(DataObject):
         Returns:
             str: the value of `zone_name` or None if not set
         """
-        return self._data["Zone Name"]
+        return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
@@ -8181,7 +7903,7 @@ class InternalMass(DataObject):
         Returns:
             float: the value of `surface_area` or None if not set
         """
-        return self._data["Surface Area"]
+        return self["Surface Area"]
 
     @surface_area.setter
     def surface_area(self, value=None):
@@ -8206,15 +7928,6 @@ class ShadingSite(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Site', 'pyname': u'ShadingSite', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Site`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8222,7 +7935,7 @@ class ShadingSite(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8245,7 +7958,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -8271,7 +7984,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -8297,7 +8010,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -8322,7 +8035,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -8346,7 +8059,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -8370,7 +8083,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -8394,7 +8107,7 @@ class ShadingSite(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -8419,15 +8132,6 @@ class ShadingBuilding(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Building', 'pyname': u'ShadingBuilding', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'azimuth angle', {'name': u'Azimuth Angle', 'pyname': u'azimuth_angle', 'maximum': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'tilt angle', {'name': u'Tilt Angle', 'pyname': u'tilt_angle', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'starting x coordinate', {'name': u'Starting X Coordinate', 'pyname': u'starting_x_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting y coordinate', {'name': u'Starting Y Coordinate', 'pyname': u'starting_y_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'starting z coordinate', {'name': u'Starting Z Coordinate', 'pyname': u'starting_z_coordinate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'length', {'name': u'Length', 'pyname': u'length', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'height', {'name': u'Height', 'pyname': u'height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Building`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8435,7 +8139,7 @@ class ShadingBuilding(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8458,7 +8162,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `azimuth_angle` or None if not set
         """
-        return self._data["Azimuth Angle"]
+        return self["Azimuth Angle"]
 
     @azimuth_angle.setter
     def azimuth_angle(self, value=None):
@@ -8484,7 +8188,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `tilt_angle` or None if not set
         """
-        return self._data["Tilt Angle"]
+        return self["Tilt Angle"]
 
     @tilt_angle.setter
     def tilt_angle(self, value=90.0):
@@ -8510,7 +8214,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `starting_x_coordinate` or None if not set
         """
-        return self._data["Starting X Coordinate"]
+        return self["Starting X Coordinate"]
 
     @starting_x_coordinate.setter
     def starting_x_coordinate(self, value=None):
@@ -8535,7 +8239,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `starting_y_coordinate` or None if not set
         """
-        return self._data["Starting Y Coordinate"]
+        return self["Starting Y Coordinate"]
 
     @starting_y_coordinate.setter
     def starting_y_coordinate(self, value=None):
@@ -8559,7 +8263,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `starting_z_coordinate` or None if not set
         """
-        return self._data["Starting Z Coordinate"]
+        return self["Starting Z Coordinate"]
 
     @starting_z_coordinate.setter
     def starting_z_coordinate(self, value=None):
@@ -8583,7 +8287,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `length` or None if not set
         """
-        return self._data["Length"]
+        return self["Length"]
 
     @length.setter
     def length(self, value=None):
@@ -8607,7 +8311,7 @@ class ShadingBuilding(DataObject):
         Returns:
             float: the value of `height` or None if not set
         """
-        return self._data["Height"]
+        return self["Height"]
 
     @height.setter
     def height(self, value=None):
@@ -8632,15 +8336,6 @@ class ShadingSiteDetailed(DataObject):
     """
     schema = {'min-fields': 12, 'name': u'Shading:Site:Detailed', 'pyname': u'ShadingSiteDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'transmittance schedule name', {'name': u'Transmittance Schedule Name', 'pyname': u'transmittance_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': True, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Site:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8648,7 +8343,7 @@ class ShadingSiteDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8671,7 +8366,7 @@ class ShadingSiteDetailed(DataObject):
         Returns:
             str: the value of `transmittance_schedule_name` or None if not set
         """
-        return self._data["Transmittance Schedule Name"]
+        return self["Transmittance Schedule Name"]
 
     @transmittance_schedule_name.setter
     def transmittance_schedule_name(self, value=None):
@@ -8695,7 +8390,7 @@ class ShadingSiteDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -8747,13 +8442,13 @@ class ShadingSiteDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ShadingBuildingDetailed(DataObject):
@@ -8763,15 +8458,6 @@ class ShadingBuildingDetailed(DataObject):
     """
     schema = {'min-fields': 12, 'name': u'Shading:Building:Detailed', 'pyname': u'ShadingBuildingDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'transmittance schedule name', {'name': u'Transmittance Schedule Name', 'pyname': u'transmittance_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': True, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Building:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8779,7 +8465,7 @@ class ShadingBuildingDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8802,7 +8488,7 @@ class ShadingBuildingDetailed(DataObject):
         Returns:
             str: the value of `transmittance_schedule_name` or None if not set
         """
-        return self._data["Transmittance Schedule Name"]
+        return self["Transmittance Schedule Name"]
 
     @transmittance_schedule_name.setter
     def transmittance_schedule_name(self, value=None):
@@ -8826,7 +8512,7 @@ class ShadingBuildingDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -8879,13 +8565,13 @@ class ShadingBuildingDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ShadingOverhang(DataObject):
@@ -8894,15 +8580,6 @@ class ShadingOverhang(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Overhang', 'pyname': u'ShadingOverhang', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window or door name', {'name': u'Window or Door Name', 'pyname': u'window_or_door_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'height above window or door', {'name': u'Height above Window or Door', 'pyname': u'height_above_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'tilt angle from window/door', {'name': u'Tilt Angle from Window/Door', 'pyname': u'tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'left extension from window/door width', {'name': u'Left extension from Window/Door Width', 'pyname': u'left_extension_from_window_or_door_width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right extension from window/door width', {'name': u'Right extension from Window/Door Width', 'pyname': u'right_extension_from_window_or_door_width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'depth', {'name': u'Depth', 'pyname': u'depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Overhang`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -8910,7 +8587,7 @@ class ShadingOverhang(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -8933,7 +8610,7 @@ class ShadingOverhang(DataObject):
         Returns:
             str: the value of `window_or_door_name` or None if not set
         """
-        return self._data["Window or Door Name"]
+        return self["Window or Door Name"]
 
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
@@ -8956,7 +8633,7 @@ class ShadingOverhang(DataObject):
         Returns:
             float: the value of `height_above_window_or_door` or None if not set
         """
-        return self._data["Height above Window or Door"]
+        return self["Height above Window or Door"]
 
     @height_above_window_or_door.setter
     def height_above_window_or_door(self, value=None):
@@ -8980,7 +8657,7 @@ class ShadingOverhang(DataObject):
         Returns:
             float: the value of `tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Tilt Angle from Window/Door"]
+        return self["Tilt Angle from Window/Door"]
 
     @tilt_angle_from_window_or_door.setter
     def tilt_angle_from_window_or_door(self, value=90.0):
@@ -9006,7 +8683,7 @@ class ShadingOverhang(DataObject):
         Returns:
             float: the value of `left_extension_from_window_or_door_width` or None if not set
         """
-        return self._data["Left extension from Window/Door Width"]
+        return self["Left extension from Window/Door Width"]
 
     @left_extension_from_window_or_door_width.setter
     def left_extension_from_window_or_door_width(self, value=None):
@@ -9030,7 +8707,7 @@ class ShadingOverhang(DataObject):
         Returns:
             float: the value of `right_extension_from_window_or_door_width` or None if not set
         """
-        return self._data["Right extension from Window/Door Width"]
+        return self["Right extension from Window/Door Width"]
 
     @right_extension_from_window_or_door_width.setter
     def right_extension_from_window_or_door_width(self, value=None):
@@ -9055,7 +8732,7 @@ class ShadingOverhang(DataObject):
         Returns:
             float: the value of `depth` or None if not set
         """
-        return self._data["Depth"]
+        return self["Depth"]
 
     @depth.setter
     def depth(self, value=None):
@@ -9079,15 +8756,6 @@ class ShadingOverhangProjection(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Overhang:Projection', 'pyname': u'ShadingOverhangProjection', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window or door name', {'name': u'Window or Door Name', 'pyname': u'window_or_door_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'height above window or door', {'name': u'Height above Window or Door', 'pyname': u'height_above_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'tilt angle from window/door', {'name': u'Tilt Angle from Window/Door', 'pyname': u'tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'left extension from window/door width', {'name': u'Left extension from Window/Door Width', 'pyname': u'left_extension_from_window_or_door_width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right extension from window/door width', {'name': u'Right extension from Window/Door Width', 'pyname': u'right_extension_from_window_or_door_width', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'depth as fraction of window/door height', {'name': u'Depth as Fraction of Window/Door Height', 'pyname': u'depth_as_fraction_of_window_or_door_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Overhang:Projection`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -9095,7 +8763,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -9118,7 +8786,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             str: the value of `window_or_door_name` or None if not set
         """
-        return self._data["Window or Door Name"]
+        return self["Window or Door Name"]
 
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
@@ -9141,7 +8809,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             float: the value of `height_above_window_or_door` or None if not set
         """
-        return self._data["Height above Window or Door"]
+        return self["Height above Window or Door"]
 
     @height_above_window_or_door.setter
     def height_above_window_or_door(self, value=None):
@@ -9165,7 +8833,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             float: the value of `tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Tilt Angle from Window/Door"]
+        return self["Tilt Angle from Window/Door"]
 
     @tilt_angle_from_window_or_door.setter
     def tilt_angle_from_window_or_door(self, value=90.0):
@@ -9191,7 +8859,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             float: the value of `left_extension_from_window_or_door_width` or None if not set
         """
-        return self._data["Left extension from Window/Door Width"]
+        return self["Left extension from Window/Door Width"]
 
     @left_extension_from_window_or_door_width.setter
     def left_extension_from_window_or_door_width(self, value=None):
@@ -9215,7 +8883,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             float: the value of `right_extension_from_window_or_door_width` or None if not set
         """
-        return self._data["Right extension from Window/Door Width"]
+        return self["Right extension from Window/Door Width"]
 
     @right_extension_from_window_or_door_width.setter
     def right_extension_from_window_or_door_width(self, value=None):
@@ -9240,7 +8908,7 @@ class ShadingOverhangProjection(DataObject):
         Returns:
             float: the value of `depth_as_fraction_of_window_or_door_height` or None if not set
         """
-        return self._data["Depth as Fraction of Window/Door Height"]
+        return self["Depth as Fraction of Window/Door Height"]
 
     @depth_as_fraction_of_window_or_door_height.setter
     def depth_as_fraction_of_window_or_door_height(self, value=None):
@@ -9264,15 +8932,6 @@ class ShadingFin(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Fin', 'pyname': u'ShadingFin', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window or door name', {'name': u'Window or Door Name', 'pyname': u'window_or_door_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'left extension from window/door', {'name': u'Left Extension from Window/Door', 'pyname': u'left_extension_from_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left distance above top of window', {'name': u'Left Distance Above Top of Window', 'pyname': u'left_distance_above_top_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left distance below bottom of window', {'name': u'Left Distance Below Bottom of Window', 'pyname': u'left_distance_below_bottom_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left tilt angle from window/door', {'name': u'Left Tilt Angle from Window/Door', 'pyname': u'left_tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'left depth', {'name': u'Left Depth', 'pyname': u'left_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right extension from window/door', {'name': u'Right Extension from Window/Door', 'pyname': u'right_extension_from_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right distance above top of window', {'name': u'Right Distance Above Top of Window', 'pyname': u'right_distance_above_top_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right distance below bottom of window', {'name': u'Right Distance Below Bottom of Window', 'pyname': u'right_distance_below_bottom_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right tilt angle from window/door', {'name': u'Right Tilt Angle from Window/Door', 'pyname': u'right_tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'right depth', {'name': u'Right Depth', 'pyname': u'right_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Fin`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -9280,7 +8939,7 @@ class ShadingFin(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -9303,7 +8962,7 @@ class ShadingFin(DataObject):
         Returns:
             str: the value of `window_or_door_name` or None if not set
         """
-        return self._data["Window or Door Name"]
+        return self["Window or Door Name"]
 
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
@@ -9326,7 +8985,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `left_extension_from_window_or_door` or None if not set
         """
-        return self._data["Left Extension from Window/Door"]
+        return self["Left Extension from Window/Door"]
 
     @left_extension_from_window_or_door.setter
     def left_extension_from_window_or_door(self, value=None):
@@ -9350,7 +9009,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `left_distance_above_top_of_window` or None if not set
         """
-        return self._data["Left Distance Above Top of Window"]
+        return self["Left Distance Above Top of Window"]
 
     @left_distance_above_top_of_window.setter
     def left_distance_above_top_of_window(self, value=None):
@@ -9374,7 +9033,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `left_distance_below_bottom_of_window` or None if not set
         """
-        return self._data["Left Distance Below Bottom of Window"]
+        return self["Left Distance Below Bottom of Window"]
 
     @left_distance_below_bottom_of_window.setter
     def left_distance_below_bottom_of_window(self, value=None):
@@ -9399,7 +9058,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `left_tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Left Tilt Angle from Window/Door"]
+        return self["Left Tilt Angle from Window/Door"]
 
     @left_tilt_angle_from_window_or_door.setter
     def left_tilt_angle_from_window_or_door(self, value=90.0):
@@ -9425,7 +9084,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `left_depth` or None if not set
         """
-        return self._data["Left Depth"]
+        return self["Left Depth"]
 
     @left_depth.setter
     def left_depth(self, value=None):
@@ -9449,7 +9108,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `right_extension_from_window_or_door` or None if not set
         """
-        return self._data["Right Extension from Window/Door"]
+        return self["Right Extension from Window/Door"]
 
     @right_extension_from_window_or_door.setter
     def right_extension_from_window_or_door(self, value=None):
@@ -9473,7 +9132,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `right_distance_above_top_of_window` or None if not set
         """
-        return self._data["Right Distance Above Top of Window"]
+        return self["Right Distance Above Top of Window"]
 
     @right_distance_above_top_of_window.setter
     def right_distance_above_top_of_window(self, value=None):
@@ -9497,7 +9156,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `right_distance_below_bottom_of_window` or None if not set
         """
-        return self._data["Right Distance Below Bottom of Window"]
+        return self["Right Distance Below Bottom of Window"]
 
     @right_distance_below_bottom_of_window.setter
     def right_distance_below_bottom_of_window(self, value=None):
@@ -9522,7 +9181,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `right_tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Right Tilt Angle from Window/Door"]
+        return self["Right Tilt Angle from Window/Door"]
 
     @right_tilt_angle_from_window_or_door.setter
     def right_tilt_angle_from_window_or_door(self, value=90.0):
@@ -9548,7 +9207,7 @@ class ShadingFin(DataObject):
         Returns:
             float: the value of `right_depth` or None if not set
         """
-        return self._data["Right Depth"]
+        return self["Right Depth"]
 
     @right_depth.setter
     def right_depth(self, value=None):
@@ -9572,15 +9231,6 @@ class ShadingFinProjection(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Shading:Fin:Projection', 'pyname': u'ShadingFinProjection', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'window or door name', {'name': u'Window or Door Name', 'pyname': u'window_or_door_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'left extension from window/door', {'name': u'Left Extension from Window/Door', 'pyname': u'left_extension_from_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left distance above top of window', {'name': u'Left Distance Above Top of Window', 'pyname': u'left_distance_above_top_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left distance below bottom of window', {'name': u'Left Distance Below Bottom of Window', 'pyname': u'left_distance_below_bottom_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'left tilt angle from window/door', {'name': u'Left Tilt Angle from Window/Door', 'pyname': u'left_tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'left depth as fraction of window/door width', {'name': u'Left Depth as Fraction of Window/Door Width', 'pyname': u'left_depth_as_fraction_of_window_or_door_width', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'right extension from window/door', {'name': u'Right Extension from Window/Door', 'pyname': u'right_extension_from_window_or_door', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right distance above top of window', {'name': u'Right Distance Above Top of Window', 'pyname': u'right_distance_above_top_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right distance below bottom of window', {'name': u'Right Distance Below Bottom of Window', 'pyname': u'right_distance_below_bottom_of_window', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'right tilt angle from window/door', {'name': u'Right Tilt Angle from Window/Door', 'pyname': u'right_tilt_angle_from_window_or_door', 'default': 90.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deg'}), (u'right depth as fraction of window/door width', {'name': u'Right Depth as Fraction of Window/Door Width', 'pyname': u'right_depth_as_fraction_of_window_or_door_width', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Fin:Projection`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -9588,7 +9238,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -9611,7 +9261,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             str: the value of `window_or_door_name` or None if not set
         """
-        return self._data["Window or Door Name"]
+        return self["Window or Door Name"]
 
     @window_or_door_name.setter
     def window_or_door_name(self, value=None):
@@ -9634,7 +9284,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `left_extension_from_window_or_door` or None if not set
         """
-        return self._data["Left Extension from Window/Door"]
+        return self["Left Extension from Window/Door"]
 
     @left_extension_from_window_or_door.setter
     def left_extension_from_window_or_door(self, value=None):
@@ -9658,7 +9308,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `left_distance_above_top_of_window` or None if not set
         """
-        return self._data["Left Distance Above Top of Window"]
+        return self["Left Distance Above Top of Window"]
 
     @left_distance_above_top_of_window.setter
     def left_distance_above_top_of_window(self, value=None):
@@ -9682,7 +9332,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `left_distance_below_bottom_of_window` or None if not set
         """
-        return self._data["Left Distance Below Bottom of Window"]
+        return self["Left Distance Below Bottom of Window"]
 
     @left_distance_below_bottom_of_window.setter
     def left_distance_below_bottom_of_window(self, value=None):
@@ -9707,7 +9357,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `left_tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Left Tilt Angle from Window/Door"]
+        return self["Left Tilt Angle from Window/Door"]
 
     @left_tilt_angle_from_window_or_door.setter
     def left_tilt_angle_from_window_or_door(self, value=90.0):
@@ -9733,7 +9383,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `left_depth_as_fraction_of_window_or_door_width` or None if not set
         """
-        return self._data["Left Depth as Fraction of Window/Door Width"]
+        return self["Left Depth as Fraction of Window/Door Width"]
 
     @left_depth_as_fraction_of_window_or_door_width.setter
     def left_depth_as_fraction_of_window_or_door_width(self, value=None):
@@ -9757,7 +9407,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `right_extension_from_window_or_door` or None if not set
         """
-        return self._data["Right Extension from Window/Door"]
+        return self["Right Extension from Window/Door"]
 
     @right_extension_from_window_or_door.setter
     def right_extension_from_window_or_door(self, value=None):
@@ -9781,7 +9431,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `right_distance_above_top_of_window` or None if not set
         """
-        return self._data["Right Distance Above Top of Window"]
+        return self["Right Distance Above Top of Window"]
 
     @right_distance_above_top_of_window.setter
     def right_distance_above_top_of_window(self, value=None):
@@ -9805,7 +9455,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `right_distance_below_bottom_of_window` or None if not set
         """
-        return self._data["Right Distance Below Bottom of Window"]
+        return self["Right Distance Below Bottom of Window"]
 
     @right_distance_below_bottom_of_window.setter
     def right_distance_below_bottom_of_window(self, value=None):
@@ -9830,7 +9480,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `right_tilt_angle_from_window_or_door` or None if not set
         """
-        return self._data["Right Tilt Angle from Window/Door"]
+        return self["Right Tilt Angle from Window/Door"]
 
     @right_tilt_angle_from_window_or_door.setter
     def right_tilt_angle_from_window_or_door(self, value=90.0):
@@ -9856,7 +9506,7 @@ class ShadingFinProjection(DataObject):
         Returns:
             float: the value of `right_depth_as_fraction_of_window_or_door_width` or None if not set
         """
-        return self._data["Right Depth as Fraction of Window/Door Width"]
+        return self["Right Depth as Fraction of Window/Door Width"]
 
     @right_depth_as_fraction_of_window_or_door_width.setter
     def right_depth_as_fraction_of_window_or_door_width(self, value=None):
@@ -9881,15 +9531,6 @@ class ShadingZoneDetailed(DataObject):
     """
     schema = {'min-fields': 13, 'name': u'Shading:Zone:Detailed', 'pyname': u'ShadingZoneDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'base surface name', {'name': u'Base Surface Name', 'pyname': u'base_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transmittance schedule name', {'name': u'Transmittance Schedule Name', 'pyname': u'transmittance_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of vertices', {'name': u'Number of Vertices', 'pyname': u'number_of_vertices', 'default': 'autocalculate', 'required-field': True, 'autosizable': False, 'minimum': 3.0, 'autocalculatable': True, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'vertex 1 x-coordinate', {'name': u'Vertex 1 X-coordinate', 'pyname': u'vertex_1_xcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 y-coordinate', {'name': u'Vertex 1 Y-coordinate', 'pyname': u'vertex_1_ycoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertex 1 z-coordinate', {'name': u'Vertex 1 Z-coordinate', 'pyname': u'vertex_1_zcoordinate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Shading:Zone:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -9897,7 +9538,7 @@ class ShadingZoneDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -9920,7 +9561,7 @@ class ShadingZoneDetailed(DataObject):
         Returns:
             str: the value of `base_surface_name` or None if not set
         """
-        return self._data["Base Surface Name"]
+        return self["Base Surface Name"]
 
     @base_surface_name.setter
     def base_surface_name(self, value=None):
@@ -9943,7 +9584,7 @@ class ShadingZoneDetailed(DataObject):
         Returns:
             str: the value of `transmittance_schedule_name` or None if not set
         """
-        return self._data["Transmittance Schedule Name"]
+        return self["Transmittance Schedule Name"]
 
     @transmittance_schedule_name.setter
     def transmittance_schedule_name(self, value=None):
@@ -9967,7 +9608,7 @@ class ShadingZoneDetailed(DataObject):
         Returns:
             float: the value of `number_of_vertices` or None if not set
         """
-        return self._data["Number of Vertices"]
+        return self["Number of Vertices"]
 
     @number_of_vertices.setter
     def number_of_vertices(self, value="autocalculate"):
@@ -10020,13 +9661,13 @@ class ShadingZoneDetailed(DataObject):
         vals.append(vertex_1_ycoordinate)
         vertex_1_zcoordinate = self.check_value("Vertex 1 Z-coordinate", vertex_1_zcoordinate)
         vals.append(vertex_1_zcoordinate)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ShadingPropertyReflectance(DataObject):
@@ -10036,15 +9677,6 @@ class ShadingPropertyReflectance(DataObject):
     """
     schema = {'min-fields': 3, 'name': u'ShadingProperty:Reflectance', 'pyname': u'ShadingPropertyReflectance', 'format': None, 'fields': OrderedDict([(u'shading surface name', {'name': u'Shading Surface Name', 'pyname': u'shading_surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diffuse solar reflectance of unglazed part of shading surface', {'name': u'Diffuse Solar Reflectance of Unglazed Part of Shading Surface', 'pyname': u'diffuse_solar_reflectance_of_unglazed_part_of_shading_surface', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'diffuse visible reflectance of unglazed part of shading surface', {'name': u'Diffuse Visible Reflectance of Unglazed Part of Shading Surface', 'pyname': u'diffuse_visible_reflectance_of_unglazed_part_of_shading_surface', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of shading surface that is glazed', {'name': u'Fraction of Shading Surface That Is Glazed', 'pyname': u'fraction_of_shading_surface_that_is_glazed', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'glazing construction name', {'name': u'Glazing Construction Name', 'pyname': u'glazing_construction_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ShadingProperty:Reflectance`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def shading_surface_name(self):
         """Get shading_surface_name
@@ -10052,7 +9684,7 @@ class ShadingPropertyReflectance(DataObject):
         Returns:
             str: the value of `shading_surface_name` or None if not set
         """
-        return self._data["Shading Surface Name"]
+        return self["Shading Surface Name"]
 
     @shading_surface_name.setter
     def shading_surface_name(self, value=None):
@@ -10075,7 +9707,7 @@ class ShadingPropertyReflectance(DataObject):
         Returns:
             float: the value of `diffuse_solar_reflectance_of_unglazed_part_of_shading_surface` or None if not set
         """
-        return self._data["Diffuse Solar Reflectance of Unglazed Part of Shading Surface"]
+        return self["Diffuse Solar Reflectance of Unglazed Part of Shading Surface"]
 
     @diffuse_solar_reflectance_of_unglazed_part_of_shading_surface.setter
     def diffuse_solar_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2):
@@ -10100,7 +9732,7 @@ class ShadingPropertyReflectance(DataObject):
         Returns:
             float: the value of `diffuse_visible_reflectance_of_unglazed_part_of_shading_surface` or None if not set
         """
-        return self._data["Diffuse Visible Reflectance of Unglazed Part of Shading Surface"]
+        return self["Diffuse Visible Reflectance of Unglazed Part of Shading Surface"]
 
     @diffuse_visible_reflectance_of_unglazed_part_of_shading_surface.setter
     def diffuse_visible_reflectance_of_unglazed_part_of_shading_surface(self, value=0.2):
@@ -10125,7 +9757,7 @@ class ShadingPropertyReflectance(DataObject):
         Returns:
             float: the value of `fraction_of_shading_surface_that_is_glazed` or None if not set
         """
-        return self._data["Fraction of Shading Surface That Is Glazed"]
+        return self["Fraction of Shading Surface That Is Glazed"]
 
     @fraction_of_shading_surface_that_is_glazed.setter
     def fraction_of_shading_surface_that_is_glazed(self, value=None):
@@ -10149,7 +9781,7 @@ class ShadingPropertyReflectance(DataObject):
         Returns:
             str: the value of `glazing_construction_name` or None if not set
         """
-        return self._data["Glazing Construction Name"]
+        return self["Glazing Construction Name"]
 
     @glazing_construction_name.setter
     def glazing_construction_name(self, value=None):

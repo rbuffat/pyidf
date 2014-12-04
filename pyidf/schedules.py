@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -12,16 +13,7 @@ class ScheduleTypeLimits(DataObject):
     """ Corresponds to IDD object `ScheduleTypeLimits`
         ScheduleTypeLimits specifies the data types and limits for the values contained in schedules
     """
-    schema = {'min-fields': 0, 'name': u'ScheduleTypeLimits', 'pyname': u'ScheduleTypeLimits', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'lower limit value', {'name': u'Lower Limit Value', 'pyname': u'lower_limit_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'upper limit value', {'name': u'Upper Limit Value', 'pyname': u'upper_limit_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'numeric type', {'name': u'Numeric Type', 'pyname': u'numeric_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'unit type', {'name': u'Unit Type', 'pyname': u'unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ScheduleTypeLimits`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ScheduleTypeLimits', 'pyname': u'ScheduleTypeLimits', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'lower limit value', {'name': u'Lower Limit Value', 'pyname': u'lower_limit_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'upper limit value', {'name': u'Upper Limit Value', 'pyname': u'upper_limit_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'numeric type', {'name': u'Numeric Type', 'pyname': u'numeric_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Continuous', u'Discrete'], 'autocalculatable': False, 'type': 'alpha'}), (u'unit type', {'name': u'Unit Type', 'pyname': u'unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'DeltaTemperature', u'PrecipitationRate', u'Angle', u'ConvectionCoefficient', u'ActivityLevel', u'Velocity', u'Capacity', u'Power', u'Availability', u'Percent', u'Control', u'Mode'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -30,7 +22,7 @@ class ScheduleTypeLimits(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -54,7 +46,7 @@ class ScheduleTypeLimits(DataObject):
         Returns:
             float: the value of `lower_limit_value` or None if not set
         """
-        return self._data["Lower Limit Value"]
+        return self["Lower Limit Value"]
 
     @lower_limit_value.setter
     def lower_limit_value(self, value=None):
@@ -79,7 +71,7 @@ class ScheduleTypeLimits(DataObject):
         Returns:
             float: the value of `upper_limit_value` or None if not set
         """
-        return self._data["Upper Limit Value"]
+        return self["Upper Limit Value"]
 
     @upper_limit_value.setter
     def upper_limit_value(self, value=None):
@@ -104,7 +96,7 @@ class ScheduleTypeLimits(DataObject):
         Returns:
             str: the value of `numeric_type` or None if not set
         """
-        return self._data["Numeric Type"]
+        return self["Numeric Type"]
 
     @numeric_type.setter
     def numeric_type(self, value=None):
@@ -131,7 +123,7 @@ class ScheduleTypeLimits(DataObject):
         Returns:
             str: the value of `unit_type` or None if not set
         """
-        return self._data["Unit Type"]
+        return self["Unit Type"]
 
     @unit_type.setter
     def unit_type(self, value="Dimensionless"):
@@ -164,15 +156,6 @@ class ScheduleDayHourly(DataObject):
     """
     schema = {'min-fields': 26, 'name': u'Schedule:Day:Hourly', 'pyname': u'ScheduleDayHourly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hour 1', {'name': u'Hour 1', 'pyname': u'hour_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 2', {'name': u'Hour 2', 'pyname': u'hour_2', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 3', {'name': u'Hour 3', 'pyname': u'hour_3', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 4', {'name': u'Hour 4', 'pyname': u'hour_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 5', {'name': u'Hour 5', 'pyname': u'hour_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 6', {'name': u'Hour 6', 'pyname': u'hour_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 7', {'name': u'Hour 7', 'pyname': u'hour_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 8', {'name': u'Hour 8', 'pyname': u'hour_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 9', {'name': u'Hour 9', 'pyname': u'hour_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 10', {'name': u'Hour 10', 'pyname': u'hour_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 11', {'name': u'Hour 11', 'pyname': u'hour_11', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 12', {'name': u'Hour 12', 'pyname': u'hour_12', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 13', {'name': u'Hour 13', 'pyname': u'hour_13', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 14', {'name': u'Hour 14', 'pyname': u'hour_14', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 15', {'name': u'Hour 15', 'pyname': u'hour_15', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 16', {'name': u'Hour 16', 'pyname': u'hour_16', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 17', {'name': u'Hour 17', 'pyname': u'hour_17', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 18', {'name': u'Hour 18', 'pyname': u'hour_18', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 19', {'name': u'Hour 19', 'pyname': u'hour_19', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 20', {'name': u'Hour 20', 'pyname': u'hour_20', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 21', {'name': u'Hour 21', 'pyname': u'hour_21', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 22', {'name': u'Hour 22', 'pyname': u'hour_22', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 23', {'name': u'Hour 23', 'pyname': u'hour_23', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'hour 24', {'name': u'Hour 24', 'pyname': u'hour_24', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Day:Hourly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -180,7 +163,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -203,7 +186,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -226,7 +209,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_1` or None if not set
         """
-        return self._data["Hour 1"]
+        return self["Hour 1"]
 
     @hour_1.setter
     def hour_1(self, value=None):
@@ -249,7 +232,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_2` or None if not set
         """
-        return self._data["Hour 2"]
+        return self["Hour 2"]
 
     @hour_2.setter
     def hour_2(self, value=None):
@@ -272,7 +255,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_3` or None if not set
         """
-        return self._data["Hour 3"]
+        return self["Hour 3"]
 
     @hour_3.setter
     def hour_3(self, value=None):
@@ -295,7 +278,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_4` or None if not set
         """
-        return self._data["Hour 4"]
+        return self["Hour 4"]
 
     @hour_4.setter
     def hour_4(self, value=None):
@@ -318,7 +301,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_5` or None if not set
         """
-        return self._data["Hour 5"]
+        return self["Hour 5"]
 
     @hour_5.setter
     def hour_5(self, value=None):
@@ -341,7 +324,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_6` or None if not set
         """
-        return self._data["Hour 6"]
+        return self["Hour 6"]
 
     @hour_6.setter
     def hour_6(self, value=None):
@@ -364,7 +347,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_7` or None if not set
         """
-        return self._data["Hour 7"]
+        return self["Hour 7"]
 
     @hour_7.setter
     def hour_7(self, value=None):
@@ -387,7 +370,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_8` or None if not set
         """
-        return self._data["Hour 8"]
+        return self["Hour 8"]
 
     @hour_8.setter
     def hour_8(self, value=None):
@@ -410,7 +393,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_9` or None if not set
         """
-        return self._data["Hour 9"]
+        return self["Hour 9"]
 
     @hour_9.setter
     def hour_9(self, value=None):
@@ -433,7 +416,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_10` or None if not set
         """
-        return self._data["Hour 10"]
+        return self["Hour 10"]
 
     @hour_10.setter
     def hour_10(self, value=None):
@@ -456,7 +439,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_11` or None if not set
         """
-        return self._data["Hour 11"]
+        return self["Hour 11"]
 
     @hour_11.setter
     def hour_11(self, value=None):
@@ -479,7 +462,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_12` or None if not set
         """
-        return self._data["Hour 12"]
+        return self["Hour 12"]
 
     @hour_12.setter
     def hour_12(self, value=None):
@@ -502,7 +485,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_13` or None if not set
         """
-        return self._data["Hour 13"]
+        return self["Hour 13"]
 
     @hour_13.setter
     def hour_13(self, value=None):
@@ -525,7 +508,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_14` or None if not set
         """
-        return self._data["Hour 14"]
+        return self["Hour 14"]
 
     @hour_14.setter
     def hour_14(self, value=None):
@@ -548,7 +531,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_15` or None if not set
         """
-        return self._data["Hour 15"]
+        return self["Hour 15"]
 
     @hour_15.setter
     def hour_15(self, value=None):
@@ -571,7 +554,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_16` or None if not set
         """
-        return self._data["Hour 16"]
+        return self["Hour 16"]
 
     @hour_16.setter
     def hour_16(self, value=None):
@@ -594,7 +577,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_17` or None if not set
         """
-        return self._data["Hour 17"]
+        return self["Hour 17"]
 
     @hour_17.setter
     def hour_17(self, value=None):
@@ -617,7 +600,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_18` or None if not set
         """
-        return self._data["Hour 18"]
+        return self["Hour 18"]
 
     @hour_18.setter
     def hour_18(self, value=None):
@@ -640,7 +623,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_19` or None if not set
         """
-        return self._data["Hour 19"]
+        return self["Hour 19"]
 
     @hour_19.setter
     def hour_19(self, value=None):
@@ -663,7 +646,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_20` or None if not set
         """
-        return self._data["Hour 20"]
+        return self["Hour 20"]
 
     @hour_20.setter
     def hour_20(self, value=None):
@@ -686,7 +669,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_21` or None if not set
         """
-        return self._data["Hour 21"]
+        return self["Hour 21"]
 
     @hour_21.setter
     def hour_21(self, value=None):
@@ -709,7 +692,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_22` or None if not set
         """
-        return self._data["Hour 22"]
+        return self["Hour 22"]
 
     @hour_22.setter
     def hour_22(self, value=None):
@@ -732,7 +715,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_23` or None if not set
         """
-        return self._data["Hour 23"]
+        return self["Hour 23"]
 
     @hour_23.setter
     def hour_23(self, value=None):
@@ -755,7 +738,7 @@ class ScheduleDayHourly(DataObject):
         Returns:
             float: the value of `hour_24` or None if not set
         """
-        return self._data["Hour 24"]
+        return self["Hour 24"]
 
     @hour_24.setter
     def hour_24(self, value=None):
@@ -777,16 +760,7 @@ class ScheduleDayInterval(DataObject):
         A Schedule:Day:Interval contains a full day of values with specified end times for each value
         Currently, is set up to allow for 10 minute intervals for an entire day.
     """
-    schema = {'min-fields': 5, 'name': u'Schedule:Day:Interval', 'pyname': u'ScheduleDayInterval', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'time 1', {'name': u'Time 1', 'pyname': u'time_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha', 'unit': u'hh:mm'}), (u'value until time 1', {'name': u'Value Until Time 1', 'pyname': u'value_until_time_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Day:Interval`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Schedule:Day:Interval', 'pyname': u'ScheduleDayInterval', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'time 1', {'name': u'Time 1', 'pyname': u'time_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha', 'unit': u'hh:mm'}), (u'value until time 1', {'name': u'Value Until Time 1', 'pyname': u'value_until_time_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -795,7 +769,7 @@ class ScheduleDayInterval(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -818,7 +792,7 @@ class ScheduleDayInterval(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -841,7 +815,7 @@ class ScheduleDayInterval(DataObject):
         Returns:
             str: the value of `interpolate_to_timestep` or None if not set
         """
-        return self._data["Interpolate to Timestep"]
+        return self["Interpolate to Timestep"]
 
     @interpolate_to_timestep.setter
     def interpolate_to_timestep(self, value="No"):
@@ -883,29 +857,20 @@ class ScheduleDayInterval(DataObject):
         vals.append(time_1)
         value_until_time_1 = self.check_value("Value Until Time 1", value_until_time_1)
         vals.append(value_until_time_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ScheduleDayList(DataObject):
     """ Corresponds to IDD object `Schedule:Day:List`
         Schedule:Day:List will allow the user to list 24 hours worth of values, which can be sub-hourly in nature.
     """
-    schema = {'min-fields': 5, 'name': u'Schedule:Day:List', 'pyname': u'ScheduleDayList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minutes per item', {'name': u'Minutes per Item', 'pyname': u'minutes_per_item', 'maximum': 60, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'value', {'name': u'Value', 'pyname': u'value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Day:List`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Schedule:Day:List', 'pyname': u'ScheduleDayList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'minutes per item', {'name': u'Minutes per Item', 'pyname': u'minutes_per_item', 'maximum': 60, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'value', {'name': u'Value', 'pyname': u'value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -914,7 +879,7 @@ class ScheduleDayList(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -937,7 +902,7 @@ class ScheduleDayList(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -960,7 +925,7 @@ class ScheduleDayList(DataObject):
         Returns:
             str: the value of `interpolate_to_timestep` or None if not set
         """
-        return self._data["Interpolate to Timestep"]
+        return self["Interpolate to Timestep"]
 
     @interpolate_to_timestep.setter
     def interpolate_to_timestep(self, value="No"):
@@ -987,7 +952,7 @@ class ScheduleDayList(DataObject):
         Returns:
             int: the value of `minutes_per_item` or None if not set
         """
-        return self._data["Minutes per Item"]
+        return self["Minutes per Item"]
 
     @minutes_per_item.setter
     def minutes_per_item(self, value=None):
@@ -1020,13 +985,13 @@ class ScheduleDayList(DataObject):
         vals = []
         value = self.check_value("Value", value)
         vals.append(value)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ScheduleWeekDaily(DataObject):
@@ -1035,15 +1000,6 @@ class ScheduleWeekDaily(DataObject):
     """
     schema = {'min-fields': 13, 'name': u'Schedule:Week:Daily', 'pyname': u'ScheduleWeekDaily', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sunday schedule:day name', {'name': u'Sunday Schedule:Day Name', 'pyname': u'sunday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'monday schedule:day name', {'name': u'Monday Schedule:Day Name', 'pyname': u'monday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tuesday schedule:day name', {'name': u'Tuesday Schedule:Day Name', 'pyname': u'tuesday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wednesday schedule:day name', {'name': u'Wednesday Schedule:Day Name', 'pyname': u'wednesday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thursday schedule:day name', {'name': u'Thursday Schedule:Day Name', 'pyname': u'thursday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'friday schedule:day name', {'name': u'Friday Schedule:Day Name', 'pyname': u'friday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'saturday schedule:day name', {'name': u'Saturday Schedule:Day Name', 'pyname': u'saturday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'holiday schedule:day name', {'name': u'Holiday Schedule:Day Name', 'pyname': u'holiday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'summerdesignday schedule:day name', {'name': u'SummerDesignDay Schedule:Day Name', 'pyname': u'summerdesignday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'winterdesignday schedule:day name', {'name': u'WinterDesignDay Schedule:Day Name', 'pyname': u'winterdesignday_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'customday1 schedule:day name', {'name': u'CustomDay1 Schedule:Day Name', 'pyname': u'customday1_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'customday2 schedule:day name', {'name': u'CustomDay2 Schedule:Day Name', 'pyname': u'customday2_scheduleday_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Week:Daily`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1051,7 +1007,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1074,7 +1030,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `sunday_scheduleday_name` or None if not set
         """
-        return self._data["Sunday Schedule:Day Name"]
+        return self["Sunday Schedule:Day Name"]
 
     @sunday_scheduleday_name.setter
     def sunday_scheduleday_name(self, value=None):
@@ -1097,7 +1053,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `monday_scheduleday_name` or None if not set
         """
-        return self._data["Monday Schedule:Day Name"]
+        return self["Monday Schedule:Day Name"]
 
     @monday_scheduleday_name.setter
     def monday_scheduleday_name(self, value=None):
@@ -1120,7 +1076,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `tuesday_scheduleday_name` or None if not set
         """
-        return self._data["Tuesday Schedule:Day Name"]
+        return self["Tuesday Schedule:Day Name"]
 
     @tuesday_scheduleday_name.setter
     def tuesday_scheduleday_name(self, value=None):
@@ -1143,7 +1099,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `wednesday_scheduleday_name` or None if not set
         """
-        return self._data["Wednesday Schedule:Day Name"]
+        return self["Wednesday Schedule:Day Name"]
 
     @wednesday_scheduleday_name.setter
     def wednesday_scheduleday_name(self, value=None):
@@ -1166,7 +1122,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `thursday_scheduleday_name` or None if not set
         """
-        return self._data["Thursday Schedule:Day Name"]
+        return self["Thursday Schedule:Day Name"]
 
     @thursday_scheduleday_name.setter
     def thursday_scheduleday_name(self, value=None):
@@ -1189,7 +1145,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `friday_scheduleday_name` or None if not set
         """
-        return self._data["Friday Schedule:Day Name"]
+        return self["Friday Schedule:Day Name"]
 
     @friday_scheduleday_name.setter
     def friday_scheduleday_name(self, value=None):
@@ -1212,7 +1168,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `saturday_scheduleday_name` or None if not set
         """
-        return self._data["Saturday Schedule:Day Name"]
+        return self["Saturday Schedule:Day Name"]
 
     @saturday_scheduleday_name.setter
     def saturday_scheduleday_name(self, value=None):
@@ -1235,7 +1191,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `holiday_scheduleday_name` or None if not set
         """
-        return self._data["Holiday Schedule:Day Name"]
+        return self["Holiday Schedule:Day Name"]
 
     @holiday_scheduleday_name.setter
     def holiday_scheduleday_name(self, value=None):
@@ -1258,7 +1214,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `summerdesignday_scheduleday_name` or None if not set
         """
-        return self._data["SummerDesignDay Schedule:Day Name"]
+        return self["SummerDesignDay Schedule:Day Name"]
 
     @summerdesignday_scheduleday_name.setter
     def summerdesignday_scheduleday_name(self, value=None):
@@ -1281,7 +1237,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `winterdesignday_scheduleday_name` or None if not set
         """
-        return self._data["WinterDesignDay Schedule:Day Name"]
+        return self["WinterDesignDay Schedule:Day Name"]
 
     @winterdesignday_scheduleday_name.setter
     def winterdesignday_scheduleday_name(self, value=None):
@@ -1304,7 +1260,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `customday1_scheduleday_name` or None if not set
         """
-        return self._data["CustomDay1 Schedule:Day Name"]
+        return self["CustomDay1 Schedule:Day Name"]
 
     @customday1_scheduleday_name.setter
     def customday1_scheduleday_name(self, value=None):
@@ -1327,7 +1283,7 @@ class ScheduleWeekDaily(DataObject):
         Returns:
             str: the value of `customday2_scheduleday_name` or None if not set
         """
-        return self._data["CustomDay2 Schedule:Day Name"]
+        return self["CustomDay2 Schedule:Day Name"]
 
     @customday2_scheduleday_name.setter
     def customday2_scheduleday_name(self, value=None):
@@ -1348,16 +1304,7 @@ class ScheduleWeekCompact(DataObject):
     """ Corresponds to IDD object `Schedule:Week:Compact`
         Compact definition for Schedule:Day:List
     """
-    schema = {'min-fields': 3, 'name': u'Schedule:Week:Compact', 'pyname': u'ScheduleWeekCompact', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'daytype list 1', {'name': u'DayType List 1', 'pyname': u'daytype_list_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule:day name 1', {'name': u'Schedule:Day Name 1', 'pyname': u'scheduleday_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Week:Compact`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 3, 'name': u'Schedule:Week:Compact', 'pyname': u'ScheduleWeekCompact', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'daytype list 1', {'name': u'DayType List 1', 'pyname': u'daytype_list_1', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AllDays', u'Weekdays', u'Weekends', u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule:day name 1', {'name': u'Schedule:Day Name 1', 'pyname': u'scheduleday_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1366,7 +1313,7 @@ class ScheduleWeekCompact(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1403,13 +1350,13 @@ class ScheduleWeekCompact(DataObject):
         vals.append(daytype_list_1)
         scheduleday_name_1 = self.check_value("Schedule:Day Name 1", scheduleday_name_1)
         vals.append(scheduleday_name_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ScheduleYear(DataObject):
@@ -1418,15 +1365,6 @@ class ScheduleYear(DataObject):
     """
     schema = {'min-fields': 7, 'name': u'Schedule:Year', 'pyname': u'ScheduleYear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'schedule:week', {'name': u'Schedule:Week', 'pyname': u'scheduleweek', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'start month', {'name': u'Start Month', 'pyname': u'start_month', 'maximum': 12, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'start day', {'name': u'Start Day', 'pyname': u'start_day', 'maximum': 31, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day', {'name': u'End Day', 'pyname': u'end_day', 'maximum': 31, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Year`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1434,7 +1372,7 @@ class ScheduleYear(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1457,7 +1395,7 @@ class ScheduleYear(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -1523,13 +1461,13 @@ class ScheduleYear(DataObject):
         vals.append(end_month)
         end_day = self.check_value("End Day", end_day)
         vals.append(end_day)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ScheduleCompact(DataObject):
@@ -1544,15 +1482,6 @@ class ScheduleCompact(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'Schedule:Compact', 'pyname': u'ScheduleCompact', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'field', {'name': u'Field', 'pyname': u'field', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Compact`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1560,7 +1489,7 @@ class ScheduleCompact(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1583,7 +1512,7 @@ class ScheduleCompact(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -1613,13 +1542,13 @@ class ScheduleCompact(DataObject):
         vals = []
         field = self.check_value("Field", field)
         vals.append(field)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class ScheduleConstant(DataObject):
@@ -1628,15 +1557,6 @@ class ScheduleConstant(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Schedule:Constant', 'pyname': u'ScheduleConstant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hourly value', {'name': u'Hourly Value', 'pyname': u'hourly_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:Constant`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1644,7 +1564,7 @@ class ScheduleConstant(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1667,7 +1587,7 @@ class ScheduleConstant(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -1690,7 +1610,7 @@ class ScheduleConstant(DataObject):
         Returns:
             float: the value of `hourly_value` or None if not set
         """
-        return self._data["Hourly Value"]
+        return self["Hourly Value"]
 
     @hourly_value.setter
     def hourly_value(self, value=None):
@@ -1711,16 +1631,7 @@ class ScheduleFile(DataObject):
     """ Corresponds to IDD object `Schedule:File`
         A Schedule:File points to a text computer file that has 8760-8784 hours of data.
     """
-    schema = {'min-fields': 5, 'name': u'Schedule:File', 'pyname': u'ScheduleFile', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'file name', {'name': u'File Name', 'pyname': u'file_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'column number', {'name': u'Column Number', 'pyname': u'column_number', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'rows to skip at top', {'name': u'Rows to Skip at Top', 'pyname': u'rows_to_skip_at_top', 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'number of hours of data', {'name': u'Number of Hours of Data', 'pyname': u'number_of_hours_of_data', 'default': 8760.0, 'maximum': 8784.0, 'required-field': False, 'autosizable': False, 'minimum': 8760.0, 'autocalculatable': False, 'type': 'real'}), (u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'minutes per item', {'name': u'Minutes per Item', 'pyname': u'minutes_per_item', 'maximum': 60, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Schedule:File`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Schedule:File', 'pyname': u'ScheduleFile', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'file name', {'name': u'File Name', 'pyname': u'file_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'column number', {'name': u'Column Number', 'pyname': u'column_number', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'rows to skip at top', {'name': u'Rows to Skip at Top', 'pyname': u'rows_to_skip_at_top', 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'number of hours of data', {'name': u'Number of Hours of Data', 'pyname': u'number_of_hours_of_data', 'default': 8760.0, 'maximum': 8784.0, 'required-field': False, 'autosizable': False, 'minimum': 8760.0, 'autocalculatable': False, 'type': 'real'}), (u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Comma', u'Tab', u'Fixed', u'Semicolon'], 'autocalculatable': False, 'type': 'alpha'}), (u'interpolate to timestep', {'name': u'Interpolate to Timestep', 'pyname': u'interpolate_to_timestep', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'minutes per item', {'name': u'Minutes per Item', 'pyname': u'minutes_per_item', 'maximum': 60, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1729,7 +1640,7 @@ class ScheduleFile(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1752,7 +1663,7 @@ class ScheduleFile(DataObject):
         Returns:
             str: the value of `schedule_type_limits_name` or None if not set
         """
-        return self._data["Schedule Type Limits Name"]
+        return self["Schedule Type Limits Name"]
 
     @schedule_type_limits_name.setter
     def schedule_type_limits_name(self, value=None):
@@ -1775,7 +1686,7 @@ class ScheduleFile(DataObject):
         Returns:
             str: the value of `file_name` or None if not set
         """
-        return self._data["File Name"]
+        return self["File Name"]
 
     @file_name.setter
     def file_name(self, value=None):
@@ -1798,7 +1709,7 @@ class ScheduleFile(DataObject):
         Returns:
             int: the value of `column_number` or None if not set
         """
-        return self._data["Column Number"]
+        return self["Column Number"]
 
     @column_number.setter
     def column_number(self, value=None):
@@ -1822,7 +1733,7 @@ class ScheduleFile(DataObject):
         Returns:
             int: the value of `rows_to_skip_at_top` or None if not set
         """
-        return self._data["Rows to Skip at Top"]
+        return self["Rows to Skip at Top"]
 
     @rows_to_skip_at_top.setter
     def rows_to_skip_at_top(self, value=None):
@@ -1845,7 +1756,7 @@ class ScheduleFile(DataObject):
         Returns:
             float: the value of `number_of_hours_of_data` or None if not set
         """
-        return self._data["Number of Hours of Data"]
+        return self["Number of Hours of Data"]
 
     @number_of_hours_of_data.setter
     def number_of_hours_of_data(self, value=8760.0):
@@ -1873,7 +1784,7 @@ class ScheduleFile(DataObject):
         Returns:
             str: the value of `column_separator` or None if not set
         """
-        return self._data["Column Separator"]
+        return self["Column Separator"]
 
     @column_separator.setter
     def column_separator(self, value="Comma"):
@@ -1897,7 +1808,7 @@ class ScheduleFile(DataObject):
         Returns:
             str: the value of `interpolate_to_timestep` or None if not set
         """
-        return self._data["Interpolate to Timestep"]
+        return self["Interpolate to Timestep"]
 
     @interpolate_to_timestep.setter
     def interpolate_to_timestep(self, value="No"):
@@ -1924,7 +1835,7 @@ class ScheduleFile(DataObject):
         Returns:
             int: the value of `minutes_per_item` or None if not set
         """
-        return self._data["Minutes per Item"]
+        return self["Minutes per Item"]
 
     @minutes_per_item.setter
     def minutes_per_item(self, value=None):

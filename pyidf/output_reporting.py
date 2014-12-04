@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -16,16 +17,7 @@ class OutputVariableDictionary(DataObject):
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:VariableDictionary`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IDF', u'regular'], 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Name', u'Unsorted'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def key_field(self):
@@ -34,7 +26,7 @@ class OutputVariableDictionary(DataObject):
         Returns:
             str: the value of `key_field` or None if not set
         """
-        return self._data["Key Field"]
+        return self["Key Field"]
 
     @key_field.setter
     def key_field(self, value="regular"):
@@ -58,7 +50,7 @@ class OutputVariableDictionary(DataObject):
         Returns:
             str: the value of `sort_option` or None if not set
         """
-        return self._data["Sort Option"]
+        return self["Sort Option"]
 
     @sort_option.setter
     def sort_option(self, value=None):
@@ -79,16 +71,7 @@ class OutputSurfacesList(DataObject):
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Surfaces:List`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Details', u'Vertices', u'DetailsWithVertices', u'ViewFactorInfo', u'Lines', u'CostInfo', u'DecayCurvesfromZoneComponentLoads'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'accepted-values': [u'IDF'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def report_type(self):
@@ -97,7 +80,7 @@ class OutputSurfacesList(DataObject):
         Returns:
             str: the value of `report_type` or None if not set
         """
-        return self._data["Report Type"]
+        return self["Report Type"]
 
     @report_type.setter
     def report_type(self, value=None):
@@ -120,7 +103,7 @@ class OutputSurfacesList(DataObject):
         Returns:
             str: the value of `report_specifications` or None if not set
         """
-        return self._data["Report Specifications"]
+        return self["Report Specifications"]
 
     @report_specifications.setter
     def report_specifications(self, value=None):
@@ -145,16 +128,7 @@ class OutputSurfacesDrawing(DataObject):
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Surfaces:Drawing`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'DXF', u'DXF:WireFrame', u'VRML'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Triangulate3DFace', u'ThickPolyline', u'RegularPolyline'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def report_type(self):
@@ -163,7 +137,7 @@ class OutputSurfacesDrawing(DataObject):
         Returns:
             str: the value of `report_type` or None if not set
         """
-        return self._data["Report Type"]
+        return self["Report Type"]
 
     @report_type.setter
     def report_type(self, value=None):
@@ -186,7 +160,7 @@ class OutputSurfacesDrawing(DataObject):
         Returns:
             str: the value of `report_specifications_1` or None if not set
         """
-        return self._data["Report Specifications 1"]
+        return self["Report Specifications 1"]
 
     @report_specifications_1.setter
     def report_specifications_1(self, value="Triangulate3DFace"):
@@ -212,7 +186,7 @@ class OutputSurfacesDrawing(DataObject):
         Returns:
             str: the value of `report_specifications_2` or None if not set
         """
-        return self._data["Report Specifications 2"]
+        return self["Report Specifications 2"]
 
     @report_specifications_2.setter
     def report_specifications_2(self, value=None):
@@ -236,16 +210,7 @@ class OutputSchedules(DataObject):
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Schedules`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Hourly', u'Timestep'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def key_field(self):
@@ -254,7 +219,7 @@ class OutputSchedules(DataObject):
         Returns:
             str: the value of `key_field` or None if not set
         """
-        return self._data["Key Field"]
+        return self["Key Field"]
 
     @key_field.setter
     def key_field(self, value=None):
@@ -277,16 +242,7 @@ class OutputConstructions(DataObject):
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': None, 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Constructions`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': None, 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def details_type_1(self):
@@ -295,7 +251,7 @@ class OutputConstructions(DataObject):
         Returns:
             str: the value of `details_type_1` or None if not set
         """
-        return self._data["Details Type 1"]
+        return self["Details Type 1"]
 
     @details_type_1.setter
     def details_type_1(self, value=None):
@@ -318,7 +274,7 @@ class OutputConstructions(DataObject):
         Returns:
             str: the value of `details_type_2` or None if not set
         """
-        return self._data["Details Type 2"]
+        return self["Details Type 2"]
 
     @details_type_2.setter
     def details_type_2(self, value=None):
@@ -339,16 +295,7 @@ class OutputEnergyManagementSystem(DataObject):
     """ Corresponds to IDD object `Output:EnergyManagementSystem`
         This object is used to control the output produced by the Energy Management System
     """
-    schema = {'min-fields': 0, 'name': u'Output:EnergyManagementSystem', 'pyname': u'OutputEnergyManagementSystem', 'format': None, 'fields': OrderedDict([(u'actuator availability dictionary reporting', {'name': u'Actuator Availability Dictionary Reporting', 'pyname': u'actuator_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'internal variable availability dictionary reporting', {'name': u'Internal Variable Availability Dictionary Reporting', 'pyname': u'internal_variable_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ems runtime language debug output level', {'name': u'EMS Runtime Language Debug Output Level', 'pyname': u'ems_runtime_language_debug_output_level', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:EnergyManagementSystem`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:EnergyManagementSystem', 'pyname': u'OutputEnergyManagementSystem', 'format': None, 'fields': OrderedDict([(u'actuator availability dictionary reporting', {'name': u'Actuator Availability Dictionary Reporting', 'pyname': u'actuator_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'NotByUniqueKeyNames', u'Verbose'], 'autocalculatable': False, 'type': 'alpha'}), (u'internal variable availability dictionary reporting', {'name': u'Internal Variable Availability Dictionary Reporting', 'pyname': u'internal_variable_availability_dictionary_reporting', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'NotByUniqueKeyNames', u'Verbose'], 'autocalculatable': False, 'type': 'alpha'}), (u'ems runtime language debug output level', {'name': u'EMS Runtime Language Debug Output Level', 'pyname': u'ems_runtime_language_debug_output_level', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'ErrorsOnly', u'Verbose'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def actuator_availability_dictionary_reporting(self):
@@ -357,7 +304,7 @@ class OutputEnergyManagementSystem(DataObject):
         Returns:
             str: the value of `actuator_availability_dictionary_reporting` or None if not set
         """
-        return self._data["Actuator Availability Dictionary Reporting"]
+        return self["Actuator Availability Dictionary Reporting"]
 
     @actuator_availability_dictionary_reporting.setter
     def actuator_availability_dictionary_reporting(self, value="None"):
@@ -381,7 +328,7 @@ class OutputEnergyManagementSystem(DataObject):
         Returns:
             str: the value of `internal_variable_availability_dictionary_reporting` or None if not set
         """
-        return self._data["Internal Variable Availability Dictionary Reporting"]
+        return self["Internal Variable Availability Dictionary Reporting"]
 
     @internal_variable_availability_dictionary_reporting.setter
     def internal_variable_availability_dictionary_reporting(self, value="None"):
@@ -405,7 +352,7 @@ class OutputEnergyManagementSystem(DataObject):
         Returns:
             str: the value of `ems_runtime_language_debug_output_level` or None if not set
         """
-        return self._data["EMS Runtime Language Debug Output Level"]
+        return self["EMS Runtime Language Debug Output Level"]
 
     @ems_runtime_language_debug_output_level.setter
     def ems_runtime_language_debug_output_level(self, value="None"):
@@ -431,16 +378,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         extend by editing the IDD but you do so on your own.  Colors not changed in any scheme will
         remain as the default scheme uses.
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:SurfaceColorScheme', 'pyname': u'OutputControlSurfaceColorScheme', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drawing element 1 type', {'name': u'Drawing Element 1 Type', 'pyname': u'drawing_element_1_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 1', {'name': u'Color for Drawing Element 1', 'pyname': u'color_for_drawing_element_1', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 2 type', {'name': u'Drawing Element 2 Type', 'pyname': u'drawing_element_2_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 2', {'name': u'Color for Drawing Element 2', 'pyname': u'color_for_drawing_element_2', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 3 type', {'name': u'Drawing Element 3 Type', 'pyname': u'drawing_element_3_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 3', {'name': u'Color for Drawing Element 3', 'pyname': u'color_for_drawing_element_3', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 4 type', {'name': u'Drawing Element 4 Type', 'pyname': u'drawing_element_4_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 4', {'name': u'Color for Drawing Element 4', 'pyname': u'color_for_drawing_element_4', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 5 type', {'name': u'Drawing Element 5 Type', 'pyname': u'drawing_element_5_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 5', {'name': u'Color for Drawing Element 5', 'pyname': u'color_for_drawing_element_5', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 6 type', {'name': u'Drawing Element 6 Type', 'pyname': u'drawing_element_6_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 6', {'name': u'Color for Drawing Element 6', 'pyname': u'color_for_drawing_element_6', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 7 type', {'name': u'Drawing Element 7 Type', 'pyname': u'drawing_element_7_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 7', {'name': u'Color for Drawing Element 7', 'pyname': u'color_for_drawing_element_7', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 8 type', {'name': u'Drawing Element 8 Type', 'pyname': u'drawing_element_8_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 8', {'name': u'Color for Drawing Element 8', 'pyname': u'color_for_drawing_element_8', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 9 type', {'name': u'Drawing Element 9 Type', 'pyname': u'drawing_element_9_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 9', {'name': u'Color for Drawing Element 9', 'pyname': u'color_for_drawing_element_9', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 10 type', {'name': u'Drawing Element 10 Type', 'pyname': u'drawing_element_10_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 10', {'name': u'Color for Drawing Element 10', 'pyname': u'color_for_drawing_element_10', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 11 type', {'name': u'Drawing Element 11 Type', 'pyname': u'drawing_element_11_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 11', {'name': u'Color for Drawing Element 11', 'pyname': u'color_for_drawing_element_11', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 12 type', {'name': u'Drawing Element 12 Type', 'pyname': u'drawing_element_12_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 12', {'name': u'Color for Drawing Element 12', 'pyname': u'color_for_drawing_element_12', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 13 type', {'name': u'Drawing Element 13 Type', 'pyname': u'drawing_element_13_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 13', {'name': u'Color for Drawing Element 13', 'pyname': u'color_for_drawing_element_13', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 14 type', {'name': u'Drawing Element 14 Type', 'pyname': u'drawing_element_14_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 14', {'name': u'Color for Drawing Element 14', 'pyname': u'color_for_drawing_element_14', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 15 type', {'name': u'Drawing Element 15 Type', 'pyname': u'drawing_element_15_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 15', {'name': u'Color for Drawing Element 15', 'pyname': u'color_for_drawing_element_15', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `OutputControl:SurfaceColorScheme`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'OutputControl:SurfaceColorScheme', 'pyname': u'OutputControlSurfaceColorScheme', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'drawing element 1 type', {'name': u'Drawing Element 1 Type', 'pyname': u'drawing_element_1_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 1', {'name': u'Color for Drawing Element 1', 'pyname': u'color_for_drawing_element_1', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 2 type', {'name': u'Drawing Element 2 Type', 'pyname': u'drawing_element_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 2', {'name': u'Color for Drawing Element 2', 'pyname': u'color_for_drawing_element_2', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 3 type', {'name': u'Drawing Element 3 Type', 'pyname': u'drawing_element_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 3', {'name': u'Color for Drawing Element 3', 'pyname': u'color_for_drawing_element_3', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 4 type', {'name': u'Drawing Element 4 Type', 'pyname': u'drawing_element_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 4', {'name': u'Color for Drawing Element 4', 'pyname': u'color_for_drawing_element_4', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 5 type', {'name': u'Drawing Element 5 Type', 'pyname': u'drawing_element_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 5', {'name': u'Color for Drawing Element 5', 'pyname': u'color_for_drawing_element_5', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 6 type', {'name': u'Drawing Element 6 Type', 'pyname': u'drawing_element_6_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 6', {'name': u'Color for Drawing Element 6', 'pyname': u'color_for_drawing_element_6', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 7 type', {'name': u'Drawing Element 7 Type', 'pyname': u'drawing_element_7_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 7', {'name': u'Color for Drawing Element 7', 'pyname': u'color_for_drawing_element_7', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 8 type', {'name': u'Drawing Element 8 Type', 'pyname': u'drawing_element_8_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 8', {'name': u'Color for Drawing Element 8', 'pyname': u'color_for_drawing_element_8', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 9 type', {'name': u'Drawing Element 9 Type', 'pyname': u'drawing_element_9_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 9', {'name': u'Color for Drawing Element 9', 'pyname': u'color_for_drawing_element_9', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 10 type', {'name': u'Drawing Element 10 Type', 'pyname': u'drawing_element_10_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 10', {'name': u'Color for Drawing Element 10', 'pyname': u'color_for_drawing_element_10', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 11 type', {'name': u'Drawing Element 11 Type', 'pyname': u'drawing_element_11_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 11', {'name': u'Color for Drawing Element 11', 'pyname': u'color_for_drawing_element_11', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 12 type', {'name': u'Drawing Element 12 Type', 'pyname': u'drawing_element_12_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 12', {'name': u'Color for Drawing Element 12', 'pyname': u'color_for_drawing_element_12', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 13 type', {'name': u'Drawing Element 13 Type', 'pyname': u'drawing_element_13_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 13', {'name': u'Color for Drawing Element 13', 'pyname': u'color_for_drawing_element_13', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 14 type', {'name': u'Drawing Element 14 Type', 'pyname': u'drawing_element_14_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 14', {'name': u'Color for Drawing Element 14', 'pyname': u'color_for_drawing_element_14', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'drawing element 15 type', {'name': u'Drawing Element 15 Type', 'pyname': u'drawing_element_15_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Text', u'Walls', u'Windows', u'GlassDoors', u'Doors', u'Roofs', u'Floors', u'DetachedBuildingShades', u'DetachedFixedShades', u'AttachedBuildingShades', u'Photovoltaics', u'TubularDaylightDomes', u'TubularDaylightDiffusers', u'DaylightReferencePoint1', u'DaylightReferencePoint2'], 'autocalculatable': False, 'type': 'alpha'}), (u'color for drawing element 15', {'name': u'Color for Drawing Element 15', 'pyname': u'color_for_drawing_element_15', 'maximum': 255, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -449,7 +387,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -473,7 +411,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_1_type` or None if not set
         """
-        return self._data["Drawing Element 1 Type"]
+        return self["Drawing Element 1 Type"]
 
     @drawing_element_1_type.setter
     def drawing_element_1_type(self, value=None):
@@ -496,7 +434,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_1` or None if not set
         """
-        return self._data["Color for Drawing Element 1"]
+        return self["Color for Drawing Element 1"]
 
     @color_for_drawing_element_1.setter
     def color_for_drawing_element_1(self, value=None):
@@ -521,7 +459,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_2_type` or None if not set
         """
-        return self._data["Drawing Element 2 Type"]
+        return self["Drawing Element 2 Type"]
 
     @drawing_element_2_type.setter
     def drawing_element_2_type(self, value=None):
@@ -544,7 +482,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_2` or None if not set
         """
-        return self._data["Color for Drawing Element 2"]
+        return self["Color for Drawing Element 2"]
 
     @color_for_drawing_element_2.setter
     def color_for_drawing_element_2(self, value=None):
@@ -569,7 +507,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_3_type` or None if not set
         """
-        return self._data["Drawing Element 3 Type"]
+        return self["Drawing Element 3 Type"]
 
     @drawing_element_3_type.setter
     def drawing_element_3_type(self, value=None):
@@ -592,7 +530,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_3` or None if not set
         """
-        return self._data["Color for Drawing Element 3"]
+        return self["Color for Drawing Element 3"]
 
     @color_for_drawing_element_3.setter
     def color_for_drawing_element_3(self, value=None):
@@ -617,7 +555,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_4_type` or None if not set
         """
-        return self._data["Drawing Element 4 Type"]
+        return self["Drawing Element 4 Type"]
 
     @drawing_element_4_type.setter
     def drawing_element_4_type(self, value=None):
@@ -640,7 +578,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_4` or None if not set
         """
-        return self._data["Color for Drawing Element 4"]
+        return self["Color for Drawing Element 4"]
 
     @color_for_drawing_element_4.setter
     def color_for_drawing_element_4(self, value=None):
@@ -665,7 +603,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_5_type` or None if not set
         """
-        return self._data["Drawing Element 5 Type"]
+        return self["Drawing Element 5 Type"]
 
     @drawing_element_5_type.setter
     def drawing_element_5_type(self, value=None):
@@ -688,7 +626,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_5` or None if not set
         """
-        return self._data["Color for Drawing Element 5"]
+        return self["Color for Drawing Element 5"]
 
     @color_for_drawing_element_5.setter
     def color_for_drawing_element_5(self, value=None):
@@ -713,7 +651,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_6_type` or None if not set
         """
-        return self._data["Drawing Element 6 Type"]
+        return self["Drawing Element 6 Type"]
 
     @drawing_element_6_type.setter
     def drawing_element_6_type(self, value=None):
@@ -736,7 +674,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_6` or None if not set
         """
-        return self._data["Color for Drawing Element 6"]
+        return self["Color for Drawing Element 6"]
 
     @color_for_drawing_element_6.setter
     def color_for_drawing_element_6(self, value=None):
@@ -761,7 +699,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_7_type` or None if not set
         """
-        return self._data["Drawing Element 7 Type"]
+        return self["Drawing Element 7 Type"]
 
     @drawing_element_7_type.setter
     def drawing_element_7_type(self, value=None):
@@ -784,7 +722,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_7` or None if not set
         """
-        return self._data["Color for Drawing Element 7"]
+        return self["Color for Drawing Element 7"]
 
     @color_for_drawing_element_7.setter
     def color_for_drawing_element_7(self, value=None):
@@ -809,7 +747,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_8_type` or None if not set
         """
-        return self._data["Drawing Element 8 Type"]
+        return self["Drawing Element 8 Type"]
 
     @drawing_element_8_type.setter
     def drawing_element_8_type(self, value=None):
@@ -832,7 +770,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_8` or None if not set
         """
-        return self._data["Color for Drawing Element 8"]
+        return self["Color for Drawing Element 8"]
 
     @color_for_drawing_element_8.setter
     def color_for_drawing_element_8(self, value=None):
@@ -857,7 +795,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_9_type` or None if not set
         """
-        return self._data["Drawing Element 9 Type"]
+        return self["Drawing Element 9 Type"]
 
     @drawing_element_9_type.setter
     def drawing_element_9_type(self, value=None):
@@ -880,7 +818,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_9` or None if not set
         """
-        return self._data["Color for Drawing Element 9"]
+        return self["Color for Drawing Element 9"]
 
     @color_for_drawing_element_9.setter
     def color_for_drawing_element_9(self, value=None):
@@ -905,7 +843,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_10_type` or None if not set
         """
-        return self._data["Drawing Element 10 Type"]
+        return self["Drawing Element 10 Type"]
 
     @drawing_element_10_type.setter
     def drawing_element_10_type(self, value=None):
@@ -928,7 +866,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_10` or None if not set
         """
-        return self._data["Color for Drawing Element 10"]
+        return self["Color for Drawing Element 10"]
 
     @color_for_drawing_element_10.setter
     def color_for_drawing_element_10(self, value=None):
@@ -953,7 +891,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_11_type` or None if not set
         """
-        return self._data["Drawing Element 11 Type"]
+        return self["Drawing Element 11 Type"]
 
     @drawing_element_11_type.setter
     def drawing_element_11_type(self, value=None):
@@ -976,7 +914,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_11` or None if not set
         """
-        return self._data["Color for Drawing Element 11"]
+        return self["Color for Drawing Element 11"]
 
     @color_for_drawing_element_11.setter
     def color_for_drawing_element_11(self, value=None):
@@ -1001,7 +939,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_12_type` or None if not set
         """
-        return self._data["Drawing Element 12 Type"]
+        return self["Drawing Element 12 Type"]
 
     @drawing_element_12_type.setter
     def drawing_element_12_type(self, value=None):
@@ -1024,7 +962,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_12` or None if not set
         """
-        return self._data["Color for Drawing Element 12"]
+        return self["Color for Drawing Element 12"]
 
     @color_for_drawing_element_12.setter
     def color_for_drawing_element_12(self, value=None):
@@ -1049,7 +987,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_13_type` or None if not set
         """
-        return self._data["Drawing Element 13 Type"]
+        return self["Drawing Element 13 Type"]
 
     @drawing_element_13_type.setter
     def drawing_element_13_type(self, value=None):
@@ -1072,7 +1010,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_13` or None if not set
         """
-        return self._data["Color for Drawing Element 13"]
+        return self["Color for Drawing Element 13"]
 
     @color_for_drawing_element_13.setter
     def color_for_drawing_element_13(self, value=None):
@@ -1097,7 +1035,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_14_type` or None if not set
         """
-        return self._data["Drawing Element 14 Type"]
+        return self["Drawing Element 14 Type"]
 
     @drawing_element_14_type.setter
     def drawing_element_14_type(self, value=None):
@@ -1120,7 +1058,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_14` or None if not set
         """
-        return self._data["Color for Drawing Element 14"]
+        return self["Color for Drawing Element 14"]
 
     @color_for_drawing_element_14.setter
     def color_for_drawing_element_14(self, value=None):
@@ -1145,7 +1083,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             str: the value of `drawing_element_15_type` or None if not set
         """
-        return self._data["Drawing Element 15 Type"]
+        return self["Drawing Element 15 Type"]
 
     @drawing_element_15_type.setter
     def drawing_element_15_type(self, value=None):
@@ -1168,7 +1106,7 @@ class OutputControlSurfaceColorScheme(DataObject):
         Returns:
             int: the value of `color_for_drawing_element_15` or None if not set
         """
-        return self._data["Color for Drawing Element 15"]
+        return self["Color for Drawing Element 15"]
 
     @color_for_drawing_element_15.setter
     def color_for_drawing_element_15(self, value=None):
@@ -1198,15 +1136,6 @@ class OutputTableSummaryReports(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Output:Table:SummaryReports', 'pyname': u'OutputTableSummaryReports', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Table:SummaryReports`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
 
 class OutputTableTimeBins(DataObject):
     """ Corresponds to IDD object `Output:Table:TimeBins`
@@ -1214,16 +1143,7 @@ class OutputTableTimeBins(DataObject):
         that occurs in different bins for a single specific output variable or meter.
         Two different types of binning are reported: by month and by hour of the day.
     """
-    schema = {'min-fields': 5, 'name': u'Output:Table:TimeBins', 'pyname': u'OutputTableTimeBins', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'interval start', {'name': u'Interval Start', 'pyname': u'interval_start', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval size', {'name': u'Interval Size', 'pyname': u'interval_size', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval count', {'name': u'Interval Count', 'pyname': u'interval_count', 'maximum': 20, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Table:TimeBins`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'Output:Table:TimeBins', 'pyname': u'OutputTableTimeBins', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'interval start', {'name': u'Interval Start', 'pyname': u'interval_start', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval size', {'name': u'Interval Size', 'pyname': u'interval_size', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'interval count', {'name': u'Interval Count', 'pyname': u'interval_count', 'maximum': 20, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'variable type', {'name': u'Variable Type', 'pyname': u'variable_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Energy', u'Temperature', u'VolumetricFlow', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def key_value(self):
@@ -1232,7 +1152,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             str: the value of `key_value` or None if not set
         """
-        return self._data["Key Value"]
+        return self["Key Value"]
 
     @key_value.setter
     def key_value(self, value="*"):
@@ -1257,7 +1177,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             str: the value of `variable_name` or None if not set
         """
-        return self._data["Variable Name"]
+        return self["Variable Name"]
 
     @variable_name.setter
     def variable_name(self, value=None):
@@ -1280,7 +1200,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             float: the value of `interval_start` or None if not set
         """
-        return self._data["Interval Start"]
+        return self["Interval Start"]
 
     @interval_start.setter
     def interval_start(self, value=None):
@@ -1305,7 +1225,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             float: the value of `interval_size` or None if not set
         """
-        return self._data["Interval Size"]
+        return self["Interval Size"]
 
     @interval_size.setter
     def interval_size(self, value=None):
@@ -1330,7 +1250,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             int: the value of `interval_count` or None if not set
         """
-        return self._data["Interval Count"]
+        return self["Interval Count"]
 
     @interval_count.setter
     def interval_count(self, value=None):
@@ -1357,7 +1277,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -1382,7 +1302,7 @@ class OutputTableTimeBins(DataObject):
         Returns:
             str: the value of `variable_type` or None if not set
         """
-        return self._data["Variable Type"]
+        return self["Variable Type"]
 
     @variable_type.setter
     def variable_type(self, value=None):
@@ -1409,16 +1329,7 @@ class OutputTableMonthly(DataObject):
         variable. For example, a table defined with zone variables will be produced once for
         every zone.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Table:Monthly', 'pyname': u'OutputTableMonthly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'digits after decimal', {'name': u'Digits After Decimal', 'pyname': u'digits_after_decimal', 'default': 2, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'variable or meter 1 name', {'name': u'Variable or Meter 1 Name', 'pyname': u'variable_or_meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'aggregation type for variable or meter 1', {'name': u'Aggregation Type for Variable or Meter 1', 'pyname': u'aggregation_type_for_variable_or_meter_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Table:Monthly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Table:Monthly', 'pyname': u'OutputTableMonthly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'digits after decimal', {'name': u'Digits After Decimal', 'pyname': u'digits_after_decimal', 'default': 2, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'variable or meter 1 name', {'name': u'Variable or Meter 1 Name', 'pyname': u'variable_or_meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'aggregation type for variable or meter 1', {'name': u'Aggregation Type for Variable or Meter 1', 'pyname': u'aggregation_type_for_variable_or_meter_1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SumOrAverage', u'Maximum', u'Minimum', u'ValueWhenMaximumOrMinimum', u'HoursNonZero', u'HoursZero', u'HoursPositive', u'HoursNonPositive', u'HoursNegative', u'HoursNonNegative', u'SumOrAverageDuringHoursShown', u'MaximumDuringHoursShown', u'MinimumDuringHoursShown'], 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1427,7 +1338,7 @@ class OutputTableMonthly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1450,7 +1361,7 @@ class OutputTableMonthly(DataObject):
         Returns:
             int: the value of `digits_after_decimal` or None if not set
         """
-        return self._data["Digits After Decimal"]
+        return self["Digits After Decimal"]
 
     @digits_after_decimal.setter
     def digits_after_decimal(self, value=2):
@@ -1489,13 +1400,13 @@ class OutputTableMonthly(DataObject):
         vals.append(variable_or_meter_1_name)
         aggregation_type_for_variable_or_meter_1 = self.check_value("Aggregation Type for Variable or Meter 1", aggregation_type_for_variable_or_meter_1)
         vals.append(aggregation_type_for_variable_or_meter_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class OutputControlTableStyle(DataObject):
@@ -1506,16 +1417,7 @@ class OutputControlTableStyle(DataObject):
         the "columns".  HTML produces tables in HTML. XML produces an XML file.
         note - if no OutputControl:Table:Style is included, the defaults are comma and None.
     """
-    schema = {'min-fields': 0, 'name': u'OutputControl:Table:Style', 'pyname': u'OutputControlTableStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'unit conversion', {'name': u'Unit Conversion', 'pyname': u'unit_conversion', 'default': u'None', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `OutputControl:Table:Style`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'OutputControl:Table:Style', 'pyname': u'OutputControlTableStyle', 'format': None, 'fields': OrderedDict([(u'column separator', {'name': u'Column Separator', 'pyname': u'column_separator', 'default': u'Comma', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Comma', u'Tab', u'Fixed', u'HTML', u'XML', u'CommaAndHTML', u'CommaAndXML', u'TabAndHTML', u'XMLandHTML', u'All'], 'autocalculatable': False, 'type': 'alpha'}), (u'unit conversion', {'name': u'Unit Conversion', 'pyname': u'unit_conversion', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'JtoKWH', u'JtoMJ', u'JtoGJ', u'InchPound'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def column_separator(self):
@@ -1524,7 +1426,7 @@ class OutputControlTableStyle(DataObject):
         Returns:
             str: the value of `column_separator` or None if not set
         """
-        return self._data["Column Separator"]
+        return self["Column Separator"]
 
     @column_separator.setter
     def column_separator(self, value="Comma"):
@@ -1548,7 +1450,7 @@ class OutputControlTableStyle(DataObject):
         Returns:
             str: the value of `unit_conversion` or None if not set
         """
-        return self._data["Unit Conversion"]
+        return self["Unit Conversion"]
 
     @unit_conversion.setter
     def unit_conversion(self, value="None"):
@@ -1573,15 +1475,6 @@ class OutputControlReportingTolerances(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'OutputControl:ReportingTolerances', 'pyname': u'OutputControlReportingTolerances', 'format': None, 'fields': OrderedDict([(u'tolerance for time heating setpoint not met', {'name': u'Tolerance for Time Heating Setpoint Not Met', 'pyname': u'tolerance_for_time_heating_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'tolerance for time cooling setpoint not met', {'name': u'Tolerance for Time Cooling Setpoint Not Met', 'pyname': u'tolerance_for_time_cooling_setpoint_not_met', 'default': 0.2, 'maximum': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `OutputControl:ReportingTolerances`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def tolerance_for_time_heating_setpoint_not_met(self):
         """Get tolerance_for_time_heating_setpoint_not_met
@@ -1589,7 +1482,7 @@ class OutputControlReportingTolerances(DataObject):
         Returns:
             float: the value of `tolerance_for_time_heating_setpoint_not_met` or None if not set
         """
-        return self._data["Tolerance for Time Heating Setpoint Not Met"]
+        return self["Tolerance for Time Heating Setpoint Not Met"]
 
     @tolerance_for_time_heating_setpoint_not_met.setter
     def tolerance_for_time_heating_setpoint_not_met(self, value=0.2):
@@ -1621,7 +1514,7 @@ class OutputControlReportingTolerances(DataObject):
         Returns:
             float: the value of `tolerance_for_time_cooling_setpoint_not_met` or None if not set
         """
-        return self._data["Tolerance for Time Cooling Setpoint Not Met"]
+        return self["Tolerance for Time Cooling Setpoint Not Met"]
 
     @tolerance_for_time_cooling_setpoint_not_met.setter
     def tolerance_for_time_cooling_setpoint_not_met(self, value=0.2):
@@ -1654,16 +1547,7 @@ class OutputVariable(DataObject):
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Variable`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Detailed', u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def key_value(self):
@@ -1672,7 +1556,7 @@ class OutputVariable(DataObject):
         Returns:
             str: the value of `key_value` or None if not set
         """
-        return self._data["Key Value"]
+        return self["Key Value"]
 
     @key_value.setter
     def key_value(self, value="*"):
@@ -1697,7 +1581,7 @@ class OutputVariable(DataObject):
         Returns:
             str: the value of `variable_name` or None if not set
         """
-        return self._data["Variable Name"]
+        return self["Variable Name"]
 
     @variable_name.setter
     def variable_name(self, value=None):
@@ -1720,7 +1604,7 @@ class OutputVariable(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value="Hourly"):
@@ -1748,7 +1632,7 @@ class OutputVariable(DataObject):
         Returns:
             str: the value of `schedule_name` or None if not set
         """
-        return self._data["Schedule Name"]
+        return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
@@ -1772,16 +1656,7 @@ class OutputMeter(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Meter`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1790,7 +1665,7 @@ class OutputMeter(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1816,7 +1691,7 @@ class OutputMeter(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value="Hourly"):
@@ -1844,16 +1719,7 @@ class OutputMeterMeterFileOnly(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Meter:MeterFileOnly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1862,7 +1728,7 @@ class OutputMeterMeterFileOnly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1888,7 +1754,7 @@ class OutputMeterMeterFileOnly(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value="Hourly"):
@@ -1917,16 +1783,7 @@ class OutputMeterCumulative(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Meter:Cumulative`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1935,7 +1792,7 @@ class OutputMeterCumulative(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1961,7 +1818,7 @@ class OutputMeterCumulative(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value="Hourly"):
@@ -1990,16 +1847,7 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Meter:Cumulative:MeterFileOnly`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2008,7 +1856,7 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2034,7 +1882,7 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value="Hourly"):
@@ -2061,16 +1909,7 @@ class MeterCustom(DataObject):
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    schema = {'min-fields': 0, 'name': u'Meter:Custom', 'pyname': u'MeterCustom', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Meter:Custom`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Meter:Custom', 'pyname': u'MeterCustom', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'Water', u'Generic', u'OtherFuel1', u'OtherFuel2'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2079,7 +1918,7 @@ class MeterCustom(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2102,7 +1941,7 @@ class MeterCustom(DataObject):
         Returns:
             str: the value of `fuel_type` or None if not set
         """
-        return self._data["Fuel Type"]
+        return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value=None):
@@ -2139,13 +1978,13 @@ class MeterCustom(DataObject):
         vals.append(key_name_1)
         output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
         vals.append(output_variable_or_meter_name_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class MeterCustomDecrement(DataObject):
@@ -2154,16 +1993,7 @@ class MeterCustomDecrement(DataObject):
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
     """
-    schema = {'min-fields': 0, 'name': u'Meter:CustomDecrement', 'pyname': u'MeterCustomDecrement', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'source meter name', {'name': u'Source Meter Name', 'pyname': u'source_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Meter:CustomDecrement`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Meter:CustomDecrement', 'pyname': u'MeterCustomDecrement', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fuel type', {'name': u'Fuel Type', 'pyname': u'fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'Water', u'Generic', u'OtherFuel1', u'OtherFuel2'], 'autocalculatable': False, 'type': 'alpha'}), (u'source meter name', {'name': u'Source Meter Name', 'pyname': u'source_meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'key name 1', {'name': u'Key Name 1', 'pyname': u'key_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'output variable or meter name 1', {'name': u'Output Variable or Meter Name 1', 'pyname': u'output_variable_or_meter_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -2172,7 +2002,7 @@ class MeterCustomDecrement(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -2195,7 +2025,7 @@ class MeterCustomDecrement(DataObject):
         Returns:
             str: the value of `fuel_type` or None if not set
         """
-        return self._data["Fuel Type"]
+        return self["Fuel Type"]
 
     @fuel_type.setter
     def fuel_type(self, value=None):
@@ -2218,7 +2048,7 @@ class MeterCustomDecrement(DataObject):
         Returns:
             str: the value of `source_meter_name` or None if not set
         """
-        return self._data["Source Meter Name"]
+        return self["Source Meter Name"]
 
     @source_meter_name.setter
     def source_meter_name(self, value=None):
@@ -2255,29 +2085,20 @@ class MeterCustomDecrement(DataObject):
         vals.append(key_name_1)
         output_variable_or_meter_name_1 = self.check_value("Output Variable or Meter Name 1", output_variable_or_meter_name_1)
         vals.append(output_variable_or_meter_name_1)
-        self._data["extensibles"].append(vals)
+        self._extdata.append(vals)
 
     @property
     def extensibles(self):
         """ Get list of all extensibles
         """
-        return self._data["extensibles"]
+        return self._extdata
 
 
 class OutputSqlite(DataObject):
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:SQLite', 'pyname': u'OutputSqlite', 'format': None, 'fields': OrderedDict([(u'option type', {'name': u'Option Type', 'pyname': u'option_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:SQLite`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:SQLite', 'pyname': u'OutputSqlite', 'format': None, 'fields': OrderedDict([(u'option type', {'name': u'Option Type', 'pyname': u'option_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Simple', u'SimpleAndTabular'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
     @property
     def option_type(self):
@@ -2286,7 +2107,7 @@ class OutputSqlite(DataObject):
         Returns:
             str: the value of `option_type` or None if not set
         """
-        return self._data["Option Type"]
+        return self["Option Type"]
 
     @option_type.setter
     def option_type(self, value=None):
@@ -2308,16 +2129,7 @@ class OutputEnvironmentalImpactFactors(DataObject):
         This is used to Automatically report the facility meters and turn on the Environmental Impact Report calculations
         for all of the Environmental Factors.
     """
-    schema = {'min-fields': 0, 'name': u'Output:EnvironmentalImpactFactors', 'pyname': u'OutputEnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:EnvironmentalImpactFactors`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:EnvironmentalImpactFactors', 'pyname': u'OutputEnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def reporting_frequency(self):
@@ -2326,7 +2138,7 @@ class OutputEnvironmentalImpactFactors(DataObject):
         Returns:
             str: the value of `reporting_frequency` or None if not set
         """
-        return self._data["Reporting Frequency"]
+        return self["Reporting Frequency"]
 
     @reporting_frequency.setter
     def reporting_frequency(self, value=None):
@@ -2350,15 +2162,6 @@ class EnvironmentalImpactFactors(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'EnvironmentalImpactFactors', 'pyname': u'EnvironmentalImpactFactors', 'format': None, 'fields': OrderedDict([(u'district heating efficiency', {'name': u'District Heating Efficiency', 'pyname': u'district_heating_efficiency', 'default': 0.3, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'district cooling cop', {'name': u'District Cooling COP', 'pyname': u'district_cooling_cop', 'default': 3.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/W'}), (u'steam conversion efficiency', {'name': u'Steam Conversion Efficiency', 'pyname': u'steam_conversion_efficiency', 'default': 0.25, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'total carbon equivalent emission factor from n2o', {'name': u'Total Carbon Equivalent Emission Factor From N2O', 'pyname': u'total_carbon_equivalent_emission_factor_from_n2o', 'default': 80.7272, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from ch4', {'name': u'Total Carbon Equivalent Emission Factor From CH4', 'pyname': u'total_carbon_equivalent_emission_factor_from_ch4', 'default': 6.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'}), (u'total carbon equivalent emission factor from co2', {'name': u'Total Carbon Equivalent Emission Factor From CO2', 'pyname': u'total_carbon_equivalent_emission_factor_from_co2', 'default': 0.2727, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `EnvironmentalImpactFactors`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def district_heating_efficiency(self):
         """Get district_heating_efficiency
@@ -2366,7 +2169,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `district_heating_efficiency` or None if not set
         """
-        return self._data["District Heating Efficiency"]
+        return self["District Heating Efficiency"]
 
     @district_heating_efficiency.setter
     def district_heating_efficiency(self, value=0.3):
@@ -2391,7 +2194,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `district_cooling_cop` or None if not set
         """
-        return self._data["District Cooling COP"]
+        return self["District Cooling COP"]
 
     @district_cooling_cop.setter
     def district_cooling_cop(self, value=3.0):
@@ -2417,7 +2220,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `steam_conversion_efficiency` or None if not set
         """
-        return self._data["Steam Conversion Efficiency"]
+        return self["Steam Conversion Efficiency"]
 
     @steam_conversion_efficiency.setter
     def steam_conversion_efficiency(self, value=0.25):
@@ -2442,7 +2245,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `total_carbon_equivalent_emission_factor_from_n2o` or None if not set
         """
-        return self._data["Total Carbon Equivalent Emission Factor From N2O"]
+        return self["Total Carbon Equivalent Emission Factor From N2O"]
 
     @total_carbon_equivalent_emission_factor_from_n2o.setter
     def total_carbon_equivalent_emission_factor_from_n2o(self, value=80.7272):
@@ -2467,7 +2270,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `total_carbon_equivalent_emission_factor_from_ch4` or None if not set
         """
-        return self._data["Total Carbon Equivalent Emission Factor From CH4"]
+        return self["Total Carbon Equivalent Emission Factor From CH4"]
 
     @total_carbon_equivalent_emission_factor_from_ch4.setter
     def total_carbon_equivalent_emission_factor_from_ch4(self, value=6.2727):
@@ -2492,7 +2295,7 @@ class EnvironmentalImpactFactors(DataObject):
         Returns:
             float: the value of `total_carbon_equivalent_emission_factor_from_co2` or None if not set
         """
-        return self._data["Total Carbon Equivalent Emission Factor From CO2"]
+        return self["Total Carbon Equivalent Emission Factor From CO2"]
 
     @total_carbon_equivalent_emission_factor_from_co2.setter
     def total_carbon_equivalent_emission_factor_from_co2(self, value=0.2727):
@@ -2517,16 +2320,7 @@ class FuelFactors(DataObject):
         OtherFuel1, OtherFuel2 provide options for users who want to create and use
         fuels that may not be mainstream (biomass, wood, pellets).
     """
-    schema = {'min-fields': 0, 'name': u'FuelFactors', 'pyname': u'FuelFactors', 'format': None, 'fields': OrderedDict([(u'existing fuel resource name', {'name': u'Existing Fuel Resource Name', 'pyname': u'existing_fuel_resource_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'units of measure', {'name': u'Units of Measure', 'pyname': u'units_of_measure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy per unit factor', {'name': u'Energy per Unit Factor', 'pyname': u'energy_per_unit_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'source energy factor', {'name': u'Source Energy Factor', 'pyname': u'source_energy_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/J'}), (u'source energy schedule name', {'name': u'Source Energy Schedule Name', 'pyname': u'source_energy_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co2 emission factor', {'name': u'CO2 Emission Factor', 'pyname': u'co2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co2 emission factor schedule name', {'name': u'CO2 Emission Factor Schedule Name', 'pyname': u'co2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co emission factor', {'name': u'CO Emission Factor', 'pyname': u'co_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co emission factor schedule name', {'name': u'CO Emission Factor Schedule Name', 'pyname': u'co_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ch4 emission factor', {'name': u'CH4 Emission Factor', 'pyname': u'ch4_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'ch4 emission factor schedule name', {'name': u'CH4 Emission Factor Schedule Name', 'pyname': u'ch4_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nox emission factor', {'name': u'NOx Emission Factor', 'pyname': u'nox_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nox emission factor schedule name', {'name': u'NOx Emission Factor Schedule Name', 'pyname': u'nox_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'n2o emission factor', {'name': u'N2O Emission Factor', 'pyname': u'n2o_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'n2o emission factor schedule name', {'name': u'N2O Emission Factor Schedule Name', 'pyname': u'n2o_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'so2 emission factor', {'name': u'SO2 Emission Factor', 'pyname': u'so2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'so2 emission factor schedule name', {'name': u'SO2 Emission Factor Schedule Name', 'pyname': u'so2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm emission factor', {'name': u'PM Emission Factor', 'pyname': u'pm_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm emission factor schedule name', {'name': u'PM Emission Factor Schedule Name', 'pyname': u'pm_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm10 emission factor', {'name': u'PM10 Emission Factor', 'pyname': u'pm10_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm10 emission factor schedule name', {'name': u'PM10 Emission Factor Schedule Name', 'pyname': u'pm10_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm2.5 emission factor', {'name': u'PM2.5 Emission Factor', 'pyname': u'pm2_5_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm2.5 emission factor schedule name', {'name': u'PM2.5 Emission Factor Schedule Name', 'pyname': u'pm2_5_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nh3 emission factor', {'name': u'NH3 Emission Factor', 'pyname': u'nh3_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nh3 emission factor schedule name', {'name': u'NH3 Emission Factor Schedule Name', 'pyname': u'nh3_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nmvoc emission factor', {'name': u'NMVOC Emission Factor', 'pyname': u'nmvoc_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nmvoc emission factor schedule name', {'name': u'NMVOC Emission Factor Schedule Name', 'pyname': u'nmvoc_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hg emission factor', {'name': u'Hg Emission Factor', 'pyname': u'hg_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'hg emission factor schedule name', {'name': u'Hg Emission Factor Schedule Name', 'pyname': u'hg_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pb emission factor', {'name': u'Pb Emission Factor', 'pyname': u'pb_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pb emission factor schedule name', {'name': u'Pb Emission Factor Schedule Name', 'pyname': u'pb_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water emission factor', {'name': u'Water Emission Factor', 'pyname': u'water_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'L/MJ'}), (u'water emission factor schedule name', {'name': u'Water Emission Factor Schedule Name', 'pyname': u'water_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear high level emission factor', {'name': u'Nuclear High Level Emission Factor', 'pyname': u'nuclear_high_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nuclear high level emission factor schedule name', {'name': u'Nuclear High Level Emission Factor Schedule Name', 'pyname': u'nuclear_high_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear low level emission factor', {'name': u'Nuclear Low Level Emission Factor', 'pyname': u'nuclear_low_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/MJ'}), (u'nuclear low level emission factor schedule name', {'name': u'Nuclear Low Level Emission Factor Schedule Name', 'pyname': u'nuclear_low_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `FuelFactors`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'FuelFactors', 'pyname': u'FuelFactors', 'format': None, 'fields': OrderedDict([(u'existing fuel resource name', {'name': u'Existing Fuel Resource Name', 'pyname': u'existing_fuel_resource_name', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Gasoline', u'Propane', u'Diesel', u'OtherFuel1', u'OtherFuel2'], 'autocalculatable': False, 'type': 'alpha'}), (u'units of measure', {'name': u'Units of Measure', 'pyname': u'units_of_measure', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'energy per unit factor', {'name': u'Energy per Unit Factor', 'pyname': u'energy_per_unit_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'source energy factor', {'name': u'Source Energy Factor', 'pyname': u'source_energy_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/J'}), (u'source energy schedule name', {'name': u'Source Energy Schedule Name', 'pyname': u'source_energy_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co2 emission factor', {'name': u'CO2 Emission Factor', 'pyname': u'co2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co2 emission factor schedule name', {'name': u'CO2 Emission Factor Schedule Name', 'pyname': u'co2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'co emission factor', {'name': u'CO Emission Factor', 'pyname': u'co_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'co emission factor schedule name', {'name': u'CO Emission Factor Schedule Name', 'pyname': u'co_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ch4 emission factor', {'name': u'CH4 Emission Factor', 'pyname': u'ch4_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'ch4 emission factor schedule name', {'name': u'CH4 Emission Factor Schedule Name', 'pyname': u'ch4_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nox emission factor', {'name': u'NOx Emission Factor', 'pyname': u'nox_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nox emission factor schedule name', {'name': u'NOx Emission Factor Schedule Name', 'pyname': u'nox_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'n2o emission factor', {'name': u'N2O Emission Factor', 'pyname': u'n2o_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'n2o emission factor schedule name', {'name': u'N2O Emission Factor Schedule Name', 'pyname': u'n2o_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'so2 emission factor', {'name': u'SO2 Emission Factor', 'pyname': u'so2_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'so2 emission factor schedule name', {'name': u'SO2 Emission Factor Schedule Name', 'pyname': u'so2_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm emission factor', {'name': u'PM Emission Factor', 'pyname': u'pm_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm emission factor schedule name', {'name': u'PM Emission Factor Schedule Name', 'pyname': u'pm_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm10 emission factor', {'name': u'PM10 Emission Factor', 'pyname': u'pm10_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm10 emission factor schedule name', {'name': u'PM10 Emission Factor Schedule Name', 'pyname': u'pm10_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pm2.5 emission factor', {'name': u'PM2.5 Emission Factor', 'pyname': u'pm2_5_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pm2.5 emission factor schedule name', {'name': u'PM2.5 Emission Factor Schedule Name', 'pyname': u'pm2_5_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nh3 emission factor', {'name': u'NH3 Emission Factor', 'pyname': u'nh3_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nh3 emission factor schedule name', {'name': u'NH3 Emission Factor Schedule Name', 'pyname': u'nh3_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nmvoc emission factor', {'name': u'NMVOC Emission Factor', 'pyname': u'nmvoc_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nmvoc emission factor schedule name', {'name': u'NMVOC Emission Factor Schedule Name', 'pyname': u'nmvoc_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hg emission factor', {'name': u'Hg Emission Factor', 'pyname': u'hg_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'hg emission factor schedule name', {'name': u'Hg Emission Factor Schedule Name', 'pyname': u'hg_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pb emission factor', {'name': u'Pb Emission Factor', 'pyname': u'pb_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'pb emission factor schedule name', {'name': u'Pb Emission Factor Schedule Name', 'pyname': u'pb_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water emission factor', {'name': u'Water Emission Factor', 'pyname': u'water_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'L/MJ'}), (u'water emission factor schedule name', {'name': u'Water Emission Factor Schedule Name', 'pyname': u'water_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear high level emission factor', {'name': u'Nuclear High Level Emission Factor', 'pyname': u'nuclear_high_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'g/MJ'}), (u'nuclear high level emission factor schedule name', {'name': u'Nuclear High Level Emission Factor Schedule Name', 'pyname': u'nuclear_high_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nuclear low level emission factor', {'name': u'Nuclear Low Level Emission Factor', 'pyname': u'nuclear_low_level_emission_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/MJ'}), (u'nuclear low level emission factor schedule name', {'name': u'Nuclear Low Level Emission Factor Schedule Name', 'pyname': u'nuclear_low_level_emission_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def existing_fuel_resource_name(self):
@@ -2535,7 +2329,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `existing_fuel_resource_name` or None if not set
         """
-        return self._data["Existing Fuel Resource Name"]
+        return self["Existing Fuel Resource Name"]
 
     @existing_fuel_resource_name.setter
     def existing_fuel_resource_name(self, value=None):
@@ -2558,7 +2352,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `units_of_measure` or None if not set
         """
-        return self._data["Units of Measure"]
+        return self["Units of Measure"]
 
     @units_of_measure.setter
     def units_of_measure(self, value=None):
@@ -2581,7 +2375,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `energy_per_unit_factor` or None if not set
         """
-        return self._data["Energy per Unit Factor"]
+        return self["Energy per Unit Factor"]
 
     @energy_per_unit_factor.setter
     def energy_per_unit_factor(self, value=None):
@@ -2604,7 +2398,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `source_energy_factor` or None if not set
         """
-        return self._data["Source Energy Factor"]
+        return self["Source Energy Factor"]
 
     @source_energy_factor.setter
     def source_energy_factor(self, value=None):
@@ -2628,7 +2422,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `source_energy_schedule_name` or None if not set
         """
-        return self._data["Source Energy Schedule Name"]
+        return self["Source Energy Schedule Name"]
 
     @source_energy_schedule_name.setter
     def source_energy_schedule_name(self, value=None):
@@ -2651,7 +2445,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `co2_emission_factor` or None if not set
         """
-        return self._data["CO2 Emission Factor"]
+        return self["CO2 Emission Factor"]
 
     @co2_emission_factor.setter
     def co2_emission_factor(self, value=None):
@@ -2675,7 +2469,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `co2_emission_factor_schedule_name` or None if not set
         """
-        return self._data["CO2 Emission Factor Schedule Name"]
+        return self["CO2 Emission Factor Schedule Name"]
 
     @co2_emission_factor_schedule_name.setter
     def co2_emission_factor_schedule_name(self, value=None):
@@ -2698,7 +2492,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `co_emission_factor` or None if not set
         """
-        return self._data["CO Emission Factor"]
+        return self["CO Emission Factor"]
 
     @co_emission_factor.setter
     def co_emission_factor(self, value=None):
@@ -2722,7 +2516,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `co_emission_factor_schedule_name` or None if not set
         """
-        return self._data["CO Emission Factor Schedule Name"]
+        return self["CO Emission Factor Schedule Name"]
 
     @co_emission_factor_schedule_name.setter
     def co_emission_factor_schedule_name(self, value=None):
@@ -2745,7 +2539,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `ch4_emission_factor` or None if not set
         """
-        return self._data["CH4 Emission Factor"]
+        return self["CH4 Emission Factor"]
 
     @ch4_emission_factor.setter
     def ch4_emission_factor(self, value=None):
@@ -2769,7 +2563,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `ch4_emission_factor_schedule_name` or None if not set
         """
-        return self._data["CH4 Emission Factor Schedule Name"]
+        return self["CH4 Emission Factor Schedule Name"]
 
     @ch4_emission_factor_schedule_name.setter
     def ch4_emission_factor_schedule_name(self, value=None):
@@ -2792,7 +2586,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `nox_emission_factor` or None if not set
         """
-        return self._data["NOx Emission Factor"]
+        return self["NOx Emission Factor"]
 
     @nox_emission_factor.setter
     def nox_emission_factor(self, value=None):
@@ -2816,7 +2610,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `nox_emission_factor_schedule_name` or None if not set
         """
-        return self._data["NOx Emission Factor Schedule Name"]
+        return self["NOx Emission Factor Schedule Name"]
 
     @nox_emission_factor_schedule_name.setter
     def nox_emission_factor_schedule_name(self, value=None):
@@ -2839,7 +2633,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `n2o_emission_factor` or None if not set
         """
-        return self._data["N2O Emission Factor"]
+        return self["N2O Emission Factor"]
 
     @n2o_emission_factor.setter
     def n2o_emission_factor(self, value=None):
@@ -2863,7 +2657,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `n2o_emission_factor_schedule_name` or None if not set
         """
-        return self._data["N2O Emission Factor Schedule Name"]
+        return self["N2O Emission Factor Schedule Name"]
 
     @n2o_emission_factor_schedule_name.setter
     def n2o_emission_factor_schedule_name(self, value=None):
@@ -2886,7 +2680,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `so2_emission_factor` or None if not set
         """
-        return self._data["SO2 Emission Factor"]
+        return self["SO2 Emission Factor"]
 
     @so2_emission_factor.setter
     def so2_emission_factor(self, value=None):
@@ -2910,7 +2704,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `so2_emission_factor_schedule_name` or None if not set
         """
-        return self._data["SO2 Emission Factor Schedule Name"]
+        return self["SO2 Emission Factor Schedule Name"]
 
     @so2_emission_factor_schedule_name.setter
     def so2_emission_factor_schedule_name(self, value=None):
@@ -2933,7 +2727,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `pm_emission_factor` or None if not set
         """
-        return self._data["PM Emission Factor"]
+        return self["PM Emission Factor"]
 
     @pm_emission_factor.setter
     def pm_emission_factor(self, value=None):
@@ -2957,7 +2751,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `pm_emission_factor_schedule_name` or None if not set
         """
-        return self._data["PM Emission Factor Schedule Name"]
+        return self["PM Emission Factor Schedule Name"]
 
     @pm_emission_factor_schedule_name.setter
     def pm_emission_factor_schedule_name(self, value=None):
@@ -2980,7 +2774,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `pm10_emission_factor` or None if not set
         """
-        return self._data["PM10 Emission Factor"]
+        return self["PM10 Emission Factor"]
 
     @pm10_emission_factor.setter
     def pm10_emission_factor(self, value=None):
@@ -3004,7 +2798,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `pm10_emission_factor_schedule_name` or None if not set
         """
-        return self._data["PM10 Emission Factor Schedule Name"]
+        return self["PM10 Emission Factor Schedule Name"]
 
     @pm10_emission_factor_schedule_name.setter
     def pm10_emission_factor_schedule_name(self, value=None):
@@ -3027,7 +2821,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `pm2_5_emission_factor` or None if not set
         """
-        return self._data["PM2.5 Emission Factor"]
+        return self["PM2.5 Emission Factor"]
 
     @pm2_5_emission_factor.setter
     def pm2_5_emission_factor(self, value=None):
@@ -3051,7 +2845,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `pm2_5_emission_factor_schedule_name` or None if not set
         """
-        return self._data["PM2.5 Emission Factor Schedule Name"]
+        return self["PM2.5 Emission Factor Schedule Name"]
 
     @pm2_5_emission_factor_schedule_name.setter
     def pm2_5_emission_factor_schedule_name(self, value=None):
@@ -3074,7 +2868,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `nh3_emission_factor` or None if not set
         """
-        return self._data["NH3 Emission Factor"]
+        return self["NH3 Emission Factor"]
 
     @nh3_emission_factor.setter
     def nh3_emission_factor(self, value=None):
@@ -3098,7 +2892,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `nh3_emission_factor_schedule_name` or None if not set
         """
-        return self._data["NH3 Emission Factor Schedule Name"]
+        return self["NH3 Emission Factor Schedule Name"]
 
     @nh3_emission_factor_schedule_name.setter
     def nh3_emission_factor_schedule_name(self, value=None):
@@ -3121,7 +2915,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `nmvoc_emission_factor` or None if not set
         """
-        return self._data["NMVOC Emission Factor"]
+        return self["NMVOC Emission Factor"]
 
     @nmvoc_emission_factor.setter
     def nmvoc_emission_factor(self, value=None):
@@ -3145,7 +2939,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `nmvoc_emission_factor_schedule_name` or None if not set
         """
-        return self._data["NMVOC Emission Factor Schedule Name"]
+        return self["NMVOC Emission Factor Schedule Name"]
 
     @nmvoc_emission_factor_schedule_name.setter
     def nmvoc_emission_factor_schedule_name(self, value=None):
@@ -3168,7 +2962,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `hg_emission_factor` or None if not set
         """
-        return self._data["Hg Emission Factor"]
+        return self["Hg Emission Factor"]
 
     @hg_emission_factor.setter
     def hg_emission_factor(self, value=None):
@@ -3192,7 +2986,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `hg_emission_factor_schedule_name` or None if not set
         """
-        return self._data["Hg Emission Factor Schedule Name"]
+        return self["Hg Emission Factor Schedule Name"]
 
     @hg_emission_factor_schedule_name.setter
     def hg_emission_factor_schedule_name(self, value=None):
@@ -3215,7 +3009,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `pb_emission_factor` or None if not set
         """
-        return self._data["Pb Emission Factor"]
+        return self["Pb Emission Factor"]
 
     @pb_emission_factor.setter
     def pb_emission_factor(self, value=None):
@@ -3239,7 +3033,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `pb_emission_factor_schedule_name` or None if not set
         """
-        return self._data["Pb Emission Factor Schedule Name"]
+        return self["Pb Emission Factor Schedule Name"]
 
     @pb_emission_factor_schedule_name.setter
     def pb_emission_factor_schedule_name(self, value=None):
@@ -3262,7 +3056,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `water_emission_factor` or None if not set
         """
-        return self._data["Water Emission Factor"]
+        return self["Water Emission Factor"]
 
     @water_emission_factor.setter
     def water_emission_factor(self, value=None):
@@ -3286,7 +3080,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `water_emission_factor_schedule_name` or None if not set
         """
-        return self._data["Water Emission Factor Schedule Name"]
+        return self["Water Emission Factor Schedule Name"]
 
     @water_emission_factor_schedule_name.setter
     def water_emission_factor_schedule_name(self, value=None):
@@ -3309,7 +3103,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `nuclear_high_level_emission_factor` or None if not set
         """
-        return self._data["Nuclear High Level Emission Factor"]
+        return self["Nuclear High Level Emission Factor"]
 
     @nuclear_high_level_emission_factor.setter
     def nuclear_high_level_emission_factor(self, value=None):
@@ -3333,7 +3127,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `nuclear_high_level_emission_factor_schedule_name` or None if not set
         """
-        return self._data["Nuclear High Level Emission Factor Schedule Name"]
+        return self["Nuclear High Level Emission Factor Schedule Name"]
 
     @nuclear_high_level_emission_factor_schedule_name.setter
     def nuclear_high_level_emission_factor_schedule_name(self, value=None):
@@ -3356,7 +3150,7 @@ class FuelFactors(DataObject):
         Returns:
             float: the value of `nuclear_low_level_emission_factor` or None if not set
         """
-        return self._data["Nuclear Low Level Emission Factor"]
+        return self["Nuclear Low Level Emission Factor"]
 
     @nuclear_low_level_emission_factor.setter
     def nuclear_low_level_emission_factor(self, value=None):
@@ -3380,7 +3174,7 @@ class FuelFactors(DataObject):
         Returns:
             str: the value of `nuclear_low_level_emission_factor_schedule_name` or None if not set
         """
-        return self._data["Nuclear Low Level Emission Factor Schedule Name"]
+        return self["Nuclear Low Level Emission Factor Schedule Name"]
 
     @nuclear_low_level_emission_factor_schedule_name.setter
     def nuclear_low_level_emission_factor_schedule_name(self, value=None):
@@ -3401,16 +3195,7 @@ class OutputDiagnostics(DataObject):
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Diagnostics', 'pyname': u'OutputDiagnostics', 'format': None, 'fields': OrderedDict([(u'key 1', {'name': u'Key 1', 'pyname': u'key_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'key 2', {'name': u'Key 2', 'pyname': u'key_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:Diagnostics`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:Diagnostics', 'pyname': u'OutputDiagnostics', 'format': None, 'fields': OrderedDict([(u'key 1', {'name': u'Key 1', 'pyname': u'key_1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DisplayAllWarnings', u'DisplayExtraWarnings', u'DisplayUnusedSchedules', u'DisplayUnusedObjects', u'DisplayAdvancedReportVariables', u'DisplayZoneAirHeatBalanceOffBalance', u'DoNotMirrorDetachedShading', u'DisplayWeatherMissingDataWarnings', u'ReportDuringWarmup', u'ReportDetailedWarmupConvergence'], 'autocalculatable': False, 'type': 'alpha'}), (u'key 2', {'name': u'Key 2', 'pyname': u'key_2', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DisplayAllWarnings', u'DisplayExtraWarnings', u'DisplayUnusedSchedules', u'DisplayUnusedObjects', u'DisplayAdvancedReportVariables', u'DisplayZoneAirHeatBalanceOffBalance', u'DoNotMirrorDetachedShading', u'DisplayWeatherMissingDataWarnings', u'ReportDuringWarmup', u'ReportDetailedWarmupConvergence'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def key_1(self):
@@ -3419,7 +3204,7 @@ class OutputDiagnostics(DataObject):
         Returns:
             str: the value of `key_1` or None if not set
         """
-        return self._data["Key 1"]
+        return self["Key 1"]
 
     @key_1.setter
     def key_1(self, value=None):
@@ -3442,7 +3227,7 @@ class OutputDiagnostics(DataObject):
         Returns:
             str: the value of `key_2` or None if not set
         """
-        return self._data["Key 2"]
+        return self["Key 2"]
 
     @key_2.setter
     def key_2(self, value=None):
@@ -3465,15 +3250,6 @@ class OutputDebuggingData(DataObject):
     """
     schema = {'min-fields': 0, 'name': u'Output:DebuggingData', 'pyname': u'OutputDebuggingData', 'format': None, 'fields': OrderedDict([(u'report debugging data', {'name': u'Report Debugging Data', 'pyname': u'report_debugging_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'report during warmup', {'name': u'Report During Warmup', 'pyname': u'report_during_warmup', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:DebuggingData`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def report_debugging_data(self):
         """Get report_debugging_data
@@ -3481,7 +3257,7 @@ class OutputDebuggingData(DataObject):
         Returns:
             float: the value of `report_debugging_data` or None if not set
         """
-        return self._data["Report Debugging Data"]
+        return self["Report Debugging Data"]
 
     @report_debugging_data.setter
     def report_debugging_data(self, value=None):
@@ -3505,7 +3281,7 @@ class OutputDebuggingData(DataObject):
         Returns:
             float: the value of `report_during_warmup` or None if not set
         """
-        return self._data["Report During Warmup"]
+        return self["Report During Warmup"]
 
     @report_during_warmup.setter
     def report_during_warmup(self, value=None):
@@ -3528,16 +3304,7 @@ class OutputPreprocessorMessage(DataObject):
         This object does not come from a user input.  This is generated by a pre-processor
         so that various conditions can be gracefully passed on by the InputProcessor.
     """
-    schema = {'min-fields': 0, 'name': u'Output:PreprocessorMessage', 'pyname': u'OutputPreprocessorMessage', 'format': None, 'fields': OrderedDict([(u'preprocessor name', {'name': u'Preprocessor Name', 'pyname': u'preprocessor_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'error severity', {'name': u'Error Severity', 'pyname': u'error_severity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 1', {'name': u'Message Line 1', 'pyname': u'message_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 2', {'name': u'Message Line 2', 'pyname': u'message_line_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 3', {'name': u'Message Line 3', 'pyname': u'message_line_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 4', {'name': u'Message Line 4', 'pyname': u'message_line_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 5', {'name': u'Message Line 5', 'pyname': u'message_line_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 6', {'name': u'Message Line 6', 'pyname': u'message_line_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 7', {'name': u'Message Line 7', 'pyname': u'message_line_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 8', {'name': u'Message Line 8', 'pyname': u'message_line_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 9', {'name': u'Message Line 9', 'pyname': u'message_line_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 10', {'name': u'Message Line 10', 'pyname': u'message_line_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Output:PreprocessorMessage`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'Output:PreprocessorMessage', 'pyname': u'OutputPreprocessorMessage', 'format': None, 'fields': OrderedDict([(u'preprocessor name', {'name': u'Preprocessor Name', 'pyname': u'preprocessor_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'error severity', {'name': u'Error Severity', 'pyname': u'error_severity', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Information', u'Warning', u'Severe', u'Fatal'], 'autocalculatable': False, 'type': 'alpha'}), (u'message line 1', {'name': u'Message Line 1', 'pyname': u'message_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 2', {'name': u'Message Line 2', 'pyname': u'message_line_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 3', {'name': u'Message Line 3', 'pyname': u'message_line_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 4', {'name': u'Message Line 4', 'pyname': u'message_line_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 5', {'name': u'Message Line 5', 'pyname': u'message_line_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 6', {'name': u'Message Line 6', 'pyname': u'message_line_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 7', {'name': u'Message Line 7', 'pyname': u'message_line_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 8', {'name': u'Message Line 8', 'pyname': u'message_line_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 9', {'name': u'Message Line 9', 'pyname': u'message_line_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'message line 10', {'name': u'Message Line 10', 'pyname': u'message_line_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def preprocessor_name(self):
@@ -3546,7 +3313,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `preprocessor_name` or None if not set
         """
-        return self._data["Preprocessor Name"]
+        return self["Preprocessor Name"]
 
     @preprocessor_name.setter
     def preprocessor_name(self, value=None):
@@ -3569,7 +3336,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `error_severity` or None if not set
         """
-        return self._data["Error Severity"]
+        return self["Error Severity"]
 
     @error_severity.setter
     def error_severity(self, value=None):
@@ -3593,7 +3360,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_1` or None if not set
         """
-        return self._data["Message Line 1"]
+        return self["Message Line 1"]
 
     @message_line_1.setter
     def message_line_1(self, value=None):
@@ -3616,7 +3383,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_2` or None if not set
         """
-        return self._data["Message Line 2"]
+        return self["Message Line 2"]
 
     @message_line_2.setter
     def message_line_2(self, value=None):
@@ -3639,7 +3406,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_3` or None if not set
         """
-        return self._data["Message Line 3"]
+        return self["Message Line 3"]
 
     @message_line_3.setter
     def message_line_3(self, value=None):
@@ -3662,7 +3429,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_4` or None if not set
         """
-        return self._data["Message Line 4"]
+        return self["Message Line 4"]
 
     @message_line_4.setter
     def message_line_4(self, value=None):
@@ -3685,7 +3452,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_5` or None if not set
         """
-        return self._data["Message Line 5"]
+        return self["Message Line 5"]
 
     @message_line_5.setter
     def message_line_5(self, value=None):
@@ -3708,7 +3475,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_6` or None if not set
         """
-        return self._data["Message Line 6"]
+        return self["Message Line 6"]
 
     @message_line_6.setter
     def message_line_6(self, value=None):
@@ -3731,7 +3498,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_7` or None if not set
         """
-        return self._data["Message Line 7"]
+        return self["Message Line 7"]
 
     @message_line_7.setter
     def message_line_7(self, value=None):
@@ -3754,7 +3521,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_8` or None if not set
         """
-        return self._data["Message Line 8"]
+        return self["Message Line 8"]
 
     @message_line_8.setter
     def message_line_8(self, value=None):
@@ -3777,7 +3544,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_9` or None if not set
         """
-        return self._data["Message Line 9"]
+        return self["Message Line 9"]
 
     @message_line_9.setter
     def message_line_9(self, value=None):
@@ -3800,7 +3567,7 @@ class OutputPreprocessorMessage(DataObject):
         Returns:
             str: the value of `message_line_10` or None if not set
         """
-        return self._data["Message Line 10"]
+        return self["Message Line 10"]
 
     @message_line_10.setter
     def message_line_10(self, value=None):

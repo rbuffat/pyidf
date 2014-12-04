@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -15,15 +16,6 @@ class ZoneHvacForcedAirUserDefined(DataObject):
     """
     schema = {'min-fields': 8, 'name': u'ZoneHVAC:ForcedAir:UserDefined', 'pyname': u'ZoneHvacForcedAirUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 3, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 inlet node name', {'name': u'Plant Connection 3 Inlet Node Name', 'pyname': u'plant_connection_3_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 outlet node name', {'name': u'Plant Connection 3 Outlet Node Name', 'pyname': u'plant_connection_3_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ZoneHVAC:ForcedAir:UserDefined`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -31,7 +23,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -55,7 +47,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `overall_model_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Overall Model Simulation Program Calling Manager Name"]
+        return self["Overall Model Simulation Program Calling Manager Name"]
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
@@ -78,7 +70,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `model_setup_and_sizing_program_calling_manager_name` or None if not set
         """
-        return self._data["Model Setup and Sizing Program Calling Manager Name"]
+        return self["Model Setup and Sizing Program Calling Manager Name"]
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
@@ -101,7 +93,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `primary_air_inlet_node_name` or None if not set
         """
-        return self._data["Primary Air Inlet Node Name"]
+        return self["Primary Air Inlet Node Name"]
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
@@ -125,7 +117,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `primary_air_outlet_node_name` or None if not set
         """
-        return self._data["Primary Air Outlet Node Name"]
+        return self["Primary Air Outlet Node Name"]
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
@@ -149,7 +141,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Inlet Node Name"]
+        return self["Secondary Air Inlet Node Name"]
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
@@ -173,7 +165,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `secondary_air_outlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Outlet Node Name"]
+        return self["Secondary Air Outlet Node Name"]
 
     @secondary_air_outlet_node_name.setter
     def secondary_air_outlet_node_name(self, value=None):
@@ -197,7 +189,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             int: the value of `number_of_plant_loop_connections` or None if not set
         """
-        return self._data["Number of Plant Loop Connections"]
+        return self["Number of Plant Loop Connections"]
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
@@ -221,7 +213,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Inlet Node Name"]
+        return self["Plant Connection 1 Inlet Node Name"]
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
@@ -244,7 +236,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Outlet Node Name"]
+        return self["Plant Connection 1 Outlet Node Name"]
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
@@ -267,7 +259,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Inlet Node Name"]
+        return self["Plant Connection 2 Inlet Node Name"]
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
@@ -290,7 +282,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Outlet Node Name"]
+        return self["Plant Connection 2 Outlet Node Name"]
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
@@ -313,7 +305,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 3 Inlet Node Name"]
+        return self["Plant Connection 3 Inlet Node Name"]
 
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
@@ -336,7 +328,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 3 Outlet Node Name"]
+        return self["Plant Connection 3 Outlet Node Name"]
 
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
@@ -359,7 +351,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `supply_inlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Supply Inlet Water Storage Tank Name"]
+        return self["Supply Inlet Water Storage Tank Name"]
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
@@ -383,7 +375,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `collection_outlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Collection Outlet Water Storage Tank Name"]
+        return self["Collection Outlet Water Storage Tank Name"]
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
@@ -407,7 +399,7 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         Returns:
             str: the value of `ambient_zone_name` or None if not set
         """
-        return self._data["Ambient Zone Name"]
+        return self["Ambient Zone Name"]
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
@@ -432,15 +424,6 @@ class AirTerminalSingleDuctUserDefined(DataObject):
     """
     schema = {'min-fields': 8, 'name': u'AirTerminal:SingleDuct:UserDefined', 'pyname': u'AirTerminalSingleDuctUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'secondary air outlet node name', {'name': u'Secondary Air Outlet Node Name', 'pyname': u'secondary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:UserDefined`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -448,7 +431,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -472,7 +455,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `overall_model_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Overall Model Simulation Program Calling Manager Name"]
+        return self["Overall Model Simulation Program Calling Manager Name"]
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
@@ -495,7 +478,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `model_setup_and_sizing_program_calling_manager_name` or None if not set
         """
-        return self._data["Model Setup and Sizing Program Calling Manager Name"]
+        return self["Model Setup and Sizing Program Calling Manager Name"]
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
@@ -518,7 +501,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `primary_air_inlet_node_name` or None if not set
         """
-        return self._data["Primary Air Inlet Node Name"]
+        return self["Primary Air Inlet Node Name"]
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
@@ -542,7 +525,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `primary_air_outlet_node_name` or None if not set
         """
-        return self._data["Primary Air Outlet Node Name"]
+        return self["Primary Air Outlet Node Name"]
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
@@ -566,7 +549,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `secondary_air_inlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Inlet Node Name"]
+        return self["Secondary Air Inlet Node Name"]
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
@@ -590,7 +573,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `secondary_air_outlet_node_name` or None if not set
         """
-        return self._data["Secondary Air Outlet Node Name"]
+        return self["Secondary Air Outlet Node Name"]
 
     @secondary_air_outlet_node_name.setter
     def secondary_air_outlet_node_name(self, value=None):
@@ -614,7 +597,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             int: the value of `number_of_plant_loop_connections` or None if not set
         """
-        return self._data["Number of Plant Loop Connections"]
+        return self["Number of Plant Loop Connections"]
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
@@ -638,7 +621,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Inlet Node Name"]
+        return self["Plant Connection 1 Inlet Node Name"]
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
@@ -661,7 +644,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Outlet Node Name"]
+        return self["Plant Connection 1 Outlet Node Name"]
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
@@ -684,7 +667,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Inlet Node Name"]
+        return self["Plant Connection 2 Inlet Node Name"]
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
@@ -707,7 +690,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Outlet Node Name"]
+        return self["Plant Connection 2 Outlet Node Name"]
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
@@ -730,7 +713,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `supply_inlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Supply Inlet Water Storage Tank Name"]
+        return self["Supply Inlet Water Storage Tank Name"]
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
@@ -754,7 +737,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `collection_outlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Collection Outlet Water Storage Tank Name"]
+        return self["Collection Outlet Water Storage Tank Name"]
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
@@ -778,7 +761,7 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         Returns:
             str: the value of `ambient_zone_name` or None if not set
         """
-        return self._data["Ambient Zone Name"]
+        return self["Ambient Zone Name"]
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
@@ -801,16 +784,7 @@ class CoilUserDefined(DataObject):
         Defines a generic air system component for custom modeling
         using Energy Management System or External Interface
     """
-    schema = {'min-fields': 9, 'name': u'Coil:UserDefined', 'pyname': u'CoilUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of air connections', {'name': u'Number of Air Connections', 'pyname': u'number_of_air_connections', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'air connection 1 inlet node name', {'name': u'Air Connection 1 Inlet Node Name', 'pyname': u'air_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 1 outlet node name', {'name': u'Air Connection 1 Outlet Node Name', 'pyname': u'air_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 inlet node name', {'name': u'Air Connection 2 Inlet Node Name', 'pyname': u'air_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 outlet node name', {'name': u'Air Connection 2 Outlet Node Name', 'pyname': u'air_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection is used', {'name': u'Plant Connection is Used', 'pyname': u'plant_connection_is_used', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection inlet node name', {'name': u'Plant Connection Inlet Node Name', 'pyname': u'plant_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection outlet node name', {'name': u'Plant Connection Outlet Node Name', 'pyname': u'plant_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Coil:UserDefined`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 9, 'name': u'Coil:UserDefined', 'pyname': u'CoilUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'overall model simulation program calling manager name', {'name': u'Overall Model Simulation Program Calling Manager Name', 'pyname': u'overall_model_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'model setup and sizing program calling manager name', {'name': u'Model Setup and Sizing Program Calling Manager Name', 'pyname': u'model_setup_and_sizing_program_calling_manager_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of air connections', {'name': u'Number of Air Connections', 'pyname': u'number_of_air_connections', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'air connection 1 inlet node name', {'name': u'Air Connection 1 Inlet Node Name', 'pyname': u'air_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 1 outlet node name', {'name': u'Air Connection 1 Outlet Node Name', 'pyname': u'air_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 inlet node name', {'name': u'Air Connection 2 Inlet Node Name', 'pyname': u'air_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection 2 outlet node name', {'name': u'Air Connection 2 Outlet Node Name', 'pyname': u'air_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection is used', {'name': u'Plant Connection is Used', 'pyname': u'plant_connection_is_used', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection inlet node name', {'name': u'Plant Connection Inlet Node Name', 'pyname': u'plant_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection outlet node name', {'name': u'Plant Connection Outlet Node Name', 'pyname': u'plant_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -819,7 +793,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -843,7 +817,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `overall_model_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Overall Model Simulation Program Calling Manager Name"]
+        return self["Overall Model Simulation Program Calling Manager Name"]
 
     @overall_model_simulation_program_calling_manager_name.setter
     def overall_model_simulation_program_calling_manager_name(self, value=None):
@@ -866,7 +840,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `model_setup_and_sizing_program_calling_manager_name` or None if not set
         """
-        return self._data["Model Setup and Sizing Program Calling Manager Name"]
+        return self["Model Setup and Sizing Program Calling Manager Name"]
 
     @model_setup_and_sizing_program_calling_manager_name.setter
     def model_setup_and_sizing_program_calling_manager_name(self, value=None):
@@ -889,7 +863,7 @@ class CoilUserDefined(DataObject):
         Returns:
             int: the value of `number_of_air_connections` or None if not set
         """
-        return self._data["Number of Air Connections"]
+        return self["Number of Air Connections"]
 
     @number_of_air_connections.setter
     def number_of_air_connections(self, value=None):
@@ -914,7 +888,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_1_inlet_node_name` or None if not set
         """
-        return self._data["Air Connection 1 Inlet Node Name"]
+        return self["Air Connection 1 Inlet Node Name"]
 
     @air_connection_1_inlet_node_name.setter
     def air_connection_1_inlet_node_name(self, value=None):
@@ -938,7 +912,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_1_outlet_node_name` or None if not set
         """
-        return self._data["Air Connection 1 Outlet Node Name"]
+        return self["Air Connection 1 Outlet Node Name"]
 
     @air_connection_1_outlet_node_name.setter
     def air_connection_1_outlet_node_name(self, value=None):
@@ -962,7 +936,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_2_inlet_node_name` or None if not set
         """
-        return self._data["Air Connection 2 Inlet Node Name"]
+        return self["Air Connection 2 Inlet Node Name"]
 
     @air_connection_2_inlet_node_name.setter
     def air_connection_2_inlet_node_name(self, value=None):
@@ -986,7 +960,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_2_outlet_node_name` or None if not set
         """
-        return self._data["Air Connection 2 Outlet Node Name"]
+        return self["Air Connection 2 Outlet Node Name"]
 
     @air_connection_2_outlet_node_name.setter
     def air_connection_2_outlet_node_name(self, value=None):
@@ -1010,7 +984,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_is_used` or None if not set
         """
-        return self._data["Plant Connection is Used"]
+        return self["Plant Connection is Used"]
 
     @plant_connection_is_used.setter
     def plant_connection_is_used(self, value=None):
@@ -1033,7 +1007,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection Inlet Node Name"]
+        return self["Plant Connection Inlet Node Name"]
 
     @plant_connection_inlet_node_name.setter
     def plant_connection_inlet_node_name(self, value=None):
@@ -1056,7 +1030,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection Outlet Node Name"]
+        return self["Plant Connection Outlet Node Name"]
 
     @plant_connection_outlet_node_name.setter
     def plant_connection_outlet_node_name(self, value=None):
@@ -1079,7 +1053,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `supply_inlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Supply Inlet Water Storage Tank Name"]
+        return self["Supply Inlet Water Storage Tank Name"]
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
@@ -1103,7 +1077,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `collection_outlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Collection Outlet Water Storage Tank Name"]
+        return self["Collection Outlet Water Storage Tank Name"]
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
@@ -1127,7 +1101,7 @@ class CoilUserDefined(DataObject):
         Returns:
             str: the value of `ambient_zone_name` or None if not set
         """
-        return self._data["Ambient Zone Name"]
+        return self["Ambient Zone Name"]
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
@@ -1150,16 +1124,7 @@ class PlantComponentUserDefined(DataObject):
         Defines a generic plant component for custom modeling
         using Energy Management System or External Interface
     """
-    schema = {'min-fields': 9, 'name': u'PlantComponent:UserDefined', 'pyname': u'PlantComponentUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'main model program calling manager name', {'name': u'Main Model Program Calling Manager Name', 'pyname': u'main_model_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 loading mode', {'name': u'Plant Connection 1 Loading Mode', 'pyname': u'plant_connection_1_loading_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 loop flow request mode', {'name': u'Plant Connection 1 Loop Flow Request Mode', 'pyname': u'plant_connection_1_loop_flow_request_mode', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 1 initialization program calling manager name', {'name': u'Plant Connection 1 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_1_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 simulation program calling manager name', {'name': u'Plant Connection 1 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_1_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 loading mode', {'name': u'Plant Connection 2 Loading Mode', 'pyname': u'plant_connection_2_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 2 loop flow request mode', {'name': u'Plant Connection 2 Loop Flow Request Mode', 'pyname': u'plant_connection_2_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 2 initialization program calling manager name', {'name': u'Plant Connection 2 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_2_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 simulation program calling manager name', {'name': u'Plant Connection 2 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_2_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 inlet node name', {'name': u'Plant Connection 3 Inlet Node Name', 'pyname': u'plant_connection_3_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 outlet node name', {'name': u'Plant Connection 3 Outlet Node Name', 'pyname': u'plant_connection_3_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 loading mode', {'name': u'Plant Connection 3 Loading Mode', 'pyname': u'plant_connection_3_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 3 loop flow request mode', {'name': u'Plant Connection 3 Loop Flow Request Mode', 'pyname': u'plant_connection_3_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 3 initialization program calling manager name', {'name': u'Plant Connection 3 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_3_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 simulation program calling manager name', {'name': u'Plant Connection 3 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_3_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 inlet node name', {'name': u'Plant Connection 4 Inlet Node Name', 'pyname': u'plant_connection_4_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 outlet node name', {'name': u'Plant Connection 4 Outlet Node Name', 'pyname': u'plant_connection_4_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 loading mode', {'name': u'Plant Connection 4 Loading Mode', 'pyname': u'plant_connection_4_loading_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 4 loop flow request mode', {'name': u'Plant Connection 4 Loop Flow Request Mode', 'pyname': u'plant_connection_4_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 4 initialization program calling manager name', {'name': u'Plant Connection 4 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_4_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 simulation program calling manager name', {'name': u'Plant Connection 4 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_4_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air connection inlet node name', {'name': u'Air Connection Inlet Node Name', 'pyname': u'air_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection outlet node name', {'name': u'Air Connection Outlet Node Name', 'pyname': u'air_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantComponent:UserDefined`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 9, 'name': u'PlantComponent:UserDefined', 'pyname': u'PlantComponentUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'main model program calling manager name', {'name': u'Main Model Program Calling Manager Name', 'pyname': u'main_model_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of plant loop connections', {'name': u'Number of Plant Loop Connections', 'pyname': u'number_of_plant_loop_connections', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'plant connection 1 inlet node name', {'name': u'Plant Connection 1 Inlet Node Name', 'pyname': u'plant_connection_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 outlet node name', {'name': u'Plant Connection 1 Outlet Node Name', 'pyname': u'plant_connection_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 1 loading mode', {'name': u'Plant Connection 1 Loading Mode', 'pyname': u'plant_connection_1_loading_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'DemandsLoad', u'MeetsLoadWithPassiveCapacity', u'MeetsLoadWithNominalCapacity', u'MeetsLoadWithNominalCapacityLowOutLimit', u'MeetsLoadWithNominalCapacityHiOutLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 loop flow request mode', {'name': u'Plant Connection 1 Loop Flow Request Mode', 'pyname': u'plant_connection_1_loop_flow_request_mode', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 1 initialization program calling manager name', {'name': u'Plant Connection 1 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_1_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 1 simulation program calling manager name', {'name': u'Plant Connection 1 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_1_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 inlet node name', {'name': u'Plant Connection 2 Inlet Node Name', 'pyname': u'plant_connection_2_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 outlet node name', {'name': u'Plant Connection 2 Outlet Node Name', 'pyname': u'plant_connection_2_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 2 loading mode', {'name': u'Plant Connection 2 Loading Mode', 'pyname': u'plant_connection_2_loading_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 2 loop flow request mode', {'name': u'Plant Connection 2 Loop Flow Request Mode', 'pyname': u'plant_connection_2_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 2 initialization program calling manager name', {'name': u'Plant Connection 2 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_2_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 2 simulation program calling manager name', {'name': u'Plant Connection 2 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_2_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 inlet node name', {'name': u'Plant Connection 3 Inlet Node Name', 'pyname': u'plant_connection_3_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 outlet node name', {'name': u'Plant Connection 3 Outlet Node Name', 'pyname': u'plant_connection_3_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 3 loading mode', {'name': u'Plant Connection 3 Loading Mode', 'pyname': u'plant_connection_3_loading_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 3 loop flow request mode', {'name': u'Plant Connection 3 Loop Flow Request Mode', 'pyname': u'plant_connection_3_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 3 initialization program calling manager name', {'name': u'Plant Connection 3 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_3_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 3 simulation program calling manager name', {'name': u'Plant Connection 3 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_3_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 inlet node name', {'name': u'Plant Connection 4 Inlet Node Name', 'pyname': u'plant_connection_4_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 outlet node name', {'name': u'Plant Connection 4 Outlet Node Name', 'pyname': u'plant_connection_4_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant connection 4 loading mode', {'name': u'Plant Connection 4 Loading Mode', 'pyname': u'plant_connection_4_loading_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DemandsLoad', u'MeetLoadWithPassiveCapacity', u'MeetLoadWithNominalCapacity', u'MeetLoadWithNominalCapacityLowOutLimit', u'MeetLoadWithNominalCapacityHiOutLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'plant connection 4 loop flow request mode', {'name': u'Plant Connection 4 Loop Flow Request Mode', 'pyname': u'plant_connection_4_loop_flow_request_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NeedsFlowIfLoopOn', u'NeedsFlowAndTurnsLoopOn', u'ReceivesWhateverFlowAvailable'], 'autocalculatable': False, 'type': u'Choice'}), (u'plant connection 4 initialization program calling manager name', {'name': u'Plant Connection 4 Initialization Program Calling Manager Name', 'pyname': u'plant_connection_4_initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant connection 4 simulation program calling manager name', {'name': u'Plant Connection 4 Simulation Program Calling Manager Name', 'pyname': u'plant_connection_4_simulation_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air connection inlet node name', {'name': u'Air Connection Inlet Node Name', 'pyname': u'air_connection_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air connection outlet node name', {'name': u'Air Connection Outlet Node Name', 'pyname': u'air_connection_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply inlet water storage tank name', {'name': u'Supply Inlet Water Storage Tank Name', 'pyname': u'supply_inlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'collection outlet water storage tank name', {'name': u'Collection Outlet Water Storage Tank Name', 'pyname': u'collection_outlet_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient zone name', {'name': u'Ambient Zone Name', 'pyname': u'ambient_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1168,7 +1133,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1192,7 +1157,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `main_model_program_calling_manager_name` or None if not set
         """
-        return self._data["Main Model Program Calling Manager Name"]
+        return self["Main Model Program Calling Manager Name"]
 
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
@@ -1215,7 +1180,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             int: the value of `number_of_plant_loop_connections` or None if not set
         """
-        return self._data["Number of Plant Loop Connections"]
+        return self["Number of Plant Loop Connections"]
 
     @number_of_plant_loop_connections.setter
     def number_of_plant_loop_connections(self, value=None):
@@ -1240,7 +1205,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Inlet Node Name"]
+        return self["Plant Connection 1 Inlet Node Name"]
 
     @plant_connection_1_inlet_node_name.setter
     def plant_connection_1_inlet_node_name(self, value=None):
@@ -1263,7 +1228,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 1 Outlet Node Name"]
+        return self["Plant Connection 1 Outlet Node Name"]
 
     @plant_connection_1_outlet_node_name.setter
     def plant_connection_1_outlet_node_name(self, value=None):
@@ -1286,7 +1251,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_loading_mode` or None if not set
         """
-        return self._data["Plant Connection 1 Loading Mode"]
+        return self["Plant Connection 1 Loading Mode"]
 
     @plant_connection_1_loading_mode.setter
     def plant_connection_1_loading_mode(self, value=None):
@@ -1309,7 +1274,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_loop_flow_request_mode` or None if not set
         """
-        return self._data["Plant Connection 1 Loop Flow Request Mode"]
+        return self["Plant Connection 1 Loop Flow Request Mode"]
 
     @plant_connection_1_loop_flow_request_mode.setter
     def plant_connection_1_loop_flow_request_mode(self, value=None):
@@ -1332,7 +1297,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_initialization_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 1 Initialization Program Calling Manager Name"]
+        return self["Plant Connection 1 Initialization Program Calling Manager Name"]
 
     @plant_connection_1_initialization_program_calling_manager_name.setter
     def plant_connection_1_initialization_program_calling_manager_name(self, value=None):
@@ -1355,7 +1320,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_1_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 1 Simulation Program Calling Manager Name"]
+        return self["Plant Connection 1 Simulation Program Calling Manager Name"]
 
     @plant_connection_1_simulation_program_calling_manager_name.setter
     def plant_connection_1_simulation_program_calling_manager_name(self, value=None):
@@ -1378,7 +1343,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Inlet Node Name"]
+        return self["Plant Connection 2 Inlet Node Name"]
 
     @plant_connection_2_inlet_node_name.setter
     def plant_connection_2_inlet_node_name(self, value=None):
@@ -1401,7 +1366,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 2 Outlet Node Name"]
+        return self["Plant Connection 2 Outlet Node Name"]
 
     @plant_connection_2_outlet_node_name.setter
     def plant_connection_2_outlet_node_name(self, value=None):
@@ -1424,7 +1389,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_loading_mode` or None if not set
         """
-        return self._data["Plant Connection 2 Loading Mode"]
+        return self["Plant Connection 2 Loading Mode"]
 
     @plant_connection_2_loading_mode.setter
     def plant_connection_2_loading_mode(self, value=None):
@@ -1447,7 +1412,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_loop_flow_request_mode` or None if not set
         """
-        return self._data["Plant Connection 2 Loop Flow Request Mode"]
+        return self["Plant Connection 2 Loop Flow Request Mode"]
 
     @plant_connection_2_loop_flow_request_mode.setter
     def plant_connection_2_loop_flow_request_mode(self, value=None):
@@ -1470,7 +1435,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_initialization_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 2 Initialization Program Calling Manager Name"]
+        return self["Plant Connection 2 Initialization Program Calling Manager Name"]
 
     @plant_connection_2_initialization_program_calling_manager_name.setter
     def plant_connection_2_initialization_program_calling_manager_name(self, value=None):
@@ -1493,7 +1458,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_2_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 2 Simulation Program Calling Manager Name"]
+        return self["Plant Connection 2 Simulation Program Calling Manager Name"]
 
     @plant_connection_2_simulation_program_calling_manager_name.setter
     def plant_connection_2_simulation_program_calling_manager_name(self, value=None):
@@ -1516,7 +1481,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 3 Inlet Node Name"]
+        return self["Plant Connection 3 Inlet Node Name"]
 
     @plant_connection_3_inlet_node_name.setter
     def plant_connection_3_inlet_node_name(self, value=None):
@@ -1539,7 +1504,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 3 Outlet Node Name"]
+        return self["Plant Connection 3 Outlet Node Name"]
 
     @plant_connection_3_outlet_node_name.setter
     def plant_connection_3_outlet_node_name(self, value=None):
@@ -1562,7 +1527,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_loading_mode` or None if not set
         """
-        return self._data["Plant Connection 3 Loading Mode"]
+        return self["Plant Connection 3 Loading Mode"]
 
     @plant_connection_3_loading_mode.setter
     def plant_connection_3_loading_mode(self, value=None):
@@ -1585,7 +1550,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_loop_flow_request_mode` or None if not set
         """
-        return self._data["Plant Connection 3 Loop Flow Request Mode"]
+        return self["Plant Connection 3 Loop Flow Request Mode"]
 
     @plant_connection_3_loop_flow_request_mode.setter
     def plant_connection_3_loop_flow_request_mode(self, value=None):
@@ -1608,7 +1573,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_initialization_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 3 Initialization Program Calling Manager Name"]
+        return self["Plant Connection 3 Initialization Program Calling Manager Name"]
 
     @plant_connection_3_initialization_program_calling_manager_name.setter
     def plant_connection_3_initialization_program_calling_manager_name(self, value=None):
@@ -1631,7 +1596,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_3_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 3 Simulation Program Calling Manager Name"]
+        return self["Plant Connection 3 Simulation Program Calling Manager Name"]
 
     @plant_connection_3_simulation_program_calling_manager_name.setter
     def plant_connection_3_simulation_program_calling_manager_name(self, value=None):
@@ -1654,7 +1619,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_inlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 4 Inlet Node Name"]
+        return self["Plant Connection 4 Inlet Node Name"]
 
     @plant_connection_4_inlet_node_name.setter
     def plant_connection_4_inlet_node_name(self, value=None):
@@ -1677,7 +1642,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_outlet_node_name` or None if not set
         """
-        return self._data["Plant Connection 4 Outlet Node Name"]
+        return self["Plant Connection 4 Outlet Node Name"]
 
     @plant_connection_4_outlet_node_name.setter
     def plant_connection_4_outlet_node_name(self, value=None):
@@ -1700,7 +1665,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_loading_mode` or None if not set
         """
-        return self._data["Plant Connection 4 Loading Mode"]
+        return self["Plant Connection 4 Loading Mode"]
 
     @plant_connection_4_loading_mode.setter
     def plant_connection_4_loading_mode(self, value=None):
@@ -1723,7 +1688,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_loop_flow_request_mode` or None if not set
         """
-        return self._data["Plant Connection 4 Loop Flow Request Mode"]
+        return self["Plant Connection 4 Loop Flow Request Mode"]
 
     @plant_connection_4_loop_flow_request_mode.setter
     def plant_connection_4_loop_flow_request_mode(self, value=None):
@@ -1746,7 +1711,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_initialization_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 4 Initialization Program Calling Manager Name"]
+        return self["Plant Connection 4 Initialization Program Calling Manager Name"]
 
     @plant_connection_4_initialization_program_calling_manager_name.setter
     def plant_connection_4_initialization_program_calling_manager_name(self, value=None):
@@ -1769,7 +1734,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `plant_connection_4_simulation_program_calling_manager_name` or None if not set
         """
-        return self._data["Plant Connection 4 Simulation Program Calling Manager Name"]
+        return self["Plant Connection 4 Simulation Program Calling Manager Name"]
 
     @plant_connection_4_simulation_program_calling_manager_name.setter
     def plant_connection_4_simulation_program_calling_manager_name(self, value=None):
@@ -1792,7 +1757,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_inlet_node_name` or None if not set
         """
-        return self._data["Air Connection Inlet Node Name"]
+        return self["Air Connection Inlet Node Name"]
 
     @air_connection_inlet_node_name.setter
     def air_connection_inlet_node_name(self, value=None):
@@ -1816,7 +1781,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `air_connection_outlet_node_name` or None if not set
         """
-        return self._data["Air Connection Outlet Node Name"]
+        return self["Air Connection Outlet Node Name"]
 
     @air_connection_outlet_node_name.setter
     def air_connection_outlet_node_name(self, value=None):
@@ -1840,7 +1805,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `supply_inlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Supply Inlet Water Storage Tank Name"]
+        return self["Supply Inlet Water Storage Tank Name"]
 
     @supply_inlet_water_storage_tank_name.setter
     def supply_inlet_water_storage_tank_name(self, value=None):
@@ -1864,7 +1829,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `collection_outlet_water_storage_tank_name` or None if not set
         """
-        return self._data["Collection Outlet Water Storage Tank Name"]
+        return self["Collection Outlet Water Storage Tank Name"]
 
     @collection_outlet_water_storage_tank_name.setter
     def collection_outlet_water_storage_tank_name(self, value=None):
@@ -1888,7 +1853,7 @@ class PlantComponentUserDefined(DataObject):
         Returns:
             str: the value of `ambient_zone_name` or None if not set
         """
-        return self._data["Ambient Zone Name"]
+        return self["Ambient Zone Name"]
 
     @ambient_zone_name.setter
     def ambient_zone_name(self, value=None):
@@ -1913,15 +1878,6 @@ class PlantEquipmentOperationUserDefined(DataObject):
     """
     schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:UserDefined', 'pyname': u'PlantEquipmentOperationUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'main model program calling manager name', {'name': u'Main Model Program Calling Manager Name', 'pyname': u'main_model_program_calling_manager_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initialization program calling manager name', {'name': u'Initialization Program Calling Manager Name', 'pyname': u'initialization_program_calling_manager_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
-    def __init__(self):
-        """ Init data dictionary object for IDD  `PlantEquipmentOperation:UserDefined`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
-
     @property
     def name(self):
         """Get name
@@ -1929,7 +1885,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1953,7 +1909,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `main_model_program_calling_manager_name` or None if not set
         """
-        return self._data["Main Model Program Calling Manager Name"]
+        return self["Main Model Program Calling Manager Name"]
 
     @main_model_program_calling_manager_name.setter
     def main_model_program_calling_manager_name(self, value=None):
@@ -1976,7 +1932,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `initialization_program_calling_manager_name` or None if not set
         """
-        return self._data["Initialization Program Calling Manager Name"]
+        return self["Initialization Program Calling Manager Name"]
 
     @initialization_program_calling_manager_name.setter
     def initialization_program_calling_manager_name(self, value=None):
@@ -1999,7 +1955,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_1_object_type` or None if not set
         """
-        return self._data["Equipment 1 Object Type"]
+        return self["Equipment 1 Object Type"]
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
@@ -2022,7 +1978,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_1_name` or None if not set
         """
-        return self._data["Equipment 1 Name"]
+        return self["Equipment 1 Name"]
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
@@ -2045,7 +2001,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_2_object_type` or None if not set
         """
-        return self._data["Equipment 2 Object Type"]
+        return self["Equipment 2 Object Type"]
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
@@ -2068,7 +2024,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_2_name` or None if not set
         """
-        return self._data["Equipment 2 Name"]
+        return self["Equipment 2 Name"]
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
@@ -2091,7 +2047,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_3_object_type` or None if not set
         """
-        return self._data["Equipment 3 Object Type"]
+        return self["Equipment 3 Object Type"]
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
@@ -2114,7 +2070,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_3_name` or None if not set
         """
-        return self._data["Equipment 3 Name"]
+        return self["Equipment 3 Name"]
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
@@ -2137,7 +2093,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_4_object_type` or None if not set
         """
-        return self._data["Equipment 4 Object Type"]
+        return self["Equipment 4 Object Type"]
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
@@ -2160,7 +2116,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_4_name` or None if not set
         """
-        return self._data["Equipment 4 Name"]
+        return self["Equipment 4 Name"]
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
@@ -2183,7 +2139,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_5_object_type` or None if not set
         """
-        return self._data["Equipment 5 Object Type"]
+        return self["Equipment 5 Object Type"]
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
@@ -2206,7 +2162,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_5_name` or None if not set
         """
-        return self._data["Equipment 5 Name"]
+        return self["Equipment 5 Name"]
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
@@ -2229,7 +2185,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_6_object_type` or None if not set
         """
-        return self._data["Equipment 6 Object Type"]
+        return self["Equipment 6 Object Type"]
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
@@ -2252,7 +2208,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_6_name` or None if not set
         """
-        return self._data["Equipment 6 Name"]
+        return self["Equipment 6 Name"]
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
@@ -2275,7 +2231,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_7_object_type` or None if not set
         """
-        return self._data["Equipment 7 Object Type"]
+        return self["Equipment 7 Object Type"]
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
@@ -2298,7 +2254,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_7_name` or None if not set
         """
-        return self._data["Equipment 7 Name"]
+        return self["Equipment 7 Name"]
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
@@ -2321,7 +2277,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_8_object_type` or None if not set
         """
-        return self._data["Equipment 8 Object Type"]
+        return self["Equipment 8 Object Type"]
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
@@ -2344,7 +2300,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_8_name` or None if not set
         """
-        return self._data["Equipment 8 Name"]
+        return self["Equipment 8 Name"]
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
@@ -2367,7 +2323,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_9_object_type` or None if not set
         """
-        return self._data["Equipment 9 Object Type"]
+        return self["Equipment 9 Object Type"]
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
@@ -2390,7 +2346,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_9_name` or None if not set
         """
-        return self._data["Equipment 9 Name"]
+        return self["Equipment 9 Name"]
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
@@ -2413,7 +2369,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_10_object_type` or None if not set
         """
-        return self._data["Equipment 10 Object Type"]
+        return self["Equipment 10 Object Type"]
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
@@ -2436,7 +2392,7 @@ class PlantEquipmentOperationUserDefined(DataObject):
         Returns:
             str: the value of `equipment_10_name` or None if not set
         """
-        return self._data["Equipment 10 Name"]
+        return self["Equipment 10 Name"]
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):

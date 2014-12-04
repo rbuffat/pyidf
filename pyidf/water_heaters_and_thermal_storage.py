@@ -1,3 +1,4 @@
+import six
 from collections import OrderedDict
 import logging
 import re
@@ -14,16 +15,7 @@ class WaterHeaterMixed(DataObject):
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
     """
-    schema = {'min-fields': 0, 'name': u'WaterHeater:Mixed', 'pyname': u'WaterHeaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater control type', {'name': u'Heater Control Type', 'pyname': u'heater_control_type', 'default': u'Cycle', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heater maximum capacity', {'name': u'Heater Maximum Capacity', 'pyname': u'heater_maximum_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater minimum capacity', {'name': u'Heater Minimum Capacity', 'pyname': u'heater_minimum_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater ignition minimum flow rate', {'name': u'Heater Ignition Minimum Flow Rate', 'pyname': u'heater_ignition_minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heater ignition delay', {'name': u'Heater Ignition Delay', 'pyname': u'heater_ignition_delay', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'part load factor curve name', {'name': u'Part Load Factor Curve Name', 'pyname': u'part_load_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'off cycle loss coefficient to ambient temperature', {'name': u'Off Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle loss fraction to zone', {'name': u'Off Cycle Loss Fraction to Zone', 'pyname': u'off_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle loss coefficient to ambient temperature', {'name': u'On Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'on_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'on cycle loss fraction to zone', {'name': u'On Cycle Loss Fraction to Zone', 'pyname': u'on_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WaterHeater:Mixed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'WaterHeater:Mixed', 'pyname': u'WaterHeaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater control type', {'name': u'Heater Control Type', 'pyname': u'heater_control_type', 'default': u'Cycle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Cycle', u'Modulate'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater maximum capacity', {'name': u'Heater Maximum Capacity', 'pyname': u'heater_maximum_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater minimum capacity', {'name': u'Heater Minimum Capacity', 'pyname': u'heater_minimum_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater ignition minimum flow rate', {'name': u'Heater Ignition Minimum Flow Rate', 'pyname': u'heater_ignition_minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heater ignition delay', {'name': u'Heater Ignition Delay', 'pyname': u'heater_ignition_delay', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'part load factor curve name', {'name': u'Part Load Factor Curve Name', 'pyname': u'part_load_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'off cycle loss coefficient to ambient temperature', {'name': u'Off Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle loss fraction to zone', {'name': u'Off Cycle Loss Fraction to Zone', 'pyname': u'off_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle loss coefficient to ambient temperature', {'name': u'On Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'on_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'on cycle loss fraction to zone', {'name': u'On Cycle Loss Fraction to Zone', 'pyname': u'on_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -32,7 +24,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -55,7 +47,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `tank_volume` or None if not set
         """
-        return self._data["Tank Volume"]
+        return self["Tank Volume"]
 
     @tank_volume.setter
     def tank_volume(self, value=None):
@@ -80,7 +72,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -103,7 +95,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `deadband_temperature_difference` or None if not set
         """
-        return self._data["Deadband Temperature Difference"]
+        return self["Deadband Temperature Difference"]
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=None):
@@ -127,7 +119,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `maximum_temperature_limit` or None if not set
         """
-        return self._data["Maximum Temperature Limit"]
+        return self["Maximum Temperature Limit"]
 
     @maximum_temperature_limit.setter
     def maximum_temperature_limit(self, value=None):
@@ -151,7 +143,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `heater_control_type` or None if not set
         """
-        return self._data["Heater Control Type"]
+        return self["Heater Control Type"]
 
     @heater_control_type.setter
     def heater_control_type(self, value="Cycle"):
@@ -175,7 +167,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `heater_maximum_capacity` or None if not set
         """
-        return self._data["Heater Maximum Capacity"]
+        return self["Heater Maximum Capacity"]
 
     @heater_maximum_capacity.setter
     def heater_maximum_capacity(self, value=None):
@@ -199,7 +191,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `heater_minimum_capacity` or None if not set
         """
-        return self._data["Heater Minimum Capacity"]
+        return self["Heater Minimum Capacity"]
 
     @heater_minimum_capacity.setter
     def heater_minimum_capacity(self, value=None):
@@ -224,7 +216,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `heater_ignition_minimum_flow_rate` or None if not set
         """
-        return self._data["Heater Ignition Minimum Flow Rate"]
+        return self["Heater Ignition Minimum Flow Rate"]
 
     @heater_ignition_minimum_flow_rate.setter
     def heater_ignition_minimum_flow_rate(self, value=None):
@@ -249,7 +241,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `heater_ignition_delay` or None if not set
         """
-        return self._data["Heater Ignition Delay"]
+        return self["Heater Ignition Delay"]
 
     @heater_ignition_delay.setter
     def heater_ignition_delay(self, value=None):
@@ -274,7 +266,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `heater_fuel_type` or None if not set
         """
-        return self._data["Heater Fuel Type"]
+        return self["Heater Fuel Type"]
 
     @heater_fuel_type.setter
     def heater_fuel_type(self, value=None):
@@ -297,7 +289,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `heater_thermal_efficiency` or None if not set
         """
-        return self._data["Heater Thermal Efficiency"]
+        return self["Heater Thermal Efficiency"]
 
     @heater_thermal_efficiency.setter
     def heater_thermal_efficiency(self, value=None):
@@ -321,7 +313,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `part_load_factor_curve_name` or None if not set
         """
-        return self._data["Part Load Factor Curve Name"]
+        return self["Part Load Factor Curve Name"]
 
     @part_load_factor_curve_name.setter
     def part_load_factor_curve_name(self, value=None):
@@ -345,7 +337,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_fuel_consumption_rate` or None if not set
         """
-        return self._data["Off Cycle Parasitic Fuel Consumption Rate"]
+        return self["Off Cycle Parasitic Fuel Consumption Rate"]
 
     @off_cycle_parasitic_fuel_consumption_rate.setter
     def off_cycle_parasitic_fuel_consumption_rate(self, value=None):
@@ -369,7 +361,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `off_cycle_parasitic_fuel_type` or None if not set
         """
-        return self._data["Off Cycle Parasitic Fuel Type"]
+        return self["Off Cycle Parasitic Fuel Type"]
 
     @off_cycle_parasitic_fuel_type.setter
     def off_cycle_parasitic_fuel_type(self, value=None):
@@ -392,7 +384,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_heat_fraction_to_tank` or None if not set
         """
-        return self._data["Off Cycle Parasitic Heat Fraction to Tank"]
+        return self["Off Cycle Parasitic Heat Fraction to Tank"]
 
     @off_cycle_parasitic_heat_fraction_to_tank.setter
     def off_cycle_parasitic_heat_fraction_to_tank(self, value=None):
@@ -416,7 +408,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_fuel_consumption_rate` or None if not set
         """
-        return self._data["On Cycle Parasitic Fuel Consumption Rate"]
+        return self["On Cycle Parasitic Fuel Consumption Rate"]
 
     @on_cycle_parasitic_fuel_consumption_rate.setter
     def on_cycle_parasitic_fuel_consumption_rate(self, value=None):
@@ -440,7 +432,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `on_cycle_parasitic_fuel_type` or None if not set
         """
-        return self._data["On Cycle Parasitic Fuel Type"]
+        return self["On Cycle Parasitic Fuel Type"]
 
     @on_cycle_parasitic_fuel_type.setter
     def on_cycle_parasitic_fuel_type(self, value=None):
@@ -463,7 +455,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_heat_fraction_to_tank` or None if not set
         """
-        return self._data["On Cycle Parasitic Heat Fraction to Tank"]
+        return self["On Cycle Parasitic Heat Fraction to Tank"]
 
     @on_cycle_parasitic_heat_fraction_to_tank.setter
     def on_cycle_parasitic_heat_fraction_to_tank(self, value=None):
@@ -487,7 +479,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_indicator` or None if not set
         """
-        return self._data["Ambient Temperature Indicator"]
+        return self["Ambient Temperature Indicator"]
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
@@ -510,7 +502,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_schedule_name` or None if not set
         """
-        return self._data["Ambient Temperature Schedule Name"]
+        return self["Ambient Temperature Schedule Name"]
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
@@ -533,7 +525,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_zone_name` or None if not set
         """
-        return self._data["Ambient Temperature Zone Name"]
+        return self["Ambient Temperature Zone Name"]
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
@@ -556,7 +548,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
         """
-        return self._data["Ambient Temperature Outdoor Air Node Name"]
+        return self["Ambient Temperature Outdoor Air Node Name"]
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
@@ -580,7 +572,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `off_cycle_loss_coefficient_to_ambient_temperature` or None if not set
         """
-        return self._data["Off Cycle Loss Coefficient to Ambient Temperature"]
+        return self["Off Cycle Loss Coefficient to Ambient Temperature"]
 
     @off_cycle_loss_coefficient_to_ambient_temperature.setter
     def off_cycle_loss_coefficient_to_ambient_temperature(self, value=None):
@@ -604,7 +596,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `off_cycle_loss_fraction_to_zone` or None if not set
         """
-        return self._data["Off Cycle Loss Fraction to Zone"]
+        return self["Off Cycle Loss Fraction to Zone"]
 
     @off_cycle_loss_fraction_to_zone.setter
     def off_cycle_loss_fraction_to_zone(self, value=1.0):
@@ -629,7 +621,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `on_cycle_loss_coefficient_to_ambient_temperature` or None if not set
         """
-        return self._data["On Cycle Loss Coefficient to Ambient Temperature"]
+        return self["On Cycle Loss Coefficient to Ambient Temperature"]
 
     @on_cycle_loss_coefficient_to_ambient_temperature.setter
     def on_cycle_loss_coefficient_to_ambient_temperature(self, value=None):
@@ -653,7 +645,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `on_cycle_loss_fraction_to_zone` or None if not set
         """
-        return self._data["On Cycle Loss Fraction to Zone"]
+        return self["On Cycle Loss Fraction to Zone"]
 
     @on_cycle_loss_fraction_to_zone.setter
     def on_cycle_loss_fraction_to_zone(self, value=1.0):
@@ -678,7 +670,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `peak_use_flow_rate` or None if not set
         """
-        return self._data["Peak Use Flow Rate"]
+        return self["Peak Use Flow Rate"]
 
     @peak_use_flow_rate.setter
     def peak_use_flow_rate(self, value=None):
@@ -704,7 +696,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `use_flow_rate_fraction_schedule_name` or None if not set
         """
-        return self._data["Use Flow Rate Fraction Schedule Name"]
+        return self["Use Flow Rate Fraction Schedule Name"]
 
     @use_flow_rate_fraction_schedule_name.setter
     def use_flow_rate_fraction_schedule_name(self, value=None):
@@ -728,7 +720,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
         """
-        return self._data["Cold Water Supply Temperature Schedule Name"]
+        return self["Cold Water Supply Temperature Schedule Name"]
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
@@ -753,7 +745,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `use_side_inlet_node_name` or None if not set
         """
-        return self._data["Use Side Inlet Node Name"]
+        return self["Use Side Inlet Node Name"]
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
@@ -776,7 +768,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `use_side_outlet_node_name` or None if not set
         """
-        return self._data["Use Side Outlet Node Name"]
+        return self["Use Side Outlet Node Name"]
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
@@ -799,7 +791,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `use_side_effectiveness` or None if not set
         """
-        return self._data["Use Side Effectiveness"]
+        return self["Use Side Effectiveness"]
 
     @use_side_effectiveness.setter
     def use_side_effectiveness(self, value=1.0):
@@ -824,7 +816,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `source_side_inlet_node_name` or None if not set
         """
-        return self._data["Source Side Inlet Node Name"]
+        return self["Source Side Inlet Node Name"]
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
@@ -847,7 +839,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `source_side_outlet_node_name` or None if not set
         """
-        return self._data["Source Side Outlet Node Name"]
+        return self["Source Side Outlet Node Name"]
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
@@ -870,7 +862,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `source_side_effectiveness` or None if not set
         """
-        return self._data["Source Side Effectiveness"]
+        return self["Source Side Effectiveness"]
 
     @source_side_effectiveness.setter
     def source_side_effectiveness(self, value=1.0):
@@ -895,7 +887,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `use_side_design_flow_rate` or None if not set
         """
-        return self._data["Use Side Design Flow Rate"]
+        return self["Use Side Design Flow Rate"]
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
@@ -921,7 +913,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `source_side_design_flow_rate` or None if not set
         """
-        return self._data["Source Side Design Flow Rate"]
+        return self["Source Side Design Flow Rate"]
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
@@ -947,7 +939,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             float: the value of `indirect_water_heating_recovery_time` or None if not set
         """
-        return self._data["Indirect Water Heating Recovery Time"]
+        return self["Indirect Water Heating Recovery Time"]
 
     @indirect_water_heating_recovery_time.setter
     def indirect_water_heating_recovery_time(self, value=1.5):
@@ -974,7 +966,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `source_side_flow_control_mode` or None if not set
         """
-        return self._data["Source Side Flow Control Mode"]
+        return self["Source Side Flow Control Mode"]
 
     @source_side_flow_control_mode.setter
     def source_side_flow_control_mode(self, value="IndirectHeatPrimarySetpoint"):
@@ -1001,7 +993,7 @@ class WaterHeaterMixed(DataObject):
         Returns:
             str: the value of `indirect_alternate_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Indirect Alternate Setpoint Temperature Schedule Name"]
+        return self["Indirect Alternate Setpoint Temperature Schedule Name"]
 
     @indirect_alternate_setpoint_temperature_schedule_name.setter
     def indirect_alternate_setpoint_temperature_schedule_name(self, value=None):
@@ -1025,16 +1017,7 @@ class WaterHeaterStratified(DataObject):
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
     """
-    schema = {'min-fields': 0, 'name': u'WaterHeater:Stratified', 'pyname': u'WaterHeaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater priority control', {'name': u'Heater Priority Control', 'pyname': u'heater_priority_control', 'default': u'MasterSlave', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heater 1 setpoint temperature schedule name', {'name': u'Heater 1 Setpoint Temperature Schedule Name', 'pyname': u'heater_1_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 1 deadband temperature difference', {'name': u'Heater 1 Deadband Temperature Difference', 'pyname': u'heater_1_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 1 capacity', {'name': u'Heater 1 Capacity', 'pyname': u'heater_1_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 1 height', {'name': u'Heater 1 Height', 'pyname': u'heater_1_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater 2 setpoint temperature schedule name', {'name': u'Heater 2 Setpoint Temperature Schedule Name', 'pyname': u'heater_2_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 2 deadband temperature difference', {'name': u'Heater 2 Deadband Temperature Difference', 'pyname': u'heater_2_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 2 capacity', {'name': u'Heater 2 Capacity', 'pyname': u'heater_2_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 2 height', {'name': u'Heater 2 Height', 'pyname': u'heater_2_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic height', {'name': u'Off Cycle Parasitic Height', 'pyname': u'off_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic height', {'name': u'On Cycle Parasitic Height', 'pyname': u'on_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'skin loss fraction to zone', {'name': u'Skin Loss Fraction to Zone', 'pyname': u'skin_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle flue loss coefficient to ambient temperature', {'name': u'Off Cycle Flue Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_flue_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle flue loss fraction to zone', {'name': u'Off Cycle Flue Loss Fraction to Zone', 'pyname': u'off_cycle_flue_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WaterHeater:Stratified`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'WaterHeater:Stratified', 'pyname': u'WaterHeaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater priority control', {'name': u'Heater Priority Control', 'pyname': u'heater_priority_control', 'default': u'MasterSlave', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MasterSlave', u'Simultaneous'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater 1 setpoint temperature schedule name', {'name': u'Heater 1 Setpoint Temperature Schedule Name', 'pyname': u'heater_1_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 1 deadband temperature difference', {'name': u'Heater 1 Deadband Temperature Difference', 'pyname': u'heater_1_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 1 capacity', {'name': u'Heater 1 Capacity', 'pyname': u'heater_1_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 1 height', {'name': u'Heater 1 Height', 'pyname': u'heater_1_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater 2 setpoint temperature schedule name', {'name': u'Heater 2 Setpoint Temperature Schedule Name', 'pyname': u'heater_2_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 2 deadband temperature difference', {'name': u'Heater 2 Deadband Temperature Difference', 'pyname': u'heater_2_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 2 capacity', {'name': u'Heater 2 Capacity', 'pyname': u'heater_2_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 2 height', {'name': u'Heater 2 Height', 'pyname': u'heater_2_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic height', {'name': u'Off Cycle Parasitic Height', 'pyname': u'off_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic height', {'name': u'On Cycle Parasitic Height', 'pyname': u'on_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'skin loss fraction to zone', {'name': u'Skin Loss Fraction to Zone', 'pyname': u'skin_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle flue loss coefficient to ambient temperature', {'name': u'Off Cycle Flue Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_flue_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle flue loss fraction to zone', {'name': u'Off Cycle Flue Loss Fraction to Zone', 'pyname': u'off_cycle_flue_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -1043,7 +1026,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -1066,7 +1049,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `enduse_subcategory` or None if not set
         """
-        return self._data["End-Use Subcategory"]
+        return self["End-Use Subcategory"]
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
@@ -1090,7 +1073,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `tank_volume` or None if not set
         """
-        return self._data["Tank Volume"]
+        return self["Tank Volume"]
 
     @tank_volume.setter
     def tank_volume(self, value=None):
@@ -1115,7 +1098,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `tank_height` or None if not set
         """
-        return self._data["Tank Height"]
+        return self["Tank Height"]
 
     @tank_height.setter
     def tank_height(self, value=None):
@@ -1140,7 +1123,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `tank_shape` or None if not set
         """
-        return self._data["Tank Shape"]
+        return self["Tank Shape"]
 
     @tank_shape.setter
     def tank_shape(self, value="VerticalCylinder"):
@@ -1164,7 +1147,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `tank_perimeter` or None if not set
         """
-        return self._data["Tank Perimeter"]
+        return self["Tank Perimeter"]
 
     @tank_perimeter.setter
     def tank_perimeter(self, value=None):
@@ -1189,7 +1172,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `maximum_temperature_limit` or None if not set
         """
-        return self._data["Maximum Temperature Limit"]
+        return self["Maximum Temperature Limit"]
 
     @maximum_temperature_limit.setter
     def maximum_temperature_limit(self, value=None):
@@ -1213,7 +1196,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `heater_priority_control` or None if not set
         """
-        return self._data["Heater Priority Control"]
+        return self["Heater Priority Control"]
 
     @heater_priority_control.setter
     def heater_priority_control(self, value="MasterSlave"):
@@ -1237,7 +1220,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `heater_1_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Heater 1 Setpoint Temperature Schedule Name"]
+        return self["Heater 1 Setpoint Temperature Schedule Name"]
 
     @heater_1_setpoint_temperature_schedule_name.setter
     def heater_1_setpoint_temperature_schedule_name(self, value=None):
@@ -1260,7 +1243,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_1_deadband_temperature_difference` or None if not set
         """
-        return self._data["Heater 1 Deadband Temperature Difference"]
+        return self["Heater 1 Deadband Temperature Difference"]
 
     @heater_1_deadband_temperature_difference.setter
     def heater_1_deadband_temperature_difference(self, value=None):
@@ -1284,7 +1267,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_1_capacity` or None if not set
         """
-        return self._data["Heater 1 Capacity"]
+        return self["Heater 1 Capacity"]
 
     @heater_1_capacity.setter
     def heater_1_capacity(self, value=None):
@@ -1308,7 +1291,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_1_height` or None if not set
         """
-        return self._data["Heater 1 Height"]
+        return self["Heater 1 Height"]
 
     @heater_1_height.setter
     def heater_1_height(self, value=None):
@@ -1332,7 +1315,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `heater_2_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Heater 2 Setpoint Temperature Schedule Name"]
+        return self["Heater 2 Setpoint Temperature Schedule Name"]
 
     @heater_2_setpoint_temperature_schedule_name.setter
     def heater_2_setpoint_temperature_schedule_name(self, value=None):
@@ -1355,7 +1338,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_2_deadband_temperature_difference` or None if not set
         """
-        return self._data["Heater 2 Deadband Temperature Difference"]
+        return self["Heater 2 Deadband Temperature Difference"]
 
     @heater_2_deadband_temperature_difference.setter
     def heater_2_deadband_temperature_difference(self, value=None):
@@ -1379,7 +1362,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_2_capacity` or None if not set
         """
-        return self._data["Heater 2 Capacity"]
+        return self["Heater 2 Capacity"]
 
     @heater_2_capacity.setter
     def heater_2_capacity(self, value=None):
@@ -1403,7 +1386,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_2_height` or None if not set
         """
-        return self._data["Heater 2 Height"]
+        return self["Heater 2 Height"]
 
     @heater_2_height.setter
     def heater_2_height(self, value=None):
@@ -1427,7 +1410,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `heater_fuel_type` or None if not set
         """
-        return self._data["Heater Fuel Type"]
+        return self["Heater Fuel Type"]
 
     @heater_fuel_type.setter
     def heater_fuel_type(self, value=None):
@@ -1450,7 +1433,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `heater_thermal_efficiency` or None if not set
         """
-        return self._data["Heater Thermal Efficiency"]
+        return self["Heater Thermal Efficiency"]
 
     @heater_thermal_efficiency.setter
     def heater_thermal_efficiency(self, value=None):
@@ -1474,7 +1457,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_fuel_consumption_rate` or None if not set
         """
-        return self._data["Off Cycle Parasitic Fuel Consumption Rate"]
+        return self["Off Cycle Parasitic Fuel Consumption Rate"]
 
     @off_cycle_parasitic_fuel_consumption_rate.setter
     def off_cycle_parasitic_fuel_consumption_rate(self, value=None):
@@ -1498,7 +1481,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `off_cycle_parasitic_fuel_type` or None if not set
         """
-        return self._data["Off Cycle Parasitic Fuel Type"]
+        return self["Off Cycle Parasitic Fuel Type"]
 
     @off_cycle_parasitic_fuel_type.setter
     def off_cycle_parasitic_fuel_type(self, value=None):
@@ -1521,7 +1504,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_heat_fraction_to_tank` or None if not set
         """
-        return self._data["Off Cycle Parasitic Heat Fraction to Tank"]
+        return self["Off Cycle Parasitic Heat Fraction to Tank"]
 
     @off_cycle_parasitic_heat_fraction_to_tank.setter
     def off_cycle_parasitic_heat_fraction_to_tank(self, value=None):
@@ -1545,7 +1528,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_height` or None if not set
         """
-        return self._data["Off Cycle Parasitic Height"]
+        return self["Off Cycle Parasitic Height"]
 
     @off_cycle_parasitic_height.setter
     def off_cycle_parasitic_height(self, value=None):
@@ -1569,7 +1552,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_fuel_consumption_rate` or None if not set
         """
-        return self._data["On Cycle Parasitic Fuel Consumption Rate"]
+        return self["On Cycle Parasitic Fuel Consumption Rate"]
 
     @on_cycle_parasitic_fuel_consumption_rate.setter
     def on_cycle_parasitic_fuel_consumption_rate(self, value=None):
@@ -1593,7 +1576,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `on_cycle_parasitic_fuel_type` or None if not set
         """
-        return self._data["On Cycle Parasitic Fuel Type"]
+        return self["On Cycle Parasitic Fuel Type"]
 
     @on_cycle_parasitic_fuel_type.setter
     def on_cycle_parasitic_fuel_type(self, value=None):
@@ -1616,7 +1599,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_heat_fraction_to_tank` or None if not set
         """
-        return self._data["On Cycle Parasitic Heat Fraction to Tank"]
+        return self["On Cycle Parasitic Heat Fraction to Tank"]
 
     @on_cycle_parasitic_heat_fraction_to_tank.setter
     def on_cycle_parasitic_heat_fraction_to_tank(self, value=None):
@@ -1640,7 +1623,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_height` or None if not set
         """
-        return self._data["On Cycle Parasitic Height"]
+        return self["On Cycle Parasitic Height"]
 
     @on_cycle_parasitic_height.setter
     def on_cycle_parasitic_height(self, value=None):
@@ -1664,7 +1647,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_indicator` or None if not set
         """
-        return self._data["Ambient Temperature Indicator"]
+        return self["Ambient Temperature Indicator"]
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
@@ -1687,7 +1670,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_schedule_name` or None if not set
         """
-        return self._data["Ambient Temperature Schedule Name"]
+        return self["Ambient Temperature Schedule Name"]
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
@@ -1710,7 +1693,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_zone_name` or None if not set
         """
-        return self._data["Ambient Temperature Zone Name"]
+        return self["Ambient Temperature Zone Name"]
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
@@ -1733,7 +1716,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
         """
-        return self._data["Ambient Temperature Outdoor Air Node Name"]
+        return self["Ambient Temperature Outdoor Air Node Name"]
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
@@ -1757,7 +1740,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature` or None if not set
         """
-        return self._data["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"]
+        return self["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"]
 
     @uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature.setter
     def uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature(self, value=None):
@@ -1781,7 +1764,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `skin_loss_fraction_to_zone` or None if not set
         """
-        return self._data["Skin Loss Fraction to Zone"]
+        return self["Skin Loss Fraction to Zone"]
 
     @skin_loss_fraction_to_zone.setter
     def skin_loss_fraction_to_zone(self, value=1.0):
@@ -1806,7 +1789,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `off_cycle_flue_loss_coefficient_to_ambient_temperature` or None if not set
         """
-        return self._data["Off Cycle Flue Loss Coefficient to Ambient Temperature"]
+        return self["Off Cycle Flue Loss Coefficient to Ambient Temperature"]
 
     @off_cycle_flue_loss_coefficient_to_ambient_temperature.setter
     def off_cycle_flue_loss_coefficient_to_ambient_temperature(self, value=None):
@@ -1830,7 +1813,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `off_cycle_flue_loss_fraction_to_zone` or None if not set
         """
-        return self._data["Off Cycle Flue Loss Fraction to Zone"]
+        return self["Off Cycle Flue Loss Fraction to Zone"]
 
     @off_cycle_flue_loss_fraction_to_zone.setter
     def off_cycle_flue_loss_fraction_to_zone(self, value=1.0):
@@ -1855,7 +1838,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `peak_use_flow_rate` or None if not set
         """
-        return self._data["Peak Use Flow Rate"]
+        return self["Peak Use Flow Rate"]
 
     @peak_use_flow_rate.setter
     def peak_use_flow_rate(self, value=None):
@@ -1881,7 +1864,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `use_flow_rate_fraction_schedule_name` or None if not set
         """
-        return self._data["Use Flow Rate Fraction Schedule Name"]
+        return self["Use Flow Rate Fraction Schedule Name"]
 
     @use_flow_rate_fraction_schedule_name.setter
     def use_flow_rate_fraction_schedule_name(self, value=None):
@@ -1906,7 +1889,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `cold_water_supply_temperature_schedule_name` or None if not set
         """
-        return self._data["Cold Water Supply Temperature Schedule Name"]
+        return self["Cold Water Supply Temperature Schedule Name"]
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
@@ -1931,7 +1914,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `use_side_inlet_node_name` or None if not set
         """
-        return self._data["Use Side Inlet Node Name"]
+        return self["Use Side Inlet Node Name"]
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
@@ -1954,7 +1937,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `use_side_outlet_node_name` or None if not set
         """
-        return self._data["Use Side Outlet Node Name"]
+        return self["Use Side Outlet Node Name"]
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
@@ -1977,7 +1960,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `use_side_effectiveness` or None if not set
         """
-        return self._data["Use Side Effectiveness"]
+        return self["Use Side Effectiveness"]
 
     @use_side_effectiveness.setter
     def use_side_effectiveness(self, value=1.0):
@@ -2007,7 +1990,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `use_side_inlet_height` or None if not set
         """
-        return self._data["Use Side Inlet Height"]
+        return self["Use Side Inlet Height"]
 
     @use_side_inlet_height.setter
     def use_side_inlet_height(self, value=None):
@@ -2032,7 +2015,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `use_side_outlet_height` or None if not set
         """
-        return self._data["Use Side Outlet Height"]
+        return self["Use Side Outlet Height"]
 
     @use_side_outlet_height.setter
     def use_side_outlet_height(self, value="Autocalculate"):
@@ -2058,7 +2041,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `source_side_inlet_node_name` or None if not set
         """
-        return self._data["Source Side Inlet Node Name"]
+        return self["Source Side Inlet Node Name"]
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
@@ -2081,7 +2064,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `source_side_outlet_node_name` or None if not set
         """
-        return self._data["Source Side Outlet Node Name"]
+        return self["Source Side Outlet Node Name"]
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
@@ -2104,7 +2087,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `source_side_effectiveness` or None if not set
         """
-        return self._data["Source Side Effectiveness"]
+        return self["Source Side Effectiveness"]
 
     @source_side_effectiveness.setter
     def source_side_effectiveness(self, value=1.0):
@@ -2134,7 +2117,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `source_side_inlet_height` or None if not set
         """
-        return self._data["Source Side Inlet Height"]
+        return self["Source Side Inlet Height"]
 
     @source_side_inlet_height.setter
     def source_side_inlet_height(self, value="Autocalculate"):
@@ -2160,7 +2143,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `source_side_outlet_height` or None if not set
         """
-        return self._data["Source Side Outlet Height"]
+        return self["Source Side Outlet Height"]
 
     @source_side_outlet_height.setter
     def source_side_outlet_height(self, value=None):
@@ -2185,7 +2168,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `inlet_mode` or None if not set
         """
-        return self._data["Inlet Mode"]
+        return self["Inlet Mode"]
 
     @inlet_mode.setter
     def inlet_mode(self, value="Fixed"):
@@ -2209,7 +2192,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `use_side_design_flow_rate` or None if not set
         """
-        return self._data["Use Side Design Flow Rate"]
+        return self["Use Side Design Flow Rate"]
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
@@ -2235,7 +2218,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `source_side_design_flow_rate` or None if not set
         """
-        return self._data["Source Side Design Flow Rate"]
+        return self["Source Side Design Flow Rate"]
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
@@ -2261,7 +2244,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `indirect_water_heating_recovery_time` or None if not set
         """
-        return self._data["Indirect Water Heating Recovery Time"]
+        return self["Indirect Water Heating Recovery Time"]
 
     @indirect_water_heating_recovery_time.setter
     def indirect_water_heating_recovery_time(self, value=1.5):
@@ -2288,7 +2271,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             int: the value of `number_of_nodes` or None if not set
         """
-        return self._data["Number of Nodes"]
+        return self["Number of Nodes"]
 
     @number_of_nodes.setter
     def number_of_nodes(self, value=1):
@@ -2314,7 +2297,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `additional_destratification_conductivity` or None if not set
         """
-        return self._data["Additional Destratification Conductivity"]
+        return self["Additional Destratification Conductivity"]
 
     @additional_destratification_conductivity.setter
     def additional_destratification_conductivity(self, value=None):
@@ -2338,7 +2321,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_1_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 1 Additional Loss Coefficient"]
+        return self["Node 1 Additional Loss Coefficient"]
 
     @node_1_additional_loss_coefficient.setter
     def node_1_additional_loss_coefficient(self, value=None):
@@ -2362,7 +2345,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_2_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 2 Additional Loss Coefficient"]
+        return self["Node 2 Additional Loss Coefficient"]
 
     @node_2_additional_loss_coefficient.setter
     def node_2_additional_loss_coefficient(self, value=None):
@@ -2386,7 +2369,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_3_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 3 Additional Loss Coefficient"]
+        return self["Node 3 Additional Loss Coefficient"]
 
     @node_3_additional_loss_coefficient.setter
     def node_3_additional_loss_coefficient(self, value=None):
@@ -2410,7 +2393,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_4_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 4 Additional Loss Coefficient"]
+        return self["Node 4 Additional Loss Coefficient"]
 
     @node_4_additional_loss_coefficient.setter
     def node_4_additional_loss_coefficient(self, value=None):
@@ -2434,7 +2417,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_5_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 5 Additional Loss Coefficient"]
+        return self["Node 5 Additional Loss Coefficient"]
 
     @node_5_additional_loss_coefficient.setter
     def node_5_additional_loss_coefficient(self, value=None):
@@ -2458,7 +2441,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_6_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 6 Additional Loss Coefficient"]
+        return self["Node 6 Additional Loss Coefficient"]
 
     @node_6_additional_loss_coefficient.setter
     def node_6_additional_loss_coefficient(self, value=None):
@@ -2482,7 +2465,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_7_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 7 Additional Loss Coefficient"]
+        return self["Node 7 Additional Loss Coefficient"]
 
     @node_7_additional_loss_coefficient.setter
     def node_7_additional_loss_coefficient(self, value=None):
@@ -2506,7 +2489,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_8_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 8 Additional Loss Coefficient"]
+        return self["Node 8 Additional Loss Coefficient"]
 
     @node_8_additional_loss_coefficient.setter
     def node_8_additional_loss_coefficient(self, value=None):
@@ -2530,7 +2513,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_9_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 9 Additional Loss Coefficient"]
+        return self["Node 9 Additional Loss Coefficient"]
 
     @node_9_additional_loss_coefficient.setter
     def node_9_additional_loss_coefficient(self, value=None):
@@ -2554,7 +2537,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             float: the value of `node_10_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 10 Additional Loss Coefficient"]
+        return self["Node 10 Additional Loss Coefficient"]
 
     @node_10_additional_loss_coefficient.setter
     def node_10_additional_loss_coefficient(self, value=None):
@@ -2578,7 +2561,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `source_side_flow_control_mode` or None if not set
         """
-        return self._data["Source Side Flow Control Mode"]
+        return self["Source Side Flow Control Mode"]
 
     @source_side_flow_control_mode.setter
     def source_side_flow_control_mode(self, value="IndirectHeatPrimarySetpoint"):
@@ -2605,7 +2588,7 @@ class WaterHeaterStratified(DataObject):
         Returns:
             str: the value of `indirect_alternate_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Indirect Alternate Setpoint Temperature Schedule Name"]
+        return self["Indirect Alternate Setpoint Temperature Schedule Name"]
 
     @indirect_alternate_setpoint_temperature_schedule_name.setter
     def indirect_alternate_setpoint_temperature_schedule_name(self, value=None):
@@ -2629,16 +2612,7 @@ class WaterHeaterSizing(DataObject):
         with WaterHeater:Stratified to autosize tank volume and heater capacity
         This object is not needed if water heaters are not autosized.
     """
-    schema = {'min-fields': 4, 'name': u'WaterHeater:Sizing', 'pyname': u'WaterHeaterSizing', 'format': None, 'fields': OrderedDict([(u'waterheater name', {'name': u'WaterHeater Name', 'pyname': u'waterheater_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design mode', {'name': u'Design Mode', 'pyname': u'design_mode', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'time storage can meet peak draw', {'name': u'Time Storage Can Meet Peak Draw', 'pyname': u'time_storage_can_meet_peak_draw', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'time for tank recovery', {'name': u'Time for Tank Recovery', 'pyname': u'time_for_tank_recovery', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'nominal tank volume for autosizing plant connections', {'name': u'Nominal Tank Volume for Autosizing Plant Connections', 'pyname': u'nominal_tank_volume_for_autosizing_plant_connections', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'number of bedrooms', {'name': u'Number of Bedrooms', 'pyname': u'number_of_bedrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of bathrooms', {'name': u'Number of Bathrooms', 'pyname': u'number_of_bathrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'storage capacity per person', {'name': u'Storage Capacity per Person', 'pyname': u'storage_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/Person'}), (u'recovery capacity per person', {'name': u'Recovery Capacity per Person', 'pyname': u'recovery_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-person'}), (u'storage capacity per floor area', {'name': u'Storage Capacity per Floor Area', 'pyname': u'storage_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'recovery capacity per floor area', {'name': u'Recovery Capacity per Floor Area', 'pyname': u'recovery_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-m2'}), (u'number of units', {'name': u'Number of Units', 'pyname': u'number_of_units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'storage capacity per unit', {'name': u'Storage Capacity per Unit', 'pyname': u'storage_capacity_per_unit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'recovery capacity perunit', {'name': u'Recovery Capacity PerUnit', 'pyname': u'recovery_capacity_perunit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr'}), (u'storage capacity per collector area', {'name': u'Storage Capacity per Collector Area', 'pyname': u'storage_capacity_per_collector_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'height aspect ratio', {'name': u'Height Aspect Ratio', 'pyname': u'height_aspect_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WaterHeater:Sizing`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 4, 'name': u'WaterHeater:Sizing', 'pyname': u'WaterHeaterSizing', 'format': None, 'fields': OrderedDict([(u'waterheater name', {'name': u'WaterHeater Name', 'pyname': u'waterheater_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design mode', {'name': u'Design Mode', 'pyname': u'design_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PeakDraw', u'ResidentialHUD-FHAMinimum', u'PerPerson', u'PerFloorArea', u'PerUnit', u'PerSolarCollectorArea'], 'autocalculatable': False, 'type': 'alpha'}), (u'time storage can meet peak draw', {'name': u'Time Storage Can Meet Peak Draw', 'pyname': u'time_storage_can_meet_peak_draw', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'time for tank recovery', {'name': u'Time for Tank Recovery', 'pyname': u'time_for_tank_recovery', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'nominal tank volume for autosizing plant connections', {'name': u'Nominal Tank Volume for Autosizing Plant Connections', 'pyname': u'nominal_tank_volume_for_autosizing_plant_connections', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'number of bedrooms', {'name': u'Number of Bedrooms', 'pyname': u'number_of_bedrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of bathrooms', {'name': u'Number of Bathrooms', 'pyname': u'number_of_bathrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'storage capacity per person', {'name': u'Storage Capacity per Person', 'pyname': u'storage_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/Person'}), (u'recovery capacity per person', {'name': u'Recovery Capacity per Person', 'pyname': u'recovery_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-person'}), (u'storage capacity per floor area', {'name': u'Storage Capacity per Floor Area', 'pyname': u'storage_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'recovery capacity per floor area', {'name': u'Recovery Capacity per Floor Area', 'pyname': u'recovery_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-m2'}), (u'number of units', {'name': u'Number of Units', 'pyname': u'number_of_units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'storage capacity per unit', {'name': u'Storage Capacity per Unit', 'pyname': u'storage_capacity_per_unit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'recovery capacity perunit', {'name': u'Recovery Capacity PerUnit', 'pyname': u'recovery_capacity_perunit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr'}), (u'storage capacity per collector area', {'name': u'Storage Capacity per Collector Area', 'pyname': u'storage_capacity_per_collector_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'height aspect ratio', {'name': u'Height Aspect Ratio', 'pyname': u'height_aspect_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def waterheater_name(self):
@@ -2647,7 +2621,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             str: the value of `waterheater_name` or None if not set
         """
-        return self._data["WaterHeater Name"]
+        return self["WaterHeater Name"]
 
     @waterheater_name.setter
     def waterheater_name(self, value=None):
@@ -2670,7 +2644,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             str: the value of `design_mode` or None if not set
         """
-        return self._data["Design Mode"]
+        return self["Design Mode"]
 
     @design_mode.setter
     def design_mode(self, value=None):
@@ -2693,7 +2667,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `time_storage_can_meet_peak_draw` or None if not set
         """
-        return self._data["Time Storage Can Meet Peak Draw"]
+        return self["Time Storage Can Meet Peak Draw"]
 
     @time_storage_can_meet_peak_draw.setter
     def time_storage_can_meet_peak_draw(self, value=None):
@@ -2718,7 +2692,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `time_for_tank_recovery` or None if not set
         """
-        return self._data["Time for Tank Recovery"]
+        return self["Time for Tank Recovery"]
 
     @time_for_tank_recovery.setter
     def time_for_tank_recovery(self, value=None):
@@ -2743,7 +2717,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `nominal_tank_volume_for_autosizing_plant_connections` or None if not set
         """
-        return self._data["Nominal Tank Volume for Autosizing Plant Connections"]
+        return self["Nominal Tank Volume for Autosizing Plant Connections"]
 
     @nominal_tank_volume_for_autosizing_plant_connections.setter
     def nominal_tank_volume_for_autosizing_plant_connections(self, value=None):
@@ -2769,7 +2743,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             int: the value of `number_of_bedrooms` or None if not set
         """
-        return self._data["Number of Bedrooms"]
+        return self["Number of Bedrooms"]
 
     @number_of_bedrooms.setter
     def number_of_bedrooms(self, value=None):
@@ -2794,7 +2768,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             int: the value of `number_of_bathrooms` or None if not set
         """
-        return self._data["Number of Bathrooms"]
+        return self["Number of Bathrooms"]
 
     @number_of_bathrooms.setter
     def number_of_bathrooms(self, value=None):
@@ -2819,7 +2793,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `storage_capacity_per_person` or None if not set
         """
-        return self._data["Storage Capacity per Person"]
+        return self["Storage Capacity per Person"]
 
     @storage_capacity_per_person.setter
     def storage_capacity_per_person(self, value=None):
@@ -2844,7 +2818,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `recovery_capacity_per_person` or None if not set
         """
-        return self._data["Recovery Capacity per Person"]
+        return self["Recovery Capacity per Person"]
 
     @recovery_capacity_per_person.setter
     def recovery_capacity_per_person(self, value=None):
@@ -2869,7 +2843,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `storage_capacity_per_floor_area` or None if not set
         """
-        return self._data["Storage Capacity per Floor Area"]
+        return self["Storage Capacity per Floor Area"]
 
     @storage_capacity_per_floor_area.setter
     def storage_capacity_per_floor_area(self, value=None):
@@ -2894,7 +2868,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `recovery_capacity_per_floor_area` or None if not set
         """
-        return self._data["Recovery Capacity per Floor Area"]
+        return self["Recovery Capacity per Floor Area"]
 
     @recovery_capacity_per_floor_area.setter
     def recovery_capacity_per_floor_area(self, value=None):
@@ -2919,7 +2893,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `number_of_units` or None if not set
         """
-        return self._data["Number of Units"]
+        return self["Number of Units"]
 
     @number_of_units.setter
     def number_of_units(self, value=None):
@@ -2943,7 +2917,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `storage_capacity_per_unit` or None if not set
         """
-        return self._data["Storage Capacity per Unit"]
+        return self["Storage Capacity per Unit"]
 
     @storage_capacity_per_unit.setter
     def storage_capacity_per_unit(self, value=None):
@@ -2968,7 +2942,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `recovery_capacity_perunit` or None if not set
         """
-        return self._data["Recovery Capacity PerUnit"]
+        return self["Recovery Capacity PerUnit"]
 
     @recovery_capacity_perunit.setter
     def recovery_capacity_perunit(self, value=None):
@@ -2993,7 +2967,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `storage_capacity_per_collector_area` or None if not set
         """
-        return self._data["Storage Capacity per Collector Area"]
+        return self["Storage Capacity per Collector Area"]
 
     @storage_capacity_per_collector_area.setter
     def storage_capacity_per_collector_area(self, value=None):
@@ -3018,7 +2992,7 @@ class WaterHeaterSizing(DataObject):
         Returns:
             float: the value of `height_aspect_ratio` or None if not set
         """
-        return self._data["Height Aspect Ratio"]
+        return self["Height Aspect Ratio"]
 
     @height_aspect_ratio.setter
     def height_aspect_ratio(self, value=None):
@@ -3042,16 +3016,7 @@ class WaterHeaterHeatPump(DataObject):
         WaterHeater:HeatPump is a compound object that references other component objects -
         Coil:WaterHeating:AirToWaterHeatPump, Fan:OnOff, WaterHeater:Mixed
     """
-    schema = {'min-fields': 31, 'name': u'WaterHeater:HeatPump', 'pyname': u'WaterHeaterHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor setpoint temperature schedule name', {'name': u'Compressor Setpoint Temperature Schedule Name', 'pyname': u'compressor_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dead band temperature difference', {'name': u'Dead Band Temperature Difference', 'pyname': u'dead_band_temperature_difference', 'default': 5.0, 'minimum>': 0.0, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'condenser water inlet node name', {'name': u'Condenser Water Inlet Node Name', 'pyname': u'condenser_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water outlet node name', {'name': u'Condenser Water Outlet Node Name', 'pyname': u'condenser_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water flow rate', {'name': u'Condenser Water Flow Rate', 'pyname': u'condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'evaporator air flow rate', {'name': u'Evaporator Air Flow Rate', 'pyname': u'evaporator_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'inlet air configuration', {'name': u'Inlet Air Configuration', 'pyname': u'inlet_air_configuration', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air temperature schedule name', {'name': u'Inlet Air Temperature Schedule Name', 'pyname': u'inlet_air_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air humidity schedule name', {'name': u'Inlet Air Humidity Schedule Name', 'pyname': u'inlet_air_humidity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air zone name', {'name': u'Inlet Air Zone Name', 'pyname': u'inlet_air_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank object type', {'name': u'Tank Object Type', 'pyname': u'tank_object_type', 'default': u'WaterHeater:Mixed', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tank name', {'name': u'Tank Name', 'pyname': u'tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank use side inlet node name', {'name': u'Tank Use Side Inlet Node Name', 'pyname': u'tank_use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'tank use side outlet node name', {'name': u'Tank Use Side Outlet Node Name', 'pyname': u'tank_use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dx coil object type', {'name': u'DX Coil Object Type', 'pyname': u'dx_coil_object_type', 'default': u'Coil:WaterHeating:AirToWaterHeatPump', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dx coil name', {'name': u'DX Coil Name', 'pyname': u'dx_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum inlet air temperature for compressor operation', {'name': u'Minimum Inlet Air Temperature for Compressor Operation', 'pyname': u'minimum_inlet_air_temperature_for_compressor_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 5.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'compressor location', {'name': u'Compressor Location', 'pyname': u'compressor_location', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'compressor ambient temperature schedule name', {'name': u'Compressor Ambient Temperature Schedule Name', 'pyname': u'compressor_ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'default': u'Fan:OnOff', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic electric load', {'name': u'On Cycle Parasitic Electric Load', 'pyname': u'on_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic electric load', {'name': u'Off Cycle Parasitic Electric Load', 'pyname': u'off_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'parasitic heat rejection location', {'name': u'Parasitic Heat Rejection Location', 'pyname': u'parasitic_heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet air mixer node name', {'name': u'Inlet Air Mixer Node Name', 'pyname': u'inlet_air_mixer_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet air splitter node name', {'name': u'Outlet Air Splitter Node Name', 'pyname': u'outlet_air_splitter_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air mixer schedule name', {'name': u'Inlet Air Mixer Schedule Name', 'pyname': u'inlet_air_mixer_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control sensor location in stratified tank', {'name': u'Control Sensor Location In Stratified Tank', 'pyname': u'control_sensor_location_in_stratified_tank', 'default': u'Heater1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `WaterHeater:HeatPump`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 31, 'name': u'WaterHeater:HeatPump', 'pyname': u'WaterHeaterHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor setpoint temperature schedule name', {'name': u'Compressor Setpoint Temperature Schedule Name', 'pyname': u'compressor_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dead band temperature difference', {'name': u'Dead Band Temperature Difference', 'pyname': u'dead_band_temperature_difference', 'default': 5.0, 'minimum>': 0.0, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'condenser water inlet node name', {'name': u'Condenser Water Inlet Node Name', 'pyname': u'condenser_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water outlet node name', {'name': u'Condenser Water Outlet Node Name', 'pyname': u'condenser_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water flow rate', {'name': u'Condenser Water Flow Rate', 'pyname': u'condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'evaporator air flow rate', {'name': u'Evaporator Air Flow Rate', 'pyname': u'evaporator_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'inlet air configuration', {'name': u'Inlet Air Configuration', 'pyname': u'inlet_air_configuration', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'ZoneAirOnly', u'OutdoorAirOnly', u'ZoneAndOutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air temperature schedule name', {'name': u'Inlet Air Temperature Schedule Name', 'pyname': u'inlet_air_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air humidity schedule name', {'name': u'Inlet Air Humidity Schedule Name', 'pyname': u'inlet_air_humidity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air zone name', {'name': u'Inlet Air Zone Name', 'pyname': u'inlet_air_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank object type', {'name': u'Tank Object Type', 'pyname': u'tank_object_type', 'default': u'WaterHeater:Mixed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WaterHeater:Mixed', u'WaterHeater:Stratified'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank name', {'name': u'Tank Name', 'pyname': u'tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank use side inlet node name', {'name': u'Tank Use Side Inlet Node Name', 'pyname': u'tank_use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'tank use side outlet node name', {'name': u'Tank Use Side Outlet Node Name', 'pyname': u'tank_use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dx coil object type', {'name': u'DX Coil Object Type', 'pyname': u'dx_coil_object_type', 'default': u'Coil:WaterHeating:AirToWaterHeatPump', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:WaterHeating:AirToWaterHeatPump'], 'autocalculatable': False, 'type': 'alpha'}), (u'dx coil name', {'name': u'DX Coil Name', 'pyname': u'dx_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum inlet air temperature for compressor operation', {'name': u'Minimum Inlet Air Temperature for Compressor Operation', 'pyname': u'minimum_inlet_air_temperature_for_compressor_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 5.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'compressor location', {'name': u'Compressor Location', 'pyname': u'compressor_location', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'compressor ambient temperature schedule name', {'name': u'Compressor Ambient Temperature Schedule Name', 'pyname': u'compressor_ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'default': u'Fan:OnOff', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic electric load', {'name': u'On Cycle Parasitic Electric Load', 'pyname': u'on_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic electric load', {'name': u'Off Cycle Parasitic Electric Load', 'pyname': u'off_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'parasitic heat rejection location', {'name': u'Parasitic Heat Rejection Location', 'pyname': u'parasitic_heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'inlet air mixer node name', {'name': u'Inlet Air Mixer Node Name', 'pyname': u'inlet_air_mixer_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet air splitter node name', {'name': u'Outlet Air Splitter Node Name', 'pyname': u'outlet_air_splitter_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air mixer schedule name', {'name': u'Inlet Air Mixer Schedule Name', 'pyname': u'inlet_air_mixer_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control sensor location in stratified tank', {'name': u'Control Sensor Location In Stratified Tank', 'pyname': u'control_sensor_location_in_stratified_tank', 'default': u'Heater1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heater1', u'Heater2', u'SourceInlet', u'SourceOutlet', u'UseInlet', u'UseOutlet'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3060,7 +3025,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -3084,7 +3049,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -3111,7 +3076,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `compressor_setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Compressor Setpoint Temperature Schedule Name"]
+        return self["Compressor Setpoint Temperature Schedule Name"]
 
     @compressor_setpoint_temperature_schedule_name.setter
     def compressor_setpoint_temperature_schedule_name(self, value=None):
@@ -3137,7 +3102,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `dead_band_temperature_difference` or None if not set
         """
-        return self._data["Dead Band Temperature Difference"]
+        return self["Dead Band Temperature Difference"]
 
     @dead_band_temperature_difference.setter
     def dead_band_temperature_difference(self, value=5.0):
@@ -3167,7 +3132,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `condenser_water_inlet_node_name` or None if not set
         """
-        return self._data["Condenser Water Inlet Node Name"]
+        return self["Condenser Water Inlet Node Name"]
 
     @condenser_water_inlet_node_name.setter
     def condenser_water_inlet_node_name(self, value=None):
@@ -3193,7 +3158,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `condenser_water_outlet_node_name` or None if not set
         """
-        return self._data["Condenser Water Outlet Node Name"]
+        return self["Condenser Water Outlet Node Name"]
 
     @condenser_water_outlet_node_name.setter
     def condenser_water_outlet_node_name(self, value=None):
@@ -3219,7 +3184,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `condenser_water_flow_rate` or None if not set
         """
-        return self._data["Condenser Water Flow Rate"]
+        return self["Condenser Water Flow Rate"]
 
     @condenser_water_flow_rate.setter
     def condenser_water_flow_rate(self, value=None):
@@ -3246,7 +3211,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `evaporator_air_flow_rate` or None if not set
         """
-        return self._data["Evaporator Air Flow Rate"]
+        return self["Evaporator Air Flow Rate"]
 
     @evaporator_air_flow_rate.setter
     def evaporator_air_flow_rate(self, value=None):
@@ -3273,7 +3238,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_configuration` or None if not set
         """
-        return self._data["Inlet Air Configuration"]
+        return self["Inlet Air Configuration"]
 
     @inlet_air_configuration.setter
     def inlet_air_configuration(self, value=None):
@@ -3297,7 +3262,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
         """
-        return self._data["Air Inlet Node Name"]
+        return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
@@ -3324,7 +3289,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
         """
-        return self._data["Air Outlet Node Name"]
+        return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
@@ -3351,7 +3316,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `outdoor_air_node_name` or None if not set
         """
-        return self._data["Outdoor Air Node Name"]
+        return self["Outdoor Air Node Name"]
 
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
@@ -3376,7 +3341,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `exhaust_air_node_name` or None if not set
         """
-        return self._data["Exhaust Air Node Name"]
+        return self["Exhaust Air Node Name"]
 
     @exhaust_air_node_name.setter
     def exhaust_air_node_name(self, value=None):
@@ -3401,7 +3366,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_temperature_schedule_name` or None if not set
         """
-        return self._data["Inlet Air Temperature Schedule Name"]
+        return self["Inlet Air Temperature Schedule Name"]
 
     @inlet_air_temperature_schedule_name.setter
     def inlet_air_temperature_schedule_name(self, value=None):
@@ -3426,7 +3391,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_humidity_schedule_name` or None if not set
         """
-        return self._data["Inlet Air Humidity Schedule Name"]
+        return self["Inlet Air Humidity Schedule Name"]
 
     @inlet_air_humidity_schedule_name.setter
     def inlet_air_humidity_schedule_name(self, value=None):
@@ -3451,7 +3416,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_zone_name` or None if not set
         """
-        return self._data["Inlet Air Zone Name"]
+        return self["Inlet Air Zone Name"]
 
     @inlet_air_zone_name.setter
     def inlet_air_zone_name(self, value=None):
@@ -3476,7 +3441,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `tank_object_type` or None if not set
         """
-        return self._data["Tank Object Type"]
+        return self["Tank Object Type"]
 
     @tank_object_type.setter
     def tank_object_type(self, value="WaterHeater:Mixed"):
@@ -3501,7 +3466,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `tank_name` or None if not set
         """
-        return self._data["Tank Name"]
+        return self["Tank Name"]
 
     @tank_name.setter
     def tank_name(self, value=None):
@@ -3525,7 +3490,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `tank_use_side_inlet_node_name` or None if not set
         """
-        return self._data["Tank Use Side Inlet Node Name"]
+        return self["Tank Use Side Inlet Node Name"]
 
     @tank_use_side_inlet_node_name.setter
     def tank_use_side_inlet_node_name(self, value=None):
@@ -3551,7 +3516,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `tank_use_side_outlet_node_name` or None if not set
         """
-        return self._data["Tank Use Side Outlet Node Name"]
+        return self["Tank Use Side Outlet Node Name"]
 
     @tank_use_side_outlet_node_name.setter
     def tank_use_side_outlet_node_name(self, value=None):
@@ -3577,7 +3542,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `dx_coil_object_type` or None if not set
         """
-        return self._data["DX Coil Object Type"]
+        return self["DX Coil Object Type"]
 
     @dx_coil_object_type.setter
     def dx_coil_object_type(self, value="Coil:WaterHeating:AirToWaterHeatPump"):
@@ -3603,7 +3568,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `dx_coil_name` or None if not set
         """
-        return self._data["DX Coil Name"]
+        return self["DX Coil Name"]
 
     @dx_coil_name.setter
     def dx_coil_name(self, value=None):
@@ -3627,7 +3592,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `minimum_inlet_air_temperature_for_compressor_operation` or None if not set
         """
-        return self._data["Minimum Inlet Air Temperature for Compressor Operation"]
+        return self["Minimum Inlet Air Temperature for Compressor Operation"]
 
     @minimum_inlet_air_temperature_for_compressor_operation.setter
     def minimum_inlet_air_temperature_for_compressor_operation(self, value=10.0):
@@ -3655,7 +3620,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `compressor_location` or None if not set
         """
-        return self._data["Compressor Location"]
+        return self["Compressor Location"]
 
     @compressor_location.setter
     def compressor_location(self, value=None):
@@ -3681,7 +3646,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `compressor_ambient_temperature_schedule_name` or None if not set
         """
-        return self._data["Compressor Ambient Temperature Schedule Name"]
+        return self["Compressor Ambient Temperature Schedule Name"]
 
     @compressor_ambient_temperature_schedule_name.setter
     def compressor_ambient_temperature_schedule_name(self, value=None):
@@ -3705,7 +3670,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `fan_object_type` or None if not set
         """
-        return self._data["Fan Object Type"]
+        return self["Fan Object Type"]
 
     @fan_object_type.setter
     def fan_object_type(self, value="Fan:OnOff"):
@@ -3731,7 +3696,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `fan_name` or None if not set
         """
-        return self._data["Fan Name"]
+        return self["Fan Name"]
 
     @fan_name.setter
     def fan_name(self, value=None):
@@ -3755,7 +3720,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `fan_placement` or None if not set
         """
-        return self._data["Fan Placement"]
+        return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="DrawThrough"):
@@ -3781,7 +3746,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `on_cycle_parasitic_electric_load` or None if not set
         """
-        return self._data["On Cycle Parasitic Electric Load"]
+        return self["On Cycle Parasitic Electric Load"]
 
     @on_cycle_parasitic_electric_load.setter
     def on_cycle_parasitic_electric_load(self, value=None):
@@ -3807,7 +3772,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             float: the value of `off_cycle_parasitic_electric_load` or None if not set
         """
-        return self._data["Off Cycle Parasitic Electric Load"]
+        return self["Off Cycle Parasitic Electric Load"]
 
     @off_cycle_parasitic_electric_load.setter
     def off_cycle_parasitic_electric_load(self, value=None):
@@ -3834,7 +3799,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `parasitic_heat_rejection_location` or None if not set
         """
-        return self._data["Parasitic Heat Rejection Location"]
+        return self["Parasitic Heat Rejection Location"]
 
     @parasitic_heat_rejection_location.setter
     def parasitic_heat_rejection_location(self, value="Outdoors"):
@@ -3861,7 +3826,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_mixer_node_name` or None if not set
         """
-        return self._data["Inlet Air Mixer Node Name"]
+        return self["Inlet Air Mixer Node Name"]
 
     @inlet_air_mixer_node_name.setter
     def inlet_air_mixer_node_name(self, value=None):
@@ -3886,7 +3851,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `outlet_air_splitter_node_name` or None if not set
         """
-        return self._data["Outlet Air Splitter Node Name"]
+        return self["Outlet Air Splitter Node Name"]
 
     @outlet_air_splitter_node_name.setter
     def outlet_air_splitter_node_name(self, value=None):
@@ -3911,7 +3876,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `inlet_air_mixer_schedule_name` or None if not set
         """
-        return self._data["Inlet Air Mixer Schedule Name"]
+        return self["Inlet Air Mixer Schedule Name"]
 
     @inlet_air_mixer_schedule_name.setter
     def inlet_air_mixer_schedule_name(self, value=None):
@@ -3941,7 +3906,7 @@ class WaterHeaterHeatPump(DataObject):
         Returns:
             str: the value of `control_sensor_location_in_stratified_tank` or None if not set
         """
-        return self._data["Control Sensor Location In Stratified Tank"]
+        return self["Control Sensor Location In Stratified Tank"]
 
     @control_sensor_location_in_stratified_tank.setter
     def control_sensor_location_in_stratified_tank(self, value="Heater1"):
@@ -3968,16 +3933,7 @@ class ThermalStorageIceSimple(DataObject):
         followed by a pipe.
         Use the PlantEquipmentOperation:ComponentSetpoint plant operation scheme.
     """
-    schema = {'min-fields': 5, 'name': u'ThermalStorage:Ice:Simple', 'pyname': u'ThermalStorageIceSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ice storage type', {'name': u'Ice Storage Type', 'pyname': u'ice_storage_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermalStorage:Ice:Simple`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 5, 'name': u'ThermalStorage:Ice:Simple', 'pyname': u'ThermalStorageIceSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ice storage type', {'name': u'Ice Storage Type', 'pyname': u'ice_storage_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IceOnCoilInternal', u'IceOnCoilExternal'], 'autocalculatable': False, 'type': 'alpha'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -3986,7 +3942,7 @@ class ThermalStorageIceSimple(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4009,7 +3965,7 @@ class ThermalStorageIceSimple(DataObject):
         Returns:
             str: the value of `ice_storage_type` or None if not set
         """
-        return self._data["Ice Storage Type"]
+        return self["Ice Storage Type"]
 
     @ice_storage_type.setter
     def ice_storage_type(self, value=None):
@@ -4034,7 +3990,7 @@ class ThermalStorageIceSimple(DataObject):
         Returns:
             float: the value of `capacity` or None if not set
         """
-        return self._data["Capacity"]
+        return self["Capacity"]
 
     @capacity.setter
     def capacity(self, value=None):
@@ -4059,7 +4015,7 @@ class ThermalStorageIceSimple(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -4082,7 +4038,7 @@ class ThermalStorageIceSimple(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -4106,16 +4062,7 @@ class ThermalStorageIceDetailed(DataObject):
         tank or series of tanks.
         The model uses polynomial equations to describe the system performance.
     """
-    schema = {'min-fields': 14, 'name': u'ThermalStorage:Ice:Detailed', 'pyname': u'ThermalStorageIceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'discharging curve object type', {'name': u'Discharging Curve Object Type', 'pyname': u'discharging_curve_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'discharging curve name', {'name': u'Discharging Curve Name', 'pyname': u'discharging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'charging curve object type', {'name': u'Charging Curve Object Type', 'pyname': u'charging_curve_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'charging curve name', {'name': u'Charging Curve Name', 'pyname': u'charging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'timestep of the curve data', {'name': u'Timestep of the Curve Data', 'pyname': u'timestep_of_the_curve_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'parasitic electric load during discharging', {'name': u'Parasitic Electric Load During Discharging', 'pyname': u'parasitic_electric_load_during_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'parasitic electric load during charging', {'name': u'Parasitic Electric Load During Charging', 'pyname': u'parasitic_electric_load_during_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'tank loss coefficient', {'name': u'Tank Loss Coefficient', 'pyname': u'tank_loss_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'freezing temperature of storage medium', {'name': u'Freezing Temperature of Storage Medium', 'pyname': u'freezing_temperature_of_storage_medium', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'thaw process indicator', {'name': u'Thaw Process Indicator', 'pyname': u'thaw_process_indicator', 'default': u'OutsideMelt', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermalStorage:Ice:Detailed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 14, 'name': u'ThermalStorage:Ice:Detailed', 'pyname': u'ThermalStorageIceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'discharging curve object type', {'name': u'Discharging Curve Object Type', 'pyname': u'discharging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'discharging curve name', {'name': u'Discharging Curve Name', 'pyname': u'discharging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'charging curve object type', {'name': u'Charging Curve Object Type', 'pyname': u'charging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'charging curve name', {'name': u'Charging Curve Name', 'pyname': u'charging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'timestep of the curve data', {'name': u'Timestep of the Curve Data', 'pyname': u'timestep_of_the_curve_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'parasitic electric load during discharging', {'name': u'Parasitic Electric Load During Discharging', 'pyname': u'parasitic_electric_load_during_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'parasitic electric load during charging', {'name': u'Parasitic Electric Load During Charging', 'pyname': u'parasitic_electric_load_during_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'tank loss coefficient', {'name': u'Tank Loss Coefficient', 'pyname': u'tank_loss_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'freezing temperature of storage medium', {'name': u'Freezing Temperature of Storage Medium', 'pyname': u'freezing_temperature_of_storage_medium', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'thaw process indicator', {'name': u'Thaw Process Indicator', 'pyname': u'thaw_process_indicator', 'default': u'OutsideMelt', 'required-field': False, 'autosizable': False, 'accepted-values': [u'InsideMelt', u'OutsideMelt'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4124,7 +4071,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4147,7 +4094,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `availability_schedule_name` or None if not set
         """
-        return self._data["Availability Schedule Name"]
+        return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
@@ -4172,7 +4119,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `capacity` or None if not set
         """
-        return self._data["Capacity"]
+        return self["Capacity"]
 
     @capacity.setter
     def capacity(self, value=None):
@@ -4197,7 +4144,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `inlet_node_name` or None if not set
         """
-        return self._data["Inlet Node Name"]
+        return self["Inlet Node Name"]
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
@@ -4220,7 +4167,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `outlet_node_name` or None if not set
         """
-        return self._data["Outlet Node Name"]
+        return self["Outlet Node Name"]
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
@@ -4243,7 +4190,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `discharging_curve_object_type` or None if not set
         """
-        return self._data["Discharging Curve Object Type"]
+        return self["Discharging Curve Object Type"]
 
     @discharging_curve_object_type.setter
     def discharging_curve_object_type(self, value=None):
@@ -4267,7 +4214,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `discharging_curve_name` or None if not set
         """
-        return self._data["Discharging Curve Name"]
+        return self["Discharging Curve Name"]
 
     @discharging_curve_name.setter
     def discharging_curve_name(self, value=None):
@@ -4291,7 +4238,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `charging_curve_object_type` or None if not set
         """
-        return self._data["Charging Curve Object Type"]
+        return self["Charging Curve Object Type"]
 
     @charging_curve_object_type.setter
     def charging_curve_object_type(self, value=None):
@@ -4315,7 +4262,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `charging_curve_name` or None if not set
         """
-        return self._data["Charging Curve Name"]
+        return self["Charging Curve Name"]
 
     @charging_curve_name.setter
     def charging_curve_name(self, value=None):
@@ -4339,7 +4286,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `timestep_of_the_curve_data` or None if not set
         """
-        return self._data["Timestep of the Curve Data"]
+        return self["Timestep of the Curve Data"]
 
     @timestep_of_the_curve_data.setter
     def timestep_of_the_curve_data(self, value=None):
@@ -4363,7 +4310,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `parasitic_electric_load_during_discharging` or None if not set
         """
-        return self._data["Parasitic Electric Load During Discharging"]
+        return self["Parasitic Electric Load During Discharging"]
 
     @parasitic_electric_load_during_discharging.setter
     def parasitic_electric_load_during_discharging(self, value=None):
@@ -4387,7 +4334,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `parasitic_electric_load_during_charging` or None if not set
         """
-        return self._data["Parasitic Electric Load During Charging"]
+        return self["Parasitic Electric Load During Charging"]
 
     @parasitic_electric_load_during_charging.setter
     def parasitic_electric_load_during_charging(self, value=None):
@@ -4411,7 +4358,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `tank_loss_coefficient` or None if not set
         """
-        return self._data["Tank Loss Coefficient"]
+        return self["Tank Loss Coefficient"]
 
     @tank_loss_coefficient.setter
     def tank_loss_coefficient(self, value=None):
@@ -4437,7 +4384,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             float: the value of `freezing_temperature_of_storage_medium` or None if not set
         """
-        return self._data["Freezing Temperature of Storage Medium"]
+        return self["Freezing Temperature of Storage Medium"]
 
     @freezing_temperature_of_storage_medium.setter
     def freezing_temperature_of_storage_medium(self, value=None):
@@ -4464,7 +4411,7 @@ class ThermalStorageIceDetailed(DataObject):
         Returns:
             str: the value of `thaw_process_indicator` or None if not set
         """
-        return self._data["Thaw Process Indicator"]
+        return self["Thaw Process Indicator"]
 
     @thaw_process_indicator.setter
     def thaw_process_indicator(self, value="OutsideMelt"):
@@ -4490,16 +4437,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
     """
-    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Mixed', 'pyname': u'ThermalStorageChilledWaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat gain coefficient from ambient temperature', {'name': u'Heat Gain Coefficient from Ambient Temperature', 'pyname': u'heat_gain_coefficient_from_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Mixed`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Mixed', 'pyname': u'ThermalStorageChilledWaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat gain coefficient from ambient temperature', {'name': u'Heat Gain Coefficient from Ambient Temperature', 'pyname': u'heat_gain_coefficient_from_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -4508,7 +4446,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -4531,7 +4469,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `tank_volume` or None if not set
         """
-        return self._data["Tank Volume"]
+        return self["Tank Volume"]
 
     @tank_volume.setter
     def tank_volume(self, value=0.1):
@@ -4557,7 +4495,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -4580,7 +4518,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `deadband_temperature_difference` or None if not set
         """
-        return self._data["Deadband Temperature Difference"]
+        return self["Deadband Temperature Difference"]
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=0.5):
@@ -4605,7 +4543,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `minimum_temperature_limit` or None if not set
         """
-        return self._data["Minimum Temperature Limit"]
+        return self["Minimum Temperature Limit"]
 
     @minimum_temperature_limit.setter
     def minimum_temperature_limit(self, value=None):
@@ -4629,7 +4567,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `nominal_cooling_capacity` or None if not set
         """
-        return self._data["Nominal Cooling Capacity"]
+        return self["Nominal Cooling Capacity"]
 
     @nominal_cooling_capacity.setter
     def nominal_cooling_capacity(self, value=None):
@@ -4653,7 +4591,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_indicator` or None if not set
         """
-        return self._data["Ambient Temperature Indicator"]
+        return self["Ambient Temperature Indicator"]
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
@@ -4676,7 +4614,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_schedule_name` or None if not set
         """
-        return self._data["Ambient Temperature Schedule Name"]
+        return self["Ambient Temperature Schedule Name"]
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
@@ -4699,7 +4637,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_zone_name` or None if not set
         """
-        return self._data["Ambient Temperature Zone Name"]
+        return self["Ambient Temperature Zone Name"]
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
@@ -4722,7 +4660,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
         """
-        return self._data["Ambient Temperature Outdoor Air Node Name"]
+        return self["Ambient Temperature Outdoor Air Node Name"]
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
@@ -4746,7 +4684,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `heat_gain_coefficient_from_ambient_temperature` or None if not set
         """
-        return self._data["Heat Gain Coefficient from Ambient Temperature"]
+        return self["Heat Gain Coefficient from Ambient Temperature"]
 
     @heat_gain_coefficient_from_ambient_temperature.setter
     def heat_gain_coefficient_from_ambient_temperature(self, value=None):
@@ -4770,7 +4708,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `use_side_inlet_node_name` or None if not set
         """
-        return self._data["Use Side Inlet Node Name"]
+        return self["Use Side Inlet Node Name"]
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
@@ -4793,7 +4731,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `use_side_outlet_node_name` or None if not set
         """
-        return self._data["Use Side Outlet Node Name"]
+        return self["Use Side Outlet Node Name"]
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
@@ -4816,7 +4754,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `use_side_heat_transfer_effectiveness` or None if not set
         """
-        return self._data["Use Side Heat Transfer Effectiveness"]
+        return self["Use Side Heat Transfer Effectiveness"]
 
     @use_side_heat_transfer_effectiveness.setter
     def use_side_heat_transfer_effectiveness(self, value=1.0):
@@ -4841,7 +4779,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `use_side_availability_schedule_name` or None if not set
         """
-        return self._data["Use Side Availability Schedule Name"]
+        return self["Use Side Availability Schedule Name"]
 
     @use_side_availability_schedule_name.setter
     def use_side_availability_schedule_name(self, value=None):
@@ -4866,7 +4804,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `use_side_design_flow_rate` or None if not set
         """
-        return self._data["Use Side Design Flow Rate"]
+        return self["Use Side Design Flow Rate"]
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
@@ -4892,7 +4830,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `source_side_inlet_node_name` or None if not set
         """
-        return self._data["Source Side Inlet Node Name"]
+        return self["Source Side Inlet Node Name"]
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
@@ -4915,7 +4853,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `source_side_outlet_node_name` or None if not set
         """
-        return self._data["Source Side Outlet Node Name"]
+        return self["Source Side Outlet Node Name"]
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
@@ -4938,7 +4876,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `source_side_heat_transfer_effectiveness` or None if not set
         """
-        return self._data["Source Side Heat Transfer Effectiveness"]
+        return self["Source Side Heat Transfer Effectiveness"]
 
     @source_side_heat_transfer_effectiveness.setter
     def source_side_heat_transfer_effectiveness(self, value=1.0):
@@ -4963,7 +4901,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             str: the value of `source_side_availability_schedule_name` or None if not set
         """
-        return self._data["Source Side Availability Schedule Name"]
+        return self["Source Side Availability Schedule Name"]
 
     @source_side_availability_schedule_name.setter
     def source_side_availability_schedule_name(self, value=None):
@@ -4988,7 +4926,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `source_side_design_flow_rate` or None if not set
         """
-        return self._data["Source Side Design Flow Rate"]
+        return self["Source Side Design Flow Rate"]
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
@@ -5014,7 +4952,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         Returns:
             float: the value of `tank_recovery_time` or None if not set
         """
-        return self._data["Tank Recovery Time"]
+        return self["Tank Recovery Time"]
 
     @tank_recovery_time.setter
     def tank_recovery_time(self, value=4.0):
@@ -5041,16 +4979,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
     """
-    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Stratified', 'pyname': u'ThermalStorageChilledWaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature sensor height', {'name': u'Temperature Sensor Height', 'pyname': u'temperature_sensor_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Stratified`
-        """
-        self._data = OrderedDict()
-        for key in self.schema['fields']:
-            self._data[key] = None
-        self._data["extensibles"] = []
-        self.strict = True
+    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Stratified', 'pyname': u'ThermalStorageChilledWaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature sensor height', {'name': u'Temperature Sensor Height', 'pyname': u'temperature_sensor_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
 
     @property
     def name(self):
@@ -5059,7 +4988,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `name` or None if not set
         """
-        return self._data["Name"]
+        return self["Name"]
 
     @name.setter
     def name(self, value=None):
@@ -5082,7 +5011,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `tank_volume` or None if not set
         """
-        return self._data["Tank Volume"]
+        return self["Tank Volume"]
 
     @tank_volume.setter
     def tank_volume(self, value=None):
@@ -5107,7 +5036,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `tank_height` or None if not set
         """
-        return self._data["Tank Height"]
+        return self["Tank Height"]
 
     @tank_height.setter
     def tank_height(self, value=None):
@@ -5132,7 +5061,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `tank_shape` or None if not set
         """
-        return self._data["Tank Shape"]
+        return self["Tank Shape"]
 
     @tank_shape.setter
     def tank_shape(self, value="VerticalCylinder"):
@@ -5156,7 +5085,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `tank_perimeter` or None if not set
         """
-        return self._data["Tank Perimeter"]
+        return self["Tank Perimeter"]
 
     @tank_perimeter.setter
     def tank_perimeter(self, value=None):
@@ -5181,7 +5110,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `setpoint_temperature_schedule_name` or None if not set
         """
-        return self._data["Setpoint Temperature Schedule Name"]
+        return self["Setpoint Temperature Schedule Name"]
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
@@ -5204,7 +5133,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `deadband_temperature_difference` or None if not set
         """
-        return self._data["Deadband Temperature Difference"]
+        return self["Deadband Temperature Difference"]
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=None):
@@ -5228,7 +5157,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `temperature_sensor_height` or None if not set
         """
-        return self._data["Temperature Sensor Height"]
+        return self["Temperature Sensor Height"]
 
     @temperature_sensor_height.setter
     def temperature_sensor_height(self, value=None):
@@ -5252,7 +5181,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `minimum_temperature_limit` or None if not set
         """
-        return self._data["Minimum Temperature Limit"]
+        return self["Minimum Temperature Limit"]
 
     @minimum_temperature_limit.setter
     def minimum_temperature_limit(self, value=None):
@@ -5276,7 +5205,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `nominal_cooling_capacity` or None if not set
         """
-        return self._data["Nominal Cooling Capacity"]
+        return self["Nominal Cooling Capacity"]
 
     @nominal_cooling_capacity.setter
     def nominal_cooling_capacity(self, value=None):
@@ -5300,7 +5229,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_indicator` or None if not set
         """
-        return self._data["Ambient Temperature Indicator"]
+        return self["Ambient Temperature Indicator"]
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
@@ -5323,7 +5252,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_schedule_name` or None if not set
         """
-        return self._data["Ambient Temperature Schedule Name"]
+        return self["Ambient Temperature Schedule Name"]
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
@@ -5346,7 +5275,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_zone_name` or None if not set
         """
-        return self._data["Ambient Temperature Zone Name"]
+        return self["Ambient Temperature Zone Name"]
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
@@ -5369,7 +5298,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `ambient_temperature_outdoor_air_node_name` or None if not set
         """
-        return self._data["Ambient Temperature Outdoor Air Node Name"]
+        return self["Ambient Temperature Outdoor Air Node Name"]
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
@@ -5393,7 +5322,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature` or None if not set
         """
-        return self._data["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"]
+        return self["Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature"]
 
     @uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature.setter
     def uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature(self, value=None):
@@ -5417,7 +5346,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `use_side_inlet_node_name` or None if not set
         """
-        return self._data["Use Side Inlet Node Name"]
+        return self["Use Side Inlet Node Name"]
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
@@ -5440,7 +5369,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `use_side_outlet_node_name` or None if not set
         """
-        return self._data["Use Side Outlet Node Name"]
+        return self["Use Side Outlet Node Name"]
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
@@ -5463,7 +5392,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `use_side_heat_transfer_effectiveness` or None if not set
         """
-        return self._data["Use Side Heat Transfer Effectiveness"]
+        return self["Use Side Heat Transfer Effectiveness"]
 
     @use_side_heat_transfer_effectiveness.setter
     def use_side_heat_transfer_effectiveness(self, value=1.0):
@@ -5493,7 +5422,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `use_side_availability_schedule_name` or None if not set
         """
-        return self._data["Use Side Availability Schedule Name"]
+        return self["Use Side Availability Schedule Name"]
 
     @use_side_availability_schedule_name.setter
     def use_side_availability_schedule_name(self, value=None):
@@ -5518,7 +5447,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `use_side_inlet_height` or None if not set
         """
-        return self._data["Use Side Inlet Height"]
+        return self["Use Side Inlet Height"]
 
     @use_side_inlet_height.setter
     def use_side_inlet_height(self, value="autocalculate"):
@@ -5544,7 +5473,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `use_side_outlet_height` or None if not set
         """
-        return self._data["Use Side Outlet Height"]
+        return self["Use Side Outlet Height"]
 
     @use_side_outlet_height.setter
     def use_side_outlet_height(self, value=None):
@@ -5569,7 +5498,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `use_side_design_flow_rate` or None if not set
         """
-        return self._data["Use Side Design Flow Rate"]
+        return self["Use Side Design Flow Rate"]
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
@@ -5595,7 +5524,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `source_side_inlet_node_name` or None if not set
         """
-        return self._data["Source Side Inlet Node Name"]
+        return self["Source Side Inlet Node Name"]
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
@@ -5618,7 +5547,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `source_side_outlet_node_name` or None if not set
         """
-        return self._data["Source Side Outlet Node Name"]
+        return self["Source Side Outlet Node Name"]
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
@@ -5641,7 +5570,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `source_side_heat_transfer_effectiveness` or None if not set
         """
-        return self._data["Source Side Heat Transfer Effectiveness"]
+        return self["Source Side Heat Transfer Effectiveness"]
 
     @source_side_heat_transfer_effectiveness.setter
     def source_side_heat_transfer_effectiveness(self, value=1.0):
@@ -5671,7 +5600,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `source_side_availability_schedule_name` or None if not set
         """
-        return self._data["Source Side Availability Schedule Name"]
+        return self["Source Side Availability Schedule Name"]
 
     @source_side_availability_schedule_name.setter
     def source_side_availability_schedule_name(self, value=None):
@@ -5696,7 +5625,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `source_side_inlet_height` or None if not set
         """
-        return self._data["Source Side Inlet Height"]
+        return self["Source Side Inlet Height"]
 
     @source_side_inlet_height.setter
     def source_side_inlet_height(self, value=None):
@@ -5721,7 +5650,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `source_side_outlet_height` or None if not set
         """
-        return self._data["Source Side Outlet Height"]
+        return self["Source Side Outlet Height"]
 
     @source_side_outlet_height.setter
     def source_side_outlet_height(self, value="autocalculate"):
@@ -5747,7 +5676,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `source_side_design_flow_rate` or None if not set
         """
-        return self._data["Source Side Design Flow Rate"]
+        return self["Source Side Design Flow Rate"]
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
@@ -5773,7 +5702,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `tank_recovery_time` or None if not set
         """
-        return self._data["Tank Recovery Time"]
+        return self["Tank Recovery Time"]
 
     @tank_recovery_time.setter
     def tank_recovery_time(self, value=4.0):
@@ -5800,7 +5729,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             str: the value of `inlet_mode` or None if not set
         """
-        return self._data["Inlet Mode"]
+        return self["Inlet Mode"]
 
     @inlet_mode.setter
     def inlet_mode(self, value="Fixed"):
@@ -5824,7 +5753,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             int: the value of `number_of_nodes` or None if not set
         """
-        return self._data["Number of Nodes"]
+        return self["Number of Nodes"]
 
     @number_of_nodes.setter
     def number_of_nodes(self, value=1):
@@ -5850,7 +5779,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `additional_destratification_conductivity` or None if not set
         """
-        return self._data["Additional Destratification Conductivity"]
+        return self["Additional Destratification Conductivity"]
 
     @additional_destratification_conductivity.setter
     def additional_destratification_conductivity(self, value=None):
@@ -5874,7 +5803,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_1_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 1 Additional Loss Coefficient"]
+        return self["Node 1 Additional Loss Coefficient"]
 
     @node_1_additional_loss_coefficient.setter
     def node_1_additional_loss_coefficient(self, value=None):
@@ -5898,7 +5827,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_2_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 2 Additional Loss Coefficient"]
+        return self["Node 2 Additional Loss Coefficient"]
 
     @node_2_additional_loss_coefficient.setter
     def node_2_additional_loss_coefficient(self, value=None):
@@ -5922,7 +5851,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_3_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 3 Additional Loss Coefficient"]
+        return self["Node 3 Additional Loss Coefficient"]
 
     @node_3_additional_loss_coefficient.setter
     def node_3_additional_loss_coefficient(self, value=None):
@@ -5946,7 +5875,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_4_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 4 Additional Loss Coefficient"]
+        return self["Node 4 Additional Loss Coefficient"]
 
     @node_4_additional_loss_coefficient.setter
     def node_4_additional_loss_coefficient(self, value=None):
@@ -5970,7 +5899,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_5_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 5 Additional Loss Coefficient"]
+        return self["Node 5 Additional Loss Coefficient"]
 
     @node_5_additional_loss_coefficient.setter
     def node_5_additional_loss_coefficient(self, value=None):
@@ -5994,7 +5923,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_6_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 6 Additional Loss Coefficient"]
+        return self["Node 6 Additional Loss Coefficient"]
 
     @node_6_additional_loss_coefficient.setter
     def node_6_additional_loss_coefficient(self, value=None):
@@ -6018,7 +5947,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_7_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 7 Additional Loss Coefficient"]
+        return self["Node 7 Additional Loss Coefficient"]
 
     @node_7_additional_loss_coefficient.setter
     def node_7_additional_loss_coefficient(self, value=None):
@@ -6042,7 +5971,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_8_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 8 Additional Loss Coefficient"]
+        return self["Node 8 Additional Loss Coefficient"]
 
     @node_8_additional_loss_coefficient.setter
     def node_8_additional_loss_coefficient(self, value=None):
@@ -6066,7 +5995,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_9_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 9 Additional Loss Coefficient"]
+        return self["Node 9 Additional Loss Coefficient"]
 
     @node_9_additional_loss_coefficient.setter
     def node_9_additional_loss_coefficient(self, value=None):
@@ -6090,7 +6019,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         Returns:
             float: the value of `node_10_additional_loss_coefficient` or None if not set
         """
-        return self._data["Node 10 Additional Loss Coefficient"]
+        return self["Node 10 Additional Loss Coefficient"]
 
     @node_10_additional_loss_coefficient.setter
     def node_10_additional_loss_coefficient(self, value=None):
