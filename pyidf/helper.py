@@ -112,7 +112,7 @@ class DataObject(object):
                 if field['autocalculatable']:
                     alt = " or \"Autocalculate\""
 
-                if field['type'] == "real":
+                if field['type'] == "integer":
                     if not self.strict:
                         try:
                             conv_value = int(float(value))
@@ -210,18 +210,19 @@ class DataObject(object):
                                                            vals[value_lower],
                                                            schema['pyname'],
                                                            field['pyname']))
-                value = value_lower
+                        value = value_lower
 
         # value is None
         else:
-            if 'required-field' in field and 'default' in field:
+            if field['required-field'] and 'default' in field:
                 key = field['name'].lower()
-                if key in self.schema['fields'] and self.schema['fields'].keys().index(key) < self.schema['min-fields']:
+                if (key in self.schema['fields'] and
+                        self.schema['fields'].keys().index(key) < self.schema['min-fields']):
                     logger.warn('Replacing None value for required field `{}.{}` '
                                 'with {}'.format(schema['pyname'],
                                                  field['pyname'],
                                                  field['default']))
-                value = field['default']
+                    value = field['default']
 
         return value
 
@@ -241,14 +242,12 @@ class DataObject(object):
             if field['required-field'] and self._data[key] is None:
                 good = False
                 if strict:
-                    raise ValueError("Required field {}.{} is None".format(key,
-                                                                           self.schema['pyname'],
-                                                                           self.field['pyname']))
+                    raise ValueError("Required field {}.{} is None".format(self.schema['pyname'],
+                                                                           field['pyname']))
                     break
                 else:
-                    logger.warn("Required field {}:{} is None".format(key,
-                                                                     self.schema['pyname'],
-                                                                     self.field['pyname']))
+                    logger.warn("Required field {}.{} is None".format(self.schema['pyname'],
+                                                                      field['pyname']))
 
         out_fields = len(self.export())
         has_minfields = out_fields >= self.schema['min-fields']
