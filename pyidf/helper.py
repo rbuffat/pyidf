@@ -10,7 +10,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class DataObject(object):
-    
+
     schema = {}
 
     def __init__(self):
@@ -34,8 +34,8 @@ class DataObject(object):
             if (not len(key) == 2
                     and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
                 raise TypeError("{} is not a tuple(str, int) "
-                                "with length 2}".format(str(key),
-                                                        self.schema['pyname']))
+                                "with length 2".format(str(key),
+                                                       self.schema['pyname']))
                 key_name = key[0].lower()
                 if key_name not in self.schema['extensible-fields']:
                     raise KeyError("{} is not an extensible field "
@@ -58,15 +58,16 @@ class DataObject(object):
             if key_lower in self.schema['fields']:
                 return self._data[key_lower]
             else:
-                raise KeyError("{} is not a field name".format(key,
-                                                               self.schema['pyname']))
+                raise KeyError("{} is not a field name "
+                               "for object {}".format(key,
+                                                      self.schema['pyname']))
 
         elif isinstance(key, tuple):
             if (not len(key) == 2
                     and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
                 raise TypeError("{} is not a tuple(str, int) "
-                                "with length 2}".format(str(key),
-                                                        self.schema['pyname']))
+                                "with length 2 for object {}".format(str(key),
+                                                                     self.schema['pyname']))
                 key_name = key[0].lower()
                 if key_name not in self.schema['extensible-fields']:
                     raise KeyError("{} is not an extensible field "
