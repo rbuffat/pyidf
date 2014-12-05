@@ -9,7 +9,7 @@ from docformatter import format_code
 import multiprocessing
 import Queue
 from generator import generate_class, generate_helper
-from generator import generate_idf
+from generator import generate_idf, generate_init
 from iddparser import IDDParser
 num_worker_threads = 4
 
@@ -84,3 +84,8 @@ if __name__ == '__main__':
     helper_source = generate_helper(objs)
     with open("../pyidf/helper.py", 'w') as f:
         f.write(helper_source)
+        
+    init_source = generate_init()
+    with open("../pyidf/__init__.py", 'w') as f:
+        f.write(init_source)
+        

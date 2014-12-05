@@ -32,7 +32,7 @@ class IDF(object):
         """ Inits IDF with no data dictionary set."""
         self._data = OrderedDict()
         {%- for obj in objs %}
-        self._data["{% filter lower %}{{obj.internal_name}}{% endfilter %}"] = []
+        self._data[u"{% filter lower %}{{obj.internal_name}}{% endfilter %}"] = []
         {%- endfor %}
         self.comment_headers = []
    
@@ -299,7 +299,7 @@ class IDF(object):
                     if len(splits) > 1 and current_object is not None:
 
                         if current_object not in self._data:
-                            logging.error("{} is not a valid data dictionary name".format(current_object))
+                            logging.error("`{}` is not a valid data dictionary name".format(current_object))
 
                         else:
                             data_object = self._create_datadict(current_object)

@@ -2,7 +2,8 @@ from collections import OrderedDict
 import logging
 import re
 import six
-
+import pyidf
+from pyidf import ValidationLevel
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -141,6 +142,9 @@ class DataObject(object):
         Raises:
             ValueError: if value not valid for schema
         """
+        if pyidf.validation_level == ValidationLevel.no:
+            return value
+        
         schema = self.schema
         lower_name = name.lower()
         if lower_name in schema['fields']:
@@ -159,12 +163,13 @@ class DataObject(object):
                     if value_lower == "autocalculate":
                         return "Autocalculate"
 
-                    if not self.strict and "auto" in value_lower:
+                    if pyidf.validation_level == ValidationLevel.transition and "auto" in value_lower:
                         logger.warn('Accept value {} as "Autocalculate" '
                                     'for field `{}.{}`'.format(value,
                                                                 schema['pyname'],
                                                                 field['pyname']))
                         return "Autocalculate"
+
                 except ValueError:
                     # No string
                     pass
@@ -175,7 +180,7 @@ class DataObject(object):
                     if value_lower == "autosize":
                         return "Autosize"
 
-                    if not self.strict and "auto" in value_lower:
+                    if pyidf.validation_level == ValidationLevel.transition and "auto" in value_lower:
                         logger.warn('Accept value {} as "Autosize" '
                                      'for field `{}.{}`'.format(value,
                                                                 schema['pyname'],
@@ -183,6 +188,10 @@ class DataObject(object):
                         return "Autosize"
                 except ValueError:
                     pass
+
+            #test for parametric vars 
+            if not field['type'] == "alpha" and '$' in value:
+                return value
 
             # cast input data to appropriate python datatype
             try:
@@ -195,6 +204,8 @@ class DataObject(object):
                 else:
                     value = str(value)
             except ValueError:
+                if pyidf.validation_level == ValidationLevel.no:
+                    return value
 
                 alt = ""
                 if field['autosizable']:
@@ -203,7 +214,7 @@ class DataObject(object):
                     alt = " or \"Autocalculate\""
 
                 if field['type'] == "integer":
-                    if not self.strict:
+                    if pyidf.validation_level == ValidationLevel.transition:
                         try:
                             conv_value = int(float(value))
                             logger.warn('Cast float {} to int {}, precision may be lost '
@@ -214,61 +225,110 @@ class DataObject(object):
                             value = conv_value
 
                         except ValueError:
-                            raise ValueError('value {} need to be of type {}{} '
+                            logger.warn('value {} need to be of type {}{} '
                                              'for field `{}.{}`'.format(value,
                                                                          field['type'],
                                                                          alt,
                                                                          schema['pyname'],
                                                                          field['pyname']))
+                            return value
                 else:
+                    
+                    if pyidf.validation_level == ValidationLevel.error:
                             raise ValueError('value {} need to be of type {}{} '
                                              'for field `{}.{}`'.format(value,
                                                                          field['type'],
                                                                          alt,
                                                                          schema['pyname'],
                                                                          field['pyname']))
+                    else:
+                            logger.warn('value {} need to be of type {}{} '
+                                        'for field `{}.{}`'.format(value,
+                                                                   field['type'],
+                                                                   alt,
+                                                                   schema['pyname'],
+                                                                   field['pyname']))
 
             # Check min / max for non alpha types
             if field['type'] == "alpha":
                 if ',' in value:
-                    raise ValueError('value should not contain a comma '
-                                     'for field `{}.{}`'.format(schema['pyname'],
-                                                                field['pyname']))
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value should not contain a comma '
+                                         'for field `{}.{}`'.format(schema['pyname'],
+                                                                    field['pyname']))                        
+                    else:
+                        raise ValueError('value should not contain a comma '
+                                         'for field `{}.{}`'.format(schema['pyname'],
+                                                                    field['pyname']))
 
                 if '!' in value:
-                    raise ValueError('value should not contain a ! '
-                                     'for field `{}.{}`'.format(schema['pyname'],
-                                                                field['pyname']))
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value should not contain a ! '
+                                         'for field `{}.{}`'.format(schema['pyname'],
+                                                                    field['pyname']))
+                    else:
+                        raise ValueError('value should not contain a ! '
+                                         'for field `{}.{}`'.format(schema['pyname'],
+                                                                    field['pyname']))
             else:
 
                 if 'minimum' in field and value < field['minimum']:
-                    raise ValueError('value {} need to be greater or equal {} '
-                                     'for field `{}.{}`'.format(value,
-                                                                field['minimum'],
-                                                                schema['pyname'],
-                                                                field['pyname']))
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value {} need to be greater or equal {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['minimum'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
+                    else:
+                        raise ValueError('value {} need to be greater or equal {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['minimum'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
 
                 if 'minimum>' in field and value <= field['minimum>']:
-                    raise ValueError('value {} need to be greater  {} '
-                                     'for field `{}.{}`'.format(value,
-                                                                field['minimum>'],
-                                                                schema['pyname'],
-                                                                field['pyname']))
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value {} need to be greater  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['minimum>'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
+                    else:
+                        raise ValueError('value {} need to be greater  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['minimum>'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
 
                 if 'maximum' in field and value > field['maximum']:
-                    raise ValueError('value {} need to be smaller or equal  {} '
-                                     'for field `{}.{}`'.format(value,
-                                                                field['maximum'],
-                                                                schema['pyname'],
-                                                                field['pyname']))
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value {} need to be smaller or equal  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['maximum'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
+
+                    else:
+                        raise ValueError('value {} need to be smaller or equal  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['maximum'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
 
                 if 'maximum<' in field and value >= field['maximum<']:
-                    raise ValueError('value {} need to be smaller  {} '
-                                     'for field `{}.{}`'.format(value,
-                                                                field['maximum<'],
-                                                                schema['pyname'],
-                                                                field['pyname']))
-            # Check accepted values for alpha types
+                    if not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value {} need to be smaller  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['maximum<'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
+                    else:
+                        raise ValueError('value {} need to be smaller  {} '
+                                         'for field `{}.{}`'.format(value,
+                                                                    field['maximum<'],
+                                                                    schema['pyname'],
+                                                                    field['pyname']))
+                # Check accepted values for alpha types
             if 'accepted-values' in field:
                 vals = {}
                 for val in field['accepted-values']:
@@ -284,46 +344,74 @@ class DataObject(object):
 
                 if value_lower not in vals:
                     found = False
-                    if not self.strict:
+                    if pyidf.validation_level == ValidationLevel.transition:
                         for key in vals:
                             if key in value_lower or value_lower in key:
                                 value_lower = key
                                 found = True
                                 break
                         if not found:
+                            transition_vals = []
                             value_stripped = re.sub(r'[^a-zA-Z0-9]', '', value_lower)
                             for key in vals:
                                 key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
                                 if key_stripped == value_stripped:
                                     value_lower = key
+                                    transition_vals.append(key)
                                     found = True
-                                    break
-                    if not found:
+                            if len(transition_vals) > 1:
+                                trans = ", ".join(transition_vals)
+                                raise ValueError('value {} is not an accepted value for '
+                                                 'field `{}.{}`, multiple accepted values '
+                                                 'match: {}'.format(value,
+                                                                    schema['pyname'],
+                                                                    field['pyname'],
+                                                                    trans))
+                            elif len(transition_vals) == 1:
+                                logger.warn('change value {} to accepted value {} for '
+                                            'field `{}.{}`'.format(value,
+                                                                   vals[value_lower],
+                                                                   schema['pyname'],
+                                                                   field['pyname']))
+
+                    if not found and pyidf.validation_level == ValidationLevel.error:
                         raise ValueError('value {} is not an accepted value for '
                                          'field `{}.{}`'.format(value,
                                                                 schema['pyname'],
                                                                 field['pyname']))
-                    else:
-                        logger.warn('change value {} to accepted value {} for '
-                                    'field `{}.{}`'.format(value,
-                                                           vals[value_lower],
-                                                           schema['pyname'],
-                                                           field['pyname']))
+                    elif not found and not pyidf.validation_level == ValidationLevel.error:
+                        logger.warn('value {} is not an accepted value for '
+                                         'field `{}.{}`'.format(value,
+                                                                schema['pyname'],
+                                                                field['pyname']))
+                    if found:
                         value = value_lower
 
         # value is None
         else:
 
+            
             # Replace None values for required fields with default values
             if field['required-field'] and 'default' in field:
-                key = field['name'].lower()
-                if (key in self.schema['fields'] and
-                        self.schema['fields'].keys().index(key) < self.schema['min-fields']):
-                    logger.warn('Replacing None value for required field `{}.{}` '
+                if pyidf.validation_level == ValidationLevel.warn:
+                    logger.warn('Value is Mone for required field `{}.{}` '
                                 'with default value {}'.format(schema['pyname'],
                                                                field['pyname'],
                                                                field['default']))
-                    value = field['default']
+                elif pyidf.validation_level == ValidationLevel.error:
+                    raise ValueError('Value is Mone for required field `{}.{}` '
+                                'with default value {}'.format(schema['pyname'],
+                                                               field['pyname'],
+                                                               field['default']))
+                elif pyidf.validation_level == ValidationLevel.transition:
+                    key = field['name'].lower()
+                    if (key in self.schema['fields'] and
+                            self.schema['fields'].keys().index(key) < self.schema['min-fields']):
+                        logger.warn('Replacing None value for required field `{}.{}` '
+                                    'with default value {}'.format(schema['pyname'],
+                                                                   field['pyname'],
+                                                                   field['default']))
+                        value = field['default']
 
         return value
 

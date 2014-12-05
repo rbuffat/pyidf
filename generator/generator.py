@@ -53,5 +53,10 @@ def generate_helper(objs):
     context["objs"] = objs
     return template.render(context)
 
+def generate_init():
+    template = env.get_template('__init__.py')
+    context = {}
+    return template.render(context)
+
 if __name__ == '__main__':
     pass
