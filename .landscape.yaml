@@ -2,3 +2,5 @@ doc-warnings: yes
 ignore-paths: 
     - generator
     - tests
+strictness: high
+max-line-length: 10000
