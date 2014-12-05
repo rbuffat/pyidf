@@ -1,4 +1,3 @@
-import six
 from collections import OrderedDict
 import logging
 import re

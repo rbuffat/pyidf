@@ -10,6 +10,8 @@ logger.addHandler(logging.NullHandler())
 
 
 class DataObject(object):
+    
+    schema = {}
 
     def __init__(self):
         """ Init data dictionary object
