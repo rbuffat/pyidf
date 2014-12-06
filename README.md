@@ -1,16 +1,15 @@
 #pyidf
 
-Python library to read, modify and create EnergyPlus idf files
+Python library to read, modify and create EnergyPlus idf files.
 
 [![Build Status](https://travis-ci.org/rbuffat/pyidf.svg?branch=master)](https://travis-ci.org/rbuffat/pyidf)
 [![Coverage Status](https://coveralls.io/repos/rbuffat/pyidf/badge.png)](https://coveralls.io/r/rbuffat/pyidf)
 [![Code Health](https://landscape.io/github/rbuffat/pyidf/master/landscape.svg)](https://landscape.io/github/rbuffat/pyidf/master)
 
-*This is a work in progress, do NOT expect it to actually work! As this is an early work, changes in the API are very likely to happen.*
+**This is a work in progress, do NOT expect it to actually work! As this is an early work, changes in the API are very likely to happen.**
 
-##Todos:
+## Todos:
 
-* unit tests
 * doc
 * field comments not implemented:
   * type: object-list, external-list, node
@@ -21,7 +20,21 @@ Python library to read, modify and create EnergyPlus idf files
 * object level comments not yet implemented
   * obsolete
   * reference-class-name
-  
+
+## Installation
+ 
+### pip:
+```
+pip install pyidf
+```
+
+### manual 
+```
+git clone https://github.com/rbuffat/pyidf.git
+cd pyidf
+python setup.py install
+```
+
 ## Usage
 
 ### Validation levels
@@ -65,7 +78,7 @@ for building in idf.buildings:
     print building
 ```
 
-Both variants return a list of the corresponding data objects present in the idf object. The name of data objects were pythonified, for example  the idd data object `BuildingSurface:Detailed` is represented by the Python class `BuildingSurfaceDetailed`.
+Both variants return a list of the corresponding data objects present in the idf object. The name of the EnergyPlus data dictionaries were pythonified, for example `BuildingSurface:Detailed` is represented by the Python class `BuildingSurfaceDetailed`. Each data dictionary is located in the module of its group. 
 
 It is possible to iterate over all data objects of an idf object:
 ```python
@@ -116,12 +129,16 @@ idf.buildingsurfacedetaileds[0].extensibles = b
 The following code creates a new `BuildingSurfaceDetailed` object and fills the values from an existing object: 
 
 ```python
+from pyidf.idf import IDF
+from pyidf.thermal_zones_and_surfaces import BuildingSurfaceDetailed
+
 bsd = BuildingSurfaceDetailed()
 for key in bsd.schema['fields']:
     bsd[key] = idf.buildingsurfacedetaileds[0][key]
 bsd.extensibles = idf.buildingsurfacedetaileds[0].extensibles
 bsd.name = "test"
 
+idf = IDF()
 idf.add(bsd)
 ```
 
@@ -147,3 +164,7 @@ print bsd.items()
 ## Library generation
 
 Large parts of this library are generated automatically. In case the library should be rebuilt, for example to fix bugs or generate the library for a different EnergyPlus version, main.py in the generator package need to be executed. Currently generator/V8-2-0-Energy+.idd is used as basis to generate the library. generator/V8-2-0-Energy+Alt.idd contains modified data objects. Every data object in V8-2-0-Energy+Alt.idd overwrites data objects with the same name in the original idd. Generating the library requires the libraries jinja2, autopep8 and docformatter.
+
+## Alternatives
+
+An alternative Python library to pyidf is [eppy](https://github.com/santoshphilip/eppy).
