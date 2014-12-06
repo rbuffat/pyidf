@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -1618,10 +1618,6 @@ class RefrigerationCaseAndWalkInList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        case_or_walkin_1_name=None,
@@ -3599,10 +3595,6 @@ class RefrigerationTransferLoadList(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        cascade_condenser_name_or_secondary_system_1_name=None,
                        ):
@@ -4165,10 +4157,6 @@ class RefrigerationCompressorList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        refrigeration_compressor_1_name=None,
@@ -6201,10 +6189,6 @@ class RefrigerationWalkIn(DataObject):
         """
         self["Insulated Floor U-Value"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        zone_1_name=None,
                        total_insulated_surface_area_facing_zone_1=None,
@@ -7216,10 +7200,6 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         """
         self["Air Outlet Node Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        air_chiller_name=None,
                        ):
@@ -7332,10 +7312,6 @@ class MatrixTwoDimension(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Columns"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        value=None,

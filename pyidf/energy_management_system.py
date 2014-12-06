@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -251,10 +251,6 @@ class EnergyManagementSystemProgramCallingManager(DataObject):
         """
         self["EnergyPlus Model Calling Point"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        program_name_1=None,
                        ):
@@ -321,10 +317,6 @@ class EnergyManagementSystemProgram(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        program_line_1=None,
@@ -393,10 +385,6 @@ class EnergyManagementSystemSubroutine(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        program_line=None,
                        ):
@@ -439,10 +427,6 @@ class EnergyManagementSystemGlobalVariable(DataObject):
         No spaces allowed in names used for Erl variables
     """
     schema = {'min-fields': 1, 'name': u'EnergyManagementSystem:GlobalVariable', 'pyname': u'EnergyManagementSystemGlobalVariable', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict([(u'erl variable 1 name', {'name': u'Erl Variable 1 Name', 'pyname': u'erl_variable_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False, 'group': u'Energy Management System'}
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        erl_variable_1_name=None,

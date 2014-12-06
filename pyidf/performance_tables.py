@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -280,10 +280,6 @@ class TableOneIndependentVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Normalization Reference"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        x_value=None,
@@ -653,10 +649,6 @@ class TableTwoIndependentVariables(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Normalization Reference"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        x_value=None,
@@ -1465,10 +1457,6 @@ class TableMultiVariableLookup(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Field 2 Determined by the Number of Independent Variables"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        field_3_determined_by_the_number_of_independent_variables=None,

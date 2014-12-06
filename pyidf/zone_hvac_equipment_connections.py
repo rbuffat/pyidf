@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -49,10 +49,6 @@ class ZoneHvacEquipmentList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        zone_equipment_1_object_type=None,

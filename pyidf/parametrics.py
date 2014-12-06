@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -46,10 +46,6 @@ class ParametricSetValueForRun(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        value_for_run_1=None,
@@ -119,10 +115,6 @@ class ParametricLogic(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        parametric_logic_line_1=None,
                        ):
@@ -188,10 +180,6 @@ class ParametricRunControl(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        perform_run_1="Yes",
@@ -259,10 +247,6 @@ class ParametricFileNameSuffix(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        suffix_for_file_name_in_run_1=None,

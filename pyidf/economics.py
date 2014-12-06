@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -4742,10 +4742,6 @@ class LifeCycleCostUsePriceEscalation(DataObject):
         """
         self["Escalation Start Month"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        year_1_escalation=None,
                        ):
@@ -4837,10 +4833,6 @@ class LifeCycleCostUseAdjustment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Resource"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        year_1_multiplier=None,

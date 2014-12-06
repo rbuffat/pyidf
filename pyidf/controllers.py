@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -1047,10 +1047,6 @@ class ControllerMechanicalVentilation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Maximum Outdoor Air Fraction"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        zone_1_name=None,

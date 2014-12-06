@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -1522,10 +1522,6 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Speeds for Cooling"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        speed_1_supply_air_flow_ratio_during_heating_operation=None,

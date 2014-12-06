@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -2091,10 +2091,6 @@ class SolarCollectorUnglazedTranspired(DataObject):
         """
         self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        surface_1_name=None,
                        ):
@@ -2161,10 +2157,6 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Solar Collector Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        outdoor_air_system_1_collector_inlet_node=None,

@@ -50,7 +50,7 @@ class DataObject(object):
             while len(self._extdata) <= key[1]:
                 self._extdata.append([None] * len(self.schema['extensible-fields']))
 
-            ind = self.schema['extensible-fields'].keys().index(key_name)
+            ind = list(self.schema['extensible-fields'].keys()).index(key_name)
             value = self.check_value(key_name, value)
             self._extdata[key[1]][ind] = value
 
@@ -96,7 +96,7 @@ class DataObject(object):
                                  " for object {}".format(len(self._extdata),
                                                          key[1],
                                                          self.schema['pyname']))
-            key_pos = self.schema['extensible-fields'].keys().index(key_name)
+            key_pos = list(self.schema['extensible-fields'].keys()).index(key_name)
             return self._extdata[key[1]][key_pos]
 
         elif isinstance(key, int):
@@ -444,7 +444,7 @@ class DataObject(object):
                 elif pyidf.validation_level == ValidationLevel.transition:
                     key = field['name'].lower()
                     if (key in self.schema['fields'] and
-                            self.schema['fields'].keys().index(key) < self.schema['min-fields']):
+                            list(self.schema['fields'].keys()).index(key) < self.schema['min-fields']):
                         logger.warn('Replacing None value for required field `{}.{}` '
                                     'with default value {}'.format(schema['pyname'],
                                                                    field['pyname'],
@@ -526,7 +526,7 @@ class DataObject(object):
 
         maxel = max(maxel, self.schema['min-fields'])
 
-        for key in self.schema['fields'].keys()[0:maxel]:
+        for key in list(self.schema['fields'].keys())[0:maxel]:
             field = self.schema['fields'][key]
             if validate:
                 value = self.check_value(field['name'], self._data[key])
@@ -549,6 +549,9 @@ class DataObject(object):
                 field_txt = "{} {}".format(field['name'], unit)
                 out.append((field_txt, self._to_str(vals[i])))
         return out
+
+    def extensible_field_index(self, name):
+        return list(self.schema['extensible-fields'].keys()).index(name.lower())
 
     def __str__(self):
         out = self.export(validate=False)

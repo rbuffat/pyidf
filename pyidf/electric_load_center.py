@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -5344,10 +5344,6 @@ class GeneratorFuelCellAirSupply(DataObject):
         """
         self["Number of UserDefined Constituents"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        constituent_1_name=None,
                        molar_fraction_1=None,
@@ -9656,10 +9652,6 @@ class ElectricLoadCenterGenerators(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        generator_1_name=None,
                        generator_1_object_type=None,
@@ -11734,10 +11726,6 @@ class ElectricLoadCenterTransformer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Consider Transformer Loss for Utility Cost"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        meter_1_name=None,

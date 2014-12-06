@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -507,10 +507,6 @@ class WaterUseConnections(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Drain Water Heat Exchanger U-Factor Times Area"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        water_use_equipment_1_name=None,
@@ -1484,10 +1480,6 @@ class WaterUseRainCollector(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Collection Rate"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        collection_surface_1_name=None,

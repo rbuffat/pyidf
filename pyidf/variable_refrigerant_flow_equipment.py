@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -2240,10 +2240,6 @@ class ZoneTerminalUnitList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Terminal Unit List Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        zone_terminal_unit_name_1=None,

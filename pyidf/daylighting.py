@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -1226,10 +1226,6 @@ class DaylightingDeviceTubular(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Effective Thermal Resistance"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        transition_zone_1_name=None,

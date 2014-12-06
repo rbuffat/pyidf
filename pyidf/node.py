@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -93,10 +93,6 @@ class Branch(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pressure Drop Curve Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        component_1_object_type=None,
@@ -215,10 +211,6 @@ class ConnectorSplitter(DataObject):
         """
         self["Inlet Branch Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        outlet_branch_name=None,
                        ):
@@ -307,10 +299,6 @@ class ConnectorMixer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Branch Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        inlet_branch_name=None,
@@ -503,10 +491,6 @@ class NodeList(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        node_name=None,
                        ):
@@ -616,10 +600,6 @@ class OutdoorAirNodeList(DataObject):
         an OutdoorAir:NodeList object.
     """
     schema = {'min-fields': 1, 'name': u'OutdoorAir:NodeList', 'pyname': u'OutdoorAirNodeList', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict([(u'node or nodelist name 1', {'name': u'Node or NodeList Name 1', 'pyname': u'node_or_nodelist_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        node_or_nodelist_name_1=None,
@@ -2289,10 +2269,6 @@ class PipingSystemUndergroundDomain(DataObject):
         """
         self["Number of Pipe Circuits Entered for this Domain"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        pipe_circuit_1=None,
                        ):
@@ -2677,10 +2653,6 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Pipe Segments Entered for this Pipe Circuit"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        pipe_segment_1=None,

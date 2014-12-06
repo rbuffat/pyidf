@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -840,10 +840,6 @@ class ScheduleDayInterval(DataObject):
         """
         self["Interpolate to Timestep"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        time_1=None,
                        value_until_time_1=None,
@@ -992,10 +988,6 @@ class ScheduleDayList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Minutes per Item"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        value=None,
@@ -1370,10 +1362,6 @@ class ScheduleWeekCompact(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        daytype_list_1=None,
                        scheduleday_name_1=None,
@@ -1468,10 +1456,6 @@ class ScheduleYear(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Type Limits Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        scheduleweek=None,
@@ -1602,10 +1586,6 @@ class ScheduleCompact(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Type Limits Name"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        field=None,

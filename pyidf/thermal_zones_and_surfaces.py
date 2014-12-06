@@ -3,7 +3,7 @@
 
 from collections import OrderedDict
 import logging
-from helper import DataObject
+from pyidf.helper import DataObject
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -617,10 +617,6 @@ class ZoneList(DataObject):
         """
         self["Name"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        zone_1_name=None,
                        ):
@@ -1004,10 +1000,6 @@ class BuildingSurfaceDetailed(DataObject):
         """
         self["Number of Vertices"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
                        vertex_1_ycoordinate=None,
@@ -1299,10 +1291,6 @@ class WallDetailed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Vertices"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
@@ -1596,10 +1584,6 @@ class RoofCeilingDetailed(DataObject):
         """
         self["Number of Vertices"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
                        vertex_1_ycoordinate=None,
@@ -1891,10 +1875,6 @@ class FloorDetailed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Vertices"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
@@ -8553,10 +8533,6 @@ class ShadingSiteDetailed(DataObject):
         """
         self["Number of Vertices"] = value
 
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
-
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
                        vertex_1_ycoordinate=None,
@@ -8692,10 +8668,6 @@ class ShadingBuildingDetailed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Vertices"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
@@ -9813,10 +9785,6 @@ class ShadingZoneDetailed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Vertices"] = value
-
-
-    def extensible_field_index(self, name):
-        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        vertex_1_xcoordinate=None,
