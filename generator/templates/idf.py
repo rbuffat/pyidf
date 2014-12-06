@@ -15,7 +15,7 @@ import pyidf
 import datetime
 from collections import OrderedDict
 {%- for file_name in file_names %}
-from {{ file_name }} import *
+from pyidf.{{ file_name }} import *
 {%- endfor %}
 
 
