@@ -265,7 +265,7 @@ class IDF(object):
                 line_comments = line.split("!")
                 line_match = re.search(r"\s*([\S ]*[,;])\s*", line_comments[0])
                 if line_match is None:
-                    print "Not matched: ", line
+                    logger.warn("Not matched: {}".format(line))
                     continue
                 else:
                     line = line_match.group(1)

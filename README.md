@@ -3,6 +3,7 @@
 Python library to read, modify and create EnergyPlus idf files
 
 [![Build Status](https://travis-ci.org/rbuffat/pyidf.svg?branch=master)](https://travis-ci.org/rbuffat/pyidf)
+[![Coverage Status](https://coveralls.io/repos/rbuffat/pyidf/badge.png)](https://coveralls.io/r/rbuffat/pyidf)
 [![Code Health](https://landscape.io/github/rbuffat/pyidf/master/landscape.svg)](https://landscape.io/github/rbuffat/pyidf/master)
 
 *This is a work in progress, do NOT expect it to actually work! As this is an early work, changes in the API are very likely to happen.*
