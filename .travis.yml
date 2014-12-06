@@ -6,12 +6,13 @@ python:
   - "3.4"
 # command to install dependencies
 install:
+  - pip install nose-exclude
   - "pip install -r requirements.txt"
   - "pip install pytest"
   - "pip install coveralls"
   - "pip install -e ."
 script: 
-  - nosetests
+  - nosetests --exclude-dir=generator
   - coverage run --source=pyidf --omit='*/generator/*,*/tests/*' -m nose
 after_success:
   - coveralls
