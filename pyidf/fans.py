@@ -14,7 +14,7 @@ class FanConstantVolume(DataObject):
         This fan will not cycle on and off based on cooling/heating load or other control
         signals.
     """
-    schema = {'min-fields': 9, 'name': u'Fan:ConstantVolume', 'pyname': u'FanConstantVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9, 'name': u'Fan:ConstantVolume', 'pyname': u'FanConstantVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class FanConstantVolume(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -50,7 +50,7 @@ class FanConstantVolume(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -75,7 +75,7 @@ class FanConstantVolume(DataObject):
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.7):
-        """  Corresponds to IDD Field `Fan Total Efficiency`
+        """  Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -100,7 +100,7 @@ class FanConstantVolume(DataObject):
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
-        """  Corresponds to IDD Field `Pressure Rise`
+        """  Corresponds to IDD field `Pressure Rise`
 
         Args:
             value (float): value for IDD Field `Pressure Rise`
@@ -125,7 +125,7 @@ class FanConstantVolume(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -149,7 +149,7 @@ class FanConstantVolume(DataObject):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
-        """  Corresponds to IDD Field `Motor Efficiency`
+        """  Corresponds to IDD field `Motor Efficiency`
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
@@ -174,7 +174,7 @@ class FanConstantVolume(DataObject):
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Motor In Airstream Fraction`
+        """  Corresponds to IDD field `Motor In Airstream Fraction`
         0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
 
         Args:
@@ -200,7 +200,7 @@ class FanConstantVolume(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -223,7 +223,7 @@ class FanConstantVolume(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -246,7 +246,7 @@ class FanConstantVolume(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -265,7 +265,7 @@ class FanVariableVolume(DataObject):
         Variable air volume fan where the electric power input varies according to a
         performance curve as a function of flow fraction.
     """
-    schema = {'min-fields': 17, 'name': u'Fan:VariableVolume', 'pyname': u'FanVariableVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan power minimum flow rate input method', {'name': u'Fan Power Minimum Flow Rate Input Method', 'pyname': u'fan_power_minimum_flow_rate_input_method', 'default': u'Fraction', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fraction', u'FixedFlowRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan power minimum flow fraction', {'name': u'Fan Power Minimum Flow Fraction', 'pyname': u'fan_power_minimum_flow_fraction', 'default': 0.25, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power minimum air flow rate', {'name': u'Fan Power Minimum Air Flow Rate', 'pyname': u'fan_power_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power coefficient 1', {'name': u'Fan Power Coefficient 1', 'pyname': u'fan_power_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 2', {'name': u'Fan Power Coefficient 2', 'pyname': u'fan_power_coefficient_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 3', {'name': u'Fan Power Coefficient 3', 'pyname': u'fan_power_coefficient_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 4', {'name': u'Fan Power Coefficient 4', 'pyname': u'fan_power_coefficient_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 5', {'name': u'Fan Power Coefficient 5', 'pyname': u'fan_power_coefficient_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 17, 'name': u'Fan:VariableVolume', 'pyname': u'FanVariableVolume', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan power minimum flow rate input method', {'name': u'Fan Power Minimum Flow Rate Input Method', 'pyname': u'fan_power_minimum_flow_rate_input_method', 'default': u'Fraction', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fraction', u'FixedFlowRate'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan power minimum flow fraction', {'name': u'Fan Power Minimum Flow Fraction', 'pyname': u'fan_power_minimum_flow_fraction', 'default': 0.25, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power minimum air flow rate', {'name': u'Fan Power Minimum Air Flow Rate', 'pyname': u'fan_power_minimum_air_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.9, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fan power coefficient 1', {'name': u'Fan Power Coefficient 1', 'pyname': u'fan_power_coefficient_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 2', {'name': u'Fan Power Coefficient 2', 'pyname': u'fan_power_coefficient_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 3', {'name': u'Fan Power Coefficient 3', 'pyname': u'fan_power_coefficient_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 4', {'name': u'Fan Power Coefficient 4', 'pyname': u'fan_power_coefficient_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'fan power coefficient 5', {'name': u'Fan Power Coefficient 5', 'pyname': u'fan_power_coefficient_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def name(self):
@@ -278,7 +278,7 @@ class FanVariableVolume(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -301,7 +301,7 @@ class FanVariableVolume(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -326,7 +326,7 @@ class FanVariableVolume(DataObject):
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.7):
-        """  Corresponds to IDD Field `Fan Total Efficiency`
+        """  Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -351,7 +351,7 @@ class FanVariableVolume(DataObject):
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
-        """  Corresponds to IDD Field `Pressure Rise`
+        """  Corresponds to IDD field `Pressure Rise`
 
         Args:
             value (float): value for IDD Field `Pressure Rise`
@@ -376,7 +376,7 @@ class FanVariableVolume(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -400,7 +400,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_minimum_flow_rate_input_method.setter
     def fan_power_minimum_flow_rate_input_method(self, value="Fraction"):
-        """  Corresponds to IDD Field `Fan Power Minimum Flow Rate Input Method`
+        """  Corresponds to IDD field `Fan Power Minimum Flow Rate Input Method`
 
         Args:
             value (str): value for IDD Field `Fan Power Minimum Flow Rate Input Method`
@@ -424,7 +424,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_minimum_flow_fraction.setter
     def fan_power_minimum_flow_fraction(self, value=0.25):
-        """  Corresponds to IDD Field `Fan Power Minimum Flow Fraction`
+        """  Corresponds to IDD field `Fan Power Minimum Flow Fraction`
 
         Args:
             value (float): value for IDD Field `Fan Power Minimum Flow Fraction`
@@ -449,7 +449,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_minimum_air_flow_rate.setter
     def fan_power_minimum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Minimum Air Flow Rate`
+        """  Corresponds to IDD field `Fan Power Minimum Air Flow Rate`
 
         Args:
             value (float): value for IDD Field `Fan Power Minimum Air Flow Rate`
@@ -473,7 +473,7 @@ class FanVariableVolume(DataObject):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.9):
-        """  Corresponds to IDD Field `Motor Efficiency`
+        """  Corresponds to IDD field `Motor Efficiency`
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
@@ -498,7 +498,7 @@ class FanVariableVolume(DataObject):
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Motor In Airstream Fraction`
+        """  Corresponds to IDD field `Motor In Airstream Fraction`
         0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
 
         Args:
@@ -524,7 +524,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_coefficient_1.setter
     def fan_power_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Coefficient 1`
+        """  Corresponds to IDD field `Fan Power Coefficient 1`
         all Fan Power Coefficients should not be 0.0 or no fan power will be consumed.
         Fan Power Coefficents are specified as function of full flow rate/power
         Equation:
@@ -550,7 +550,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_coefficient_2.setter
     def fan_power_coefficient_2(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Coefficient 2`
+        """  Corresponds to IDD field `Fan Power Coefficient 2`
 
         Args:
             value (float): value for IDD Field `Fan Power Coefficient 2`
@@ -573,7 +573,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_coefficient_3.setter
     def fan_power_coefficient_3(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Coefficient 3`
+        """  Corresponds to IDD field `Fan Power Coefficient 3`
 
         Args:
             value (float): value for IDD Field `Fan Power Coefficient 3`
@@ -596,7 +596,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_coefficient_4.setter
     def fan_power_coefficient_4(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Coefficient 4`
+        """  Corresponds to IDD field `Fan Power Coefficient 4`
 
         Args:
             value (float): value for IDD Field `Fan Power Coefficient 4`
@@ -619,7 +619,7 @@ class FanVariableVolume(DataObject):
 
     @fan_power_coefficient_5.setter
     def fan_power_coefficient_5(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Coefficient 5`
+        """  Corresponds to IDD field `Fan Power Coefficient 5`
 
         Args:
             value (float): value for IDD Field `Fan Power Coefficient 5`
@@ -642,7 +642,7 @@ class FanVariableVolume(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -665,7 +665,7 @@ class FanVariableVolume(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -688,7 +688,7 @@ class FanVariableVolume(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -708,7 +708,7 @@ class FanOnOff(DataObject):
         or other control signals. This fan can also operate continuously like
         Fan:ConstantVolume.
     """
-    schema = {'min-fields': 9, 'name': u'Fan:OnOff', 'pyname': u'FanOnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.8, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan power ratio function of speed ratio curve name', {'name': u'Fan Power Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_power_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan efficiency ratio function of speed ratio curve name', {'name': u'Fan Efficiency Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_efficiency_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9, 'name': u'Fan:OnOff', 'pyname': u'FanOnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'default': 0.8, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan power ratio function of speed ratio curve name', {'name': u'Fan Power Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_power_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan efficiency ratio function of speed ratio curve name', {'name': u'Fan Efficiency Ratio Function of Speed Ratio Curve Name', 'pyname': u'fan_efficiency_ratio_function_of_speed_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def name(self):
@@ -721,7 +721,7 @@ class FanOnOff(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -744,7 +744,7 @@ class FanOnOff(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -769,7 +769,7 @@ class FanOnOff(DataObject):
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.6):
-        """  Corresponds to IDD Field `Fan Total Efficiency`
+        """  Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -794,7 +794,7 @@ class FanOnOff(DataObject):
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
-        """  Corresponds to IDD Field `Pressure Rise`
+        """  Corresponds to IDD field `Pressure Rise`
 
         Args:
             value (float): value for IDD Field `Pressure Rise`
@@ -819,7 +819,7 @@ class FanOnOff(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -843,7 +843,7 @@ class FanOnOff(DataObject):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=0.8):
-        """  Corresponds to IDD Field `Motor Efficiency`
+        """  Corresponds to IDD field `Motor Efficiency`
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
@@ -868,7 +868,7 @@ class FanOnOff(DataObject):
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Motor In Airstream Fraction`
+        """  Corresponds to IDD field `Motor In Airstream Fraction`
         0.0 means fan motor outside of air stream, 1.0 means motor inside of air stream
 
         Args:
@@ -894,7 +894,7 @@ class FanOnOff(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -917,7 +917,7 @@ class FanOnOff(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -940,7 +940,7 @@ class FanOnOff(DataObject):
 
     @fan_power_ratio_function_of_speed_ratio_curve_name.setter
     def fan_power_ratio_function_of_speed_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Fan Power Ratio Function of Speed Ratio Curve Name`
+        """  Corresponds to IDD field `Fan Power Ratio Function of Speed Ratio Curve Name`
         Table:OneIndependentVariable can also be used
 
         Args:
@@ -964,7 +964,7 @@ class FanOnOff(DataObject):
 
     @fan_efficiency_ratio_function_of_speed_ratio_curve_name.setter
     def fan_efficiency_ratio_function_of_speed_ratio_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Fan Efficiency Ratio Function of Speed Ratio Curve Name`
+        """  Corresponds to IDD field `Fan Efficiency Ratio Function of Speed Ratio Curve Name`
         Table:OneIndependentVariable can also be used
 
         Args:
@@ -988,7 +988,7 @@ class FanOnOff(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -1006,7 +1006,7 @@ class FanZoneExhaust(DataObject):
     """ Corresponds to IDD object `Fan:ZoneExhaust`
         Models a fan that exhausts air from a zone.
     """
-    schema = {'min-fields': 7, 'name': u'Fan:ZoneExhaust', 'pyname': u'FanZoneExhaust', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'flow fraction schedule name', {'name': u'Flow Fraction Schedule Name', 'pyname': u'flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system availability manager coupling mode', {'name': u'System Availability Manager Coupling Mode', 'pyname': u'system_availability_manager_coupling_mode', 'default': u'Coupled', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coupled', u'Decoupled'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum zone temperature limit schedule name', {'name': u'Minimum Zone Temperature Limit Schedule Name', 'pyname': u'minimum_zone_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'balanced exhaust fraction schedule name', {'name': u'Balanced Exhaust Fraction Schedule Name', 'pyname': u'balanced_exhaust_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 7, 'name': u'Fan:ZoneExhaust', 'pyname': u'FanZoneExhaust', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 0.6, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'flow fraction schedule name', {'name': u'Flow Fraction Schedule Name', 'pyname': u'flow_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'system availability manager coupling mode', {'name': u'System Availability Manager Coupling Mode', 'pyname': u'system_availability_manager_coupling_mode', 'default': u'Coupled', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coupled', u'Decoupled'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum zone temperature limit schedule name', {'name': u'Minimum Zone Temperature Limit Schedule Name', 'pyname': u'minimum_zone_temperature_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'balanced exhaust fraction schedule name', {'name': u'Balanced Exhaust Fraction Schedule Name', 'pyname': u'balanced_exhaust_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def name(self):
@@ -1019,7 +1019,7 @@ class FanZoneExhaust(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1042,7 +1042,7 @@ class FanZoneExhaust(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -1067,7 +1067,7 @@ class FanZoneExhaust(DataObject):
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=0.6):
-        """  Corresponds to IDD Field `Fan Total Efficiency`
+        """  Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -1092,7 +1092,7 @@ class FanZoneExhaust(DataObject):
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
-        """  Corresponds to IDD Field `Pressure Rise`
+        """  Corresponds to IDD field `Pressure Rise`
 
         Args:
             value (float): value for IDD Field `Pressure Rise`
@@ -1117,7 +1117,7 @@ class FanZoneExhaust(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float): value for IDD Field `Maximum Flow Rate`
@@ -1141,7 +1141,7 @@ class FanZoneExhaust(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1164,7 +1164,7 @@ class FanZoneExhaust(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1187,7 +1187,7 @@ class FanZoneExhaust(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -1211,7 +1211,7 @@ class FanZoneExhaust(DataObject):
 
     @flow_fraction_schedule_name.setter
     def flow_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Flow Fraction Schedule Name`
+        """  Corresponds to IDD field `Flow Fraction Schedule Name`
         If field is used, then when fan runs the exhausted air flow rate is controlled to be the scheduled fraction times the Maximum Flow Rate
 
         Args:
@@ -1235,7 +1235,7 @@ class FanZoneExhaust(DataObject):
 
     @system_availability_manager_coupling_mode.setter
     def system_availability_manager_coupling_mode(self, value="Coupled"):
-        """  Corresponds to IDD Field `System Availability Manager Coupling Mode`
+        """  Corresponds to IDD field `System Availability Manager Coupling Mode`
         Control if fan is to be interlocked with HVAC system Availability Managerrs or not.
 
         Args:
@@ -1260,7 +1260,7 @@ class FanZoneExhaust(DataObject):
 
     @minimum_zone_temperature_limit_schedule_name.setter
     def minimum_zone_temperature_limit_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Minimum Zone Temperature Limit Schedule Name`
+        """  Corresponds to IDD field `Minimum Zone Temperature Limit Schedule Name`
         If field is used, the exhaust fan will not run if the zone temperature is lower than this limit
 
         Args:
@@ -1284,7 +1284,7 @@ class FanZoneExhaust(DataObject):
 
     @balanced_exhaust_fraction_schedule_name.setter
     def balanced_exhaust_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Balanced Exhaust Fraction Schedule Name`
+        """  Corresponds to IDD field `Balanced Exhaust Fraction Schedule Name`
         Used to control fan's impact on flow at the return air node. Enter the portion of the exhaust that is balanced by simple airflows.
         
 
@@ -1308,7 +1308,7 @@ class FanPerformanceNightVentilation(DataObject):
         will use these alternate performance parameters. It is assumed that the fan will
         run at a fixed speed in the alternate mode.
     """
-    schema = {'min-fields': 0, 'name': u'FanPerformance:NightVentilation', 'pyname': u'FanPerformanceNightVentilation', 'format': None, 'fields': OrderedDict([(u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor in Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FanPerformance:NightVentilation', 'pyname': u'FanPerformanceNightVentilation', 'format': None, 'fields': OrderedDict([(u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure rise', {'name': u'Pressure Rise', 'pyname': u'pressure_rise', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'motor efficiency', {'name': u'Motor Efficiency', 'pyname': u'motor_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor in Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def fan_name(self):
@@ -1321,7 +1321,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @fan_name.setter
     def fan_name(self, value=None):
-        """  Corresponds to IDD Field `Fan Name`
+        """  Corresponds to IDD field `Fan Name`
 
         Args:
             value (str): value for IDD Field `Fan Name`
@@ -1344,7 +1344,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Fan Total Efficiency`
+        """  Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -1368,7 +1368,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @pressure_rise.setter
     def pressure_rise(self, value=None):
-        """  Corresponds to IDD Field `Pressure Rise`
+        """  Corresponds to IDD field `Pressure Rise`
 
         Args:
             value (float): value for IDD Field `Pressure Rise`
@@ -1393,7 +1393,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -1417,7 +1417,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @motor_efficiency.setter
     def motor_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Motor Efficiency`
+        """  Corresponds to IDD field `Motor Efficiency`
 
         Args:
             value (float): value for IDD Field `Motor Efficiency`
@@ -1441,7 +1441,7 @@ class FanPerformanceNightVentilation(DataObject):
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Motor in Airstream Fraction`
+        """  Corresponds to IDD field `Motor in Airstream Fraction`
         0.0 means fan motor outside of airstream
         1.0 means fan motor inside of airstream
 
@@ -1464,7 +1464,7 @@ class FanComponentModel(DataObject):
         systems. It includes inputs that describe the air-distribution system as well as the
         fan, drive belt (if used), motor, and variable-frequency-drive (if used).
     """
-    schema = {'min-fields': 0, 'name': u'Fan:ComponentModel', 'pyname': u'FanComponentModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan sizing factor', {'name': u'Fan Sizing Factor', 'pyname': u'fan_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan wheel diameter', {'name': u'Fan Wheel Diameter', 'pyname': u'fan_wheel_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fan outlet area', {'name': u'Fan Outlet Area', 'pyname': u'fan_outlet_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum fan static efficiency', {'name': u'Maximum Fan Static Efficiency', 'pyname': u'maximum_fan_static_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'euler number at maximum fan static efficiency', {'name': u'Euler Number at Maximum Fan Static Efficiency', 'pyname': u'euler_number_at_maximum_fan_static_efficiency', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum dimensionless fan airflow', {'name': u'Maximum Dimensionless Fan Airflow', 'pyname': u'maximum_dimensionless_fan_airflow', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor fan pulley ratio', {'name': u'Motor Fan Pulley Ratio', 'pyname': u'motor_fan_pulley_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real'}), (u'belt maximum torque', {'name': u'Belt Maximum Torque', 'pyname': u'belt_maximum_torque', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'N-m'}), (u'belt sizing factor', {'name': u'Belt Sizing Factor', 'pyname': u'belt_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'belt fractional torque transition', {'name': u'Belt Fractional Torque Transition', 'pyname': u'belt_fractional_torque_transition', 'default': 0.167, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'motor maximum speed', {'name': u'Motor Maximum Speed', 'pyname': u'motor_maximum_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'maximum motor output power', {'name': u'Maximum Motor Output Power', 'pyname': u'maximum_motor_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'motor sizing factor', {'name': u'Motor Sizing Factor', 'pyname': u'motor_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'vfd efficiency type', {'name': u'VFD Efficiency Type', 'pyname': u'vfd_efficiency_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Speed', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum vfd output power', {'name': u'Maximum VFD Output Power', 'pyname': u'maximum_vfd_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'vfd sizing factor', {'name': u'VFD Sizing Factor', 'pyname': u'vfd_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan pressure rise curve name', {'name': u'Fan Pressure Rise Curve Name', 'pyname': u'fan_pressure_rise_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'duct static pressure reset curve name', {'name': u'Duct Static Pressure Reset Curve Name', 'pyname': u'duct_static_pressure_reset_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-non-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Non-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-non-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Non-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum belt efficiency curve name', {'name': u'Maximum Belt Efficiency Curve Name', 'pyname': u'maximum_belt_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 1', {'name': u'Normalized Belt Efficiency Curve Name - Region 1', 'pyname': u'normalized_belt_efficiency_curve_name_region_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 2', {'name': u'Normalized Belt Efficiency Curve Name - Region 2', 'pyname': u'normalized_belt_efficiency_curve_name_region_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 3', {'name': u'Normalized Belt Efficiency Curve Name - Region 3', 'pyname': u'normalized_belt_efficiency_curve_name_region_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum motor efficiency curve name', {'name': u'Maximum Motor Efficiency Curve Name', 'pyname': u'maximum_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized motor efficiency curve name', {'name': u'Normalized Motor Efficiency Curve Name', 'pyname': u'normalized_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vfd efficiency curve name', {'name': u'VFD Efficiency Curve Name', 'pyname': u'vfd_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Fan:ComponentModel', 'pyname': u'FanComponentModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum flow rate', {'name': u'Minimum Flow Rate', 'pyname': u'minimum_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan sizing factor', {'name': u'Fan Sizing Factor', 'pyname': u'fan_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan wheel diameter', {'name': u'Fan Wheel Diameter', 'pyname': u'fan_wheel_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fan outlet area', {'name': u'Fan Outlet Area', 'pyname': u'fan_outlet_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum fan static efficiency', {'name': u'Maximum Fan Static Efficiency', 'pyname': u'maximum_fan_static_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'euler number at maximum fan static efficiency', {'name': u'Euler Number at Maximum Fan Static Efficiency', 'pyname': u'euler_number_at_maximum_fan_static_efficiency', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum dimensionless fan airflow', {'name': u'Maximum Dimensionless Fan Airflow', 'pyname': u'maximum_dimensionless_fan_airflow', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'motor fan pulley ratio', {'name': u'Motor Fan Pulley Ratio', 'pyname': u'motor_fan_pulley_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real'}), (u'belt maximum torque', {'name': u'Belt Maximum Torque', 'pyname': u'belt_maximum_torque', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'N-m'}), (u'belt sizing factor', {'name': u'Belt Sizing Factor', 'pyname': u'belt_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'belt fractional torque transition', {'name': u'Belt Fractional Torque Transition', 'pyname': u'belt_fractional_torque_transition', 'default': 0.167, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'motor maximum speed', {'name': u'Motor Maximum Speed', 'pyname': u'motor_maximum_speed', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'rev/min'}), (u'maximum motor output power', {'name': u'Maximum Motor Output Power', 'pyname': u'maximum_motor_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'motor sizing factor', {'name': u'Motor Sizing Factor', 'pyname': u'motor_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'motor in airstream fraction', {'name': u'Motor In Airstream Fraction', 'pyname': u'motor_in_airstream_fraction', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'vfd efficiency type', {'name': u'VFD Efficiency Type', 'pyname': u'vfd_efficiency_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Speed', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum vfd output power', {'name': u'Maximum VFD Output Power', 'pyname': u'maximum_vfd_output_power', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'vfd sizing factor', {'name': u'VFD Sizing Factor', 'pyname': u'vfd_sizing_factor', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'fan pressure rise curve name', {'name': u'Fan Pressure Rise Curve Name', 'pyname': u'fan_pressure_rise_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'duct static pressure reset curve name', {'name': u'Duct Static Pressure Reset Curve Name', 'pyname': u'duct_static_pressure_reset_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-non-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Non-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized fan static efficiency curve name-stall region', {'name': u'Normalized Fan Static Efficiency Curve Name-Stall Region', 'pyname': u'normalized_fan_static_efficiency_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-non-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Non-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namenonstall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized dimensionless airflow curve name-stall region', {'name': u'Normalized Dimensionless Airflow Curve Name-Stall Region', 'pyname': u'normalized_dimensionless_airflow_curve_namestall_region', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum belt efficiency curve name', {'name': u'Maximum Belt Efficiency Curve Name', 'pyname': u'maximum_belt_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 1', {'name': u'Normalized Belt Efficiency Curve Name - Region 1', 'pyname': u'normalized_belt_efficiency_curve_name_region_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 2', {'name': u'Normalized Belt Efficiency Curve Name - Region 2', 'pyname': u'normalized_belt_efficiency_curve_name_region_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized belt efficiency curve name - region 3', {'name': u'Normalized Belt Efficiency Curve Name - Region 3', 'pyname': u'normalized_belt_efficiency_curve_name_region_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum motor efficiency curve name', {'name': u'Maximum Motor Efficiency Curve Name', 'pyname': u'maximum_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'normalized motor efficiency curve name', {'name': u'Normalized Motor Efficiency Curve Name', 'pyname': u'normalized_motor_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vfd efficiency curve name', {'name': u'VFD Efficiency Curve Name', 'pyname': u'vfd_efficiency_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Fans'}
 
     @property
     def name(self):
@@ -1477,7 +1477,7 @@ class FanComponentModel(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1500,7 +1500,7 @@ class FanComponentModel(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1523,7 +1523,7 @@ class FanComponentModel(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1546,7 +1546,7 @@ class FanComponentModel(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -1571,7 +1571,7 @@ class FanComponentModel(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -1595,7 +1595,7 @@ class FanComponentModel(DataObject):
 
     @minimum_flow_rate.setter
     def minimum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Minimum Flow Rate`
+        """  Corresponds to IDD field `Minimum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Flow Rate`
@@ -1619,7 +1619,7 @@ class FanComponentModel(DataObject):
 
     @fan_sizing_factor.setter
     def fan_sizing_factor(self, value=1.0):
-        """  Corresponds to IDD Field `Fan Sizing Factor`
+        """  Corresponds to IDD field `Fan Sizing Factor`
         Applied to specified or autosized max fan airflow
 
         Args:
@@ -1645,7 +1645,7 @@ class FanComponentModel(DataObject):
 
     @fan_wheel_diameter.setter
     def fan_wheel_diameter(self, value=None):
-        """  Corresponds to IDD Field `Fan Wheel Diameter`
+        """  Corresponds to IDD field `Fan Wheel Diameter`
         Diameter of wheel outer circumference
 
         Args:
@@ -1670,7 +1670,7 @@ class FanComponentModel(DataObject):
 
     @fan_outlet_area.setter
     def fan_outlet_area(self, value=None):
-        """  Corresponds to IDD Field `Fan Outlet Area`
+        """  Corresponds to IDD field `Fan Outlet Area`
         Area at fan outlet plane for determining discharge velocity pressure
 
         Args:
@@ -1695,7 +1695,7 @@ class FanComponentModel(DataObject):
 
     @maximum_fan_static_efficiency.setter
     def maximum_fan_static_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Maximum Fan Static Efficiency`
+        """  Corresponds to IDD field `Maximum Fan Static Efficiency`
         Maximum ratio between power delivered to air and fan shaft input power
         Determined from fan performance data
 
@@ -1721,7 +1721,7 @@ class FanComponentModel(DataObject):
 
     @euler_number_at_maximum_fan_static_efficiency.setter
     def euler_number_at_maximum_fan_static_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Euler Number at Maximum Fan Static Efficiency`
+        """  Corresponds to IDD field `Euler Number at Maximum Fan Static Efficiency`
         Euler number (Eu) determined from fan performance data
 
         Args:
@@ -1745,7 +1745,7 @@ class FanComponentModel(DataObject):
 
     @maximum_dimensionless_fan_airflow.setter
     def maximum_dimensionless_fan_airflow(self, value=None):
-        """  Corresponds to IDD Field `Maximum Dimensionless Fan Airflow`
+        """  Corresponds to IDD field `Maximum Dimensionless Fan Airflow`
         Corresponds to maximum ratio between fan airflow and
         fan shaft rotational speed for specified fan wheel diameter
         Determined from fan performance data
@@ -1771,7 +1771,7 @@ class FanComponentModel(DataObject):
 
     @motor_fan_pulley_ratio.setter
     def motor_fan_pulley_ratio(self, value=1.0):
-        """  Corresponds to IDD Field `Motor Fan Pulley Ratio`
+        """  Corresponds to IDD field `Motor Fan Pulley Ratio`
         Ratio of motor pulley diameter to fan pulley diameter
 
         Args:
@@ -1796,7 +1796,7 @@ class FanComponentModel(DataObject):
 
     @belt_maximum_torque.setter
     def belt_maximum_torque(self, value=None):
-        """  Corresponds to IDD Field `Belt Maximum Torque`
+        """  Corresponds to IDD field `Belt Maximum Torque`
         Maximum torque transmitted by belt
 
         Args:
@@ -1821,7 +1821,7 @@ class FanComponentModel(DataObject):
 
     @belt_sizing_factor.setter
     def belt_sizing_factor(self, value=1.0):
-        """  Corresponds to IDD Field `Belt Sizing Factor`
+        """  Corresponds to IDD field `Belt Sizing Factor`
         Applied to specified or autosized max torque transmitted by belt
 
         Args:
@@ -1847,7 +1847,7 @@ class FanComponentModel(DataObject):
 
     @belt_fractional_torque_transition.setter
     def belt_fractional_torque_transition(self, value=0.167):
-        """  Corresponds to IDD Field `Belt Fractional Torque Transition`
+        """  Corresponds to IDD field `Belt Fractional Torque Transition`
         Region 1 to 2 curve transition for belt normalized efficiency
 
         Args:
@@ -1873,7 +1873,7 @@ class FanComponentModel(DataObject):
 
     @motor_maximum_speed.setter
     def motor_maximum_speed(self, value=None):
-        """  Corresponds to IDD Field `Motor Maximum Speed`
+        """  Corresponds to IDD field `Motor Maximum Speed`
         Maximum rotational speed of fan motor shaft
 
         Args:
@@ -1898,7 +1898,7 @@ class FanComponentModel(DataObject):
 
     @maximum_motor_output_power.setter
     def maximum_motor_output_power(self, value=None):
-        """  Corresponds to IDD Field `Maximum Motor Output Power`
+        """  Corresponds to IDD field `Maximum Motor Output Power`
         Maximum power input to drive belt by motor
 
         Args:
@@ -1923,7 +1923,7 @@ class FanComponentModel(DataObject):
 
     @motor_sizing_factor.setter
     def motor_sizing_factor(self, value=1.0):
-        """  Corresponds to IDD Field `Motor Sizing Factor`
+        """  Corresponds to IDD field `Motor Sizing Factor`
         Applied to specified or autosized motor output power
 
         Args:
@@ -1949,7 +1949,7 @@ class FanComponentModel(DataObject):
 
     @motor_in_airstream_fraction.setter
     def motor_in_airstream_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Motor In Airstream Fraction`
+        """  Corresponds to IDD field `Motor In Airstream Fraction`
         0.0 means motor outside air stream
         1.0 means motor inside air stream
 
@@ -1976,7 +1976,7 @@ class FanComponentModel(DataObject):
 
     @vfd_efficiency_type.setter
     def vfd_efficiency_type(self, value=None):
-        """  Corresponds to IDD Field `VFD Efficiency Type`
+        """  Corresponds to IDD field `VFD Efficiency Type`
         Efficiency depends on fraction of full-load motor speed
         Efficiency depends on  fraction of full-load motor input power
         If field blank, then assumes constant VFD efficiency (0.97)
@@ -2002,7 +2002,7 @@ class FanComponentModel(DataObject):
 
     @maximum_vfd_output_power.setter
     def maximum_vfd_output_power(self, value=None):
-        """  Corresponds to IDD Field `Maximum VFD Output Power`
+        """  Corresponds to IDD field `Maximum VFD Output Power`
         Maximum power input to motor by VFD
 
         Args:
@@ -2027,7 +2027,7 @@ class FanComponentModel(DataObject):
 
     @vfd_sizing_factor.setter
     def vfd_sizing_factor(self, value=1.0):
-        """  Corresponds to IDD Field `VFD Sizing Factor`
+        """  Corresponds to IDD field `VFD Sizing Factor`
         Applied to specified or autosized VFD output power
 
         Args:
@@ -2053,7 +2053,7 @@ class FanComponentModel(DataObject):
 
     @fan_pressure_rise_curve_name.setter
     def fan_pressure_rise_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Fan Pressure Rise Curve Name`
+        """  Corresponds to IDD field `Fan Pressure Rise Curve Name`
         Table:OneIndependentVariable object can also be used
         Pressure rise depends on volumetric flow, system resistances,
         system leakage, and duct static pressure set point
@@ -2079,7 +2079,7 @@ class FanComponentModel(DataObject):
 
     @duct_static_pressure_reset_curve_name.setter
     def duct_static_pressure_reset_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Duct Static Pressure Reset Curve Name`
+        """  Corresponds to IDD field `Duct Static Pressure Reset Curve Name`
         Table:OneIndependentVariable object can also be used
         Function of fan volumetric flow
         Minimum and maximum fan airflows correspond respectively to
@@ -2106,7 +2106,7 @@ class FanComponentModel(DataObject):
 
     @normalized_fan_static_efficiency_curve_namenonstall_region.setter
     def normalized_fan_static_efficiency_curve_namenonstall_region(self, value=None):
-        """  Corresponds to IDD Field `Normalized Fan Static Efficiency Curve Name-Non-Stall Region`
+        """  Corresponds to IDD field `Normalized Fan Static Efficiency Curve Name-Non-Stall Region`
         Table:OneIndependentVariable object can also be used
         xfan <= 0
         Curve should have maximum of 1.0
@@ -2132,7 +2132,7 @@ class FanComponentModel(DataObject):
 
     @normalized_fan_static_efficiency_curve_namestall_region.setter
     def normalized_fan_static_efficiency_curve_namestall_region(self, value=None):
-        """  Corresponds to IDD Field `Normalized Fan Static Efficiency Curve Name-Stall Region`
+        """  Corresponds to IDD field `Normalized Fan Static Efficiency Curve Name-Stall Region`
         Table:OneIndependentVariable object can also be used
         xfan > 0
         Curve should have maximum of 1.0
@@ -2158,7 +2158,7 @@ class FanComponentModel(DataObject):
 
     @normalized_dimensionless_airflow_curve_namenonstall_region.setter
     def normalized_dimensionless_airflow_curve_namenonstall_region(self, value=None):
-        """  Corresponds to IDD Field `Normalized Dimensionless Airflow Curve Name-Non-Stall Region`
+        """  Corresponds to IDD field `Normalized Dimensionless Airflow Curve Name-Non-Stall Region`
         Table:OneIndependentVariable object can also be used
         xspd <= 0
         Curve should have maximum of 1.0
@@ -2184,7 +2184,7 @@ class FanComponentModel(DataObject):
 
     @normalized_dimensionless_airflow_curve_namestall_region.setter
     def normalized_dimensionless_airflow_curve_namestall_region(self, value=None):
-        """  Corresponds to IDD Field `Normalized Dimensionless Airflow Curve Name-Stall Region`
+        """  Corresponds to IDD field `Normalized Dimensionless Airflow Curve Name-Stall Region`
         Table:OneIndependentVariable object can also be used
         xspd > 0
         Curve should have maximum of 1.0
@@ -2210,7 +2210,7 @@ class FanComponentModel(DataObject):
 
     @maximum_belt_efficiency_curve_name.setter
     def maximum_belt_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Maximum Belt Efficiency Curve Name`
+        """  Corresponds to IDD field `Maximum Belt Efficiency Curve Name`
         Table:OneIndependentVariable object can also be used
         Determines maximum fan drive belt efficiency in log space
         as function of xbelt,max
@@ -2238,7 +2238,7 @@ class FanComponentModel(DataObject):
 
     @normalized_belt_efficiency_curve_name_region_1.setter
     def normalized_belt_efficiency_curve_name_region_1(self, value=None):
-        """  Corresponds to IDD Field `Normalized Belt Efficiency Curve Name - Region 1`
+        """  Corresponds to IDD field `Normalized Belt Efficiency Curve Name - Region 1`
         Table:OneIndependentVariable object can also be used
         Region 1 (0 <= xbelt < xbelt,trans)
         Curve should have minimum > 0.0 and maximum of 1.0
@@ -2265,7 +2265,7 @@ class FanComponentModel(DataObject):
 
     @normalized_belt_efficiency_curve_name_region_2.setter
     def normalized_belt_efficiency_curve_name_region_2(self, value=None):
-        """  Corresponds to IDD Field `Normalized Belt Efficiency Curve Name - Region 2`
+        """  Corresponds to IDD field `Normalized Belt Efficiency Curve Name - Region 2`
         Table:OneIndependentVariable object can also be used
         Region 2 (xbelt,trans <= xbelt <= 1)
         Curve should have minimum > 0.0 and maximum of 1.0
@@ -2292,7 +2292,7 @@ class FanComponentModel(DataObject):
 
     @normalized_belt_efficiency_curve_name_region_3.setter
     def normalized_belt_efficiency_curve_name_region_3(self, value=None):
-        """  Corresponds to IDD Field `Normalized Belt Efficiency Curve Name - Region 3`
+        """  Corresponds to IDD field `Normalized Belt Efficiency Curve Name - Region 3`
         Table:OneIndependentVariable object can also be used
         Determines normalized drive belt efficiency Region 3 (xbelt > 1)
         Curve should have minimum > 0.0 and maximum of 1.0
@@ -2319,7 +2319,7 @@ class FanComponentModel(DataObject):
 
     @maximum_motor_efficiency_curve_name.setter
     def maximum_motor_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Maximum Motor Efficiency Curve Name`
+        """  Corresponds to IDD field `Maximum Motor Efficiency Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve should have minimum > 0.0 and maximum of 1.0
         If field blank, assumes output of curve is always 1.0
@@ -2345,7 +2345,7 @@ class FanComponentModel(DataObject):
 
     @normalized_motor_efficiency_curve_name.setter
     def normalized_motor_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Normalized Motor Efficiency Curve Name`
+        """  Corresponds to IDD field `Normalized Motor Efficiency Curve Name`
         Table:OneIndependentVariable object can also be used
         Curve should have minimum > 0.0 and maximum of 1.0
         If field blank, assumes output of curve is always 1.0
@@ -2371,7 +2371,7 @@ class FanComponentModel(DataObject):
 
     @vfd_efficiency_curve_name.setter
     def vfd_efficiency_curve_name(self, value=None):
-        """  Corresponds to IDD Field `VFD Efficiency Curve Name`
+        """  Corresponds to IDD field `VFD Efficiency Curve Name`
         Table:OneIndependentVariable object can also be used
         Determines VFD efficiency as function of motor load or speed fraction
         Curve should have minimum > 0.0 and maximum of 1.0
@@ -2398,7 +2398,7 @@ class FanComponentModel(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`

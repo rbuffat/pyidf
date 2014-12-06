@@ -24,7 +24,7 @@ class TableOneIndependentVariable(DataObject):
         Exponent Table Equation: Output = a + b*X**c
         Exponent solution requires a minimum of 4 data pairs
     """
-    schema = {'min-fields': 14, 'name': u'Table:OneIndependentVariable', 'pyname': u'TableOneIndependentVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Linear', u'Quadratic', u'Cubic', u'Quartic', u'Exponent'], 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 14, 'name': u'Table:OneIndependentVariable', 'pyname': u'TableOneIndependentVariable', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Linear', u'Quadratic', u'Cubic', u'Quartic', u'Exponent'], 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Performance Tables'}
 
     @property
     def name(self):
@@ -37,7 +37,7 @@ class TableOneIndependentVariable(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -60,7 +60,7 @@ class TableOneIndependentVariable(DataObject):
 
     @curve_type.setter
     def curve_type(self, value=None):
-        """  Corresponds to IDD Field `Curve Type`
+        """  Corresponds to IDD field `Curve Type`
 
         Args:
             value (str): value for IDD Field `Curve Type`
@@ -83,7 +83,7 @@ class TableOneIndependentVariable(DataObject):
 
     @interpolation_method.setter
     def interpolation_method(self, value=None):
-        """  Corresponds to IDD Field `Interpolation Method`
+        """  Corresponds to IDD field `Interpolation Method`
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
@@ -106,7 +106,7 @@ class TableOneIndependentVariable(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X`
+        """  Corresponds to IDD field `Minimum Value of X`
         used only when Interpolation Type is Evaluate Curve
         to Limits
 
@@ -132,7 +132,7 @@ class TableOneIndependentVariable(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X`
+        """  Corresponds to IDD field `Maximum Value of X`
         used only when Interpolation Type is Evaluate Curve
         to Limits
 
@@ -158,7 +158,7 @@ class TableOneIndependentVariable(DataObject):
 
     @minimum_table_output.setter
     def minimum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Table Output`
+        """  Corresponds to IDD field `Minimum Table Output`
         Specify the minimum value calculated by this table
         lookup object
         used only when Interpolation Type is Evaluate Curve
@@ -186,7 +186,7 @@ class TableOneIndependentVariable(DataObject):
 
     @maximum_table_output.setter
     def maximum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Table Output`
+        """  Corresponds to IDD field `Maximum Table Output`
         Specify the maximum value calculated by this table
         lookup object
         used only when Interpolation Type is Evaluate Curve
@@ -214,7 +214,7 @@ class TableOneIndependentVariable(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -238,7 +238,7 @@ class TableOneIndependentVariable(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -262,7 +262,7 @@ class TableOneIndependentVariable(DataObject):
 
     @normalization_reference.setter
     def normalization_reference(self, value=None):
-        """  Corresponds to IDD Field `Normalization Reference`
+        """  Corresponds to IDD field `Normalization Reference`
         This field is used to normalize the following ouput data.
         The minimum and maximum table output fields are also normalized.
         If this field is blank or 1, the table data presented
@@ -308,6 +308,17 @@ class TableOneIndependentVariable(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class TableTwoIndependentVariables(DataObject):
     """ Corresponds to IDD object `Table:TwoIndependentVariables`
@@ -319,7 +330,7 @@ class TableTwoIndependentVariables(DataObject):
         QuadraticLinear Table Equation: Output = a + bX + cX**2 + dY + eXY + fX**2Y
         QuadraticLinear solution requires a minimum of 6 data pairs
     """
-    schema = {'min-fields': 22, 'name': u'Table:TwoIndependentVariables', 'pyname': u'TableTwoIndependentVariables', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BiQuadratic', u'QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of Y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of Y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'y value', {'name': u'Y Value', 'pyname': u'y_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 22, 'name': u'Table:TwoIndependentVariables', 'pyname': u'TableTwoIndependentVariables', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BiQuadratic', u'QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum value of x', {'name': u'Minimum Value of X', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of X', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of Y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of Y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict([(u'x value', {'name': u'X Value', 'pyname': u'x_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'y value', {'name': u'Y Value', 'pyname': u'y_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'output value', {'name': u'Output Value', 'pyname': u'output_value', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Performance Tables'}
 
     @property
     def name(self):
@@ -332,7 +343,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -355,7 +366,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @curve_type.setter
     def curve_type(self, value=None):
-        """  Corresponds to IDD Field `Curve Type`
+        """  Corresponds to IDD field `Curve Type`
 
         Args:
             value (str): value for IDD Field `Curve Type`
@@ -378,7 +389,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @interpolation_method.setter
     def interpolation_method(self, value="LagrangeInterpolationLinearExtrapolation"):
-        """  Corresponds to IDD Field `Interpolation Method`
+        """  Corresponds to IDD field `Interpolation Method`
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
@@ -402,7 +413,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X`
+        """  Corresponds to IDD field `Minimum Value of X`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X`
@@ -426,7 +437,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X`
+        """  Corresponds to IDD field `Maximum Value of X`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X`
@@ -450,7 +461,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of Y`
+        """  Corresponds to IDD field `Minimum Value of Y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of Y`
@@ -474,7 +485,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of Y`
+        """  Corresponds to IDD field `Maximum Value of Y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of Y`
@@ -498,7 +509,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @minimum_table_output.setter
     def minimum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Table Output`
+        """  Corresponds to IDD field `Minimum Table Output`
         Specify the minimum value calculated by this table lookup object
 
         Args:
@@ -523,7 +534,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @maximum_table_output.setter
     def maximum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Table Output`
+        """  Corresponds to IDD field `Maximum Table Output`
         Specify the maximum value calculated by this table lookup object
 
         Args:
@@ -548,7 +559,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -572,7 +583,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Y`
+        """  Corresponds to IDD field `Input Unit Type for Y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -596,7 +607,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -620,7 +631,7 @@ class TableTwoIndependentVariables(DataObject):
 
     @normalization_reference.setter
     def normalization_reference(self, value=None):
-        """  Corresponds to IDD Field `Normalization Reference`
+        """  Corresponds to IDD field `Normalization Reference`
         This field is used to normalize the following output data.
         The minimum and maximum table output fields are also normalized.
         If this field is blank or 1, the table data presented below will be used.
@@ -671,6 +682,17 @@ class TableTwoIndependentVariables(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class TableMultiVariableLookup(DataObject):
     """ Corresponds to IDD object `Table:MultiVariableLookup`
@@ -681,7 +703,7 @@ class TableMultiVariableLookup(DataObject):
         is used to predict the table result and is based on the two nearest data points in the
         table for that particularindependent variable.
     """
-    schema = {'min-fields': 27, 'name': u'Table:MultiVariableLookup', 'pyname': u'TableMultiVariableLookup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of interpolation points', {'name': u'Number of Interpolation Points', 'pyname': u'number_of_interpolation_points', 'default': 3, 'minimum>': 1, 'maximum': 4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Linear', u'Quadratic', u'Cubic', u'Quartic', u'Exponent', u'BiQuadratic', u'QuadraticLinear', u'BiCubic', u'TriQuadratic', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'table data format', {'name': u'Table Data Format', 'pyname': u'table_data_format', 'default': u'SingleLineIndependentVariableWithMatrix', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SingleLineIndependentVariableWithMatrix'], 'autocalculatable': False, 'type': 'alpha'}), (u'external file name', {'name': u'External File Name', 'pyname': u'external_file_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'x1 sort order', {'name': u'X1 Sort Order', 'pyname': u'x1_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Ascending', u'Descending'], 'autocalculatable': False, 'type': 'alpha'}), (u'x2 sort order', {'name': u'X2 Sort Order', 'pyname': u'x2_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Ascending', u'Descending'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x1', {'name': u'Minimum Value of X1', 'pyname': u'minimum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x1', {'name': u'Maximum Value of X1', 'pyname': u'maximum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x2', {'name': u'Minimum Value of X2', 'pyname': u'minimum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x2', {'name': u'Maximum Value of X2', 'pyname': u'maximum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x3', {'name': u'Minimum Value of X3', 'pyname': u'minimum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x3', {'name': u'Maximum Value of X3', 'pyname': u'maximum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x4', {'name': u'Minimum Value of X4', 'pyname': u'minimum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x4', {'name': u'Maximum Value of X4', 'pyname': u'maximum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x5', {'name': u'Minimum Value of X5', 'pyname': u'minimum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x5', {'name': u'Maximum Value of X5', 'pyname': u'maximum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x1', {'name': u'Input Unit Type for X1', 'pyname': u'input_unit_type_for_x1', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x2', {'name': u'Input Unit Type for X2', 'pyname': u'input_unit_type_for_x2', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x3', {'name': u'Input Unit Type for X3', 'pyname': u'input_unit_type_for_x3', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x4', {'name': u'Input Unit Type for X4', 'pyname': u'input_unit_type_for_x4', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x5', {'name': u'Input Unit Type for X5', 'pyname': u'input_unit_type_for_x5', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of independent variables', {'name': u'Number of Independent Variables', 'pyname': u'number_of_independent_variables', 'minimum>': 0, 'maximum': 5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'number of values for independent variable x1', {'name': u'Number of Values for Independent Variable X1', 'pyname': u'number_of_values_for_independent_variable_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'field 1 determined by the number of independent variables', {'name': u'Field 1 Determined by the Number of Independent Variables', 'pyname': u'field_1_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'field 2 determined by the number of independent variables', {'name': u'Field 2 Determined by the Number of Independent Variables', 'pyname': u'field_2_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'field 3 determined by the number of independent variables', {'name': u'Field 3 Determined by the Number of Independent Variables', 'pyname': u'field_3_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v1', {'name': u'V1', 'pyname': u'v1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v2', {'name': u'V2', 'pyname': u'v2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v3', {'name': u'V3', 'pyname': u'v3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v4', {'name': u'V4', 'pyname': u'v4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v5', {'name': u'V5', 'pyname': u'v5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v6', {'name': u'V6', 'pyname': u'v6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v7', {'name': u'V7', 'pyname': u'v7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v8', {'name': u'V8', 'pyname': u'v8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v9', {'name': u'V9', 'pyname': u'v9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v10', {'name': u'V10', 'pyname': u'v10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v11', {'name': u'V11', 'pyname': u'v11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v12', {'name': u'V12', 'pyname': u'v12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v13', {'name': u'V13', 'pyname': u'v13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v14', {'name': u'V14', 'pyname': u'v14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v15', {'name': u'V15', 'pyname': u'v15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v16', {'name': u'V16', 'pyname': u'v16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v17', {'name': u'V17', 'pyname': u'v17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v18', {'name': u'V18', 'pyname': u'v18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v19', {'name': u'V19', 'pyname': u'v19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 27, 'name': u'Table:MultiVariableLookup', 'pyname': u'TableMultiVariableLookup', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'interpolation method', {'name': u'Interpolation Method', 'pyname': u'interpolation_method', 'default': u'LagrangeInterpolationLinearExtrapolation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LinearInterpolationOfTable', u'EvaluateCurveToLimits', u'LagrangeInterpolationLinearExtrapolation'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of interpolation points', {'name': u'Number of Interpolation Points', 'pyname': u'number_of_interpolation_points', 'default': 3, 'minimum>': 1, 'maximum': 4, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'curve type', {'name': u'Curve Type', 'pyname': u'curve_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Linear', u'Quadratic', u'Cubic', u'Quartic', u'Exponent', u'BiQuadratic', u'QuadraticLinear', u'BiCubic', u'TriQuadratic', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'table data format', {'name': u'Table Data Format', 'pyname': u'table_data_format', 'default': u'SingleLineIndependentVariableWithMatrix', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SingleLineIndependentVariableWithMatrix'], 'autocalculatable': False, 'type': 'alpha'}), (u'external file name', {'name': u'External File Name', 'pyname': u'external_file_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'x1 sort order', {'name': u'X1 Sort Order', 'pyname': u'x1_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Ascending', u'Descending'], 'autocalculatable': False, 'type': 'alpha'}), (u'x2 sort order', {'name': u'X2 Sort Order', 'pyname': u'x2_sort_order', 'default': u'Ascending', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Ascending', u'Descending'], 'autocalculatable': False, 'type': 'alpha'}), (u'normalization reference', {'name': u'Normalization Reference', 'pyname': u'normalization_reference', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x1', {'name': u'Minimum Value of X1', 'pyname': u'minimum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x1', {'name': u'Maximum Value of X1', 'pyname': u'maximum_value_of_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x2', {'name': u'Minimum Value of X2', 'pyname': u'minimum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x2', {'name': u'Maximum Value of X2', 'pyname': u'maximum_value_of_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x3', {'name': u'Minimum Value of X3', 'pyname': u'minimum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x3', {'name': u'Maximum Value of X3', 'pyname': u'maximum_value_of_x3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x4', {'name': u'Minimum Value of X4', 'pyname': u'minimum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x4', {'name': u'Maximum Value of X4', 'pyname': u'maximum_value_of_x4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x5', {'name': u'Minimum Value of X5', 'pyname': u'minimum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x5', {'name': u'Maximum Value of X5', 'pyname': u'maximum_value_of_x5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum table output', {'name': u'Minimum Table Output', 'pyname': u'minimum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum table output', {'name': u'Maximum Table Output', 'pyname': u'maximum_table_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x1', {'name': u'Input Unit Type for X1', 'pyname': u'input_unit_type_for_x1', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x2', {'name': u'Input Unit Type for X2', 'pyname': u'input_unit_type_for_x2', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x3', {'name': u'Input Unit Type for X3', 'pyname': u'input_unit_type_for_x3', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x4', {'name': u'Input Unit Type for X4', 'pyname': u'input_unit_type_for_x4', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x5', {'name': u'Input Unit Type for X5', 'pyname': u'input_unit_type_for_x5', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of independent variables', {'name': u'Number of Independent Variables', 'pyname': u'number_of_independent_variables', 'minimum>': 0, 'maximum': 5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'number of values for independent variable x1', {'name': u'Number of Values for Independent Variable X1', 'pyname': u'number_of_values_for_independent_variable_x1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'field 1 determined by the number of independent variables', {'name': u'Field 1 Determined by the Number of Independent Variables', 'pyname': u'field_1_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'field 2 determined by the number of independent variables', {'name': u'Field 2 Determined by the Number of Independent Variables', 'pyname': u'field_2_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict([(u'field 3 determined by the number of independent variables', {'name': u'Field 3 Determined by the Number of Independent Variables', 'pyname': u'field_3_determined_by_the_number_of_independent_variables', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v1', {'name': u'V1', 'pyname': u'v1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v2', {'name': u'V2', 'pyname': u'v2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v3', {'name': u'V3', 'pyname': u'v3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v4', {'name': u'V4', 'pyname': u'v4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v5', {'name': u'V5', 'pyname': u'v5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v6', {'name': u'V6', 'pyname': u'v6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v7', {'name': u'V7', 'pyname': u'v7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v8', {'name': u'V8', 'pyname': u'v8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v9', {'name': u'V9', 'pyname': u'v9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v10', {'name': u'V10', 'pyname': u'v10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v11', {'name': u'V11', 'pyname': u'v11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v12', {'name': u'V12', 'pyname': u'v12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v13', {'name': u'V13', 'pyname': u'v13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v14', {'name': u'V14', 'pyname': u'v14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v15', {'name': u'V15', 'pyname': u'v15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v16', {'name': u'V16', 'pyname': u'v16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v17', {'name': u'V17', 'pyname': u'v17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v18', {'name': u'V18', 'pyname': u'v18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'v19', {'name': u'V19', 'pyname': u'v19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Performance Tables'}
 
     @property
     def name(self):
@@ -694,7 +716,7 @@ class TableMultiVariableLookup(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -717,7 +739,7 @@ class TableMultiVariableLookup(DataObject):
 
     @interpolation_method.setter
     def interpolation_method(self, value="LagrangeInterpolationLinearExtrapolation"):
-        """  Corresponds to IDD Field `Interpolation Method`
+        """  Corresponds to IDD field `Interpolation Method`
 
         Args:
             value (str): value for IDD Field `Interpolation Method`
@@ -741,7 +763,7 @@ class TableMultiVariableLookup(DataObject):
 
     @number_of_interpolation_points.setter
     def number_of_interpolation_points(self, value=3):
-        """  Corresponds to IDD Field `Number of Interpolation Points`
+        """  Corresponds to IDD field `Number of Interpolation Points`
 
         Args:
             value (int): value for IDD Field `Number of Interpolation Points`
@@ -767,7 +789,7 @@ class TableMultiVariableLookup(DataObject):
 
     @curve_type.setter
     def curve_type(self, value=None):
-        """  Corresponds to IDD Field `Curve Type`
+        """  Corresponds to IDD field `Curve Type`
         The curve types BiCubic and TriQuadratic may not
         be used with Interpolation Method = EvaluateCurveToLimits
 
@@ -792,7 +814,7 @@ class TableMultiVariableLookup(DataObject):
 
     @table_data_format.setter
     def table_data_format(self, value="SingleLineIndependentVariableWithMatrix"):
-        """  Corresponds to IDD Field `Table Data Format`
+        """  Corresponds to IDD field `Table Data Format`
 
         Args:
             value (str): value for IDD Field `Table Data Format`
@@ -816,7 +838,7 @@ class TableMultiVariableLookup(DataObject):
 
     @external_file_name.setter
     def external_file_name(self, value=None):
-        """  Corresponds to IDD Field `External File Name`
+        """  Corresponds to IDD field `External File Name`
 
         Args:
             value (str): value for IDD Field `External File Name`
@@ -839,7 +861,7 @@ class TableMultiVariableLookup(DataObject):
 
     @x1_sort_order.setter
     def x1_sort_order(self, value="Ascending"):
-        """  Corresponds to IDD Field `X1 Sort Order`
+        """  Corresponds to IDD field `X1 Sort Order`
 
         Args:
             value (str): value for IDD Field `X1 Sort Order`
@@ -863,7 +885,7 @@ class TableMultiVariableLookup(DataObject):
 
     @x2_sort_order.setter
     def x2_sort_order(self, value="Ascending"):
-        """  Corresponds to IDD Field `X2 Sort Order`
+        """  Corresponds to IDD field `X2 Sort Order`
 
         Args:
             value (str): value for IDD Field `X2 Sort Order`
@@ -887,7 +909,7 @@ class TableMultiVariableLookup(DataObject):
 
     @normalization_reference.setter
     def normalization_reference(self, value=None):
-        """  Corresponds to IDD Field `Normalization Reference`
+        """  Corresponds to IDD field `Normalization Reference`
         This field is used to normalize the table output data.
         The minimum and maximum table output fields are also normalized.
         If this field is blank or 1, the table data will be directly used.
@@ -914,7 +936,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_value_of_x1.setter
     def minimum_value_of_x1(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X1`
+        """  Corresponds to IDD field `Minimum Value of X1`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X1`
@@ -938,7 +960,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_value_of_x1.setter
     def maximum_value_of_x1(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X1`
+        """  Corresponds to IDD field `Maximum Value of X1`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X1`
@@ -962,7 +984,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_value_of_x2.setter
     def minimum_value_of_x2(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X2`
+        """  Corresponds to IDD field `Minimum Value of X2`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X2`
@@ -986,7 +1008,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_value_of_x2.setter
     def maximum_value_of_x2(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X2`
+        """  Corresponds to IDD field `Maximum Value of X2`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X2`
@@ -1010,7 +1032,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_value_of_x3.setter
     def minimum_value_of_x3(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X3`
+        """  Corresponds to IDD field `Minimum Value of X3`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X3`
@@ -1034,7 +1056,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_value_of_x3.setter
     def maximum_value_of_x3(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X3`
+        """  Corresponds to IDD field `Maximum Value of X3`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X3`
@@ -1058,7 +1080,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_value_of_x4.setter
     def minimum_value_of_x4(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X4`
+        """  Corresponds to IDD field `Minimum Value of X4`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X4`
@@ -1082,7 +1104,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_value_of_x4.setter
     def maximum_value_of_x4(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X4`
+        """  Corresponds to IDD field `Maximum Value of X4`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X4`
@@ -1106,7 +1128,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_value_of_x5.setter
     def minimum_value_of_x5(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of X5`
+        """  Corresponds to IDD field `Minimum Value of X5`
 
         Args:
             value (float): value for IDD Field `Minimum Value of X5`
@@ -1130,7 +1152,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_value_of_x5.setter
     def maximum_value_of_x5(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of X5`
+        """  Corresponds to IDD field `Maximum Value of X5`
 
         Args:
             value (float): value for IDD Field `Maximum Value of X5`
@@ -1154,7 +1176,7 @@ class TableMultiVariableLookup(DataObject):
 
     @minimum_table_output.setter
     def minimum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Table Output`
+        """  Corresponds to IDD field `Minimum Table Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -1179,7 +1201,7 @@ class TableMultiVariableLookup(DataObject):
 
     @maximum_table_output.setter
     def maximum_table_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Table Output`
+        """  Corresponds to IDD field `Maximum Table Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -1204,7 +1226,7 @@ class TableMultiVariableLookup(DataObject):
 
     @input_unit_type_for_x1.setter
     def input_unit_type_for_x1(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X1`
+        """  Corresponds to IDD field `Input Unit Type for X1`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X1`
@@ -1228,7 +1250,7 @@ class TableMultiVariableLookup(DataObject):
 
     @input_unit_type_for_x2.setter
     def input_unit_type_for_x2(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X2`
+        """  Corresponds to IDD field `Input Unit Type for X2`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X2`
@@ -1252,7 +1274,7 @@ class TableMultiVariableLookup(DataObject):
 
     @input_unit_type_for_x3.setter
     def input_unit_type_for_x3(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X3`
+        """  Corresponds to IDD field `Input Unit Type for X3`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X3`
@@ -1276,7 +1298,7 @@ class TableMultiVariableLookup(DataObject):
 
     @input_unit_type_for_x4.setter
     def input_unit_type_for_x4(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X4`
+        """  Corresponds to IDD field `Input Unit Type for X4`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X4`
@@ -1300,7 +1322,7 @@ class TableMultiVariableLookup(DataObject):
 
     @input_unit_type_for_x5.setter
     def input_unit_type_for_x5(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X5`
+        """  Corresponds to IDD field `Input Unit Type for X5`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X5`
@@ -1324,7 +1346,7 @@ class TableMultiVariableLookup(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -1348,7 +1370,7 @@ class TableMultiVariableLookup(DataObject):
 
     @number_of_independent_variables.setter
     def number_of_independent_variables(self, value=None):
-        """  Corresponds to IDD Field `Number of Independent Variables`
+        """  Corresponds to IDD field `Number of Independent Variables`
 
         Args:
             value (int): value for IDD Field `Number of Independent Variables`
@@ -1372,7 +1394,7 @@ class TableMultiVariableLookup(DataObject):
 
     @number_of_values_for_independent_variable_x1.setter
     def number_of_values_for_independent_variable_x1(self, value=None):
-        """  Corresponds to IDD Field `Number of Values for Independent Variable X1`
+        """  Corresponds to IDD field `Number of Values for Independent Variable X1`
 
         Args:
             value (int): value for IDD Field `Number of Values for Independent Variable X1`
@@ -1395,7 +1417,7 @@ class TableMultiVariableLookup(DataObject):
 
     @field_1_determined_by_the_number_of_independent_variables.setter
     def field_1_determined_by_the_number_of_independent_variables(self, value=None):
-        """  Corresponds to IDD Field `Field 1 Determined by the Number of Independent Variables`
+        """  Corresponds to IDD field `Field 1 Determined by the Number of Independent Variables`
 
         Args:
             value (float): value for IDD Field `Field 1 Determined by the Number of Independent Variables`
@@ -1418,7 +1440,7 @@ class TableMultiVariableLookup(DataObject):
 
     @field_2_determined_by_the_number_of_independent_variables.setter
     def field_2_determined_by_the_number_of_independent_variables(self, value=None):
-        """  Corresponds to IDD Field `Field 2 Determined by the Number of Independent Variables`
+        """  Corresponds to IDD field `Field 2 Determined by the Number of Independent Variables`
 
         Args:
             value (float): value for IDD Field `Field 2 Determined by the Number of Independent Variables`
@@ -1584,3 +1606,14 @@ class TableMultiVariableLookup(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)

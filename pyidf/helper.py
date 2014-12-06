@@ -23,6 +23,9 @@ class DataObject(object):
         self._extdata = []
         self.strict = True
 
+    def add_extensible(self):
+        raise NotImplementedError("add_extensible is not implemented for class DataObject")
+
     def __setitem__(self, key, value):
         if isinstance(key, six.string_types):
             key_lower = key.lower()
@@ -34,8 +37,8 @@ class DataObject(object):
             if (not len(key) == 2
                     and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
                 raise TypeError("{} is not a tuple(str, int) "
-                                "with length 2".format(str(key),
-                                                       self.schema['pyname']))
+                                "with length 2 for object {}".format(str(key),
+                                                                     self.schema['pyname']))
                 key_name = key[0].lower()
                 if key_name not in self.schema['extensible-fields']:
                     raise KeyError("{} is not an extensible field "
@@ -145,9 +148,7 @@ class DataObject(object):
         Raises:
             ValueError: if value not valid for schema
         """
-        if pyidf.validation_level == ValidationLevel.no:
-            return value
-        
+
         schema = self.schema
         lower_name = name.lower()
         if lower_name in schema['fields']:
@@ -155,7 +156,25 @@ class DataObject(object):
         elif lower_name in schema['extensible-fields']:
             field = schema['extensible-fields'][lower_name]
         else:
-            raise ValueError('No field exists with name in data object`{}`'.format(schema['name']))
+            if pyidf.validation_level == ValidationLevel.error:
+                raise ValueError('No field exists with name in data object`{}`'.format(schema['name']))
+            else:
+                raise logger.warn('No field exists with name in data object`{}`'.format(schema['name']))
+                return value
+
+        if pyidf.validation_level == ValidationLevel.no:
+            try:
+                if field['type'] == "alpha":
+                    value = str(value)
+                elif field['type'] == "integer":
+                    value = int(value)
+                elif field['type'] == "real":
+                    value = float(value)
+                else:
+                    value = str(value)
+            except TypeError:
+                    return value
+            return value
 
         if value is not None:
 
@@ -192,8 +211,9 @@ class DataObject(object):
                 except ValueError:
                     pass
 
-            #test for parametric vars 
-            if not field['type'] == "alpha" and '$' in value:
+            # test for parametric vars 
+            if (isinstance(value, six.string_types) and not field['type'] == "alpha"
+                    and '$' in value):
                 return value
 
             # cast input data to appropriate python datatype
@@ -206,7 +226,7 @@ class DataObject(object):
                     value = float(value)
                 else:
                     value = str(value)
-            except ValueError:
+            except TypeError:
                 if pyidf.validation_level == ValidationLevel.no:
                     return value
 
@@ -229,21 +249,21 @@ class DataObject(object):
 
                         except ValueError:
                             logger.warn('value {} need to be of type {}{} '
-                                             'for field `{}.{}`'.format(value,
-                                                                         field['type'],
-                                                                         alt,
-                                                                         schema['pyname'],
-                                                                         field['pyname']))
+                                        'for field `{}.{}`'.format(value,
+                                                                   field['type'],
+                                                                   alt,
+                                                                   schema['pyname'],
+                                                                   field['pyname']))
                             return value
                 else:
-                    
+
                     if pyidf.validation_level == ValidationLevel.error:
                             raise ValueError('value {} need to be of type {}{} '
                                              'for field `{}.{}`'.format(value,
-                                                                         field['type'],
-                                                                         alt,
-                                                                         schema['pyname'],
-                                                                         field['pyname']))
+                                                                        field['type'],
+                                                                        alt,
+                                                                        schema['pyname'],
+                                                                        field['pyname']))
                     else:
                             logger.warn('value {} need to be of type {}{} '
                                         'for field `{}.{}`'.format(value,
@@ -257,8 +277,8 @@ class DataObject(object):
                 if ',' in value:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value should not contain a comma '
-                                         'for field `{}.{}`'.format(schema['pyname'],
-                                                                    field['pyname']))                        
+                                    'for field `{}.{}`'.format(schema['pyname'],
+                                                               field['pyname']))
                     else:
                         raise ValueError('value should not contain a comma '
                                          'for field `{}.{}`'.format(schema['pyname'],
@@ -267,8 +287,8 @@ class DataObject(object):
                 if '!' in value:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value should not contain a ! '
-                                         'for field `{}.{}`'.format(schema['pyname'],
-                                                                    field['pyname']))
+                                    'for field `{}.{}`'.format(schema['pyname'],
+                                                               field['pyname']))
                     else:
                         raise ValueError('value should not contain a ! '
                                          'for field `{}.{}`'.format(schema['pyname'],
@@ -278,10 +298,10 @@ class DataObject(object):
                 if 'minimum' in field and value < field['minimum']:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value {} need to be greater or equal {} '
-                                         'for field `{}.{}`'.format(value,
-                                                                    field['minimum'],
-                                                                    schema['pyname'],
-                                                                    field['pyname']))
+                                    'for field `{}.{}`'.format(value,
+                                                               field['minimum'],
+                                                               schema['pyname'],
+                                                               field['pyname']))
                     else:
                         raise ValueError('value {} need to be greater or equal {} '
                                          'for field `{}.{}`'.format(value,
@@ -292,10 +312,10 @@ class DataObject(object):
                 if 'minimum>' in field and value <= field['minimum>']:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value {} need to be greater  {} '
-                                         'for field `{}.{}`'.format(value,
-                                                                    field['minimum>'],
-                                                                    schema['pyname'],
-                                                                    field['pyname']))
+                                    'for field `{}.{}`'.format(value,
+                                                               field['minimum>'],
+                                                               schema['pyname'],
+                                                               field['pyname']))
                     else:
                         raise ValueError('value {} need to be greater  {} '
                                          'for field `{}.{}`'.format(value,
@@ -306,10 +326,10 @@ class DataObject(object):
                 if 'maximum' in field and value > field['maximum']:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value {} need to be smaller or equal  {} '
-                                         'for field `{}.{}`'.format(value,
-                                                                    field['maximum'],
-                                                                    schema['pyname'],
-                                                                    field['pyname']))
+                                    'for field `{}.{}`'.format(value,
+                                                               field['maximum'],
+                                                               schema['pyname'],
+                                                               field['pyname']))
 
                     else:
                         raise ValueError('value {} need to be smaller or equal  {} '
@@ -321,10 +341,10 @@ class DataObject(object):
                 if 'maximum<' in field and value >= field['maximum<']:
                     if not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value {} need to be smaller  {} '
-                                         'for field `{}.{}`'.format(value,
-                                                                    field['maximum<'],
-                                                                    schema['pyname'],
-                                                                    field['pyname']))
+                                    'for field `{}.{}`'.format(value,
+                                                               field['maximum<'],
+                                                               schema['pyname'],
+                                                               field['pyname']))
                     else:
                         raise ValueError('value {} need to be smaller  {} '
                                          'for field `{}.{}`'.format(value,
@@ -393,7 +413,6 @@ class DataObject(object):
         # value is None
         else:
 
-            
             # Replace None values for required fields with default values
             if field['required-field'] and 'default' in field:
                 if pyidf.validation_level == ValidationLevel.warn:
@@ -403,9 +422,9 @@ class DataObject(object):
                                                                field['default']))
                 elif pyidf.validation_level == ValidationLevel.error:
                     raise ValueError('Value is Mone for required field `{}.{}` '
-                                'with default value {}'.format(schema['pyname'],
-                                                               field['pyname'],
-                                                               field['default']))
+                                     'with default value {}'.format(schema['pyname'],
+                                                                    field['pyname'],
+                                                                    field['default']))
                 elif pyidf.validation_level == ValidationLevel.transition:
                     key = field['name'].lower()
                     if (key in self.schema['fields'] and
@@ -499,7 +518,7 @@ class DataObject(object):
                 self._data[key] = value
             unit = ""
             if 'unit' in field:
-                unit = self._to_str(field['unit'])
+                unit = "{"+self._to_str(field['unit'])+"}"
             field_txt = "{} {}".format(field['name'], unit)
             out.append((field_txt, self._to_str(self._data[key])))
 

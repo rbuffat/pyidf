@@ -12,7 +12,7 @@ class ComplianceBuilding(DataObject):
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
     """
-    schema = {'min-fields': 1, 'name': u'Compliance:Building', 'pyname': u'ComplianceBuilding', 'format': None, 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 1, 'name': u'Compliance:Building', 'pyname': u'ComplianceBuilding', 'format': None, 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Compliance Objects'}
 
     @property
     def building_rotation_for_appendix_g(self):
@@ -25,7 +25,7 @@ class ComplianceBuilding(DataObject):
 
     @building_rotation_for_appendix_g.setter
     def building_rotation_for_appendix_g(self, value=None):
-        """  Corresponds to IDD Field `Building Rotation for Appendix G`
+        """  Corresponds to IDD field `Building Rotation for Appendix G`
         Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G
         that states that the baseline building should be rotated in four directions.
 

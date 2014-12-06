@@ -16,7 +16,7 @@ class ControllerWaterCoil(DataObject):
         Coil:Cooling:Water:DetailedGeometry, and
         CoilSystem:Cooling:Water:HeatexchangerAssisted.
     """
-    schema = {'min-fields': 9, 'name': u'Controller:WaterCoil', 'pyname': u'ControllerWaterCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Temperature', u'HumidityRatio', u'TemperatureAndHumidityRatio'], 'autocalculatable': False, 'type': 'alpha'}), (u'action', {'name': u'Action', 'pyname': u'action', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Normal', u'Reverse'], 'autocalculatable': False, 'type': 'alpha'}), (u'actuator variable', {'name': u'Actuator Variable', 'pyname': u'actuator_variable', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow'], 'autocalculatable': False, 'type': 'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'controller convergence tolerance', {'name': u'Controller Convergence Tolerance', 'pyname': u'controller_convergence_tolerance', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum actuated flow', {'name': u'Maximum Actuated Flow', 'pyname': u'maximum_actuated_flow', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum actuated flow', {'name': u'Minimum Actuated Flow', 'pyname': u'minimum_actuated_flow', 'default': 1e-07, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9, 'name': u'Controller:WaterCoil', 'pyname': u'ControllerWaterCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control variable', {'name': u'Control Variable', 'pyname': u'control_variable', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Temperature', u'HumidityRatio', u'TemperatureAndHumidityRatio'], 'autocalculatable': False, 'type': 'alpha'}), (u'action', {'name': u'Action', 'pyname': u'action', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Normal', u'Reverse'], 'autocalculatable': False, 'type': 'alpha'}), (u'actuator variable', {'name': u'Actuator Variable', 'pyname': u'actuator_variable', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow'], 'autocalculatable': False, 'type': 'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'controller convergence tolerance', {'name': u'Controller Convergence Tolerance', 'pyname': u'controller_convergence_tolerance', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum actuated flow', {'name': u'Maximum Actuated Flow', 'pyname': u'maximum_actuated_flow', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum actuated flow', {'name': u'Minimum Actuated Flow', 'pyname': u'minimum_actuated_flow', 'default': 1e-07, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Controllers'}
 
     @property
     def name(self):
@@ -29,7 +29,7 @@ class ControllerWaterCoil(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -52,7 +52,7 @@ class ControllerWaterCoil(DataObject):
 
     @control_variable.setter
     def control_variable(self, value=None):
-        """  Corresponds to IDD Field `Control Variable`
+        """  Corresponds to IDD field `Control Variable`
         keys HumidityRatio or TemperatureAndHumidityRatio
         requires a ZoneControl:Humidistat object along
         with SetpointManager:SingleZone:Humidity:Maximum,
@@ -80,7 +80,7 @@ class ControllerWaterCoil(DataObject):
 
     @action.setter
     def action(self, value=None):
-        """  Corresponds to IDD Field `Action`
+        """  Corresponds to IDD field `Action`
         Leave blank to have this automatically selected from coil type.
         Chilled water coils should be reverse action
         Hot water coils should be normal action
@@ -106,7 +106,7 @@ class ControllerWaterCoil(DataObject):
 
     @actuator_variable.setter
     def actuator_variable(self, value=None):
-        """  Corresponds to IDD Field `Actuator Variable`
+        """  Corresponds to IDD field `Actuator Variable`
 
         Args:
             value (str): value for IDD Field `Actuator Variable`
@@ -129,7 +129,7 @@ class ControllerWaterCoil(DataObject):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `Sensor Node Name`
+        """  Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -152,7 +152,7 @@ class ControllerWaterCoil(DataObject):
 
     @actuator_node_name.setter
     def actuator_node_name(self, value=None):
-        """  Corresponds to IDD Field `Actuator Node Name`
+        """  Corresponds to IDD field `Actuator Node Name`
 
         Args:
             value (str): value for IDD Field `Actuator Node Name`
@@ -175,7 +175,7 @@ class ControllerWaterCoil(DataObject):
 
     @controller_convergence_tolerance.setter
     def controller_convergence_tolerance(self, value="autosize"):
-        """  Corresponds to IDD Field `Controller Convergence Tolerance`
+        """  Corresponds to IDD field `Controller Convergence Tolerance`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Controller Convergence Tolerance`
@@ -200,7 +200,7 @@ class ControllerWaterCoil(DataObject):
 
     @maximum_actuated_flow.setter
     def maximum_actuated_flow(self, value=None):
-        """  Corresponds to IDD Field `Maximum Actuated Flow`
+        """  Corresponds to IDD field `Maximum Actuated Flow`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Actuated Flow`
@@ -224,7 +224,7 @@ class ControllerWaterCoil(DataObject):
 
     @minimum_actuated_flow.setter
     def minimum_actuated_flow(self, value=1e-07):
-        """  Corresponds to IDD Field `Minimum Actuated Flow`
+        """  Corresponds to IDD field `Minimum Actuated Flow`
 
         Args:
             value (float): value for IDD Field `Minimum Actuated Flow`
@@ -244,7 +244,7 @@ class ControllerOutdoorAir(DataObject):
         Controller to set the outdoor air flow rate for an air loop. Control options include
         fixed, proportional, scheduled, economizer, and demand-controlled ventilation.
     """
-    schema = {'min-fields': 16, 'name': u'Controller:OutdoorAir', 'pyname': u'ControllerOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'relief air outlet node name', {'name': u'Relief Air Outlet Node Name', 'pyname': u'relief_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air node name', {'name': u'Return Air Node Name', 'pyname': u'return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'economizer control type', {'name': u'Economizer Control Type', 'pyname': u'economizer_control_type', 'default': u'NoEconomizer', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedDryBulb', u'FixedEnthalpy', u'DifferentialDryBulb', u'DifferentialEnthalpy', u'FixedDewPointAndDryBulb', u'ElectronicEnthalpy', u'DifferentialDryBulbAndEnthalpy', u'NoEconomizer'], 'autocalculatable': False, 'type': 'alpha'}), (u'economizer control action type', {'name': u'Economizer Control Action Type', 'pyname': u'economizer_control_action_type', 'default': u'ModulateFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ModulateFlow', u'MinimumFlowWithBypass'], 'autocalculatable': False, 'type': 'alpha'}), (u'economizer maximum limit dry-bulb temperature', {'name': u'Economizer Maximum Limit Dry-Bulb Temperature', 'pyname': u'economizer_maximum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'economizer maximum limit enthalpy', {'name': u'Economizer Maximum Limit Enthalpy', 'pyname': u'economizer_maximum_limit_enthalpy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'economizer maximum limit dewpoint temperature', {'name': u'Economizer Maximum Limit Dewpoint Temperature', 'pyname': u'economizer_maximum_limit_dewpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'electronic enthalpy limit curve name', {'name': u'Electronic Enthalpy Limit Curve Name', 'pyname': u'electronic_enthalpy_limit_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'economizer minimum limit dry-bulb temperature', {'name': u'Economizer Minimum Limit Dry-Bulb Temperature', 'pyname': u'economizer_minimum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'lockout type', {'name': u'Lockout Type', 'pyname': u'lockout_type', 'default': u'NoLockout', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoLockout', u'LockoutWithHeating', u'LockoutWithCompressor'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit type', {'name': u'Minimum Limit Type', 'pyname': u'minimum_limit_type', 'default': u'ProportionalMinimum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedMinimum', u'ProportionalMinimum'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum fraction of outdoor air schedule name', {'name': u'Minimum Fraction of Outdoor Air Schedule Name', 'pyname': u'minimum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum fraction of outdoor air schedule name', {'name': u'Maximum Fraction of Outdoor Air Schedule Name', 'pyname': u'maximum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical ventilation controller name', {'name': u'Mechanical Ventilation Controller Name', 'pyname': u'mechanical_ventilation_controller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'time of day economizer control schedule name', {'name': u'Time of Day Economizer Control Schedule Name', 'pyname': u'time_of_day_economizer_control_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity control', {'name': u'High Humidity Control', 'pyname': u'high_humidity_control', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'humidistat control zone name', {'name': u'Humidistat Control Zone Name', 'pyname': u'humidistat_control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity outdoor air flow ratio', {'name': u'High Humidity Outdoor Air Flow Ratio', 'pyname': u'high_humidity_outdoor_air_flow_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'control high indoor humidity based on outdoor humidity ratio', {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio', 'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery bypass control type', {'name': u'Heat Recovery Bypass Control Type', 'pyname': u'heat_recovery_bypass_control_type', 'default': u'BypassWhenWithinEconomizerLimits', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BypassWhenWithinEconomizerLimits', u'BypassWhenOAFlowGreaterThanMinimum'], 'autocalculatable': False, 'type': u'Choice'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 16, 'name': u'Controller:OutdoorAir', 'pyname': u'ControllerOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'relief air outlet node name', {'name': u'Relief Air Outlet Node Name', 'pyname': u'relief_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air node name', {'name': u'Return Air Node Name', 'pyname': u'return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'actuator node name', {'name': u'Actuator Node Name', 'pyname': u'actuator_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'economizer control type', {'name': u'Economizer Control Type', 'pyname': u'economizer_control_type', 'default': u'NoEconomizer', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedDryBulb', u'FixedEnthalpy', u'DifferentialDryBulb', u'DifferentialEnthalpy', u'FixedDewPointAndDryBulb', u'ElectronicEnthalpy', u'DifferentialDryBulbAndEnthalpy', u'NoEconomizer'], 'autocalculatable': False, 'type': 'alpha'}), (u'economizer control action type', {'name': u'Economizer Control Action Type', 'pyname': u'economizer_control_action_type', 'default': u'ModulateFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ModulateFlow', u'MinimumFlowWithBypass'], 'autocalculatable': False, 'type': 'alpha'}), (u'economizer maximum limit dry-bulb temperature', {'name': u'Economizer Maximum Limit Dry-Bulb Temperature', 'pyname': u'economizer_maximum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'economizer maximum limit enthalpy', {'name': u'Economizer Maximum Limit Enthalpy', 'pyname': u'economizer_maximum_limit_enthalpy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'economizer maximum limit dewpoint temperature', {'name': u'Economizer Maximum Limit Dewpoint Temperature', 'pyname': u'economizer_maximum_limit_dewpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'electronic enthalpy limit curve name', {'name': u'Electronic Enthalpy Limit Curve Name', 'pyname': u'electronic_enthalpy_limit_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'economizer minimum limit dry-bulb temperature', {'name': u'Economizer Minimum Limit Dry-Bulb Temperature', 'pyname': u'economizer_minimum_limit_drybulb_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'lockout type', {'name': u'Lockout Type', 'pyname': u'lockout_type', 'default': u'NoLockout', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoLockout', u'LockoutWithHeating', u'LockoutWithCompressor'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit type', {'name': u'Minimum Limit Type', 'pyname': u'minimum_limit_type', 'default': u'ProportionalMinimum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedMinimum', u'ProportionalMinimum'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum fraction of outdoor air schedule name', {'name': u'Minimum Fraction of Outdoor Air Schedule Name', 'pyname': u'minimum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum fraction of outdoor air schedule name', {'name': u'Maximum Fraction of Outdoor Air Schedule Name', 'pyname': u'maximum_fraction_of_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mechanical ventilation controller name', {'name': u'Mechanical Ventilation Controller Name', 'pyname': u'mechanical_ventilation_controller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'time of day economizer control schedule name', {'name': u'Time of Day Economizer Control Schedule Name', 'pyname': u'time_of_day_economizer_control_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity control', {'name': u'High Humidity Control', 'pyname': u'high_humidity_control', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'humidistat control zone name', {'name': u'Humidistat Control Zone Name', 'pyname': u'humidistat_control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity outdoor air flow ratio', {'name': u'High Humidity Outdoor Air Flow Ratio', 'pyname': u'high_humidity_outdoor_air_flow_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'control high indoor humidity based on outdoor humidity ratio', {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio', 'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery bypass control type', {'name': u'Heat Recovery Bypass Control Type', 'pyname': u'heat_recovery_bypass_control_type', 'default': u'BypassWhenWithinEconomizerLimits', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BypassWhenWithinEconomizerLimits', u'BypassWhenOAFlowGreaterThanMinimum'], 'autocalculatable': False, 'type': u'Choice'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Controllers'}
 
     @property
     def name(self):
@@ -257,7 +257,7 @@ class ControllerOutdoorAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -280,7 +280,7 @@ class ControllerOutdoorAir(DataObject):
 
     @relief_air_outlet_node_name.setter
     def relief_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Relief Air Outlet Node Name`
+        """  Corresponds to IDD field `Relief Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Relief Air Outlet Node Name`
@@ -303,7 +303,7 @@ class ControllerOutdoorAir(DataObject):
 
     @return_air_node_name.setter
     def return_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Return Air Node Name`
+        """  Corresponds to IDD field `Return Air Node Name`
 
         Args:
             value (str): value for IDD Field `Return Air Node Name`
@@ -326,7 +326,7 @@ class ControllerOutdoorAir(DataObject):
 
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Mixed Air Node Name`
+        """  Corresponds to IDD field `Mixed Air Node Name`
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -349,7 +349,7 @@ class ControllerOutdoorAir(DataObject):
 
     @actuator_node_name.setter
     def actuator_node_name(self, value=None):
-        """  Corresponds to IDD Field `Actuator Node Name`
+        """  Corresponds to IDD field `Actuator Node Name`
         Outdoor air inlet node entering the first pre-treat component if any
 
         Args:
@@ -373,7 +373,7 @@ class ControllerOutdoorAir(DataObject):
 
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Minimum Outdoor Air Flow Rate`
+        """  Corresponds to IDD field `Minimum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
@@ -397,7 +397,7 @@ class ControllerOutdoorAir(DataObject):
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Outdoor Air Flow Rate`
+        """  Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
@@ -421,7 +421,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_control_type.setter
     def economizer_control_type(self, value="NoEconomizer"):
-        """  Corresponds to IDD Field `Economizer Control Type`
+        """  Corresponds to IDD field `Economizer Control Type`
 
         Args:
             value (str): value for IDD Field `Economizer Control Type`
@@ -445,7 +445,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_control_action_type.setter
     def economizer_control_action_type(self, value="ModulateFlow"):
-        """  Corresponds to IDD Field `Economizer Control Action Type`
+        """  Corresponds to IDD field `Economizer Control Action Type`
 
         Args:
             value (str): value for IDD Field `Economizer Control Action Type`
@@ -469,7 +469,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_maximum_limit_drybulb_temperature.setter
     def economizer_maximum_limit_drybulb_temperature(self, value=None):
-        """  Corresponds to IDD Field `Economizer Maximum Limit Dry-Bulb Temperature`
+        """  Corresponds to IDD field `Economizer Maximum Limit Dry-Bulb Temperature`
         Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
         economizer control type. No input or blank input means this limit is
         not operative. Limit is applied regardless of economizer control type.
@@ -496,7 +496,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_maximum_limit_enthalpy.setter
     def economizer_maximum_limit_enthalpy(self, value=None):
-        """  Corresponds to IDD Field `Economizer Maximum Limit Enthalpy`
+        """  Corresponds to IDD field `Economizer Maximum Limit Enthalpy`
         Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
@@ -523,7 +523,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_maximum_limit_dewpoint_temperature.setter
     def economizer_maximum_limit_dewpoint_temperature(self, value=None):
-        """  Corresponds to IDD Field `Economizer Maximum Limit Dewpoint Temperature`
+        """  Corresponds to IDD field `Economizer Maximum Limit Dewpoint Temperature`
         Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
         economizer control type. No input or blank input means this limit is not operative.
         Limit is applied regardless of economizer control type.
@@ -550,7 +550,7 @@ class ControllerOutdoorAir(DataObject):
 
     @electronic_enthalpy_limit_curve_name.setter
     def electronic_enthalpy_limit_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Electronic Enthalpy Limit Curve Name`
+        """  Corresponds to IDD field `Electronic Enthalpy Limit Curve Name`
         Table:OneIndependentVariable object can also be used
         Enter the name of a quadratic or cubic curve which defines the maximum outdoor
         humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
@@ -578,7 +578,7 @@ class ControllerOutdoorAir(DataObject):
 
     @economizer_minimum_limit_drybulb_temperature.setter
     def economizer_minimum_limit_drybulb_temperature(self, value=None):
-        """  Corresponds to IDD Field `Economizer Minimum Limit Dry-Bulb Temperature`
+        """  Corresponds to IDD field `Economizer Minimum Limit Dry-Bulb Temperature`
         Enter the minimum outdoor dry-bulb temperature limit for economizer control.
         No input or blank input means this limit is not operative
         Limit is applied regardless of economizer control type.
@@ -605,7 +605,7 @@ class ControllerOutdoorAir(DataObject):
 
     @lockout_type.setter
     def lockout_type(self, value="NoLockout"):
-        """  Corresponds to IDD Field `Lockout Type`
+        """  Corresponds to IDD field `Lockout Type`
 
         Args:
             value (str): value for IDD Field `Lockout Type`
@@ -629,7 +629,7 @@ class ControllerOutdoorAir(DataObject):
 
     @minimum_limit_type.setter
     def minimum_limit_type(self, value="ProportionalMinimum"):
-        """  Corresponds to IDD Field `Minimum Limit Type`
+        """  Corresponds to IDD field `Minimum Limit Type`
 
         Args:
             value (str): value for IDD Field `Minimum Limit Type`
@@ -653,7 +653,7 @@ class ControllerOutdoorAir(DataObject):
 
     @minimum_outdoor_air_schedule_name.setter
     def minimum_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Minimum Outdoor Air Schedule Name`
+        """  Corresponds to IDD field `Minimum Outdoor Air Schedule Name`
         Schedule values multiply the minimum outdoor air flow rate
 
         Args:
@@ -677,7 +677,7 @@ class ControllerOutdoorAir(DataObject):
 
     @minimum_fraction_of_outdoor_air_schedule_name.setter
     def minimum_fraction_of_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Minimum Fraction of Outdoor Air Schedule Name`
+        """  Corresponds to IDD field `Minimum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
 
         Args:
@@ -701,7 +701,7 @@ class ControllerOutdoorAir(DataObject):
 
     @maximum_fraction_of_outdoor_air_schedule_name.setter
     def maximum_fraction_of_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Maximum Fraction of Outdoor Air Schedule Name`
+        """  Corresponds to IDD field `Maximum Fraction of Outdoor Air Schedule Name`
         schedule values multiply the design/mixed air flow rate
 
         Args:
@@ -725,7 +725,7 @@ class ControllerOutdoorAir(DataObject):
 
     @mechanical_ventilation_controller_name.setter
     def mechanical_ventilation_controller_name(self, value=None):
-        """  Corresponds to IDD Field `Mechanical Ventilation Controller Name`
+        """  Corresponds to IDD field `Mechanical Ventilation Controller Name`
         Enter the name of a Controller:MechanicalVentilation object.
         Optional field for defining outdoor ventilation air based on flow rate per unit floor
         area and flow rate per person. Simplified method of demand-controlled ventilation.
@@ -751,7 +751,7 @@ class ControllerOutdoorAir(DataObject):
 
     @time_of_day_economizer_control_schedule_name.setter
     def time_of_day_economizer_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Time of Day Economizer Control Schedule Name`
+        """  Corresponds to IDD field `Time of Day Economizer Control Schedule Name`
         Optional schedule to simulate "push-button" type economizer control.
         Schedule values greater than 0 indicate time-of-day economizer control is enabled.
         Economizer control may be used with or without the high humidity control option.
@@ -779,7 +779,7 @@ class ControllerOutdoorAir(DataObject):
 
     @high_humidity_control.setter
     def high_humidity_control(self, value="No"):
-        """  Corresponds to IDD Field `High Humidity Control`
+        """  Corresponds to IDD field `High Humidity Control`
         Optional field to enable modified outdoor air flow rates based on zone relative humidity.
         Select Yes to modify outdoor air flow rate based on a zone humidistat.
         Select No to disable this feature.
@@ -807,7 +807,7 @@ class ControllerOutdoorAir(DataObject):
 
     @humidistat_control_zone_name.setter
     def humidistat_control_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Humidistat Control Zone Name`
+        """  Corresponds to IDD field `Humidistat Control Zone Name`
         Enter the name of the zone where the humidistat is located.
         This field is only used when the field High Humidity Control = Yes.
 
@@ -832,7 +832,7 @@ class ControllerOutdoorAir(DataObject):
 
     @high_humidity_outdoor_air_flow_ratio.setter
     def high_humidity_outdoor_air_flow_ratio(self, value=1.0):
-        """  Corresponds to IDD Field `High Humidity Outdoor Air Flow Ratio`
+        """  Corresponds to IDD field `High Humidity Outdoor Air Flow Ratio`
         Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
         flow rates are active based on high indoor humidity.
         The minimum value must be greater than 0.
@@ -860,7 +860,7 @@ class ControllerOutdoorAir(DataObject):
 
     @control_high_indoor_humidity_based_on_outdoor_humidity_ratio.setter
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self, value="Yes"):
-        """  Corresponds to IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
+        """  Corresponds to IDD field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
         If No is selected, the outdoor air flow rate is modified any time indoor relative
         humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
         flow rate is modified any time the indoor relative humidity is above the humidistat
@@ -889,7 +889,7 @@ class ControllerOutdoorAir(DataObject):
 
     @heat_recovery_bypass_control_type.setter
     def heat_recovery_bypass_control_type(self, value="BypassWhenWithinEconomizerLimits"):
-        """  Corresponds to IDD Field `Heat Recovery Bypass Control Type`
+        """  Corresponds to IDD field `Heat Recovery Bypass Control Type`
         BypassWhenWithinEconomizerLimits specifies that heat recovery
         is active only when the economizer is off because conditions
         are outside the economizer control limits
@@ -919,7 +919,7 @@ class ControllerMechanicalVentilation(DataObject):
         Duplicate groups of Zone name, Design Specification Outdoor Air Object Name,
         and Design Specification Zone Air Distribution Object Name to increase allowable number of entries
     """
-    schema = {'min-fields': 8, 'name': u'Controller:MechanicalVentilation', 'pyname': u'ControllerMechanicalVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand controlled ventilation', {'name': u'Demand Controlled Ventilation', 'pyname': u'demand_controlled_ventilation', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'system outdoor air method', {'name': u'System Outdoor Air Method', 'pyname': u'system_outdoor_air_method', 'default': u'VentilationRateProcedure', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ZoneSum', u'VentilationRateProcedure', u'IndoorAirQualityProcedure', u'ProportionalControl', u'IndoorAirQualityProcedureGenericContaminant'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone maximum outdoor air fraction', {'name': u'Zone Maximum Outdoor Air Fraction', 'pyname': u'zone_maximum_outdoor_air_fraction', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification outdoor air object name 1', {'name': u'Design Specification Outdoor Air Object Name 1', 'pyname': u'design_specification_outdoor_air_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zone air distribution object name 1', {'name': u'Design Specification Zone Air Distribution Object Name 1', 'pyname': u'design_specification_zone_air_distribution_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 8, 'name': u'Controller:MechanicalVentilation', 'pyname': u'ControllerMechanicalVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand controlled ventilation', {'name': u'Demand Controlled Ventilation', 'pyname': u'demand_controlled_ventilation', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'system outdoor air method', {'name': u'System Outdoor Air Method', 'pyname': u'system_outdoor_air_method', 'default': u'VentilationRateProcedure', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ZoneSum', u'VentilationRateProcedure', u'IndoorAirQualityProcedure', u'ProportionalControl', u'IndoorAirQualityProcedureGenericContaminant'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone maximum outdoor air fraction', {'name': u'Zone Maximum Outdoor Air Fraction', 'pyname': u'zone_maximum_outdoor_air_fraction', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict([(u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification outdoor air object name 1', {'name': u'Design Specification Outdoor Air Object Name 1', 'pyname': u'design_specification_outdoor_air_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zone air distribution object name 1', {'name': u'Design Specification Zone Air Distribution Object Name 1', 'pyname': u'design_specification_zone_air_distribution_object_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Controllers'}
 
     @property
     def name(self):
@@ -932,7 +932,7 @@ class ControllerMechanicalVentilation(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -955,7 +955,7 @@ class ControllerMechanicalVentilation(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
         Schedule values greater than 0 indicate mechanical ventilation is enabled
 
@@ -980,7 +980,7 @@ class ControllerMechanicalVentilation(DataObject):
 
     @demand_controlled_ventilation.setter
     def demand_controlled_ventilation(self, value="No"):
-        """  Corresponds to IDD Field `Demand Controlled Ventilation`
+        """  Corresponds to IDD field `Demand Controlled Ventilation`
 
         Args:
             value (str): value for IDD Field `Demand Controlled Ventilation`
@@ -1004,7 +1004,7 @@ class ControllerMechanicalVentilation(DataObject):
 
     @system_outdoor_air_method.setter
     def system_outdoor_air_method(self, value="VentilationRateProcedure"):
-        """  Corresponds to IDD Field `System Outdoor Air Method`
+        """  Corresponds to IDD field `System Outdoor Air Method`
 
         Args:
             value (str): value for IDD Field `System Outdoor Air Method`
@@ -1028,7 +1028,7 @@ class ControllerMechanicalVentilation(DataObject):
 
     @zone_maximum_outdoor_air_fraction.setter
     def zone_maximum_outdoor_air_fraction(self, value=1.0):
-        """  Corresponds to IDD Field `Zone Maximum Outdoor Air Fraction`
+        """  Corresponds to IDD field `Zone Maximum Outdoor Air Fraction`
 
         Args:
             value (float): value for IDD Field `Zone Maximum Outdoor Air Fraction`
@@ -1078,12 +1078,23 @@ class ControllerMechanicalVentilation(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacControllerList(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ControllerList`
         List controllers in order of control sequence
     """
-    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ControllerList', 'pyname': u'AirLoopHvacControllerList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller 1 object type', {'name': u'Controller 1 Object Type', 'pyname': u'controller_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 1 name', {'name': u'Controller 1 Name', 'pyname': u'controller_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 2 object type', {'name': u'Controller 2 Object Type', 'pyname': u'controller_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 2 name', {'name': u'Controller 2 Name', 'pyname': u'controller_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 3 object type', {'name': u'Controller 3 Object Type', 'pyname': u'controller_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 3 name', {'name': u'Controller 3 Name', 'pyname': u'controller_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 4 object type', {'name': u'Controller 4 Object Type', 'pyname': u'controller_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 4 name', {'name': u'Controller 4 Name', 'pyname': u'controller_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 5 object type', {'name': u'Controller 5 Object Type', 'pyname': u'controller_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 5 name', {'name': u'Controller 5 Name', 'pyname': u'controller_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 6 object type', {'name': u'Controller 6 Object Type', 'pyname': u'controller_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 6 name', {'name': u'Controller 6 Name', 'pyname': u'controller_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 7 object type', {'name': u'Controller 7 Object Type', 'pyname': u'controller_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 7 name', {'name': u'Controller 7 Name', 'pyname': u'controller_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 8 object type', {'name': u'Controller 8 Object Type', 'pyname': u'controller_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 8 name', {'name': u'Controller 8 Name', 'pyname': u'controller_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ControllerList', 'pyname': u'AirLoopHvacControllerList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller 1 object type', {'name': u'Controller 1 Object Type', 'pyname': u'controller_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 1 name', {'name': u'Controller 1 Name', 'pyname': u'controller_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 2 object type', {'name': u'Controller 2 Object Type', 'pyname': u'controller_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 2 name', {'name': u'Controller 2 Name', 'pyname': u'controller_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 3 object type', {'name': u'Controller 3 Object Type', 'pyname': u'controller_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 3 name', {'name': u'Controller 3 Name', 'pyname': u'controller_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 4 object type', {'name': u'Controller 4 Object Type', 'pyname': u'controller_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 4 name', {'name': u'Controller 4 Name', 'pyname': u'controller_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 5 object type', {'name': u'Controller 5 Object Type', 'pyname': u'controller_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 5 name', {'name': u'Controller 5 Name', 'pyname': u'controller_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 6 object type', {'name': u'Controller 6 Object Type', 'pyname': u'controller_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 6 name', {'name': u'Controller 6 Name', 'pyname': u'controller_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 7 object type', {'name': u'Controller 7 Object Type', 'pyname': u'controller_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 7 name', {'name': u'Controller 7 Name', 'pyname': u'controller_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller 8 object type', {'name': u'Controller 8 Object Type', 'pyname': u'controller_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Controller:WaterCoil', u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller 8 name', {'name': u'Controller 8 Name', 'pyname': u'controller_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Controllers'}
 
     @property
     def name(self):
@@ -1096,7 +1107,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1119,7 +1130,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_1_object_type.setter
     def controller_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 1 Object Type`
+        """  Corresponds to IDD field `Controller 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 1 Object Type`
@@ -1142,7 +1153,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_1_name.setter
     def controller_1_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 1 Name`
+        """  Corresponds to IDD field `Controller 1 Name`
 
         Args:
             value (str): value for IDD Field `Controller 1 Name`
@@ -1165,7 +1176,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_2_object_type.setter
     def controller_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 2 Object Type`
+        """  Corresponds to IDD field `Controller 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 2 Object Type`
@@ -1188,7 +1199,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_2_name.setter
     def controller_2_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 2 Name`
+        """  Corresponds to IDD field `Controller 2 Name`
 
         Args:
             value (str): value for IDD Field `Controller 2 Name`
@@ -1211,7 +1222,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_3_object_type.setter
     def controller_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 3 Object Type`
+        """  Corresponds to IDD field `Controller 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 3 Object Type`
@@ -1234,7 +1245,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_3_name.setter
     def controller_3_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 3 Name`
+        """  Corresponds to IDD field `Controller 3 Name`
 
         Args:
             value (str): value for IDD Field `Controller 3 Name`
@@ -1257,7 +1268,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_4_object_type.setter
     def controller_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 4 Object Type`
+        """  Corresponds to IDD field `Controller 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 4 Object Type`
@@ -1280,7 +1291,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_4_name.setter
     def controller_4_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 4 Name`
+        """  Corresponds to IDD field `Controller 4 Name`
 
         Args:
             value (str): value for IDD Field `Controller 4 Name`
@@ -1303,7 +1314,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_5_object_type.setter
     def controller_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 5 Object Type`
+        """  Corresponds to IDD field `Controller 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 5 Object Type`
@@ -1326,7 +1337,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_5_name.setter
     def controller_5_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 5 Name`
+        """  Corresponds to IDD field `Controller 5 Name`
 
         Args:
             value (str): value for IDD Field `Controller 5 Name`
@@ -1349,7 +1360,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_6_object_type.setter
     def controller_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 6 Object Type`
+        """  Corresponds to IDD field `Controller 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 6 Object Type`
@@ -1372,7 +1383,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_6_name.setter
     def controller_6_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 6 Name`
+        """  Corresponds to IDD field `Controller 6 Name`
 
         Args:
             value (str): value for IDD Field `Controller 6 Name`
@@ -1395,7 +1406,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_7_object_type.setter
     def controller_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 7 Object Type`
+        """  Corresponds to IDD field `Controller 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 7 Object Type`
@@ -1418,7 +1429,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_7_name.setter
     def controller_7_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 7 Name`
+        """  Corresponds to IDD field `Controller 7 Name`
 
         Args:
             value (str): value for IDD Field `Controller 7 Name`
@@ -1441,7 +1452,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_8_object_type.setter
     def controller_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller 8 Object Type`
+        """  Corresponds to IDD field `Controller 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Controller 8 Object Type`
@@ -1464,7 +1475,7 @@ class AirLoopHvacControllerList(DataObject):
 
     @controller_8_name.setter
     def controller_8_name(self, value=None):
-        """  Corresponds to IDD Field `Controller 8 Name`
+        """  Corresponds to IDD field `Controller 8 Name`
 
         Args:
             value (str): value for IDD Field `Controller 8 Name`

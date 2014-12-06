@@ -14,7 +14,7 @@ class TemperingValve(DataObject):
         components such as a hot water heater. It can only be used on one of two branches
         between a Splitter and a Mixer.
     """
-    schema = {'min-fields': 0, 'name': u'TemperingValve', 'pyname': u'TemperingValve', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'stream 2 source node name', {'name': u'Stream 2 Source Node Name', 'pyname': u'stream_2_source_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature setpoint node name', {'name': u'Temperature Setpoint Node Name', 'pyname': u'temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'pump outlet node name', {'name': u'Pump Outlet Node Name', 'pyname': u'pump_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'TemperingValve', 'pyname': u'TemperingValve', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'stream 2 source node name', {'name': u'Stream 2 Source Node Name', 'pyname': u'stream_2_source_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature setpoint node name', {'name': u'Temperature Setpoint Node Name', 'pyname': u'temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'pump outlet node name', {'name': u'Pump Outlet Node Name', 'pyname': u'pump_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class TemperingValve(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -50,7 +50,7 @@ class TemperingValve(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
         Name of a Node
 
         Args:
@@ -74,7 +74,7 @@ class TemperingValve(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
         Name of a Node
 
         Args:
@@ -98,7 +98,7 @@ class TemperingValve(DataObject):
 
     @stream_2_source_node_name.setter
     def stream_2_source_node_name(self, value=None):
-        """  Corresponds to IDD Field `Stream 2 Source Node Name`
+        """  Corresponds to IDD field `Stream 2 Source Node Name`
         Name of a Node
 
         Args:
@@ -122,7 +122,7 @@ class TemperingValve(DataObject):
 
     @temperature_setpoint_node_name.setter
     def temperature_setpoint_node_name(self, value=None):
-        """  Corresponds to IDD Field `Temperature Setpoint Node Name`
+        """  Corresponds to IDD field `Temperature Setpoint Node Name`
         Name of a Node
 
         Args:
@@ -146,7 +146,7 @@ class TemperingValve(DataObject):
 
     @pump_outlet_node_name.setter
     def pump_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Pump Outlet Node Name`
+        """  Corresponds to IDD field `Pump Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Pump Outlet Node Name`
@@ -163,7 +163,7 @@ class PlantLoop(DataObject):
     """ Corresponds to IDD object `PlantLoop`
         Defines a central plant loop.
     """
-    schema = {'min-fields': 0, 'name': u'PlantLoop', 'pyname': u'PlantLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'Steam', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant equipment operation scheme name', {'name': u'Plant Equipment Operation Scheme Name', 'pyname': u'plant_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop temperature setpoint node name', {'name': u'Loop Temperature Setpoint Node Name', 'pyname': u'loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'plant loop volume', {'name': u'Plant Loop Volume', 'pyname': u'plant_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'plant side inlet node name', {'name': u'Plant Side Inlet Node Name', 'pyname': u'plant_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side outlet node name', {'name': u'Plant Side Outlet Node Name', 'pyname': u'plant_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side branch list name', {'name': u'Plant Side Branch List Name', 'pyname': u'plant_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant side connector list name', {'name': u'Plant Side Connector List Name', 'pyname': u'plant_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side branch list name', {'name': u'Demand Side Branch List Name', 'pyname': u'demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side connector list name', {'name': u'Demand Side Connector List Name', 'pyname': u'demand_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant loop demand calculation scheme', {'name': u'Plant Loop Demand Calculation Scheme', 'pyname': u'plant_loop_demand_calculation_scheme', 'default': u'SingleSetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SingleSetpoint', u'DualSetpointDeadband'], 'autocalculatable': False, 'type': 'alpha'}), (u'common pipe simulation', {'name': u'Common Pipe Simulation', 'pyname': u'common_pipe_simulation', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CommonPipe', u'TwoWayCommonPipe', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'PlantLoop', 'pyname': u'PlantLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'Steam', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant equipment operation scheme name', {'name': u'Plant Equipment Operation Scheme Name', 'pyname': u'plant_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loop temperature setpoint node name', {'name': u'Loop Temperature Setpoint Node Name', 'pyname': u'loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'plant loop volume', {'name': u'Plant Loop Volume', 'pyname': u'plant_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'plant side inlet node name', {'name': u'Plant Side Inlet Node Name', 'pyname': u'plant_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side outlet node name', {'name': u'Plant Side Outlet Node Name', 'pyname': u'plant_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'plant side branch list name', {'name': u'Plant Side Branch List Name', 'pyname': u'plant_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant side connector list name', {'name': u'Plant Side Connector List Name', 'pyname': u'plant_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side branch list name', {'name': u'Demand Side Branch List Name', 'pyname': u'demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side connector list name', {'name': u'Demand Side Connector List Name', 'pyname': u'demand_side_connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'plant loop demand calculation scheme', {'name': u'Plant Loop Demand Calculation Scheme', 'pyname': u'plant_loop_demand_calculation_scheme', 'default': u'SingleSetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'SingleSetpoint', u'DualSetpointDeadband'], 'autocalculatable': False, 'type': 'alpha'}), (u'common pipe simulation', {'name': u'Common Pipe Simulation', 'pyname': u'common_pipe_simulation', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'CommonPipe', u'TwoWayCommonPipe', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -176,7 +176,7 @@ class PlantLoop(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -199,7 +199,7 @@ class PlantLoop(DataObject):
 
     @fluid_type.setter
     def fluid_type(self, value="Water"):
-        """  Corresponds to IDD Field `Fluid Type`
+        """  Corresponds to IDD field `Fluid Type`
 
         Args:
             value (str): value for IDD Field `Fluid Type`
@@ -223,7 +223,7 @@ class PlantLoop(DataObject):
 
     @user_defined_fluid_type.setter
     def user_defined_fluid_type(self, value=None):
-        """  Corresponds to IDD Field `User Defined Fluid Type`
+        """  Corresponds to IDD field `User Defined Fluid Type`
         This field is only required when Fluid Type is UserDefinedFluidType
 
         Args:
@@ -247,7 +247,7 @@ class PlantLoop(DataObject):
 
     @plant_equipment_operation_scheme_name.setter
     def plant_equipment_operation_scheme_name(self, value=None):
-        """  Corresponds to IDD Field `Plant Equipment Operation Scheme Name`
+        """  Corresponds to IDD field `Plant Equipment Operation Scheme Name`
 
         Args:
             value (str): value for IDD Field `Plant Equipment Operation Scheme Name`
@@ -270,7 +270,7 @@ class PlantLoop(DataObject):
 
     @loop_temperature_setpoint_node_name.setter
     def loop_temperature_setpoint_node_name(self, value=None):
-        """  Corresponds to IDD Field `Loop Temperature Setpoint Node Name`
+        """  Corresponds to IDD field `Loop Temperature Setpoint Node Name`
 
         Args:
             value (str): value for IDD Field `Loop Temperature Setpoint Node Name`
@@ -293,7 +293,7 @@ class PlantLoop(DataObject):
 
     @maximum_loop_temperature.setter
     def maximum_loop_temperature(self, value=None):
-        """  Corresponds to IDD Field `Maximum Loop Temperature`
+        """  Corresponds to IDD field `Maximum Loop Temperature`
 
         Args:
             value (float): value for IDD Field `Maximum Loop Temperature`
@@ -317,7 +317,7 @@ class PlantLoop(DataObject):
 
     @minimum_loop_temperature.setter
     def minimum_loop_temperature(self, value=None):
-        """  Corresponds to IDD Field `Minimum Loop Temperature`
+        """  Corresponds to IDD field `Minimum Loop Temperature`
 
         Args:
             value (float): value for IDD Field `Minimum Loop Temperature`
@@ -341,7 +341,7 @@ class PlantLoop(DataObject):
 
     @maximum_loop_flow_rate.setter
     def maximum_loop_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Loop Flow Rate`
+        """  Corresponds to IDD field `Maximum Loop Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Loop Flow Rate`
@@ -366,7 +366,7 @@ class PlantLoop(DataObject):
 
     @minimum_loop_flow_rate.setter
     def minimum_loop_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Minimum Loop Flow Rate`
+        """  Corresponds to IDD field `Minimum Loop Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Loop Flow Rate`
@@ -391,7 +391,7 @@ class PlantLoop(DataObject):
 
     @plant_loop_volume.setter
     def plant_loop_volume(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Plant Loop Volume`
+        """  Corresponds to IDD field `Plant Loop Volume`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Plant Loop Volume`
@@ -417,7 +417,7 @@ class PlantLoop(DataObject):
 
     @plant_side_inlet_node_name.setter
     def plant_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Plant Side Inlet Node Name`
+        """  Corresponds to IDD field `Plant Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Plant Side Inlet Node Name`
@@ -440,7 +440,7 @@ class PlantLoop(DataObject):
 
     @plant_side_outlet_node_name.setter
     def plant_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Plant Side Outlet Node Name`
+        """  Corresponds to IDD field `Plant Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Plant Side Outlet Node Name`
@@ -463,7 +463,7 @@ class PlantLoop(DataObject):
 
     @plant_side_branch_list_name.setter
     def plant_side_branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `Plant Side Branch List Name`
+        """  Corresponds to IDD field `Plant Side Branch List Name`
 
         Args:
             value (str): value for IDD Field `Plant Side Branch List Name`
@@ -486,7 +486,7 @@ class PlantLoop(DataObject):
 
     @plant_side_connector_list_name.setter
     def plant_side_connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `Plant Side Connector List Name`
+        """  Corresponds to IDD field `Plant Side Connector List Name`
 
         Args:
             value (str): value for IDD Field `Plant Side Connector List Name`
@@ -509,7 +509,7 @@ class PlantLoop(DataObject):
 
     @demand_side_inlet_node_name.setter
     def demand_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Inlet Node Name`
+        """  Corresponds to IDD field `Demand Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Inlet Node Name`
@@ -532,7 +532,7 @@ class PlantLoop(DataObject):
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Outlet Node Name`
+        """  Corresponds to IDD field `Demand Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Outlet Node Name`
@@ -555,7 +555,7 @@ class PlantLoop(DataObject):
 
     @demand_side_branch_list_name.setter
     def demand_side_branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Branch List Name`
+        """  Corresponds to IDD field `Demand Side Branch List Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Branch List Name`
@@ -578,7 +578,7 @@ class PlantLoop(DataObject):
 
     @demand_side_connector_list_name.setter
     def demand_side_connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Connector List Name`
+        """  Corresponds to IDD field `Demand Side Connector List Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Connector List Name`
@@ -601,7 +601,7 @@ class PlantLoop(DataObject):
 
     @load_distribution_scheme.setter
     def load_distribution_scheme(self, value="SequentialLoad"):
-        """  Corresponds to IDD Field `Load Distribution Scheme`
+        """  Corresponds to IDD field `Load Distribution Scheme`
 
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
@@ -625,7 +625,7 @@ class PlantLoop(DataObject):
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager List Name`
+        """  Corresponds to IDD field `Availability Manager List Name`
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -648,7 +648,7 @@ class PlantLoop(DataObject):
 
     @plant_loop_demand_calculation_scheme.setter
     def plant_loop_demand_calculation_scheme(self, value="SingleSetpoint"):
-        """  Corresponds to IDD Field `Plant Loop Demand Calculation Scheme`
+        """  Corresponds to IDD field `Plant Loop Demand Calculation Scheme`
 
         Args:
             value (str): value for IDD Field `Plant Loop Demand Calculation Scheme`
@@ -672,7 +672,7 @@ class PlantLoop(DataObject):
 
     @common_pipe_simulation.setter
     def common_pipe_simulation(self, value="None"):
-        """  Corresponds to IDD Field `Common Pipe Simulation`
+        """  Corresponds to IDD field `Common Pipe Simulation`
         Specifies a primary-secondary loop configuration. The plant side is the
         primary loop, and the demand side is the secondary loop.
         A secondary supply pump is required on the demand side.
@@ -704,7 +704,7 @@ class PlantLoop(DataObject):
 
     @pressure_simulation_type.setter
     def pressure_simulation_type(self, value="None"):
-        """  Corresponds to IDD Field `Pressure Simulation Type`
+        """  Corresponds to IDD field `Pressure Simulation Type`
 
         Args:
             value (str): value for IDD Field `Pressure Simulation Type`
@@ -724,7 +724,7 @@ class CondenserLoop(DataObject):
         identical except some components and operation schemes are applicable to only one
         loop type or the other.
     """
-    schema = {'min-fields': 0, 'name': u'CondenserLoop', 'pyname': u'CondenserLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser equipment operation scheme name', {'name': u'Condenser Equipment Operation Scheme Name', 'pyname': u'condenser_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser loop temperature setpoint node name', {'name': u'Condenser Loop Temperature Setpoint Node Name', 'pyname': u'condenser_loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'condenser loop volume', {'name': u'Condenser Loop Volume', 'pyname': u'condenser_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'condenser side inlet node name', {'name': u'Condenser Side Inlet Node Name', 'pyname': u'condenser_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side outlet node name', {'name': u'Condenser Side Outlet Node Name', 'pyname': u'condenser_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side branch list name', {'name': u'Condenser Side Branch List Name', 'pyname': u'condenser_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser side connector list name', {'name': u'Condenser Side Connector List Name', 'pyname': u'condenser_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser demand side branch list name', {'name': u'Condenser Demand Side Branch List Name', 'pyname': u'condenser_demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser demand side connector list name', {'name': u'Condenser Demand Side Connector List Name', 'pyname': u'condenser_demand_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'CondenserLoop', 'pyname': u'CondenserLoop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fluid type', {'name': u'Fluid Type', 'pyname': u'fluid_type', 'default': u'Water', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Water', u'UserDefinedFluidType'], 'autocalculatable': False, 'type': 'alpha'}), (u'user defined fluid type', {'name': u'User Defined Fluid Type', 'pyname': u'user_defined_fluid_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser equipment operation scheme name', {'name': u'Condenser Equipment Operation Scheme Name', 'pyname': u'condenser_equipment_operation_scheme_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser loop temperature setpoint node name', {'name': u'Condenser Loop Temperature Setpoint Node Name', 'pyname': u'condenser_loop_temperature_setpoint_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum loop temperature', {'name': u'Maximum Loop Temperature', 'pyname': u'maximum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'minimum loop temperature', {'name': u'Minimum Loop Temperature', 'pyname': u'minimum_loop_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'maximum loop flow rate', {'name': u'Maximum Loop Flow Rate', 'pyname': u'maximum_loop_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum loop flow rate', {'name': u'Minimum Loop Flow Rate', 'pyname': u'minimum_loop_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'condenser loop volume', {'name': u'Condenser Loop Volume', 'pyname': u'condenser_loop_volume', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm3'}), (u'condenser side inlet node name', {'name': u'Condenser Side Inlet Node Name', 'pyname': u'condenser_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side outlet node name', {'name': u'Condenser Side Outlet Node Name', 'pyname': u'condenser_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser side branch list name', {'name': u'Condenser Side Branch List Name', 'pyname': u'condenser_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser side connector list name', {'name': u'Condenser Side Connector List Name', 'pyname': u'condenser_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand side inlet node name', {'name': u'Demand Side Inlet Node Name', 'pyname': u'demand_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser demand side branch list name', {'name': u'Condenser Demand Side Branch List Name', 'pyname': u'condenser_demand_side_branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'condenser demand side connector list name', {'name': u'Condenser Demand Side Connector List Name', 'pyname': u'condenser_demand_side_connector_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load distribution scheme', {'name': u'Load Distribution Scheme', 'pyname': u'load_distribution_scheme', 'default': u'SequentialLoad', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Optimal', u'SequentialLoad', u'UniformLoad', u'UniformPLR', u'SequentialUniformPLR'], 'autocalculatable': False, 'type': 'alpha'}), (u'pressure simulation type', {'name': u'Pressure Simulation Type', 'pyname': u'pressure_simulation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PumpPowerCorrection', u'LoopFlowCorrection', u'None'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -737,7 +737,7 @@ class CondenserLoop(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -760,7 +760,7 @@ class CondenserLoop(DataObject):
 
     @fluid_type.setter
     def fluid_type(self, value="Water"):
-        """  Corresponds to IDD Field `Fluid Type`
+        """  Corresponds to IDD field `Fluid Type`
 
         Args:
             value (str): value for IDD Field `Fluid Type`
@@ -784,7 +784,7 @@ class CondenserLoop(DataObject):
 
     @user_defined_fluid_type.setter
     def user_defined_fluid_type(self, value=None):
-        """  Corresponds to IDD Field `User Defined Fluid Type`
+        """  Corresponds to IDD field `User Defined Fluid Type`
         This field is only required when Fluid Type is UserDefinedFluidType
 
         Args:
@@ -808,7 +808,7 @@ class CondenserLoop(DataObject):
 
     @condenser_equipment_operation_scheme_name.setter
     def condenser_equipment_operation_scheme_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Equipment Operation Scheme Name`
+        """  Corresponds to IDD field `Condenser Equipment Operation Scheme Name`
 
         Args:
             value (str): value for IDD Field `Condenser Equipment Operation Scheme Name`
@@ -831,7 +831,7 @@ class CondenserLoop(DataObject):
 
     @condenser_loop_temperature_setpoint_node_name.setter
     def condenser_loop_temperature_setpoint_node_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Loop Temperature Setpoint Node Name`
+        """  Corresponds to IDD field `Condenser Loop Temperature Setpoint Node Name`
 
         Args:
             value (str): value for IDD Field `Condenser Loop Temperature Setpoint Node Name`
@@ -854,7 +854,7 @@ class CondenserLoop(DataObject):
 
     @maximum_loop_temperature.setter
     def maximum_loop_temperature(self, value=None):
-        """  Corresponds to IDD Field `Maximum Loop Temperature`
+        """  Corresponds to IDD field `Maximum Loop Temperature`
 
         Args:
             value (float): value for IDD Field `Maximum Loop Temperature`
@@ -878,7 +878,7 @@ class CondenserLoop(DataObject):
 
     @minimum_loop_temperature.setter
     def minimum_loop_temperature(self, value=None):
-        """  Corresponds to IDD Field `Minimum Loop Temperature`
+        """  Corresponds to IDD field `Minimum Loop Temperature`
 
         Args:
             value (float): value for IDD Field `Minimum Loop Temperature`
@@ -902,7 +902,7 @@ class CondenserLoop(DataObject):
 
     @maximum_loop_flow_rate.setter
     def maximum_loop_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Loop Flow Rate`
+        """  Corresponds to IDD field `Maximum Loop Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Loop Flow Rate`
@@ -927,7 +927,7 @@ class CondenserLoop(DataObject):
 
     @minimum_loop_flow_rate.setter
     def minimum_loop_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Minimum Loop Flow Rate`
+        """  Corresponds to IDD field `Minimum Loop Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Loop Flow Rate`
@@ -952,7 +952,7 @@ class CondenserLoop(DataObject):
 
     @condenser_loop_volume.setter
     def condenser_loop_volume(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Condenser Loop Volume`
+        """  Corresponds to IDD field `Condenser Loop Volume`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Condenser Loop Volume`
@@ -978,7 +978,7 @@ class CondenserLoop(DataObject):
 
     @condenser_side_inlet_node_name.setter
     def condenser_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Side Inlet Node Name`
+        """  Corresponds to IDD field `Condenser Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Condenser Side Inlet Node Name`
@@ -1001,7 +1001,7 @@ class CondenserLoop(DataObject):
 
     @condenser_side_outlet_node_name.setter
     def condenser_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Side Outlet Node Name`
+        """  Corresponds to IDD field `Condenser Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Condenser Side Outlet Node Name`
@@ -1024,7 +1024,7 @@ class CondenserLoop(DataObject):
 
     @condenser_side_branch_list_name.setter
     def condenser_side_branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Side Branch List Name`
+        """  Corresponds to IDD field `Condenser Side Branch List Name`
 
         Args:
             value (str): value for IDD Field `Condenser Side Branch List Name`
@@ -1047,7 +1047,7 @@ class CondenserLoop(DataObject):
 
     @condenser_side_connector_list_name.setter
     def condenser_side_connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Side Connector List Name`
+        """  Corresponds to IDD field `Condenser Side Connector List Name`
 
         Args:
             value (str): value for IDD Field `Condenser Side Connector List Name`
@@ -1070,7 +1070,7 @@ class CondenserLoop(DataObject):
 
     @demand_side_inlet_node_name.setter
     def demand_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Inlet Node Name`
+        """  Corresponds to IDD field `Demand Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Inlet Node Name`
@@ -1093,7 +1093,7 @@ class CondenserLoop(DataObject):
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Outlet Node Name`
+        """  Corresponds to IDD field `Demand Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Side Outlet Node Name`
@@ -1116,7 +1116,7 @@ class CondenserLoop(DataObject):
 
     @condenser_demand_side_branch_list_name.setter
     def condenser_demand_side_branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Demand Side Branch List Name`
+        """  Corresponds to IDD field `Condenser Demand Side Branch List Name`
 
         Args:
             value (str): value for IDD Field `Condenser Demand Side Branch List Name`
@@ -1139,7 +1139,7 @@ class CondenserLoop(DataObject):
 
     @condenser_demand_side_connector_list_name.setter
     def condenser_demand_side_connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Demand Side Connector List Name`
+        """  Corresponds to IDD field `Condenser Demand Side Connector List Name`
 
         Args:
             value (str): value for IDD Field `Condenser Demand Side Connector List Name`
@@ -1162,7 +1162,7 @@ class CondenserLoop(DataObject):
 
     @load_distribution_scheme.setter
     def load_distribution_scheme(self, value="SequentialLoad"):
-        """  Corresponds to IDD Field `Load Distribution Scheme`
+        """  Corresponds to IDD field `Load Distribution Scheme`
 
         Args:
             value (str): value for IDD Field `Load Distribution Scheme`
@@ -1186,7 +1186,7 @@ class CondenserLoop(DataObject):
 
     @pressure_simulation_type.setter
     def pressure_simulation_type(self, value="None"):
-        """  Corresponds to IDD Field `Pressure Simulation Type`
+        """  Corresponds to IDD field `Pressure Simulation Type`
 
         Args:
             value (str): value for IDD Field `Pressure Simulation Type`
@@ -1208,7 +1208,7 @@ class PlantEquipmentList(DataObject):
         PlantEquipmentOperation:* object will assume all available plant equipment for the loop
         should be OFF (not operate) within the specified lower/upper limit.
     """
-    schema = {'min-fields': 1, 'name': u'PlantEquipmentList', 'pyname': u'PlantEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 1, 'name': u'PlantEquipmentList', 'pyname': u'PlantEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -1221,7 +1221,7 @@ class PlantEquipmentList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1244,7 +1244,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Object Type`
+        """  Corresponds to IDD field `Equipment 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Object Type`
@@ -1267,7 +1267,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Name`
+        """  Corresponds to IDD field `Equipment 1 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Name`
@@ -1290,7 +1290,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Object Type`
+        """  Corresponds to IDD field `Equipment 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Object Type`
@@ -1313,7 +1313,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Name`
+        """  Corresponds to IDD field `Equipment 2 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Name`
@@ -1336,7 +1336,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Object Type`
+        """  Corresponds to IDD field `Equipment 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Object Type`
@@ -1359,7 +1359,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Name`
+        """  Corresponds to IDD field `Equipment 3 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Name`
@@ -1382,7 +1382,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Object Type`
+        """  Corresponds to IDD field `Equipment 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Object Type`
@@ -1405,7 +1405,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Name`
+        """  Corresponds to IDD field `Equipment 4 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Name`
@@ -1428,7 +1428,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Object Type`
+        """  Corresponds to IDD field `Equipment 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Object Type`
@@ -1451,7 +1451,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Name`
+        """  Corresponds to IDD field `Equipment 5 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Name`
@@ -1474,7 +1474,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Object Type`
+        """  Corresponds to IDD field `Equipment 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Object Type`
@@ -1497,7 +1497,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Name`
+        """  Corresponds to IDD field `Equipment 6 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Name`
@@ -1520,7 +1520,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Object Type`
+        """  Corresponds to IDD field `Equipment 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Object Type`
@@ -1543,7 +1543,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Name`
+        """  Corresponds to IDD field `Equipment 7 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Name`
@@ -1566,7 +1566,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Object Type`
+        """  Corresponds to IDD field `Equipment 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Object Type`
@@ -1589,7 +1589,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Name`
+        """  Corresponds to IDD field `Equipment 8 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Name`
@@ -1612,7 +1612,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Object Type`
+        """  Corresponds to IDD field `Equipment 9 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Object Type`
@@ -1635,7 +1635,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Name`
+        """  Corresponds to IDD field `Equipment 9 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Name`
@@ -1658,7 +1658,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Object Type`
+        """  Corresponds to IDD field `Equipment 10 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Object Type`
@@ -1681,7 +1681,7 @@ class PlantEquipmentList(DataObject):
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Name`
+        """  Corresponds to IDD field `Equipment 10 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Name`
@@ -1702,7 +1702,7 @@ class CondenserEquipmentList(DataObject):
         PlantEquipmentOperation:* object will assume all available condenser equipment for the loop
         should be OFF (not operate) within the specified lower/upper limit.
     """
-    schema = {'min-fields': 1, 'name': u'CondenserEquipmentList', 'pyname': u'CondenserEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 1, 'name': u'CondenserEquipmentList', 'pyname': u'CondenserEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -1715,7 +1715,7 @@ class CondenserEquipmentList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1738,7 +1738,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Object Type`
+        """  Corresponds to IDD field `Equipment 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Object Type`
@@ -1761,7 +1761,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Name`
+        """  Corresponds to IDD field `Equipment 1 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Name`
@@ -1784,7 +1784,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Object Type`
+        """  Corresponds to IDD field `Equipment 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Object Type`
@@ -1807,7 +1807,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Name`
+        """  Corresponds to IDD field `Equipment 2 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Name`
@@ -1830,7 +1830,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Object Type`
+        """  Corresponds to IDD field `Equipment 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Object Type`
@@ -1853,7 +1853,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Name`
+        """  Corresponds to IDD field `Equipment 3 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Name`
@@ -1876,7 +1876,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Object Type`
+        """  Corresponds to IDD field `Equipment 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Object Type`
@@ -1899,7 +1899,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Name`
+        """  Corresponds to IDD field `Equipment 4 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Name`
@@ -1922,7 +1922,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Object Type`
+        """  Corresponds to IDD field `Equipment 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Object Type`
@@ -1945,7 +1945,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Name`
+        """  Corresponds to IDD field `Equipment 5 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Name`
@@ -1968,7 +1968,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Object Type`
+        """  Corresponds to IDD field `Equipment 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Object Type`
@@ -1991,7 +1991,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Name`
+        """  Corresponds to IDD field `Equipment 6 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Name`
@@ -2014,7 +2014,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Object Type`
+        """  Corresponds to IDD field `Equipment 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Object Type`
@@ -2037,7 +2037,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Name`
+        """  Corresponds to IDD field `Equipment 7 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Name`
@@ -2060,7 +2060,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Object Type`
+        """  Corresponds to IDD field `Equipment 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Object Type`
@@ -2083,7 +2083,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Name`
+        """  Corresponds to IDD field `Equipment 8 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Name`
@@ -2106,7 +2106,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Object Type`
+        """  Corresponds to IDD field `Equipment 9 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Object Type`
@@ -2129,7 +2129,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Name`
+        """  Corresponds to IDD field `Equipment 9 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Name`
@@ -2152,7 +2152,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Object Type`
+        """  Corresponds to IDD field `Equipment 10 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Object Type`
@@ -2175,7 +2175,7 @@ class CondenserEquipmentList(DataObject):
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Name`
+        """  Corresponds to IDD field `Equipment 10 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Name`
@@ -2194,7 +2194,7 @@ class PlantEquipmentOperationUncontrolled(DataObject):
         equipment that runs if the loop is active, unless turned off by the loop flow resolver
         to maintain continuity in the fluid loop.
     """
-    schema = {'min-fields': 2, 'name': u'PlantEquipmentOperation:Uncontrolled', 'pyname': u'PlantEquipmentOperationUncontrolled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment list name', {'name': u'Equipment List Name', 'pyname': u'equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'PlantEquipmentOperation:Uncontrolled', 'pyname': u'PlantEquipmentOperationUncontrolled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment list name', {'name': u'Equipment List Name', 'pyname': u'equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -2207,7 +2207,7 @@ class PlantEquipmentOperationUncontrolled(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2230,7 +2230,7 @@ class PlantEquipmentOperationUncontrolled(DataObject):
 
     @equipment_list_name.setter
     def equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment List Name`
+        """  Corresponds to IDD field `Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Equipment List Name`
@@ -2249,7 +2249,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         more groups of equipment which are available to operate for successive cooling load
         ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:CoolingLoad', 'pyname': u'PlantEquipmentOperationCoolingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:CoolingLoad', 'pyname': u'PlantEquipmentOperationCoolingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -2262,7 +2262,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2285,7 +2285,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_1_lower_limit.setter
     def load_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 1 Lower Limit`
+        """  Corresponds to IDD field `Load Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 1 Lower Limit`
@@ -2309,7 +2309,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_1_upper_limit.setter
     def load_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 1 Upper Limit`
+        """  Corresponds to IDD field `Load Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 1 Upper Limit`
@@ -2333,7 +2333,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -2356,7 +2356,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_2_lower_limit.setter
     def load_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 2 Lower Limit`
+        """  Corresponds to IDD field `Load Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 2 Lower Limit`
@@ -2380,7 +2380,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_2_upper_limit.setter
     def load_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 2 Upper Limit`
+        """  Corresponds to IDD field `Load Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 2 Upper Limit`
@@ -2404,7 +2404,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -2427,7 +2427,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_3_lower_limit.setter
     def load_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 3 Lower Limit`
+        """  Corresponds to IDD field `Load Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 3 Lower Limit`
@@ -2451,7 +2451,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_3_upper_limit.setter
     def load_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 3 Upper Limit`
+        """  Corresponds to IDD field `Load Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 3 Upper Limit`
@@ -2475,7 +2475,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -2498,7 +2498,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_4_lower_limit.setter
     def load_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 4 Lower Limit`
+        """  Corresponds to IDD field `Load Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 4 Lower Limit`
@@ -2522,7 +2522,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_4_upper_limit.setter
     def load_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 4 Upper Limit`
+        """  Corresponds to IDD field `Load Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 4 Upper Limit`
@@ -2546,7 +2546,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -2569,7 +2569,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_5_lower_limit.setter
     def load_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 5 Lower Limit`
+        """  Corresponds to IDD field `Load Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 5 Lower Limit`
@@ -2593,7 +2593,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_5_upper_limit.setter
     def load_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 5 Upper Limit`
+        """  Corresponds to IDD field `Load Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 5 Upper Limit`
@@ -2617,7 +2617,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -2640,7 +2640,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_6_lower_limit.setter
     def load_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 6 Lower Limit`
+        """  Corresponds to IDD field `Load Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 6 Lower Limit`
@@ -2664,7 +2664,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_6_upper_limit.setter
     def load_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 6 Upper Limit`
+        """  Corresponds to IDD field `Load Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 6 Upper Limit`
@@ -2688,7 +2688,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -2711,7 +2711,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_7_lower_limit.setter
     def load_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 7 Lower Limit`
+        """  Corresponds to IDD field `Load Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 7 Lower Limit`
@@ -2735,7 +2735,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_7_upper_limit.setter
     def load_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 7 Upper Limit`
+        """  Corresponds to IDD field `Load Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 7 Upper Limit`
@@ -2759,7 +2759,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -2782,7 +2782,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_8_lower_limit.setter
     def load_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 8 Lower Limit`
+        """  Corresponds to IDD field `Load Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 8 Lower Limit`
@@ -2806,7 +2806,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_8_upper_limit.setter
     def load_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 8 Upper Limit`
+        """  Corresponds to IDD field `Load Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 8 Upper Limit`
@@ -2830,7 +2830,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -2853,7 +2853,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_9_lower_limit.setter
     def load_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 9 Lower Limit`
+        """  Corresponds to IDD field `Load Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 9 Lower Limit`
@@ -2877,7 +2877,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_9_upper_limit.setter
     def load_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 9 Upper Limit`
+        """  Corresponds to IDD field `Load Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 9 Upper Limit`
@@ -2901,7 +2901,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -2924,7 +2924,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_10_lower_limit.setter
     def load_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 10 Lower Limit`
+        """  Corresponds to IDD field `Load Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 10 Lower Limit`
@@ -2948,7 +2948,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @load_range_10_upper_limit.setter
     def load_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 10 Upper Limit`
+        """  Corresponds to IDD field `Load Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 10 Upper Limit`
@@ -2972,7 +2972,7 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -2991,7 +2991,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
         more groups of equipment which are available to operate for successive heating load
         ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:HeatingLoad', 'pyname': u'PlantEquipmentOperationHeatingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:HeatingLoad', 'pyname': u'PlantEquipmentOperationHeatingLoad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'load range 1 lower limit', {'name': u'Load Range 1 Lower Limit', 'pyname': u'load_range_1_lower_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 1 upper limit', {'name': u'Load Range 1 Upper Limit', 'pyname': u'load_range_1_upper_limit', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 2 lower limit', {'name': u'Load Range 2 Lower Limit', 'pyname': u'load_range_2_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 2 upper limit', {'name': u'Load Range 2 Upper Limit', 'pyname': u'load_range_2_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 3 lower limit', {'name': u'Load Range 3 Lower Limit', 'pyname': u'load_range_3_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 3 upper limit', {'name': u'Load Range 3 Upper Limit', 'pyname': u'load_range_3_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 4 lower limit', {'name': u'Load Range 4 Lower Limit', 'pyname': u'load_range_4_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 4 upper limit', {'name': u'Load Range 4 Upper Limit', 'pyname': u'load_range_4_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 5 lower limit', {'name': u'Load Range 5 Lower Limit', 'pyname': u'load_range_5_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 5 upper limit', {'name': u'Load Range 5 Upper Limit', 'pyname': u'load_range_5_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 6 lower limit', {'name': u'Load Range 6 Lower Limit', 'pyname': u'load_range_6_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 6 upper limit', {'name': u'Load Range 6 Upper Limit', 'pyname': u'load_range_6_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 7 lower limit', {'name': u'Load Range 7 Lower Limit', 'pyname': u'load_range_7_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 7 upper limit', {'name': u'Load Range 7 Upper Limit', 'pyname': u'load_range_7_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 8 lower limit', {'name': u'Load Range 8 Lower Limit', 'pyname': u'load_range_8_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 8 upper limit', {'name': u'Load Range 8 Upper Limit', 'pyname': u'load_range_8_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 9 lower limit', {'name': u'Load Range 9 Lower Limit', 'pyname': u'load_range_9_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 9 upper limit', {'name': u'Load Range 9 Upper Limit', 'pyname': u'load_range_9_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'load range 10 lower limit', {'name': u'Load Range 10 Lower Limit', 'pyname': u'load_range_10_lower_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'load range 10 upper limit', {'name': u'Load Range 10 Upper Limit', 'pyname': u'load_range_10_upper_limit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -3004,7 +3004,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3027,7 +3027,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_1_lower_limit.setter
     def load_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 1 Lower Limit`
+        """  Corresponds to IDD field `Load Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 1 Lower Limit`
@@ -3051,7 +3051,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_1_upper_limit.setter
     def load_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 1 Upper Limit`
+        """  Corresponds to IDD field `Load Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 1 Upper Limit`
@@ -3075,7 +3075,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -3098,7 +3098,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_2_lower_limit.setter
     def load_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 2 Lower Limit`
+        """  Corresponds to IDD field `Load Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 2 Lower Limit`
@@ -3122,7 +3122,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_2_upper_limit.setter
     def load_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 2 Upper Limit`
+        """  Corresponds to IDD field `Load Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 2 Upper Limit`
@@ -3146,7 +3146,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -3169,7 +3169,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_3_lower_limit.setter
     def load_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 3 Lower Limit`
+        """  Corresponds to IDD field `Load Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 3 Lower Limit`
@@ -3193,7 +3193,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_3_upper_limit.setter
     def load_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 3 Upper Limit`
+        """  Corresponds to IDD field `Load Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 3 Upper Limit`
@@ -3217,7 +3217,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -3240,7 +3240,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_4_lower_limit.setter
     def load_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 4 Lower Limit`
+        """  Corresponds to IDD field `Load Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 4 Lower Limit`
@@ -3264,7 +3264,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_4_upper_limit.setter
     def load_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 4 Upper Limit`
+        """  Corresponds to IDD field `Load Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 4 Upper Limit`
@@ -3288,7 +3288,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -3311,7 +3311,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_5_lower_limit.setter
     def load_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 5 Lower Limit`
+        """  Corresponds to IDD field `Load Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 5 Lower Limit`
@@ -3335,7 +3335,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_5_upper_limit.setter
     def load_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 5 Upper Limit`
+        """  Corresponds to IDD field `Load Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 5 Upper Limit`
@@ -3359,7 +3359,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -3382,7 +3382,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_6_lower_limit.setter
     def load_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 6 Lower Limit`
+        """  Corresponds to IDD field `Load Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 6 Lower Limit`
@@ -3406,7 +3406,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_6_upper_limit.setter
     def load_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 6 Upper Limit`
+        """  Corresponds to IDD field `Load Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 6 Upper Limit`
@@ -3430,7 +3430,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -3453,7 +3453,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_7_lower_limit.setter
     def load_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 7 Lower Limit`
+        """  Corresponds to IDD field `Load Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 7 Lower Limit`
@@ -3477,7 +3477,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_7_upper_limit.setter
     def load_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 7 Upper Limit`
+        """  Corresponds to IDD field `Load Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 7 Upper Limit`
@@ -3501,7 +3501,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -3524,7 +3524,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_8_lower_limit.setter
     def load_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 8 Lower Limit`
+        """  Corresponds to IDD field `Load Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 8 Lower Limit`
@@ -3548,7 +3548,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_8_upper_limit.setter
     def load_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 8 Upper Limit`
+        """  Corresponds to IDD field `Load Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 8 Upper Limit`
@@ -3572,7 +3572,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -3595,7 +3595,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_9_lower_limit.setter
     def load_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 9 Lower Limit`
+        """  Corresponds to IDD field `Load Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 9 Lower Limit`
@@ -3619,7 +3619,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_9_upper_limit.setter
     def load_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 9 Upper Limit`
+        """  Corresponds to IDD field `Load Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 9 Upper Limit`
@@ -3643,7 +3643,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -3666,7 +3666,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_10_lower_limit.setter
     def load_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 10 Lower Limit`
+        """  Corresponds to IDD field `Load Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 10 Lower Limit`
@@ -3690,7 +3690,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @load_range_10_upper_limit.setter
     def load_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Load Range 10 Upper Limit`
+        """  Corresponds to IDD field `Load Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Load Range 10 Upper Limit`
@@ -3714,7 +3714,7 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -3733,7 +3733,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor dry-bulb temperature ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDryBulb', 'pyname': u'PlantEquipmentOperationOutdoorDryBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dry-bulb temperature range 1 lower limit', {'name': u'Dry-Bulb Temperature Range 1 Lower Limit', 'pyname': u'drybulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 1 upper limit', {'name': u'Dry-Bulb Temperature Range 1 Upper Limit', 'pyname': u'drybulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 2 lower limit', {'name': u'Dry-Bulb Temperature Range 2 Lower Limit', 'pyname': u'drybulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 2 upper limit', {'name': u'Dry-Bulb Temperature Range 2 Upper Limit', 'pyname': u'drybulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 3 lower limit', {'name': u'Dry-Bulb Temperature Range 3 Lower Limit', 'pyname': u'drybulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 3 upper limit', {'name': u'Dry-Bulb Temperature Range 3 Upper Limit', 'pyname': u'drybulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 4 lower limit', {'name': u'Dry-Bulb Temperature Range 4 Lower Limit', 'pyname': u'drybulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 4 upper limit', {'name': u'Dry-Bulb Temperature Range 4 Upper Limit', 'pyname': u'drybulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 5 lower limit', {'name': u'Dry-Bulb Temperature Range 5 Lower Limit', 'pyname': u'drybulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 5 upper limit', {'name': u'Dry-Bulb Temperature Range 5 Upper Limit', 'pyname': u'drybulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 6 lower limit', {'name': u'Dry-Bulb Temperature Range 6 Lower Limit', 'pyname': u'drybulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 6 upper limit', {'name': u'Dry-Bulb Temperature Range 6 Upper Limit', 'pyname': u'drybulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 7 lower limit', {'name': u'Dry-Bulb Temperature Range 7 Lower Limit', 'pyname': u'drybulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 7 upper limit', {'name': u'Dry-Bulb Temperature Range 7 Upper Limit', 'pyname': u'drybulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 8 lower limit', {'name': u'Dry-Bulb Temperature Range 8 Lower Limit', 'pyname': u'drybulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 8 upper limit', {'name': u'Dry-Bulb Temperature Range 8 Upper Limit', 'pyname': u'drybulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 9 lower limit', {'name': u'Dry-Bulb Temperature Range 9 Lower Limit', 'pyname': u'drybulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 9 upper limit', {'name': u'Dry-Bulb Temperature Range 9 Upper Limit', 'pyname': u'drybulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 10 lower limit', {'name': u'Dry-Bulb Temperature Range 10 Lower Limit', 'pyname': u'drybulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 10 upper limit', {'name': u'Dry-Bulb Temperature Range 10 Upper Limit', 'pyname': u'drybulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDryBulb', 'pyname': u'PlantEquipmentOperationOutdoorDryBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dry-bulb temperature range 1 lower limit', {'name': u'Dry-Bulb Temperature Range 1 Lower Limit', 'pyname': u'drybulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 1 upper limit', {'name': u'Dry-Bulb Temperature Range 1 Upper Limit', 'pyname': u'drybulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 2 lower limit', {'name': u'Dry-Bulb Temperature Range 2 Lower Limit', 'pyname': u'drybulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 2 upper limit', {'name': u'Dry-Bulb Temperature Range 2 Upper Limit', 'pyname': u'drybulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 3 lower limit', {'name': u'Dry-Bulb Temperature Range 3 Lower Limit', 'pyname': u'drybulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 3 upper limit', {'name': u'Dry-Bulb Temperature Range 3 Upper Limit', 'pyname': u'drybulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 4 lower limit', {'name': u'Dry-Bulb Temperature Range 4 Lower Limit', 'pyname': u'drybulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 4 upper limit', {'name': u'Dry-Bulb Temperature Range 4 Upper Limit', 'pyname': u'drybulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 5 lower limit', {'name': u'Dry-Bulb Temperature Range 5 Lower Limit', 'pyname': u'drybulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 5 upper limit', {'name': u'Dry-Bulb Temperature Range 5 Upper Limit', 'pyname': u'drybulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 6 lower limit', {'name': u'Dry-Bulb Temperature Range 6 Lower Limit', 'pyname': u'drybulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 6 upper limit', {'name': u'Dry-Bulb Temperature Range 6 Upper Limit', 'pyname': u'drybulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 7 lower limit', {'name': u'Dry-Bulb Temperature Range 7 Lower Limit', 'pyname': u'drybulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 7 upper limit', {'name': u'Dry-Bulb Temperature Range 7 Upper Limit', 'pyname': u'drybulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 8 lower limit', {'name': u'Dry-Bulb Temperature Range 8 Lower Limit', 'pyname': u'drybulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 8 upper limit', {'name': u'Dry-Bulb Temperature Range 8 Upper Limit', 'pyname': u'drybulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 9 lower limit', {'name': u'Dry-Bulb Temperature Range 9 Lower Limit', 'pyname': u'drybulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 9 upper limit', {'name': u'Dry-Bulb Temperature Range 9 Upper Limit', 'pyname': u'drybulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature range 10 lower limit', {'name': u'Dry-Bulb Temperature Range 10 Lower Limit', 'pyname': u'drybulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dry-bulb temperature range 10 upper limit', {'name': u'Dry-Bulb Temperature Range 10 Upper Limit', 'pyname': u'drybulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -3746,7 +3746,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3769,7 +3769,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_1_lower_limit.setter
     def drybulb_temperature_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 1 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 1 Lower Limit`
@@ -3795,7 +3795,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_1_upper_limit.setter
     def drybulb_temperature_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 1 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 1 Upper Limit`
@@ -3821,7 +3821,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -3844,7 +3844,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_2_lower_limit.setter
     def drybulb_temperature_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 2 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 2 Lower Limit`
@@ -3870,7 +3870,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_2_upper_limit.setter
     def drybulb_temperature_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 2 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 2 Upper Limit`
@@ -3896,7 +3896,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -3919,7 +3919,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_3_lower_limit.setter
     def drybulb_temperature_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 3 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 3 Lower Limit`
@@ -3945,7 +3945,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_3_upper_limit.setter
     def drybulb_temperature_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 3 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 3 Upper Limit`
@@ -3971,7 +3971,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -3994,7 +3994,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_4_lower_limit.setter
     def drybulb_temperature_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 4 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 4 Lower Limit`
@@ -4020,7 +4020,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_4_upper_limit.setter
     def drybulb_temperature_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 4 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 4 Upper Limit`
@@ -4046,7 +4046,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -4069,7 +4069,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_5_lower_limit.setter
     def drybulb_temperature_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 5 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 5 Lower Limit`
@@ -4095,7 +4095,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_5_upper_limit.setter
     def drybulb_temperature_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 5 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 5 Upper Limit`
@@ -4121,7 +4121,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -4144,7 +4144,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_6_lower_limit.setter
     def drybulb_temperature_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 6 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 6 Lower Limit`
@@ -4170,7 +4170,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_6_upper_limit.setter
     def drybulb_temperature_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 6 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 6 Upper Limit`
@@ -4196,7 +4196,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -4219,7 +4219,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_7_lower_limit.setter
     def drybulb_temperature_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 7 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 7 Lower Limit`
@@ -4245,7 +4245,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_7_upper_limit.setter
     def drybulb_temperature_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 7 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 7 Upper Limit`
@@ -4271,7 +4271,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -4294,7 +4294,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_8_lower_limit.setter
     def drybulb_temperature_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 8 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 8 Lower Limit`
@@ -4320,7 +4320,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_8_upper_limit.setter
     def drybulb_temperature_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 8 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 8 Upper Limit`
@@ -4346,7 +4346,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -4369,7 +4369,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_9_lower_limit.setter
     def drybulb_temperature_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 9 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 9 Lower Limit`
@@ -4395,7 +4395,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_9_upper_limit.setter
     def drybulb_temperature_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 9 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 9 Upper Limit`
@@ -4421,7 +4421,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -4444,7 +4444,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_10_lower_limit.setter
     def drybulb_temperature_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 10 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 10 Lower Limit`
@@ -4470,7 +4470,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @drybulb_temperature_range_10_upper_limit.setter
     def drybulb_temperature_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Range 10 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Range 10 Upper Limit`
@@ -4496,7 +4496,7 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -4515,7 +4515,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor wet-bulb temperature ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorWetBulb', 'pyname': u'PlantEquipmentOperationOutdoorWetBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wet-bulb temperature range 1 lower limit', {'name': u'Wet-Bulb Temperature Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 1 upper limit', {'name': u'Wet-Bulb Temperature Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 2 lower limit', {'name': u'Wet-Bulb Temperature Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 2 upper limit', {'name': u'Wet-Bulb Temperature Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 3 lower limit', {'name': u'Wet-Bulb Temperature Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 3 upper limit', {'name': u'Wet-Bulb Temperature Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 4 lower limit', {'name': u'Wet-Bulb Temperature Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 4 upper limit', {'name': u'Wet-Bulb Temperature Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 5 lower limit', {'name': u'Wet-Bulb Temperature Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 5 upper limit', {'name': u'Wet-Bulb Temperature Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 6 lower limit', {'name': u'Wet-Bulb Temperature Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 6 upper limit', {'name': u'Wet-Bulb Temperature Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 7 lower limit', {'name': u'Wet-Bulb Temperature Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 7 upper limit', {'name': u'Wet-Bulb Temperature Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 8 lower limit', {'name': u'Wet-Bulb Temperature Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 8 upper limit', {'name': u'Wet-Bulb Temperature Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 9 lower limit', {'name': u'Wet-Bulb Temperature Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 9 upper limit', {'name': u'Wet-Bulb Temperature Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 10 lower limit', {'name': u'Wet-Bulb Temperature Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 10 upper limit', {'name': u'Wet-Bulb Temperature Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorWetBulb', 'pyname': u'PlantEquipmentOperationOutdoorWetBulb', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'wet-bulb temperature range 1 lower limit', {'name': u'Wet-Bulb Temperature Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 1 upper limit', {'name': u'Wet-Bulb Temperature Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 2 lower limit', {'name': u'Wet-Bulb Temperature Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 2 upper limit', {'name': u'Wet-Bulb Temperature Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 3 lower limit', {'name': u'Wet-Bulb Temperature Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 3 upper limit', {'name': u'Wet-Bulb Temperature Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 4 lower limit', {'name': u'Wet-Bulb Temperature Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 4 upper limit', {'name': u'Wet-Bulb Temperature Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 5 lower limit', {'name': u'Wet-Bulb Temperature Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 5 upper limit', {'name': u'Wet-Bulb Temperature Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 6 lower limit', {'name': u'Wet-Bulb Temperature Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 6 upper limit', {'name': u'Wet-Bulb Temperature Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 7 lower limit', {'name': u'Wet-Bulb Temperature Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 7 upper limit', {'name': u'Wet-Bulb Temperature Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 8 lower limit', {'name': u'Wet-Bulb Temperature Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 8 upper limit', {'name': u'Wet-Bulb Temperature Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 9 lower limit', {'name': u'Wet-Bulb Temperature Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 9 upper limit', {'name': u'Wet-Bulb Temperature Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature range 10 lower limit', {'name': u'Wet-Bulb Temperature Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'wet-bulb temperature range 10 upper limit', {'name': u'Wet-Bulb Temperature Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -4528,7 +4528,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4551,7 +4551,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_1_lower_limit.setter
     def wetbulb_temperature_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 1 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 1 Lower Limit`
@@ -4577,7 +4577,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_1_upper_limit.setter
     def wetbulb_temperature_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 1 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 1 Upper Limit`
@@ -4603,7 +4603,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -4626,7 +4626,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_2_lower_limit.setter
     def wetbulb_temperature_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 2 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 2 Lower Limit`
@@ -4652,7 +4652,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_2_upper_limit.setter
     def wetbulb_temperature_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 2 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 2 Upper Limit`
@@ -4678,7 +4678,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -4701,7 +4701,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_3_lower_limit.setter
     def wetbulb_temperature_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 3 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 3 Lower Limit`
@@ -4727,7 +4727,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_3_upper_limit.setter
     def wetbulb_temperature_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 3 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 3 Upper Limit`
@@ -4753,7 +4753,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -4776,7 +4776,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_4_lower_limit.setter
     def wetbulb_temperature_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 4 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 4 Lower Limit`
@@ -4802,7 +4802,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_4_upper_limit.setter
     def wetbulb_temperature_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 4 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 4 Upper Limit`
@@ -4828,7 +4828,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -4851,7 +4851,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_5_lower_limit.setter
     def wetbulb_temperature_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 5 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 5 Lower Limit`
@@ -4877,7 +4877,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_5_upper_limit.setter
     def wetbulb_temperature_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 5 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 5 Upper Limit`
@@ -4903,7 +4903,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -4926,7 +4926,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_6_lower_limit.setter
     def wetbulb_temperature_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 6 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 6 Lower Limit`
@@ -4952,7 +4952,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_6_upper_limit.setter
     def wetbulb_temperature_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 6 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 6 Upper Limit`
@@ -4978,7 +4978,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -5001,7 +5001,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_7_lower_limit.setter
     def wetbulb_temperature_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 7 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 7 Lower Limit`
@@ -5027,7 +5027,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_7_upper_limit.setter
     def wetbulb_temperature_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 7 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 7 Upper Limit`
@@ -5053,7 +5053,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -5076,7 +5076,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_8_lower_limit.setter
     def wetbulb_temperature_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 8 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 8 Lower Limit`
@@ -5102,7 +5102,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_8_upper_limit.setter
     def wetbulb_temperature_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 8 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 8 Upper Limit`
@@ -5128,7 +5128,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -5151,7 +5151,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_9_lower_limit.setter
     def wetbulb_temperature_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 9 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 9 Lower Limit`
@@ -5177,7 +5177,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_9_upper_limit.setter
     def wetbulb_temperature_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 9 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 9 Upper Limit`
@@ -5203,7 +5203,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -5226,7 +5226,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_10_lower_limit.setter
     def wetbulb_temperature_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 10 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 10 Lower Limit`
@@ -5252,7 +5252,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @wetbulb_temperature_range_10_upper_limit.setter
     def wetbulb_temperature_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Range 10 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Range 10 Upper Limit`
@@ -5278,7 +5278,7 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -5297,7 +5297,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor relative humidity ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorRelativeHumidity', 'pyname': u'PlantEquipmentOperationOutdoorRelativeHumidity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'relative humidity range 1 lower limit', {'name': u'Relative Humidity Range 1 Lower Limit', 'pyname': u'relative_humidity_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 1 upper limit', {'name': u'Relative Humidity Range 1 Upper Limit', 'pyname': u'relative_humidity_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 2 lower limit', {'name': u'Relative Humidity Range 2 Lower Limit', 'pyname': u'relative_humidity_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 2 upper limit', {'name': u'Relative Humidity Range 2 Upper Limit', 'pyname': u'relative_humidity_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 3 lower limit', {'name': u'Relative Humidity Range 3 Lower Limit', 'pyname': u'relative_humidity_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 3 upper limit', {'name': u'Relative Humidity Range 3 Upper Limit', 'pyname': u'relative_humidity_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 4 lower limit', {'name': u'Relative Humidity Range 4 Lower Limit', 'pyname': u'relative_humidity_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 4 upper limit', {'name': u'Relative Humidity Range 4 Upper Limit', 'pyname': u'relative_humidity_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 5 lower limit', {'name': u'Relative Humidity Range 5 Lower Limit', 'pyname': u'relative_humidity_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 5 upper limit', {'name': u'Relative Humidity Range 5 Upper Limit', 'pyname': u'relative_humidity_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 6 lower limit', {'name': u'Relative Humidity Range 6 Lower Limit', 'pyname': u'relative_humidity_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 6 upper limit', {'name': u'Relative Humidity Range 6 Upper Limit', 'pyname': u'relative_humidity_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 7 lower limit', {'name': u'Relative Humidity Range 7 Lower Limit', 'pyname': u'relative_humidity_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 7 upper limit', {'name': u'Relative Humidity Range 7 Upper Limit', 'pyname': u'relative_humidity_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 8 lower limit', {'name': u'Relative Humidity Range 8 Lower Limit', 'pyname': u'relative_humidity_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 8 upper limit', {'name': u'Relative Humidity Range 8 Upper Limit', 'pyname': u'relative_humidity_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 9 lower limit', {'name': u'Relative Humidity Range 9 Lower Limit', 'pyname': u'relative_humidity_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 9 upper limit', {'name': u'Relative Humidity Range 9 Upper Limit', 'pyname': u'relative_humidity_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 10 lower limit', {'name': u'Relative Humidity Range 10 Lower Limit', 'pyname': u'relative_humidity_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 10 upper limit', {'name': u'Relative Humidity Range 10 Upper Limit', 'pyname': u'relative_humidity_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorRelativeHumidity', 'pyname': u'PlantEquipmentOperationOutdoorRelativeHumidity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'relative humidity range 1 lower limit', {'name': u'Relative Humidity Range 1 Lower Limit', 'pyname': u'relative_humidity_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 1 upper limit', {'name': u'Relative Humidity Range 1 Upper Limit', 'pyname': u'relative_humidity_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 2 lower limit', {'name': u'Relative Humidity Range 2 Lower Limit', 'pyname': u'relative_humidity_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 2 upper limit', {'name': u'Relative Humidity Range 2 Upper Limit', 'pyname': u'relative_humidity_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 3 lower limit', {'name': u'Relative Humidity Range 3 Lower Limit', 'pyname': u'relative_humidity_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 3 upper limit', {'name': u'Relative Humidity Range 3 Upper Limit', 'pyname': u'relative_humidity_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 4 lower limit', {'name': u'Relative Humidity Range 4 Lower Limit', 'pyname': u'relative_humidity_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 4 upper limit', {'name': u'Relative Humidity Range 4 Upper Limit', 'pyname': u'relative_humidity_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 5 lower limit', {'name': u'Relative Humidity Range 5 Lower Limit', 'pyname': u'relative_humidity_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 5 upper limit', {'name': u'Relative Humidity Range 5 Upper Limit', 'pyname': u'relative_humidity_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 6 lower limit', {'name': u'Relative Humidity Range 6 Lower Limit', 'pyname': u'relative_humidity_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 6 upper limit', {'name': u'Relative Humidity Range 6 Upper Limit', 'pyname': u'relative_humidity_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 7 lower limit', {'name': u'Relative Humidity Range 7 Lower Limit', 'pyname': u'relative_humidity_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 7 upper limit', {'name': u'Relative Humidity Range 7 Upper Limit', 'pyname': u'relative_humidity_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 8 lower limit', {'name': u'Relative Humidity Range 8 Lower Limit', 'pyname': u'relative_humidity_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 8 upper limit', {'name': u'Relative Humidity Range 8 Upper Limit', 'pyname': u'relative_humidity_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 9 lower limit', {'name': u'Relative Humidity Range 9 Lower Limit', 'pyname': u'relative_humidity_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 9 upper limit', {'name': u'Relative Humidity Range 9 Upper Limit', 'pyname': u'relative_humidity_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'relative humidity range 10 lower limit', {'name': u'Relative Humidity Range 10 Lower Limit', 'pyname': u'relative_humidity_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'relative humidity range 10 upper limit', {'name': u'Relative Humidity Range 10 Upper Limit', 'pyname': u'relative_humidity_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -5310,7 +5310,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5333,7 +5333,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_1_lower_limit.setter
     def relative_humidity_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 1 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 1 Lower Limit`
@@ -5358,7 +5358,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_1_upper_limit.setter
     def relative_humidity_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 1 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 1 Upper Limit`
@@ -5383,7 +5383,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -5406,7 +5406,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_2_lower_limit.setter
     def relative_humidity_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 2 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 2 Lower Limit`
@@ -5431,7 +5431,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_2_upper_limit.setter
     def relative_humidity_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 2 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 2 Upper Limit`
@@ -5456,7 +5456,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -5479,7 +5479,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_3_lower_limit.setter
     def relative_humidity_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 3 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 3 Lower Limit`
@@ -5504,7 +5504,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_3_upper_limit.setter
     def relative_humidity_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 3 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 3 Upper Limit`
@@ -5529,7 +5529,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -5552,7 +5552,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_4_lower_limit.setter
     def relative_humidity_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 4 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 4 Lower Limit`
@@ -5577,7 +5577,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_4_upper_limit.setter
     def relative_humidity_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 4 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 4 Upper Limit`
@@ -5602,7 +5602,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -5625,7 +5625,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_5_lower_limit.setter
     def relative_humidity_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 5 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 5 Lower Limit`
@@ -5650,7 +5650,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_5_upper_limit.setter
     def relative_humidity_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 5 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 5 Upper Limit`
@@ -5675,7 +5675,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -5698,7 +5698,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_6_lower_limit.setter
     def relative_humidity_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 6 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 6 Lower Limit`
@@ -5723,7 +5723,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_6_upper_limit.setter
     def relative_humidity_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 6 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 6 Upper Limit`
@@ -5748,7 +5748,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -5771,7 +5771,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_7_lower_limit.setter
     def relative_humidity_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 7 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 7 Lower Limit`
@@ -5796,7 +5796,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_7_upper_limit.setter
     def relative_humidity_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 7 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 7 Upper Limit`
@@ -5821,7 +5821,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -5844,7 +5844,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_8_lower_limit.setter
     def relative_humidity_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 8 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 8 Lower Limit`
@@ -5869,7 +5869,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_8_upper_limit.setter
     def relative_humidity_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 8 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 8 Upper Limit`
@@ -5894,7 +5894,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -5917,7 +5917,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_9_lower_limit.setter
     def relative_humidity_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 9 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 9 Lower Limit`
@@ -5942,7 +5942,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_9_upper_limit.setter
     def relative_humidity_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 9 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 9 Upper Limit`
@@ -5967,7 +5967,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -5990,7 +5990,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_10_lower_limit.setter
     def relative_humidity_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 10 Lower Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 10 Lower Limit`
@@ -6015,7 +6015,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @relative_humidity_range_10_upper_limit.setter
     def relative_humidity_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Range 10 Upper Limit`
+        """  Corresponds to IDD field `Relative Humidity Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Relative Humidity Range 10 Upper Limit`
@@ -6040,7 +6040,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -6059,7 +6059,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor dewpoint temperature ranges.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDewpoint', 'pyname': u'PlantEquipmentOperationOutdoorDewpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dewpoint temperature range 1 lower limit', {'name': u'Dewpoint Temperature Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 1 upper limit', {'name': u'Dewpoint Temperature Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 2 lower limit', {'name': u'Dewpoint Temperature Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 2 upper limit', {'name': u'Dewpoint Temperature Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 3 lower limit', {'name': u'Dewpoint Temperature Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 3 upper limit', {'name': u'Dewpoint Temperature Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 4 lower limit', {'name': u'Dewpoint Temperature Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 4 upper limit', {'name': u'Dewpoint Temperature Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 5 lower limit', {'name': u'Dewpoint Temperature Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 5 upper limit', {'name': u'Dewpoint Temperature Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 6 lower limit', {'name': u'Dewpoint Temperature Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 6 upper limit', {'name': u'Dewpoint Temperature Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 7 lower limit', {'name': u'Dewpoint Temperature Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 7 upper limit', {'name': u'Dewpoint Temperature Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 8 lower limit', {'name': u'Dewpoint Temperature Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 8 upper limit', {'name': u'Dewpoint Temperature Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 9 lower limit', {'name': u'Dewpoint Temperature Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 9 upper limit', {'name': u'Dewpoint Temperature Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 10 lower limit', {'name': u'Dewpoint Temperature Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 10 upper limit', {'name': u'Dewpoint Temperature Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperation:OutdoorDewpoint', 'pyname': u'PlantEquipmentOperationOutdoorDewpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dewpoint temperature range 1 lower limit', {'name': u'Dewpoint Temperature Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_range_1_lower_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 1 upper limit', {'name': u'Dewpoint Temperature Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_range_1_upper_limit', 'maximum': 70.0, 'required-field': True, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 2 lower limit', {'name': u'Dewpoint Temperature Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_range_2_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 2 upper limit', {'name': u'Dewpoint Temperature Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_range_2_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 3 lower limit', {'name': u'Dewpoint Temperature Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_range_3_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 3 upper limit', {'name': u'Dewpoint Temperature Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_range_3_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 4 lower limit', {'name': u'Dewpoint Temperature Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_range_4_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 4 upper limit', {'name': u'Dewpoint Temperature Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_range_4_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 5 lower limit', {'name': u'Dewpoint Temperature Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_range_5_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 5 upper limit', {'name': u'Dewpoint Temperature Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_range_5_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 6 lower limit', {'name': u'Dewpoint Temperature Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_range_6_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 6 upper limit', {'name': u'Dewpoint Temperature Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_range_6_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 7 lower limit', {'name': u'Dewpoint Temperature Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_range_7_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 7 upper limit', {'name': u'Dewpoint Temperature Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_range_7_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 8 lower limit', {'name': u'Dewpoint Temperature Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_range_8_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 8 upper limit', {'name': u'Dewpoint Temperature Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_range_8_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 9 lower limit', {'name': u'Dewpoint Temperature Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_range_9_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 9 upper limit', {'name': u'Dewpoint Temperature Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_range_9_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature range 10 lower limit', {'name': u'Dewpoint Temperature Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_range_10_lower_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'dewpoint temperature range 10 upper limit', {'name': u'Dewpoint Temperature Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_range_10_upper_limit', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -70.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -6072,7 +6072,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6095,7 +6095,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_1_lower_limit.setter
     def dewpoint_temperature_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 1 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 1 Lower Limit`
@@ -6121,7 +6121,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_1_upper_limit.setter
     def dewpoint_temperature_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 1 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 1 Upper Limit`
@@ -6147,7 +6147,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -6170,7 +6170,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_2_lower_limit.setter
     def dewpoint_temperature_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 2 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 2 Lower Limit`
@@ -6196,7 +6196,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_2_upper_limit.setter
     def dewpoint_temperature_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 2 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 2 Upper Limit`
@@ -6222,7 +6222,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -6245,7 +6245,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_3_lower_limit.setter
     def dewpoint_temperature_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 3 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 3 Lower Limit`
@@ -6271,7 +6271,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_3_upper_limit.setter
     def dewpoint_temperature_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 3 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 3 Upper Limit`
@@ -6297,7 +6297,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -6320,7 +6320,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_4_lower_limit.setter
     def dewpoint_temperature_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 4 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 4 Lower Limit`
@@ -6346,7 +6346,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_4_upper_limit.setter
     def dewpoint_temperature_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 4 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 4 Upper Limit`
@@ -6372,7 +6372,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -6395,7 +6395,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_5_lower_limit.setter
     def dewpoint_temperature_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 5 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 5 Lower Limit`
@@ -6421,7 +6421,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_5_upper_limit.setter
     def dewpoint_temperature_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 5 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 5 Upper Limit`
@@ -6447,7 +6447,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -6470,7 +6470,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_6_lower_limit.setter
     def dewpoint_temperature_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 6 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 6 Lower Limit`
@@ -6496,7 +6496,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_6_upper_limit.setter
     def dewpoint_temperature_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 6 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 6 Upper Limit`
@@ -6522,7 +6522,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -6545,7 +6545,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_7_lower_limit.setter
     def dewpoint_temperature_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 7 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 7 Lower Limit`
@@ -6571,7 +6571,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_7_upper_limit.setter
     def dewpoint_temperature_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 7 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 7 Upper Limit`
@@ -6597,7 +6597,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -6620,7 +6620,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_8_lower_limit.setter
     def dewpoint_temperature_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 8 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 8 Lower Limit`
@@ -6646,7 +6646,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_8_upper_limit.setter
     def dewpoint_temperature_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 8 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 8 Upper Limit`
@@ -6672,7 +6672,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -6695,7 +6695,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_9_lower_limit.setter
     def dewpoint_temperature_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 9 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 9 Lower Limit`
@@ -6721,7 +6721,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_9_upper_limit.setter
     def dewpoint_temperature_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 9 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 9 Upper Limit`
@@ -6747,7 +6747,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -6770,7 +6770,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_10_lower_limit.setter
     def dewpoint_temperature_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 10 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 10 Lower Limit`
@@ -6796,7 +6796,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @dewpoint_temperature_range_10_upper_limit.setter
     def dewpoint_temperature_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Range 10 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Range 10 Upper Limit`
@@ -6822,7 +6822,7 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -6841,7 +6841,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         pieces of equipment which are controlled to meet the temperature setpoint at the
         component outlet node.
     """
-    schema = {'min-fields': 7, 'name': u'PlantEquipmentOperation:ComponentSetpoint', 'pyname': u'PlantEquipmentOperationComponentSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 1 node name', {'name': u'Demand Calculation 1 Node Name', 'pyname': u'demand_calculation_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 1 node name', {'name': u'Setpoint 1 Node Name', 'pyname': u'setpoint_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 flow rate', {'name': u'Component 1 Flow Rate', 'pyname': u'component_1_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 1 type', {'name': u'Operation 1 Type', 'pyname': u'operation_1_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 2 node name', {'name': u'Demand Calculation 2 Node Name', 'pyname': u'demand_calculation_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 2 node name', {'name': u'Setpoint 2 Node Name', 'pyname': u'setpoint_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 2 flow rate', {'name': u'Component 2 Flow Rate', 'pyname': u'component_2_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 2 type', {'name': u'Operation 2 Type', 'pyname': u'operation_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 3 node name', {'name': u'Demand Calculation 3 Node Name', 'pyname': u'demand_calculation_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 3 node name', {'name': u'Setpoint 3 Node Name', 'pyname': u'setpoint_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 3 flow rate', {'name': u'Component 3 Flow Rate', 'pyname': u'component_3_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 3 type', {'name': u'Operation 3 Type', 'pyname': u'operation_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 4 node name', {'name': u'Demand Calculation 4 Node Name', 'pyname': u'demand_calculation_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 4 node name', {'name': u'Setpoint 4 Node Name', 'pyname': u'setpoint_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 4 flow rate', {'name': u'Component 4 Flow Rate', 'pyname': u'component_4_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 4 type', {'name': u'Operation 4 Type', 'pyname': u'operation_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 5 node name', {'name': u'Demand Calculation 5 Node Name', 'pyname': u'demand_calculation_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 5 node name', {'name': u'Setpoint 5 Node Name', 'pyname': u'setpoint_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 5 flow rate', {'name': u'Component 5 Flow Rate', 'pyname': u'component_5_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 5 type', {'name': u'Operation 5 Type', 'pyname': u'operation_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 6 node name', {'name': u'Demand Calculation 6 Node Name', 'pyname': u'demand_calculation_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 6 node name', {'name': u'Setpoint 6 Node Name', 'pyname': u'setpoint_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 6 flow rate', {'name': u'Component 6 Flow Rate', 'pyname': u'component_6_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 6 type', {'name': u'Operation 6 Type', 'pyname': u'operation_6_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 7 node name', {'name': u'Demand Calculation 7 Node Name', 'pyname': u'demand_calculation_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 7 node name', {'name': u'Setpoint 7 Node Name', 'pyname': u'setpoint_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 7 flow rate', {'name': u'Component 7 Flow Rate', 'pyname': u'component_7_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 7 type', {'name': u'Operation 7 Type', 'pyname': u'operation_7_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 8 node name', {'name': u'Demand Calculation 8 Node Name', 'pyname': u'demand_calculation_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 8 node name', {'name': u'Setpoint 8 Node Name', 'pyname': u'setpoint_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 8 flow rate', {'name': u'Component 8 Flow Rate', 'pyname': u'component_8_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 8 type', {'name': u'Operation 8 Type', 'pyname': u'operation_8_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 9 node name', {'name': u'Demand Calculation 9 Node Name', 'pyname': u'demand_calculation_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 9 node name', {'name': u'Setpoint 9 Node Name', 'pyname': u'setpoint_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 9 flow rate', {'name': u'Component 9 Flow Rate', 'pyname': u'component_9_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 9 type', {'name': u'Operation 9 Type', 'pyname': u'operation_9_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 10 node name', {'name': u'Demand Calculation 10 Node Name', 'pyname': u'demand_calculation_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 10 node name', {'name': u'Setpoint 10 Node Name', 'pyname': u'setpoint_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 10 flow rate', {'name': u'Component 10 Flow Rate', 'pyname': u'component_10_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 10 type', {'name': u'Operation 10 Type', 'pyname': u'operation_10_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 7, 'name': u'PlantEquipmentOperation:ComponentSetpoint', 'pyname': u'PlantEquipmentOperationComponentSetpoint', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 1 object type', {'name': u'Equipment 1 Object Type', 'pyname': u'equipment_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 1 name', {'name': u'Equipment 1 Name', 'pyname': u'equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 1 node name', {'name': u'Demand Calculation 1 Node Name', 'pyname': u'demand_calculation_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 1 node name', {'name': u'Setpoint 1 Node Name', 'pyname': u'setpoint_1_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 flow rate', {'name': u'Component 1 Flow Rate', 'pyname': u'component_1_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 1 type', {'name': u'Operation 1 Type', 'pyname': u'operation_1_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 2 object type', {'name': u'Equipment 2 Object Type', 'pyname': u'equipment_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 2 name', {'name': u'Equipment 2 Name', 'pyname': u'equipment_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 2 node name', {'name': u'Demand Calculation 2 Node Name', 'pyname': u'demand_calculation_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 2 node name', {'name': u'Setpoint 2 Node Name', 'pyname': u'setpoint_2_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 2 flow rate', {'name': u'Component 2 Flow Rate', 'pyname': u'component_2_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 2 type', {'name': u'Operation 2 Type', 'pyname': u'operation_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 3 object type', {'name': u'Equipment 3 Object Type', 'pyname': u'equipment_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 3 name', {'name': u'Equipment 3 Name', 'pyname': u'equipment_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 3 node name', {'name': u'Demand Calculation 3 Node Name', 'pyname': u'demand_calculation_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 3 node name', {'name': u'Setpoint 3 Node Name', 'pyname': u'setpoint_3_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 3 flow rate', {'name': u'Component 3 Flow Rate', 'pyname': u'component_3_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 3 type', {'name': u'Operation 3 Type', 'pyname': u'operation_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 4 object type', {'name': u'Equipment 4 Object Type', 'pyname': u'equipment_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 4 name', {'name': u'Equipment 4 Name', 'pyname': u'equipment_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 4 node name', {'name': u'Demand Calculation 4 Node Name', 'pyname': u'demand_calculation_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 4 node name', {'name': u'Setpoint 4 Node Name', 'pyname': u'setpoint_4_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 4 flow rate', {'name': u'Component 4 Flow Rate', 'pyname': u'component_4_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 4 type', {'name': u'Operation 4 Type', 'pyname': u'operation_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 5 object type', {'name': u'Equipment 5 Object Type', 'pyname': u'equipment_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 5 name', {'name': u'Equipment 5 Name', 'pyname': u'equipment_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 5 node name', {'name': u'Demand Calculation 5 Node Name', 'pyname': u'demand_calculation_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 5 node name', {'name': u'Setpoint 5 Node Name', 'pyname': u'setpoint_5_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 5 flow rate', {'name': u'Component 5 Flow Rate', 'pyname': u'component_5_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 5 type', {'name': u'Operation 5 Type', 'pyname': u'operation_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 6 object type', {'name': u'Equipment 6 Object Type', 'pyname': u'equipment_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 6 name', {'name': u'Equipment 6 Name', 'pyname': u'equipment_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 6 node name', {'name': u'Demand Calculation 6 Node Name', 'pyname': u'demand_calculation_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 6 node name', {'name': u'Setpoint 6 Node Name', 'pyname': u'setpoint_6_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 6 flow rate', {'name': u'Component 6 Flow Rate', 'pyname': u'component_6_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 6 type', {'name': u'Operation 6 Type', 'pyname': u'operation_6_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 7 object type', {'name': u'Equipment 7 Object Type', 'pyname': u'equipment_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 7 name', {'name': u'Equipment 7 Name', 'pyname': u'equipment_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 7 node name', {'name': u'Demand Calculation 7 Node Name', 'pyname': u'demand_calculation_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 7 node name', {'name': u'Setpoint 7 Node Name', 'pyname': u'setpoint_7_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 7 flow rate', {'name': u'Component 7 Flow Rate', 'pyname': u'component_7_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 7 type', {'name': u'Operation 7 Type', 'pyname': u'operation_7_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 8 object type', {'name': u'Equipment 8 Object Type', 'pyname': u'equipment_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 8 name', {'name': u'Equipment 8 Name', 'pyname': u'equipment_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 8 node name', {'name': u'Demand Calculation 8 Node Name', 'pyname': u'demand_calculation_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 8 node name', {'name': u'Setpoint 8 Node Name', 'pyname': u'setpoint_8_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 8 flow rate', {'name': u'Component 8 Flow Rate', 'pyname': u'component_8_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 8 type', {'name': u'Operation 8 Type', 'pyname': u'operation_8_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 9 object type', {'name': u'Equipment 9 Object Type', 'pyname': u'equipment_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 9 name', {'name': u'Equipment 9 Name', 'pyname': u'equipment_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 9 node name', {'name': u'Demand Calculation 9 Node Name', 'pyname': u'demand_calculation_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 9 node name', {'name': u'Setpoint 9 Node Name', 'pyname': u'setpoint_9_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 9 flow rate', {'name': u'Component 9 Flow Rate', 'pyname': u'component_9_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 9 type', {'name': u'Operation 9 Type', 'pyname': u'operation_9_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'}), (u'equipment 10 object type', {'name': u'Equipment 10 Object Type', 'pyname': u'equipment_10_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'equipment 10 name', {'name': u'Equipment 10 Name', 'pyname': u'equipment_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'demand calculation 10 node name', {'name': u'Demand Calculation 10 Node Name', 'pyname': u'demand_calculation_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'setpoint 10 node name', {'name': u'Setpoint 10 Node Name', 'pyname': u'setpoint_10_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 10 flow rate', {'name': u'Component 10 Flow Rate', 'pyname': u'component_10_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'operation 10 type', {'name': u'Operation 10 Type', 'pyname': u'operation_10_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heating', u'Cooling', u'Dual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -6854,7 +6854,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6877,7 +6877,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_1_object_type.setter
     def equipment_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Object Type`
+        """  Corresponds to IDD field `Equipment 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Object Type`
@@ -6900,7 +6900,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_1_name.setter
     def equipment_1_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 1 Name`
+        """  Corresponds to IDD field `Equipment 1 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 1 Name`
@@ -6923,7 +6923,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_1_node_name.setter
     def demand_calculation_1_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 1 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 1 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 1 Node Name`
@@ -6946,7 +6946,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_1_node_name.setter
     def setpoint_1_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 1 Node Name`
+        """  Corresponds to IDD field `Setpoint 1 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 1 Node Name`
@@ -6969,7 +6969,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_1_flow_rate.setter
     def component_1_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Flow Rate`
+        """  Corresponds to IDD field `Component 1 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 1 Flow Rate`
@@ -6993,7 +6993,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_1_type.setter
     def operation_1_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 1 Type`
+        """  Corresponds to IDD field `Operation 1 Type`
 
         Args:
             value (str): value for IDD Field `Operation 1 Type`
@@ -7016,7 +7016,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_2_object_type.setter
     def equipment_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Object Type`
+        """  Corresponds to IDD field `Equipment 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Object Type`
@@ -7039,7 +7039,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_2_name.setter
     def equipment_2_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 2 Name`
+        """  Corresponds to IDD field `Equipment 2 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 2 Name`
@@ -7062,7 +7062,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_2_node_name.setter
     def demand_calculation_2_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 2 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 2 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 2 Node Name`
@@ -7085,7 +7085,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_2_node_name.setter
     def setpoint_2_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 2 Node Name`
+        """  Corresponds to IDD field `Setpoint 2 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 2 Node Name`
@@ -7108,7 +7108,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_2_flow_rate.setter
     def component_2_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Flow Rate`
+        """  Corresponds to IDD field `Component 2 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 2 Flow Rate`
@@ -7132,7 +7132,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_2_type.setter
     def operation_2_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 2 Type`
+        """  Corresponds to IDD field `Operation 2 Type`
 
         Args:
             value (str): value for IDD Field `Operation 2 Type`
@@ -7155,7 +7155,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_3_object_type.setter
     def equipment_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Object Type`
+        """  Corresponds to IDD field `Equipment 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Object Type`
@@ -7178,7 +7178,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_3_name.setter
     def equipment_3_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 3 Name`
+        """  Corresponds to IDD field `Equipment 3 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 3 Name`
@@ -7201,7 +7201,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_3_node_name.setter
     def demand_calculation_3_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 3 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 3 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 3 Node Name`
@@ -7224,7 +7224,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_3_node_name.setter
     def setpoint_3_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 3 Node Name`
+        """  Corresponds to IDD field `Setpoint 3 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 3 Node Name`
@@ -7247,7 +7247,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_3_flow_rate.setter
     def component_3_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Flow Rate`
+        """  Corresponds to IDD field `Component 3 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 3 Flow Rate`
@@ -7271,7 +7271,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_3_type.setter
     def operation_3_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 3 Type`
+        """  Corresponds to IDD field `Operation 3 Type`
 
         Args:
             value (str): value for IDD Field `Operation 3 Type`
@@ -7294,7 +7294,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_4_object_type.setter
     def equipment_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Object Type`
+        """  Corresponds to IDD field `Equipment 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Object Type`
@@ -7317,7 +7317,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_4_name.setter
     def equipment_4_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 4 Name`
+        """  Corresponds to IDD field `Equipment 4 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 4 Name`
@@ -7340,7 +7340,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_4_node_name.setter
     def demand_calculation_4_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 4 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 4 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 4 Node Name`
@@ -7363,7 +7363,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_4_node_name.setter
     def setpoint_4_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 4 Node Name`
+        """  Corresponds to IDD field `Setpoint 4 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 4 Node Name`
@@ -7386,7 +7386,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_4_flow_rate.setter
     def component_4_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Flow Rate`
+        """  Corresponds to IDD field `Component 4 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 4 Flow Rate`
@@ -7410,7 +7410,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_4_type.setter
     def operation_4_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 4 Type`
+        """  Corresponds to IDD field `Operation 4 Type`
 
         Args:
             value (str): value for IDD Field `Operation 4 Type`
@@ -7433,7 +7433,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_5_object_type.setter
     def equipment_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Object Type`
+        """  Corresponds to IDD field `Equipment 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Object Type`
@@ -7456,7 +7456,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_5_name.setter
     def equipment_5_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 5 Name`
+        """  Corresponds to IDD field `Equipment 5 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 5 Name`
@@ -7479,7 +7479,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_5_node_name.setter
     def demand_calculation_5_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 5 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 5 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 5 Node Name`
@@ -7502,7 +7502,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_5_node_name.setter
     def setpoint_5_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 5 Node Name`
+        """  Corresponds to IDD field `Setpoint 5 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 5 Node Name`
@@ -7525,7 +7525,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_5_flow_rate.setter
     def component_5_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Flow Rate`
+        """  Corresponds to IDD field `Component 5 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 5 Flow Rate`
@@ -7549,7 +7549,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_5_type.setter
     def operation_5_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 5 Type`
+        """  Corresponds to IDD field `Operation 5 Type`
 
         Args:
             value (str): value for IDD Field `Operation 5 Type`
@@ -7572,7 +7572,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_6_object_type.setter
     def equipment_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Object Type`
+        """  Corresponds to IDD field `Equipment 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Object Type`
@@ -7595,7 +7595,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_6_name.setter
     def equipment_6_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 6 Name`
+        """  Corresponds to IDD field `Equipment 6 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 6 Name`
@@ -7618,7 +7618,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_6_node_name.setter
     def demand_calculation_6_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 6 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 6 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 6 Node Name`
@@ -7641,7 +7641,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_6_node_name.setter
     def setpoint_6_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 6 Node Name`
+        """  Corresponds to IDD field `Setpoint 6 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 6 Node Name`
@@ -7664,7 +7664,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_6_flow_rate.setter
     def component_6_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Flow Rate`
+        """  Corresponds to IDD field `Component 6 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 6 Flow Rate`
@@ -7688,7 +7688,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_6_type.setter
     def operation_6_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 6 Type`
+        """  Corresponds to IDD field `Operation 6 Type`
 
         Args:
             value (str): value for IDD Field `Operation 6 Type`
@@ -7711,7 +7711,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_7_object_type.setter
     def equipment_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Object Type`
+        """  Corresponds to IDD field `Equipment 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Object Type`
@@ -7734,7 +7734,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_7_name.setter
     def equipment_7_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 7 Name`
+        """  Corresponds to IDD field `Equipment 7 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 7 Name`
@@ -7757,7 +7757,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_7_node_name.setter
     def demand_calculation_7_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 7 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 7 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 7 Node Name`
@@ -7780,7 +7780,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_7_node_name.setter
     def setpoint_7_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 7 Node Name`
+        """  Corresponds to IDD field `Setpoint 7 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 7 Node Name`
@@ -7803,7 +7803,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_7_flow_rate.setter
     def component_7_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Flow Rate`
+        """  Corresponds to IDD field `Component 7 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 7 Flow Rate`
@@ -7827,7 +7827,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_7_type.setter
     def operation_7_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 7 Type`
+        """  Corresponds to IDD field `Operation 7 Type`
 
         Args:
             value (str): value for IDD Field `Operation 7 Type`
@@ -7850,7 +7850,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_8_object_type.setter
     def equipment_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Object Type`
+        """  Corresponds to IDD field `Equipment 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Object Type`
@@ -7873,7 +7873,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_8_name.setter
     def equipment_8_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 8 Name`
+        """  Corresponds to IDD field `Equipment 8 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 8 Name`
@@ -7896,7 +7896,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_8_node_name.setter
     def demand_calculation_8_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 8 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 8 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 8 Node Name`
@@ -7919,7 +7919,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_8_node_name.setter
     def setpoint_8_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 8 Node Name`
+        """  Corresponds to IDD field `Setpoint 8 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 8 Node Name`
@@ -7942,7 +7942,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_8_flow_rate.setter
     def component_8_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Flow Rate`
+        """  Corresponds to IDD field `Component 8 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 8 Flow Rate`
@@ -7966,7 +7966,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_8_type.setter
     def operation_8_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 8 Type`
+        """  Corresponds to IDD field `Operation 8 Type`
 
         Args:
             value (str): value for IDD Field `Operation 8 Type`
@@ -7989,7 +7989,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_9_object_type.setter
     def equipment_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Object Type`
+        """  Corresponds to IDD field `Equipment 9 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Object Type`
@@ -8012,7 +8012,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_9_name.setter
     def equipment_9_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 9 Name`
+        """  Corresponds to IDD field `Equipment 9 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 9 Name`
@@ -8035,7 +8035,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_9_node_name.setter
     def demand_calculation_9_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 9 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 9 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 9 Node Name`
@@ -8058,7 +8058,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_9_node_name.setter
     def setpoint_9_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 9 Node Name`
+        """  Corresponds to IDD field `Setpoint 9 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 9 Node Name`
@@ -8081,7 +8081,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_9_flow_rate.setter
     def component_9_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Flow Rate`
+        """  Corresponds to IDD field `Component 9 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 9 Flow Rate`
@@ -8105,7 +8105,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_9_type.setter
     def operation_9_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 9 Type`
+        """  Corresponds to IDD field `Operation 9 Type`
 
         Args:
             value (str): value for IDD Field `Operation 9 Type`
@@ -8128,7 +8128,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_10_object_type.setter
     def equipment_10_object_type(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Object Type`
+        """  Corresponds to IDD field `Equipment 10 Object Type`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Object Type`
@@ -8151,7 +8151,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @equipment_10_name.setter
     def equipment_10_name(self, value=None):
-        """  Corresponds to IDD Field `Equipment 10 Name`
+        """  Corresponds to IDD field `Equipment 10 Name`
 
         Args:
             value (str): value for IDD Field `Equipment 10 Name`
@@ -8174,7 +8174,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @demand_calculation_10_node_name.setter
     def demand_calculation_10_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Calculation 10 Node Name`
+        """  Corresponds to IDD field `Demand Calculation 10 Node Name`
 
         Args:
             value (str): value for IDD Field `Demand Calculation 10 Node Name`
@@ -8197,7 +8197,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @setpoint_10_node_name.setter
     def setpoint_10_node_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint 10 Node Name`
+        """  Corresponds to IDD field `Setpoint 10 Node Name`
 
         Args:
             value (str): value for IDD Field `Setpoint 10 Node Name`
@@ -8220,7 +8220,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @component_10_flow_rate.setter
     def component_10_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Component 10 Flow Rate`
+        """  Corresponds to IDD field `Component 10 Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Component 10 Flow Rate`
@@ -8244,7 +8244,7 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
 
     @operation_10_type.setter
     def operation_10_type(self, value=None):
-        """  Corresponds to IDD Field `Operation 10 Type`
+        """  Corresponds to IDD field `Operation 10 Type`
 
         Args:
             value (str): value for IDD Field `Operation 10 Type`
@@ -8264,7 +8264,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
         for successive ranges based the difference between a reference node temperature and
         the outdoor dry-bulb temperature.
     """
-    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDryBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorDryBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dry-bulb temperature difference range 1 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 1 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 2 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 2 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 3 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 3 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 4 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 4 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 5 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 5 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 6 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 6 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 7 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 7 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 8 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 8 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 9 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 9 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 10 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 10 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDryBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorDryBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dry-bulb temperature difference range 1 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 1 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 2 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 2 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 3 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 3 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 4 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 4 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 5 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 5 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 6 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 6 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 7 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 7 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 8 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 8 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 9 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 9 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dry-bulb temperature difference range 10 lower limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'drybulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature difference range 10 upper limit', {'name': u'Dry-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'drybulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -8277,7 +8277,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -8300,7 +8300,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
-        """  Corresponds to IDD Field `Reference Temperature Node Name`
+        """  Corresponds to IDD field `Reference Temperature Node Name`
 
         Args:
             value (str): value for IDD Field `Reference Temperature Node Name`
@@ -8323,7 +8323,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_1_lower_limit.setter
     def drybulb_temperature_difference_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 1 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 1 Lower Limit`
@@ -8349,7 +8349,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_1_upper_limit.setter
     def drybulb_temperature_difference_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 1 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 1 Upper Limit`
@@ -8375,7 +8375,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -8398,7 +8398,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_2_lower_limit.setter
     def drybulb_temperature_difference_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 2 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 2 Lower Limit`
@@ -8424,7 +8424,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_2_upper_limit.setter
     def drybulb_temperature_difference_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 2 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 2 Upper Limit`
@@ -8450,7 +8450,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -8473,7 +8473,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_3_lower_limit.setter
     def drybulb_temperature_difference_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 3 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 3 Lower Limit`
@@ -8499,7 +8499,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_3_upper_limit.setter
     def drybulb_temperature_difference_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 3 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 3 Upper Limit`
@@ -8525,7 +8525,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -8548,7 +8548,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_4_lower_limit.setter
     def drybulb_temperature_difference_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 4 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 4 Lower Limit`
@@ -8574,7 +8574,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_4_upper_limit.setter
     def drybulb_temperature_difference_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 4 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 4 Upper Limit`
@@ -8600,7 +8600,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -8623,7 +8623,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_5_lower_limit.setter
     def drybulb_temperature_difference_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 5 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 5 Lower Limit`
@@ -8649,7 +8649,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_5_upper_limit.setter
     def drybulb_temperature_difference_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 5 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 5 Upper Limit`
@@ -8675,7 +8675,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -8698,7 +8698,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_6_lower_limit.setter
     def drybulb_temperature_difference_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 6 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 6 Lower Limit`
@@ -8724,7 +8724,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_6_upper_limit.setter
     def drybulb_temperature_difference_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 6 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 6 Upper Limit`
@@ -8750,7 +8750,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -8773,7 +8773,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_7_lower_limit.setter
     def drybulb_temperature_difference_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 7 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 7 Lower Limit`
@@ -8799,7 +8799,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_7_upper_limit.setter
     def drybulb_temperature_difference_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 7 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 7 Upper Limit`
@@ -8825,7 +8825,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -8848,7 +8848,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_8_lower_limit.setter
     def drybulb_temperature_difference_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 8 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 8 Lower Limit`
@@ -8874,7 +8874,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_8_upper_limit.setter
     def drybulb_temperature_difference_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 8 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 8 Upper Limit`
@@ -8900,7 +8900,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -8923,7 +8923,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_9_lower_limit.setter
     def drybulb_temperature_difference_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 9 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 9 Lower Limit`
@@ -8949,7 +8949,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_9_upper_limit.setter
     def drybulb_temperature_difference_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 9 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 9 Upper Limit`
@@ -8975,7 +8975,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -8998,7 +8998,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_10_lower_limit.setter
     def drybulb_temperature_difference_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 10 Lower Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 10 Lower Limit`
@@ -9024,7 +9024,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @drybulb_temperature_difference_range_10_upper_limit.setter
     def drybulb_temperature_difference_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dry-Bulb Temperature Difference Range 10 Upper Limit`
+        """  Corresponds to IDD field `Dry-Bulb Temperature Difference Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dry-Bulb Temperature Difference Range 10 Upper Limit`
@@ -9050,7 +9050,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -9070,7 +9070,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         for successive ranges based the difference between a reference node temperature and
         the outdoor wet-bulb temperature.
     """
-    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorWetBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorWetBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'wet-bulb temperature difference range 1 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 1 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 2 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 2 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 3 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 3 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 4 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 4 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 5 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 5 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 6 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 6 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 7 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 7 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 8 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 8 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 9 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 9 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 10 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 10 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorWetBulbDifference', 'pyname': u'PlantEquipmentOperationOutdoorWetBulbDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'wet-bulb temperature difference range 1 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 1 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 1 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 2 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 2 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 2 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 3 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 3 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 3 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 4 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 4 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 4 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 5 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 5 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 5 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 6 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 6 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 6 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 7 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 7 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 7 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 8 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 8 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 8 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 9 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 9 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 9 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'wet-bulb temperature difference range 10 lower limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Lower Limit', 'pyname': u'wetbulb_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'wet-bulb temperature difference range 10 upper limit', {'name': u'Wet-Bulb Temperature Difference Range 10 Upper Limit', 'pyname': u'wetbulb_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -9083,7 +9083,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9106,7 +9106,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
-        """  Corresponds to IDD Field `Reference Temperature Node Name`
+        """  Corresponds to IDD field `Reference Temperature Node Name`
 
         Args:
             value (str): value for IDD Field `Reference Temperature Node Name`
@@ -9129,7 +9129,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_1_lower_limit.setter
     def wetbulb_temperature_difference_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 1 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 1 Lower Limit`
@@ -9155,7 +9155,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_1_upper_limit.setter
     def wetbulb_temperature_difference_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 1 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 1 Upper Limit`
@@ -9181,7 +9181,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -9204,7 +9204,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_2_lower_limit.setter
     def wetbulb_temperature_difference_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 2 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 2 Lower Limit`
@@ -9230,7 +9230,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_2_upper_limit.setter
     def wetbulb_temperature_difference_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 2 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 2 Upper Limit`
@@ -9256,7 +9256,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -9279,7 +9279,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_3_lower_limit.setter
     def wetbulb_temperature_difference_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 3 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 3 Lower Limit`
@@ -9305,7 +9305,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_3_upper_limit.setter
     def wetbulb_temperature_difference_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 3 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 3 Upper Limit`
@@ -9331,7 +9331,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -9354,7 +9354,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_4_lower_limit.setter
     def wetbulb_temperature_difference_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 4 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 4 Lower Limit`
@@ -9380,7 +9380,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_4_upper_limit.setter
     def wetbulb_temperature_difference_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 4 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 4 Upper Limit`
@@ -9406,7 +9406,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -9429,7 +9429,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_5_lower_limit.setter
     def wetbulb_temperature_difference_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 5 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 5 Lower Limit`
@@ -9455,7 +9455,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_5_upper_limit.setter
     def wetbulb_temperature_difference_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 5 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 5 Upper Limit`
@@ -9481,7 +9481,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -9504,7 +9504,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_6_lower_limit.setter
     def wetbulb_temperature_difference_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 6 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 6 Lower Limit`
@@ -9530,7 +9530,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_6_upper_limit.setter
     def wetbulb_temperature_difference_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 6 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 6 Upper Limit`
@@ -9556,7 +9556,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -9579,7 +9579,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_7_lower_limit.setter
     def wetbulb_temperature_difference_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 7 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 7 Lower Limit`
@@ -9605,7 +9605,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_7_upper_limit.setter
     def wetbulb_temperature_difference_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 7 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 7 Upper Limit`
@@ -9631,7 +9631,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -9654,7 +9654,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_8_lower_limit.setter
     def wetbulb_temperature_difference_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 8 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 8 Lower Limit`
@@ -9680,7 +9680,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_8_upper_limit.setter
     def wetbulb_temperature_difference_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 8 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 8 Upper Limit`
@@ -9706,7 +9706,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -9729,7 +9729,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_9_lower_limit.setter
     def wetbulb_temperature_difference_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 9 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 9 Lower Limit`
@@ -9755,7 +9755,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_9_upper_limit.setter
     def wetbulb_temperature_difference_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 9 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 9 Upper Limit`
@@ -9781,7 +9781,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -9804,7 +9804,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_10_lower_limit.setter
     def wetbulb_temperature_difference_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 10 Lower Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 10 Lower Limit`
@@ -9830,7 +9830,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @wetbulb_temperature_difference_range_10_upper_limit.setter
     def wetbulb_temperature_difference_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Wet-Bulb Temperature Difference Range 10 Upper Limit`
+        """  Corresponds to IDD field `Wet-Bulb Temperature Difference Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Wet-Bulb Temperature Difference Range 10 Upper Limit`
@@ -9856,7 +9856,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -9876,7 +9876,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         for successive ranges based the difference between a reference node temperature and
         the outdoor dewpoint temperature.
     """
-    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDewpointDifference', 'pyname': u'PlantEquipmentOperationOutdoorDewpointDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dewpoint temperature difference range 1 lower limit', {'name': u'Dewpoint Temperature Difference Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 1 upper limit', {'name': u'Dewpoint Temperature Difference Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 2 lower limit', {'name': u'Dewpoint Temperature Difference Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 2 upper limit', {'name': u'Dewpoint Temperature Difference Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 3 lower limit', {'name': u'Dewpoint Temperature Difference Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 3 upper limit', {'name': u'Dewpoint Temperature Difference Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 4 lower limit', {'name': u'Dewpoint Temperature Difference Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 4 upper limit', {'name': u'Dewpoint Temperature Difference Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 5 lower limit', {'name': u'Dewpoint Temperature Difference Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 5 upper limit', {'name': u'Dewpoint Temperature Difference Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 6 lower limit', {'name': u'Dewpoint Temperature Difference Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 6 upper limit', {'name': u'Dewpoint Temperature Difference Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 7 lower limit', {'name': u'Dewpoint Temperature Difference Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 7 upper limit', {'name': u'Dewpoint Temperature Difference Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 8 lower limit', {'name': u'Dewpoint Temperature Difference Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 8 upper limit', {'name': u'Dewpoint Temperature Difference Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 9 lower limit', {'name': u'Dewpoint Temperature Difference Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 9 upper limit', {'name': u'Dewpoint Temperature Difference Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 10 lower limit', {'name': u'Dewpoint Temperature Difference Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 10 upper limit', {'name': u'Dewpoint Temperature Difference Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'PlantEquipmentOperation:OutdoorDewpointDifference', 'pyname': u'PlantEquipmentOperationOutdoorDewpointDifference', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'reference temperature node name', {'name': u'Reference Temperature Node Name', 'pyname': u'reference_temperature_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dewpoint temperature difference range 1 lower limit', {'name': u'Dewpoint Temperature Difference Range 1 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_1_lower_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 1 upper limit', {'name': u'Dewpoint Temperature Difference Range 1 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_1_upper_limit', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 1 equipment list name', {'name': u'Range 1 Equipment List Name', 'pyname': u'range_1_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 2 lower limit', {'name': u'Dewpoint Temperature Difference Range 2 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_2_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 2 upper limit', {'name': u'Dewpoint Temperature Difference Range 2 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_2_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 2 equipment list name', {'name': u'Range 2 Equipment List Name', 'pyname': u'range_2_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 3 lower limit', {'name': u'Dewpoint Temperature Difference Range 3 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_3_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 3 upper limit', {'name': u'Dewpoint Temperature Difference Range 3 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_3_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 3 equipment list name', {'name': u'Range 3 Equipment List Name', 'pyname': u'range_3_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 4 lower limit', {'name': u'Dewpoint Temperature Difference Range 4 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_4_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 4 upper limit', {'name': u'Dewpoint Temperature Difference Range 4 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_4_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 4 equipment list name', {'name': u'Range 4 Equipment List Name', 'pyname': u'range_4_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 5 lower limit', {'name': u'Dewpoint Temperature Difference Range 5 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_5_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 5 upper limit', {'name': u'Dewpoint Temperature Difference Range 5 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_5_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 5 equipment list name', {'name': u'Range 5 Equipment List Name', 'pyname': u'range_5_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 6 lower limit', {'name': u'Dewpoint Temperature Difference Range 6 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_6_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 6 upper limit', {'name': u'Dewpoint Temperature Difference Range 6 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_6_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 6 equipment list name', {'name': u'Range 6 Equipment List Name', 'pyname': u'range_6_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 7 lower limit', {'name': u'Dewpoint Temperature Difference Range 7 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_7_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 7 upper limit', {'name': u'Dewpoint Temperature Difference Range 7 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_7_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 7 equipment list name', {'name': u'Range 7 Equipment List Name', 'pyname': u'range_7_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 8 lower limit', {'name': u'Dewpoint Temperature Difference Range 8 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_8_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 8 upper limit', {'name': u'Dewpoint Temperature Difference Range 8 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_8_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 8 equipment list name', {'name': u'Range 8 Equipment List Name', 'pyname': u'range_8_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 9 lower limit', {'name': u'Dewpoint Temperature Difference Range 9 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_9_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 9 upper limit', {'name': u'Dewpoint Temperature Difference Range 9 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_9_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 9 equipment list name', {'name': u'Range 9 Equipment List Name', 'pyname': u'range_9_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dewpoint temperature difference range 10 lower limit', {'name': u'Dewpoint Temperature Difference Range 10 Lower Limit', 'pyname': u'dewpoint_temperature_difference_range_10_lower_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dewpoint temperature difference range 10 upper limit', {'name': u'Dewpoint Temperature Difference Range 10 Upper Limit', 'pyname': u'dewpoint_temperature_difference_range_10_upper_limit', 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'range 10 equipment list name', {'name': u'Range 10 Equipment List Name', 'pyname': u'range_10_equipment_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -9889,7 +9889,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9912,7 +9912,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @reference_temperature_node_name.setter
     def reference_temperature_node_name(self, value=None):
-        """  Corresponds to IDD Field `Reference Temperature Node Name`
+        """  Corresponds to IDD field `Reference Temperature Node Name`
 
         Args:
             value (str): value for IDD Field `Reference Temperature Node Name`
@@ -9935,7 +9935,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_1_lower_limit.setter
     def dewpoint_temperature_difference_range_1_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 1 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 1 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 1 Lower Limit`
@@ -9961,7 +9961,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_1_upper_limit.setter
     def dewpoint_temperature_difference_range_1_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 1 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 1 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 1 Upper Limit`
@@ -9987,7 +9987,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_1_equipment_list_name.setter
     def range_1_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 1 Equipment List Name`
+        """  Corresponds to IDD field `Range 1 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 1 Equipment List Name`
@@ -10010,7 +10010,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_2_lower_limit.setter
     def dewpoint_temperature_difference_range_2_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 2 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 2 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 2 Lower Limit`
@@ -10036,7 +10036,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_2_upper_limit.setter
     def dewpoint_temperature_difference_range_2_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 2 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 2 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 2 Upper Limit`
@@ -10062,7 +10062,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_2_equipment_list_name.setter
     def range_2_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 2 Equipment List Name`
+        """  Corresponds to IDD field `Range 2 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 2 Equipment List Name`
@@ -10085,7 +10085,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_3_lower_limit.setter
     def dewpoint_temperature_difference_range_3_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 3 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 3 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 3 Lower Limit`
@@ -10111,7 +10111,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_3_upper_limit.setter
     def dewpoint_temperature_difference_range_3_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 3 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 3 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 3 Upper Limit`
@@ -10137,7 +10137,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_3_equipment_list_name.setter
     def range_3_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 3 Equipment List Name`
+        """  Corresponds to IDD field `Range 3 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 3 Equipment List Name`
@@ -10160,7 +10160,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_4_lower_limit.setter
     def dewpoint_temperature_difference_range_4_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 4 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 4 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 4 Lower Limit`
@@ -10186,7 +10186,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_4_upper_limit.setter
     def dewpoint_temperature_difference_range_4_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 4 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 4 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 4 Upper Limit`
@@ -10212,7 +10212,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_4_equipment_list_name.setter
     def range_4_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 4 Equipment List Name`
+        """  Corresponds to IDD field `Range 4 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 4 Equipment List Name`
@@ -10235,7 +10235,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_5_lower_limit.setter
     def dewpoint_temperature_difference_range_5_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 5 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 5 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 5 Lower Limit`
@@ -10261,7 +10261,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_5_upper_limit.setter
     def dewpoint_temperature_difference_range_5_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 5 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 5 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 5 Upper Limit`
@@ -10287,7 +10287,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_5_equipment_list_name.setter
     def range_5_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 5 Equipment List Name`
+        """  Corresponds to IDD field `Range 5 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 5 Equipment List Name`
@@ -10310,7 +10310,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_6_lower_limit.setter
     def dewpoint_temperature_difference_range_6_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 6 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 6 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 6 Lower Limit`
@@ -10336,7 +10336,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_6_upper_limit.setter
     def dewpoint_temperature_difference_range_6_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 6 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 6 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 6 Upper Limit`
@@ -10362,7 +10362,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_6_equipment_list_name.setter
     def range_6_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 6 Equipment List Name`
+        """  Corresponds to IDD field `Range 6 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 6 Equipment List Name`
@@ -10385,7 +10385,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_7_lower_limit.setter
     def dewpoint_temperature_difference_range_7_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 7 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 7 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 7 Lower Limit`
@@ -10411,7 +10411,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_7_upper_limit.setter
     def dewpoint_temperature_difference_range_7_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 7 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 7 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 7 Upper Limit`
@@ -10437,7 +10437,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_7_equipment_list_name.setter
     def range_7_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 7 Equipment List Name`
+        """  Corresponds to IDD field `Range 7 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 7 Equipment List Name`
@@ -10460,7 +10460,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_8_lower_limit.setter
     def dewpoint_temperature_difference_range_8_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 8 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 8 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 8 Lower Limit`
@@ -10486,7 +10486,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_8_upper_limit.setter
     def dewpoint_temperature_difference_range_8_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 8 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 8 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 8 Upper Limit`
@@ -10512,7 +10512,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_8_equipment_list_name.setter
     def range_8_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 8 Equipment List Name`
+        """  Corresponds to IDD field `Range 8 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 8 Equipment List Name`
@@ -10535,7 +10535,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_9_lower_limit.setter
     def dewpoint_temperature_difference_range_9_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 9 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 9 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 9 Lower Limit`
@@ -10561,7 +10561,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_9_upper_limit.setter
     def dewpoint_temperature_difference_range_9_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 9 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 9 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 9 Upper Limit`
@@ -10587,7 +10587,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_9_equipment_list_name.setter
     def range_9_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 9 Equipment List Name`
+        """  Corresponds to IDD field `Range 9 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 9 Equipment List Name`
@@ -10610,7 +10610,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_10_lower_limit.setter
     def dewpoint_temperature_difference_range_10_lower_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 10 Lower Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 10 Lower Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 10 Lower Limit`
@@ -10636,7 +10636,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @dewpoint_temperature_difference_range_10_upper_limit.setter
     def dewpoint_temperature_difference_range_10_upper_limit(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Temperature Difference Range 10 Upper Limit`
+        """  Corresponds to IDD field `Dewpoint Temperature Difference Range 10 Upper Limit`
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Difference Range 10 Upper Limit`
@@ -10662,7 +10662,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
 
     @range_10_equipment_list_name.setter
     def range_10_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Range 10 Equipment List Name`
+        """  Corresponds to IDD field `Range 10 Equipment List Name`
 
         Args:
             value (str): value for IDD Field `Range 10 Equipment List Name`
@@ -10684,7 +10684,7 @@ class PlantEquipmentOperationSchemes(DataObject):
         is -- then control scheme 2 is selected.
         Only plant equipment should be listed on a Control Scheme for this item.
     """
-    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperationSchemes', 'pyname': u'PlantEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PlantEquipmentOperationSchemes', 'pyname': u'PlantEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:ComponentSetpoint', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -10697,7 +10697,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -10720,7 +10720,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_object_type.setter
     def control_scheme_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Object Type`
+        """  Corresponds to IDD field `Control Scheme 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Object Type`
@@ -10743,7 +10743,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_name.setter
     def control_scheme_1_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Name`
+        """  Corresponds to IDD field `Control Scheme 1 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Name`
@@ -10766,7 +10766,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_schedule_name.setter
     def control_scheme_1_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 1 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Schedule Name`
@@ -10789,7 +10789,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_object_type.setter
     def control_scheme_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Object Type`
+        """  Corresponds to IDD field `Control Scheme 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Object Type`
@@ -10812,7 +10812,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_name.setter
     def control_scheme_2_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Name`
+        """  Corresponds to IDD field `Control Scheme 2 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Name`
@@ -10835,7 +10835,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_schedule_name.setter
     def control_scheme_2_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 2 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Schedule Name`
@@ -10858,7 +10858,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_object_type.setter
     def control_scheme_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Object Type`
+        """  Corresponds to IDD field `Control Scheme 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Object Type`
@@ -10881,7 +10881,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_name.setter
     def control_scheme_3_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Name`
+        """  Corresponds to IDD field `Control Scheme 3 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Name`
@@ -10904,7 +10904,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_schedule_name.setter
     def control_scheme_3_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 3 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Schedule Name`
@@ -10927,7 +10927,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_object_type.setter
     def control_scheme_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Object Type`
+        """  Corresponds to IDD field `Control Scheme 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Object Type`
@@ -10950,7 +10950,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_name.setter
     def control_scheme_4_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Name`
+        """  Corresponds to IDD field `Control Scheme 4 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Name`
@@ -10973,7 +10973,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_schedule_name.setter
     def control_scheme_4_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 4 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Schedule Name`
@@ -10996,7 +10996,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_object_type.setter
     def control_scheme_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Object Type`
+        """  Corresponds to IDD field `Control Scheme 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Object Type`
@@ -11019,7 +11019,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_name.setter
     def control_scheme_5_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Name`
+        """  Corresponds to IDD field `Control Scheme 5 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Name`
@@ -11042,7 +11042,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_schedule_name.setter
     def control_scheme_5_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 5 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Schedule Name`
@@ -11065,7 +11065,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_object_type.setter
     def control_scheme_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Object Type`
+        """  Corresponds to IDD field `Control Scheme 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Object Type`
@@ -11088,7 +11088,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_name.setter
     def control_scheme_6_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Name`
+        """  Corresponds to IDD field `Control Scheme 6 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Name`
@@ -11111,7 +11111,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_schedule_name.setter
     def control_scheme_6_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 6 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Schedule Name`
@@ -11134,7 +11134,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_object_type.setter
     def control_scheme_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Object Type`
+        """  Corresponds to IDD field `Control Scheme 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Object Type`
@@ -11157,7 +11157,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_name.setter
     def control_scheme_7_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Name`
+        """  Corresponds to IDD field `Control Scheme 7 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Name`
@@ -11180,7 +11180,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_schedule_name.setter
     def control_scheme_7_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 7 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Schedule Name`
@@ -11203,7 +11203,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_object_type.setter
     def control_scheme_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Object Type`
+        """  Corresponds to IDD field `Control Scheme 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Object Type`
@@ -11226,7 +11226,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_name.setter
     def control_scheme_8_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Name`
+        """  Corresponds to IDD field `Control Scheme 8 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Name`
@@ -11249,7 +11249,7 @@ class PlantEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_schedule_name.setter
     def control_scheme_8_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 8 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Schedule Name`
@@ -11271,7 +11271,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
         is -- then control scheme 2 is selected.
         Only condenser equipment should be listed on a Control Scheme for this item.
     """
-    schema = {'min-fields': 4, 'name': u'CondenserEquipmentOperationSchemes', 'pyname': u'CondenserEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'CondenserEquipmentOperationSchemes', 'pyname': u'CondenserEquipmentOperationSchemes', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 object type', {'name': u'Control Scheme 1 Object Type', 'pyname': u'control_scheme_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 1 name', {'name': u'Control Scheme 1 Name', 'pyname': u'control_scheme_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 1 schedule name', {'name': u'Control Scheme 1 Schedule Name', 'pyname': u'control_scheme_1_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 object type', {'name': u'Control Scheme 2 Object Type', 'pyname': u'control_scheme_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 2 name', {'name': u'Control Scheme 2 Name', 'pyname': u'control_scheme_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 2 schedule name', {'name': u'Control Scheme 2 Schedule Name', 'pyname': u'control_scheme_2_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 object type', {'name': u'Control Scheme 3 Object Type', 'pyname': u'control_scheme_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 3 name', {'name': u'Control Scheme 3 Name', 'pyname': u'control_scheme_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 3 schedule name', {'name': u'Control Scheme 3 Schedule Name', 'pyname': u'control_scheme_3_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 object type', {'name': u'Control Scheme 4 Object Type', 'pyname': u'control_scheme_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 4 name', {'name': u'Control Scheme 4 Name', 'pyname': u'control_scheme_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 4 schedule name', {'name': u'Control Scheme 4 Schedule Name', 'pyname': u'control_scheme_4_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 object type', {'name': u'Control Scheme 5 Object Type', 'pyname': u'control_scheme_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 5 name', {'name': u'Control Scheme 5 Name', 'pyname': u'control_scheme_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 5 schedule name', {'name': u'Control Scheme 5 Schedule Name', 'pyname': u'control_scheme_5_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 object type', {'name': u'Control Scheme 6 Object Type', 'pyname': u'control_scheme_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 6 name', {'name': u'Control Scheme 6 Name', 'pyname': u'control_scheme_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 6 schedule name', {'name': u'Control Scheme 6 Schedule Name', 'pyname': u'control_scheme_6_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 object type', {'name': u'Control Scheme 7 Object Type', 'pyname': u'control_scheme_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 7 name', {'name': u'Control Scheme 7 Name', 'pyname': u'control_scheme_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 7 schedule name', {'name': u'Control Scheme 7 Schedule Name', 'pyname': u'control_scheme_7_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 object type', {'name': u'Control Scheme 8 Object Type', 'pyname': u'control_scheme_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PlantEquipmentOperation:Uncontrolled', u'PlantEquipmentOperation:CoolingLoad', u'PlantEquipmentOperation:HeatingLoad', u'PlantEquipmentOperation:OutdoorDryBulb', u'PlantEquipmentOperation:OutdoorWetBulb', u'PlantEquipmentOperation:OutdoorRelativeHumidity', u'PlantEquipmentOperation:OutdoorDewpoint', u'PlantEquipmentOperation:OutdoorDryBulbDifference', u'PlantEquipmentOperation:OutdoorWetBulbDifference', u'PlantEquipmentOperation:OutdoorDewpointDifference', u'PlantEquipmentOperation:UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'control scheme 8 name', {'name': u'Control Scheme 8 Name', 'pyname': u'control_scheme_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control scheme 8 schedule name', {'name': u'Control Scheme 8 Schedule Name', 'pyname': u'control_scheme_8_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Plant'}
 
     @property
     def name(self):
@@ -11284,7 +11284,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -11307,7 +11307,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_object_type.setter
     def control_scheme_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Object Type`
+        """  Corresponds to IDD field `Control Scheme 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Object Type`
@@ -11330,7 +11330,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_name.setter
     def control_scheme_1_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Name`
+        """  Corresponds to IDD field `Control Scheme 1 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Name`
@@ -11353,7 +11353,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_1_schedule_name.setter
     def control_scheme_1_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 1 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 1 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 1 Schedule Name`
@@ -11376,7 +11376,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_object_type.setter
     def control_scheme_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Object Type`
+        """  Corresponds to IDD field `Control Scheme 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Object Type`
@@ -11399,7 +11399,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_name.setter
     def control_scheme_2_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Name`
+        """  Corresponds to IDD field `Control Scheme 2 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Name`
@@ -11422,7 +11422,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_2_schedule_name.setter
     def control_scheme_2_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 2 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 2 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 2 Schedule Name`
@@ -11445,7 +11445,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_object_type.setter
     def control_scheme_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Object Type`
+        """  Corresponds to IDD field `Control Scheme 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Object Type`
@@ -11468,7 +11468,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_name.setter
     def control_scheme_3_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Name`
+        """  Corresponds to IDD field `Control Scheme 3 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Name`
@@ -11491,7 +11491,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_3_schedule_name.setter
     def control_scheme_3_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 3 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 3 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 3 Schedule Name`
@@ -11514,7 +11514,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_object_type.setter
     def control_scheme_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Object Type`
+        """  Corresponds to IDD field `Control Scheme 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Object Type`
@@ -11537,7 +11537,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_name.setter
     def control_scheme_4_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Name`
+        """  Corresponds to IDD field `Control Scheme 4 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Name`
@@ -11560,7 +11560,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_4_schedule_name.setter
     def control_scheme_4_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 4 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 4 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 4 Schedule Name`
@@ -11583,7 +11583,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_object_type.setter
     def control_scheme_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Object Type`
+        """  Corresponds to IDD field `Control Scheme 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Object Type`
@@ -11606,7 +11606,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_name.setter
     def control_scheme_5_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Name`
+        """  Corresponds to IDD field `Control Scheme 5 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Name`
@@ -11629,7 +11629,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_5_schedule_name.setter
     def control_scheme_5_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 5 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 5 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 5 Schedule Name`
@@ -11652,7 +11652,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_object_type.setter
     def control_scheme_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Object Type`
+        """  Corresponds to IDD field `Control Scheme 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Object Type`
@@ -11675,7 +11675,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_name.setter
     def control_scheme_6_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Name`
+        """  Corresponds to IDD field `Control Scheme 6 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Name`
@@ -11698,7 +11698,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_6_schedule_name.setter
     def control_scheme_6_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 6 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 6 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 6 Schedule Name`
@@ -11721,7 +11721,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_object_type.setter
     def control_scheme_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Object Type`
+        """  Corresponds to IDD field `Control Scheme 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Object Type`
@@ -11744,7 +11744,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_name.setter
     def control_scheme_7_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Name`
+        """  Corresponds to IDD field `Control Scheme 7 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Name`
@@ -11767,7 +11767,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_7_schedule_name.setter
     def control_scheme_7_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 7 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 7 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 7 Schedule Name`
@@ -11790,7 +11790,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_object_type.setter
     def control_scheme_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Object Type`
+        """  Corresponds to IDD field `Control Scheme 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Object Type`
@@ -11813,7 +11813,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_name.setter
     def control_scheme_8_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Name`
+        """  Corresponds to IDD field `Control Scheme 8 Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Name`
@@ -11836,7 +11836,7 @@ class CondenserEquipmentOperationSchemes(DataObject):
 
     @control_scheme_8_schedule_name.setter
     def control_scheme_8_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Scheme 8 Schedule Name`
+        """  Corresponds to IDD field `Control Scheme 8 Schedule Name`
 
         Args:
             value (str): value for IDD Field `Control Scheme 8 Schedule Name`

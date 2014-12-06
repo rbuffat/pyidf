@@ -16,7 +16,7 @@ class CurveLinear(DataObject):
         curve minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Linear', 'pyname': u'CurveLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'Pressure', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Linear', 'pyname': u'CurveLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'Pressure', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -29,7 +29,7 @@ class CurveLinear(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -52,7 +52,7 @@ class CurveLinear(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -75,7 +75,7 @@ class CurveLinear(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -98,7 +98,7 @@ class CurveLinear(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -122,7 +122,7 @@ class CurveLinear(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -146,7 +146,7 @@ class CurveLinear(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -171,7 +171,7 @@ class CurveLinear(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -196,7 +196,7 @@ class CurveLinear(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -220,7 +220,7 @@ class CurveLinear(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -242,7 +242,7 @@ class CurveQuadLinear(DataObject):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*w + C3*x + C4*y + C5*z
     """
-    schema = {'min-fields': 0, 'name': u'Curve:QuadLinear', 'pyname': u'CurveQuadLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 w', {'name': u'Coefficient2 w', 'pyname': u'coefficient2_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 z', {'name': u'Coefficient5 z', 'pyname': u'coefficient5_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of w', {'name': u'Minimum Value of w', 'pyname': u'minimum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of w', {'name': u'Maximum Value of w', 'pyname': u'maximum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for w', {'name': u'Input Unit Type for w', 'pyname': u'input_unit_type_for_w', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:QuadLinear', 'pyname': u'CurveQuadLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 w', {'name': u'Coefficient2 w', 'pyname': u'coefficient2_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 z', {'name': u'Coefficient5 z', 'pyname': u'coefficient5_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of w', {'name': u'Minimum Value of w', 'pyname': u'minimum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of w', {'name': u'Maximum Value of w', 'pyname': u'maximum_value_of_w', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for w', {'name': u'Input Unit Type for w', 'pyname': u'input_unit_type_for_w', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance', u'VolumetricFlowPerPower'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -255,7 +255,7 @@ class CurveQuadLinear(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -278,7 +278,7 @@ class CurveQuadLinear(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -301,7 +301,7 @@ class CurveQuadLinear(DataObject):
 
     @coefficient2_w.setter
     def coefficient2_w(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 w`
+        """  Corresponds to IDD field `Coefficient2 w`
 
         Args:
             value (float): value for IDD Field `Coefficient2 w`
@@ -324,7 +324,7 @@ class CurveQuadLinear(DataObject):
 
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x`
+        """  Corresponds to IDD field `Coefficient3 x`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x`
@@ -347,7 +347,7 @@ class CurveQuadLinear(DataObject):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 y`
+        """  Corresponds to IDD field `Coefficient4 y`
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -370,7 +370,7 @@ class CurveQuadLinear(DataObject):
 
     @coefficient5_z.setter
     def coefficient5_z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 z`
+        """  Corresponds to IDD field `Coefficient5 z`
 
         Args:
             value (float): value for IDD Field `Coefficient5 z`
@@ -393,7 +393,7 @@ class CurveQuadLinear(DataObject):
 
     @minimum_value_of_w.setter
     def minimum_value_of_w(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of w`
+        """  Corresponds to IDD field `Minimum Value of w`
 
         Args:
             value (float): value for IDD Field `Minimum Value of w`
@@ -417,7 +417,7 @@ class CurveQuadLinear(DataObject):
 
     @maximum_value_of_w.setter
     def maximum_value_of_w(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of w`
+        """  Corresponds to IDD field `Maximum Value of w`
 
         Args:
             value (float): value for IDD Field `Maximum Value of w`
@@ -441,7 +441,7 @@ class CurveQuadLinear(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -465,7 +465,7 @@ class CurveQuadLinear(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -489,7 +489,7 @@ class CurveQuadLinear(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of y`
+        """  Corresponds to IDD field `Minimum Value of y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -513,7 +513,7 @@ class CurveQuadLinear(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of y`
+        """  Corresponds to IDD field `Maximum Value of y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -537,7 +537,7 @@ class CurveQuadLinear(DataObject):
 
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of z`
+        """  Corresponds to IDD field `Minimum Value of z`
 
         Args:
             value (float): value for IDD Field `Minimum Value of z`
@@ -561,7 +561,7 @@ class CurveQuadLinear(DataObject):
 
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of z`
+        """  Corresponds to IDD field `Maximum Value of z`
 
         Args:
             value (float): value for IDD Field `Maximum Value of z`
@@ -585,7 +585,7 @@ class CurveQuadLinear(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -610,7 +610,7 @@ class CurveQuadLinear(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -635,7 +635,7 @@ class CurveQuadLinear(DataObject):
 
     @input_unit_type_for_w.setter
     def input_unit_type_for_w(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for w`
+        """  Corresponds to IDD field `Input Unit Type for w`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for w`
@@ -659,7 +659,7 @@ class CurveQuadLinear(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -683,7 +683,7 @@ class CurveQuadLinear(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for y`
+        """  Corresponds to IDD field `Input Unit Type for y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for y`
@@ -707,7 +707,7 @@ class CurveQuadLinear(DataObject):
 
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for z`
+        """  Corresponds to IDD field `Input Unit Type for z`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for z`
@@ -729,7 +729,7 @@ class CurveQuadratic(DataObject):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Quadratic', 'pyname': u'CurveQuadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Quadratic', 'pyname': u'CurveQuadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -742,7 +742,7 @@ class CurveQuadratic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -765,7 +765,7 @@ class CurveQuadratic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -788,7 +788,7 @@ class CurveQuadratic(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -811,7 +811,7 @@ class CurveQuadratic(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -834,7 +834,7 @@ class CurveQuadratic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -858,7 +858,7 @@ class CurveQuadratic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -882,7 +882,7 @@ class CurveQuadratic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -907,7 +907,7 @@ class CurveQuadratic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -932,7 +932,7 @@ class CurveQuadratic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -956,7 +956,7 @@ class CurveQuadratic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -978,7 +978,7 @@ class CurveCubic(DataObject):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Cubic', 'pyname': u'CurveCubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Cubic', 'pyname': u'CurveCubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -991,7 +991,7 @@ class CurveCubic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1014,7 +1014,7 @@ class CurveCubic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -1037,7 +1037,7 @@ class CurveCubic(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -1060,7 +1060,7 @@ class CurveCubic(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -1083,7 +1083,7 @@ class CurveCubic(DataObject):
 
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 x**3`
+        """  Corresponds to IDD field `Coefficient4 x**3`
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -1106,7 +1106,7 @@ class CurveCubic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -1130,7 +1130,7 @@ class CurveCubic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -1154,7 +1154,7 @@ class CurveCubic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -1179,7 +1179,7 @@ class CurveCubic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -1204,7 +1204,7 @@ class CurveCubic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -1228,7 +1228,7 @@ class CurveCubic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -1251,7 +1251,7 @@ class CurveQuartic(DataObject):
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3 + C5*x**4
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Quartic', 'pyname': u'CurveQuartic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x**4', {'name': u'Coefficient5 x**4', 'pyname': u'coefficient5_x4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Quartic', 'pyname': u'CurveQuartic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 x**3', {'name': u'Coefficient4 x**3', 'pyname': u'coefficient4_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x**4', {'name': u'Coefficient5 x**4', 'pyname': u'coefficient5_x4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -1264,7 +1264,7 @@ class CurveQuartic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1287,7 +1287,7 @@ class CurveQuartic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -1310,7 +1310,7 @@ class CurveQuartic(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -1333,7 +1333,7 @@ class CurveQuartic(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -1356,7 +1356,7 @@ class CurveQuartic(DataObject):
 
     @coefficient4_x3.setter
     def coefficient4_x3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 x**3`
+        """  Corresponds to IDD field `Coefficient4 x**3`
 
         Args:
             value (float): value for IDD Field `Coefficient4 x**3`
@@ -1379,7 +1379,7 @@ class CurveQuartic(DataObject):
 
     @coefficient5_x4.setter
     def coefficient5_x4(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 x**4`
+        """  Corresponds to IDD field `Coefficient5 x**4`
 
         Args:
             value (float): value for IDD Field `Coefficient5 x**4`
@@ -1402,7 +1402,7 @@ class CurveQuartic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -1426,7 +1426,7 @@ class CurveQuartic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -1450,7 +1450,7 @@ class CurveQuartic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -1475,7 +1475,7 @@ class CurveQuartic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -1500,7 +1500,7 @@ class CurveQuartic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -1524,7 +1524,7 @@ class CurveQuartic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -1547,7 +1547,7 @@ class CurveExponent(DataObject):
         curve = C1 + C2*x**C3
         The independent variable x is raised to the C3 power, multiplied by C2, and C1 is added to the result.
     """
-    schema = {'min-fields': 6, 'name': u'Curve:Exponent', 'pyname': u'CurveExponent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 constant', {'name': u'Coefficient2 Constant', 'pyname': u'coefficient2_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 constant', {'name': u'Coefficient3 Constant', 'pyname': u'coefficient3_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 6, 'name': u'Curve:Exponent', 'pyname': u'CurveExponent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 constant', {'name': u'Coefficient2 Constant', 'pyname': u'coefficient2_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 constant', {'name': u'Coefficient3 Constant', 'pyname': u'coefficient3_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -1560,7 +1560,7 @@ class CurveExponent(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1583,7 +1583,7 @@ class CurveExponent(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -1606,7 +1606,7 @@ class CurveExponent(DataObject):
 
     @coefficient2_constant.setter
     def coefficient2_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 Constant`
+        """  Corresponds to IDD field `Coefficient2 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient2 Constant`
@@ -1629,7 +1629,7 @@ class CurveExponent(DataObject):
 
     @coefficient3_constant.setter
     def coefficient3_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 Constant`
+        """  Corresponds to IDD field `Coefficient3 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient3 Constant`
@@ -1652,7 +1652,7 @@ class CurveExponent(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
         Specify the minimum value of the independent variable x allowed
 
         Args:
@@ -1677,7 +1677,7 @@ class CurveExponent(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
         Specify the maximum value of the independent variable x allowed
 
         Args:
@@ -1702,7 +1702,7 @@ class CurveExponent(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -1727,7 +1727,7 @@ class CurveExponent(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -1752,7 +1752,7 @@ class CurveExponent(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -1776,7 +1776,7 @@ class CurveExponent(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -1799,7 +1799,7 @@ class CurveBicubic(DataObject):
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y + C7*x**3 + C8*y**3 + C9*x**2*y
         + C10*x*y**2
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Bicubic', 'pyname': u'CurveBicubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 x**3', {'name': u'Coefficient7 x**3', 'pyname': u'coefficient7_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 y**3', {'name': u'Coefficient8 y**3', 'pyname': u'coefficient8_y3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x**2*y', {'name': u'Coefficient9 x**2*y', 'pyname': u'coefficient9_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Bicubic', 'pyname': u'CurveBicubic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 x**3', {'name': u'Coefficient7 x**3', 'pyname': u'coefficient7_x3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 y**3', {'name': u'Coefficient8 y**3', 'pyname': u'coefficient8_y3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x**2*y', {'name': u'Coefficient9 x**2*y', 'pyname': u'coefficient9_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -1812,7 +1812,7 @@ class CurveBicubic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1835,7 +1835,7 @@ class CurveBicubic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -1858,7 +1858,7 @@ class CurveBicubic(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -1881,7 +1881,7 @@ class CurveBicubic(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -1904,7 +1904,7 @@ class CurveBicubic(DataObject):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 y`
+        """  Corresponds to IDD field `Coefficient4 y`
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -1927,7 +1927,7 @@ class CurveBicubic(DataObject):
 
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 y**2`
+        """  Corresponds to IDD field `Coefficient5 y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
@@ -1950,7 +1950,7 @@ class CurveBicubic(DataObject):
 
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
-        """  Corresponds to IDD Field `Coefficient6 x*y`
+        """  Corresponds to IDD field `Coefficient6 x*y`
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -1973,7 +1973,7 @@ class CurveBicubic(DataObject):
 
     @coefficient7_x3.setter
     def coefficient7_x3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient7 x**3`
+        """  Corresponds to IDD field `Coefficient7 x**3`
 
         Args:
             value (float): value for IDD Field `Coefficient7 x**3`
@@ -1996,7 +1996,7 @@ class CurveBicubic(DataObject):
 
     @coefficient8_y3.setter
     def coefficient8_y3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient8 y**3`
+        """  Corresponds to IDD field `Coefficient8 y**3`
 
         Args:
             value (float): value for IDD Field `Coefficient8 y**3`
@@ -2019,7 +2019,7 @@ class CurveBicubic(DataObject):
 
     @coefficient9_x2y.setter
     def coefficient9_x2y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient9 x**2*y`
+        """  Corresponds to IDD field `Coefficient9 x**2*y`
 
         Args:
             value (float): value for IDD Field `Coefficient9 x**2*y`
@@ -2042,7 +2042,7 @@ class CurveBicubic(DataObject):
 
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient10 x*y**2`
+        """  Corresponds to IDD field `Coefficient10 x*y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
@@ -2065,7 +2065,7 @@ class CurveBicubic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -2089,7 +2089,7 @@ class CurveBicubic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -2113,7 +2113,7 @@ class CurveBicubic(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of y`
+        """  Corresponds to IDD field `Minimum Value of y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -2137,7 +2137,7 @@ class CurveBicubic(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of y`
+        """  Corresponds to IDD field `Maximum Value of y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -2161,7 +2161,7 @@ class CurveBicubic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -2186,7 +2186,7 @@ class CurveBicubic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -2211,7 +2211,7 @@ class CurveBicubic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -2235,7 +2235,7 @@ class CurveBicubic(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Y`
+        """  Corresponds to IDD field `Input Unit Type for Y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -2259,7 +2259,7 @@ class CurveBicubic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -2281,7 +2281,7 @@ class CurveBiquadratic(DataObject):
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Biquadratic', 'pyname': u'CurveBiquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Biquadratic', 'pyname': u'CurveBiquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y**2', {'name': u'Coefficient5 y**2', 'pyname': u'coefficient5_y2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x*y', {'name': u'Coefficient6 x*y', 'pyname': u'coefficient6_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -2294,7 +2294,7 @@ class CurveBiquadratic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2317,7 +2317,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -2340,7 +2340,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -2363,7 +2363,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -2386,7 +2386,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 y`
+        """  Corresponds to IDD field `Coefficient4 y`
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -2409,7 +2409,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient5_y2.setter
     def coefficient5_y2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 y**2`
+        """  Corresponds to IDD field `Coefficient5 y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient5 y**2`
@@ -2432,7 +2432,7 @@ class CurveBiquadratic(DataObject):
 
     @coefficient6_xy.setter
     def coefficient6_xy(self, value=None):
-        """  Corresponds to IDD Field `Coefficient6 x*y`
+        """  Corresponds to IDD field `Coefficient6 x*y`
 
         Args:
             value (float): value for IDD Field `Coefficient6 x*y`
@@ -2455,7 +2455,7 @@ class CurveBiquadratic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -2479,7 +2479,7 @@ class CurveBiquadratic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -2503,7 +2503,7 @@ class CurveBiquadratic(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of y`
+        """  Corresponds to IDD field `Minimum Value of y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -2527,7 +2527,7 @@ class CurveBiquadratic(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of y`
+        """  Corresponds to IDD field `Maximum Value of y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -2551,7 +2551,7 @@ class CurveBiquadratic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -2576,7 +2576,7 @@ class CurveBiquadratic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -2601,7 +2601,7 @@ class CurveBiquadratic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -2625,7 +2625,7 @@ class CurveBiquadratic(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Y`
+        """  Corresponds to IDD field `Input Unit Type for Y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -2649,7 +2649,7 @@ class CurveBiquadratic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -2671,7 +2671,7 @@ class CurveQuadraticLinear(DataObject):
         output of the performance curve.
         curve = (C1 + C2*x + C3*x**2) + (C4 + C5*x + C6*x**2)*y
     """
-    schema = {'min-fields': 0, 'name': u'Curve:QuadraticLinear', 'pyname': u'CurveQuadraticLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x*y', {'name': u'Coefficient5 x*y', 'pyname': u'coefficient5_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x**2*y', {'name': u'Coefficient6 x**2*y', 'pyname': u'coefficient6_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:QuadraticLinear', 'pyname': u'CurveQuadraticLinear', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x', {'name': u'Coefficient2 x', 'pyname': u'coefficient2_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x**2', {'name': u'Coefficient3 x**2', 'pyname': u'coefficient3_x2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y', {'name': u'Coefficient4 y', 'pyname': u'coefficient4_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 x*y', {'name': u'Coefficient5 x*y', 'pyname': u'coefficient5_xy', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 x**2*y', {'name': u'Coefficient6 x**2*y', 'pyname': u'coefficient6_x2y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -2684,7 +2684,7 @@ class CurveQuadraticLinear(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2707,7 +2707,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -2730,7 +2730,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient2_x.setter
     def coefficient2_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x`
+        """  Corresponds to IDD field `Coefficient2 x`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x`
@@ -2753,7 +2753,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient3_x2.setter
     def coefficient3_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x**2`
+        """  Corresponds to IDD field `Coefficient3 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x**2`
@@ -2776,7 +2776,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient4_y.setter
     def coefficient4_y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 y`
+        """  Corresponds to IDD field `Coefficient4 y`
 
         Args:
             value (float): value for IDD Field `Coefficient4 y`
@@ -2799,7 +2799,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient5_xy.setter
     def coefficient5_xy(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 x*y`
+        """  Corresponds to IDD field `Coefficient5 x*y`
 
         Args:
             value (float): value for IDD Field `Coefficient5 x*y`
@@ -2822,7 +2822,7 @@ class CurveQuadraticLinear(DataObject):
 
     @coefficient6_x2y.setter
     def coefficient6_x2y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient6 x**2*y`
+        """  Corresponds to IDD field `Coefficient6 x**2*y`
 
         Args:
             value (float): value for IDD Field `Coefficient6 x**2*y`
@@ -2845,7 +2845,7 @@ class CurveQuadraticLinear(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -2869,7 +2869,7 @@ class CurveQuadraticLinear(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -2893,7 +2893,7 @@ class CurveQuadraticLinear(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of y`
+        """  Corresponds to IDD field `Minimum Value of y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -2917,7 +2917,7 @@ class CurveQuadraticLinear(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of y`
+        """  Corresponds to IDD field `Maximum Value of y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -2941,7 +2941,7 @@ class CurveQuadraticLinear(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -2966,7 +2966,7 @@ class CurveQuadraticLinear(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -2991,7 +2991,7 @@ class CurveQuadraticLinear(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -3015,7 +3015,7 @@ class CurveQuadraticLinear(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Y`
+        """  Corresponds to IDD field `Input Unit Type for Y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -3039,7 +3039,7 @@ class CurveQuadraticLinear(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -3067,7 +3067,7 @@ class CurveTriquadratic(DataObject):
         + a20*x**2*y**2*z + a21*x**2*y*z**2 + a22*x*y**2*z**2
         + a23*x**2*y*z + a24*x*y**2*z + a25*x*y*z**2 +a26*x*y*z
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Triquadratic', 'pyname': u'CurveTriquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x**2', {'name': u'Coefficient2 x**2', 'pyname': u'coefficient2_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y**2', {'name': u'Coefficient4 y**2', 'pyname': u'coefficient4_y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y', {'name': u'Coefficient5 y', 'pyname': u'coefficient5_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 z**2', {'name': u'Coefficient6 z**2', 'pyname': u'coefficient6_z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 z', {'name': u'Coefficient7 z', 'pyname': u'coefficient7_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 x**2*y**2', {'name': u'Coefficient8 x**2*y**2', 'pyname': u'coefficient8_x2y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x*y', {'name': u'Coefficient9 x*y', 'pyname': u'coefficient9_xy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient11 x**2*y', {'name': u'Coefficient11 x**2*y', 'pyname': u'coefficient11_x2y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient12 x**2*z**2', {'name': u'Coefficient12 x**2*z**2', 'pyname': u'coefficient12_x2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient13 x*z', {'name': u'Coefficient13 x*z', 'pyname': u'coefficient13_xz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient14 x*z**2', {'name': u'Coefficient14 x*z**2', 'pyname': u'coefficient14_xz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient15 x**2*z', {'name': u'Coefficient15 x**2*z', 'pyname': u'coefficient15_x2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient16 y**2*z**2', {'name': u'Coefficient16 y**2*z**2', 'pyname': u'coefficient16_y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient17 y*z', {'name': u'Coefficient17 y*z', 'pyname': u'coefficient17_yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient18 y*z**2', {'name': u'Coefficient18 y*z**2', 'pyname': u'coefficient18_yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient19 y**2*z', {'name': u'Coefficient19 y**2*z', 'pyname': u'coefficient19_y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient20 x**2*y**2*z**2', {'name': u'Coefficient20 x**2*y**2*z**2', 'pyname': u'coefficient20_x2y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient21 x**2*y**2*z', {'name': u'Coefficient21 x**2*y**2*z', 'pyname': u'coefficient21_x2y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient22 x**2*y*z**2', {'name': u'Coefficient22 x**2*y*z**2', 'pyname': u'coefficient22_x2yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient23 x*y**2*z**2', {'name': u'Coefficient23 x*y**2*z**2', 'pyname': u'coefficient23_xy2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient24 x**2*y*z', {'name': u'Coefficient24 x**2*y*z', 'pyname': u'coefficient24_x2yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient25 x*y**2*z', {'name': u'Coefficient25 x*y**2*z', 'pyname': u'coefficient25_xy2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient26 x*y*z**2', {'name': u'Coefficient26 x*y*z**2', 'pyname': u'coefficient26_xyz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient27 x*y*z', {'name': u'Coefficient27 x*y*z', 'pyname': u'coefficient27_xyz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for Z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Triquadratic', 'pyname': u'CurveTriquadratic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 constant', {'name': u'Coefficient1 Constant', 'pyname': u'coefficient1_constant', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 x**2', {'name': u'Coefficient2 x**2', 'pyname': u'coefficient2_x2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 x', {'name': u'Coefficient3 x', 'pyname': u'coefficient3_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 y**2', {'name': u'Coefficient4 y**2', 'pyname': u'coefficient4_y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 y', {'name': u'Coefficient5 y', 'pyname': u'coefficient5_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient6 z**2', {'name': u'Coefficient6 z**2', 'pyname': u'coefficient6_z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient7 z', {'name': u'Coefficient7 z', 'pyname': u'coefficient7_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient8 x**2*y**2', {'name': u'Coefficient8 x**2*y**2', 'pyname': u'coefficient8_x2y2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient9 x*y', {'name': u'Coefficient9 x*y', 'pyname': u'coefficient9_xy', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient10 x*y**2', {'name': u'Coefficient10 x*y**2', 'pyname': u'coefficient10_xy2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient11 x**2*y', {'name': u'Coefficient11 x**2*y', 'pyname': u'coefficient11_x2y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient12 x**2*z**2', {'name': u'Coefficient12 x**2*z**2', 'pyname': u'coefficient12_x2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient13 x*z', {'name': u'Coefficient13 x*z', 'pyname': u'coefficient13_xz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient14 x*z**2', {'name': u'Coefficient14 x*z**2', 'pyname': u'coefficient14_xz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient15 x**2*z', {'name': u'Coefficient15 x**2*z', 'pyname': u'coefficient15_x2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient16 y**2*z**2', {'name': u'Coefficient16 y**2*z**2', 'pyname': u'coefficient16_y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient17 y*z', {'name': u'Coefficient17 y*z', 'pyname': u'coefficient17_yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient18 y*z**2', {'name': u'Coefficient18 y*z**2', 'pyname': u'coefficient18_yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient19 y**2*z', {'name': u'Coefficient19 y**2*z', 'pyname': u'coefficient19_y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient20 x**2*y**2*z**2', {'name': u'Coefficient20 x**2*y**2*z**2', 'pyname': u'coefficient20_x2y2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient21 x**2*y**2*z', {'name': u'Coefficient21 x**2*y**2*z', 'pyname': u'coefficient21_x2y2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient22 x**2*y*z**2', {'name': u'Coefficient22 x**2*y*z**2', 'pyname': u'coefficient22_x2yz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient23 x*y**2*z**2', {'name': u'Coefficient23 x*y**2*z**2', 'pyname': u'coefficient23_xy2z2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient24 x**2*y*z', {'name': u'Coefficient24 x**2*y*z', 'pyname': u'coefficient24_x2yz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient25 x*y**2*z', {'name': u'Coefficient25 x*y**2*z', 'pyname': u'coefficient25_xy2z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient26 x*y*z**2', {'name': u'Coefficient26 x*y*z**2', 'pyname': u'coefficient26_xyz2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient27 x*y*z', {'name': u'Coefficient27 x*y*z', 'pyname': u'coefficient27_xyz', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of y', {'name': u'Minimum Value of y', 'pyname': u'minimum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of y', {'name': u'Maximum Value of y', 'pyname': u'maximum_value_of_y', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of z', {'name': u'Minimum Value of z', 'pyname': u'minimum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of z', {'name': u'Maximum Value of z', 'pyname': u'maximum_value_of_z', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for X', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for y', {'name': u'Input Unit Type for Y', 'pyname': u'input_unit_type_for_y', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'input unit type for z', {'name': u'Input Unit Type for Z', 'pyname': u'input_unit_type_for_z', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Temperature', u'VolumetricFlow', u'MassFlow', u'Power', u'Distance'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless', u'Capacity', u'Power'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -3080,7 +3080,7 @@ class CurveTriquadratic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3103,7 +3103,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient1_constant.setter
     def coefficient1_constant(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 Constant`
+        """  Corresponds to IDD field `Coefficient1 Constant`
 
         Args:
             value (float): value for IDD Field `Coefficient1 Constant`
@@ -3126,7 +3126,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient2_x2.setter
     def coefficient2_x2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 x**2`
+        """  Corresponds to IDD field `Coefficient2 x**2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 x**2`
@@ -3149,7 +3149,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient3_x.setter
     def coefficient3_x(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 x`
+        """  Corresponds to IDD field `Coefficient3 x`
 
         Args:
             value (float): value for IDD Field `Coefficient3 x`
@@ -3172,7 +3172,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient4_y2.setter
     def coefficient4_y2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 y**2`
+        """  Corresponds to IDD field `Coefficient4 y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient4 y**2`
@@ -3195,7 +3195,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient5_y.setter
     def coefficient5_y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 y`
+        """  Corresponds to IDD field `Coefficient5 y`
 
         Args:
             value (float): value for IDD Field `Coefficient5 y`
@@ -3218,7 +3218,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient6_z2.setter
     def coefficient6_z2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient6 z**2`
+        """  Corresponds to IDD field `Coefficient6 z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient6 z**2`
@@ -3241,7 +3241,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient7_z.setter
     def coefficient7_z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient7 z`
+        """  Corresponds to IDD field `Coefficient7 z`
 
         Args:
             value (float): value for IDD Field `Coefficient7 z`
@@ -3264,7 +3264,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient8_x2y2.setter
     def coefficient8_x2y2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient8 x**2*y**2`
+        """  Corresponds to IDD field `Coefficient8 x**2*y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient8 x**2*y**2`
@@ -3287,7 +3287,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient9_xy.setter
     def coefficient9_xy(self, value=None):
-        """  Corresponds to IDD Field `Coefficient9 x*y`
+        """  Corresponds to IDD field `Coefficient9 x*y`
 
         Args:
             value (float): value for IDD Field `Coefficient9 x*y`
@@ -3310,7 +3310,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient10_xy2.setter
     def coefficient10_xy2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient10 x*y**2`
+        """  Corresponds to IDD field `Coefficient10 x*y**2`
 
         Args:
             value (float): value for IDD Field `Coefficient10 x*y**2`
@@ -3333,7 +3333,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient11_x2y.setter
     def coefficient11_x2y(self, value=None):
-        """  Corresponds to IDD Field `Coefficient11 x**2*y`
+        """  Corresponds to IDD field `Coefficient11 x**2*y`
 
         Args:
             value (float): value for IDD Field `Coefficient11 x**2*y`
@@ -3356,7 +3356,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient12_x2z2.setter
     def coefficient12_x2z2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient12 x**2*z**2`
+        """  Corresponds to IDD field `Coefficient12 x**2*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient12 x**2*z**2`
@@ -3379,7 +3379,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient13_xz.setter
     def coefficient13_xz(self, value=None):
-        """  Corresponds to IDD Field `Coefficient13 x*z`
+        """  Corresponds to IDD field `Coefficient13 x*z`
 
         Args:
             value (float): value for IDD Field `Coefficient13 x*z`
@@ -3402,7 +3402,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient14_xz2.setter
     def coefficient14_xz2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient14 x*z**2`
+        """  Corresponds to IDD field `Coefficient14 x*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient14 x*z**2`
@@ -3425,7 +3425,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient15_x2z.setter
     def coefficient15_x2z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient15 x**2*z`
+        """  Corresponds to IDD field `Coefficient15 x**2*z`
 
         Args:
             value (float): value for IDD Field `Coefficient15 x**2*z`
@@ -3448,7 +3448,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient16_y2z2.setter
     def coefficient16_y2z2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient16 y**2*z**2`
+        """  Corresponds to IDD field `Coefficient16 y**2*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient16 y**2*z**2`
@@ -3471,7 +3471,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient17_yz.setter
     def coefficient17_yz(self, value=None):
-        """  Corresponds to IDD Field `Coefficient17 y*z`
+        """  Corresponds to IDD field `Coefficient17 y*z`
 
         Args:
             value (float): value for IDD Field `Coefficient17 y*z`
@@ -3494,7 +3494,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient18_yz2.setter
     def coefficient18_yz2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient18 y*z**2`
+        """  Corresponds to IDD field `Coefficient18 y*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient18 y*z**2`
@@ -3517,7 +3517,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient19_y2z.setter
     def coefficient19_y2z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient19 y**2*z`
+        """  Corresponds to IDD field `Coefficient19 y**2*z`
 
         Args:
             value (float): value for IDD Field `Coefficient19 y**2*z`
@@ -3540,7 +3540,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient20_x2y2z2.setter
     def coefficient20_x2y2z2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient20 x**2*y**2*z**2`
+        """  Corresponds to IDD field `Coefficient20 x**2*y**2*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient20 x**2*y**2*z**2`
@@ -3563,7 +3563,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient21_x2y2z.setter
     def coefficient21_x2y2z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient21 x**2*y**2*z`
+        """  Corresponds to IDD field `Coefficient21 x**2*y**2*z`
 
         Args:
             value (float): value for IDD Field `Coefficient21 x**2*y**2*z`
@@ -3586,7 +3586,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient22_x2yz2.setter
     def coefficient22_x2yz2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient22 x**2*y*z**2`
+        """  Corresponds to IDD field `Coefficient22 x**2*y*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient22 x**2*y*z**2`
@@ -3609,7 +3609,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient23_xy2z2.setter
     def coefficient23_xy2z2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient23 x*y**2*z**2`
+        """  Corresponds to IDD field `Coefficient23 x*y**2*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient23 x*y**2*z**2`
@@ -3632,7 +3632,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient24_x2yz.setter
     def coefficient24_x2yz(self, value=None):
-        """  Corresponds to IDD Field `Coefficient24 x**2*y*z`
+        """  Corresponds to IDD field `Coefficient24 x**2*y*z`
 
         Args:
             value (float): value for IDD Field `Coefficient24 x**2*y*z`
@@ -3655,7 +3655,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient25_xy2z.setter
     def coefficient25_xy2z(self, value=None):
-        """  Corresponds to IDD Field `Coefficient25 x*y**2*z`
+        """  Corresponds to IDD field `Coefficient25 x*y**2*z`
 
         Args:
             value (float): value for IDD Field `Coefficient25 x*y**2*z`
@@ -3678,7 +3678,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient26_xyz2.setter
     def coefficient26_xyz2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient26 x*y*z**2`
+        """  Corresponds to IDD field `Coefficient26 x*y*z**2`
 
         Args:
             value (float): value for IDD Field `Coefficient26 x*y*z**2`
@@ -3701,7 +3701,7 @@ class CurveTriquadratic(DataObject):
 
     @coefficient27_xyz.setter
     def coefficient27_xyz(self, value=None):
-        """  Corresponds to IDD Field `Coefficient27 x*y*z`
+        """  Corresponds to IDD field `Coefficient27 x*y*z`
 
         Args:
             value (float): value for IDD Field `Coefficient27 x*y*z`
@@ -3724,7 +3724,7 @@ class CurveTriquadratic(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -3748,7 +3748,7 @@ class CurveTriquadratic(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -3772,7 +3772,7 @@ class CurveTriquadratic(DataObject):
 
     @minimum_value_of_y.setter
     def minimum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of y`
+        """  Corresponds to IDD field `Minimum Value of y`
 
         Args:
             value (float): value for IDD Field `Minimum Value of y`
@@ -3796,7 +3796,7 @@ class CurveTriquadratic(DataObject):
 
     @maximum_value_of_y.setter
     def maximum_value_of_y(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of y`
+        """  Corresponds to IDD field `Maximum Value of y`
 
         Args:
             value (float): value for IDD Field `Maximum Value of y`
@@ -3820,7 +3820,7 @@ class CurveTriquadratic(DataObject):
 
     @minimum_value_of_z.setter
     def minimum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of z`
+        """  Corresponds to IDD field `Minimum Value of z`
 
         Args:
             value (float): value for IDD Field `Minimum Value of z`
@@ -3844,7 +3844,7 @@ class CurveTriquadratic(DataObject):
 
     @maximum_value_of_z.setter
     def maximum_value_of_z(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of z`
+        """  Corresponds to IDD field `Maximum Value of z`
 
         Args:
             value (float): value for IDD Field `Maximum Value of z`
@@ -3868,7 +3868,7 @@ class CurveTriquadratic(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -3893,7 +3893,7 @@ class CurveTriquadratic(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -3918,7 +3918,7 @@ class CurveTriquadratic(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for X`
+        """  Corresponds to IDD field `Input Unit Type for X`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for X`
@@ -3942,7 +3942,7 @@ class CurveTriquadratic(DataObject):
 
     @input_unit_type_for_y.setter
     def input_unit_type_for_y(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Y`
+        """  Corresponds to IDD field `Input Unit Type for Y`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Y`
@@ -3966,7 +3966,7 @@ class CurveTriquadratic(DataObject):
 
     @input_unit_type_for_z.setter
     def input_unit_type_for_z(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for Z`
+        """  Corresponds to IDD field `Input Unit Type for Z`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for Z`
@@ -3990,7 +3990,7 @@ class CurveTriquadratic(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -4010,7 +4010,7 @@ class CurveFunctionalPressureDrop(DataObject):
         calculations in plant pressure simulations
         Expression: DeltaP = {K + f*(L/D)} * (rho * V^2) / 2
     """
-    schema = {'min-fields': 5, 'name': u'Curve:Functional:PressureDrop', 'pyname': u'CurveFunctionalPressureDrop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'diameter', {'name': u'Diameter', 'pyname': u'diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'minor loss coefficient', {'name': u'Minor Loss Coefficient', 'pyname': u'minor_loss_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'length', {'name': u'Length', 'pyname': u'length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fixed friction factor', {'name': u'Fixed Friction Factor', 'pyname': u'fixed_friction_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'Curve:Functional:PressureDrop', 'pyname': u'CurveFunctionalPressureDrop', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'diameter', {'name': u'Diameter', 'pyname': u'diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'minor loss coefficient', {'name': u'Minor Loss Coefficient', 'pyname': u'minor_loss_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'length', {'name': u'Length', 'pyname': u'length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'fixed friction factor', {'name': u'Fixed Friction Factor', 'pyname': u'fixed_friction_factor', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -4023,7 +4023,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4046,7 +4046,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @diameter.setter
     def diameter(self, value=None):
-        """  Corresponds to IDD Field `Diameter`
+        """  Corresponds to IDD field `Diameter`
         "D" in above expression, used to also calculate local velocity
 
         Args:
@@ -4071,7 +4071,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @minor_loss_coefficient.setter
     def minor_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Minor Loss Coefficient`
+        """  Corresponds to IDD field `Minor Loss Coefficient`
         "K" in above expression
 
         Args:
@@ -4096,7 +4096,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @length.setter
     def length(self, value=None):
-        """  Corresponds to IDD Field `Length`
+        """  Corresponds to IDD field `Length`
         "L" in above expression
 
         Args:
@@ -4121,7 +4121,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @roughness.setter
     def roughness(self, value=None):
-        """  Corresponds to IDD Field `Roughness`
+        """  Corresponds to IDD field `Roughness`
         This will be used to calculate "f" from Moody-chart approximations
 
         Args:
@@ -4146,7 +4146,7 @@ class CurveFunctionalPressureDrop(DataObject):
 
     @fixed_friction_factor.setter
     def fixed_friction_factor(self, value=None):
-        """  Corresponds to IDD Field `Fixed Friction Factor`
+        """  Corresponds to IDD field `Fixed Friction Factor`
         Optional way to set a constant value for "f", instead of using
         internal Moody-chart approximations
 
@@ -4172,7 +4172,7 @@ class CurveFanPressureRise(DataObject):
         Po assumed to be zero
         See InputOut Reference for curve details
     """
-    schema = {'min-fields': 0, 'name': u'Curve:FanPressureRise', 'pyname': u'CurveFanPressureRise', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of qfan', {'name': u'Minimum Value of Qfan', 'pyname': u'minimum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum value of qfan', {'name': u'Maximum Value of Qfan', 'pyname': u'maximum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum value of psm', {'name': u'Minimum Value of Psm', 'pyname': u'minimum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum value of psm', {'name': u'Maximum Value of Psm', 'pyname': u'maximum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:FanPressureRise', 'pyname': u'CurveFanPressureRise', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of qfan', {'name': u'Minimum Value of Qfan', 'pyname': u'minimum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum value of qfan', {'name': u'Maximum Value of Qfan', 'pyname': u'maximum_value_of_qfan', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum value of psm', {'name': u'Minimum Value of Psm', 'pyname': u'minimum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum value of psm', {'name': u'Maximum Value of Psm', 'pyname': u'maximum_value_of_psm', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -4185,7 +4185,7 @@ class CurveFanPressureRise(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4208,7 +4208,7 @@ class CurveFanPressureRise(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -4231,7 +4231,7 @@ class CurveFanPressureRise(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -4254,7 +4254,7 @@ class CurveFanPressureRise(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -4277,7 +4277,7 @@ class CurveFanPressureRise(DataObject):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 C4`
+        """  Corresponds to IDD field `Coefficient4 C4`
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -4300,7 +4300,7 @@ class CurveFanPressureRise(DataObject):
 
     @minimum_value_of_qfan.setter
     def minimum_value_of_qfan(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of Qfan`
+        """  Corresponds to IDD field `Minimum Value of Qfan`
 
         Args:
             value (float): value for IDD Field `Minimum Value of Qfan`
@@ -4324,7 +4324,7 @@ class CurveFanPressureRise(DataObject):
 
     @maximum_value_of_qfan.setter
     def maximum_value_of_qfan(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of Qfan`
+        """  Corresponds to IDD field `Maximum Value of Qfan`
 
         Args:
             value (float): value for IDD Field `Maximum Value of Qfan`
@@ -4348,7 +4348,7 @@ class CurveFanPressureRise(DataObject):
 
     @minimum_value_of_psm.setter
     def minimum_value_of_psm(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of Psm`
+        """  Corresponds to IDD field `Minimum Value of Psm`
 
         Args:
             value (float): value for IDD Field `Minimum Value of Psm`
@@ -4373,7 +4373,7 @@ class CurveFanPressureRise(DataObject):
 
     @maximum_value_of_psm.setter
     def maximum_value_of_psm(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of Psm`
+        """  Corresponds to IDD field `Maximum Value of Psm`
 
         Args:
             value (float): value for IDD Field `Maximum Value of Psm`
@@ -4398,7 +4398,7 @@ class CurveFanPressureRise(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -4424,7 +4424,7 @@ class CurveFanPressureRise(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -4448,7 +4448,7 @@ class CurveExponentialSkewNormal(DataObject):
         and maximum may be used to limit the output of the performance curve.
         curve = see Input Output Reference
     """
-    schema = {'min-fields': 0, 'name': u'Curve:ExponentialSkewNormal', 'pyname': u'CurveExponentialSkewNormal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:ExponentialSkewNormal', 'pyname': u'CurveExponentialSkewNormal', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -4461,7 +4461,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         See InputOut Reference for curve description
 
         Args:
@@ -4485,7 +4485,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -4508,7 +4508,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -4531,7 +4531,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -4554,7 +4554,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 C4`
+        """  Corresponds to IDD field `Coefficient4 C4`
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -4577,7 +4577,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -4601,7 +4601,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -4625,7 +4625,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -4650,7 +4650,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -4675,7 +4675,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -4699,7 +4699,7 @@ class CurveExponentialSkewNormal(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -4721,7 +4721,7 @@ class CurveSigmoid(DataObject):
         may be used to limit the output of the performance curve.
         curve = C1+C2/[1+exp((C3-x)/C4)]**C5
     """
-    schema = {'min-fields': 0, 'name': u'Curve:Sigmoid', 'pyname': u'CurveSigmoid', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 c5', {'name': u'Coefficient5 C5', 'pyname': u'coefficient5_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:Sigmoid', 'pyname': u'CurveSigmoid', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient4 c4', {'name': u'Coefficient4 C4', 'pyname': u'coefficient4_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient5 c5', {'name': u'Coefficient5 C5', 'pyname': u'coefficient5_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -4734,7 +4734,7 @@ class CurveSigmoid(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         See InputOut Reference for curve description
 
         Args:
@@ -4758,7 +4758,7 @@ class CurveSigmoid(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -4781,7 +4781,7 @@ class CurveSigmoid(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -4804,7 +4804,7 @@ class CurveSigmoid(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -4827,7 +4827,7 @@ class CurveSigmoid(DataObject):
 
     @coefficient4_c4.setter
     def coefficient4_c4(self, value=None):
-        """  Corresponds to IDD Field `Coefficient4 C4`
+        """  Corresponds to IDD field `Coefficient4 C4`
 
         Args:
             value (float): value for IDD Field `Coefficient4 C4`
@@ -4850,7 +4850,7 @@ class CurveSigmoid(DataObject):
 
     @coefficient5_c5.setter
     def coefficient5_c5(self, value=None):
-        """  Corresponds to IDD Field `Coefficient5 C5`
+        """  Corresponds to IDD field `Coefficient5 C5`
 
         Args:
             value (float): value for IDD Field `Coefficient5 C5`
@@ -4873,7 +4873,7 @@ class CurveSigmoid(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -4897,7 +4897,7 @@ class CurveSigmoid(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -4921,7 +4921,7 @@ class CurveSigmoid(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -4946,7 +4946,7 @@ class CurveSigmoid(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -4971,7 +4971,7 @@ class CurveSigmoid(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -4995,7 +4995,7 @@ class CurveSigmoid(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -5017,7 +5017,7 @@ class CurveRectangularHyperbola1(DataObject):
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+C3
     """
-    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola1', 'pyname': u'CurveRectangularHyperbola1', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola1', 'pyname': u'CurveRectangularHyperbola1', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -5030,7 +5030,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5053,7 +5053,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -5076,7 +5076,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -5099,7 +5099,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -5122,7 +5122,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5146,7 +5146,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5170,7 +5170,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -5195,7 +5195,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -5220,7 +5220,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -5244,7 +5244,7 @@ class CurveRectangularHyperbola1(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -5266,7 +5266,7 @@ class CurveRectangularHyperbola2(DataObject):
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+(C3*x)
     """
-    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola2', 'pyname': u'CurveRectangularHyperbola2', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:RectangularHyperbola2', 'pyname': u'CurveRectangularHyperbola2', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -5279,7 +5279,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5302,7 +5302,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -5325,7 +5325,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -5348,7 +5348,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -5371,7 +5371,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5395,7 +5395,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5419,7 +5419,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -5444,7 +5444,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -5469,7 +5469,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -5493,7 +5493,7 @@ class CurveRectangularHyperbola2(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -5515,7 +5515,7 @@ class CurveExponentialDecay(DataObject):
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)
     """
-    schema = {'min-fields': 0, 'name': u'Curve:ExponentialDecay', 'pyname': u'CurveExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:ExponentialDecay', 'pyname': u'CurveExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -5528,7 +5528,7 @@ class CurveExponentialDecay(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5551,7 +5551,7 @@ class CurveExponentialDecay(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -5574,7 +5574,7 @@ class CurveExponentialDecay(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -5597,7 +5597,7 @@ class CurveExponentialDecay(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -5620,7 +5620,7 @@ class CurveExponentialDecay(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5644,7 +5644,7 @@ class CurveExponentialDecay(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5668,7 +5668,7 @@ class CurveExponentialDecay(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -5693,7 +5693,7 @@ class CurveExponentialDecay(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -5718,7 +5718,7 @@ class CurveExponentialDecay(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -5742,7 +5742,7 @@ class CurveExponentialDecay(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`
@@ -5764,7 +5764,7 @@ class CurveDoubleExponentialDecay(DataObject):
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)+C4*exp(C5*x)
     """
-    schema = {'min-fields': 0, 'name': u'Curve:DoubleExponentialDecay', 'pyname': u'CurveDoubleExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c4', {'name': u'Coefficient3 C4', 'pyname': u'coefficient3_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c5', {'name': u'Coefficient3 C5', 'pyname': u'coefficient3_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Curve:DoubleExponentialDecay', 'pyname': u'CurveDoubleExponentialDecay', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coefficient1 c1', {'name': u'Coefficient1 C1', 'pyname': u'coefficient1_c1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient2 c2', {'name': u'Coefficient2 C2', 'pyname': u'coefficient2_c2', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c3', {'name': u'Coefficient3 C3', 'pyname': u'coefficient3_c3', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c4', {'name': u'Coefficient3 C4', 'pyname': u'coefficient3_c4', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'coefficient3 c5', {'name': u'Coefficient3 C5', 'pyname': u'coefficient3_c5', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum value of x', {'name': u'Minimum Value of x', 'pyname': u'minimum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum value of x', {'name': u'Maximum Value of x', 'pyname': u'maximum_value_of_x', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum curve output', {'name': u'Minimum Curve Output', 'pyname': u'minimum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum curve output', {'name': u'Maximum Curve Output', 'pyname': u'maximum_curve_output', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'input unit type for x', {'name': u'Input Unit Type for x', 'pyname': u'input_unit_type_for_x', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'}), (u'output unit type', {'name': u'Output Unit Type', 'pyname': u'output_unit_type', 'default': u'Dimensionless', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Dimensionless'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Performance Curves'}
 
     @property
     def name(self):
@@ -5777,7 +5777,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5800,7 +5800,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @coefficient1_c1.setter
     def coefficient1_c1(self, value=None):
-        """  Corresponds to IDD Field `Coefficient1 C1`
+        """  Corresponds to IDD field `Coefficient1 C1`
 
         Args:
             value (float): value for IDD Field `Coefficient1 C1`
@@ -5823,7 +5823,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @coefficient2_c2.setter
     def coefficient2_c2(self, value=None):
-        """  Corresponds to IDD Field `Coefficient2 C2`
+        """  Corresponds to IDD field `Coefficient2 C2`
 
         Args:
             value (float): value for IDD Field `Coefficient2 C2`
@@ -5846,7 +5846,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @coefficient3_c3.setter
     def coefficient3_c3(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C3`
+        """  Corresponds to IDD field `Coefficient3 C3`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C3`
@@ -5869,7 +5869,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @coefficient3_c4.setter
     def coefficient3_c4(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C4`
+        """  Corresponds to IDD field `Coefficient3 C4`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C4`
@@ -5892,7 +5892,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @coefficient3_c5.setter
     def coefficient3_c5(self, value=None):
-        """  Corresponds to IDD Field `Coefficient3 C5`
+        """  Corresponds to IDD field `Coefficient3 C5`
 
         Args:
             value (float): value for IDD Field `Coefficient3 C5`
@@ -5915,7 +5915,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @minimum_value_of_x.setter
     def minimum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Minimum Value of x`
+        """  Corresponds to IDD field `Minimum Value of x`
 
         Args:
             value (float): value for IDD Field `Minimum Value of x`
@@ -5939,7 +5939,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @maximum_value_of_x.setter
     def maximum_value_of_x(self, value=None):
-        """  Corresponds to IDD Field `Maximum Value of x`
+        """  Corresponds to IDD field `Maximum Value of x`
 
         Args:
             value (float): value for IDD Field `Maximum Value of x`
@@ -5963,7 +5963,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @minimum_curve_output.setter
     def minimum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Minimum Curve Output`
+        """  Corresponds to IDD field `Minimum Curve Output`
         Specify the minimum value calculated by this curve object
 
         Args:
@@ -5988,7 +5988,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @maximum_curve_output.setter
     def maximum_curve_output(self, value=None):
-        """  Corresponds to IDD Field `Maximum Curve Output`
+        """  Corresponds to IDD field `Maximum Curve Output`
         Specify the maximum value calculated by this curve object
 
         Args:
@@ -6013,7 +6013,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @input_unit_type_for_x.setter
     def input_unit_type_for_x(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Input Unit Type for x`
+        """  Corresponds to IDD field `Input Unit Type for x`
 
         Args:
             value (str): value for IDD Field `Input Unit Type for x`
@@ -6037,7 +6037,7 @@ class CurveDoubleExponentialDecay(DataObject):
 
     @output_unit_type.setter
     def output_unit_type(self, value="Dimensionless"):
-        """  Corresponds to IDD Field `Output Unit Type`
+        """  Corresponds to IDD field `Output Unit Type`
 
         Args:
             value (str): value for IDD Field `Output Unit Type`

@@ -14,7 +14,7 @@ class People(DataObject):
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 0, 'name': u'People', 'pyname': u'People', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of people schedule name', {'name': u'Number of People Schedule Name', 'pyname': u'number_of_people_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of people calculation method', {'name': u'Number of People Calculation Method', 'pyname': u'number_of_people_calculation_method', 'default': u'People', 'required-field': True, 'autosizable': False, 'accepted-values': [u'People', u'People/Area', u'Area/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of people', {'name': u'Number of People', 'pyname': u'number_of_people', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'people per zone floor area', {'name': u'People per Zone Floor Area', 'pyname': u'people_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'person/m2'}), (u'zone floor area per person', {'name': u'Zone Floor Area per Person', 'pyname': u'zone_floor_area_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/person'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'sensible heat fraction', {'name': u'Sensible Heat Fraction', 'pyname': u'sensible_heat_fraction', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': 'real'}), (u'activity level schedule name', {'name': u'Activity Level Schedule Name', 'pyname': u'activity_level_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide generation rate', {'name': u'Carbon Dioxide Generation Rate', 'pyname': u'carbon_dioxide_generation_rate', 'default': 3.82e-08, 'maximum': 3.82e-07, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'enable ashrae 55 comfort warnings', {'name': u'Enable ASHRAE 55 Comfort Warnings', 'pyname': u'enable_ashrae_55_comfort_warnings', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'mean radiant temperature calculation type', {'name': u'Mean Radiant Temperature Calculation Type', 'pyname': u'mean_radiant_temperature_calculation_type', 'default': u'ZoneAveraged', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ZoneAveraged', u'SurfaceWeighted', u'AngleFactor'], 'autocalculatable': False, 'type': 'alpha'}), (u'surface name/angle factor list name', {'name': u'Surface Name/Angle Factor List Name', 'pyname': u'surface_name_or_angle_factor_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'work efficiency schedule name', {'name': u'Work Efficiency Schedule Name', 'pyname': u'work_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'clothing insulation calculation method', {'name': u'Clothing Insulation Calculation Method', 'pyname': u'clothing_insulation_calculation_method', 'default': u'ClothingInsulationSchedule', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ClothingInsulationSchedule', u'DynamicClothingModelASHRAE55', u'CalculationMethodSchedule'], 'autocalculatable': False, 'type': 'alpha'}), (u'clothing insulation calculation method schedule name', {'name': u'Clothing Insulation Calculation Method Schedule Name', 'pyname': u'clothing_insulation_calculation_method_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'clothing insulation schedule name', {'name': u'Clothing Insulation Schedule Name', 'pyname': u'clothing_insulation_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air velocity schedule name', {'name': u'Air Velocity Schedule Name', 'pyname': u'air_velocity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort model 1 type', {'name': u'Thermal Comfort Model 1 Type', 'pyname': u'thermal_comfort_model_1_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 2 type', {'name': u'Thermal Comfort Model 2 Type', 'pyname': u'thermal_comfort_model_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 3 type', {'name': u'Thermal Comfort Model 3 Type', 'pyname': u'thermal_comfort_model_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 4 type', {'name': u'Thermal Comfort Model 4 Type', 'pyname': u'thermal_comfort_model_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 5 type', {'name': u'Thermal Comfort Model 5 Type', 'pyname': u'thermal_comfort_model_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'People', 'pyname': u'People', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of people schedule name', {'name': u'Number of People Schedule Name', 'pyname': u'number_of_people_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of people calculation method', {'name': u'Number of People Calculation Method', 'pyname': u'number_of_people_calculation_method', 'default': u'People', 'required-field': True, 'autosizable': False, 'accepted-values': [u'People', u'People/Area', u'Area/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of people', {'name': u'Number of People', 'pyname': u'number_of_people', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'people per zone floor area', {'name': u'People per Zone Floor Area', 'pyname': u'people_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'person/m2'}), (u'zone floor area per person', {'name': u'Zone Floor Area per Person', 'pyname': u'zone_floor_area_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2/person'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'sensible heat fraction', {'name': u'Sensible Heat Fraction', 'pyname': u'sensible_heat_fraction', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': 'real'}), (u'activity level schedule name', {'name': u'Activity Level Schedule Name', 'pyname': u'activity_level_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'carbon dioxide generation rate', {'name': u'Carbon Dioxide Generation Rate', 'pyname': u'carbon_dioxide_generation_rate', 'default': 3.82e-08, 'maximum': 3.82e-07, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'enable ashrae 55 comfort warnings', {'name': u'Enable ASHRAE 55 Comfort Warnings', 'pyname': u'enable_ashrae_55_comfort_warnings', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'mean radiant temperature calculation type', {'name': u'Mean Radiant Temperature Calculation Type', 'pyname': u'mean_radiant_temperature_calculation_type', 'default': u'ZoneAveraged', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ZoneAveraged', u'SurfaceWeighted', u'AngleFactor'], 'autocalculatable': False, 'type': 'alpha'}), (u'surface name/angle factor list name', {'name': u'Surface Name/Angle Factor List Name', 'pyname': u'surface_name_or_angle_factor_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'work efficiency schedule name', {'name': u'Work Efficiency Schedule Name', 'pyname': u'work_efficiency_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'clothing insulation calculation method', {'name': u'Clothing Insulation Calculation Method', 'pyname': u'clothing_insulation_calculation_method', 'default': u'ClothingInsulationSchedule', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ClothingInsulationSchedule', u'DynamicClothingModelASHRAE55', u'CalculationMethodSchedule'], 'autocalculatable': False, 'type': 'alpha'}), (u'clothing insulation calculation method schedule name', {'name': u'Clothing Insulation Calculation Method Schedule Name', 'pyname': u'clothing_insulation_calculation_method_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'clothing insulation schedule name', {'name': u'Clothing Insulation Schedule Name', 'pyname': u'clothing_insulation_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air velocity schedule name', {'name': u'Air Velocity Schedule Name', 'pyname': u'air_velocity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'thermal comfort model 1 type', {'name': u'Thermal Comfort Model 1 Type', 'pyname': u'thermal_comfort_model_1_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 2 type', {'name': u'Thermal Comfort Model 2 Type', 'pyname': u'thermal_comfort_model_2_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 3 type', {'name': u'Thermal Comfort Model 3 Type', 'pyname': u'thermal_comfort_model_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 4 type', {'name': u'Thermal Comfort Model 4 Type', 'pyname': u'thermal_comfort_model_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal comfort model 5 type', {'name': u'Thermal Comfort Model 5 Type', 'pyname': u'thermal_comfort_model_5_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fanger', u'Pierce', u'KSU', u'AdaptiveASH55', u'AdaptiveCEN15251'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class People(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -50,7 +50,7 @@ class People(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -73,7 +73,7 @@ class People(DataObject):
 
     @number_of_people_schedule_name.setter
     def number_of_people_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Number of People Schedule Name`
+        """  Corresponds to IDD field `Number of People Schedule Name`
         units in schedule should be fraction applied to number of people (0.0 - 1.0)
 
         Args:
@@ -97,7 +97,7 @@ class People(DataObject):
 
     @number_of_people_calculation_method.setter
     def number_of_people_calculation_method(self, value="People"):
-        """  Corresponds to IDD Field `Number of People Calculation Method`
+        """  Corresponds to IDD field `Number of People Calculation Method`
         The entered calculation method is used to create the maximum number of people
         for this set of attributes (i.e. sensible fraction, schedule, etc)
         Choices: People -- simply enter number of occupants.
@@ -126,7 +126,7 @@ class People(DataObject):
 
     @number_of_people.setter
     def number_of_people(self, value=None):
-        """  Corresponds to IDD Field `Number of People`
+        """  Corresponds to IDD field `Number of People`
 
         Args:
             value (float): value for IDD Field `Number of People`
@@ -149,7 +149,7 @@ class People(DataObject):
 
     @people_per_zone_floor_area.setter
     def people_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `People per Zone Floor Area`
+        """  Corresponds to IDD field `People per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `People per Zone Floor Area`
@@ -173,7 +173,7 @@ class People(DataObject):
 
     @zone_floor_area_per_person.setter
     def zone_floor_area_per_person(self, value=None):
-        """  Corresponds to IDD Field `Zone Floor Area per Person`
+        """  Corresponds to IDD field `Zone Floor Area per Person`
 
         Args:
             value (float): value for IDD Field `Zone Floor Area per Person`
@@ -197,7 +197,7 @@ class People(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -221,7 +221,7 @@ class People(DataObject):
 
     @sensible_heat_fraction.setter
     def sensible_heat_fraction(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Sensible Heat Fraction`
+        """  Corresponds to IDD field `Sensible Heat Fraction`
         if input, overrides program calculated sensible/latent split
 
         Args:
@@ -247,7 +247,7 @@ class People(DataObject):
 
     @activity_level_schedule_name.setter
     def activity_level_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Activity Level Schedule Name`
+        """  Corresponds to IDD field `Activity Level Schedule Name`
         Note that W has to be converted to mets in TC routine
         units in schedule are W/person
 
@@ -272,7 +272,7 @@ class People(DataObject):
 
     @carbon_dioxide_generation_rate.setter
     def carbon_dioxide_generation_rate(self, value=3.82e-08):
-        """  Corresponds to IDD Field `Carbon Dioxide Generation Rate`
+        """  Corresponds to IDD field `Carbon Dioxide Generation Rate`
         CO2 generation rate per unit of activity level.
         The default value is obtained from ASHRAE Std 62.1 at 0.0084 cfm/met/person over
         the general adult population.
@@ -301,7 +301,7 @@ class People(DataObject):
 
     @enable_ashrae_55_comfort_warnings.setter
     def enable_ashrae_55_comfort_warnings(self, value="No"):
-        """  Corresponds to IDD Field `Enable ASHRAE 55 Comfort Warnings`
+        """  Corresponds to IDD field `Enable ASHRAE 55 Comfort Warnings`
 
         Args:
             value (str): value for IDD Field `Enable ASHRAE 55 Comfort Warnings`
@@ -325,7 +325,7 @@ class People(DataObject):
 
     @mean_radiant_temperature_calculation_type.setter
     def mean_radiant_temperature_calculation_type(self, value="ZoneAveraged"):
-        """  Corresponds to IDD Field `Mean Radiant Temperature Calculation Type`
+        """  Corresponds to IDD field `Mean Radiant Temperature Calculation Type`
         optional (only required for thermal comfort runs)
 
         Args:
@@ -350,7 +350,7 @@ class People(DataObject):
 
     @surface_name_or_angle_factor_list_name.setter
     def surface_name_or_angle_factor_list_name(self, value=None):
-        """  Corresponds to IDD Field `Surface Name/Angle Factor List Name`
+        """  Corresponds to IDD field `Surface Name/Angle Factor List Name`
         optional (only required for thermal comfort runs)
 
         Args:
@@ -374,7 +374,7 @@ class People(DataObject):
 
     @work_efficiency_schedule_name.setter
     def work_efficiency_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Work Efficiency Schedule Name`
+        """  Corresponds to IDD field `Work Efficiency Schedule Name`
         units in schedule are 0.0 to 1.0
         optional (only required for thermal comfort runs)
 
@@ -399,7 +399,7 @@ class People(DataObject):
 
     @clothing_insulation_calculation_method.setter
     def clothing_insulation_calculation_method(self, value="ClothingInsulationSchedule"):
-        """  Corresponds to IDD Field `Clothing Insulation Calculation Method`
+        """  Corresponds to IDD field `Clothing Insulation Calculation Method`
 
         Args:
             value (str): value for IDD Field `Clothing Insulation Calculation Method`
@@ -423,7 +423,7 @@ class People(DataObject):
 
     @clothing_insulation_calculation_method_schedule_name.setter
     def clothing_insulation_calculation_method_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Clothing Insulation Calculation Method Schedule Name`
+        """  Corresponds to IDD field `Clothing Insulation Calculation Method Schedule Name`
         a schedule value of 1 for the Scheduled method, and 2 for the DynamicClothingModelASHRAE55 method
 
         Args:
@@ -447,7 +447,7 @@ class People(DataObject):
 
     @clothing_insulation_schedule_name.setter
     def clothing_insulation_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Clothing Insulation Schedule Name`
+        """  Corresponds to IDD field `Clothing Insulation Schedule Name`
         use "Clo" from ASHRAE or Thermal Comfort guides
         optional (only required for thermal comfort runs)
 
@@ -472,7 +472,7 @@ class People(DataObject):
 
     @air_velocity_schedule_name.setter
     def air_velocity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Air Velocity Schedule Name`
+        """  Corresponds to IDD field `Air Velocity Schedule Name`
         units in the schedule are m/s
         optional (only required for thermal comfort runs)
 
@@ -497,7 +497,7 @@ class People(DataObject):
 
     @thermal_comfort_model_1_type.setter
     def thermal_comfort_model_1_type(self, value=None):
-        """  Corresponds to IDD Field `Thermal Comfort Model 1 Type`
+        """  Corresponds to IDD field `Thermal Comfort Model 1 Type`
         optional (only needed for people thermal comfort results reporting)
 
         Args:
@@ -521,7 +521,7 @@ class People(DataObject):
 
     @thermal_comfort_model_2_type.setter
     def thermal_comfort_model_2_type(self, value=None):
-        """  Corresponds to IDD Field `Thermal Comfort Model 2 Type`
+        """  Corresponds to IDD field `Thermal Comfort Model 2 Type`
         optional (second type of thermal comfort model and results reporting)
 
         Args:
@@ -545,7 +545,7 @@ class People(DataObject):
 
     @thermal_comfort_model_3_type.setter
     def thermal_comfort_model_3_type(self, value=None):
-        """  Corresponds to IDD Field `Thermal Comfort Model 3 Type`
+        """  Corresponds to IDD field `Thermal Comfort Model 3 Type`
         optional (third thermal comfort model and report type)
 
         Args:
@@ -569,7 +569,7 @@ class People(DataObject):
 
     @thermal_comfort_model_4_type.setter
     def thermal_comfort_model_4_type(self, value=None):
-        """  Corresponds to IDD Field `Thermal Comfort Model 4 Type`
+        """  Corresponds to IDD field `Thermal Comfort Model 4 Type`
         optional (fourth thermal comfort model and report type)
 
         Args:
@@ -593,7 +593,7 @@ class People(DataObject):
 
     @thermal_comfort_model_5_type.setter
     def thermal_comfort_model_5_type(self, value=None):
-        """  Corresponds to IDD Field `Thermal Comfort Model 5 Type`
+        """  Corresponds to IDD field `Thermal Comfort Model 5 Type`
         optional (fifth thermal comfort model and report type)
 
         Args:
@@ -611,7 +611,7 @@ class ComfortViewFactorAngles(DataObject):
     """ Corresponds to IDD object `ComfortViewFactorAngles`
         Used to specify radiant view factors for thermal comfort calculations.
     """
-    schema = {'min-fields': 0, 'name': u'ComfortViewFactorAngles', 'pyname': u'ComfortViewFactorAngles', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 1', {'name': u'Angle Factor 1', 'pyname': u'angle_factor_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 2 name', {'name': u'Surface 2 Name', 'pyname': u'surface_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 2', {'name': u'Angle Factor 2', 'pyname': u'angle_factor_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 3 name', {'name': u'Surface 3 Name', 'pyname': u'surface_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 3', {'name': u'Angle Factor 3', 'pyname': u'angle_factor_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 4 name', {'name': u'Surface 4 Name', 'pyname': u'surface_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 4', {'name': u'Angle Factor 4', 'pyname': u'angle_factor_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 5 name', {'name': u'Surface 5 Name', 'pyname': u'surface_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 5', {'name': u'Angle Factor 5', 'pyname': u'angle_factor_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 6 name', {'name': u'Surface 6 Name', 'pyname': u'surface_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 6', {'name': u'Angle Factor 6', 'pyname': u'angle_factor_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 7 name', {'name': u'Surface 7 Name', 'pyname': u'surface_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 7', {'name': u'Angle Factor 7', 'pyname': u'angle_factor_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 8 name', {'name': u'Surface 8 Name', 'pyname': u'surface_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 8', {'name': u'Angle Factor 8', 'pyname': u'angle_factor_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 9 name', {'name': u'Surface 9 Name', 'pyname': u'surface_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 9', {'name': u'Angle Factor 9', 'pyname': u'angle_factor_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 10 name', {'name': u'Surface 10 Name', 'pyname': u'surface_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 10', {'name': u'Angle Factor 10', 'pyname': u'angle_factor_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 11 name', {'name': u'Surface 11 Name', 'pyname': u'surface_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 11', {'name': u'Angle Factor 11', 'pyname': u'angle_factor_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 12 name', {'name': u'Surface 12 Name', 'pyname': u'surface_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 12', {'name': u'Angle Factor 12', 'pyname': u'angle_factor_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 13 name', {'name': u'Surface 13 Name', 'pyname': u'surface_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 13', {'name': u'Angle Factor 13', 'pyname': u'angle_factor_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 14 name', {'name': u'Surface 14 Name', 'pyname': u'surface_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 14', {'name': u'Angle Factor 14', 'pyname': u'angle_factor_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 15 name', {'name': u'Surface 15 Name', 'pyname': u'surface_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 15', {'name': u'Angle Factor 15', 'pyname': u'angle_factor_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 16 name', {'name': u'Surface 16 Name', 'pyname': u'surface_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 16', {'name': u'Angle Factor 16', 'pyname': u'angle_factor_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 17 name', {'name': u'Surface 17 Name', 'pyname': u'surface_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 17', {'name': u'Angle Factor 17', 'pyname': u'angle_factor_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 18 name', {'name': u'Surface 18 Name', 'pyname': u'surface_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 18', {'name': u'Angle Factor 18', 'pyname': u'angle_factor_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 19 name', {'name': u'Surface 19 Name', 'pyname': u'surface_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 19', {'name': u'Angle Factor 19', 'pyname': u'angle_factor_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 20 name', {'name': u'Surface 20 Name', 'pyname': u'surface_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 20', {'name': u'Angle Factor 20', 'pyname': u'angle_factor_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ComfortViewFactorAngles', 'pyname': u'ComfortViewFactorAngles', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 1', {'name': u'Angle Factor 1', 'pyname': u'angle_factor_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 2 name', {'name': u'Surface 2 Name', 'pyname': u'surface_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 2', {'name': u'Angle Factor 2', 'pyname': u'angle_factor_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 3 name', {'name': u'Surface 3 Name', 'pyname': u'surface_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 3', {'name': u'Angle Factor 3', 'pyname': u'angle_factor_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 4 name', {'name': u'Surface 4 Name', 'pyname': u'surface_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 4', {'name': u'Angle Factor 4', 'pyname': u'angle_factor_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 5 name', {'name': u'Surface 5 Name', 'pyname': u'surface_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 5', {'name': u'Angle Factor 5', 'pyname': u'angle_factor_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 6 name', {'name': u'Surface 6 Name', 'pyname': u'surface_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 6', {'name': u'Angle Factor 6', 'pyname': u'angle_factor_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 7 name', {'name': u'Surface 7 Name', 'pyname': u'surface_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 7', {'name': u'Angle Factor 7', 'pyname': u'angle_factor_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 8 name', {'name': u'Surface 8 Name', 'pyname': u'surface_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 8', {'name': u'Angle Factor 8', 'pyname': u'angle_factor_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 9 name', {'name': u'Surface 9 Name', 'pyname': u'surface_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 9', {'name': u'Angle Factor 9', 'pyname': u'angle_factor_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 10 name', {'name': u'Surface 10 Name', 'pyname': u'surface_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 10', {'name': u'Angle Factor 10', 'pyname': u'angle_factor_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 11 name', {'name': u'Surface 11 Name', 'pyname': u'surface_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 11', {'name': u'Angle Factor 11', 'pyname': u'angle_factor_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 12 name', {'name': u'Surface 12 Name', 'pyname': u'surface_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 12', {'name': u'Angle Factor 12', 'pyname': u'angle_factor_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 13 name', {'name': u'Surface 13 Name', 'pyname': u'surface_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 13', {'name': u'Angle Factor 13', 'pyname': u'angle_factor_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 14 name', {'name': u'Surface 14 Name', 'pyname': u'surface_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 14', {'name': u'Angle Factor 14', 'pyname': u'angle_factor_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 15 name', {'name': u'Surface 15 Name', 'pyname': u'surface_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 15', {'name': u'Angle Factor 15', 'pyname': u'angle_factor_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 16 name', {'name': u'Surface 16 Name', 'pyname': u'surface_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 16', {'name': u'Angle Factor 16', 'pyname': u'angle_factor_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 17 name', {'name': u'Surface 17 Name', 'pyname': u'surface_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 17', {'name': u'Angle Factor 17', 'pyname': u'angle_factor_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 18 name', {'name': u'Surface 18 Name', 'pyname': u'surface_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 18', {'name': u'Angle Factor 18', 'pyname': u'angle_factor_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 19 name', {'name': u'Surface 19 Name', 'pyname': u'surface_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 19', {'name': u'Angle Factor 19', 'pyname': u'angle_factor_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'surface 20 name', {'name': u'Surface 20 Name', 'pyname': u'surface_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'angle factor 20', {'name': u'Angle Factor 20', 'pyname': u'angle_factor_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -624,7 +624,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -647,7 +647,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -670,7 +670,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_1_name.setter
     def surface_1_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 1 Name`
+        """  Corresponds to IDD field `Surface 1 Name`
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -693,7 +693,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_1.setter
     def angle_factor_1(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 1`
+        """  Corresponds to IDD field `Angle Factor 1`
 
         Args:
             value (float): value for IDD Field `Angle Factor 1`
@@ -717,7 +717,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_2_name.setter
     def surface_2_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 2 Name`
+        """  Corresponds to IDD field `Surface 2 Name`
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -740,7 +740,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_2.setter
     def angle_factor_2(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 2`
+        """  Corresponds to IDD field `Angle Factor 2`
 
         Args:
             value (float): value for IDD Field `Angle Factor 2`
@@ -764,7 +764,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_3_name.setter
     def surface_3_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 3 Name`
+        """  Corresponds to IDD field `Surface 3 Name`
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -787,7 +787,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_3.setter
     def angle_factor_3(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 3`
+        """  Corresponds to IDD field `Angle Factor 3`
 
         Args:
             value (float): value for IDD Field `Angle Factor 3`
@@ -811,7 +811,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_4_name.setter
     def surface_4_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 4 Name`
+        """  Corresponds to IDD field `Surface 4 Name`
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -834,7 +834,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_4.setter
     def angle_factor_4(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 4`
+        """  Corresponds to IDD field `Angle Factor 4`
 
         Args:
             value (float): value for IDD Field `Angle Factor 4`
@@ -858,7 +858,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_5_name.setter
     def surface_5_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 5 Name`
+        """  Corresponds to IDD field `Surface 5 Name`
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -881,7 +881,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_5.setter
     def angle_factor_5(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 5`
+        """  Corresponds to IDD field `Angle Factor 5`
 
         Args:
             value (float): value for IDD Field `Angle Factor 5`
@@ -905,7 +905,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_6_name.setter
     def surface_6_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 6 Name`
+        """  Corresponds to IDD field `Surface 6 Name`
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -928,7 +928,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_6.setter
     def angle_factor_6(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 6`
+        """  Corresponds to IDD field `Angle Factor 6`
 
         Args:
             value (float): value for IDD Field `Angle Factor 6`
@@ -952,7 +952,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_7_name.setter
     def surface_7_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 7 Name`
+        """  Corresponds to IDD field `Surface 7 Name`
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -975,7 +975,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_7.setter
     def angle_factor_7(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 7`
+        """  Corresponds to IDD field `Angle Factor 7`
 
         Args:
             value (float): value for IDD Field `Angle Factor 7`
@@ -999,7 +999,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_8_name.setter
     def surface_8_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 8 Name`
+        """  Corresponds to IDD field `Surface 8 Name`
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -1022,7 +1022,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_8.setter
     def angle_factor_8(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 8`
+        """  Corresponds to IDD field `Angle Factor 8`
 
         Args:
             value (float): value for IDD Field `Angle Factor 8`
@@ -1046,7 +1046,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_9_name.setter
     def surface_9_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 9 Name`
+        """  Corresponds to IDD field `Surface 9 Name`
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -1069,7 +1069,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_9.setter
     def angle_factor_9(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 9`
+        """  Corresponds to IDD field `Angle Factor 9`
 
         Args:
             value (float): value for IDD Field `Angle Factor 9`
@@ -1093,7 +1093,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_10_name.setter
     def surface_10_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 10 Name`
+        """  Corresponds to IDD field `Surface 10 Name`
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -1116,7 +1116,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_10.setter
     def angle_factor_10(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 10`
+        """  Corresponds to IDD field `Angle Factor 10`
 
         Args:
             value (float): value for IDD Field `Angle Factor 10`
@@ -1140,7 +1140,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_11_name.setter
     def surface_11_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 11 Name`
+        """  Corresponds to IDD field `Surface 11 Name`
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -1163,7 +1163,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_11.setter
     def angle_factor_11(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 11`
+        """  Corresponds to IDD field `Angle Factor 11`
 
         Args:
             value (float): value for IDD Field `Angle Factor 11`
@@ -1187,7 +1187,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_12_name.setter
     def surface_12_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 12 Name`
+        """  Corresponds to IDD field `Surface 12 Name`
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -1210,7 +1210,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_12.setter
     def angle_factor_12(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 12`
+        """  Corresponds to IDD field `Angle Factor 12`
 
         Args:
             value (float): value for IDD Field `Angle Factor 12`
@@ -1234,7 +1234,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_13_name.setter
     def surface_13_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 13 Name`
+        """  Corresponds to IDD field `Surface 13 Name`
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -1257,7 +1257,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_13.setter
     def angle_factor_13(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 13`
+        """  Corresponds to IDD field `Angle Factor 13`
 
         Args:
             value (float): value for IDD Field `Angle Factor 13`
@@ -1281,7 +1281,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_14_name.setter
     def surface_14_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 14 Name`
+        """  Corresponds to IDD field `Surface 14 Name`
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -1304,7 +1304,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_14.setter
     def angle_factor_14(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 14`
+        """  Corresponds to IDD field `Angle Factor 14`
 
         Args:
             value (float): value for IDD Field `Angle Factor 14`
@@ -1328,7 +1328,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_15_name.setter
     def surface_15_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 15 Name`
+        """  Corresponds to IDD field `Surface 15 Name`
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -1351,7 +1351,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_15.setter
     def angle_factor_15(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 15`
+        """  Corresponds to IDD field `Angle Factor 15`
 
         Args:
             value (float): value for IDD Field `Angle Factor 15`
@@ -1375,7 +1375,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_16_name.setter
     def surface_16_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 16 Name`
+        """  Corresponds to IDD field `Surface 16 Name`
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -1398,7 +1398,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_16.setter
     def angle_factor_16(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 16`
+        """  Corresponds to IDD field `Angle Factor 16`
 
         Args:
             value (float): value for IDD Field `Angle Factor 16`
@@ -1422,7 +1422,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_17_name.setter
     def surface_17_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 17 Name`
+        """  Corresponds to IDD field `Surface 17 Name`
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -1445,7 +1445,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_17.setter
     def angle_factor_17(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 17`
+        """  Corresponds to IDD field `Angle Factor 17`
 
         Args:
             value (float): value for IDD Field `Angle Factor 17`
@@ -1469,7 +1469,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_18_name.setter
     def surface_18_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 18 Name`
+        """  Corresponds to IDD field `Surface 18 Name`
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -1492,7 +1492,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_18.setter
     def angle_factor_18(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 18`
+        """  Corresponds to IDD field `Angle Factor 18`
 
         Args:
             value (float): value for IDD Field `Angle Factor 18`
@@ -1516,7 +1516,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_19_name.setter
     def surface_19_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 19 Name`
+        """  Corresponds to IDD field `Surface 19 Name`
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -1539,7 +1539,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_19.setter
     def angle_factor_19(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 19`
+        """  Corresponds to IDD field `Angle Factor 19`
 
         Args:
             value (float): value for IDD Field `Angle Factor 19`
@@ -1563,7 +1563,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @surface_20_name.setter
     def surface_20_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 20 Name`
+        """  Corresponds to IDD field `Surface 20 Name`
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -1586,7 +1586,7 @@ class ComfortViewFactorAngles(DataObject):
 
     @angle_factor_20.setter
     def angle_factor_20(self, value=None):
-        """  Corresponds to IDD Field `Angle Factor 20`
+        """  Corresponds to IDD field `Angle Factor 20`
 
         Args:
             value (float): value for IDD Field `Angle Factor 20`
@@ -1606,7 +1606,7 @@ class Lights(DataObject):
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 10, 'name': u'Lights', 'pyname': u'Lights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'LightingLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'LightingLevel', u'Watts/Area', u'Watts/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'lighting level', {'name': u'Lighting Level', 'pyname': u'lighting_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'watts per zone floor area', {'name': u'Watts per Zone Floor Area', 'pyname': u'watts_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'watts per person', {'name': u'Watts per Person', 'pyname': u'watts_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/person'}), (u'return air fraction', {'name': u'Return Air Fraction', 'pyname': u'return_air_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction visible', {'name': u'Fraction Visible', 'pyname': u'fraction_visible', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction replaceable', {'name': u'Fraction Replaceable', 'pyname': u'fraction_replaceable', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'return air fraction calculated from plenum temperature', {'name': u'Return Air Fraction Calculated from Plenum Temperature', 'pyname': u'return_air_fraction_calculated_from_plenum_temperature', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'return air fraction function of plenum temperature coefficient 1', {'name': u'Return Air Fraction Function of Plenum Temperature Coefficient 1', 'pyname': u'return_air_fraction_function_of_plenum_temperature_coefficient_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'return air fraction function of plenum temperature coefficient 2', {'name': u'Return Air Fraction Function of Plenum Temperature Coefficient 2', 'pyname': u'return_air_fraction_function_of_plenum_temperature_coefficient_2', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 10, 'name': u'Lights', 'pyname': u'Lights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'LightingLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'LightingLevel', u'Watts/Area', u'Watts/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'lighting level', {'name': u'Lighting Level', 'pyname': u'lighting_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'watts per zone floor area', {'name': u'Watts per Zone Floor Area', 'pyname': u'watts_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'watts per person', {'name': u'Watts per Person', 'pyname': u'watts_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/person'}), (u'return air fraction', {'name': u'Return Air Fraction', 'pyname': u'return_air_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction visible', {'name': u'Fraction Visible', 'pyname': u'fraction_visible', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction replaceable', {'name': u'Fraction Replaceable', 'pyname': u'fraction_replaceable', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'return air fraction calculated from plenum temperature', {'name': u'Return Air Fraction Calculated from Plenum Temperature', 'pyname': u'return_air_fraction_calculated_from_plenum_temperature', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'return air fraction function of plenum temperature coefficient 1', {'name': u'Return Air Fraction Function of Plenum Temperature Coefficient 1', 'pyname': u'return_air_fraction_function_of_plenum_temperature_coefficient_1', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'return air fraction function of plenum temperature coefficient 2', {'name': u'Return Air Fraction Function of Plenum Temperature Coefficient 2', 'pyname': u'return_air_fraction_function_of_plenum_temperature_coefficient_2', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -1619,7 +1619,7 @@ class Lights(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1642,7 +1642,7 @@ class Lights(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -1665,7 +1665,7 @@ class Lights(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in schedule should be fraction applied to design level of lights, generally (0.0 - 1.0)
 
         Args:
@@ -1689,7 +1689,7 @@ class Lights(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="LightingLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of lights
         for this set of attributes
         Choices: LightingLevel => Lighting Level -- simply enter watts of lights
@@ -1718,7 +1718,7 @@ class Lights(DataObject):
 
     @lighting_level.setter
     def lighting_level(self, value=None):
-        """  Corresponds to IDD Field `Lighting Level`
+        """  Corresponds to IDD field `Lighting Level`
 
         Args:
             value (float): value for IDD Field `Lighting Level`
@@ -1743,7 +1743,7 @@ class Lights(DataObject):
 
     @watts_per_zone_floor_area.setter
     def watts_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Watts per Zone Floor Area`
+        """  Corresponds to IDD field `Watts per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
@@ -1768,7 +1768,7 @@ class Lights(DataObject):
 
     @watts_per_person.setter
     def watts_per_person(self, value=None):
-        """  Corresponds to IDD Field `Watts per Person`
+        """  Corresponds to IDD field `Watts per Person`
 
         Args:
             value (float): value for IDD Field `Watts per Person`
@@ -1793,7 +1793,7 @@ class Lights(DataObject):
 
     @return_air_fraction.setter
     def return_air_fraction(self, value=None):
-        """  Corresponds to IDD Field `Return Air Fraction`
+        """  Corresponds to IDD field `Return Air Fraction`
         Used only for sizing calculation if return-air-fraction
         coefficients are specified.
 
@@ -1819,7 +1819,7 @@ class Lights(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -1843,7 +1843,7 @@ class Lights(DataObject):
 
     @fraction_visible.setter
     def fraction_visible(self, value=None):
-        """  Corresponds to IDD Field `Fraction Visible`
+        """  Corresponds to IDD field `Fraction Visible`
 
         Args:
             value (float): value for IDD Field `Fraction Visible`
@@ -1867,7 +1867,7 @@ class Lights(DataObject):
 
     @fraction_replaceable.setter
     def fraction_replaceable(self, value=1.0):
-        """  Corresponds to IDD Field `Fraction Replaceable`
+        """  Corresponds to IDD field `Fraction Replaceable`
         For Daylighting:Controls and Daylighting:DElight:Controls,
         must be 0 or 1:  0 = no dimming control, 1 = full dimming control
 
@@ -1894,7 +1894,7 @@ class Lights(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -1918,7 +1918,7 @@ class Lights(DataObject):
 
     @return_air_fraction_calculated_from_plenum_temperature.setter
     def return_air_fraction_calculated_from_plenum_temperature(self, value="No"):
-        """  Corresponds to IDD Field `Return Air Fraction Calculated from Plenum Temperature`
+        """  Corresponds to IDD field `Return Air Fraction Calculated from Plenum Temperature`
 
         Args:
             value (str): value for IDD Field `Return Air Fraction Calculated from Plenum Temperature`
@@ -1942,7 +1942,7 @@ class Lights(DataObject):
 
     @return_air_fraction_function_of_plenum_temperature_coefficient_1.setter
     def return_air_fraction_function_of_plenum_temperature_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
+        """  Corresponds to IDD field `Return Air Fraction Function of Plenum Temperature Coefficient 1`
         Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
         Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
 
@@ -1967,7 +1967,7 @@ class Lights(DataObject):
 
     @return_air_fraction_function_of_plenum_temperature_coefficient_2.setter
     def return_air_fraction_function_of_plenum_temperature_coefficient_2(self, value=None):
-        """  Corresponds to IDD Field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
+        """  Corresponds to IDD field `Return Air Fraction Function of Plenum Temperature Coefficient 2`
         Used only if Return Air Fraction Is Calculated from Plenum Temperature = Yes
         Equation is Return Air Fraction = Coefficient#1 - Coefficient#2 X PlenumTemp(degC)
 
@@ -1989,7 +1989,7 @@ class ElectricEquipment(DataObject):
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
     """
-    schema = {'min-fields': 0, 'name': u'ElectricEquipment', 'pyname': u'ElectricEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'watts per zone floor area', {'name': u'Watts per Zone Floor Area', 'pyname': u'watts_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'watts per person', {'name': u'Watts per Person', 'pyname': u'watts_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ElectricEquipment', 'pyname': u'ElectricEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'watts per zone floor area', {'name': u'Watts per Zone Floor Area', 'pyname': u'watts_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'watts per person', {'name': u'Watts per Person', 'pyname': u'watts_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -2002,7 +2002,7 @@ class ElectricEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2025,7 +2025,7 @@ class ElectricEquipment(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -2048,7 +2048,7 @@ class ElectricEquipment(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in schedule should be fraction applied to design level of electric equipment, generally (0.0 - 1.0)
 
         Args:
@@ -2072,7 +2072,7 @@ class ElectricEquipment(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="EquipmentLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of electric equipment
         for this set of attributes
         Choices: EquipmentLevel => Equipment Level -- simply enter watts of equipment
@@ -2101,7 +2101,7 @@ class ElectricEquipment(DataObject):
 
     @design_level.setter
     def design_level(self, value=None):
-        """  Corresponds to IDD Field `Design Level`
+        """  Corresponds to IDD field `Design Level`
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -2126,7 +2126,7 @@ class ElectricEquipment(DataObject):
 
     @watts_per_zone_floor_area.setter
     def watts_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Watts per Zone Floor Area`
+        """  Corresponds to IDD field `Watts per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Watts per Zone Floor Area`
@@ -2151,7 +2151,7 @@ class ElectricEquipment(DataObject):
 
     @watts_per_person.setter
     def watts_per_person(self, value=None):
-        """  Corresponds to IDD Field `Watts per Person`
+        """  Corresponds to IDD field `Watts per Person`
 
         Args:
             value (float): value for IDD Field `Watts per Person`
@@ -2176,7 +2176,7 @@ class ElectricEquipment(DataObject):
 
     @fraction_latent.setter
     def fraction_latent(self, value=None):
-        """  Corresponds to IDD Field `Fraction Latent`
+        """  Corresponds to IDD field `Fraction Latent`
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -2200,7 +2200,7 @@ class ElectricEquipment(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -2224,7 +2224,7 @@ class ElectricEquipment(DataObject):
 
     @fraction_lost.setter
     def fraction_lost(self, value=None):
-        """  Corresponds to IDD Field `Fraction Lost`
+        """  Corresponds to IDD field `Fraction Lost`
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -2248,7 +2248,7 @@ class ElectricEquipment(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -2267,7 +2267,7 @@ class GasEquipment(DataObject):
         Sets internal gains and contaminant rates for gas equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
     """
-    schema = {'min-fields': 0, 'name': u'GasEquipment', 'pyname': u'GasEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'carbon dioxide generation rate', {'name': u'Carbon Dioxide Generation Rate', 'pyname': u'carbon_dioxide_generation_rate', 'default': 0.0, 'maximum': 4e-07, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GasEquipment', 'pyname': u'GasEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'carbon dioxide generation rate', {'name': u'Carbon Dioxide Generation Rate', 'pyname': u'carbon_dioxide_generation_rate', 'default': 0.0, 'maximum': 4e-07, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-W'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -2280,7 +2280,7 @@ class GasEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2303,7 +2303,7 @@ class GasEquipment(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -2326,7 +2326,7 @@ class GasEquipment(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in Schedule should be fraction applied to design level of gas equipment, generally (0.0 - 1.0)
 
         Args:
@@ -2350,7 +2350,7 @@ class GasEquipment(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="EquipmentLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of gas equipment
         for this set of attributes
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
@@ -2379,7 +2379,7 @@ class GasEquipment(DataObject):
 
     @design_level.setter
     def design_level(self, value=None):
-        """  Corresponds to IDD Field `Design Level`
+        """  Corresponds to IDD field `Design Level`
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -2404,7 +2404,7 @@ class GasEquipment(DataObject):
 
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Power per Zone Floor Area`
+        """  Corresponds to IDD field `Power per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -2429,7 +2429,7 @@ class GasEquipment(DataObject):
 
     @power_per_person.setter
     def power_per_person(self, value=None):
-        """  Corresponds to IDD Field `Power per Person`
+        """  Corresponds to IDD field `Power per Person`
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -2454,7 +2454,7 @@ class GasEquipment(DataObject):
 
     @fraction_latent.setter
     def fraction_latent(self, value=None):
-        """  Corresponds to IDD Field `Fraction Latent`
+        """  Corresponds to IDD field `Fraction Latent`
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -2478,7 +2478,7 @@ class GasEquipment(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -2502,7 +2502,7 @@ class GasEquipment(DataObject):
 
     @fraction_lost.setter
     def fraction_lost(self, value=None):
-        """  Corresponds to IDD Field `Fraction Lost`
+        """  Corresponds to IDD field `Fraction Lost`
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -2526,7 +2526,7 @@ class GasEquipment(DataObject):
 
     @carbon_dioxide_generation_rate.setter
     def carbon_dioxide_generation_rate(self, value=None):
-        """  Corresponds to IDD Field `Carbon Dioxide Generation Rate`
+        """  Corresponds to IDD field `Carbon Dioxide Generation Rate`
         CO2 generation rate per unit of power input
         The default value assumes the equipment is fully vented.
         For unvented equipment, a suggested value is 3.45E-8 m3/s-W. This value is
@@ -2557,7 +2557,7 @@ class GasEquipment(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -2576,7 +2576,7 @@ class HotWaterEquipment(DataObject):
         Sets internal gains for hot water equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
     """
-    schema = {'min-fields': 0, 'name': u'HotWaterEquipment', 'pyname': u'HotWaterEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'HotWaterEquipment', 'pyname': u'HotWaterEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -2589,7 +2589,7 @@ class HotWaterEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2612,7 +2612,7 @@ class HotWaterEquipment(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -2635,7 +2635,7 @@ class HotWaterEquipment(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in Schedule should be fraction applied to design level of hot water equipment, generally (0.0 - 1.0)
 
         Args:
@@ -2659,7 +2659,7 @@ class HotWaterEquipment(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="EquipmentLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of hot water equipment
         for this set of attributes
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
@@ -2688,7 +2688,7 @@ class HotWaterEquipment(DataObject):
 
     @design_level.setter
     def design_level(self, value=None):
-        """  Corresponds to IDD Field `Design Level`
+        """  Corresponds to IDD field `Design Level`
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -2713,7 +2713,7 @@ class HotWaterEquipment(DataObject):
 
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Power per Zone Floor Area`
+        """  Corresponds to IDD field `Power per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -2738,7 +2738,7 @@ class HotWaterEquipment(DataObject):
 
     @power_per_person.setter
     def power_per_person(self, value=None):
-        """  Corresponds to IDD Field `Power per Person`
+        """  Corresponds to IDD field `Power per Person`
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -2763,7 +2763,7 @@ class HotWaterEquipment(DataObject):
 
     @fraction_latent.setter
     def fraction_latent(self, value=None):
-        """  Corresponds to IDD Field `Fraction Latent`
+        """  Corresponds to IDD field `Fraction Latent`
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -2787,7 +2787,7 @@ class HotWaterEquipment(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -2811,7 +2811,7 @@ class HotWaterEquipment(DataObject):
 
     @fraction_lost.setter
     def fraction_lost(self, value=None):
-        """  Corresponds to IDD Field `Fraction Lost`
+        """  Corresponds to IDD field `Fraction Lost`
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -2835,7 +2835,7 @@ class HotWaterEquipment(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -2853,7 +2853,7 @@ class SteamEquipment(DataObject):
     """ Corresponds to IDD object `SteamEquipment`
         Sets internal gains for steam equipment in the zone.
     """
-    schema = {'min-fields': 0, 'name': u'SteamEquipment', 'pyname': u'SteamEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'SteamEquipment', 'pyname': u'SteamEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -2866,7 +2866,7 @@ class SteamEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2889,7 +2889,7 @@ class SteamEquipment(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -2912,7 +2912,7 @@ class SteamEquipment(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in Schedule should be fraction applied to design level of steam equipment, generally (0.0 - 1.0)
 
         Args:
@@ -2936,7 +2936,7 @@ class SteamEquipment(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="EquipmentLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of steam equipment
         for this set of attributes
         Choices: EquipmentLevel => Design Level -- simply enter power input of equipment
@@ -2965,7 +2965,7 @@ class SteamEquipment(DataObject):
 
     @design_level.setter
     def design_level(self, value=None):
-        """  Corresponds to IDD Field `Design Level`
+        """  Corresponds to IDD field `Design Level`
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -2990,7 +2990,7 @@ class SteamEquipment(DataObject):
 
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Power per Zone Floor Area`
+        """  Corresponds to IDD field `Power per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -3015,7 +3015,7 @@ class SteamEquipment(DataObject):
 
     @power_per_person.setter
     def power_per_person(self, value=None):
-        """  Corresponds to IDD Field `Power per Person`
+        """  Corresponds to IDD field `Power per Person`
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -3040,7 +3040,7 @@ class SteamEquipment(DataObject):
 
     @fraction_latent.setter
     def fraction_latent(self, value=None):
-        """  Corresponds to IDD Field `Fraction Latent`
+        """  Corresponds to IDD field `Fraction Latent`
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -3064,7 +3064,7 @@ class SteamEquipment(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -3088,7 +3088,7 @@ class SteamEquipment(DataObject):
 
     @fraction_lost.setter
     def fraction_lost(self, value=None):
-        """  Corresponds to IDD Field `Fraction Lost`
+        """  Corresponds to IDD field `Fraction Lost`
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -3112,7 +3112,7 @@ class SteamEquipment(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -3130,7 +3130,7 @@ class OtherEquipment(DataObject):
     """ Corresponds to IDD object `OtherEquipment`
         Sets internal gains or losses for "other" equipment in the zone.
     """
-    schema = {'min-fields': 0, 'name': u'OtherEquipment', 'pyname': u'OtherEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'OtherEquipment', 'pyname': u'OtherEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design level calculation method', {'name': u'Design Level Calculation Method', 'pyname': u'design_level_calculation_method', 'default': u'EquipmentLevel', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EquipmentLevel', u'Watts/Area', u'Watts/Person', u'Power/Area', u'Power/Person'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level', {'name': u'Design Level', 'pyname': u'design_level', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'power per zone floor area', {'name': u'Power per Zone Floor Area', 'pyname': u'power_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2'}), (u'power per person', {'name': u'Power per Person', 'pyname': u'power_per_person', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/Person'}), (u'fraction latent', {'name': u'Fraction Latent', 'pyname': u'fraction_latent', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction lost', {'name': u'Fraction Lost', 'pyname': u'fraction_lost', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3143,7 +3143,7 @@ class OtherEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3166,7 +3166,7 @@ class OtherEquipment(DataObject):
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone or ZoneList Name`
+        """  Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -3189,7 +3189,7 @@ class OtherEquipment(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in Schedule should be fraction applied to design level of other equipment, generally (0.0 - 1.0)
 
         Args:
@@ -3213,7 +3213,7 @@ class OtherEquipment(DataObject):
 
     @design_level_calculation_method.setter
     def design_level_calculation_method(self, value="EquipmentLevel"):
-        """  Corresponds to IDD Field `Design Level Calculation Method`
+        """  Corresponds to IDD field `Design Level Calculation Method`
         The entered calculation method is used to create the maximum amount of other equipment.
         to set a loss, use a negative value in the following fields.
         for this set of attributes
@@ -3243,7 +3243,7 @@ class OtherEquipment(DataObject):
 
     @design_level.setter
     def design_level(self, value=None):
-        """  Corresponds to IDD Field `Design Level`
+        """  Corresponds to IDD field `Design Level`
 
         Args:
             value (float): value for IDD Field `Design Level`
@@ -3268,7 +3268,7 @@ class OtherEquipment(DataObject):
 
     @power_per_zone_floor_area.setter
     def power_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Power per Zone Floor Area`
+        """  Corresponds to IDD field `Power per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Power per Zone Floor Area`
@@ -3293,7 +3293,7 @@ class OtherEquipment(DataObject):
 
     @power_per_person.setter
     def power_per_person(self, value=None):
-        """  Corresponds to IDD Field `Power per Person`
+        """  Corresponds to IDD field `Power per Person`
 
         Args:
             value (float): value for IDD Field `Power per Person`
@@ -3318,7 +3318,7 @@ class OtherEquipment(DataObject):
 
     @fraction_latent.setter
     def fraction_latent(self, value=None):
-        """  Corresponds to IDD Field `Fraction Latent`
+        """  Corresponds to IDD field `Fraction Latent`
 
         Args:
             value (float): value for IDD Field `Fraction Latent`
@@ -3342,7 +3342,7 @@ class OtherEquipment(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -3366,7 +3366,7 @@ class OtherEquipment(DataObject):
 
     @fraction_lost.setter
     def fraction_lost(self, value=None):
-        """  Corresponds to IDD Field `Fraction Lost`
+        """  Corresponds to IDD field `Fraction Lost`
 
         Args:
             value (float): value for IDD Field `Fraction Lost`
@@ -3384,7 +3384,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     """ Corresponds to IDD object `ZoneBaseboard:OutdoorTemperatureControlled`
         Specifies outside temperature-controlled electric baseboard heating.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneBaseboard:OutdoorTemperatureControlled', 'pyname': u'ZoneBaseboardOutdoorTemperatureControlled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity at low temperature', {'name': u'Capacity at Low Temperature', 'pyname': u'capacity_at_low_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'low temperature', {'name': u'Low Temperature', 'pyname': u'low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'capacity at high temperature', {'name': u'Capacity at High Temperature', 'pyname': u'capacity_at_high_temperature', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'high temperature', {'name': u'High Temperature', 'pyname': u'high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneBaseboard:OutdoorTemperatureControlled', 'pyname': u'ZoneBaseboardOutdoorTemperatureControlled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity at low temperature', {'name': u'Capacity at Low Temperature', 'pyname': u'capacity_at_low_temperature', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'low temperature', {'name': u'Low Temperature', 'pyname': u'low_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'capacity at high temperature', {'name': u'Capacity at High Temperature', 'pyname': u'capacity_at_high_temperature', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'high temperature', {'name': u'High Temperature', 'pyname': u'high_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction radiant', {'name': u'Fraction Radiant', 'pyname': u'fraction_radiant', 'default': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3397,7 +3397,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3420,7 +3420,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3443,7 +3443,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         units in Schedule should be fraction applied to capacity of the baseboard heat equipment, generally (0.0 - 1.0)
 
         Args:
@@ -3467,7 +3467,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @capacity_at_low_temperature.setter
     def capacity_at_low_temperature(self, value=None):
-        """  Corresponds to IDD Field `Capacity at Low Temperature`
+        """  Corresponds to IDD field `Capacity at Low Temperature`
 
         Args:
             value (float): value for IDD Field `Capacity at Low Temperature`
@@ -3491,7 +3491,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @low_temperature.setter
     def low_temperature(self, value=None):
-        """  Corresponds to IDD Field `Low Temperature`
+        """  Corresponds to IDD field `Low Temperature`
 
         Args:
             value (float): value for IDD Field `Low Temperature`
@@ -3515,7 +3515,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @capacity_at_high_temperature.setter
     def capacity_at_high_temperature(self, value=None):
-        """  Corresponds to IDD Field `Capacity at High Temperature`
+        """  Corresponds to IDD field `Capacity at High Temperature`
 
         Args:
             value (float): value for IDD Field `Capacity at High Temperature`
@@ -3539,7 +3539,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @high_temperature.setter
     def high_temperature(self, value=None):
-        """  Corresponds to IDD Field `High Temperature`
+        """  Corresponds to IDD field `High Temperature`
 
         Args:
             value (float): value for IDD Field `High Temperature`
@@ -3563,7 +3563,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @fraction_radiant.setter
     def fraction_radiant(self, value=None):
-        """  Corresponds to IDD Field `Fraction Radiant`
+        """  Corresponds to IDD field `Fraction Radiant`
 
         Args:
             value (float): value for IDD Field `Fraction Radiant`
@@ -3587,7 +3587,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -3605,7 +3605,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:CarbonDioxide`
         Represents internal CO2 gains and sinks in the zone.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:CarbonDioxide', 'pyname': u'ZoneContaminantSourceAndSinkCarbonDioxide', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate', {'name': u'Design Generation Rate', 'pyname': u'design_generation_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:CarbonDioxide', 'pyname': u'ZoneContaminantSourceAndSinkCarbonDioxide', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate', {'name': u'Design Generation Rate', 'pyname': u'design_generation_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3618,7 +3618,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3641,7 +3641,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3664,7 +3664,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
 
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
-        """  Corresponds to IDD Field `Design Generation Rate`
+        """  Corresponds to IDD field `Design Generation Rate`
         Positive values represent sources and negative values represent sinks.
 
         Args:
@@ -3689,7 +3689,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
 
         Args:
@@ -3707,7 +3707,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:Constant`
         Sets internal generic contaminant gains and sinks in a zone with constant values.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:Constant', 'pyname': u'ZoneContaminantSourceAndSinkGenericConstant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate', {'name': u'Design Generation Rate', 'pyname': u'design_generation_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'generation schedule name', {'name': u'Generation Schedule Name', 'pyname': u'generation_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design removal coefficient', {'name': u'Design Removal Coefficient', 'pyname': u'design_removal_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'removal schedule name', {'name': u'Removal Schedule Name', 'pyname': u'removal_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:Constant', 'pyname': u'ZoneContaminantSourceAndSinkGenericConstant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate', {'name': u'Design Generation Rate', 'pyname': u'design_generation_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'generation schedule name', {'name': u'Generation Schedule Name', 'pyname': u'generation_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design removal coefficient', {'name': u'Design Removal Coefficient', 'pyname': u'design_removal_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'removal schedule name', {'name': u'Removal Schedule Name', 'pyname': u'removal_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3720,7 +3720,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3743,7 +3743,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3766,7 +3766,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @design_generation_rate.setter
     def design_generation_rate(self, value=None):
-        """  Corresponds to IDD Field `Design Generation Rate`
+        """  Corresponds to IDD field `Design Generation Rate`
         The values represent source.
 
         Args:
@@ -3791,7 +3791,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @generation_schedule_name.setter
     def generation_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generation Schedule Name`
+        """  Corresponds to IDD field `Generation Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the Design Generation Rate
 
         Args:
@@ -3815,7 +3815,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @design_removal_coefficient.setter
     def design_removal_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Design Removal Coefficient`
+        """  Corresponds to IDD field `Design Removal Coefficient`
         The value represent sink.
 
         Args:
@@ -3840,7 +3840,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
 
     @removal_schedule_name.setter
     def removal_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Removal Schedule Name`
+        """  Corresponds to IDD field `Removal Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design removal Coefficient
 
@@ -3859,7 +3859,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
         Simulate generic contaminant source driven by the pressure difference across a surface.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:PressureDriven', 'pyname': u'SurfaceContaminantSourceAndSinkGenericPressureDriven', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate coefficient', {'name': u'Design Generation Rate Coefficient', 'pyname': u'design_generation_rate_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'generation schedule name', {'name': u'Generation Schedule Name', 'pyname': u'generation_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generation exponent', {'name': u'Generation Exponent', 'pyname': u'generation_exponent', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:PressureDriven', 'pyname': u'SurfaceContaminantSourceAndSinkGenericPressureDriven', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate coefficient', {'name': u'Design Generation Rate Coefficient', 'pyname': u'design_generation_rate_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'generation schedule name', {'name': u'Generation Schedule Name', 'pyname': u'generation_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'generation exponent', {'name': u'Generation Exponent', 'pyname': u'generation_exponent', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3872,7 +3872,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3895,7 +3895,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `Surface Name`
+        """  Corresponds to IDD field `Surface Name`
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -3918,7 +3918,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
 
     @design_generation_rate_coefficient.setter
     def design_generation_rate_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Design Generation Rate Coefficient`
+        """  Corresponds to IDD field `Design Generation Rate Coefficient`
 
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
@@ -3942,7 +3942,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
 
     @generation_schedule_name.setter
     def generation_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Generation Schedule Name`
+        """  Corresponds to IDD field `Generation Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design Generation Rate Coefficient
 
@@ -3967,7 +3967,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
 
     @generation_exponent.setter
     def generation_exponent(self, value=None):
-        """  Corresponds to IDD Field `Generation Exponent`
+        """  Corresponds to IDD field `Generation Exponent`
 
         Args:
             value (float): value for IDD Field `Generation Exponent`
@@ -3986,7 +3986,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:CutoffModel`
         Simulate generic contaminant source driven by the cutoff concentration model.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:CutoffModel', 'pyname': u'ZoneContaminantSourceAndSinkGenericCutoffModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate coefficient', {'name': u'Design Generation Rate Coefficient', 'pyname': u'design_generation_rate_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cutoff generic contaminant at which emission ceases', {'name': u'Cutoff Generic Contaminant at which Emission Ceases', 'pyname': u'cutoff_generic_contaminant_at_which_emission_ceases', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'ppm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:CutoffModel', 'pyname': u'ZoneContaminantSourceAndSinkGenericCutoffModel', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design generation rate coefficient', {'name': u'Design Generation Rate Coefficient', 'pyname': u'design_generation_rate_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cutoff generic contaminant at which emission ceases', {'name': u'Cutoff Generic Contaminant at which Emission Ceases', 'pyname': u'cutoff_generic_contaminant_at_which_emission_ceases', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'ppm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -3999,7 +3999,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4022,7 +4022,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4045,7 +4045,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @design_generation_rate_coefficient.setter
     def design_generation_rate_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Design Generation Rate Coefficient`
+        """  Corresponds to IDD field `Design Generation Rate Coefficient`
 
         Args:
             value (float): value for IDD Field `Design Generation Rate Coefficient`
@@ -4069,7 +4069,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Design Generation Rate Coefficient
 
@@ -4094,7 +4094,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
 
     @cutoff_generic_contaminant_at_which_emission_ceases.setter
     def cutoff_generic_contaminant_at_which_emission_ceases(self, value=None):
-        """  Corresponds to IDD Field `Cutoff Generic Contaminant at which Emission Ceases`
+        """  Corresponds to IDD field `Cutoff Generic Contaminant at which Emission Ceases`
         When the zone concentration level is greater than the cutoff level, emission stops,
         and the source level is zero.
 
@@ -4114,7 +4114,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DecaySource`
         Simulate generic contaminant source driven by the cutoff concentration model.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:DecaySource', 'pyname': u'ZoneContaminantSourceAndSinkGenericDecaySource', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial emission rate', {'name': u'Initial Emission Rate', 'pyname': u'initial_emission_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delay time constant', {'name': u'Delay Time Constant', 'pyname': u'delay_time_constant', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u's'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:DecaySource', 'pyname': u'ZoneContaminantSourceAndSinkGenericDecaySource', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'initial emission rate', {'name': u'Initial Emission Rate', 'pyname': u'initial_emission_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delay time constant', {'name': u'Delay Time Constant', 'pyname': u'delay_time_constant', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u's'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -4127,7 +4127,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4150,7 +4150,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4173,7 +4173,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
 
     @initial_emission_rate.setter
     def initial_emission_rate(self, value=None):
-        """  Corresponds to IDD Field `Initial Emission Rate`
+        """  Corresponds to IDD field `Initial Emission Rate`
 
         Args:
             value (float): value for IDD Field `Initial Emission Rate`
@@ -4197,7 +4197,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
@@ -4223,7 +4223,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
 
     @delay_time_constant.setter
     def delay_time_constant(self, value=None):
-        """  Corresponds to IDD Field `Delay Time Constant`
+        """  Corresponds to IDD field `Delay Time Constant`
 
         Args:
             value (float): value for IDD Field `Delay Time Constant`
@@ -4241,7 +4241,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion', 'pyname': u'SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mass transfer coefficient', {'name': u'Mass Transfer Coefficient', 'pyname': u'mass_transfer_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'henry adsorption constant or partition coefficient', {'name': u'Henry adsorption constant or partition coefficient', 'pyname': u'henry_adsorption_constant_or_partition_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion', 'pyname': u'SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'mass transfer coefficient', {'name': u'Mass Transfer Coefficient', 'pyname': u'mass_transfer_coefficient', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'henry adsorption constant or partition coefficient', {'name': u'Henry adsorption constant or partition coefficient', 'pyname': u'henry_adsorption_constant_or_partition_coefficient', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -4254,7 +4254,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4277,7 +4277,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `Surface Name`
+        """  Corresponds to IDD field `Surface Name`
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -4300,7 +4300,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
 
     @mass_transfer_coefficient.setter
     def mass_transfer_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Mass Transfer Coefficient`
+        """  Corresponds to IDD field `Mass Transfer Coefficient`
 
         Args:
             value (float): value for IDD Field `Mass Transfer Coefficient`
@@ -4324,7 +4324,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
@@ -4350,7 +4350,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
 
     @henry_adsorption_constant_or_partition_coefficient.setter
     def henry_adsorption_constant_or_partition_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Henry adsorption constant or partition coefficient`
+        """  Corresponds to IDD field `Henry adsorption constant or partition coefficient`
 
         Args:
             value (float): value for IDD Field `Henry adsorption constant or partition coefficient`
@@ -4368,7 +4368,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
     """
-    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink', 'pyname': u'SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deposition velocity', {'name': u'Deposition Velocity', 'pyname': u'deposition_velocity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink', 'pyname': u'SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'surface name', {'name': u'Surface Name', 'pyname': u'surface_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deposition velocity', {'name': u'Deposition Velocity', 'pyname': u'deposition_velocity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -4381,7 +4381,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4404,7 +4404,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
 
     @surface_name.setter
     def surface_name(self, value=None):
-        """  Corresponds to IDD Field `Surface Name`
+        """  Corresponds to IDD field `Surface Name`
 
         Args:
             value (str): value for IDD Field `Surface Name`
@@ -4427,7 +4427,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
 
     @deposition_velocity.setter
     def deposition_velocity(self, value=None):
-        """  Corresponds to IDD Field `Deposition Velocity`
+        """  Corresponds to IDD field `Deposition Velocity`
 
         Args:
             value (float): value for IDD Field `Deposition Velocity`
@@ -4451,7 +4451,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.
@@ -4471,7 +4471,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:DepositionRateSink', 'pyname': u'ZoneContaminantSourceAndSinkGenericDepositionRateSink', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deposition rate', {'name': u'Deposition Rate', 'pyname': u'deposition_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneContaminantSourceAndSink:Generic:DepositionRateSink', 'pyname': u'ZoneContaminantSourceAndSinkGenericDepositionRateSink', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deposition rate', {'name': u'Deposition Rate', 'pyname': u'deposition_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Internal Gains'}
 
     @property
     def name(self):
@@ -4484,7 +4484,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4507,7 +4507,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4530,7 +4530,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
 
     @deposition_rate.setter
     def deposition_rate(self, value=None):
-        """  Corresponds to IDD Field `Deposition Rate`
+        """  Corresponds to IDD field `Deposition Rate`
 
         Args:
             value (float): value for IDD Field `Deposition Rate`
@@ -4554,7 +4554,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Schedule Name`
+        """  Corresponds to IDD field `Schedule Name`
         Value in this schedule should be a fraction (generally 0.0 - 1.0) applied to the
         Initial Emission Rate. When the value is equal to 1.0, the time will be reset to
         zero.

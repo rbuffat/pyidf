@@ -11,6 +11,8 @@ Generation date: {{ generation_date}}
 import six
 import re
 import logging
+import pyidf
+import datetime
 from collections import OrderedDict
 {%- for file_name in file_names %}
 from {{ file_name }} import *
@@ -28,13 +30,13 @@ class IDF(object):
     required_objects = [{{required_objects}}]
     unique_objects = [{{unique_objects}}]
 
-    def __init__(self):
-        """ Inits IDF with no data dictionary set."""
+    def __init__(self, path=None):
+        """ Inits IDF object"""
         self._data = OrderedDict()
-        {%- for obj in objs %}
-        self._data[u"{% filter lower %}{{obj.internal_name}}{% endfilter %}"] = []
-        {%- endfor %}
         self.comment_headers = []
+
+        if path is not None:
+            self.read(path)
    
    
     def add(self, dataobject):
@@ -44,30 +46,18 @@ class IDF(object):
         Args:
             dataobject: the data object
         """
-        lower_name = dataobject.internal_name.lower()
+        group = dataobject.schema['group']
+        if group not in self._data:
+            self._data[group] = OrderedDict()
+
+        lower_name = dataobject.schema['name'].lower()
+        if lower_name not in self._data[group]:
+            self._data[group][lower_name] = []
         if lower_name in self.unique_objects:
-            self._data[lower_name] = [dataobject]
+            self._data[group][lower_name] = [dataobject]
         else:
-            self._data[lower_name].append(dataobject)        
+            self._data[group][lower_name].append(dataobject)
 
-    def get(self, name):
-        """ Returns a list of all objects
-
-            Args:
-                name (str): IDD name of objects (see helper.DataObject)
-            Returns: 
-                list: list of objects
-
-            Raises:
-                ValueError: if no objects are found
-        """
-        if isinstance(name, str):
-            name_lower = name.lower()
-            if name_lower not in self._data:
-                raise ValueError("{} is not a valid name".format(name))
-            else:
-                return self._data[name_lower]
-        raise ValueError("Objects not found")
 
     def save(self, path, check=True):
         """ Save data to path
@@ -81,159 +71,170 @@ class IDF(object):
         """
         with open(path, 'w') as f:
             if check:
-                for key in self._data:
-                    if len(self._data[key]) == 0 and key in self.required_objects:
-                        raise ValueError('{} is not valid.'.format(key))
-                    if key in self.unique_objects and len(self._data[key]) > 1:
-                        raise ValueError('{} is not unique: {}'.format(key,
-                                                                       len(self._data[key])))
-                    for obj in self._data[key]:
-                        obj.check(strict=True)
+                for group in self._data:
+                    for key in self._data[group]:
+                        if len(self._data[group][key]) == 0 and key in self.required_objects:
+                            raise ValueError('{} is not valid.'.format(key))
+                        if key in self.unique_objects and len(self._data[group][key]) > 1:
+                            raise ValueError('{} is not unique: {}'.format(key,
+                                                                           len(self._data[group][key])))
+                        for obj in self._data[group][key]:
+                            obj.check(strict=True)
+            
+            f.write("!- Generated with pyidf version {}, "
+                    "generation date: {}\n".format(pyidf.__version__, str(datetime.datetime.now())))
 
-            for key in self._data:
-                if len(self._data[key]) > 0:
-                    for dobj in self._data[key]:
-                        if dobj.schema['format'] == "singleline":
-                            vals = [dobj.schema['name']]
-                            vals += [v[1] for v in dobj.export()]
-                            f.write("\n  {};\n".format(",".join(vals)))
-                        elif dobj.schema['format'] == "vertices":
-                            f.write("\n  {},\n".format(dobj.schema['name']))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            i = 0
-                            while i < cval:
-
-                                if ((i + 2) < cval and "x" in vals[i][0].lower() and 
-                                    "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
-                                    val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
-                                    comment = ",".join([vals[i][0], vals[i + 1][0], vals[i + 2][0]])
-                                    i += 3
-                                else: 
-                                    val = vals[i][1]
-                                    comment = vals[i][0]
-                                    i += 1
-
-                                sep = ','
-                                if i >= cval:
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-
-                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
-                        elif dobj.schema['format'] == "compactschedule":
-                            f.write("\n  {},\n".format(dobj.schema['name']))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            i = 0
-                            while i < cval:
-
-                                if "until" in vals[i][1].lower():
-                                    j = i + 1
-                                    while j < cval:
-                                        jval = vals[j][1].lower()
-                                        if "for" in jval or "until" in jval:
+            if len(self.comment_headers) > 0:
+                f.write("\n!- Previous comments:\n\n")
+                for comment in self.comment_headers:
+                    f.write("{}\n".format(comment))
+                       
+            for group in self._data:
+                f.write("\n!-   ===========  ALL OBJECTS OF GROUP: {}  ===========\n".format(group))
+                for key in self._data[group]:
+                    if len(self._data[group][key]) > 0:
+                        for dobj in self._data[group][key]:
+                            if dobj.schema['format'] == "singleline":
+                                vals = [dobj.schema['name']]
+                                vals += [v[1] for v in dobj.export()]
+                                f.write("\n  {};\n".format(",".join(vals)))
+                            elif dobj.schema['format'] == "vertices":
+                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                vals = dobj.export()
+                                cval = len(vals)
+                                i = 0
+                                while i < cval:
+    
+                                    if ((i + 2) < cval and "x" in vals[i][0].lower() and 
+                                        "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
+                                        val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
+                                        comment = ",".join([vals[i][0], vals[i + 1][0], vals[i + 2][0]])
+                                        i += 3
+                                    else: 
+                                        val = vals[i][1]
+                                        comment = vals[i][0]
+                                        i += 1
+    
+                                    sep = ','
+                                    if i >= cval:
+                                        sep = ';'
+                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+    
+                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                       sep=sep,
+                                                                                       blanks=blanks,
+                                                                                       comment=comment))
+                            elif dobj.schema['format'] == "compactschedule":
+                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                vals = dobj.export()
+                                cval = len(vals)
+                                i = 0
+                                while i < cval:
+    
+                                    if "until" in vals[i][1].lower():
+                                        j = i + 1
+                                        while j < cval:
+                                            jval = vals[j][1].lower()
+                                            if "for" in jval or "until" in jval:
+                                                break
+                                            j += 1
+                                        val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
+                                        comment = " Fields {} - {}".format(i + 1, j + 1)
+                                        i += (j - i)
+                                    else: 
+                                        val = vals[i][1]
+                                        comment = vals[i][0]
+                                        i += 1
+    
+                                    sep = ','
+                                    if i >= cval:
+                                        sep = ';'
+                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+    
+                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                       sep=sep,
+                                                                                       blanks=blanks,
+                                                                                       comment=comment))
+                            elif dobj.schema['format'] == "fluidproperty":
+    
+                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                vals = dobj.export()
+                                cval = len(vals)
+                                i = 0
+                                while i < cval:
+    
+                                    is_fluidprops = True
+                                    for j in range(min(7, cval - i)):
+    
+                                        # Test the next values
+                                        fluidprops_match = re.search(r"([0-9]|value|property)", vals[i + j][0])
+                                        if fluidprops_match is None:
+                                            is_fluidprops = False
                                             break
-                                        j += 1
-                                    val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
-                                    comment = " Fields {} - {}".format(i + 1, j + 1)
-                                    i += (j - i)
-                                else: 
-                                    val = vals[i][1]
-                                    comment = vals[i][0]
-                                    i += 1
-
-                                sep = ','
-                                if i >= cval:
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-
-                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
-                        elif dobj.schema['format'] == "fluidproperty":
-
-                            f.write("\n  {},\n".format(dobj.schema['name']))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            i = 0
-                            while i < cval:
-
-                                is_fluidprops = True
-                                for j in range(min(7, cval - i)):
-
-                                    # Test the next values
-                                    fluidprops_match = re.search(r"([0-9]|value|property)", vals[i + j][0])
-                                    if fluidprops_match is None:
-                                        is_fluidprops = False
-                                        break
-
-                                if  is_fluidprops:                                    
-                                    val = ",".join([vals[i + j][1] for j in range(min(7, cval - i))])
-                                    comment = ""
-                                    i += min(7, cval - i)
-                                else:
-                                    val = vals[i][1]
-                                    comment = vals[i][0]
-                                    i += 1
-
-                                sep = ','
-                                if i >= cval:
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-
-                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
-                        elif dobj.schema['format'] == "spectral":
-                            f.write("\n  {},\n".format(dobj.schema['name']))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            i = 0
-                            while i < cval:
-
-                                start = i
-                                end = min(i + 4, cval)
-
-                                if False not in ["name" not in jval[0].lower() for jval in vals[start:end]]:
-                                    val = ",".join([vals[j][1] for j in range(start, end) ])
-                                    i += (end - start)
-                                    comment = ""
-                                else: 
-                                    val = vals[i][1]
-                                    comment = vals[i][0]
-                                    i += 1
-
-                                sep = ','
-                                if i >= cval:
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-
-                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
-
-                        else:
-                            f.write("\n  {},\n".format(dobj.schema['name']))
-                            vals = dobj.export()
-                            cval = len(vals)
-                            for i, val in enumerate(vals):
-
-                                sep = ','
-                                if i == (cval - 1):
-                                    sep = ';'
-                                blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
-                                comment = val[0]
-
-                                f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val[1],
-                                                                                   sep=sep,
-                                                                                   blanks=blanks,
-                                                                                   comment=comment))
+    
+                                    if  is_fluidprops:                                    
+                                        val = ",".join([vals[i + j][1] for j in range(min(7, cval - i))])
+                                        comment = ""
+                                        i += min(7, cval - i)
+                                    else:
+                                        val = vals[i][1]
+                                        comment = vals[i][0]
+                                        i += 1
+    
+                                    sep = ','
+                                    if i >= cval:
+                                        sep = ';'
+                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+    
+                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                       sep=sep,
+                                                                                       blanks=blanks,
+                                                                                       comment=comment))
+                            elif dobj.schema['format'] == "spectral":
+                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                vals = dobj.export()
+                                cval = len(vals)
+                                i = 0
+                                while i < cval:
+    
+                                    start = i
+                                    end = min(i + 4, cval)
+    
+                                    if False not in ["name" not in jval[0].lower() for jval in vals[start:end]]:
+                                        val = ",".join([vals[j][1] for j in range(start, end) ])
+                                        i += (end - start)
+                                        comment = ""
+                                    else: 
+                                        val = vals[i][1]
+                                        comment = vals[i][0]
+                                        i += 1
+    
+                                    sep = ','
+                                    if i >= cval:
+                                        sep = ';'
+                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+    
+                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
+                                                                                       sep=sep,
+                                                                                       blanks=blanks,
+                                                                                       comment=comment))
+    
+                            else:
+                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                vals = dobj.export()
+                                cval = len(vals)
+                                for i, val in enumerate(vals):
+    
+                                    sep = ','
+                                    if i == (cval - 1):
+                                        sep = ';'
+                                    blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
+                                    comment = val[0]
+    
+                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val[1],
+                                                                                       sep=sep,
+                                                                                       blanks=blanks,
+                                                                                       comment=comment))
 
     def read(self, path):
         """Read IDF data from path
@@ -298,13 +299,9 @@ class IDF(object):
 
                     if len(splits) > 1 and current_object is not None:
 
-                        if current_object not in self._data:
-                            logging.error("`{}` is not a valid data dictionary name".format(current_object))
-
-                        else:
-                            data_object = self._create_datadict(current_object)
-                            data_object.read(current_vals)
-                            self._data[current_object].append(data_object)
+                        data_object = self._create_datadict(current_object)
+                        data_object.read(current_vals)
+                        self.add(data_object)
 
                         current_object = None
                         current_vals = []
@@ -313,8 +310,11 @@ class IDF(object):
     @property
     def {{obj.var_name}}s(self):
         """ Get list of all `{{obj.class_name}}` objects
+
+        Raises:
+            ValueError: if no objects of type `{{obj.class_name}}` are present
         """
-        return self._data[{% filter lower %}"{{obj.class_name}}"{% endfilter %}]
+        return self._data["{{obj.group}}"][{% filter lower %}"{{obj.internal_name}}"{% endfilter %}]
 
     {%- endfor %}
 
@@ -336,22 +336,46 @@ class IDF(object):
 
     def __getitem__(self, val):
         if isinstance(val, six.string_types):
-            return self._data[val.lower()]
+            group = self._create_datadict(val).schema['group']
+            if group not in self._data:
+                self._data[group] = OrderedDict()
+    
+            lower_name = val.lower()
+            if lower_name not in self._data[group]:
+                self._data[group][lower_name] = []
+
+            return self._data[group][lower_name]
+
         elif isinstance(val, int):
             i = 0
-            for objs in self._data.values():
-                for obj in objs:
-                    i += 1
-                    if i  == val:
-                        return obj
+            for group in self._data:
+                for key in self._data[group]:
+                    for obj in self._data[group][key]:
+                        if i == val:
+                            return obj
+                        i += 1
+        else:
+            raise TypeError("Wrong type {} for IDF".format(type(val)))
     
     def __len__(self):
         count = 0
-        for objs in self._data.values():
-            count += len(objs)
+        for group in self._data:
+            for key in self._data[group]:
+                count += len(self._data[group][key])
         return count
 
     def __iter__(self):
-        for val in self._data.values():
-            if len(val) > 0:
-                yield val
+        for group in self._data:
+            for key in self._data[group]:
+                for obj in self._data[group][key]:
+                    yield obj
+
+    def __contains__(self, key):
+        key_lower = key.lower()
+        for group in self._data:
+            if key_lower in self._data[group]:
+                if len(self._data[group][key_lower]) > 0:
+                    return True
+                break
+        return False
+        

@@ -13,7 +13,7 @@ class DemandManagerAssignmentList(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'DemandManagerAssignmentList', 'pyname': u'DemandManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'meter name', {'name': u'Meter Name', 'pyname': u'meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'demand limit schedule name', {'name': u'Demand Limit Schedule Name', 'pyname': u'demand_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand limit safety fraction', {'name': u'Demand Limit Safety Fraction', 'pyname': u'demand_limit_safety_fraction', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'billing period schedule name', {'name': u'Billing Period Schedule Name', 'pyname': u'billing_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak period schedule name', {'name': u'Peak Period Schedule Name', 'pyname': u'peak_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'minimum>': 0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'demand manager priority', {'name': u'Demand Manager Priority', 'pyname': u'demand_manager_priority', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sequential', u'All'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'demandmanager 1 object type', {'name': u'DemandManager 1 Object Type', 'pyname': u'demandmanager_1_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DemandManager:ExteriorLights', u'DemandManager:Lights', u'DemandManager:ElectricEquipment', u'DemandManager:Thermostats'], 'autocalculatable': False, 'type': 'alpha'}), (u'demandmanager 1 name', {'name': u'DemandManager 1 Name', 'pyname': u'demandmanager_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'DemandManagerAssignmentList', 'pyname': u'DemandManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'meter name', {'name': u'Meter Name', 'pyname': u'meter_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'demand limit schedule name', {'name': u'Demand Limit Schedule Name', 'pyname': u'demand_limit_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand limit safety fraction', {'name': u'Demand Limit Safety Fraction', 'pyname': u'demand_limit_safety_fraction', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'billing period schedule name', {'name': u'Billing Period Schedule Name', 'pyname': u'billing_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'peak period schedule name', {'name': u'Peak Period Schedule Name', 'pyname': u'peak_period_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'demand window length', {'name': u'Demand Window Length', 'pyname': u'demand_window_length', 'minimum>': 0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'demand manager priority', {'name': u'Demand Manager Priority', 'pyname': u'demand_manager_priority', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sequential', u'All'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'demandmanager 1 object type', {'name': u'DemandManager 1 Object Type', 'pyname': u'demandmanager_1_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DemandManager:ExteriorLights', u'DemandManager:Lights', u'DemandManager:ElectricEquipment', u'DemandManager:Thermostats'], 'autocalculatable': False, 'type': 'alpha'}), (u'demandmanager 1 name', {'name': u'DemandManager 1 Name', 'pyname': u'demandmanager_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Demand Limiting Controls'}
 
     @property
     def name(self):
@@ -26,7 +26,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -49,7 +49,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @meter_name.setter
     def meter_name(self, value=None):
-        """  Corresponds to IDD Field `Meter Name`
+        """  Corresponds to IDD field `Meter Name`
 
         Args:
             value (str): value for IDD Field `Meter Name`
@@ -72,7 +72,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @demand_limit_schedule_name.setter
     def demand_limit_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Limit Schedule Name`
+        """  Corresponds to IDD field `Demand Limit Schedule Name`
 
         Args:
             value (str): value for IDD Field `Demand Limit Schedule Name`
@@ -95,7 +95,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @demand_limit_safety_fraction.setter
     def demand_limit_safety_fraction(self, value=None):
-        """  Corresponds to IDD Field `Demand Limit Safety Fraction`
+        """  Corresponds to IDD field `Demand Limit Safety Fraction`
 
         Args:
             value (float): value for IDD Field `Demand Limit Safety Fraction`
@@ -118,7 +118,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @billing_period_schedule_name.setter
     def billing_period_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Billing Period Schedule Name`
+        """  Corresponds to IDD field `Billing Period Schedule Name`
         This field should reference the same schedule as the month schedule name field of the
         UtilityCost:Tariff object, if used.
         If blank, defaults to regular divisions between months.
@@ -144,7 +144,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @peak_period_schedule_name.setter
     def peak_period_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Peak Period Schedule Name`
+        """  Corresponds to IDD field `Peak Period Schedule Name`
         This field should reference the same schedule as the period schedule name field of the
         UtilityCost:Tariff object, if used.
         If blank, defaults to always on peak.
@@ -170,7 +170,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @demand_window_length.setter
     def demand_window_length(self, value=None):
-        """  Corresponds to IDD Field `Demand Window Length`
+        """  Corresponds to IDD field `Demand Window Length`
 
         Args:
             value (int): value for IDD Field `Demand Window Length`
@@ -194,7 +194,7 @@ class DemandManagerAssignmentList(DataObject):
 
     @demand_manager_priority.setter
     def demand_manager_priority(self, value=None):
-        """  Corresponds to IDD Field `Demand Manager Priority`
+        """  Corresponds to IDD field `Demand Manager Priority`
 
         Args:
             value (str): value for IDD Field `Demand Manager Priority`
@@ -235,12 +235,23 @@ class DemandManagerAssignmentList(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class DemandManagerExteriorLights(DataObject):
     """ Corresponds to IDD object `DemandManager:ExteriorLights`
         used for demand limiting Exterior:Lights objects.
     """
-    schema = {'min-fields': 0, 'name': u'DemandManager:ExteriorLights', 'pyname': u'DemandManagerExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'exterior lights 1 name', {'name': u'Exterior Lights 1 Name', 'pyname': u'exterior_lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'DemandManager:ExteriorLights', 'pyname': u'DemandManagerExteriorLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'exterior lights 1 name', {'name': u'Exterior Lights 1 Name', 'pyname': u'exterior_lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Demand Limiting Controls'}
 
     @property
     def name(self):
@@ -253,7 +264,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -276,7 +287,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -301,7 +312,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @limit_control.setter
     def limit_control(self, value=None):
-        """  Corresponds to IDD Field `Limit Control`
+        """  Corresponds to IDD field `Limit Control`
 
         Args:
             value (str): value for IDD Field `Limit Control`
@@ -324,7 +335,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @minimum_limit_duration.setter
     def minimum_limit_duration(self, value=None):
-        """  Corresponds to IDD Field `Minimum Limit Duration`
+        """  Corresponds to IDD field `Minimum Limit Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -349,7 +360,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @maximum_limit_fraction.setter
     def maximum_limit_fraction(self, value=None):
-        """  Corresponds to IDD Field `Maximum Limit Fraction`
+        """  Corresponds to IDD field `Maximum Limit Fraction`
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
@@ -373,7 +384,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @limit_step_change.setter
     def limit_step_change(self, value=None):
-        """  Corresponds to IDD Field `Limit Step Change`
+        """  Corresponds to IDD field `Limit Step Change`
         Not yet implemented
 
         Args:
@@ -397,7 +408,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @selection_control.setter
     def selection_control(self, value=None):
-        """  Corresponds to IDD Field `Selection Control`
+        """  Corresponds to IDD field `Selection Control`
 
         Args:
             value (str): value for IDD Field `Selection Control`
@@ -420,7 +431,7 @@ class DemandManagerExteriorLights(DataObject):
 
     @rotation_duration.setter
     def rotation_duration(self, value=None):
-        """  Corresponds to IDD Field `Rotation Duration`
+        """  Corresponds to IDD field `Rotation Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -456,12 +467,23 @@ class DemandManagerExteriorLights(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class DemandManagerLights(DataObject):
     """ Corresponds to IDD object `DemandManager:Lights`
         used for demand limiting Lights objects.
     """
-    schema = {'min-fields': 0, 'name': u'DemandManager:Lights', 'pyname': u'DemandManagerLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'lights 1 name', {'name': u'Lights 1 Name', 'pyname': u'lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'DemandManager:Lights', 'pyname': u'DemandManagerLights', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'lights 1 name', {'name': u'Lights 1 Name', 'pyname': u'lights_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Demand Limiting Controls'}
 
     @property
     def name(self):
@@ -474,7 +496,7 @@ class DemandManagerLights(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -497,7 +519,7 @@ class DemandManagerLights(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -522,7 +544,7 @@ class DemandManagerLights(DataObject):
 
     @limit_control.setter
     def limit_control(self, value=None):
-        """  Corresponds to IDD Field `Limit Control`
+        """  Corresponds to IDD field `Limit Control`
 
         Args:
             value (str): value for IDD Field `Limit Control`
@@ -545,7 +567,7 @@ class DemandManagerLights(DataObject):
 
     @minimum_limit_duration.setter
     def minimum_limit_duration(self, value=None):
-        """  Corresponds to IDD Field `Minimum Limit Duration`
+        """  Corresponds to IDD field `Minimum Limit Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -570,7 +592,7 @@ class DemandManagerLights(DataObject):
 
     @maximum_limit_fraction.setter
     def maximum_limit_fraction(self, value=None):
-        """  Corresponds to IDD Field `Maximum Limit Fraction`
+        """  Corresponds to IDD field `Maximum Limit Fraction`
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
@@ -594,7 +616,7 @@ class DemandManagerLights(DataObject):
 
     @limit_step_change.setter
     def limit_step_change(self, value=None):
-        """  Corresponds to IDD Field `Limit Step Change`
+        """  Corresponds to IDD field `Limit Step Change`
         Not yet implemented
 
         Args:
@@ -618,7 +640,7 @@ class DemandManagerLights(DataObject):
 
     @selection_control.setter
     def selection_control(self, value=None):
-        """  Corresponds to IDD Field `Selection Control`
+        """  Corresponds to IDD field `Selection Control`
 
         Args:
             value (str): value for IDD Field `Selection Control`
@@ -641,7 +663,7 @@ class DemandManagerLights(DataObject):
 
     @rotation_duration.setter
     def rotation_duration(self, value=None):
-        """  Corresponds to IDD Field `Rotation Duration`
+        """  Corresponds to IDD field `Rotation Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -677,12 +699,23 @@ class DemandManagerLights(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class DemandManagerElectricEquipment(DataObject):
     """ Corresponds to IDD object `DemandManager:ElectricEquipment`
         used for demand limiting ElectricEquipment objects.
     """
-    schema = {'min-fields': 0, 'name': u'DemandManager:ElectricEquipment', 'pyname': u'DemandManagerElectricEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'electric equipment 1 name', {'name': u'Electric Equipment 1 Name', 'pyname': u'electric_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'DemandManager:ElectricEquipment', 'pyname': u'DemandManagerElectricEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'limit control', {'name': u'Limit Control', 'pyname': u'limit_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum limit duration', {'name': u'Minimum Limit Duration', 'pyname': u'minimum_limit_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum limit fraction', {'name': u'Maximum Limit Fraction', 'pyname': u'maximum_limit_fraction', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'limit step change', {'name': u'Limit Step Change', 'pyname': u'limit_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'electric equipment 1 name', {'name': u'Electric Equipment 1 Name', 'pyname': u'electric_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Demand Limiting Controls'}
 
     @property
     def name(self):
@@ -695,7 +728,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -718,7 +751,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -743,7 +776,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @limit_control.setter
     def limit_control(self, value=None):
-        """  Corresponds to IDD Field `Limit Control`
+        """  Corresponds to IDD field `Limit Control`
 
         Args:
             value (str): value for IDD Field `Limit Control`
@@ -766,7 +799,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @minimum_limit_duration.setter
     def minimum_limit_duration(self, value=None):
-        """  Corresponds to IDD Field `Minimum Limit Duration`
+        """  Corresponds to IDD field `Minimum Limit Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -791,7 +824,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @maximum_limit_fraction.setter
     def maximum_limit_fraction(self, value=None):
-        """  Corresponds to IDD Field `Maximum Limit Fraction`
+        """  Corresponds to IDD field `Maximum Limit Fraction`
 
         Args:
             value (float): value for IDD Field `Maximum Limit Fraction`
@@ -815,7 +848,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @limit_step_change.setter
     def limit_step_change(self, value=None):
-        """  Corresponds to IDD Field `Limit Step Change`
+        """  Corresponds to IDD field `Limit Step Change`
         Not yet implemented
 
         Args:
@@ -839,7 +872,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @selection_control.setter
     def selection_control(self, value=None):
-        """  Corresponds to IDD Field `Selection Control`
+        """  Corresponds to IDD field `Selection Control`
 
         Args:
             value (str): value for IDD Field `Selection Control`
@@ -862,7 +895,7 @@ class DemandManagerElectricEquipment(DataObject):
 
     @rotation_duration.setter
     def rotation_duration(self, value=None):
-        """  Corresponds to IDD Field `Rotation Duration`
+        """  Corresponds to IDD field `Rotation Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -898,12 +931,23 @@ class DemandManagerElectricEquipment(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class DemandManagerThermostats(DataObject):
     """ Corresponds to IDD object `DemandManager:Thermostats`
         used for demand limiting ZoneControl:Thermostat objects.
     """
-    schema = {'min-fields': 0, 'name': u'DemandManager:Thermostats', 'pyname': u'DemandManagerThermostats', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reset control', {'name': u'Reset Control', 'pyname': u'reset_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum reset duration', {'name': u'Minimum Reset Duration', 'pyname': u'minimum_reset_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum heating setpoint reset', {'name': u'Maximum Heating Setpoint Reset', 'pyname': u'maximum_heating_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum cooling setpoint reset', {'name': u'Maximum Cooling Setpoint Reset', 'pyname': u'maximum_cooling_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reset step change', {'name': u'Reset Step Change', 'pyname': u'reset_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'thermostat 1 name', {'name': u'Thermostat 1 Name', 'pyname': u'thermostat_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'DemandManager:Thermostats', 'pyname': u'DemandManagerThermostats', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reset control', {'name': u'Reset Control', 'pyname': u'reset_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Off', u'Fixed'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum reset duration', {'name': u'Minimum Reset Duration', 'pyname': u'minimum_reset_duration', 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'}), (u'maximum heating setpoint reset', {'name': u'Maximum Heating Setpoint Reset', 'pyname': u'maximum_heating_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum cooling setpoint reset', {'name': u'Maximum Cooling Setpoint Reset', 'pyname': u'maximum_cooling_setpoint_reset', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'reset step change', {'name': u'Reset Step Change', 'pyname': u'reset_step_change', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'selection control', {'name': u'Selection Control', 'pyname': u'selection_control', 'required-field': True, 'autosizable': False, 'accepted-values': [u'All', u'RotateMany', u'RotateOne'], 'autocalculatable': False, 'type': 'alpha'}), (u'rotation duration', {'name': u'Rotation Duration', 'pyname': u'rotation_duration', 'required-field': False, 'autosizable': False, 'minimum': 0, 'autocalculatable': False, 'type': u'integer', 'unit': u'minutes'})]), 'extensible-fields': OrderedDict([(u'thermostat 1 name', {'name': u'Thermostat 1 Name', 'pyname': u'thermostat_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Demand Limiting Controls'}
 
     @property
     def name(self):
@@ -916,7 +960,7 @@ class DemandManagerThermostats(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -939,7 +983,7 @@ class DemandManagerThermostats(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -964,7 +1008,7 @@ class DemandManagerThermostats(DataObject):
 
     @reset_control.setter
     def reset_control(self, value=None):
-        """  Corresponds to IDD Field `Reset Control`
+        """  Corresponds to IDD field `Reset Control`
 
         Args:
             value (str): value for IDD Field `Reset Control`
@@ -987,7 +1031,7 @@ class DemandManagerThermostats(DataObject):
 
     @minimum_reset_duration.setter
     def minimum_reset_duration(self, value=None):
-        """  Corresponds to IDD Field `Minimum Reset Duration`
+        """  Corresponds to IDD field `Minimum Reset Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -1012,7 +1056,7 @@ class DemandManagerThermostats(DataObject):
 
     @maximum_heating_setpoint_reset.setter
     def maximum_heating_setpoint_reset(self, value=None):
-        """  Corresponds to IDD Field `Maximum Heating Setpoint Reset`
+        """  Corresponds to IDD field `Maximum Heating Setpoint Reset`
 
         Args:
             value (float): value for IDD Field `Maximum Heating Setpoint Reset`
@@ -1036,7 +1080,7 @@ class DemandManagerThermostats(DataObject):
 
     @maximum_cooling_setpoint_reset.setter
     def maximum_cooling_setpoint_reset(self, value=None):
-        """  Corresponds to IDD Field `Maximum Cooling Setpoint Reset`
+        """  Corresponds to IDD field `Maximum Cooling Setpoint Reset`
 
         Args:
             value (float): value for IDD Field `Maximum Cooling Setpoint Reset`
@@ -1060,7 +1104,7 @@ class DemandManagerThermostats(DataObject):
 
     @reset_step_change.setter
     def reset_step_change(self, value=None):
-        """  Corresponds to IDD Field `Reset Step Change`
+        """  Corresponds to IDD field `Reset Step Change`
         Not yet implemented
 
         Args:
@@ -1084,7 +1128,7 @@ class DemandManagerThermostats(DataObject):
 
     @selection_control.setter
     def selection_control(self, value=None):
-        """  Corresponds to IDD Field `Selection Control`
+        """  Corresponds to IDD field `Selection Control`
 
         Args:
             value (str): value for IDD Field `Selection Control`
@@ -1107,7 +1151,7 @@ class DemandManagerThermostats(DataObject):
 
     @rotation_duration.setter
     def rotation_duration(self, value=None):
-        """  Corresponds to IDD Field `Rotation Duration`
+        """  Corresponds to IDD field `Rotation Duration`
         If blank, duration defaults to the timestep
 
         Args:
@@ -1142,3 +1186,14 @@ class DemandManagerThermostats(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)

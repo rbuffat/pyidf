@@ -12,7 +12,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:TemperatureSensorOffset:OutdoorAir`
         This object describes outdoor air temperature sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:TemperatureSensorOffset:OutdoorAir', 'pyname': u'FaultModelTemperatureSensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature sensor offset', {'name': u'Temperature Sensor Offset', 'pyname': u'temperature_sensor_offset', 'default': 0.0, 'minimum>': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10.0, 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:TemperatureSensorOffset:OutdoorAir', 'pyname': u'FaultModelTemperatureSensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature sensor offset', {'name': u'Temperature Sensor Offset', 'pyname': u'temperature_sensor_offset', 'default': 0.0, 'minimum>': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10.0, 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -25,7 +25,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -48,7 +48,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -71,7 +71,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -94,7 +94,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -117,7 +117,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -140,7 +140,7 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
 
     @temperature_sensor_offset.setter
     def temperature_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Temperature Sensor Offset`
+        """  Corresponds to IDD field `Temperature Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Temperature Sensor Offset`
@@ -160,7 +160,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:HumiditySensorOffset:OutdoorAir`
         This object describes outdoor air humidity sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:HumiditySensorOffset:OutdoorAir', 'pyname': u'FaultModelHumiditySensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity sensor offset', {'name': u'Humidity Sensor Offset', 'pyname': u'humidity_sensor_offset', 'default': 0.0, 'minimum>': -0.02, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.02, 'unit': u'kgWater/kgDryAir'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:HumiditySensorOffset:OutdoorAir', 'pyname': u'FaultModelHumiditySensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity sensor offset', {'name': u'Humidity Sensor Offset', 'pyname': u'humidity_sensor_offset', 'default': 0.0, 'minimum>': -0.02, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 0.02, 'unit': u'kgWater/kgDryAir'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -173,7 +173,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -196,7 +196,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -219,7 +219,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -242,7 +242,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -265,7 +265,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -288,7 +288,7 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
 
     @humidity_sensor_offset.setter
     def humidity_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Humidity Sensor Offset`
+        """  Corresponds to IDD field `Humidity Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Humidity Sensor Offset`
@@ -308,7 +308,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:EnthalpySensorOffset:OutdoorAir`
         This object describes outdoor air enthalpy sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:EnthalpySensorOffset:OutdoorAir', 'pyname': u'FaultModelEnthalpySensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'enthalpy sensor offset', {'name': u'Enthalpy Sensor Offset', 'pyname': u'enthalpy_sensor_offset', 'default': 0.0, 'minimum>': -20000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 20000.0, 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:EnthalpySensorOffset:OutdoorAir', 'pyname': u'FaultModelEnthalpySensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'enthalpy sensor offset', {'name': u'Enthalpy Sensor Offset', 'pyname': u'enthalpy_sensor_offset', 'default': 0.0, 'minimum>': -20000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 20000.0, 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -321,7 +321,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -344,7 +344,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -367,7 +367,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -390,7 +390,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -413,7 +413,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -436,7 +436,7 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
 
     @enthalpy_sensor_offset.setter
     def enthalpy_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy Sensor Offset`
+        """  Corresponds to IDD field `Enthalpy Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Enthalpy Sensor Offset`
@@ -456,7 +456,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:PressureSensorOffset:OutdoorAir`
         This object describes outdoor air pressure sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:PressureSensorOffset:OutdoorAir', 'pyname': u'FaultModelPressureSensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pressure sensor offset', {'name': u'Pressure Sensor Offset', 'pyname': u'pressure_sensor_offset', 'default': 0.0, 'minimum>': -10000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10000.0, 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:PressureSensorOffset:OutdoorAir', 'pyname': u'FaultModelPressureSensorOffsetOutdoorAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pressure sensor offset', {'name': u'Pressure Sensor Offset', 'pyname': u'pressure_sensor_offset', 'default': 0.0, 'minimum>': -10000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10000.0, 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -469,7 +469,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -492,7 +492,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -515,7 +515,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -538,7 +538,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -561,7 +561,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -584,7 +584,7 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
 
     @pressure_sensor_offset.setter
     def pressure_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Pressure Sensor Offset`
+        """  Corresponds to IDD field `Pressure Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Pressure Sensor Offset`
@@ -604,7 +604,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
     """ Corresponds to IDD object `FaultModel:TemperatureSensorOffset:ReturnAir`
         This object describes return air temperature sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:TemperatureSensorOffset:ReturnAir', 'pyname': u'FaultModelTemperatureSensorOffsetReturnAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature sensor offset', {'name': u'Temperature Sensor Offset', 'pyname': u'temperature_sensor_offset', 'default': 0.0, 'minimum>': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10.0, 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:TemperatureSensorOffset:ReturnAir', 'pyname': u'FaultModelTemperatureSensorOffsetReturnAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature sensor offset', {'name': u'Temperature Sensor Offset', 'pyname': u'temperature_sensor_offset', 'default': 0.0, 'minimum>': -10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 10.0, 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -617,7 +617,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -640,7 +640,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -663,7 +663,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -686,7 +686,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -709,7 +709,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -732,7 +732,7 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
 
     @temperature_sensor_offset.setter
     def temperature_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Temperature Sensor Offset`
+        """  Corresponds to IDD field `Temperature Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Temperature Sensor Offset`
@@ -752,7 +752,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
     """ Corresponds to IDD object `FaultModel:EnthalpySensorOffset:ReturnAir`
         This object describes return air enthalpy sensor offset
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:EnthalpySensorOffset:ReturnAir', 'pyname': u'FaultModelEnthalpySensorOffsetReturnAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'enthalpy sensor offset', {'name': u'Enthalpy Sensor Offset', 'pyname': u'enthalpy_sensor_offset', 'default': 0.0, 'minimum>': -20000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 20000.0, 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:EnthalpySensorOffset:ReturnAir', 'pyname': u'FaultModelEnthalpySensorOffsetReturnAir', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller object type', {'name': u'Controller Object Type', 'pyname': u'controller_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Controller:OutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'controller object name', {'name': u'Controller Object Name', 'pyname': u'controller_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'enthalpy sensor offset', {'name': u'Enthalpy Sensor Offset', 'pyname': u'enthalpy_sensor_offset', 'default': 0.0, 'minimum>': -20000.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 20000.0, 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -765,7 +765,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -788,7 +788,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -811,7 +811,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -834,7 +834,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @controller_object_type.setter
     def controller_object_type(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Type`
+        """  Corresponds to IDD field `Controller Object Type`
 
         Args:
             value (str): value for IDD Field `Controller Object Type`
@@ -857,7 +857,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @controller_object_name.setter
     def controller_object_name(self, value=None):
-        """  Corresponds to IDD Field `Controller Object Name`
+        """  Corresponds to IDD field `Controller Object Name`
 
         Args:
             value (str): value for IDD Field `Controller Object Name`
@@ -880,7 +880,7 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
 
     @enthalpy_sensor_offset.setter
     def enthalpy_sensor_offset(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy Sensor Offset`
+        """  Corresponds to IDD field `Enthalpy Sensor Offset`
 
         Args:
             value (float): value for IDD Field `Enthalpy Sensor Offset`
@@ -900,7 +900,7 @@ class FaultModelFoulingCoil(DataObject):
     """ Corresponds to IDD object `FaultModel:Fouling:Coil`
         This object describes fouling water heating or cooling coils
     """
-    schema = {'min-fields': 0, 'name': u'FaultModel:Fouling:Coil', 'pyname': u'FaultModelFoulingCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coil name', {'name': u'Coil Name', 'pyname': u'coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fouling input method', {'name': u'Fouling Input Method', 'pyname': u'fouling_input_method', 'default': u'FouledUARated', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FouledUARated', u'FoulingFactor'], 'autocalculatable': False, 'type': 'alpha'}), (u'uafouled', {'name': u'UAFouled', 'pyname': u'uafouled', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'water side fouling factor', {'name': u'Water Side Fouling Factor', 'pyname': u'water_side_fouling_factor', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'air side fouling factor', {'name': u'Air Side Fouling Factor', 'pyname': u'air_side_fouling_factor', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'outside coil surface area', {'name': u'Outside Coil Surface Area', 'pyname': u'outside_coil_surface_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'inside to outside coil surface area ratio', {'name': u'Inside to Outside Coil Surface Area Ratio', 'pyname': u'inside_to_outside_coil_surface_area_ratio', 'default': 0.07, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'FaultModel:Fouling:Coil', 'pyname': u'FaultModelFoulingCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'coil name', {'name': u'Coil Name', 'pyname': u'coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'severity schedule name', {'name': u'Severity Schedule Name', 'pyname': u'severity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fouling input method', {'name': u'Fouling Input Method', 'pyname': u'fouling_input_method', 'default': u'FouledUARated', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FouledUARated', u'FoulingFactor'], 'autocalculatable': False, 'type': 'alpha'}), (u'uafouled', {'name': u'UAFouled', 'pyname': u'uafouled', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'water side fouling factor', {'name': u'Water Side Fouling Factor', 'pyname': u'water_side_fouling_factor', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'air side fouling factor', {'name': u'Air Side Fouling Factor', 'pyname': u'air_side_fouling_factor', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'outside coil surface area', {'name': u'Outside Coil Surface Area', 'pyname': u'outside_coil_surface_area', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'inside to outside coil surface area ratio', {'name': u'Inside to Outside Coil Surface Area Ratio', 'pyname': u'inside_to_outside_coil_surface_area_ratio', 'default': 0.07, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Operational Faults'}
 
     @property
     def name(self):
@@ -913,7 +913,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -936,7 +936,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @coil_name.setter
     def coil_name(self, value=None):
-        """  Corresponds to IDD Field `Coil Name`
+        """  Corresponds to IDD field `Coil Name`
 
         Args:
             value (str): value for IDD Field `Coil Name`
@@ -959,7 +959,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -982,7 +982,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @severity_schedule_name.setter
     def severity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Severity Schedule Name`
+        """  Corresponds to IDD field `Severity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Severity Schedule Name`
@@ -1005,7 +1005,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @fouling_input_method.setter
     def fouling_input_method(self, value="FouledUARated"):
-        """  Corresponds to IDD Field `Fouling Input Method`
+        """  Corresponds to IDD field `Fouling Input Method`
 
         Args:
             value (str): value for IDD Field `Fouling Input Method`
@@ -1029,7 +1029,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @uafouled.setter
     def uafouled(self, value=None):
-        """  Corresponds to IDD Field `UAFouled`
+        """  Corresponds to IDD field `UAFouled`
         Fouling coil UA value under rating conditions
         For Fouling Input Method: FouledUARated
 
@@ -1055,7 +1055,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @water_side_fouling_factor.setter
     def water_side_fouling_factor(self, value=None):
-        """  Corresponds to IDD Field `Water Side Fouling Factor`
+        """  Corresponds to IDD field `Water Side Fouling Factor`
         For Fouling Input Method: FoulingFactor
 
         Args:
@@ -1080,7 +1080,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @air_side_fouling_factor.setter
     def air_side_fouling_factor(self, value=None):
-        """  Corresponds to IDD Field `Air Side Fouling Factor`
+        """  Corresponds to IDD field `Air Side Fouling Factor`
         For Fouling Input Method: FoulingFactor
 
         Args:
@@ -1105,7 +1105,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @outside_coil_surface_area.setter
     def outside_coil_surface_area(self, value=None):
-        """  Corresponds to IDD Field `Outside Coil Surface Area`
+        """  Corresponds to IDD field `Outside Coil Surface Area`
         For Fouling Input Method: FoulingFactor
 
         Args:
@@ -1130,7 +1130,7 @@ class FaultModelFoulingCoil(DataObject):
 
     @inside_to_outside_coil_surface_area_ratio.setter
     def inside_to_outside_coil_surface_area_ratio(self, value=0.07):
-        """  Corresponds to IDD Field `Inside to Outside Coil Surface Area Ratio`
+        """  Corresponds to IDD field `Inside to Outside Coil Surface Area Ratio`
         For Fouling Input Method: FoulingFactor
 
         Args:

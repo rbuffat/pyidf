@@ -7,6 +7,7 @@ from collections import OrderedDict
 import logging
 import re
 import string
+
 def normalize_field_name(internal_name):
 
     name = internal_name.strip()
@@ -45,11 +46,13 @@ def object_filename(internal_name):
 
 class DataObject:
 
-    def __init__(self, internal_name=None, file_name=""):
+    def __init__(self, internal_name=None, group=""):
+        group = group.strip()
         self.internal_name = internal_name
         self.class_name = normalize_object_name(internal_name)
         self.var_name = normalize_object_var_name(internal_name)
-        self.file_name = file_name
+        self.file_name = normalize_field_name(group)
+        self.group = group
         self.fields = []
         self.extensible_fields = []
         self.attributes = {}
@@ -79,6 +82,7 @@ class DataObject:
         schema = {}
         schema['name'] = self.internal_name
         schema['pyname'] = self.class_name
+        schema['group'] = self.group
         if format in self.attributes:
             schema['format'] = self.attributes['format'].lower()
         else:

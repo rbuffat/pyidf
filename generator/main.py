@@ -14,6 +14,9 @@ from iddparser import IDDParser
 num_worker_threads = 4
 
 
+version = "0.1-dev"
+
+
 def worker(q, worker):
     while True:
         try:
@@ -85,7 +88,7 @@ if __name__ == '__main__':
     with open("../pyidf/helper.py", 'w') as f:
         f.write(helper_source)
         
-    init_source = generate_init()
+    init_source = generate_init(version)
     with open("../pyidf/__init__.py", 'w') as f:
         f.write(init_source)
         

@@ -17,7 +17,7 @@ class ParametricSetValueForRun(DataObject):
         of a parameters and sets the parameter to different values depending on which
         run is being simulated.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:SetValueForRun', 'pyname': u'ParametricSetValueForRun', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'value for run 1', {'name': u'Value for Run 1', 'pyname': u'value_for_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Parametric:SetValueForRun', 'pyname': u'ParametricSetValueForRun', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'value for run 1', {'name': u'Value for Run 1', 'pyname': u'value_for_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': False, 'required-object': False, 'group': u'Parametrics'}
 
     @property
     def name(self):
@@ -30,7 +30,7 @@ class ParametricSetValueForRun(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Parameter Name
         Must begin with the dollar sign character. The second character must be a letter.
         Remaining characters may only be letters or numbers. No spaces allowed.
@@ -67,6 +67,17 @@ class ParametricSetValueForRun(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ParametricLogic(DataObject):
     """ Corresponds to IDD object `Parametric:Logic`
@@ -75,7 +86,7 @@ class ParametricLogic(DataObject):
         parametric runs and not others. A single Parametric:Logic object is allowed per file.
         Consult the Input Output Reference for available commands and syntax.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:Logic', 'pyname': u'ParametricLogic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'parametric logic line 1', {'name': u'Parametric Logic Line 1', 'pyname': u'parametric_logic_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Parametric:Logic', 'pyname': u'ParametricLogic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'parametric logic line 1', {'name': u'Parametric Logic Line 1', 'pyname': u'parametric_logic_line_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False, 'group': u'Parametrics'}
 
     @property
     def name(self):
@@ -88,7 +99,7 @@ class ParametricLogic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -122,13 +133,24 @@ class ParametricLogic(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ParametricRunControl(DataObject):
     """ Corresponds to IDD object `Parametric:RunControl`
         Controls which parametric runs are simulated. This object is optional. If it is not
         included, then all parametric runs are performed.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:RunControl', 'pyname': u'ParametricRunControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'perform run 1', {'name': u'Perform Run 1', 'pyname': u'perform_run_1', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Parametric:RunControl', 'pyname': u'ParametricRunControl', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'perform run 1', {'name': u'Perform Run 1', 'pyname': u'perform_run_1', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': True, 'required-object': False, 'group': u'Parametrics'}
 
     @property
     def name(self):
@@ -141,7 +163,7 @@ class ParametricRunControl(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -176,13 +198,24 @@ class ParametricRunControl(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ParametricFileNameSuffix(DataObject):
     """ Corresponds to IDD object `Parametric:FileNameSuffix`
         Defines the suffixes to be appended to the idf and output file names for each
         parametric run. If this object is omitted, the suffix will default to the run number.
     """
-    schema = {'min-fields': 2, 'name': u'Parametric:FileNameSuffix', 'pyname': u'ParametricFileNameSuffix', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'suffix for file name in run 1', {'name': u'Suffix for File Name in Run 1', 'pyname': u'suffix_for_file_name_in_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Parametric:FileNameSuffix', 'pyname': u'ParametricFileNameSuffix', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'suffix for file name in run 1', {'name': u'Suffix for File Name in Run 1', 'pyname': u'suffix_for_file_name_in_run_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'unique-object': True, 'required-object': False, 'group': u'Parametrics'}
 
     @property
     def name(self):
@@ -195,7 +228,7 @@ class ParametricFileNameSuffix(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -228,3 +261,14 @@ class ParametricFileNameSuffix(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)

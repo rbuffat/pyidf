@@ -12,7 +12,7 @@ class AirLoopHvac(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC`
         Defines a central forced air system.
     """
-    schema = {'min-fields': 10, 'name': u'AirLoopHVAC', 'pyname': u'AirLoopHvac', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design supply air flow rate', {'name': u'Design Supply Air Flow Rate', 'pyname': u'design_supply_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'branch list name', {'name': u'Branch List Name', 'pyname': u'branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'connector list name', {'name': u'Connector List Name', 'pyname': u'connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply side inlet node name', {'name': u'Supply Side Inlet Node Name', 'pyname': u'supply_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side inlet node names', {'name': u'Demand Side Inlet Node Names', 'pyname': u'demand_side_inlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply side outlet node names', {'name': u'Supply Side Outlet Node Names', 'pyname': u'supply_side_outlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 10, 'name': u'AirLoopHVAC', 'pyname': u'AirLoopHvac', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design supply air flow rate', {'name': u'Design Supply Air Flow Rate', 'pyname': u'design_supply_air_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'branch list name', {'name': u'Branch List Name', 'pyname': u'branch_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'connector list name', {'name': u'Connector List Name', 'pyname': u'connector_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply side inlet node name', {'name': u'Supply Side Inlet Node Name', 'pyname': u'supply_side_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side outlet node name', {'name': u'Demand Side Outlet Node Name', 'pyname': u'demand_side_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand side inlet node names', {'name': u'Demand Side Inlet Node Names', 'pyname': u'demand_side_inlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply side outlet node names', {'name': u'Supply Side Outlet Node Names', 'pyname': u'supply_side_outlet_node_names', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -25,7 +25,7 @@ class AirLoopHvac(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -48,7 +48,7 @@ class AirLoopHvac(DataObject):
 
     @controller_list_name.setter
     def controller_list_name(self, value=None):
-        """  Corresponds to IDD Field `Controller List Name`
+        """  Corresponds to IDD field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
 
         Args:
@@ -72,7 +72,7 @@ class AirLoopHvac(DataObject):
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager List Name`
+        """  Corresponds to IDD field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
 
         Args:
@@ -96,7 +96,7 @@ class AirLoopHvac(DataObject):
 
     @design_supply_air_flow_rate.setter
     def design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Design Supply Air Flow Rate`
+        """  Corresponds to IDD field `Design Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
@@ -120,7 +120,7 @@ class AirLoopHvac(DataObject):
 
     @branch_list_name.setter
     def branch_list_name(self, value=None):
-        """  Corresponds to IDD Field `Branch List Name`
+        """  Corresponds to IDD field `Branch List Name`
         Name of a BranchList containing all the branches in this air loop
 
         Args:
@@ -144,7 +144,7 @@ class AirLoopHvac(DataObject):
 
     @connector_list_name.setter
     def connector_list_name(self, value=None):
-        """  Corresponds to IDD Field `Connector List Name`
+        """  Corresponds to IDD field `Connector List Name`
         Name of a ConnectorList containing all the splitters and mixers in the loop
 
         Args:
@@ -168,7 +168,7 @@ class AirLoopHvac(DataObject):
 
     @supply_side_inlet_node_name.setter
     def supply_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Supply Side Inlet Node Name`
+        """  Corresponds to IDD field `Supply Side Inlet Node Name`
         Name of inlet node where return air enters the supply side of the air loop
 
         Args:
@@ -192,7 +192,7 @@ class AirLoopHvac(DataObject):
 
     @demand_side_outlet_node_name.setter
     def demand_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Outlet Node Name`
+        """  Corresponds to IDD field `Demand Side Outlet Node Name`
         Name of outlet node where return air leaves the demand side and enters the supply side.
 
         Args:
@@ -216,7 +216,7 @@ class AirLoopHvac(DataObject):
 
     @demand_side_inlet_node_names.setter
     def demand_side_inlet_node_names(self, value=None):
-        """  Corresponds to IDD Field `Demand Side Inlet Node Names`
+        """  Corresponds to IDD field `Demand Side Inlet Node Names`
         Name of a Node or NodeList containing the inlet node(s) supplying air to zone equipment.
 
         Args:
@@ -240,7 +240,7 @@ class AirLoopHvac(DataObject):
 
     @supply_side_outlet_node_names.setter
     def supply_side_outlet_node_names(self, value=None):
-        """  Corresponds to IDD Field `Supply Side Outlet Node Names`
+        """  Corresponds to IDD field `Supply Side Outlet Node Names`
         Name of a Node or NodeList containing the outlet node(s) supplying air to the demand side.
 
         Args:
@@ -258,7 +258,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
         List equipment in simulation order
     """
-    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:OutdoorAirSystem:EquipmentList', 'pyname': u'AirLoopHvacOutdoorAirSystemEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 object type', {'name': u'Component 2 Object Type', 'pyname': u'component_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 name', {'name': u'Component 2 Name', 'pyname': u'component_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 object type', {'name': u'Component 3 Object Type', 'pyname': u'component_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 name', {'name': u'Component 3 Name', 'pyname': u'component_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 object type', {'name': u'Component 4 Object Type', 'pyname': u'component_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 name', {'name': u'Component 4 Name', 'pyname': u'component_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 object type', {'name': u'Component 5 Object Type', 'pyname': u'component_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 name', {'name': u'Component 5 Name', 'pyname': u'component_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 object type', {'name': u'Component 6 Object Type', 'pyname': u'component_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 name', {'name': u'Component 6 Name', 'pyname': u'component_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 object type', {'name': u'Component 7 Object Type', 'pyname': u'component_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 name', {'name': u'Component 7 Name', 'pyname': u'component_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 object type', {'name': u'Component 8 Object Type', 'pyname': u'component_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 name', {'name': u'Component 8 Name', 'pyname': u'component_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 object type', {'name': u'Component 9 Object Type', 'pyname': u'component_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 name', {'name': u'Component 9 Name', 'pyname': u'component_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:OutdoorAirSystem:EquipmentList', 'pyname': u'AirLoopHvacOutdoorAirSystemEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 object type', {'name': u'Component 2 Object Type', 'pyname': u'component_2_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 name', {'name': u'Component 2 Name', 'pyname': u'component_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 object type', {'name': u'Component 3 Object Type', 'pyname': u'component_3_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 name', {'name': u'Component 3 Name', 'pyname': u'component_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 object type', {'name': u'Component 4 Object Type', 'pyname': u'component_4_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 name', {'name': u'Component 4 Name', 'pyname': u'component_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 object type', {'name': u'Component 5 Object Type', 'pyname': u'component_5_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 name', {'name': u'Component 5 Name', 'pyname': u'component_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 object type', {'name': u'Component 6 Object Type', 'pyname': u'component_6_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 name', {'name': u'Component 6 Name', 'pyname': u'component_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 object type', {'name': u'Component 7 Object Type', 'pyname': u'component_7_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 name', {'name': u'Component 7 Name', 'pyname': u'component_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 object type', {'name': u'Component 8 Object Type', 'pyname': u'component_8_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 name', {'name': u'Component 8 Name', 'pyname': u'component_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 object type', {'name': u'Component 9 Object Type', 'pyname': u'component_9_object_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 9 name', {'name': u'Component 9 Name', 'pyname': u'component_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -271,7 +271,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -294,7 +294,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Object Type`
+        """  Corresponds to IDD field `Component 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -317,7 +317,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD Field `Component 1 Name`
+        """  Corresponds to IDD field `Component 1 Name`
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -340,7 +340,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Object Type`
+        """  Corresponds to IDD field `Component 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -363,7 +363,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD Field `Component 2 Name`
+        """  Corresponds to IDD field `Component 2 Name`
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -386,7 +386,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Object Type`
+        """  Corresponds to IDD field `Component 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -409,7 +409,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD Field `Component 3 Name`
+        """  Corresponds to IDD field `Component 3 Name`
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -432,7 +432,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Object Type`
+        """  Corresponds to IDD field `Component 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -455,7 +455,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD Field `Component 4 Name`
+        """  Corresponds to IDD field `Component 4 Name`
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -478,7 +478,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Object Type`
+        """  Corresponds to IDD field `Component 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -501,7 +501,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD Field `Component 5 Name`
+        """  Corresponds to IDD field `Component 5 Name`
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -524,7 +524,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Object Type`
+        """  Corresponds to IDD field `Component 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -547,7 +547,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD Field `Component 6 Name`
+        """  Corresponds to IDD field `Component 6 Name`
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -570,7 +570,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Object Type`
+        """  Corresponds to IDD field `Component 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -593,7 +593,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD Field `Component 7 Name`
+        """  Corresponds to IDD field `Component 7 Name`
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -616,7 +616,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Object Type`
+        """  Corresponds to IDD field `Component 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -639,7 +639,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD Field `Component 8 Name`
+        """  Corresponds to IDD field `Component 8 Name`
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -662,7 +662,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_9_object_type.setter
     def component_9_object_type(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Object Type`
+        """  Corresponds to IDD field `Component 9 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 9 Object Type`
@@ -685,7 +685,7 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
 
     @component_9_name.setter
     def component_9_name(self, value=None):
-        """  Corresponds to IDD Field `Component 9 Name`
+        """  Corresponds to IDD field `Component 9 Name`
 
         Args:
             value (str): value for IDD Field `Component 9 Name`
@@ -705,7 +705,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
         coils. From the perspective of the primary air loop the outdoor air system is treated
         as a single component.
     """
-    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:OutdoorAirSystem', 'pyname': u'AirLoopHvacOutdoorAirSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air equipment list name', {'name': u'Outdoor Air Equipment List Name', 'pyname': u'outdoor_air_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:OutdoorAirSystem', 'pyname': u'AirLoopHvacOutdoorAirSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'controller list name', {'name': u'Controller List Name', 'pyname': u'controller_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air equipment list name', {'name': u'Outdoor Air Equipment List Name', 'pyname': u'outdoor_air_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -718,7 +718,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -741,7 +741,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
     @controller_list_name.setter
     def controller_list_name(self, value=None):
-        """  Corresponds to IDD Field `Controller List Name`
+        """  Corresponds to IDD field `Controller List Name`
         Enter the name of an AirLoopHVAC:ControllerList object.
 
         Args:
@@ -765,7 +765,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
     @outdoor_air_equipment_list_name.setter
     def outdoor_air_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Outdoor Air Equipment List Name`
+        """  Corresponds to IDD field `Outdoor Air Equipment List Name`
         Enter the name of an AirLoopHVAC:OutdoorAirSystem:EquipmentList object.
 
         Args:
@@ -789,7 +789,7 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Manager List Name`
+        """  Corresponds to IDD field `Availability Manager List Name`
         Enter the name of an AvailabilityManagerAssignmentList object.
 
         Args:
@@ -808,7 +808,7 @@ class OutdoorAirMixer(DataObject):
         Outdoor air mixer. Node names cannot be duplicated within a single OutdoorAir:Mixer
         object or across all outdoor air mixers.
     """
-    schema = {'min-fields': 0, 'name': u'OutdoorAir:Mixer', 'pyname': u'OutdoorAirMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air stream node name', {'name': u'Relief Air Stream Node Name', 'pyname': u'relief_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'OutdoorAir:Mixer', 'pyname': u'OutdoorAirMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air stream node name', {'name': u'Outdoor Air Stream Node Name', 'pyname': u'outdoor_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air stream node name', {'name': u'Relief Air Stream Node Name', 'pyname': u'relief_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'return air stream node name', {'name': u'Return Air Stream Node Name', 'pyname': u'return_air_stream_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -821,7 +821,7 @@ class OutdoorAirMixer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -844,7 +844,7 @@ class OutdoorAirMixer(DataObject):
 
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Mixed Air Node Name`
+        """  Corresponds to IDD field `Mixed Air Node Name`
         Name of Mixed Air Node
 
         Args:
@@ -868,7 +868,7 @@ class OutdoorAirMixer(DataObject):
 
     @outdoor_air_stream_node_name.setter
     def outdoor_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outdoor Air Stream Node Name`
+        """  Corresponds to IDD field `Outdoor Air Stream Node Name`
         Name of Outdoor Air Stream Node
 
         Args:
@@ -892,7 +892,7 @@ class OutdoorAirMixer(DataObject):
 
     @relief_air_stream_node_name.setter
     def relief_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `Relief Air Stream Node Name`
+        """  Corresponds to IDD field `Relief Air Stream Node Name`
         Name of Relief Air Stream Node
 
         Args:
@@ -916,7 +916,7 @@ class OutdoorAirMixer(DataObject):
 
     @return_air_stream_node_name.setter
     def return_air_stream_node_name(self, value=None):
-        """  Corresponds to IDD Field `Return Air Stream Node Name`
+        """  Corresponds to IDD field `Return Air Stream Node Name`
         Name of Return Air Stream Node
 
         Args:
@@ -935,7 +935,7 @@ class AirLoopHvacZoneSplitter(DataObject):
         Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
         cannot be duplicated within a single zone splitter (AirLoopHVAC:ZoneSplitter) list.
     """
-    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ZoneSplitter', 'pyname': u'AirLoopHvacZoneSplitter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet  node name', {'name': u'Outlet  Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ZoneSplitter', 'pyname': u'AirLoopHvacZoneSplitter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet  node name', {'name': u'Outlet  Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -948,7 +948,7 @@ class AirLoopHvacZoneSplitter(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -971,7 +971,7 @@ class AirLoopHvacZoneSplitter(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -1005,13 +1005,24 @@ class AirLoopHvacZoneSplitter(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacSupplyPlenum(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPlenum`
         Connects 1 zone inlet air stream, through zone supply plenum, to one or more outlets.
         Node names cannot be duplicated within a single supply plenum list.
     """
-    schema = {'min-fields': 5, 'name': u'AirLoopHVAC:SupplyPlenum', 'pyname': u'AirLoopHvacSupplyPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'AirLoopHVAC:SupplyPlenum', 'pyname': u'AirLoopHvacSupplyPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -1024,7 +1035,7 @@ class AirLoopHvacSupplyPlenum(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1047,7 +1058,7 @@ class AirLoopHvacSupplyPlenum(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1070,7 +1081,7 @@ class AirLoopHvacSupplyPlenum(DataObject):
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Node Name`
+        """  Corresponds to IDD field `Zone Node Name`
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -1093,7 +1104,7 @@ class AirLoopHvacSupplyPlenum(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -1127,13 +1138,24 @@ class AirLoopHvacSupplyPlenum(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacSupplyPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
         A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
         which may be in series or parallel.
     """
-    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:SupplyPath', 'pyname': u'AirLoopHvacSupplyPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air path inlet node name', {'name': u'Supply Air Path Inlet Node Name', 'pyname': u'supply_air_path_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:SupplyPath', 'pyname': u'AirLoopHvacSupplyPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air path inlet node name', {'name': u'Supply Air Path Inlet Node Name', 'pyname': u'supply_air_path_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirLoopHVAC:ZoneSplitter', u'AirLoopHVAC:SupplyPlenum'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -1146,7 +1168,7 @@ class AirLoopHvacSupplyPath(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1169,7 +1191,7 @@ class AirLoopHvacSupplyPath(DataObject):
 
     @supply_air_path_inlet_node_name.setter
     def supply_air_path_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Supply Air Path Inlet Node Name`
+        """  Corresponds to IDD field `Supply Air Path Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Path Inlet Node Name`
@@ -1210,13 +1232,24 @@ class AirLoopHvacSupplyPath(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacZoneMixer(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ZoneMixer`
         Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
         be duplicated within a single zone mixer (AirLoopHVAC:ZoneMixer) list.
     """
-    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:ZoneMixer', 'pyname': u'AirLoopHvacZoneMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet 1 node name', {'name': u'Inlet 1 Node Name', 'pyname': u'inlet_1_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'AirLoopHVAC:ZoneMixer', 'pyname': u'AirLoopHvacZoneMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet 1 node name', {'name': u'Inlet 1 Node Name', 'pyname': u'inlet_1_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -1229,7 +1262,7 @@ class AirLoopHvacZoneMixer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1252,7 +1285,7 @@ class AirLoopHvacZoneMixer(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -1286,6 +1319,17 @@ class AirLoopHvacZoneMixer(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacReturnPlenum(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPlenum`
@@ -1293,7 +1337,7 @@ class AirLoopHvacReturnPlenum(DataObject):
         (currently 500 per air loop)
         Node names cannot be duplicated within a single plenum list.
     """
-    schema = {'min-fields': 6, 'name': u'AirLoopHVAC:ReturnPlenum', 'pyname': u'AirLoopHvacReturnPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'induced air outlet node or nodelist name', {'name': u'Induced Air Outlet Node or NodeList Name', 'pyname': u'induced_air_outlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 6, 'name': u'AirLoopHVAC:ReturnPlenum', 'pyname': u'AirLoopHvacReturnPlenum', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone node name', {'name': u'Zone Node Name', 'pyname': u'zone_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'induced air outlet node or nodelist name', {'name': u'Induced Air Outlet Node or NodeList Name', 'pyname': u'induced_air_outlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -1306,7 +1350,7 @@ class AirLoopHvacReturnPlenum(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1329,7 +1373,7 @@ class AirLoopHvacReturnPlenum(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1352,7 +1396,7 @@ class AirLoopHvacReturnPlenum(DataObject):
 
     @zone_node_name.setter
     def zone_node_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Node Name`
+        """  Corresponds to IDD field `Zone Node Name`
 
         Args:
             value (str): value for IDD Field `Zone Node Name`
@@ -1375,7 +1419,7 @@ class AirLoopHvacReturnPlenum(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -1398,7 +1442,7 @@ class AirLoopHvacReturnPlenum(DataObject):
 
     @induced_air_outlet_node_or_nodelist_name.setter
     def induced_air_outlet_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `Induced Air Outlet Node or NodeList Name`
+        """  Corresponds to IDD field `Induced Air Outlet Node or NodeList Name`
 
         Args:
             value (str): value for IDD Field `Induced Air Outlet Node or NodeList Name`
@@ -1432,13 +1476,24 @@ class AirLoopHvacReturnPlenum(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class AirLoopHvacReturnPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
         A return air path can only contain one AirLoopHVAC:ZoneMixer
         and one or more AirLoopHVAC:ReturnPlenum objects.
     """
-    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ReturnPath', 'pyname': u'AirLoopHvacReturnPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'return air path outlet node name', {'name': u'Return Air Path Outlet Node Name', 'pyname': u'return_air_path_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'AirLoopHVAC:ReturnPath', 'pyname': u'AirLoopHvacReturnPath', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'return air path outlet node name', {'name': u'Return Air Path Outlet Node Name', 'pyname': u'return_air_path_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AirLoopHVAC:ZoneMixer', u'AirLoopHVAC:ReturnPlenum'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Air Distribution'}
 
     @property
     def name(self):
@@ -1451,7 +1506,7 @@ class AirLoopHvacReturnPath(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1474,7 +1529,7 @@ class AirLoopHvacReturnPath(DataObject):
 
     @return_air_path_outlet_node_name.setter
     def return_air_path_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Return Air Path Outlet Node Name`
+        """  Corresponds to IDD field `Return Air Path Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Return Air Path Outlet Node Name`
@@ -1514,3 +1569,14 @@ class AirLoopHvacReturnPath(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)

@@ -14,7 +14,7 @@ class WaterHeaterMixed(DataObject):
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
     """
-    schema = {'min-fields': 0, 'name': u'WaterHeater:Mixed', 'pyname': u'WaterHeaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater control type', {'name': u'Heater Control Type', 'pyname': u'heater_control_type', 'default': u'Cycle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Cycle', u'Modulate'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater maximum capacity', {'name': u'Heater Maximum Capacity', 'pyname': u'heater_maximum_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater minimum capacity', {'name': u'Heater Minimum Capacity', 'pyname': u'heater_minimum_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater ignition minimum flow rate', {'name': u'Heater Ignition Minimum Flow Rate', 'pyname': u'heater_ignition_minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heater ignition delay', {'name': u'Heater Ignition Delay', 'pyname': u'heater_ignition_delay', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'part load factor curve name', {'name': u'Part Load Factor Curve Name', 'pyname': u'part_load_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'off cycle loss coefficient to ambient temperature', {'name': u'Off Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle loss fraction to zone', {'name': u'Off Cycle Loss Fraction to Zone', 'pyname': u'off_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle loss coefficient to ambient temperature', {'name': u'On Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'on_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'on cycle loss fraction to zone', {'name': u'On Cycle Loss Fraction to Zone', 'pyname': u'on_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterHeater:Mixed', 'pyname': u'WaterHeaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater control type', {'name': u'Heater Control Type', 'pyname': u'heater_control_type', 'default': u'Cycle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Cycle', u'Modulate'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater maximum capacity', {'name': u'Heater Maximum Capacity', 'pyname': u'heater_maximum_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater minimum capacity', {'name': u'Heater Minimum Capacity', 'pyname': u'heater_minimum_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater ignition minimum flow rate', {'name': u'Heater Ignition Minimum Flow Rate', 'pyname': u'heater_ignition_minimum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'heater ignition delay', {'name': u'Heater Ignition Delay', 'pyname': u'heater_ignition_delay', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'part load factor curve name', {'name': u'Part Load Factor Curve Name', 'pyname': u'part_load_factor_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'off cycle loss coefficient to ambient temperature', {'name': u'Off Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle loss fraction to zone', {'name': u'Off Cycle Loss Fraction to Zone', 'pyname': u'off_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle loss coefficient to ambient temperature', {'name': u'On Cycle Loss Coefficient to Ambient Temperature', 'pyname': u'on_cycle_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'on cycle loss fraction to zone', {'name': u'On Cycle Loss Fraction to Zone', 'pyname': u'on_cycle_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class WaterHeaterMixed(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -50,7 +50,7 @@ class WaterHeaterMixed(DataObject):
 
     @tank_volume.setter
     def tank_volume(self, value=None):
-        """  Corresponds to IDD Field `Tank Volume`
+        """  Corresponds to IDD field `Tank Volume`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Tank Volume`
@@ -75,7 +75,7 @@ class WaterHeaterMixed(DataObject):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Setpoint Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Setpoint Temperature Schedule Name`
@@ -98,7 +98,7 @@ class WaterHeaterMixed(DataObject):
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `Deadband Temperature Difference`
+        """  Corresponds to IDD field `Deadband Temperature Difference`
 
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
@@ -122,7 +122,7 @@ class WaterHeaterMixed(DataObject):
 
     @maximum_temperature_limit.setter
     def maximum_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `Maximum Temperature Limit`
+        """  Corresponds to IDD field `Maximum Temperature Limit`
 
         Args:
             value (float): value for IDD Field `Maximum Temperature Limit`
@@ -146,7 +146,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_control_type.setter
     def heater_control_type(self, value="Cycle"):
-        """  Corresponds to IDD Field `Heater Control Type`
+        """  Corresponds to IDD field `Heater Control Type`
 
         Args:
             value (str): value for IDD Field `Heater Control Type`
@@ -170,7 +170,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_maximum_capacity.setter
     def heater_maximum_capacity(self, value=None):
-        """  Corresponds to IDD Field `Heater Maximum Capacity`
+        """  Corresponds to IDD field `Heater Maximum Capacity`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heater Maximum Capacity`
@@ -194,7 +194,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_minimum_capacity.setter
     def heater_minimum_capacity(self, value=None):
-        """  Corresponds to IDD Field `Heater Minimum Capacity`
+        """  Corresponds to IDD field `Heater Minimum Capacity`
         Only used when Heater Control Type is set to Modulate
 
         Args:
@@ -219,7 +219,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_ignition_minimum_flow_rate.setter
     def heater_ignition_minimum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Heater Ignition Minimum Flow Rate`
+        """  Corresponds to IDD field `Heater Ignition Minimum Flow Rate`
         Not yet implemented
 
         Args:
@@ -244,7 +244,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_ignition_delay.setter
     def heater_ignition_delay(self, value=None):
-        """  Corresponds to IDD Field `Heater Ignition Delay`
+        """  Corresponds to IDD field `Heater Ignition Delay`
         Not yet implemented
 
         Args:
@@ -269,7 +269,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_fuel_type.setter
     def heater_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `Heater Fuel Type`
+        """  Corresponds to IDD field `Heater Fuel Type`
 
         Args:
             value (str): value for IDD Field `Heater Fuel Type`
@@ -292,7 +292,7 @@ class WaterHeaterMixed(DataObject):
 
     @heater_thermal_efficiency.setter
     def heater_thermal_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Heater Thermal Efficiency`
+        """  Corresponds to IDD field `Heater Thermal Efficiency`
 
         Args:
             value (float): value for IDD Field `Heater Thermal Efficiency`
@@ -316,7 +316,7 @@ class WaterHeaterMixed(DataObject):
 
     @part_load_factor_curve_name.setter
     def part_load_factor_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Part Load Factor Curve Name`
+        """  Corresponds to IDD field `Part Load Factor Curve Name`
         Table:OneIndependentVariable object can also be used
 
         Args:
@@ -340,7 +340,7 @@ class WaterHeaterMixed(DataObject):
 
     @off_cycle_parasitic_fuel_consumption_rate.setter
     def off_cycle_parasitic_fuel_consumption_rate(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
+        """  Corresponds to IDD field `Off Cycle Parasitic Fuel Consumption Rate`
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
@@ -364,7 +364,7 @@ class WaterHeaterMixed(DataObject):
 
     @off_cycle_parasitic_fuel_type.setter
     def off_cycle_parasitic_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Fuel Type`
+        """  Corresponds to IDD field `Off Cycle Parasitic Fuel Type`
 
         Args:
             value (str): value for IDD Field `Off Cycle Parasitic Fuel Type`
@@ -387,7 +387,7 @@ class WaterHeaterMixed(DataObject):
 
     @off_cycle_parasitic_heat_fraction_to_tank.setter
     def off_cycle_parasitic_heat_fraction_to_tank(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
+        """  Corresponds to IDD field `Off Cycle Parasitic Heat Fraction to Tank`
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
@@ -411,7 +411,7 @@ class WaterHeaterMixed(DataObject):
 
     @on_cycle_parasitic_fuel_consumption_rate.setter
     def on_cycle_parasitic_fuel_consumption_rate(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Fuel Consumption Rate`
+        """  Corresponds to IDD field `On Cycle Parasitic Fuel Consumption Rate`
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Fuel Consumption Rate`
@@ -435,7 +435,7 @@ class WaterHeaterMixed(DataObject):
 
     @on_cycle_parasitic_fuel_type.setter
     def on_cycle_parasitic_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Fuel Type`
+        """  Corresponds to IDD field `On Cycle Parasitic Fuel Type`
 
         Args:
             value (str): value for IDD Field `On Cycle Parasitic Fuel Type`
@@ -458,7 +458,7 @@ class WaterHeaterMixed(DataObject):
 
     @on_cycle_parasitic_heat_fraction_to_tank.setter
     def on_cycle_parasitic_heat_fraction_to_tank(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Heat Fraction to Tank`
+        """  Corresponds to IDD field `On Cycle Parasitic Heat Fraction to Tank`
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Heat Fraction to Tank`
@@ -482,7 +482,7 @@ class WaterHeaterMixed(DataObject):
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Indicator`
+        """  Corresponds to IDD field `Ambient Temperature Indicator`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
@@ -505,7 +505,7 @@ class WaterHeaterMixed(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -528,7 +528,7 @@ class WaterHeaterMixed(DataObject):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        """  Corresponds to IDD field `Ambient Temperature Zone Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -551,7 +551,7 @@ class WaterHeaterMixed(DataObject):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        """  Corresponds to IDD field `Ambient Temperature Outdoor Air Node Name`
         required for Ambient Temperature Indicator=Outdoors
 
         Args:
@@ -575,7 +575,7 @@ class WaterHeaterMixed(DataObject):
 
     @off_cycle_loss_coefficient_to_ambient_temperature.setter
     def off_cycle_loss_coefficient_to_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Loss Coefficient to Ambient Temperature`
+        """  Corresponds to IDD field `Off Cycle Loss Coefficient to Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `Off Cycle Loss Coefficient to Ambient Temperature`
@@ -599,7 +599,7 @@ class WaterHeaterMixed(DataObject):
 
     @off_cycle_loss_fraction_to_zone.setter
     def off_cycle_loss_fraction_to_zone(self, value=1.0):
-        """  Corresponds to IDD Field `Off Cycle Loss Fraction to Zone`
+        """  Corresponds to IDD field `Off Cycle Loss Fraction to Zone`
 
         Args:
             value (float): value for IDD Field `Off Cycle Loss Fraction to Zone`
@@ -624,7 +624,7 @@ class WaterHeaterMixed(DataObject):
 
     @on_cycle_loss_coefficient_to_ambient_temperature.setter
     def on_cycle_loss_coefficient_to_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Loss Coefficient to Ambient Temperature`
+        """  Corresponds to IDD field `On Cycle Loss Coefficient to Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `On Cycle Loss Coefficient to Ambient Temperature`
@@ -648,7 +648,7 @@ class WaterHeaterMixed(DataObject):
 
     @on_cycle_loss_fraction_to_zone.setter
     def on_cycle_loss_fraction_to_zone(self, value=1.0):
-        """  Corresponds to IDD Field `On Cycle Loss Fraction to Zone`
+        """  Corresponds to IDD field `On Cycle Loss Fraction to Zone`
 
         Args:
             value (float): value for IDD Field `On Cycle Loss Fraction to Zone`
@@ -673,7 +673,7 @@ class WaterHeaterMixed(DataObject):
 
     @peak_use_flow_rate.setter
     def peak_use_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Peak Use Flow Rate`
+        """  Corresponds to IDD field `Peak Use Flow Rate`
         Only used if Use Side Node connections are blank
 
         Args:
@@ -699,7 +699,7 @@ class WaterHeaterMixed(DataObject):
 
     @use_flow_rate_fraction_schedule_name.setter
     def use_flow_rate_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Use Flow Rate Fraction Schedule Name`
+        """  Corresponds to IDD field `Use Flow Rate Fraction Schedule Name`
         Only used if Use Side Node connections are blank
 
         Args:
@@ -723,7 +723,7 @@ class WaterHeaterMixed(DataObject):
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Cold Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Cold Water Supply Temperature Schedule Name`
         Only used if Use Side Node connections are blank
         Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
@@ -748,7 +748,7 @@ class WaterHeaterMixed(DataObject):
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Inlet Node Name`
+        """  Corresponds to IDD field `Use Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Inlet Node Name`
@@ -771,7 +771,7 @@ class WaterHeaterMixed(DataObject):
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Outlet Node Name`
+        """  Corresponds to IDD field `Use Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Outlet Node Name`
@@ -794,7 +794,7 @@ class WaterHeaterMixed(DataObject):
 
     @use_side_effectiveness.setter
     def use_side_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Use Side Effectiveness`
+        """  Corresponds to IDD field `Use Side Effectiveness`
 
         Args:
             value (float): value for IDD Field `Use Side Effectiveness`
@@ -819,7 +819,7 @@ class WaterHeaterMixed(DataObject):
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Inlet Node Name`
+        """  Corresponds to IDD field `Source Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Inlet Node Name`
@@ -842,7 +842,7 @@ class WaterHeaterMixed(DataObject):
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Outlet Node Name`
+        """  Corresponds to IDD field `Source Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Outlet Node Name`
@@ -865,7 +865,7 @@ class WaterHeaterMixed(DataObject):
 
     @source_side_effectiveness.setter
     def source_side_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Source Side Effectiveness`
+        """  Corresponds to IDD field `Source Side Effectiveness`
 
         Args:
             value (float): value for IDD Field `Source Side Effectiveness`
@@ -890,7 +890,7 @@ class WaterHeaterMixed(DataObject):
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Use Side Design Flow Rate`
+        """  Corresponds to IDD field `Use Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
@@ -916,7 +916,7 @@ class WaterHeaterMixed(DataObject):
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Source Side Design Flow Rate`
+        """  Corresponds to IDD field `Source Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
@@ -942,7 +942,7 @@ class WaterHeaterMixed(DataObject):
 
     @indirect_water_heating_recovery_time.setter
     def indirect_water_heating_recovery_time(self, value=1.5):
-        """  Corresponds to IDD Field `Indirect Water Heating Recovery Time`
+        """  Corresponds to IDD field `Indirect Water Heating Recovery Time`
         Parameter for autosizing design flow rates for indirectly heated water tanks
         Time required to raise temperature of entire tank from 14.4C to 57.2C
 
@@ -969,7 +969,7 @@ class WaterHeaterMixed(DataObject):
 
     @source_side_flow_control_mode.setter
     def source_side_flow_control_mode(self, value="IndirectHeatPrimarySetpoint"):
-        """  Corresponds to IDD Field `Source Side Flow Control Mode`
+        """  Corresponds to IDD field `Source Side Flow Control Mode`
         StorageTank mode always requests flow unless tank is at its Maximum Temperature Limit
         IndirectHeatPrimarySetpoint mode requests flow whenever primary setpoint calls for heat
         IndirectHeatAlternateSetpoint mode requests flow whenever alternate indirect setpoint calls for heat
@@ -996,7 +996,7 @@ class WaterHeaterMixed(DataObject):
 
     @indirect_alternate_setpoint_temperature_schedule_name.setter
     def indirect_alternate_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Indirect Alternate Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Indirect Alternate Setpoint Temperature Schedule Name`
         This field is only used if the previous is set to IndirectHeatAlternateSetpoint
 
         Args:
@@ -1016,7 +1016,7 @@ class WaterHeaterStratified(DataObject):
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
     """
-    schema = {'min-fields': 0, 'name': u'WaterHeater:Stratified', 'pyname': u'WaterHeaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater priority control', {'name': u'Heater Priority Control', 'pyname': u'heater_priority_control', 'default': u'MasterSlave', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MasterSlave', u'Simultaneous'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater 1 setpoint temperature schedule name', {'name': u'Heater 1 Setpoint Temperature Schedule Name', 'pyname': u'heater_1_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 1 deadband temperature difference', {'name': u'Heater 1 Deadband Temperature Difference', 'pyname': u'heater_1_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 1 capacity', {'name': u'Heater 1 Capacity', 'pyname': u'heater_1_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 1 height', {'name': u'Heater 1 Height', 'pyname': u'heater_1_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater 2 setpoint temperature schedule name', {'name': u'Heater 2 Setpoint Temperature Schedule Name', 'pyname': u'heater_2_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 2 deadband temperature difference', {'name': u'Heater 2 Deadband Temperature Difference', 'pyname': u'heater_2_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 2 capacity', {'name': u'Heater 2 Capacity', 'pyname': u'heater_2_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 2 height', {'name': u'Heater 2 Height', 'pyname': u'heater_2_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic height', {'name': u'Off Cycle Parasitic Height', 'pyname': u'off_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic height', {'name': u'On Cycle Parasitic Height', 'pyname': u'on_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'skin loss fraction to zone', {'name': u'Skin Loss Fraction to Zone', 'pyname': u'skin_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle flue loss coefficient to ambient temperature', {'name': u'Off Cycle Flue Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_flue_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle flue loss fraction to zone', {'name': u'Off Cycle Flue Loss Fraction to Zone', 'pyname': u'off_cycle_flue_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterHeater:Stratified', 'pyname': u'WaterHeaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'maximum temperature limit', {'name': u'Maximum Temperature Limit', 'pyname': u'maximum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'heater priority control', {'name': u'Heater Priority Control', 'pyname': u'heater_priority_control', 'default': u'MasterSlave', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MasterSlave', u'Simultaneous'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater 1 setpoint temperature schedule name', {'name': u'Heater 1 Setpoint Temperature Schedule Name', 'pyname': u'heater_1_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 1 deadband temperature difference', {'name': u'Heater 1 Deadband Temperature Difference', 'pyname': u'heater_1_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 1 capacity', {'name': u'Heater 1 Capacity', 'pyname': u'heater_1_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 1 height', {'name': u'Heater 1 Height', 'pyname': u'heater_1_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater 2 setpoint temperature schedule name', {'name': u'Heater 2 Setpoint Temperature Schedule Name', 'pyname': u'heater_2_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heater 2 deadband temperature difference', {'name': u'Heater 2 Deadband Temperature Difference', 'pyname': u'heater_2_deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'heater 2 capacity', {'name': u'Heater 2 Capacity', 'pyname': u'heater_2_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'heater 2 height', {'name': u'Heater 2 Height', 'pyname': u'heater_2_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'heater fuel type', {'name': u'Heater Fuel Type', 'pyname': u'heater_fuel_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'heater thermal efficiency', {'name': u'Heater Thermal Efficiency', 'pyname': u'heater_thermal_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic fuel consumption rate', {'name': u'Off Cycle Parasitic Fuel Consumption Rate', 'pyname': u'off_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic fuel type', {'name': u'Off Cycle Parasitic Fuel Type', 'pyname': u'off_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'off cycle parasitic heat fraction to tank', {'name': u'Off Cycle Parasitic Heat Fraction to Tank', 'pyname': u'off_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle parasitic height', {'name': u'Off Cycle Parasitic Height', 'pyname': u'off_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'on cycle parasitic fuel consumption rate', {'name': u'On Cycle Parasitic Fuel Consumption Rate', 'pyname': u'on_cycle_parasitic_fuel_consumption_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'on cycle parasitic fuel type', {'name': u'On Cycle Parasitic Fuel Type', 'pyname': u'on_cycle_parasitic_fuel_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Electricity', u'NaturalGas', u'PropaneGas', u'FuelOil#1', u'FuelOil#2', u'Coal', u'Diesel', u'Gasoline', u'OtherFuel1', u'OtherFuel2', u'Steam', u'DistrictHeating'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic heat fraction to tank', {'name': u'On Cycle Parasitic Heat Fraction to Tank', 'pyname': u'on_cycle_parasitic_heat_fraction_to_tank', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'on cycle parasitic height', {'name': u'On Cycle Parasitic Height', 'pyname': u'on_cycle_parasitic_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'skin loss fraction to zone', {'name': u'Skin Loss Fraction to Zone', 'pyname': u'skin_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'off cycle flue loss coefficient to ambient temperature', {'name': u'Off Cycle Flue Loss Coefficient to Ambient Temperature', 'pyname': u'off_cycle_flue_loss_coefficient_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'off cycle flue loss fraction to zone', {'name': u'Off Cycle Flue Loss Fraction to Zone', 'pyname': u'off_cycle_flue_loss_fraction_to_zone', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'peak use flow rate', {'name': u'Peak Use Flow Rate', 'pyname': u'peak_use_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'use flow rate fraction schedule name', {'name': u'Use Flow Rate Fraction Schedule Name', 'pyname': u'use_flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side effectiveness', {'name': u'Use Side Effectiveness', 'pyname': u'use_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side effectiveness', {'name': u'Source Side Effectiveness', 'pyname': u'source_side_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'indirect water heating recovery time', {'name': u'Indirect Water Heating Recovery Time', 'pyname': u'indirect_water_heating_recovery_time', 'default': 1.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'source side flow control mode', {'name': u'Source Side Flow Control Mode', 'pyname': u'source_side_flow_control_mode', 'default': u'IndirectHeatPrimarySetpoint', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StorageTank', u'IndirectHeatPrimarySetpoint', u'IndirectHeatAlternateSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'indirect alternate setpoint temperature schedule name', {'name': u'Indirect Alternate Setpoint Temperature Schedule Name', 'pyname': u'indirect_alternate_setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -1029,7 +1029,7 @@ class WaterHeaterStratified(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1052,7 +1052,7 @@ class WaterHeaterStratified(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -1076,7 +1076,7 @@ class WaterHeaterStratified(DataObject):
 
     @tank_volume.setter
     def tank_volume(self, value=None):
-        """  Corresponds to IDD Field `Tank Volume`
+        """  Corresponds to IDD field `Tank Volume`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Tank Volume`
@@ -1101,7 +1101,7 @@ class WaterHeaterStratified(DataObject):
 
     @tank_height.setter
     def tank_height(self, value=None):
-        """  Corresponds to IDD Field `Tank Height`
+        """  Corresponds to IDD field `Tank Height`
         Height is measured in the axial direction for horizontal cylinders
 
         Args:
@@ -1126,7 +1126,7 @@ class WaterHeaterStratified(DataObject):
 
     @tank_shape.setter
     def tank_shape(self, value="VerticalCylinder"):
-        """  Corresponds to IDD Field `Tank Shape`
+        """  Corresponds to IDD field `Tank Shape`
 
         Args:
             value (str): value for IDD Field `Tank Shape`
@@ -1150,7 +1150,7 @@ class WaterHeaterStratified(DataObject):
 
     @tank_perimeter.setter
     def tank_perimeter(self, value=None):
-        """  Corresponds to IDD Field `Tank Perimeter`
+        """  Corresponds to IDD field `Tank Perimeter`
         Only used if Tank Shape is Other
 
         Args:
@@ -1175,7 +1175,7 @@ class WaterHeaterStratified(DataObject):
 
     @maximum_temperature_limit.setter
     def maximum_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `Maximum Temperature Limit`
+        """  Corresponds to IDD field `Maximum Temperature Limit`
 
         Args:
             value (float): value for IDD Field `Maximum Temperature Limit`
@@ -1199,7 +1199,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_priority_control.setter
     def heater_priority_control(self, value="MasterSlave"):
-        """  Corresponds to IDD Field `Heater Priority Control`
+        """  Corresponds to IDD field `Heater Priority Control`
 
         Args:
             value (str): value for IDD Field `Heater Priority Control`
@@ -1223,7 +1223,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_1_setpoint_temperature_schedule_name.setter
     def heater_1_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Heater 1 Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Heater 1 Setpoint Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Heater 1 Setpoint Temperature Schedule Name`
@@ -1246,7 +1246,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_1_deadband_temperature_difference.setter
     def heater_1_deadband_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `Heater 1 Deadband Temperature Difference`
+        """  Corresponds to IDD field `Heater 1 Deadband Temperature Difference`
 
         Args:
             value (float): value for IDD Field `Heater 1 Deadband Temperature Difference`
@@ -1270,7 +1270,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_1_capacity.setter
     def heater_1_capacity(self, value=None):
-        """  Corresponds to IDD Field `Heater 1 Capacity`
+        """  Corresponds to IDD field `Heater 1 Capacity`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Heater 1 Capacity`
@@ -1294,7 +1294,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_1_height.setter
     def heater_1_height(self, value=None):
-        """  Corresponds to IDD Field `Heater 1 Height`
+        """  Corresponds to IDD field `Heater 1 Height`
 
         Args:
             value (float): value for IDD Field `Heater 1 Height`
@@ -1318,7 +1318,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_2_setpoint_temperature_schedule_name.setter
     def heater_2_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Heater 2 Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Heater 2 Setpoint Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Heater 2 Setpoint Temperature Schedule Name`
@@ -1341,7 +1341,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_2_deadband_temperature_difference.setter
     def heater_2_deadband_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `Heater 2 Deadband Temperature Difference`
+        """  Corresponds to IDD field `Heater 2 Deadband Temperature Difference`
 
         Args:
             value (float): value for IDD Field `Heater 2 Deadband Temperature Difference`
@@ -1365,7 +1365,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_2_capacity.setter
     def heater_2_capacity(self, value=None):
-        """  Corresponds to IDD Field `Heater 2 Capacity`
+        """  Corresponds to IDD field `Heater 2 Capacity`
 
         Args:
             value (float): value for IDD Field `Heater 2 Capacity`
@@ -1389,7 +1389,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_2_height.setter
     def heater_2_height(self, value=None):
-        """  Corresponds to IDD Field `Heater 2 Height`
+        """  Corresponds to IDD field `Heater 2 Height`
 
         Args:
             value (float): value for IDD Field `Heater 2 Height`
@@ -1413,7 +1413,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_fuel_type.setter
     def heater_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `Heater Fuel Type`
+        """  Corresponds to IDD field `Heater Fuel Type`
 
         Args:
             value (str): value for IDD Field `Heater Fuel Type`
@@ -1436,7 +1436,7 @@ class WaterHeaterStratified(DataObject):
 
     @heater_thermal_efficiency.setter
     def heater_thermal_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Heater Thermal Efficiency`
+        """  Corresponds to IDD field `Heater Thermal Efficiency`
 
         Args:
             value (float): value for IDD Field `Heater Thermal Efficiency`
@@ -1460,7 +1460,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_parasitic_fuel_consumption_rate.setter
     def off_cycle_parasitic_fuel_consumption_rate(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
+        """  Corresponds to IDD field `Off Cycle Parasitic Fuel Consumption Rate`
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Fuel Consumption Rate`
@@ -1484,7 +1484,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_parasitic_fuel_type.setter
     def off_cycle_parasitic_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Fuel Type`
+        """  Corresponds to IDD field `Off Cycle Parasitic Fuel Type`
 
         Args:
             value (str): value for IDD Field `Off Cycle Parasitic Fuel Type`
@@ -1507,7 +1507,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_parasitic_heat_fraction_to_tank.setter
     def off_cycle_parasitic_heat_fraction_to_tank(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
+        """  Corresponds to IDD field `Off Cycle Parasitic Heat Fraction to Tank`
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Heat Fraction to Tank`
@@ -1531,7 +1531,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_parasitic_height.setter
     def off_cycle_parasitic_height(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Height`
+        """  Corresponds to IDD field `Off Cycle Parasitic Height`
 
         Args:
             value (float): value for IDD Field `Off Cycle Parasitic Height`
@@ -1555,7 +1555,7 @@ class WaterHeaterStratified(DataObject):
 
     @on_cycle_parasitic_fuel_consumption_rate.setter
     def on_cycle_parasitic_fuel_consumption_rate(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Fuel Consumption Rate`
+        """  Corresponds to IDD field `On Cycle Parasitic Fuel Consumption Rate`
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Fuel Consumption Rate`
@@ -1579,7 +1579,7 @@ class WaterHeaterStratified(DataObject):
 
     @on_cycle_parasitic_fuel_type.setter
     def on_cycle_parasitic_fuel_type(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Fuel Type`
+        """  Corresponds to IDD field `On Cycle Parasitic Fuel Type`
 
         Args:
             value (str): value for IDD Field `On Cycle Parasitic Fuel Type`
@@ -1602,7 +1602,7 @@ class WaterHeaterStratified(DataObject):
 
     @on_cycle_parasitic_heat_fraction_to_tank.setter
     def on_cycle_parasitic_heat_fraction_to_tank(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Heat Fraction to Tank`
+        """  Corresponds to IDD field `On Cycle Parasitic Heat Fraction to Tank`
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Heat Fraction to Tank`
@@ -1626,7 +1626,7 @@ class WaterHeaterStratified(DataObject):
 
     @on_cycle_parasitic_height.setter
     def on_cycle_parasitic_height(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Height`
+        """  Corresponds to IDD field `On Cycle Parasitic Height`
 
         Args:
             value (float): value for IDD Field `On Cycle Parasitic Height`
@@ -1650,7 +1650,7 @@ class WaterHeaterStratified(DataObject):
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Indicator`
+        """  Corresponds to IDD field `Ambient Temperature Indicator`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
@@ -1673,7 +1673,7 @@ class WaterHeaterStratified(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -1696,7 +1696,7 @@ class WaterHeaterStratified(DataObject):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        """  Corresponds to IDD field `Ambient Temperature Zone Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -1719,7 +1719,7 @@ class WaterHeaterStratified(DataObject):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        """  Corresponds to IDD field `Ambient Temperature Outdoor Air Node Name`
         required for Ambient Temperature Indicater=Outdoors
 
         Args:
@@ -1743,7 +1743,7 @@ class WaterHeaterStratified(DataObject):
 
     @uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature.setter
     def uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
+        """  Corresponds to IDD field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
@@ -1767,7 +1767,7 @@ class WaterHeaterStratified(DataObject):
 
     @skin_loss_fraction_to_zone.setter
     def skin_loss_fraction_to_zone(self, value=1.0):
-        """  Corresponds to IDD Field `Skin Loss Fraction to Zone`
+        """  Corresponds to IDD field `Skin Loss Fraction to Zone`
 
         Args:
             value (float): value for IDD Field `Skin Loss Fraction to Zone`
@@ -1792,7 +1792,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_flue_loss_coefficient_to_ambient_temperature.setter
     def off_cycle_flue_loss_coefficient_to_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Flue Loss Coefficient to Ambient Temperature`
+        """  Corresponds to IDD field `Off Cycle Flue Loss Coefficient to Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `Off Cycle Flue Loss Coefficient to Ambient Temperature`
@@ -1816,7 +1816,7 @@ class WaterHeaterStratified(DataObject):
 
     @off_cycle_flue_loss_fraction_to_zone.setter
     def off_cycle_flue_loss_fraction_to_zone(self, value=1.0):
-        """  Corresponds to IDD Field `Off Cycle Flue Loss Fraction to Zone`
+        """  Corresponds to IDD field `Off Cycle Flue Loss Fraction to Zone`
 
         Args:
             value (float): value for IDD Field `Off Cycle Flue Loss Fraction to Zone`
@@ -1841,7 +1841,7 @@ class WaterHeaterStratified(DataObject):
 
     @peak_use_flow_rate.setter
     def peak_use_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Peak Use Flow Rate`
+        """  Corresponds to IDD field `Peak Use Flow Rate`
         Only used if Use Side Node connections are blank
 
         Args:
@@ -1867,7 +1867,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_flow_rate_fraction_schedule_name.setter
     def use_flow_rate_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Use Flow Rate Fraction Schedule Name`
+        """  Corresponds to IDD field `Use Flow Rate Fraction Schedule Name`
         If blank, defaults to 1.0 at all times
         Only used if use side node connections are blank
 
@@ -1892,7 +1892,7 @@ class WaterHeaterStratified(DataObject):
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Cold Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Cold Water Supply Temperature Schedule Name`
         Only used if use side node connections are blank
         Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
@@ -1917,7 +1917,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Inlet Node Name`
+        """  Corresponds to IDD field `Use Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Inlet Node Name`
@@ -1940,7 +1940,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Outlet Node Name`
+        """  Corresponds to IDD field `Use Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Outlet Node Name`
@@ -1963,7 +1963,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_effectiveness.setter
     def use_side_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Use Side Effectiveness`
+        """  Corresponds to IDD field `Use Side Effectiveness`
         The use side effectiveness in the stratified tank model is a simplified analogy of
         a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
         use mass flow rate that directly mixes with the tank fluid. And one minus the
@@ -1993,7 +1993,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_inlet_height.setter
     def use_side_inlet_height(self, value=None):
-        """  Corresponds to IDD Field `Use Side Inlet Height`
+        """  Corresponds to IDD field `Use Side Inlet Height`
         Defaults to bottom of tank
 
         Args:
@@ -2018,7 +2018,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_outlet_height.setter
     def use_side_outlet_height(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Use Side Outlet Height`
+        """  Corresponds to IDD field `Use Side Outlet Height`
         Defaults to top of tank
 
         Args:
@@ -2044,7 +2044,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Inlet Node Name`
+        """  Corresponds to IDD field `Source Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Inlet Node Name`
@@ -2067,7 +2067,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Outlet Node Name`
+        """  Corresponds to IDD field `Source Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Outlet Node Name`
@@ -2090,7 +2090,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_effectiveness.setter
     def source_side_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Source Side Effectiveness`
+        """  Corresponds to IDD field `Source Side Effectiveness`
         The source side effectiveness in the stratified tank model is a simplified analogy of
         a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
         source mass flow rate that directly mixes with the tank fluid. And one minus the
@@ -2120,7 +2120,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_inlet_height.setter
     def source_side_inlet_height(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Source Side Inlet Height`
+        """  Corresponds to IDD field `Source Side Inlet Height`
         Defaults to top of tank
 
         Args:
@@ -2146,7 +2146,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_outlet_height.setter
     def source_side_outlet_height(self, value=None):
-        """  Corresponds to IDD Field `Source Side Outlet Height`
+        """  Corresponds to IDD field `Source Side Outlet Height`
         Defaults to bottom of tank
 
         Args:
@@ -2171,7 +2171,7 @@ class WaterHeaterStratified(DataObject):
 
     @inlet_mode.setter
     def inlet_mode(self, value="Fixed"):
-        """  Corresponds to IDD Field `Inlet Mode`
+        """  Corresponds to IDD field `Inlet Mode`
 
         Args:
             value (str): value for IDD Field `Inlet Mode`
@@ -2195,7 +2195,7 @@ class WaterHeaterStratified(DataObject):
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Use Side Design Flow Rate`
+        """  Corresponds to IDD field `Use Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
@@ -2221,7 +2221,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Source Side Design Flow Rate`
+        """  Corresponds to IDD field `Source Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
@@ -2247,7 +2247,7 @@ class WaterHeaterStratified(DataObject):
 
     @indirect_water_heating_recovery_time.setter
     def indirect_water_heating_recovery_time(self, value=1.5):
-        """  Corresponds to IDD Field `Indirect Water Heating Recovery Time`
+        """  Corresponds to IDD field `Indirect Water Heating Recovery Time`
         Parameter for autosizing design flow rates for indirectly heated water tanks
         time required to raise temperature of entire tank from 14.4C to 57.2C
 
@@ -2274,7 +2274,7 @@ class WaterHeaterStratified(DataObject):
 
     @number_of_nodes.setter
     def number_of_nodes(self, value=1):
-        """  Corresponds to IDD Field `Number of Nodes`
+        """  Corresponds to IDD field `Number of Nodes`
 
         Args:
             value (int): value for IDD Field `Number of Nodes`
@@ -2300,7 +2300,7 @@ class WaterHeaterStratified(DataObject):
 
     @additional_destratification_conductivity.setter
     def additional_destratification_conductivity(self, value=None):
-        """  Corresponds to IDD Field `Additional Destratification Conductivity`
+        """  Corresponds to IDD field `Additional Destratification Conductivity`
 
         Args:
             value (float): value for IDD Field `Additional Destratification Conductivity`
@@ -2324,7 +2324,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_1_additional_loss_coefficient.setter
     def node_1_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 1 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 1 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 1 Additional Loss Coefficient`
@@ -2348,7 +2348,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_2_additional_loss_coefficient.setter
     def node_2_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 2 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 2 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 2 Additional Loss Coefficient`
@@ -2372,7 +2372,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_3_additional_loss_coefficient.setter
     def node_3_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 3 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 3 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 3 Additional Loss Coefficient`
@@ -2396,7 +2396,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_4_additional_loss_coefficient.setter
     def node_4_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 4 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 4 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 4 Additional Loss Coefficient`
@@ -2420,7 +2420,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_5_additional_loss_coefficient.setter
     def node_5_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 5 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 5 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 5 Additional Loss Coefficient`
@@ -2444,7 +2444,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_6_additional_loss_coefficient.setter
     def node_6_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 6 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 6 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 6 Additional Loss Coefficient`
@@ -2468,7 +2468,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_7_additional_loss_coefficient.setter
     def node_7_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 7 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 7 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 7 Additional Loss Coefficient`
@@ -2492,7 +2492,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_8_additional_loss_coefficient.setter
     def node_8_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 8 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 8 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 8 Additional Loss Coefficient`
@@ -2516,7 +2516,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_9_additional_loss_coefficient.setter
     def node_9_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 9 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 9 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 9 Additional Loss Coefficient`
@@ -2540,7 +2540,7 @@ class WaterHeaterStratified(DataObject):
 
     @node_10_additional_loss_coefficient.setter
     def node_10_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 10 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 10 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 10 Additional Loss Coefficient`
@@ -2564,7 +2564,7 @@ class WaterHeaterStratified(DataObject):
 
     @source_side_flow_control_mode.setter
     def source_side_flow_control_mode(self, value="IndirectHeatPrimarySetpoint"):
-        """  Corresponds to IDD Field `Source Side Flow Control Mode`
+        """  Corresponds to IDD field `Source Side Flow Control Mode`
         StorageTank mode always requests flow unless tank is at its Maximum Temperature Limit
         IndirectHeatPrimarySetpoint mode requests flow whenever primary setpoint for heater 1 calls for heat
         IndirectHeatAlternateSetpoint mode requests flow whenever alternate indirect setpoint calls for heat
@@ -2591,7 +2591,7 @@ class WaterHeaterStratified(DataObject):
 
     @indirect_alternate_setpoint_temperature_schedule_name.setter
     def indirect_alternate_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Indirect Alternate Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Indirect Alternate Setpoint Temperature Schedule Name`
         This field is only used if the previous is set to IndirectHeatAlternateSetpoint
 
         Args:
@@ -2611,7 +2611,7 @@ class WaterHeaterSizing(DataObject):
         with WaterHeater:Stratified to autosize tank volume and heater capacity
         This object is not needed if water heaters are not autosized.
     """
-    schema = {'min-fields': 4, 'name': u'WaterHeater:Sizing', 'pyname': u'WaterHeaterSizing', 'format': None, 'fields': OrderedDict([(u'waterheater name', {'name': u'WaterHeater Name', 'pyname': u'waterheater_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design mode', {'name': u'Design Mode', 'pyname': u'design_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PeakDraw', u'ResidentialHUD-FHAMinimum', u'PerPerson', u'PerFloorArea', u'PerUnit', u'PerSolarCollectorArea'], 'autocalculatable': False, 'type': 'alpha'}), (u'time storage can meet peak draw', {'name': u'Time Storage Can Meet Peak Draw', 'pyname': u'time_storage_can_meet_peak_draw', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'time for tank recovery', {'name': u'Time for Tank Recovery', 'pyname': u'time_for_tank_recovery', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'nominal tank volume for autosizing plant connections', {'name': u'Nominal Tank Volume for Autosizing Plant Connections', 'pyname': u'nominal_tank_volume_for_autosizing_plant_connections', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'number of bedrooms', {'name': u'Number of Bedrooms', 'pyname': u'number_of_bedrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of bathrooms', {'name': u'Number of Bathrooms', 'pyname': u'number_of_bathrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'storage capacity per person', {'name': u'Storage Capacity per Person', 'pyname': u'storage_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/Person'}), (u'recovery capacity per person', {'name': u'Recovery Capacity per Person', 'pyname': u'recovery_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-person'}), (u'storage capacity per floor area', {'name': u'Storage Capacity per Floor Area', 'pyname': u'storage_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'recovery capacity per floor area', {'name': u'Recovery Capacity per Floor Area', 'pyname': u'recovery_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-m2'}), (u'number of units', {'name': u'Number of Units', 'pyname': u'number_of_units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'storage capacity per unit', {'name': u'Storage Capacity per Unit', 'pyname': u'storage_capacity_per_unit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'recovery capacity perunit', {'name': u'Recovery Capacity PerUnit', 'pyname': u'recovery_capacity_perunit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr'}), (u'storage capacity per collector area', {'name': u'Storage Capacity per Collector Area', 'pyname': u'storage_capacity_per_collector_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'height aspect ratio', {'name': u'Height Aspect Ratio', 'pyname': u'height_aspect_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'WaterHeater:Sizing', 'pyname': u'WaterHeaterSizing', 'format': None, 'fields': OrderedDict([(u'waterheater name', {'name': u'WaterHeater Name', 'pyname': u'waterheater_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design mode', {'name': u'Design Mode', 'pyname': u'design_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PeakDraw', u'ResidentialHUD-FHAMinimum', u'PerPerson', u'PerFloorArea', u'PerUnit', u'PerSolarCollectorArea'], 'autocalculatable': False, 'type': 'alpha'}), (u'time storage can meet peak draw', {'name': u'Time Storage Can Meet Peak Draw', 'pyname': u'time_storage_can_meet_peak_draw', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'time for tank recovery', {'name': u'Time for Tank Recovery', 'pyname': u'time_for_tank_recovery', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'nominal tank volume for autosizing plant connections', {'name': u'Nominal Tank Volume for Autosizing Plant Connections', 'pyname': u'nominal_tank_volume_for_autosizing_plant_connections', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'number of bedrooms', {'name': u'Number of Bedrooms', 'pyname': u'number_of_bedrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'number of bathrooms', {'name': u'Number of Bathrooms', 'pyname': u'number_of_bathrooms', 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'storage capacity per person', {'name': u'Storage Capacity per Person', 'pyname': u'storage_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/Person'}), (u'recovery capacity per person', {'name': u'Recovery Capacity per Person', 'pyname': u'recovery_capacity_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-person'}), (u'storage capacity per floor area', {'name': u'Storage Capacity per Floor Area', 'pyname': u'storage_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'recovery capacity per floor area', {'name': u'Recovery Capacity per Floor Area', 'pyname': u'recovery_capacity_per_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr-m2'}), (u'number of units', {'name': u'Number of Units', 'pyname': u'number_of_units', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'storage capacity per unit', {'name': u'Storage Capacity per Unit', 'pyname': u'storage_capacity_per_unit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'recovery capacity perunit', {'name': u'Recovery Capacity PerUnit', 'pyname': u'recovery_capacity_perunit', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/hr'}), (u'storage capacity per collector area', {'name': u'Storage Capacity per Collector Area', 'pyname': u'storage_capacity_per_collector_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m2'}), (u'height aspect ratio', {'name': u'Height Aspect Ratio', 'pyname': u'height_aspect_ratio', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def waterheater_name(self):
@@ -2624,7 +2624,7 @@ class WaterHeaterSizing(DataObject):
 
     @waterheater_name.setter
     def waterheater_name(self, value=None):
-        """  Corresponds to IDD Field `WaterHeater Name`
+        """  Corresponds to IDD field `WaterHeater Name`
 
         Args:
             value (str): value for IDD Field `WaterHeater Name`
@@ -2647,7 +2647,7 @@ class WaterHeaterSizing(DataObject):
 
     @design_mode.setter
     def design_mode(self, value=None):
-        """  Corresponds to IDD Field `Design Mode`
+        """  Corresponds to IDD field `Design Mode`
 
         Args:
             value (str): value for IDD Field `Design Mode`
@@ -2670,7 +2670,7 @@ class WaterHeaterSizing(DataObject):
 
     @time_storage_can_meet_peak_draw.setter
     def time_storage_can_meet_peak_draw(self, value=None):
-        """  Corresponds to IDD Field `Time Storage Can Meet Peak Draw`
+        """  Corresponds to IDD field `Time Storage Can Meet Peak Draw`
         Only used for Design Mode = PeakDraw
 
         Args:
@@ -2695,7 +2695,7 @@ class WaterHeaterSizing(DataObject):
 
     @time_for_tank_recovery.setter
     def time_for_tank_recovery(self, value=None):
-        """  Corresponds to IDD Field `Time for Tank Recovery`
+        """  Corresponds to IDD field `Time for Tank Recovery`
         Only used for Design Mode = PeakDraw
 
         Args:
@@ -2720,7 +2720,7 @@ class WaterHeaterSizing(DataObject):
 
     @nominal_tank_volume_for_autosizing_plant_connections.setter
     def nominal_tank_volume_for_autosizing_plant_connections(self, value=None):
-        """  Corresponds to IDD Field `Nominal Tank Volume for Autosizing Plant Connections`
+        """  Corresponds to IDD field `Nominal Tank Volume for Autosizing Plant Connections`
         Only used if Design Mode = PeakDraw and the water heater also
         has autosized flow rates for connections on the demand side of a plant loop
 
@@ -2746,7 +2746,7 @@ class WaterHeaterSizing(DataObject):
 
     @number_of_bedrooms.setter
     def number_of_bedrooms(self, value=None):
-        """  Corresponds to IDD Field `Number of Bedrooms`
+        """  Corresponds to IDD field `Number of Bedrooms`
         Only used for Design Mode = ResidentialHUD-FHAMinimum
 
         Args:
@@ -2771,7 +2771,7 @@ class WaterHeaterSizing(DataObject):
 
     @number_of_bathrooms.setter
     def number_of_bathrooms(self, value=None):
-        """  Corresponds to IDD Field `Number of Bathrooms`
+        """  Corresponds to IDD field `Number of Bathrooms`
         Only used for Design Mode = ResidentialHUD-FHAMinimum
 
         Args:
@@ -2796,7 +2796,7 @@ class WaterHeaterSizing(DataObject):
 
     @storage_capacity_per_person.setter
     def storage_capacity_per_person(self, value=None):
-        """  Corresponds to IDD Field `Storage Capacity per Person`
+        """  Corresponds to IDD field `Storage Capacity per Person`
         Only used for Design Mode = PerPerson
 
         Args:
@@ -2821,7 +2821,7 @@ class WaterHeaterSizing(DataObject):
 
     @recovery_capacity_per_person.setter
     def recovery_capacity_per_person(self, value=None):
-        """  Corresponds to IDD Field `Recovery Capacity per Person`
+        """  Corresponds to IDD field `Recovery Capacity per Person`
         Only used for Design Mode = PerPerson
 
         Args:
@@ -2846,7 +2846,7 @@ class WaterHeaterSizing(DataObject):
 
     @storage_capacity_per_floor_area.setter
     def storage_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Storage Capacity per Floor Area`
+        """  Corresponds to IDD field `Storage Capacity per Floor Area`
         Only used for Design Mode = PerFloorArea
 
         Args:
@@ -2871,7 +2871,7 @@ class WaterHeaterSizing(DataObject):
 
     @recovery_capacity_per_floor_area.setter
     def recovery_capacity_per_floor_area(self, value=None):
-        """  Corresponds to IDD Field `Recovery Capacity per Floor Area`
+        """  Corresponds to IDD field `Recovery Capacity per Floor Area`
         Only used for Design Mode = PerFloorArea
 
         Args:
@@ -2896,7 +2896,7 @@ class WaterHeaterSizing(DataObject):
 
     @number_of_units.setter
     def number_of_units(self, value=None):
-        """  Corresponds to IDD Field `Number of Units`
+        """  Corresponds to IDD field `Number of Units`
         Only used for Design Mode = PerUnit
 
         Args:
@@ -2920,7 +2920,7 @@ class WaterHeaterSizing(DataObject):
 
     @storage_capacity_per_unit.setter
     def storage_capacity_per_unit(self, value=None):
-        """  Corresponds to IDD Field `Storage Capacity per Unit`
+        """  Corresponds to IDD field `Storage Capacity per Unit`
         Only used for Design Mode = PerUnit
 
         Args:
@@ -2945,7 +2945,7 @@ class WaterHeaterSizing(DataObject):
 
     @recovery_capacity_perunit.setter
     def recovery_capacity_perunit(self, value=None):
-        """  Corresponds to IDD Field `Recovery Capacity PerUnit`
+        """  Corresponds to IDD field `Recovery Capacity PerUnit`
         Only used for Design Mode = PerUnit
 
         Args:
@@ -2970,7 +2970,7 @@ class WaterHeaterSizing(DataObject):
 
     @storage_capacity_per_collector_area.setter
     def storage_capacity_per_collector_area(self, value=None):
-        """  Corresponds to IDD Field `Storage Capacity per Collector Area`
+        """  Corresponds to IDD field `Storage Capacity per Collector Area`
         Only used for Design Mode = PerSolarCollectorArea
 
         Args:
@@ -2995,7 +2995,7 @@ class WaterHeaterSizing(DataObject):
 
     @height_aspect_ratio.setter
     def height_aspect_ratio(self, value=None):
-        """  Corresponds to IDD Field `Height Aspect Ratio`
+        """  Corresponds to IDD field `Height Aspect Ratio`
         only used if for WaterHeater:Stratified
 
         Args:
@@ -3015,7 +3015,7 @@ class WaterHeaterHeatPump(DataObject):
         WaterHeater:HeatPump is a compound object that references other component objects -
         Coil:WaterHeating:AirToWaterHeatPump, Fan:OnOff, WaterHeater:Mixed
     """
-    schema = {'min-fields': 31, 'name': u'WaterHeater:HeatPump', 'pyname': u'WaterHeaterHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor setpoint temperature schedule name', {'name': u'Compressor Setpoint Temperature Schedule Name', 'pyname': u'compressor_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dead band temperature difference', {'name': u'Dead Band Temperature Difference', 'pyname': u'dead_band_temperature_difference', 'default': 5.0, 'minimum>': 0.0, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'condenser water inlet node name', {'name': u'Condenser Water Inlet Node Name', 'pyname': u'condenser_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water outlet node name', {'name': u'Condenser Water Outlet Node Name', 'pyname': u'condenser_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water flow rate', {'name': u'Condenser Water Flow Rate', 'pyname': u'condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'evaporator air flow rate', {'name': u'Evaporator Air Flow Rate', 'pyname': u'evaporator_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'inlet air configuration', {'name': u'Inlet Air Configuration', 'pyname': u'inlet_air_configuration', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'ZoneAirOnly', u'OutdoorAirOnly', u'ZoneAndOutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air temperature schedule name', {'name': u'Inlet Air Temperature Schedule Name', 'pyname': u'inlet_air_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air humidity schedule name', {'name': u'Inlet Air Humidity Schedule Name', 'pyname': u'inlet_air_humidity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air zone name', {'name': u'Inlet Air Zone Name', 'pyname': u'inlet_air_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank object type', {'name': u'Tank Object Type', 'pyname': u'tank_object_type', 'default': u'WaterHeater:Mixed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WaterHeater:Mixed', u'WaterHeater:Stratified'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank name', {'name': u'Tank Name', 'pyname': u'tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank use side inlet node name', {'name': u'Tank Use Side Inlet Node Name', 'pyname': u'tank_use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'tank use side outlet node name', {'name': u'Tank Use Side Outlet Node Name', 'pyname': u'tank_use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dx coil object type', {'name': u'DX Coil Object Type', 'pyname': u'dx_coil_object_type', 'default': u'Coil:WaterHeating:AirToWaterHeatPump', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:WaterHeating:AirToWaterHeatPump'], 'autocalculatable': False, 'type': 'alpha'}), (u'dx coil name', {'name': u'DX Coil Name', 'pyname': u'dx_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum inlet air temperature for compressor operation', {'name': u'Minimum Inlet Air Temperature for Compressor Operation', 'pyname': u'minimum_inlet_air_temperature_for_compressor_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 5.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'compressor location', {'name': u'Compressor Location', 'pyname': u'compressor_location', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'compressor ambient temperature schedule name', {'name': u'Compressor Ambient Temperature Schedule Name', 'pyname': u'compressor_ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'default': u'Fan:OnOff', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic electric load', {'name': u'On Cycle Parasitic Electric Load', 'pyname': u'on_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic electric load', {'name': u'Off Cycle Parasitic Electric Load', 'pyname': u'off_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'parasitic heat rejection location', {'name': u'Parasitic Heat Rejection Location', 'pyname': u'parasitic_heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'inlet air mixer node name', {'name': u'Inlet Air Mixer Node Name', 'pyname': u'inlet_air_mixer_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet air splitter node name', {'name': u'Outlet Air Splitter Node Name', 'pyname': u'outlet_air_splitter_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air mixer schedule name', {'name': u'Inlet Air Mixer Schedule Name', 'pyname': u'inlet_air_mixer_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control sensor location in stratified tank', {'name': u'Control Sensor Location In Stratified Tank', 'pyname': u'control_sensor_location_in_stratified_tank', 'default': u'Heater1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heater1', u'Heater2', u'SourceInlet', u'SourceOutlet', u'UseInlet', u'UseOutlet'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 31, 'name': u'WaterHeater:HeatPump', 'pyname': u'WaterHeaterHeatPump', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor setpoint temperature schedule name', {'name': u'Compressor Setpoint Temperature Schedule Name', 'pyname': u'compressor_setpoint_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dead band temperature difference', {'name': u'Dead Band Temperature Difference', 'pyname': u'dead_band_temperature_difference', 'default': 5.0, 'minimum>': 0.0, 'maximum': 20.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'condenser water inlet node name', {'name': u'Condenser Water Inlet Node Name', 'pyname': u'condenser_water_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water outlet node name', {'name': u'Condenser Water Outlet Node Name', 'pyname': u'condenser_water_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'condenser water flow rate', {'name': u'Condenser Water Flow Rate', 'pyname': u'condenser_water_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'evaporator air flow rate', {'name': u'Evaporator Air Flow Rate', 'pyname': u'evaporator_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm3/s'}), (u'inlet air configuration', {'name': u'Inlet Air Configuration', 'pyname': u'inlet_air_configuration', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'ZoneAirOnly', u'OutdoorAirOnly', u'ZoneAndOutdoorAir'], 'autocalculatable': False, 'type': 'alpha'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air temperature schedule name', {'name': u'Inlet Air Temperature Schedule Name', 'pyname': u'inlet_air_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air humidity schedule name', {'name': u'Inlet Air Humidity Schedule Name', 'pyname': u'inlet_air_humidity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'inlet air zone name', {'name': u'Inlet Air Zone Name', 'pyname': u'inlet_air_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank object type', {'name': u'Tank Object Type', 'pyname': u'tank_object_type', 'default': u'WaterHeater:Mixed', 'required-field': True, 'autosizable': False, 'accepted-values': [u'WaterHeater:Mixed', u'WaterHeater:Stratified'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank name', {'name': u'Tank Name', 'pyname': u'tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank use side inlet node name', {'name': u'Tank Use Side Inlet Node Name', 'pyname': u'tank_use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'tank use side outlet node name', {'name': u'Tank Use Side Outlet Node Name', 'pyname': u'tank_use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'dx coil object type', {'name': u'DX Coil Object Type', 'pyname': u'dx_coil_object_type', 'default': u'Coil:WaterHeating:AirToWaterHeatPump', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:WaterHeating:AirToWaterHeatPump'], 'autocalculatable': False, 'type': 'alpha'}), (u'dx coil name', {'name': u'DX Coil Name', 'pyname': u'dx_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum inlet air temperature for compressor operation', {'name': u'Minimum Inlet Air Temperature for Compressor Operation', 'pyname': u'minimum_inlet_air_temperature_for_compressor_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'minimum': 5.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'compressor location', {'name': u'Compressor Location', 'pyname': u'compressor_location', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'compressor ambient temperature schedule name', {'name': u'Compressor Ambient Temperature Schedule Name', 'pyname': u'compressor_ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan object type', {'name': u'Fan Object Type', 'pyname': u'fan_object_type', 'default': u'Fan:OnOff', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan name', {'name': u'Fan Name', 'pyname': u'fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'on cycle parasitic electric load', {'name': u'On Cycle Parasitic Electric Load', 'pyname': u'on_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'off cycle parasitic electric load', {'name': u'Off Cycle Parasitic Electric Load', 'pyname': u'off_cycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'parasitic heat rejection location', {'name': u'Parasitic Heat Rejection Location', 'pyname': u'parasitic_heat_rejection_location', 'default': u'Outdoors', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'inlet air mixer node name', {'name': u'Inlet Air Mixer Node Name', 'pyname': u'inlet_air_mixer_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet air splitter node name', {'name': u'Outlet Air Splitter Node Name', 'pyname': u'outlet_air_splitter_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'inlet air mixer schedule name', {'name': u'Inlet Air Mixer Schedule Name', 'pyname': u'inlet_air_mixer_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control sensor location in stratified tank', {'name': u'Control Sensor Location In Stratified Tank', 'pyname': u'control_sensor_location_in_stratified_tank', 'default': u'Heater1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Heater1', u'Heater2', u'SourceInlet', u'SourceOutlet', u'UseInlet', u'UseOutlet'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -3028,7 +3028,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Unique name for this instance of a heat pump water heater.
 
         Args:
@@ -3052,7 +3052,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
         Schedule values of 0 denote the heat pump compressor is off and the parasitic electric
@@ -3079,7 +3079,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @compressor_setpoint_temperature_schedule_name.setter
     def compressor_setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Compressor Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Compressor Setpoint Temperature Schedule Name`
         Defines the cut-out temperature where the heat pump compressor turns off.
         The heat pump compressor setpoint temperature should always be greater
         than the water tank's heater (element or burner) setpoint temperature.
@@ -3105,7 +3105,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @dead_band_temperature_difference.setter
     def dead_band_temperature_difference(self, value=5.0):
-        """  Corresponds to IDD Field `Dead Band Temperature Difference`
+        """  Corresponds to IDD field `Dead Band Temperature Difference`
         Setpoint temperature minus the dead band temperature difference defines
         the cut-in temperature where the heat pump compressor turns on.
         The water tank's heater (element or burner) setpoint temperature
@@ -3135,7 +3135,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @condenser_water_inlet_node_name.setter
     def condenser_water_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Water Inlet Node Name`
+        """  Corresponds to IDD field `Condenser Water Inlet Node Name`
         Should match the field Source Outlet Node Name in the water heater tank object.
         Should also match the Condenser Water Inlet Node Name in the associated
         DX coil object.
@@ -3161,7 +3161,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @condenser_water_outlet_node_name.setter
     def condenser_water_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Condenser Water Outlet Node Name`
+        """  Corresponds to IDD field `Condenser Water Outlet Node Name`
         Should match the field Source Inlet Node Name in water heater tank object.
         Should also match the Condenser Water Outlet Node Name in the associated
         DX Coil object.
@@ -3187,7 +3187,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @condenser_water_flow_rate.setter
     def condenser_water_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Condenser Water Flow Rate`
+        """  Corresponds to IDD field `Condenser Water Flow Rate`
         Actual water flow rate through the heat pump's water coil (condenser).
         If autocalculated, the water flow rate is set equal to 4.487E-8 m3/s/W times
         the rated heating capacity of the heat pump's DX coil.
@@ -3214,7 +3214,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @evaporator_air_flow_rate.setter
     def evaporator_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Evaporator Air Flow Rate`
+        """  Corresponds to IDD field `Evaporator Air Flow Rate`
         Actual air flow rate across the heat pump's air coil (evaporator).
         If autocalculated, the air flow rate is set equal to 5.035E-5 m3/s/W times
         the rated heating capacity of the heat pump's DX coil.
@@ -3241,7 +3241,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_configuration.setter
     def inlet_air_configuration(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Configuration`
+        """  Corresponds to IDD field `Inlet Air Configuration`
         Defines the configuration of the airflow path through the air coil and fan section.
 
         Args:
@@ -3265,7 +3265,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
         Zone air exhaust node name if Inlet Air Configuration is ZoneAirOnly or
         ZoneAndOutdoorAir.
         Simply a unique Node Name if Inlet Air Configuration is Schedule.
@@ -3292,7 +3292,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
         Zone Air Inlet Node Name if Inlet Air Configuration is ZoneAirOnly or
         ZoneAndOutdoorAir.
         Simply a unique Node Name if Inlet Air Configuration is Schedule.
@@ -3319,7 +3319,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outdoor Air Node Name`
+        """  Corresponds to IDD field `Outdoor Air Node Name`
         Outdoor air node name if inlet air configuration is ZoneAndOutdoorAir
         or OutdoorAirOnly, otherwise leave field blank.
 
@@ -3344,7 +3344,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @exhaust_air_node_name.setter
     def exhaust_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Exhaust Air Node Name`
+        """  Corresponds to IDD field `Exhaust Air Node Name`
         Simply a unique Node Name if Inlet Air Configuration is ZoneAndOutdoorAir
         or OutdoorAirOnly, otherwise leave field blank.
 
@@ -3369,7 +3369,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_temperature_schedule_name.setter
     def inlet_air_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Temperature Schedule Name`
+        """  Corresponds to IDD field `Inlet Air Temperature Schedule Name`
         Used only if Inlet Air Configuration is Schedule, otherwise leave blank.
         Schedule values should be degrees C.
 
@@ -3394,7 +3394,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_humidity_schedule_name.setter
     def inlet_air_humidity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Humidity Schedule Name`
+        """  Corresponds to IDD field `Inlet Air Humidity Schedule Name`
         Used only if Inlet Air Configuration is Schedule, otherwise leave blank.
         Schedule values are entered as a fraction (e.g. 0.5 is equal to 50%RH)
 
@@ -3419,7 +3419,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_zone_name.setter
     def inlet_air_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Zone Name`
+        """  Corresponds to IDD field `Inlet Air Zone Name`
         Used only if Inlet Air Configuration is ZoneAirOnly or ZoneAndOutdoorAir.
         Otherwise, leave field blank.
 
@@ -3444,7 +3444,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @tank_object_type.setter
     def tank_object_type(self, value="WaterHeater:Mixed"):
-        """  Corresponds to IDD Field `Tank Object Type`
+        """  Corresponds to IDD field `Tank Object Type`
         Specify the type of water heater tank used by this heat pump water heater.
 
         Args:
@@ -3469,7 +3469,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @tank_name.setter
     def tank_name(self, value=None):
-        """  Corresponds to IDD Field `Tank Name`
+        """  Corresponds to IDD field `Tank Name`
         Needs to match the name used in the corresponding Water Heater object.
 
         Args:
@@ -3493,7 +3493,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @tank_use_side_inlet_node_name.setter
     def tank_use_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Tank Use Side Inlet Node Name`
+        """  Corresponds to IDD field `Tank Use Side Inlet Node Name`
         Used only when the heat pump water heater is connected to a plant loop,
         otherwise leave blank. Needs to match the name used in the corresponding
         Water Heater object when connected to a plant loop.
@@ -3519,7 +3519,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @tank_use_side_outlet_node_name.setter
     def tank_use_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Tank Use Side Outlet Node Name`
+        """  Corresponds to IDD field `Tank Use Side Outlet Node Name`
         Used only when the heat pump water heater is connected to a plant loop,
         otherwise leave blank. Needs to match the name used in the corresponding
         Water Heater object when connected to a plant loop.
@@ -3545,7 +3545,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @dx_coil_object_type.setter
     def dx_coil_object_type(self, value="Coil:WaterHeating:AirToWaterHeatPump"):
-        """  Corresponds to IDD Field `DX Coil Object Type`
+        """  Corresponds to IDD field `DX Coil Object Type`
         Specify the type of DX coil used by this heat pump water heater. The only
         valid choice is Coil:WaterHeating:AirToWaterHeatPump.
 
@@ -3571,7 +3571,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @dx_coil_name.setter
     def dx_coil_name(self, value=None):
-        """  Corresponds to IDD Field `DX Coil Name`
+        """  Corresponds to IDD field `DX Coil Name`
         Must match the name used in the corresponding Coil:WaterHeating:AirToWaterHeatPump object.
 
         Args:
@@ -3595,7 +3595,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @minimum_inlet_air_temperature_for_compressor_operation.setter
     def minimum_inlet_air_temperature_for_compressor_operation(self, value=10.0):
-        """  Corresponds to IDD Field `Minimum Inlet Air Temperature for Compressor Operation`
+        """  Corresponds to IDD field `Minimum Inlet Air Temperature for Compressor Operation`
         Heat pump compressor will not operate when the inlet air dry-bulb temperature
         is below this value.
 
@@ -3623,7 +3623,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @compressor_location.setter
     def compressor_location(self, value=None):
-        """  Corresponds to IDD Field `Compressor Location`
+        """  Corresponds to IDD field `Compressor Location`
         If Zone is selected, Inlet Air Configuration must be ZoneAirOnly or
         ZoneAndOutdoorAir. If Schedule is selected, then you must provide a
         Compressor Ambient Temperature Schedule Name below.
@@ -3649,7 +3649,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @compressor_ambient_temperature_schedule_name.setter
     def compressor_ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Compressor Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Compressor Ambient Temperature Schedule Name`
         Used only if Compressor Location is Schedule, otherwise leave field blank.
 
         Args:
@@ -3673,7 +3673,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @fan_object_type.setter
     def fan_object_type(self, value="Fan:OnOff"):
-        """  Corresponds to IDD Field `Fan Object Type`
+        """  Corresponds to IDD field `Fan Object Type`
         Specify the type of fan used by this heat pump water heater. The only
         valid choice is Fan:OnOff.
 
@@ -3699,7 +3699,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @fan_name.setter
     def fan_name(self, value=None):
-        """  Corresponds to IDD Field `Fan Name`
+        """  Corresponds to IDD field `Fan Name`
         Needs to match the name used in the corresponding Fan:OnOff object.
 
         Args:
@@ -3723,7 +3723,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @fan_placement.setter
     def fan_placement(self, value="DrawThrough"):
-        """  Corresponds to IDD Field `Fan Placement`
+        """  Corresponds to IDD field `Fan Placement`
         BlowThrough means the fan is located before the air coil (upstream).
         DrawThrough means the fan is located after the air coil (downstream).
 
@@ -3749,7 +3749,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @on_cycle_parasitic_electric_load.setter
     def on_cycle_parasitic_electric_load(self, value=None):
-        """  Corresponds to IDD Field `On Cycle Parasitic Electric Load`
+        """  Corresponds to IDD field `On Cycle Parasitic Electric Load`
         Parasitic electric power consumed when the heat pump compressor operates.
         Does not contribute to water heating but can impact the zone air heat balance.
 
@@ -3775,7 +3775,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @off_cycle_parasitic_electric_load.setter
     def off_cycle_parasitic_electric_load(self, value=None):
-        """  Corresponds to IDD Field `Off Cycle Parasitic Electric Load`
+        """  Corresponds to IDD field `Off Cycle Parasitic Electric Load`
         Parasitic electric power consumed when the heat pump compressor is off.
         Does not contribute to water heating but can impact the zone air heat balance.
         Off-cycle parasitic power is 0 when the availability schedule is 0.
@@ -3802,7 +3802,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @parasitic_heat_rejection_location.setter
     def parasitic_heat_rejection_location(self, value="Outdoors"):
-        """  Corresponds to IDD Field `Parasitic Heat Rejection Location`
+        """  Corresponds to IDD field `Parasitic Heat Rejection Location`
         This field determines if the parasitic electric load impacts the zone air
         heat balance. If Zone is selected, Inlet Air Configuration must be
         ZoneAirOnly or ZoneAndOutdoorAir.
@@ -3829,7 +3829,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_mixer_node_name.setter
     def inlet_air_mixer_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Mixer Node Name`
+        """  Corresponds to IDD field `Inlet Air Mixer Node Name`
         Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
         leave field blank.
 
@@ -3854,7 +3854,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @outlet_air_splitter_node_name.setter
     def outlet_air_splitter_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Air Splitter Node Name`
+        """  Corresponds to IDD field `Outlet Air Splitter Node Name`
         Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
         leave field blank.
 
@@ -3879,7 +3879,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @inlet_air_mixer_schedule_name.setter
     def inlet_air_mixer_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Air Mixer Schedule Name`
+        """  Corresponds to IDD field `Inlet Air Mixer Schedule Name`
         Required only if Inlet Air Configuration is ZoneAndOutdoorAir, otherwise
         leave field blank. Schedule values define whether the heat pump draws its
         inlet air from the zone, outdoors or a combination of zone and outdoor air.
@@ -3909,7 +3909,7 @@ class WaterHeaterHeatPump(DataObject):
 
     @control_sensor_location_in_stratified_tank.setter
     def control_sensor_location_in_stratified_tank(self, value="Heater1"):
-        """  Corresponds to IDD Field `Control Sensor Location In Stratified Tank`
+        """  Corresponds to IDD field `Control Sensor Location In Stratified Tank`
         Used to indicate height of control sensor if Tank Object Type is WaterHeater:Stratified
 
         Args:
@@ -3932,7 +3932,7 @@ class ThermalStorageIceSimple(DataObject):
         followed by a pipe.
         Use the PlantEquipmentOperation:ComponentSetpoint plant operation scheme.
     """
-    schema = {'min-fields': 5, 'name': u'ThermalStorage:Ice:Simple', 'pyname': u'ThermalStorageIceSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ice storage type', {'name': u'Ice Storage Type', 'pyname': u'ice_storage_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IceOnCoilInternal', u'IceOnCoilExternal'], 'autocalculatable': False, 'type': 'alpha'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 5, 'name': u'ThermalStorage:Ice:Simple', 'pyname': u'ThermalStorageIceSimple', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'ice storage type', {'name': u'Ice Storage Type', 'pyname': u'ice_storage_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IceOnCoilInternal', u'IceOnCoilExternal'], 'autocalculatable': False, 'type': 'alpha'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -3945,7 +3945,7 @@ class ThermalStorageIceSimple(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3968,7 +3968,7 @@ class ThermalStorageIceSimple(DataObject):
 
     @ice_storage_type.setter
     def ice_storage_type(self, value=None):
-        """  Corresponds to IDD Field `Ice Storage Type`
+        """  Corresponds to IDD field `Ice Storage Type`
         IceOnCoilInternal = Ice-on-Coil, internal melt
         IceOnCoilExternal = Ice-on-Coil, external melt
 
@@ -3993,7 +3993,7 @@ class ThermalStorageIceSimple(DataObject):
 
     @capacity.setter
     def capacity(self, value=None):
-        """  Corresponds to IDD Field `Capacity`
+        """  Corresponds to IDD field `Capacity`
 
         Args:
             value (float): value for IDD Field `Capacity`
@@ -4018,7 +4018,7 @@ class ThermalStorageIceSimple(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -4041,7 +4041,7 @@ class ThermalStorageIceSimple(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -4061,7 +4061,7 @@ class ThermalStorageIceDetailed(DataObject):
         tank or series of tanks.
         The model uses polynomial equations to describe the system performance.
     """
-    schema = {'min-fields': 14, 'name': u'ThermalStorage:Ice:Detailed', 'pyname': u'ThermalStorageIceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'discharging curve object type', {'name': u'Discharging Curve Object Type', 'pyname': u'discharging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'discharging curve name', {'name': u'Discharging Curve Name', 'pyname': u'discharging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'charging curve object type', {'name': u'Charging Curve Object Type', 'pyname': u'charging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'charging curve name', {'name': u'Charging Curve Name', 'pyname': u'charging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'timestep of the curve data', {'name': u'Timestep of the Curve Data', 'pyname': u'timestep_of_the_curve_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'parasitic electric load during discharging', {'name': u'Parasitic Electric Load During Discharging', 'pyname': u'parasitic_electric_load_during_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'parasitic electric load during charging', {'name': u'Parasitic Electric Load During Charging', 'pyname': u'parasitic_electric_load_during_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'tank loss coefficient', {'name': u'Tank Loss Coefficient', 'pyname': u'tank_loss_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'freezing temperature of storage medium', {'name': u'Freezing Temperature of Storage Medium', 'pyname': u'freezing_temperature_of_storage_medium', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'thaw process indicator', {'name': u'Thaw Process Indicator', 'pyname': u'thaw_process_indicator', 'default': u'OutsideMelt', 'required-field': False, 'autosizable': False, 'accepted-values': [u'InsideMelt', u'OutsideMelt'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 14, 'name': u'ThermalStorage:Ice:Detailed', 'pyname': u'ThermalStorageIceDetailed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity', {'name': u'Capacity', 'pyname': u'capacity', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'GJ'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'discharging curve object type', {'name': u'Discharging Curve Object Type', 'pyname': u'discharging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'discharging curve name', {'name': u'Discharging Curve Name', 'pyname': u'discharging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'charging curve object type', {'name': u'Charging Curve Object Type', 'pyname': u'charging_curve_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Curve:QuadraticLinear'], 'autocalculatable': False, 'type': 'alpha'}), (u'charging curve name', {'name': u'Charging Curve Name', 'pyname': u'charging_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'timestep of the curve data', {'name': u'Timestep of the Curve Data', 'pyname': u'timestep_of_the_curve_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'parasitic electric load during discharging', {'name': u'Parasitic Electric Load During Discharging', 'pyname': u'parasitic_electric_load_during_discharging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'parasitic electric load during charging', {'name': u'Parasitic Electric Load During Charging', 'pyname': u'parasitic_electric_load_during_charging', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'tank loss coefficient', {'name': u'Tank Loss Coefficient', 'pyname': u'tank_loss_coefficient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'freezing temperature of storage medium', {'name': u'Freezing Temperature of Storage Medium', 'pyname': u'freezing_temperature_of_storage_medium', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'thaw process indicator', {'name': u'Thaw Process Indicator', 'pyname': u'thaw_process_indicator', 'default': u'OutsideMelt', 'required-field': False, 'autosizable': False, 'accepted-values': [u'InsideMelt', u'OutsideMelt'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -4074,7 +4074,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4097,7 +4097,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -4122,7 +4122,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @capacity.setter
     def capacity(self, value=None):
-        """  Corresponds to IDD Field `Capacity`
+        """  Corresponds to IDD field `Capacity`
         This includes only the latent storage capacity
 
         Args:
@@ -4147,7 +4147,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -4170,7 +4170,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -4193,7 +4193,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @discharging_curve_object_type.setter
     def discharging_curve_object_type(self, value=None):
-        """  Corresponds to IDD Field `Discharging Curve Object Type`
+        """  Corresponds to IDD field `Discharging Curve Object Type`
         Table:OneIndependentVariable object can also be used
 
         Args:
@@ -4217,7 +4217,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @discharging_curve_name.setter
     def discharging_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Discharging Curve Name`
+        """  Corresponds to IDD field `Discharging Curve Name`
         Table:OneIndependentVariable object can also be used
 
         Args:
@@ -4241,7 +4241,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @charging_curve_object_type.setter
     def charging_curve_object_type(self, value=None):
-        """  Corresponds to IDD Field `Charging Curve Object Type`
+        """  Corresponds to IDD field `Charging Curve Object Type`
         Table:OneIndependentVariable object can also be used
 
         Args:
@@ -4265,7 +4265,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @charging_curve_name.setter
     def charging_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Charging Curve Name`
+        """  Corresponds to IDD field `Charging Curve Name`
         Table:OneIndependentVariable object can also be used
 
         Args:
@@ -4289,7 +4289,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @timestep_of_the_curve_data.setter
     def timestep_of_the_curve_data(self, value=None):
-        """  Corresponds to IDD Field `Timestep of the Curve Data`
+        """  Corresponds to IDD field `Timestep of the Curve Data`
 
         Args:
             value (float): value for IDD Field `Timestep of the Curve Data`
@@ -4313,7 +4313,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @parasitic_electric_load_during_discharging.setter
     def parasitic_electric_load_during_discharging(self, value=None):
-        """  Corresponds to IDD Field `Parasitic Electric Load During Discharging`
+        """  Corresponds to IDD field `Parasitic Electric Load During Discharging`
 
         Args:
             value (float): value for IDD Field `Parasitic Electric Load During Discharging`
@@ -4337,7 +4337,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @parasitic_electric_load_during_charging.setter
     def parasitic_electric_load_during_charging(self, value=None):
-        """  Corresponds to IDD Field `Parasitic Electric Load During Charging`
+        """  Corresponds to IDD field `Parasitic Electric Load During Charging`
 
         Args:
             value (float): value for IDD Field `Parasitic Electric Load During Charging`
@@ -4361,7 +4361,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @tank_loss_coefficient.setter
     def tank_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Tank Loss Coefficient`
+        """  Corresponds to IDD field `Tank Loss Coefficient`
         This is the fraction the total storage capacity that is lost or melts
         each hour
 
@@ -4387,7 +4387,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @freezing_temperature_of_storage_medium.setter
     def freezing_temperature_of_storage_medium(self, value=None):
-        """  Corresponds to IDD Field `Freezing Temperature of Storage Medium`
+        """  Corresponds to IDD field `Freezing Temperature of Storage Medium`
         This temperature is typically 0C for water.
         Simply changing this temperature without adjusting the performance
         parameters input above is inappropriate and not advised.
@@ -4414,7 +4414,7 @@ class ThermalStorageIceDetailed(DataObject):
 
     @thaw_process_indicator.setter
     def thaw_process_indicator(self, value="OutsideMelt"):
-        """  Corresponds to IDD Field `Thaw Process Indicator`
+        """  Corresponds to IDD field `Thaw Process Indicator`
         This field determines whether the system uses internal or external melt
         during discharging.  This will then have an impact on charging performance.
 
@@ -4436,7 +4436,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
     """
-    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Mixed', 'pyname': u'ThermalStorageChilledWaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat gain coefficient from ambient temperature', {'name': u'Heat Gain Coefficient from Ambient Temperature', 'pyname': u'heat_gain_coefficient_from_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Mixed', 'pyname': u'ThermalStorageChilledWaterMixed', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'default': 0.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.5, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'heat gain coefficient from ambient temperature', {'name': u'Heat Gain Coefficient from Ambient Temperature', 'pyname': u'heat_gain_coefficient_from_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -4449,7 +4449,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4472,7 +4472,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @tank_volume.setter
     def tank_volume(self, value=0.1):
-        """  Corresponds to IDD Field `Tank Volume`
+        """  Corresponds to IDD field `Tank Volume`
 
         Args:
             value (float): value for IDD Field `Tank Volume`
@@ -4498,7 +4498,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Setpoint Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Setpoint Temperature Schedule Name`
@@ -4521,7 +4521,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=0.5):
-        """  Corresponds to IDD Field `Deadband Temperature Difference`
+        """  Corresponds to IDD field `Deadband Temperature Difference`
 
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
@@ -4546,7 +4546,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @minimum_temperature_limit.setter
     def minimum_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `Minimum Temperature Limit`
+        """  Corresponds to IDD field `Minimum Temperature Limit`
 
         Args:
             value (float): value for IDD Field `Minimum Temperature Limit`
@@ -4570,7 +4570,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @nominal_cooling_capacity.setter
     def nominal_cooling_capacity(self, value=None):
-        """  Corresponds to IDD Field `Nominal Cooling Capacity`
+        """  Corresponds to IDD field `Nominal Cooling Capacity`
 
         Args:
             value (float): value for IDD Field `Nominal Cooling Capacity`
@@ -4594,7 +4594,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Indicator`
+        """  Corresponds to IDD field `Ambient Temperature Indicator`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
@@ -4617,7 +4617,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -4640,7 +4640,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        """  Corresponds to IDD field `Ambient Temperature Zone Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -4663,7 +4663,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        """  Corresponds to IDD field `Ambient Temperature Outdoor Air Node Name`
         required when field Ambient Temperature Indicator=Outdoors
 
         Args:
@@ -4687,7 +4687,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @heat_gain_coefficient_from_ambient_temperature.setter
     def heat_gain_coefficient_from_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `Heat Gain Coefficient from Ambient Temperature`
+        """  Corresponds to IDD field `Heat Gain Coefficient from Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `Heat Gain Coefficient from Ambient Temperature`
@@ -4711,7 +4711,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Inlet Node Name`
+        """  Corresponds to IDD field `Use Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Inlet Node Name`
@@ -4734,7 +4734,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Outlet Node Name`
+        """  Corresponds to IDD field `Use Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Outlet Node Name`
@@ -4757,7 +4757,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @use_side_heat_transfer_effectiveness.setter
     def use_side_heat_transfer_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Use Side Heat Transfer Effectiveness`
+        """  Corresponds to IDD field `Use Side Heat Transfer Effectiveness`
 
         Args:
             value (float): value for IDD Field `Use Side Heat Transfer Effectiveness`
@@ -4782,7 +4782,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @use_side_availability_schedule_name.setter
     def use_side_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Availability Schedule Name`
+        """  Corresponds to IDD field `Use Side Availability Schedule Name`
         Availability schedule name for use side. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -4807,7 +4807,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Use Side Design Flow Rate`
+        """  Corresponds to IDD field `Use Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
@@ -4833,7 +4833,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Inlet Node Name`
+        """  Corresponds to IDD field `Source Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Inlet Node Name`
@@ -4856,7 +4856,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Outlet Node Name`
+        """  Corresponds to IDD field `Source Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Outlet Node Name`
@@ -4879,7 +4879,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @source_side_heat_transfer_effectiveness.setter
     def source_side_heat_transfer_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Source Side Heat Transfer Effectiveness`
+        """  Corresponds to IDD field `Source Side Heat Transfer Effectiveness`
 
         Args:
             value (float): value for IDD Field `Source Side Heat Transfer Effectiveness`
@@ -4904,7 +4904,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @source_side_availability_schedule_name.setter
     def source_side_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Availability Schedule Name`
+        """  Corresponds to IDD field `Source Side Availability Schedule Name`
         Availability schedule name for source side. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -4929,7 +4929,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Source Side Design Flow Rate`
+        """  Corresponds to IDD field `Source Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
@@ -4955,7 +4955,7 @@ class ThermalStorageChilledWaterMixed(DataObject):
 
     @tank_recovery_time.setter
     def tank_recovery_time(self, value=4.0):
-        """  Corresponds to IDD Field `Tank Recovery Time`
+        """  Corresponds to IDD field `Tank Recovery Time`
         Parameter for autosizing design flow rates for indirectly cooled water tanks
         time required to lower temperature of entire tank from 14.4C to 9.0C
 
@@ -4978,7 +4978,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
     """
-    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Stratified', 'pyname': u'ThermalStorageChilledWaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature sensor height', {'name': u'Temperature Sensor Height', 'pyname': u'temperature_sensor_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ThermalStorage:ChilledWater:Stratified', 'pyname': u'ThermalStorageChilledWaterStratified', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'tank volume', {'name': u'Tank Volume', 'pyname': u'tank_volume', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'tank height', {'name': u'Tank Height', 'pyname': u'tank_height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'tank shape', {'name': u'Tank Shape', 'pyname': u'tank_shape', 'default': u'VerticalCylinder', 'required-field': False, 'autosizable': False, 'accepted-values': [u'VerticalCylinder', u'HorizontalCylinder', u'Other'], 'autocalculatable': False, 'type': 'alpha'}), (u'tank perimeter', {'name': u'Tank Perimeter', 'pyname': u'tank_perimeter', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'setpoint temperature schedule name', {'name': u'Setpoint Temperature Schedule Name', 'pyname': u'setpoint_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'deadband temperature difference', {'name': u'Deadband Temperature Difference', 'pyname': u'deadband_temperature_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature sensor height', {'name': u'Temperature Sensor Height', 'pyname': u'temperature_sensor_height', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'minimum temperature limit', {'name': u'Minimum Temperature Limit', 'pyname': u'minimum_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'nominal cooling capacity', {'name': u'Nominal Cooling Capacity', 'pyname': u'nominal_cooling_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'uniform skin loss coefficient per unit area to ambient temperature', {'name': u'Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature', 'pyname': u'uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'use side inlet node name', {'name': u'Use Side Inlet Node Name', 'pyname': u'use_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side outlet node name', {'name': u'Use Side Outlet Node Name', 'pyname': u'use_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'use side heat transfer effectiveness', {'name': u'Use Side Heat Transfer Effectiveness', 'pyname': u'use_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'use side availability schedule name', {'name': u'Use Side Availability Schedule Name', 'pyname': u'use_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use side inlet height', {'name': u'Use Side Inlet Height', 'pyname': u'use_side_inlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'use side outlet height', {'name': u'Use Side Outlet Height', 'pyname': u'use_side_outlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'use side design flow rate', {'name': u'Use Side Design Flow Rate', 'pyname': u'use_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'source side inlet node name', {'name': u'Source Side Inlet Node Name', 'pyname': u'source_side_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side outlet node name', {'name': u'Source Side Outlet Node Name', 'pyname': u'source_side_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'source side heat transfer effectiveness', {'name': u'Source Side Heat Transfer Effectiveness', 'pyname': u'source_side_heat_transfer_effectiveness', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'source side availability schedule name', {'name': u'Source Side Availability Schedule Name', 'pyname': u'source_side_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'source side inlet height', {'name': u'Source Side Inlet Height', 'pyname': u'source_side_inlet_height', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'source side outlet height', {'name': u'Source Side Outlet Height', 'pyname': u'source_side_outlet_height', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'source side design flow rate', {'name': u'Source Side Design Flow Rate', 'pyname': u'source_side_design_flow_rate', 'default': 'autosize', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'tank recovery time', {'name': u'Tank Recovery Time', 'pyname': u'tank_recovery_time', 'default': 4.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'inlet mode', {'name': u'Inlet Mode', 'pyname': u'inlet_mode', 'default': u'Fixed', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fixed', u'Seeking'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of nodes', {'name': u'Number of Nodes', 'pyname': u'number_of_nodes', 'default': 1, 'maximum': 10, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'additional destratification conductivity', {'name': u'Additional Destratification Conductivity', 'pyname': u'additional_destratification_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'node 1 additional loss coefficient', {'name': u'Node 1 Additional Loss Coefficient', 'pyname': u'node_1_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 2 additional loss coefficient', {'name': u'Node 2 Additional Loss Coefficient', 'pyname': u'node_2_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 3 additional loss coefficient', {'name': u'Node 3 Additional Loss Coefficient', 'pyname': u'node_3_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 4 additional loss coefficient', {'name': u'Node 4 Additional Loss Coefficient', 'pyname': u'node_4_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 5 additional loss coefficient', {'name': u'Node 5 Additional Loss Coefficient', 'pyname': u'node_5_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 6 additional loss coefficient', {'name': u'Node 6 Additional Loss Coefficient', 'pyname': u'node_6_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 7 additional loss coefficient', {'name': u'Node 7 Additional Loss Coefficient', 'pyname': u'node_7_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 8 additional loss coefficient', {'name': u'Node 8 Additional Loss Coefficient', 'pyname': u'node_8_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 9 additional loss coefficient', {'name': u'Node 9 Additional Loss Coefficient', 'pyname': u'node_9_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'node 10 additional loss coefficient', {'name': u'Node 10 Additional Loss Coefficient', 'pyname': u'node_10_additional_loss_coefficient', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Heaters and Thermal Storage'}
 
     @property
     def name(self):
@@ -4991,7 +4991,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5014,7 +5014,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @tank_volume.setter
     def tank_volume(self, value=None):
-        """  Corresponds to IDD Field `Tank Volume`
+        """  Corresponds to IDD field `Tank Volume`
 
         Args:
             value (float): value for IDD Field `Tank Volume`
@@ -5039,7 +5039,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @tank_height.setter
     def tank_height(self, value=None):
-        """  Corresponds to IDD Field `Tank Height`
+        """  Corresponds to IDD field `Tank Height`
         Height is measured in the axial direction for horizontal cylinders
 
         Args:
@@ -5064,7 +5064,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @tank_shape.setter
     def tank_shape(self, value="VerticalCylinder"):
-        """  Corresponds to IDD Field `Tank Shape`
+        """  Corresponds to IDD field `Tank Shape`
 
         Args:
             value (str): value for IDD Field `Tank Shape`
@@ -5088,7 +5088,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @tank_perimeter.setter
     def tank_perimeter(self, value=None):
-        """  Corresponds to IDD Field `Tank Perimeter`
+        """  Corresponds to IDD field `Tank Perimeter`
         Only used if Tank Shape is Other
 
         Args:
@@ -5113,7 +5113,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @setpoint_temperature_schedule_name.setter
     def setpoint_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Setpoint Temperature Schedule Name`
+        """  Corresponds to IDD field `Setpoint Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Setpoint Temperature Schedule Name`
@@ -5136,7 +5136,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @deadband_temperature_difference.setter
     def deadband_temperature_difference(self, value=None):
-        """  Corresponds to IDD Field `Deadband Temperature Difference`
+        """  Corresponds to IDD field `Deadband Temperature Difference`
 
         Args:
             value (float): value for IDD Field `Deadband Temperature Difference`
@@ -5160,7 +5160,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @temperature_sensor_height.setter
     def temperature_sensor_height(self, value=None):
-        """  Corresponds to IDD Field `Temperature Sensor Height`
+        """  Corresponds to IDD field `Temperature Sensor Height`
 
         Args:
             value (float): value for IDD Field `Temperature Sensor Height`
@@ -5184,7 +5184,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @minimum_temperature_limit.setter
     def minimum_temperature_limit(self, value=None):
-        """  Corresponds to IDD Field `Minimum Temperature Limit`
+        """  Corresponds to IDD field `Minimum Temperature Limit`
 
         Args:
             value (float): value for IDD Field `Minimum Temperature Limit`
@@ -5208,7 +5208,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @nominal_cooling_capacity.setter
     def nominal_cooling_capacity(self, value=None):
-        """  Corresponds to IDD Field `Nominal Cooling Capacity`
+        """  Corresponds to IDD field `Nominal Cooling Capacity`
 
         Args:
             value (float): value for IDD Field `Nominal Cooling Capacity`
@@ -5232,7 +5232,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Indicator`
+        """  Corresponds to IDD field `Ambient Temperature Indicator`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
@@ -5255,7 +5255,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -5278,7 +5278,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        """  Corresponds to IDD field `Ambient Temperature Zone Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -5301,7 +5301,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        """  Corresponds to IDD field `Ambient Temperature Outdoor Air Node Name`
         required for Ambient Temperature Indicator=Outdoors
 
         Args:
@@ -5325,7 +5325,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature.setter
     def uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature(self, value=None):
-        """  Corresponds to IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
+        """  Corresponds to IDD field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
 
         Args:
             value (float): value for IDD Field `Uniform Skin Loss Coefficient per Unit Area to Ambient Temperature`
@@ -5349,7 +5349,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_inlet_node_name.setter
     def use_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Inlet Node Name`
+        """  Corresponds to IDD field `Use Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Inlet Node Name`
@@ -5372,7 +5372,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_outlet_node_name.setter
     def use_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Outlet Node Name`
+        """  Corresponds to IDD field `Use Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Use Side Outlet Node Name`
@@ -5395,7 +5395,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_heat_transfer_effectiveness.setter
     def use_side_heat_transfer_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Use Side Heat Transfer Effectiveness`
+        """  Corresponds to IDD field `Use Side Heat Transfer Effectiveness`
         The use side effectiveness in the stratified tank model is a simplified analogy of
         a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
         use mass flow rate that directly mixes with the tank fluid. And one minus the
@@ -5425,7 +5425,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_availability_schedule_name.setter
     def use_side_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Use Side Availability Schedule Name`
+        """  Corresponds to IDD field `Use Side Availability Schedule Name`
         Availability schedule name for use side. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -5450,7 +5450,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_inlet_height.setter
     def use_side_inlet_height(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Use Side Inlet Height`
+        """  Corresponds to IDD field `Use Side Inlet Height`
         Defaults to top of tank
 
         Args:
@@ -5476,7 +5476,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_outlet_height.setter
     def use_side_outlet_height(self, value=None):
-        """  Corresponds to IDD Field `Use Side Outlet Height`
+        """  Corresponds to IDD field `Use Side Outlet Height`
         Defaults to bottom of tank
 
         Args:
@@ -5501,7 +5501,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @use_side_design_flow_rate.setter
     def use_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Use Side Design Flow Rate`
+        """  Corresponds to IDD field `Use Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Use Side Design Flow Rate`
@@ -5527,7 +5527,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_inlet_node_name.setter
     def source_side_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Inlet Node Name`
+        """  Corresponds to IDD field `Source Side Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Inlet Node Name`
@@ -5550,7 +5550,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_outlet_node_name.setter
     def source_side_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Outlet Node Name`
+        """  Corresponds to IDD field `Source Side Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Source Side Outlet Node Name`
@@ -5573,7 +5573,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_heat_transfer_effectiveness.setter
     def source_side_heat_transfer_effectiveness(self, value=1.0):
-        """  Corresponds to IDD Field `Source Side Heat Transfer Effectiveness`
+        """  Corresponds to IDD field `Source Side Heat Transfer Effectiveness`
         The source side effectiveness in the stratified tank model is a simplified analogy of
         a heat exchanger's effectiveness. This effectiveness is equal to the fraction of
         source mass flow rate that directly mixes with the tank fluid. And one minus the
@@ -5603,7 +5603,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_availability_schedule_name.setter
     def source_side_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Source Side Availability Schedule Name`
+        """  Corresponds to IDD field `Source Side Availability Schedule Name`
         Availability schedule name for use side. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -5628,7 +5628,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_inlet_height.setter
     def source_side_inlet_height(self, value=None):
-        """  Corresponds to IDD Field `Source Side Inlet Height`
+        """  Corresponds to IDD field `Source Side Inlet Height`
         Defaults to bottom of tank
 
         Args:
@@ -5653,7 +5653,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_outlet_height.setter
     def source_side_outlet_height(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Source Side Outlet Height`
+        """  Corresponds to IDD field `Source Side Outlet Height`
         Defaults to top of tank
 
         Args:
@@ -5679,7 +5679,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @source_side_design_flow_rate.setter
     def source_side_design_flow_rate(self, value="autosize"):
-        """  Corresponds to IDD Field `Source Side Design Flow Rate`
+        """  Corresponds to IDD field `Source Side Design Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Source Side Design Flow Rate`
@@ -5705,7 +5705,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @tank_recovery_time.setter
     def tank_recovery_time(self, value=4.0):
-        """  Corresponds to IDD Field `Tank Recovery Time`
+        """  Corresponds to IDD field `Tank Recovery Time`
         Parameter for autosizing design flow rates for indirectly cooled water tanks
         time required to lower temperature of entire tank from 14.4C to 9.0C
 
@@ -5732,7 +5732,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @inlet_mode.setter
     def inlet_mode(self, value="Fixed"):
-        """  Corresponds to IDD Field `Inlet Mode`
+        """  Corresponds to IDD field `Inlet Mode`
 
         Args:
             value (str): value for IDD Field `Inlet Mode`
@@ -5756,7 +5756,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @number_of_nodes.setter
     def number_of_nodes(self, value=1):
-        """  Corresponds to IDD Field `Number of Nodes`
+        """  Corresponds to IDD field `Number of Nodes`
 
         Args:
             value (int): value for IDD Field `Number of Nodes`
@@ -5782,7 +5782,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @additional_destratification_conductivity.setter
     def additional_destratification_conductivity(self, value=None):
-        """  Corresponds to IDD Field `Additional Destratification Conductivity`
+        """  Corresponds to IDD field `Additional Destratification Conductivity`
 
         Args:
             value (float): value for IDD Field `Additional Destratification Conductivity`
@@ -5806,7 +5806,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_1_additional_loss_coefficient.setter
     def node_1_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 1 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 1 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 1 Additional Loss Coefficient`
@@ -5830,7 +5830,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_2_additional_loss_coefficient.setter
     def node_2_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 2 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 2 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 2 Additional Loss Coefficient`
@@ -5854,7 +5854,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_3_additional_loss_coefficient.setter
     def node_3_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 3 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 3 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 3 Additional Loss Coefficient`
@@ -5878,7 +5878,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_4_additional_loss_coefficient.setter
     def node_4_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 4 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 4 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 4 Additional Loss Coefficient`
@@ -5902,7 +5902,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_5_additional_loss_coefficient.setter
     def node_5_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 5 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 5 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 5 Additional Loss Coefficient`
@@ -5926,7 +5926,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_6_additional_loss_coefficient.setter
     def node_6_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 6 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 6 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 6 Additional Loss Coefficient`
@@ -5950,7 +5950,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_7_additional_loss_coefficient.setter
     def node_7_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 7 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 7 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 7 Additional Loss Coefficient`
@@ -5974,7 +5974,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_8_additional_loss_coefficient.setter
     def node_8_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 8 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 8 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 8 Additional Loss Coefficient`
@@ -5998,7 +5998,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_9_additional_loss_coefficient.setter
     def node_9_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 9 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 9 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 9 Additional Loss Coefficient`
@@ -6022,7 +6022,7 @@ class ThermalStorageChilledWaterStratified(DataObject):
 
     @node_10_additional_loss_coefficient.setter
     def node_10_additional_loss_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Node 10 Additional Loss Coefficient`
+        """  Corresponds to IDD field `Node 10 Additional Loss Coefficient`
 
         Args:
             value (float): value for IDD Field `Node 10 Additional Loss Coefficient`

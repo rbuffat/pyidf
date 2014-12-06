@@ -117,7 +117,7 @@ class IDDParser():
                 assert self._is_new_group(line) + self._is_new_object(line) + self._is_new_field(line) + self._is_attribute(line) <= 1
 
                 if self._is_new_group(line):
-                    self.current_group = normalize_field_name(self._parse_group_name(line))
+                    self.current_group = self._parse_group_name(line)
                 elif self._is_new_object(line):
 
                     if self.current_object is not None and self.current_field is not None:
@@ -127,7 +127,7 @@ class IDDParser():
                         self.objects.append(self.current_object)
 
                     internal_name = self._parse_object_name(line)
-                    self.current_object = DataObject(internal_name, file_name=self.current_group)
+                    self.current_object = DataObject(internal_name, group=self.current_group)
                     self.current_field = None
 
                 elif self._is_new_field(line):

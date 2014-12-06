@@ -23,7 +23,7 @@ class ZoneHvacEquipmentList(DataObject):
         be assigned sequence 2 or higher so that it will see the net load after the DOAS air is added
         to the zone.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentList', 'pyname': u'ZoneHvacEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'zone equipment 1 object type', {'name': u'Zone Equipment 1 Object Type', 'pyname': u'zone_equipment_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ZoneHVAC:TerminalUnit:VariableRefrigerantFlow', u'ZoneHVAC:AirDistributionUnit', u'AirTerminal:SingleDuct:Uncontrolled', u'ZoneHVAC:EnergyRecoveryVentilator', u'ZoneHVAC:FourPipeFanCoil', u'ZoneHVAC:OutdoorAirUnit', u'ZoneHVAC:PackagedTerminalAirConditioner', u'ZoneHVAC:PackagedTerminalHeatPump', u'ZoneHVAC:UnitHeater', u'ZoneHVAC:UnitVentilator', u'ZoneHVAC:VentilatedSlab', u'ZoneHVAC:WaterToAirHeatPump', u'ZoneHVAC:WindowAirConditioner', u'ZoneHVAC:Baseboard:RadiantConvective:Electric', u'ZoneHVAC:Baseboard:RadiantConvective:Water', u'ZoneHVAC:Baseboard:RadiantConvective:Steam', u'ZoneHVAC:Baseboard:Convective:Electric', u'ZoneHVAC:Baseboard:Convective:Water', u'ZoneHVAC:HighTemperatureRadiant', u'ZoneHVAC:LowTemperatureRadiant:VariableFlow', u'ZoneHVAC:LowTemperatureRadiant:ConstantFlow', u'ZoneHVAC:LowTemperatureRadiant:Electric', u'ZoneHVAC:Dehumidifier:DX', u'ZoneHVAC:IdealLoadsAirSystem', u'ZoneHVAC:RefrigerationChillerSet', u'Fan:ZoneExhaust', u'WaterHeater:HeatPump'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 name', {'name': u'Zone Equipment 1 Name', 'pyname': u'zone_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 cooling sequence', {'name': u'Zone Equipment 1 Cooling Sequence', 'pyname': u'zone_equipment_1_cooling_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'zone equipment 1 heating or no-load sequence', {'name': u'Zone Equipment 1 Heating or No-Load Sequence', 'pyname': u'zone_equipment_1_heating_or_noload_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentList', 'pyname': u'ZoneHvacEquipmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'zone equipment 1 object type', {'name': u'Zone Equipment 1 Object Type', 'pyname': u'zone_equipment_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ZoneHVAC:TerminalUnit:VariableRefrigerantFlow', u'ZoneHVAC:AirDistributionUnit', u'AirTerminal:SingleDuct:Uncontrolled', u'ZoneHVAC:EnergyRecoveryVentilator', u'ZoneHVAC:FourPipeFanCoil', u'ZoneHVAC:OutdoorAirUnit', u'ZoneHVAC:PackagedTerminalAirConditioner', u'ZoneHVAC:PackagedTerminalHeatPump', u'ZoneHVAC:UnitHeater', u'ZoneHVAC:UnitVentilator', u'ZoneHVAC:VentilatedSlab', u'ZoneHVAC:WaterToAirHeatPump', u'ZoneHVAC:WindowAirConditioner', u'ZoneHVAC:Baseboard:RadiantConvective:Electric', u'ZoneHVAC:Baseboard:RadiantConvective:Water', u'ZoneHVAC:Baseboard:RadiantConvective:Steam', u'ZoneHVAC:Baseboard:Convective:Electric', u'ZoneHVAC:Baseboard:Convective:Water', u'ZoneHVAC:HighTemperatureRadiant', u'ZoneHVAC:LowTemperatureRadiant:VariableFlow', u'ZoneHVAC:LowTemperatureRadiant:ConstantFlow', u'ZoneHVAC:LowTemperatureRadiant:Electric', u'ZoneHVAC:Dehumidifier:DX', u'ZoneHVAC:IdealLoadsAirSystem', u'ZoneHVAC:RefrigerationChillerSet', u'Fan:ZoneExhaust', u'WaterHeater:HeatPump'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 name', {'name': u'Zone Equipment 1 Name', 'pyname': u'zone_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone equipment 1 cooling sequence', {'name': u'Zone Equipment 1 Cooling Sequence', 'pyname': u'zone_equipment_1_cooling_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'zone equipment 1 heating or no-load sequence', {'name': u'Zone Equipment 1 Heating or No-Load Sequence', 'pyname': u'zone_equipment_1_heating_or_noload_sequence', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'unique-object': False, 'required-object': False, 'group': u'Zone HVAC Equipment Connections'}
 
     @property
     def name(self):
@@ -36,7 +36,7 @@ class ZoneHvacEquipmentList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -93,6 +93,17 @@ class ZoneHvacEquipmentList(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ZoneHvacEquipmentConnections(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EquipmentConnections`
@@ -100,7 +111,7 @@ class ZoneHvacEquipmentConnections(DataObject):
         zone air node, air inlet nodes, air exhaust nodes, and the air return node. A zone
         equipment list is referenced which lists all HVAC equipment connected to the zone.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentConnections', 'pyname': u'ZoneHvacEquipmentConnections', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone conditioning equipment list name', {'name': u'Zone Conditioning Equipment List Name', 'pyname': u'zone_conditioning_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone air inlet node or nodelist name', {'name': u'Zone Air Inlet Node or NodeList Name', 'pyname': u'zone_air_inlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air exhaust node or nodelist name', {'name': u'Zone Air Exhaust Node or NodeList Name', 'pyname': u'zone_air_exhaust_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air node name', {'name': u'Zone Air Node Name', 'pyname': u'zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone return air node name', {'name': u'Zone Return Air Node Name', 'pyname': u'zone_return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ZoneHVAC:EquipmentConnections', 'pyname': u'ZoneHvacEquipmentConnections', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone conditioning equipment list name', {'name': u'Zone Conditioning Equipment List Name', 'pyname': u'zone_conditioning_equipment_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone air inlet node or nodelist name', {'name': u'Zone Air Inlet Node or NodeList Name', 'pyname': u'zone_air_inlet_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air exhaust node or nodelist name', {'name': u'Zone Air Exhaust Node or NodeList Name', 'pyname': u'zone_air_exhaust_node_or_nodelist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone air node name', {'name': u'Zone Air Node Name', 'pyname': u'zone_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone return air node name', {'name': u'Zone Return Air Node Name', 'pyname': u'zone_return_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Zone HVAC Equipment Connections'}
 
     @property
     def zone_name(self):
@@ -113,7 +124,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -136,7 +147,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_conditioning_equipment_list_name.setter
     def zone_conditioning_equipment_list_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Conditioning Equipment List Name`
+        """  Corresponds to IDD field `Zone Conditioning Equipment List Name`
         Enter the name of a ZoneHVAC:EquipmentList object.
 
         Args:
@@ -160,7 +171,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_air_inlet_node_or_nodelist_name.setter
     def zone_air_inlet_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Air Inlet Node or NodeList Name`
+        """  Corresponds to IDD field `Zone Air Inlet Node or NodeList Name`
 
         Args:
             value (str): value for IDD Field `Zone Air Inlet Node or NodeList Name`
@@ -183,7 +194,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_air_exhaust_node_or_nodelist_name.setter
     def zone_air_exhaust_node_or_nodelist_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Air Exhaust Node or NodeList Name`
+        """  Corresponds to IDD field `Zone Air Exhaust Node or NodeList Name`
 
         Args:
             value (str): value for IDD Field `Zone Air Exhaust Node or NodeList Name`
@@ -206,7 +217,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_air_node_name.setter
     def zone_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Air Node Name`
+        """  Corresponds to IDD field `Zone Air Node Name`
 
         Args:
             value (str): value for IDD Field `Zone Air Node Name`
@@ -229,7 +240,7 @@ class ZoneHvacEquipmentConnections(DataObject):
 
     @zone_return_air_node_name.setter
     def zone_return_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Return Air Node Name`
+        """  Corresponds to IDD field `Zone Return Air Node Name`
 
         Args:
             value (str): value for IDD Field `Zone Return Air Node Name`

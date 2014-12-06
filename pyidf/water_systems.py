@@ -17,7 +17,7 @@ class WaterUseEquipment(DataObject):
         water uses to be linked to WaterUse:Storage objects to store and draw reclaimed water.
         The object can also simulate drainwater heat recovery.
     """
-    schema = {'min-fields': 0, 'name': u'WaterUse:Equipment', 'pyname': u'WaterUseEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'target temperature schedule name', {'name': u'Target Temperature Schedule Name', 'pyname': u'target_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensible fraction schedule name', {'name': u'Sensible Fraction Schedule Name', 'pyname': u'sensible_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'latent fraction schedule name', {'name': u'Latent Fraction Schedule Name', 'pyname': u'latent_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterUse:Equipment', 'pyname': u'WaterUseEquipment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'peak flow rate', {'name': u'Peak Flow Rate', 'pyname': u'peak_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate fraction schedule name', {'name': u'Flow Rate Fraction Schedule Name', 'pyname': u'flow_rate_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'target temperature schedule name', {'name': u'Target Temperature Schedule Name', 'pyname': u'target_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensible fraction schedule name', {'name': u'Sensible Fraction Schedule Name', 'pyname': u'sensible_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'latent fraction schedule name', {'name': u'Latent Fraction Schedule Name', 'pyname': u'latent_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Systems'}
 
     @property
     def name(self):
@@ -30,7 +30,7 @@ class WaterUseEquipment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -53,7 +53,7 @@ class WaterUseEquipment(DataObject):
 
     @enduse_subcategory.setter
     def enduse_subcategory(self, value="General"):
-        """  Corresponds to IDD Field `End-Use Subcategory`
+        """  Corresponds to IDD field `End-Use Subcategory`
 
         Args:
             value (str): value for IDD Field `End-Use Subcategory`
@@ -77,7 +77,7 @@ class WaterUseEquipment(DataObject):
 
     @peak_flow_rate.setter
     def peak_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Peak Flow Rate`
+        """  Corresponds to IDD field `Peak Flow Rate`
 
         Args:
             value (float): value for IDD Field `Peak Flow Rate`
@@ -101,7 +101,7 @@ class WaterUseEquipment(DataObject):
 
     @flow_rate_fraction_schedule_name.setter
     def flow_rate_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Flow Rate Fraction Schedule Name`
+        """  Corresponds to IDD field `Flow Rate Fraction Schedule Name`
         Defaults to 1.0 at all times
 
         Args:
@@ -125,7 +125,7 @@ class WaterUseEquipment(DataObject):
 
     @target_temperature_schedule_name.setter
     def target_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Target Temperature Schedule Name`
+        """  Corresponds to IDD field `Target Temperature Schedule Name`
         Defaults to hot water supply temperature
 
         Args:
@@ -149,7 +149,7 @@ class WaterUseEquipment(DataObject):
 
     @hot_water_supply_temperature_schedule_name.setter
     def hot_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Hot Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Hot Water Supply Temperature Schedule Name`
         Defaults to cold water supply temperature
 
         Args:
@@ -173,7 +173,7 @@ class WaterUseEquipment(DataObject):
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Cold Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Cold Water Supply Temperature Schedule Name`
         Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
@@ -197,7 +197,7 @@ class WaterUseEquipment(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -220,7 +220,7 @@ class WaterUseEquipment(DataObject):
 
     @sensible_fraction_schedule_name.setter
     def sensible_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Sensible Fraction Schedule Name`
+        """  Corresponds to IDD field `Sensible Fraction Schedule Name`
         Defaults to 0.0 at all times
 
         Args:
@@ -244,7 +244,7 @@ class WaterUseEquipment(DataObject):
 
     @latent_fraction_schedule_name.setter
     def latent_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Latent Fraction Schedule Name`
+        """  Corresponds to IDD field `Latent Fraction Schedule Name`
         Defaults to 0.0 at all times
 
         Args:
@@ -266,7 +266,7 @@ class WaterUseConnections(DataObject):
         2. Connections to WaterUse:Storage objects to store and draw reclaimed water
         3. Internal connections to simulate drainwater heat recovery.
     """
-    schema = {'min-fields': 0, 'name': u'WaterUse:Connections', 'pyname': u'WaterUseConnections', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply water storage tank name', {'name': u'Supply Water Storage Tank Name', 'pyname': u'supply_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reclamation water storage tank name', {'name': u'Reclamation Water Storage Tank Name', 'pyname': u'reclamation_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drain water heat exchanger type', {'name': u'Drain Water Heat Exchanger Type', 'pyname': u'drain_water_heat_exchanger_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Ideal', u'CounterFlow', u'CrossFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger destination', {'name': u'Drain Water Heat Exchanger Destination', 'pyname': u'drain_water_heat_exchanger_destination', 'default': u'Plant', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Plant', u'Equipment', u'PlantAndEquipment'], 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger u-factor times area', {'name': u'Drain Water Heat Exchanger U-Factor Times Area', 'pyname': u'drain_water_heat_exchanger_ufactor_times_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'})]), 'extensible-fields': OrderedDict([(u'water use equipment 1 name', {'name': u'Water Use Equipment 1 Name', 'pyname': u'water_use_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterUse:Connections', 'pyname': u'WaterUseConnections', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply water storage tank name', {'name': u'Supply Water Storage Tank Name', 'pyname': u'supply_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'reclamation water storage tank name', {'name': u'Reclamation Water Storage Tank Name', 'pyname': u'reclamation_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hot water supply temperature schedule name', {'name': u'Hot Water Supply Temperature Schedule Name', 'pyname': u'hot_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cold water supply temperature schedule name', {'name': u'Cold Water Supply Temperature Schedule Name', 'pyname': u'cold_water_supply_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drain water heat exchanger type', {'name': u'Drain Water Heat Exchanger Type', 'pyname': u'drain_water_heat_exchanger_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Ideal', u'CounterFlow', u'CrossFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger destination', {'name': u'Drain Water Heat Exchanger Destination', 'pyname': u'drain_water_heat_exchanger_destination', 'default': u'Plant', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Plant', u'Equipment', u'PlantAndEquipment'], 'autocalculatable': False, 'type': 'alpha'}), (u'drain water heat exchanger u-factor times area', {'name': u'Drain Water Heat Exchanger U-Factor Times Area', 'pyname': u'drain_water_heat_exchanger_ufactor_times_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'})]), 'extensible-fields': OrderedDict([(u'water use equipment 1 name', {'name': u'Water Use Equipment 1 Name', 'pyname': u'water_use_equipment_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Water Systems'}
 
     @property
     def name(self):
@@ -279,7 +279,7 @@ class WaterUseConnections(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -302,7 +302,7 @@ class WaterUseConnections(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -325,7 +325,7 @@ class WaterUseConnections(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -348,7 +348,7 @@ class WaterUseConnections(DataObject):
 
     @supply_water_storage_tank_name.setter
     def supply_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Supply Water Storage Tank Name`
+        """  Corresponds to IDD field `Supply Water Storage Tank Name`
         If blank, or tank is empty, defaults to fresh water from the mains
 
         Args:
@@ -372,7 +372,7 @@ class WaterUseConnections(DataObject):
 
     @reclamation_water_storage_tank_name.setter
     def reclamation_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Reclamation Water Storage Tank Name`
+        """  Corresponds to IDD field `Reclamation Water Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Reclamation Water Storage Tank Name`
@@ -395,7 +395,7 @@ class WaterUseConnections(DataObject):
 
     @hot_water_supply_temperature_schedule_name.setter
     def hot_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Hot Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Hot Water Supply Temperature Schedule Name`
         Defaults to cold water supply temperature
 
         Args:
@@ -419,7 +419,7 @@ class WaterUseConnections(DataObject):
 
     @cold_water_supply_temperature_schedule_name.setter
     def cold_water_supply_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Cold Water Supply Temperature Schedule Name`
+        """  Corresponds to IDD field `Cold Water Supply Temperature Schedule Name`
         Defaults to water temperatures calculated by Site:WaterMainsTemperature object
 
         Args:
@@ -443,7 +443,7 @@ class WaterUseConnections(DataObject):
 
     @drain_water_heat_exchanger_type.setter
     def drain_water_heat_exchanger_type(self, value="None"):
-        """  Corresponds to IDD Field `Drain Water Heat Exchanger Type`
+        """  Corresponds to IDD field `Drain Water Heat Exchanger Type`
 
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Type`
@@ -467,7 +467,7 @@ class WaterUseConnections(DataObject):
 
     @drain_water_heat_exchanger_destination.setter
     def drain_water_heat_exchanger_destination(self, value="Plant"):
-        """  Corresponds to IDD Field `Drain Water Heat Exchanger Destination`
+        """  Corresponds to IDD field `Drain Water Heat Exchanger Destination`
 
         Args:
             value (str): value for IDD Field `Drain Water Heat Exchanger Destination`
@@ -491,7 +491,7 @@ class WaterUseConnections(DataObject):
 
     @drain_water_heat_exchanger_ufactor_times_area.setter
     def drain_water_heat_exchanger_ufactor_times_area(self, value=None):
-        """  Corresponds to IDD Field `Drain Water Heat Exchanger U-Factor Times Area`
+        """  Corresponds to IDD field `Drain Water Heat Exchanger U-Factor Times Area`
 
         Args:
             value (float): value for IDD Field `Drain Water Heat Exchanger U-Factor Times Area`
@@ -526,6 +526,17 @@ class WaterUseConnections(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class WaterUseStorage(DataObject):
     """ Corresponds to IDD object `WaterUse:Storage`
@@ -535,7 +546,7 @@ class WaterUseStorage(DataObject):
         connections to numerous sources of supply or numerous components with demand. If a
         maximum capacity is not specified, the tank is assumed to have unlimited capacity.
     """
-    schema = {'min-fields': 0, 'name': u'WaterUse:Storage', 'pyname': u'WaterUseStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'water quality subcategory', {'name': u'Water Quality Subcategory', 'pyname': u'water_quality_subcategory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'maximum capacity', {'name': u'Maximum Capacity', 'pyname': u'maximum_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'initial volume', {'name': u'Initial Volume', 'pyname': u'initial_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'design in flow rate', {'name': u'Design In Flow Rate', 'pyname': u'design_in_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design out flow rate', {'name': u'Design Out Flow Rate', 'pyname': u'design_out_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'overflow destination', {'name': u'Overflow Destination', 'pyname': u'overflow_destination', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of supply controlled by float valve', {'name': u'Type of Supply Controlled by Float Valve', 'pyname': u'type_of_supply_controlled_by_float_valve', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Mains', u'GroundwaterWell', u'OtherTank'], 'autocalculatable': False, 'type': 'alpha'}), (u'float valve on capacity', {'name': u'Float Valve On Capacity', 'pyname': u'float_valve_on_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'float valve off capacity', {'name': u'Float Valve Off Capacity', 'pyname': u'float_valve_off_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'backup mains capacity', {'name': u'Backup Mains Capacity', 'pyname': u'backup_mains_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'other tank name', {'name': u'Other Tank Name', 'pyname': u'other_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water thermal mode', {'name': u'Water Thermal Mode', 'pyname': u'water_thermal_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ScheduledTemperature', u'ThermalModel'], 'autocalculatable': False, 'type': 'alpha'}), (u'water temperature schedule name', {'name': u'Water Temperature Schedule Name', 'pyname': u'water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank surface area', {'name': u'Tank Surface Area', 'pyname': u'tank_surface_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'tank u value', {'name': u'Tank U Value', 'pyname': u'tank_u_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'tank outside surface material name', {'name': u'Tank Outside Surface Material Name', 'pyname': u'tank_outside_surface_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterUse:Storage', 'pyname': u'WaterUseStorage', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'water quality subcategory', {'name': u'Water Quality Subcategory', 'pyname': u'water_quality_subcategory', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'maximum capacity', {'name': u'Maximum Capacity', 'pyname': u'maximum_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'initial volume', {'name': u'Initial Volume', 'pyname': u'initial_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'design in flow rate', {'name': u'Design In Flow Rate', 'pyname': u'design_in_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'design out flow rate', {'name': u'Design Out Flow Rate', 'pyname': u'design_out_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'overflow destination', {'name': u'Overflow Destination', 'pyname': u'overflow_destination', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'type of supply controlled by float valve', {'name': u'Type of Supply Controlled by Float Valve', 'pyname': u'type_of_supply_controlled_by_float_valve', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Mains', u'GroundwaterWell', u'OtherTank'], 'autocalculatable': False, 'type': 'alpha'}), (u'float valve on capacity', {'name': u'Float Valve On Capacity', 'pyname': u'float_valve_on_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'float valve off capacity', {'name': u'Float Valve Off Capacity', 'pyname': u'float_valve_off_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'backup mains capacity', {'name': u'Backup Mains Capacity', 'pyname': u'backup_mains_capacity', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'other tank name', {'name': u'Other Tank Name', 'pyname': u'other_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water thermal mode', {'name': u'Water Thermal Mode', 'pyname': u'water_thermal_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ScheduledTemperature', u'ThermalModel'], 'autocalculatable': False, 'type': 'alpha'}), (u'water temperature schedule name', {'name': u'Water Temperature Schedule Name', 'pyname': u'water_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature indicator', {'name': u'Ambient Temperature Indicator', 'pyname': u'ambient_temperature_indicator', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Schedule', u'Zone', u'Outdoors'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'tank surface area', {'name': u'Tank Surface Area', 'pyname': u'tank_surface_area', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'tank u value', {'name': u'Tank U Value', 'pyname': u'tank_u_value', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'tank outside surface material name', {'name': u'Tank Outside Surface Material Name', 'pyname': u'tank_outside_surface_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Systems'}
 
     @property
     def name(self):
@@ -548,7 +559,7 @@ class WaterUseStorage(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -571,7 +582,7 @@ class WaterUseStorage(DataObject):
 
     @water_quality_subcategory.setter
     def water_quality_subcategory(self, value=None):
-        """  Corresponds to IDD Field `Water Quality Subcategory`
+        """  Corresponds to IDD field `Water Quality Subcategory`
 
         Args:
             value (str): value for IDD Field `Water Quality Subcategory`
@@ -594,7 +605,7 @@ class WaterUseStorage(DataObject):
 
     @maximum_capacity.setter
     def maximum_capacity(self, value=None):
-        """  Corresponds to IDD Field `Maximum Capacity`
+        """  Corresponds to IDD field `Maximum Capacity`
         Defaults to unlimited capacity.
 
         Args:
@@ -619,7 +630,7 @@ class WaterUseStorage(DataObject):
 
     @initial_volume.setter
     def initial_volume(self, value=None):
-        """  Corresponds to IDD Field `Initial Volume`
+        """  Corresponds to IDD field `Initial Volume`
 
         Args:
             value (float): value for IDD Field `Initial Volume`
@@ -643,7 +654,7 @@ class WaterUseStorage(DataObject):
 
     @design_in_flow_rate.setter
     def design_in_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Design In Flow Rate`
+        """  Corresponds to IDD field `Design In Flow Rate`
         Defaults to unlimited flow.
 
         Args:
@@ -668,7 +679,7 @@ class WaterUseStorage(DataObject):
 
     @design_out_flow_rate.setter
     def design_out_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Design Out Flow Rate`
+        """  Corresponds to IDD field `Design Out Flow Rate`
         Defaults to unlimited flow.
 
         Args:
@@ -693,7 +704,7 @@ class WaterUseStorage(DataObject):
 
     @overflow_destination.setter
     def overflow_destination(self, value=None):
-        """  Corresponds to IDD Field `Overflow Destination`
+        """  Corresponds to IDD field `Overflow Destination`
         If blank, overflow is discarded
 
         Args:
@@ -717,7 +728,7 @@ class WaterUseStorage(DataObject):
 
     @type_of_supply_controlled_by_float_valve.setter
     def type_of_supply_controlled_by_float_valve(self, value=None):
-        """  Corresponds to IDD Field `Type of Supply Controlled by Float Valve`
+        """  Corresponds to IDD field `Type of Supply Controlled by Float Valve`
 
         Args:
             value (str): value for IDD Field `Type of Supply Controlled by Float Valve`
@@ -740,7 +751,7 @@ class WaterUseStorage(DataObject):
 
     @float_valve_on_capacity.setter
     def float_valve_on_capacity(self, value=None):
-        """  Corresponds to IDD Field `Float Valve On Capacity`
+        """  Corresponds to IDD field `Float Valve On Capacity`
         Lower range of target storage level e.g. float valve kicks on
 
         Args:
@@ -765,7 +776,7 @@ class WaterUseStorage(DataObject):
 
     @float_valve_off_capacity.setter
     def float_valve_off_capacity(self, value=None):
-        """  Corresponds to IDD Field `Float Valve Off Capacity`
+        """  Corresponds to IDD field `Float Valve Off Capacity`
         Upper range of target storage level e.g. float valve kicks off
 
         Args:
@@ -790,7 +801,7 @@ class WaterUseStorage(DataObject):
 
     @backup_mains_capacity.setter
     def backup_mains_capacity(self, value=None):
-        """  Corresponds to IDD Field `Backup Mains Capacity`
+        """  Corresponds to IDD field `Backup Mains Capacity`
         Lower range of secondary target storage level
         used to keep tanks at a minimum level using
         mains water if well can't keep up
@@ -817,7 +828,7 @@ class WaterUseStorage(DataObject):
 
     @other_tank_name.setter
     def other_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Other Tank Name`
+        """  Corresponds to IDD field `Other Tank Name`
 
         Args:
             value (str): value for IDD Field `Other Tank Name`
@@ -840,7 +851,7 @@ class WaterUseStorage(DataObject):
 
     @water_thermal_mode.setter
     def water_thermal_mode(self, value=None):
-        """  Corresponds to IDD Field `Water Thermal Mode`
+        """  Corresponds to IDD field `Water Thermal Mode`
 
         Args:
             value (str): value for IDD Field `Water Thermal Mode`
@@ -863,7 +874,7 @@ class WaterUseStorage(DataObject):
 
     @water_temperature_schedule_name.setter
     def water_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Water Temperature Schedule Name`
+        """  Corresponds to IDD field `Water Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Water Temperature Schedule Name`
@@ -886,7 +897,7 @@ class WaterUseStorage(DataObject):
 
     @ambient_temperature_indicator.setter
     def ambient_temperature_indicator(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Indicator`
+        """  Corresponds to IDD field `Ambient Temperature Indicator`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Indicator`
@@ -909,7 +920,7 @@ class WaterUseStorage(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -932,7 +943,7 @@ class WaterUseStorage(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -955,7 +966,7 @@ class WaterUseStorage(DataObject):
 
     @tank_surface_area.setter
     def tank_surface_area(self, value=None):
-        """  Corresponds to IDD Field `Tank Surface Area`
+        """  Corresponds to IDD field `Tank Surface Area`
 
         Args:
             value (float): value for IDD Field `Tank Surface Area`
@@ -979,7 +990,7 @@ class WaterUseStorage(DataObject):
 
     @tank_u_value.setter
     def tank_u_value(self, value=None):
-        """  Corresponds to IDD Field `Tank U Value`
+        """  Corresponds to IDD field `Tank U Value`
 
         Args:
             value (float): value for IDD Field `Tank U Value`
@@ -1003,7 +1014,7 @@ class WaterUseStorage(DataObject):
 
     @tank_outside_surface_material_name.setter
     def tank_outside_surface_material_name(self, value=None):
-        """  Corresponds to IDD Field `Tank Outside Surface Material Name`
+        """  Corresponds to IDD field `Tank Outside Surface Material Name`
 
         Args:
             value (str): value for IDD Field `Tank Outside Surface Material Name`
@@ -1023,7 +1034,7 @@ class WaterUseWell(DataObject):
         associated WaterUse:Storage which is assumed to be operated as a vented cistern with
         no pressure tank.
     """
-    schema = {'min-fields': 0, 'name': u'WaterUse:Well', 'pyname': u'WaterUseWell', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump depth', {'name': u'Pump Depth', 'pyname': u'pump_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pump rated flow rate', {'name': u'Pump Rated Flow Rate', 'pyname': u'pump_rated_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'pump rated head', {'name': u'Pump Rated Head', 'pyname': u'pump_rated_head', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'pump rated power consumption', {'name': u'Pump Rated Power Consumption', 'pyname': u'pump_rated_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'pump efficiency', {'name': u'Pump Efficiency', 'pyname': u'pump_efficiency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'well recovery rate', {'name': u'Well Recovery Rate', 'pyname': u'well_recovery_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal well storage volume', {'name': u'Nominal Well Storage Volume', 'pyname': u'nominal_well_storage_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'water table depth mode', {'name': u'Water Table Depth Mode', 'pyname': u'water_table_depth_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'water table depth', {'name': u'Water Table Depth', 'pyname': u'water_table_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'water table depth schedule name', {'name': u'Water Table Depth Schedule Name', 'pyname': u'water_table_depth_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterUse:Well', 'pyname': u'WaterUseWell', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pump depth', {'name': u'Pump Depth', 'pyname': u'pump_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pump rated flow rate', {'name': u'Pump Rated Flow Rate', 'pyname': u'pump_rated_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'pump rated head', {'name': u'Pump Rated Head', 'pyname': u'pump_rated_head', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'pump rated power consumption', {'name': u'Pump Rated Power Consumption', 'pyname': u'pump_rated_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'pump efficiency', {'name': u'Pump Efficiency', 'pyname': u'pump_efficiency', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'well recovery rate', {'name': u'Well Recovery Rate', 'pyname': u'well_recovery_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal well storage volume', {'name': u'Nominal Well Storage Volume', 'pyname': u'nominal_well_storage_volume', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3'}), (u'water table depth mode', {'name': u'Water Table Depth Mode', 'pyname': u'water_table_depth_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'water table depth', {'name': u'Water Table Depth', 'pyname': u'water_table_depth', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'water table depth schedule name', {'name': u'Water Table Depth Schedule Name', 'pyname': u'water_table_depth_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Water Systems'}
 
     @property
     def name(self):
@@ -1036,7 +1047,7 @@ class WaterUseWell(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1059,7 +1070,7 @@ class WaterUseWell(DataObject):
 
     @storage_tank_name.setter
     def storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Storage Tank Name`
+        """  Corresponds to IDD field `Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Storage Tank Name`
@@ -1082,7 +1093,7 @@ class WaterUseWell(DataObject):
 
     @pump_depth.setter
     def pump_depth(self, value=None):
-        """  Corresponds to IDD Field `Pump Depth`
+        """  Corresponds to IDD field `Pump Depth`
 
         Args:
             value (float): value for IDD Field `Pump Depth`
@@ -1106,7 +1117,7 @@ class WaterUseWell(DataObject):
 
     @pump_rated_flow_rate.setter
     def pump_rated_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Pump Rated Flow Rate`
+        """  Corresponds to IDD field `Pump Rated Flow Rate`
 
         Args:
             value (float): value for IDD Field `Pump Rated Flow Rate`
@@ -1130,7 +1141,7 @@ class WaterUseWell(DataObject):
 
     @pump_rated_head.setter
     def pump_rated_head(self, value=None):
-        """  Corresponds to IDD Field `Pump Rated Head`
+        """  Corresponds to IDD field `Pump Rated Head`
 
         Args:
             value (float): value for IDD Field `Pump Rated Head`
@@ -1154,7 +1165,7 @@ class WaterUseWell(DataObject):
 
     @pump_rated_power_consumption.setter
     def pump_rated_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Pump Rated Power Consumption`
+        """  Corresponds to IDD field `Pump Rated Power Consumption`
 
         Args:
             value (float): value for IDD Field `Pump Rated Power Consumption`
@@ -1178,7 +1189,7 @@ class WaterUseWell(DataObject):
 
     @pump_efficiency.setter
     def pump_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Pump Efficiency`
+        """  Corresponds to IDD field `Pump Efficiency`
 
         Args:
             value (float): value for IDD Field `Pump Efficiency`
@@ -1201,7 +1212,7 @@ class WaterUseWell(DataObject):
 
     @well_recovery_rate.setter
     def well_recovery_rate(self, value=None):
-        """  Corresponds to IDD Field `Well Recovery Rate`
+        """  Corresponds to IDD field `Well Recovery Rate`
 
         Args:
             value (float): value for IDD Field `Well Recovery Rate`
@@ -1225,7 +1236,7 @@ class WaterUseWell(DataObject):
 
     @nominal_well_storage_volume.setter
     def nominal_well_storage_volume(self, value=None):
-        """  Corresponds to IDD Field `Nominal Well Storage Volume`
+        """  Corresponds to IDD field `Nominal Well Storage Volume`
 
         Args:
             value (float): value for IDD Field `Nominal Well Storage Volume`
@@ -1249,7 +1260,7 @@ class WaterUseWell(DataObject):
 
     @water_table_depth_mode.setter
     def water_table_depth_mode(self, value=None):
-        """  Corresponds to IDD Field `Water Table Depth Mode`
+        """  Corresponds to IDD field `Water Table Depth Mode`
 
         Args:
             value (str): value for IDD Field `Water Table Depth Mode`
@@ -1272,7 +1283,7 @@ class WaterUseWell(DataObject):
 
     @water_table_depth.setter
     def water_table_depth(self, value=None):
-        """  Corresponds to IDD Field `Water Table Depth`
+        """  Corresponds to IDD field `Water Table Depth`
 
         Args:
             value (float): value for IDD Field `Water Table Depth`
@@ -1296,7 +1307,7 @@ class WaterUseWell(DataObject):
 
     @water_table_depth_schedule_name.setter
     def water_table_depth_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Water Table Depth Schedule Name`
+        """  Corresponds to IDD field `Water Table Depth Schedule Name`
 
         Args:
             value (str): value for IDD Field `Water Table Depth Schedule Name`
@@ -1315,7 +1326,7 @@ class WaterUseRainCollector(DataObject):
         WaterUse:Storage object. In order to use this object it is necessary to also include
         a Site:Precipitation object to describe the rates of rainfall.
     """
-    schema = {'min-fields': 0, 'name': u'WaterUse:RainCollector', 'pyname': u'WaterUseRainCollector', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loss factor mode', {'name': u'Loss Factor Mode', 'pyname': u'loss_factor_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'collection loss factor', {'name': u'Collection Loss Factor', 'pyname': u'collection_loss_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'collection loss factor schedule name', {'name': u'Collection Loss Factor Schedule Name', 'pyname': u'collection_loss_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum collection rate', {'name': u'Maximum Collection Rate', 'pyname': u'maximum_collection_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict([(u'collection surface 1 name', {'name': u'Collection Surface 1 Name', 'pyname': u'collection_surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WaterUse:RainCollector', 'pyname': u'WaterUseRainCollector', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'storage tank name', {'name': u'Storage Tank Name', 'pyname': u'storage_tank_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'loss factor mode', {'name': u'Loss Factor Mode', 'pyname': u'loss_factor_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Scheduled'], 'autocalculatable': False, 'type': 'alpha'}), (u'collection loss factor', {'name': u'Collection Loss Factor', 'pyname': u'collection_loss_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'collection loss factor schedule name', {'name': u'Collection Loss Factor Schedule Name', 'pyname': u'collection_loss_factor_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum collection rate', {'name': u'Maximum Collection Rate', 'pyname': u'maximum_collection_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'})]), 'extensible-fields': OrderedDict([(u'collection surface 1 name', {'name': u'Collection Surface 1 Name', 'pyname': u'collection_surface_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Water Systems'}
 
     @property
     def name(self):
@@ -1328,7 +1339,7 @@ class WaterUseRainCollector(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1351,7 +1362,7 @@ class WaterUseRainCollector(DataObject):
 
     @storage_tank_name.setter
     def storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Storage Tank Name`
+        """  Corresponds to IDD field `Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Storage Tank Name`
@@ -1374,7 +1385,7 @@ class WaterUseRainCollector(DataObject):
 
     @loss_factor_mode.setter
     def loss_factor_mode(self, value=None):
-        """  Corresponds to IDD Field `Loss Factor Mode`
+        """  Corresponds to IDD field `Loss Factor Mode`
 
         Args:
             value (str): value for IDD Field `Loss Factor Mode`
@@ -1397,7 +1408,7 @@ class WaterUseRainCollector(DataObject):
 
     @collection_loss_factor.setter
     def collection_loss_factor(self, value=None):
-        """  Corresponds to IDD Field `Collection Loss Factor`
+        """  Corresponds to IDD field `Collection Loss Factor`
         this is the portion of rain
         that is lost in the process of collecting it
         the rain collected is one minus this factor
@@ -1423,7 +1434,7 @@ class WaterUseRainCollector(DataObject):
 
     @collection_loss_factor_schedule_name.setter
     def collection_loss_factor_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Collection Loss Factor Schedule Name`
+        """  Corresponds to IDD field `Collection Loss Factor Schedule Name`
 
         Args:
             value (str): value for IDD Field `Collection Loss Factor Schedule Name`
@@ -1446,7 +1457,7 @@ class WaterUseRainCollector(DataObject):
 
     @maximum_collection_rate.setter
     def maximum_collection_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Collection Rate`
+        """  Corresponds to IDD field `Maximum Collection Rate`
         Defaults to unlimited flow.
 
         Args:
@@ -1481,3 +1492,14 @@ class WaterUseRainCollector(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)

@@ -14,7 +14,7 @@ class Branch(DataObject):
         Note: this should NOT include splitters or mixers which define
         endpoints of branches
     """
-    schema = {'min-fields': 0, 'name': u'Branch', 'pyname': u'Branch', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pressure drop curve name', {'name': u'Pressure Drop Curve Name', 'pyname': u'pressure_drop_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 inlet node name', {'name': u'Component 1 Inlet Node Name', 'pyname': u'component_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 outlet node name', {'name': u'Component 1 Outlet Node Name', 'pyname': u'component_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 branch control type', {'name': u'Component 1 Branch Control Type', 'pyname': u'component_1_branch_control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Branch', 'pyname': u'Branch', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'maximum flow rate', {'name': u'Maximum Flow Rate', 'pyname': u'maximum_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'pressure drop curve name', {'name': u'Pressure Drop Curve Name', 'pyname': u'pressure_drop_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 inlet node name', {'name': u'Component 1 Inlet Node Name', 'pyname': u'component_1_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 outlet node name', {'name': u'Component 1 Outlet Node Name', 'pyname': u'component_1_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'component 1 branch control type', {'name': u'Component 1 Branch Control Type', 'pyname': u'component_1_branch_control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -27,7 +27,7 @@ class Branch(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -50,7 +50,7 @@ class Branch(DataObject):
 
     @maximum_flow_rate.setter
     def maximum_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Maximum Flow Rate`
+        """  Corresponds to IDD field `Maximum Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Flow Rate`
@@ -74,7 +74,7 @@ class Branch(DataObject):
 
     @pressure_drop_curve_name.setter
     def pressure_drop_curve_name(self, value=None):
-        """  Corresponds to IDD Field `Pressure Drop Curve Name`
+        """  Corresponds to IDD field `Pressure Drop Curve Name`
         Optional field to include this branch in plant pressure drop calculations
         This field is only relevant for branches in PlantLoops and CondenserLoops
         Air loops do not account for pressure drop using this field
@@ -142,13 +142,24 @@ class Branch(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ConnectorSplitter(DataObject):
     """ Corresponds to IDD object `Connector:Splitter`
         Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
         within a single Splitter list.
     """
-    schema = {'min-fields': 3, 'name': u'Connector:Splitter', 'pyname': u'ConnectorSplitter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet branch name', {'name': u'Inlet Branch Name', 'pyname': u'inlet_branch_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'outlet branch name', {'name': u'Outlet Branch Name', 'pyname': u'outlet_branch_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'Connector:Splitter', 'pyname': u'ConnectorSplitter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet branch name', {'name': u'Inlet Branch Name', 'pyname': u'inlet_branch_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'outlet branch name', {'name': u'Outlet Branch Name', 'pyname': u'outlet_branch_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -161,7 +172,7 @@ class ConnectorSplitter(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -184,7 +195,7 @@ class ConnectorSplitter(DataObject):
 
     @inlet_branch_name.setter
     def inlet_branch_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Branch Name`
+        """  Corresponds to IDD field `Inlet Branch Name`
 
         Args:
             value (str): value for IDD Field `Inlet Branch Name`
@@ -218,13 +229,24 @@ class ConnectorSplitter(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ConnectorMixer(DataObject):
     """ Corresponds to IDD object `Connector:Mixer`
         Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
         a single mixer list.
     """
-    schema = {'min-fields': 3, 'name': u'Connector:Mixer', 'pyname': u'ConnectorMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outlet branch name', {'name': u'Outlet Branch Name', 'pyname': u'outlet_branch_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'inlet branch name', {'name': u'Inlet Branch Name', 'pyname': u'inlet_branch_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'Connector:Mixer', 'pyname': u'ConnectorMixer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'outlet branch name', {'name': u'Outlet Branch Name', 'pyname': u'outlet_branch_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'inlet branch name', {'name': u'Inlet Branch Name', 'pyname': u'inlet_branch_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -237,7 +259,7 @@ class ConnectorMixer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -260,7 +282,7 @@ class ConnectorMixer(DataObject):
 
     @outlet_branch_name.setter
     def outlet_branch_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Branch Name`
+        """  Corresponds to IDD field `Outlet Branch Name`
 
         Args:
             value (str): value for IDD Field `Outlet Branch Name`
@@ -294,13 +316,24 @@ class ConnectorMixer(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class ConnectorList(DataObject):
     """ Corresponds to IDD object `ConnectorList`
         only two connectors allowed per loop
         if two entered, one must be Connector:Splitter and one must be Connector:Mixer
     """
-    schema = {'min-fields': 0, 'name': u'ConnectorList', 'pyname': u'ConnectorList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'connector 1 object type', {'name': u'Connector 1 Object Type', 'pyname': u'connector_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Connector:Splitter', u'Connector:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'connector 1 name', {'name': u'Connector 1 Name', 'pyname': u'connector_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'connector 2 object type', {'name': u'Connector 2 Object Type', 'pyname': u'connector_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Connector:Splitter', u'Connector:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'connector 2 name', {'name': u'Connector 2 Name', 'pyname': u'connector_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'ConnectorList', 'pyname': u'ConnectorList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'connector 1 object type', {'name': u'Connector 1 Object Type', 'pyname': u'connector_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Connector:Splitter', u'Connector:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'connector 1 name', {'name': u'Connector 1 Name', 'pyname': u'connector_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'connector 2 object type', {'name': u'Connector 2 Object Type', 'pyname': u'connector_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Connector:Splitter', u'Connector:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'connector 2 name', {'name': u'Connector 2 Name', 'pyname': u'connector_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -313,7 +346,7 @@ class ConnectorList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -336,7 +369,7 @@ class ConnectorList(DataObject):
 
     @connector_1_object_type.setter
     def connector_1_object_type(self, value=None):
-        """  Corresponds to IDD Field `Connector 1 Object Type`
+        """  Corresponds to IDD field `Connector 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Connector 1 Object Type`
@@ -359,7 +392,7 @@ class ConnectorList(DataObject):
 
     @connector_1_name.setter
     def connector_1_name(self, value=None):
-        """  Corresponds to IDD Field `Connector 1 Name`
+        """  Corresponds to IDD field `Connector 1 Name`
 
         Args:
             value (str): value for IDD Field `Connector 1 Name`
@@ -382,7 +415,7 @@ class ConnectorList(DataObject):
 
     @connector_2_object_type.setter
     def connector_2_object_type(self, value=None):
-        """  Corresponds to IDD Field `Connector 2 Object Type`
+        """  Corresponds to IDD field `Connector 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Connector 2 Object Type`
@@ -405,7 +438,7 @@ class ConnectorList(DataObject):
 
     @connector_2_name.setter
     def connector_2_name(self, value=None):
-        """  Corresponds to IDD Field `Connector 2 Name`
+        """  Corresponds to IDD field `Connector 2 Name`
 
         Args:
             value (str): value for IDD Field `Connector 2 Name`
@@ -423,7 +456,7 @@ class NodeList(DataObject):
         This object is used in places where lists of nodes may be
         needed, e.g. ZoneHVAC:EquipmentConnections field Zone Air Inlet Node or NodeList Name
     """
-    schema = {'min-fields': 2, 'name': u'NodeList', 'pyname': u'NodeList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'node name', {'name': u'Node Name', 'pyname': u'node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'NodeList', 'pyname': u'NodeList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict([(u'node name', {'name': u'Node Name', 'pyname': u'node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -436,7 +469,7 @@ class NodeList(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -470,6 +503,17 @@ class NodeList(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class OutdoorAirNode(DataObject):
     """ Corresponds to IDD object `OutdoorAir:Node`
@@ -479,7 +523,7 @@ class OutdoorAirNode(DataObject):
         The same node name may not appear in both an OutdoorAir:Node object and
         an OutdoorAir:NodeList object.
     """
-    schema = {'min-fields': 0, 'name': u'OutdoorAir:Node', 'pyname': u'OutdoorAirNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'height above ground', {'name': u'Height Above Ground', 'pyname': u'height_above_ground', 'default': -1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'OutdoorAir:Node', 'pyname': u'OutdoorAirNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'height above ground', {'name': u'Height Above Ground', 'pyname': u'height_above_ground', 'default': -1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -492,7 +536,7 @@ class OutdoorAirNode(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -515,7 +559,7 @@ class OutdoorAirNode(DataObject):
 
     @height_above_ground.setter
     def height_above_ground(self, value=-1.0):
-        """  Corresponds to IDD Field `Height Above Ground`
+        """  Corresponds to IDD field `Height Above Ground`
         A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
 
         Args:
@@ -541,7 +585,7 @@ class OutdoorAirNodeList(DataObject):
         The same node name may not appear in both an OutdoorAir:Node object and
         an OutdoorAir:NodeList object.
     """
-    schema = {'min-fields': 1, 'name': u'OutdoorAir:NodeList', 'pyname': u'OutdoorAirNodeList', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict([(u'node or nodelist name 1', {'name': u'Node or NodeList Name 1', 'pyname': u'node_or_nodelist_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 1, 'name': u'OutdoorAir:NodeList', 'pyname': u'OutdoorAirNodeList', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict([(u'node or nodelist name 1', {'name': u'Node or NodeList Name 1', 'pyname': u'node_or_nodelist_name_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     def add_extensible(self,
                        node_or_nodelist_name_1=None,
@@ -565,12 +609,23 @@ class OutdoorAirNodeList(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class PipeAdiabatic(DataObject):
     """ Corresponds to IDD object `Pipe:Adiabatic`
         Passes Inlet Node state variables to Outlet Node state variables
     """
-    schema = {'min-fields': 0, 'name': u'Pipe:Adiabatic', 'pyname': u'PipeAdiabatic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Pipe:Adiabatic', 'pyname': u'PipeAdiabatic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -583,7 +638,7 @@ class PipeAdiabatic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -606,7 +661,7 @@ class PipeAdiabatic(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -629,7 +684,7 @@ class PipeAdiabatic(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -646,7 +701,7 @@ class PipeAdiabaticSteam(DataObject):
     """ Corresponds to IDD object `Pipe:Adiabatic:Steam`
         Passes Inlet Node state variables to Outlet Node state variables
     """
-    schema = {'min-fields': 0, 'name': u'Pipe:Adiabatic:Steam', 'pyname': u'PipeAdiabaticSteam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Pipe:Adiabatic:Steam', 'pyname': u'PipeAdiabaticSteam', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -659,7 +714,7 @@ class PipeAdiabaticSteam(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -682,7 +737,7 @@ class PipeAdiabaticSteam(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -705,7 +760,7 @@ class PipeAdiabaticSteam(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`
@@ -722,7 +777,7 @@ class PipeIndoor(DataObject):
     """ Corresponds to IDD object `Pipe:Indoor`
         Pipe model with transport delay and heat transfer to the environment.
     """
-    schema = {'min-fields': 0, 'name': u'Pipe:Indoor', 'pyname': u'PipeIndoor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'environment type', {'name': u'Environment Type', 'pyname': u'environment_type', 'default': u'Zone', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Zone', u'Schedule'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient air velocity schedule name', {'name': u'Ambient Air Velocity Schedule Name', 'pyname': u'ambient_air_velocity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Pipe:Indoor', 'pyname': u'PipeIndoor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'environment type', {'name': u'Environment Type', 'pyname': u'environment_type', 'default': u'Zone', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Zone', u'Schedule'], 'autocalculatable': False, 'type': 'alpha'}), (u'ambient temperature zone name', {'name': u'Ambient Temperature Zone Name', 'pyname': u'ambient_temperature_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient temperature schedule name', {'name': u'Ambient Temperature Schedule Name', 'pyname': u'ambient_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ambient air velocity schedule name', {'name': u'Ambient Air Velocity Schedule Name', 'pyname': u'ambient_air_velocity_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -735,7 +790,7 @@ class PipeIndoor(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -758,7 +813,7 @@ class PipeIndoor(DataObject):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `Construction Name`
+        """  Corresponds to IDD field `Construction Name`
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -781,7 +836,7 @@ class PipeIndoor(DataObject):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        """  Corresponds to IDD field `Fluid Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -804,7 +859,7 @@ class PipeIndoor(DataObject):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        """  Corresponds to IDD field `Fluid Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -827,7 +882,7 @@ class PipeIndoor(DataObject):
 
     @environment_type.setter
     def environment_type(self, value="Zone"):
-        """  Corresponds to IDD Field `Environment Type`
+        """  Corresponds to IDD field `Environment Type`
 
         Args:
             value (str): value for IDD Field `Environment Type`
@@ -851,7 +906,7 @@ class PipeIndoor(DataObject):
 
     @ambient_temperature_zone_name.setter
     def ambient_temperature_zone_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Zone Name`
+        """  Corresponds to IDD field `Ambient Temperature Zone Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Zone Name`
@@ -874,7 +929,7 @@ class PipeIndoor(DataObject):
 
     @ambient_temperature_schedule_name.setter
     def ambient_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Schedule Name`
+        """  Corresponds to IDD field `Ambient Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Schedule Name`
@@ -897,7 +952,7 @@ class PipeIndoor(DataObject):
 
     @ambient_air_velocity_schedule_name.setter
     def ambient_air_velocity_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Air Velocity Schedule Name`
+        """  Corresponds to IDD field `Ambient Air Velocity Schedule Name`
 
         Args:
             value (str): value for IDD Field `Ambient Air Velocity Schedule Name`
@@ -920,7 +975,7 @@ class PipeIndoor(DataObject):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `Pipe Inside Diameter`
+        """  Corresponds to IDD field `Pipe Inside Diameter`
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
@@ -945,7 +1000,7 @@ class PipeIndoor(DataObject):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `Pipe Length`
+        """  Corresponds to IDD field `Pipe Length`
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -963,7 +1018,7 @@ class PipeOutdoor(DataObject):
     """ Corresponds to IDD object `Pipe:Outdoor`
         Pipe model with transport delay and heat transfer to the environment.
     """
-    schema = {'min-fields': 0, 'name': u'Pipe:Outdoor', 'pyname': u'PipeOutdoor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Pipe:Outdoor', 'pyname': u'PipeOutdoor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'ambient temperature outdoor air node name', {'name': u'Ambient Temperature Outdoor Air Node Name', 'pyname': u'ambient_temperature_outdoor_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -976,7 +1031,7 @@ class PipeOutdoor(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -999,7 +1054,7 @@ class PipeOutdoor(DataObject):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `Construction Name`
+        """  Corresponds to IDD field `Construction Name`
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1022,7 +1077,7 @@ class PipeOutdoor(DataObject):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        """  Corresponds to IDD field `Fluid Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -1045,7 +1100,7 @@ class PipeOutdoor(DataObject):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        """  Corresponds to IDD field `Fluid Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -1068,7 +1123,7 @@ class PipeOutdoor(DataObject):
 
     @ambient_temperature_outdoor_air_node_name.setter
     def ambient_temperature_outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD Field `Ambient Temperature Outdoor Air Node Name`
+        """  Corresponds to IDD field `Ambient Temperature Outdoor Air Node Name`
 
         Args:
             value (str): value for IDD Field `Ambient Temperature Outdoor Air Node Name`
@@ -1091,7 +1146,7 @@ class PipeOutdoor(DataObject):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `Pipe Inside Diameter`
+        """  Corresponds to IDD field `Pipe Inside Diameter`
 
         Args:
             value (float): value for IDD Field `Pipe Inside Diameter`
@@ -1116,7 +1171,7 @@ class PipeOutdoor(DataObject):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `Pipe Length`
+        """  Corresponds to IDD field `Pipe Length`
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -1136,7 +1191,7 @@ class PipeUnderground(DataObject):
         than one meter, this is an alternative object to:
         HeatExchanger:Surface
     """
-    schema = {'min-fields': 0, 'name': u'Pipe:Underground', 'pyname': u'PipeUnderground', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil material name', {'name': u'Soil Material Name', 'pyname': u'soil_material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'average soil surface temperature', {'name': u'Average Soil Surface Temperature', 'pyname': u'average_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'amplitude of soil surface temperature', {'name': u'Amplitude of Soil Surface Temperature', 'pyname': u'amplitude_of_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'phase constant of soil surface temperature', {'name': u'Phase Constant of Soil Surface Temperature', 'pyname': u'phase_constant_of_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'days'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Pipe:Underground', 'pyname': u'PipeUnderground', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'construction name', {'name': u'Construction Name', 'pyname': u'construction_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fluid inlet node name', {'name': u'Fluid Inlet Node Name', 'pyname': u'fluid_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fluid outlet node name', {'name': u'Fluid Outlet Node Name', 'pyname': u'fluid_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sun exposure', {'name': u'Sun Exposure', 'pyname': u'sun_exposure', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SunExposed', u'NoSun'], 'autocalculatable': False, 'type': 'alpha'}), (u'pipe inside diameter', {'name': u'Pipe Inside Diameter', 'pyname': u'pipe_inside_diameter', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil material name', {'name': u'Soil Material Name', 'pyname': u'soil_material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'average soil surface temperature', {'name': u'Average Soil Surface Temperature', 'pyname': u'average_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'amplitude of soil surface temperature', {'name': u'Amplitude of Soil Surface Temperature', 'pyname': u'amplitude_of_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'phase constant of soil surface temperature', {'name': u'Phase Constant of Soil Surface Temperature', 'pyname': u'phase_constant_of_soil_surface_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'days'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -1149,7 +1204,7 @@ class PipeUnderground(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1172,7 +1227,7 @@ class PipeUnderground(DataObject):
 
     @construction_name.setter
     def construction_name(self, value=None):
-        """  Corresponds to IDD Field `Construction Name`
+        """  Corresponds to IDD field `Construction Name`
 
         Args:
             value (str): value for IDD Field `Construction Name`
@@ -1195,7 +1250,7 @@ class PipeUnderground(DataObject):
 
     @fluid_inlet_node_name.setter
     def fluid_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Inlet Node Name`
+        """  Corresponds to IDD field `Fluid Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Inlet Node Name`
@@ -1218,7 +1273,7 @@ class PipeUnderground(DataObject):
 
     @fluid_outlet_node_name.setter
     def fluid_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Fluid Outlet Node Name`
+        """  Corresponds to IDD field `Fluid Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Fluid Outlet Node Name`
@@ -1241,7 +1296,7 @@ class PipeUnderground(DataObject):
 
     @sun_exposure.setter
     def sun_exposure(self, value=None):
-        """  Corresponds to IDD Field `Sun Exposure`
+        """  Corresponds to IDD field `Sun Exposure`
 
         Args:
             value (str): value for IDD Field `Sun Exposure`
@@ -1264,7 +1319,7 @@ class PipeUnderground(DataObject):
 
     @pipe_inside_diameter.setter
     def pipe_inside_diameter(self, value=None):
-        """  Corresponds to IDD Field `Pipe Inside Diameter`
+        """  Corresponds to IDD field `Pipe Inside Diameter`
         pipe thickness is defined in the Construction object
 
         Args:
@@ -1290,7 +1345,7 @@ class PipeUnderground(DataObject):
 
     @pipe_length.setter
     def pipe_length(self, value=None):
-        """  Corresponds to IDD Field `Pipe Length`
+        """  Corresponds to IDD field `Pipe Length`
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -1314,7 +1369,7 @@ class PipeUnderground(DataObject):
 
     @soil_material_name.setter
     def soil_material_name(self, value=None):
-        """  Corresponds to IDD Field `Soil Material Name`
+        """  Corresponds to IDD field `Soil Material Name`
 
         Args:
             value (str): value for IDD Field `Soil Material Name`
@@ -1337,7 +1392,7 @@ class PipeUnderground(DataObject):
 
     @average_soil_surface_temperature.setter
     def average_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Average Soil Surface Temperature`
+        """  Corresponds to IDD field `Average Soil Surface Temperature`
         optional
 
         Args:
@@ -1362,7 +1417,7 @@ class PipeUnderground(DataObject):
 
     @amplitude_of_soil_surface_temperature.setter
     def amplitude_of_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Amplitude of Soil Surface Temperature`
+        """  Corresponds to IDD field `Amplitude of Soil Surface Temperature`
         optional
 
         Args:
@@ -1387,7 +1442,7 @@ class PipeUnderground(DataObject):
 
     @phase_constant_of_soil_surface_temperature.setter
     def phase_constant_of_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Phase Constant of Soil Surface Temperature`
+        """  Corresponds to IDD field `Phase Constant of Soil Surface Temperature`
         optional
 
         Args:
@@ -1406,7 +1461,7 @@ class PipingSystemUndergroundDomain(DataObject):
     """ Corresponds to IDD object `PipingSystem:Underground:Domain`
         The ground domain object for underground piping system simulation.
     """
-    schema = {'min-fields': 31, 'name': u'PipingSystem:Underground:Domain', 'pyname': u'PipingSystemUndergroundDomain', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'xmax', {'name': u'Xmax', 'pyname': u'xmax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ymax', {'name': u'Ymax', 'pyname': u'ymax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'zmax', {'name': u'Zmax', 'pyname': u'zmax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x-direction mesh density parameter', {'name': u'X-Direction Mesh Density Parameter', 'pyname': u'xdirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'x-direction mesh type', {'name': u'X-Direction Mesh Type', 'pyname': u'xdirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'x-direction geometric coefficient', {'name': u'X-Direction Geometric Coefficient', 'pyname': u'xdirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'y-direction mesh density parameter', {'name': u'Y-Direction Mesh Density Parameter', 'pyname': u'ydirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'y-direction mesh type', {'name': u'Y-Direction Mesh Type', 'pyname': u'ydirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'y-direction geometric coefficient', {'name': u'Y-Direction Geometric Coefficient', 'pyname': u'ydirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'z-direction mesh density parameter', {'name': u'Z-Direction Mesh Density Parameter', 'pyname': u'zdirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'z-direction mesh type', {'name': u'Z-Direction Mesh Type', 'pyname': u'zdirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'z-direction geometric coefficient', {'name': u'Z-Direction Geometric Coefficient', 'pyname': u'zdirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'soil thermal conductivity', {'name': u'Soil Thermal Conductivity', 'pyname': u'soil_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'soil density', {'name': u'Soil Density', 'pyname': u'soil_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'soil specific heat', {'name': u'Soil Specific Heat', 'pyname': u'soil_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'soil moisture content volume fraction', {'name': u'Soil Moisture Content Volume Fraction', 'pyname': u'soil_moisture_content_volume_fraction', 'default': 30.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'soil moisture content volume fraction at saturation', {'name': u'Soil Moisture Content Volume Fraction at Saturation', 'pyname': u'soil_moisture_content_volume_fraction_at_saturation', 'default': 50.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'kusuda-achenbach average surface temperature', {'name': u'Kusuda-Achenbach Average Surface Temperature', 'pyname': u'kusudaachenbach_average_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach average amplitude of surface temperature', {'name': u'Kusuda-Achenbach Average Amplitude of Surface Temperature', 'pyname': u'kusudaachenbach_average_amplitude_of_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach phase shift of minimum surface temperature', {'name': u'Kusuda-Achenbach Phase Shift of Minimum Surface Temperature', 'pyname': u'kusudaachenbach_phase_shift_of_minimum_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'this domain includes basement surface interaction', {'name': u'This Domain Includes Basement Surface Interaction', 'pyname': u'this_domain_includes_basement_surface_interaction', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'width of basement floor in ground domain', {'name': u'Width of Basement Floor in Ground Domain', 'pyname': u'width_of_basement_floor_in_ground_domain', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'depth of basement wall in ground domain', {'name': u'Depth of Basement Wall In Ground Domain', 'pyname': u'depth_of_basement_wall_in_ground_domain', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'shift pipe x coordinates by basement width', {'name': u'Shift Pipe X Coordinates By Basement Width', 'pyname': u'shift_pipe_x_coordinates_by_basement_width', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'name of basement wall boundary condition model', {'name': u'Name of Basement Wall Boundary Condition Model', 'pyname': u'name_of_basement_wall_boundary_condition_model', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'name of basement floor boundary condition model', {'name': u'Name of Basement Floor Boundary Condition Model', 'pyname': u'name_of_basement_floor_boundary_condition_model', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convergence criterion for the outer cartesian domain iteration loop', {'name': u'Convergence Criterion for the Outer Cartesian Domain Iteration Loop', 'pyname': u'convergence_criterion_for_the_outer_cartesian_domain_iteration_loop', 'default': 0.001, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 1e-06, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum iterations in the outer cartesian domain iteration loop', {'name': u'Maximum Iterations in the Outer Cartesian Domain Iteration Loop', 'pyname': u'maximum_iterations_in_the_outer_cartesian_domain_iteration_loop', 'default': 500, 'maximum': 10000, 'required-field': False, 'autosizable': False, 'minimum': 3, 'autocalculatable': False, 'type': u'integer'}), (u'evapotranspiration ground cover parameter', {'name': u'Evapotranspiration Ground Cover Parameter', 'pyname': u'evapotranspiration_ground_cover_parameter', 'default': 0.4, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of pipe circuits entered for this domain', {'name': u'Number of Pipe Circuits Entered for this Domain', 'pyname': u'number_of_pipe_circuits_entered_for_this_domain', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'pipe circuit 1', {'name': u'Pipe Circuit 1', 'pyname': u'pipe_circuit_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 31, 'name': u'PipingSystem:Underground:Domain', 'pyname': u'PipingSystemUndergroundDomain', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'xmax', {'name': u'Xmax', 'pyname': u'xmax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'ymax', {'name': u'Ymax', 'pyname': u'ymax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'zmax', {'name': u'Zmax', 'pyname': u'zmax', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'x-direction mesh density parameter', {'name': u'X-Direction Mesh Density Parameter', 'pyname': u'xdirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'x-direction mesh type', {'name': u'X-Direction Mesh Type', 'pyname': u'xdirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'x-direction geometric coefficient', {'name': u'X-Direction Geometric Coefficient', 'pyname': u'xdirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'y-direction mesh density parameter', {'name': u'Y-Direction Mesh Density Parameter', 'pyname': u'ydirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'y-direction mesh type', {'name': u'Y-Direction Mesh Type', 'pyname': u'ydirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'y-direction geometric coefficient', {'name': u'Y-Direction Geometric Coefficient', 'pyname': u'ydirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'z-direction mesh density parameter', {'name': u'Z-Direction Mesh Density Parameter', 'pyname': u'zdirection_mesh_density_parameter', 'default': 4, 'minimum>': 0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'z-direction mesh type', {'name': u'Z-Direction Mesh Type', 'pyname': u'zdirection_mesh_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Uniform', u'SymmetricGeometric'], 'autocalculatable': False, 'type': 'alpha'}), (u'z-direction geometric coefficient', {'name': u'Z-Direction Geometric Coefficient', 'pyname': u'zdirection_geometric_coefficient', 'default': 1.3, 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real'}), (u'soil thermal conductivity', {'name': u'Soil Thermal Conductivity', 'pyname': u'soil_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'soil density', {'name': u'Soil Density', 'pyname': u'soil_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'soil specific heat', {'name': u'Soil Specific Heat', 'pyname': u'soil_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'soil moisture content volume fraction', {'name': u'Soil Moisture Content Volume Fraction', 'pyname': u'soil_moisture_content_volume_fraction', 'default': 30.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'soil moisture content volume fraction at saturation', {'name': u'Soil Moisture Content Volume Fraction at Saturation', 'pyname': u'soil_moisture_content_volume_fraction_at_saturation', 'default': 50.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'kusuda-achenbach average surface temperature', {'name': u'Kusuda-Achenbach Average Surface Temperature', 'pyname': u'kusudaachenbach_average_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach average amplitude of surface temperature', {'name': u'Kusuda-Achenbach Average Amplitude of Surface Temperature', 'pyname': u'kusudaachenbach_average_amplitude_of_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach phase shift of minimum surface temperature', {'name': u'Kusuda-Achenbach Phase Shift of Minimum Surface Temperature', 'pyname': u'kusudaachenbach_phase_shift_of_minimum_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'this domain includes basement surface interaction', {'name': u'This Domain Includes Basement Surface Interaction', 'pyname': u'this_domain_includes_basement_surface_interaction', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'width of basement floor in ground domain', {'name': u'Width of Basement Floor in Ground Domain', 'pyname': u'width_of_basement_floor_in_ground_domain', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'depth of basement wall in ground domain', {'name': u'Depth of Basement Wall In Ground Domain', 'pyname': u'depth_of_basement_wall_in_ground_domain', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'shift pipe x coordinates by basement width', {'name': u'Shift Pipe X Coordinates By Basement Width', 'pyname': u'shift_pipe_x_coordinates_by_basement_width', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'name of basement wall boundary condition model', {'name': u'Name of Basement Wall Boundary Condition Model', 'pyname': u'name_of_basement_wall_boundary_condition_model', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'name of basement floor boundary condition model', {'name': u'Name of Basement Floor Boundary Condition Model', 'pyname': u'name_of_basement_floor_boundary_condition_model', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'convergence criterion for the outer cartesian domain iteration loop', {'name': u'Convergence Criterion for the Outer Cartesian Domain Iteration Loop', 'pyname': u'convergence_criterion_for_the_outer_cartesian_domain_iteration_loop', 'default': 0.001, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 1e-06, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum iterations in the outer cartesian domain iteration loop', {'name': u'Maximum Iterations in the Outer Cartesian Domain Iteration Loop', 'pyname': u'maximum_iterations_in_the_outer_cartesian_domain_iteration_loop', 'default': 500, 'maximum': 10000, 'required-field': False, 'autosizable': False, 'minimum': 3, 'autocalculatable': False, 'type': u'integer'}), (u'evapotranspiration ground cover parameter', {'name': u'Evapotranspiration Ground Cover Parameter', 'pyname': u'evapotranspiration_ground_cover_parameter', 'default': 0.4, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'number of pipe circuits entered for this domain', {'name': u'Number of Pipe Circuits Entered for this Domain', 'pyname': u'number_of_pipe_circuits_entered_for_this_domain', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'pipe circuit 1', {'name': u'Pipe Circuit 1', 'pyname': u'pipe_circuit_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -1419,7 +1474,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1442,7 +1497,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @xmax.setter
     def xmax(self, value=None):
-        """  Corresponds to IDD Field `Xmax`
+        """  Corresponds to IDD field `Xmax`
         Domain extent in the local 'X' direction
 
         Args:
@@ -1467,7 +1522,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @ymax.setter
     def ymax(self, value=None):
-        """  Corresponds to IDD Field `Ymax`
+        """  Corresponds to IDD field `Ymax`
         Domain extent in the local 'Y' direction
 
         Args:
@@ -1492,7 +1547,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @zmax.setter
     def zmax(self, value=None):
-        """  Corresponds to IDD Field `Zmax`
+        """  Corresponds to IDD field `Zmax`
         Domain extent in the local 'Y' direction
 
         Args:
@@ -1517,7 +1572,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @xdirection_mesh_density_parameter.setter
     def xdirection_mesh_density_parameter(self, value=4):
-        """  Corresponds to IDD Field `X-Direction Mesh Density Parameter`
+        """  Corresponds to IDD field `X-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
 
         Args:
@@ -1542,7 +1597,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @xdirection_mesh_type.setter
     def xdirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `X-Direction Mesh Type`
+        """  Corresponds to IDD field `X-Direction Mesh Type`
 
         Args:
             value (str): value for IDD Field `X-Direction Mesh Type`
@@ -1565,7 +1620,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @xdirection_geometric_coefficient.setter
     def xdirection_geometric_coefficient(self, value=1.3):
-        """  Corresponds to IDD Field `X-Direction Geometric Coefficient`
+        """  Corresponds to IDD field `X-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
 
@@ -1593,7 +1648,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @ydirection_mesh_density_parameter.setter
     def ydirection_mesh_density_parameter(self, value=4):
-        """  Corresponds to IDD Field `Y-Direction Mesh Density Parameter`
+        """  Corresponds to IDD field `Y-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
 
         Args:
@@ -1618,7 +1673,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @ydirection_mesh_type.setter
     def ydirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `Y-Direction Mesh Type`
+        """  Corresponds to IDD field `Y-Direction Mesh Type`
 
         Args:
             value (str): value for IDD Field `Y-Direction Mesh Type`
@@ -1641,7 +1696,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @ydirection_geometric_coefficient.setter
     def ydirection_geometric_coefficient(self, value=1.3):
-        """  Corresponds to IDD Field `Y-Direction Geometric Coefficient`
+        """  Corresponds to IDD field `Y-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
 
@@ -1669,7 +1724,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @zdirection_mesh_density_parameter.setter
     def zdirection_mesh_density_parameter(self, value=4):
-        """  Corresponds to IDD Field `Z-Direction Mesh Density Parameter`
+        """  Corresponds to IDD field `Z-Direction Mesh Density Parameter`
         If mesh type is symmetric geometric, this should be an even number.
 
         Args:
@@ -1694,7 +1749,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @zdirection_mesh_type.setter
     def zdirection_mesh_type(self, value=None):
-        """  Corresponds to IDD Field `Z-Direction Mesh Type`
+        """  Corresponds to IDD field `Z-Direction Mesh Type`
 
         Args:
             value (str): value for IDD Field `Z-Direction Mesh Type`
@@ -1717,7 +1772,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @zdirection_geometric_coefficient.setter
     def zdirection_geometric_coefficient(self, value=1.3):
-        """  Corresponds to IDD Field `Z-Direction Geometric Coefficient`
+        """  Corresponds to IDD field `Z-Direction Geometric Coefficient`
         optional
         Only used if mesh type is symmetric geometric
 
@@ -1745,7 +1800,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `Soil Thermal Conductivity`
+        """  Corresponds to IDD field `Soil Thermal Conductivity`
 
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
@@ -1769,7 +1824,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @soil_density.setter
     def soil_density(self, value=None):
-        """  Corresponds to IDD Field `Soil Density`
+        """  Corresponds to IDD field `Soil Density`
 
         Args:
             value (float): value for IDD Field `Soil Density`
@@ -1793,7 +1848,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @soil_specific_heat.setter
     def soil_specific_heat(self, value=None):
-        """  Corresponds to IDD Field `Soil Specific Heat`
+        """  Corresponds to IDD field `Soil Specific Heat`
         This is a dry soil property, which is adjusted for freezing effects
         by the simulation algorithm.
 
@@ -1819,7 +1874,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @soil_moisture_content_volume_fraction.setter
     def soil_moisture_content_volume_fraction(self, value=30.0):
-        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction`
+        """  Corresponds to IDD field `Soil Moisture Content Volume Fraction`
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
@@ -1845,7 +1900,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
     def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0):
-        """  Corresponds to IDD Field `Soil Moisture Content Volume Fraction at Saturation`
+        """  Corresponds to IDD field `Soil Moisture Content Volume Fraction at Saturation`
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
@@ -1871,7 +1926,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @kusudaachenbach_average_surface_temperature.setter
     def kusudaachenbach_average_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Kusuda-Achenbach Average Surface Temperature`
+        """  Corresponds to IDD field `Kusuda-Achenbach Average Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Surface Temperature`
@@ -1895,7 +1950,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @kusudaachenbach_average_amplitude_of_surface_temperature.setter
     def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
+        """  Corresponds to IDD field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
@@ -1919,7 +1974,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @kusudaachenbach_phase_shift_of_minimum_surface_temperature.setter
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self, value=None):
-        """  Corresponds to IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
+        """  Corresponds to IDD field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
@@ -1943,7 +1998,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @this_domain_includes_basement_surface_interaction.setter
     def this_domain_includes_basement_surface_interaction(self, value="No"):
-        """  Corresponds to IDD Field `This Domain Includes Basement Surface Interaction`
+        """  Corresponds to IDD field `This Domain Includes Basement Surface Interaction`
         if Yes, then the following basement inputs are used
         if No, then the following basement inputs are *ignored*
 
@@ -1969,7 +2024,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @width_of_basement_floor_in_ground_domain.setter
     def width_of_basement_floor_in_ground_domain(self, value=None):
-        """  Corresponds to IDD Field `Width of Basement Floor in Ground Domain`
+        """  Corresponds to IDD field `Width of Basement Floor in Ground Domain`
         Required only if Domain Has Basement Interaction
 
         Args:
@@ -1994,7 +2049,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @depth_of_basement_wall_in_ground_domain.setter
     def depth_of_basement_wall_in_ground_domain(self, value=None):
-        """  Corresponds to IDD Field `Depth of Basement Wall In Ground Domain`
+        """  Corresponds to IDD field `Depth of Basement Wall In Ground Domain`
         Required only if Domain Has Basement Interaction
 
         Args:
@@ -2019,7 +2074,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @shift_pipe_x_coordinates_by_basement_width.setter
     def shift_pipe_x_coordinates_by_basement_width(self, value=None):
-        """  Corresponds to IDD Field `Shift Pipe X Coordinates By Basement Width`
+        """  Corresponds to IDD field `Shift Pipe X Coordinates By Basement Width`
         Required only if Domain Has Basement Interaction
 
         Args:
@@ -2043,7 +2098,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @name_of_basement_wall_boundary_condition_model.setter
     def name_of_basement_wall_boundary_condition_model(self, value=None):
-        """  Corresponds to IDD Field `Name of Basement Wall Boundary Condition Model`
+        """  Corresponds to IDD field `Name of Basement Wall Boundary Condition Model`
         Required only if Domain Has Basement Interaction
 
         Args:
@@ -2067,7 +2122,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @name_of_basement_floor_boundary_condition_model.setter
     def name_of_basement_floor_boundary_condition_model(self, value=None):
-        """  Corresponds to IDD Field `Name of Basement Floor Boundary Condition Model`
+        """  Corresponds to IDD field `Name of Basement Floor Boundary Condition Model`
         Required only if Domain Has Basement Interaction
 
         Args:
@@ -2091,7 +2146,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @convergence_criterion_for_the_outer_cartesian_domain_iteration_loop.setter
     def convergence_criterion_for_the_outer_cartesian_domain_iteration_loop(self, value=0.001):
-        """  Corresponds to IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
+        """  Corresponds to IDD field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
 
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Outer Cartesian Domain Iteration Loop`
@@ -2118,7 +2173,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @maximum_iterations_in_the_outer_cartesian_domain_iteration_loop.setter
     def maximum_iterations_in_the_outer_cartesian_domain_iteration_loop(self, value=500):
-        """  Corresponds to IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
+        """  Corresponds to IDD field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
 
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Outer Cartesian Domain Iteration Loop`
@@ -2144,7 +2199,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @evapotranspiration_ground_cover_parameter.setter
     def evapotranspiration_ground_cover_parameter(self, value=0.4):
-        """  Corresponds to IDD Field `Evapotranspiration Ground Cover Parameter`
+        """  Corresponds to IDD field `Evapotranspiration Ground Cover Parameter`
         This specifies the ground cover effects during evapotranspiration
         calculations.  The value roughly represents the following cases:
         = 0   : concrete or other solid, non-permeable ground surface material
@@ -2175,7 +2230,7 @@ class PipingSystemUndergroundDomain(DataObject):
 
     @number_of_pipe_circuits_entered_for_this_domain.setter
     def number_of_pipe_circuits_entered_for_this_domain(self, value=None):
-        """  Corresponds to IDD Field `Number of Pipe Circuits Entered for this Domain`
+        """  Corresponds to IDD field `Number of Pipe Circuits Entered for this Domain`
 
         Args:
             value (int): value for IDD Field `Number of Pipe Circuits Entered for this Domain`
@@ -2210,6 +2265,17 @@ class PipingSystemUndergroundDomain(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class PipingSystemUndergroundPipeCircuit(DataObject):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeCircuit`
@@ -2217,7 +2283,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
         This object is simulated within an underground piping domain object
         and connected on a branch on a plant loop.
     """
-    schema = {'min-fields': 15, 'name': u'PipingSystem:Underground:PipeCircuit', 'pyname': u'PipingSystemUndergroundPipeCircuit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'pipe thermal conductivity', {'name': u'Pipe Thermal Conductivity', 'pyname': u'pipe_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'pipe density', {'name': u'Pipe Density', 'pyname': u'pipe_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'pipe specific heat', {'name': u'Pipe Specific Heat', 'pyname': u'pipe_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'pipe inner diameter', {'name': u'Pipe Inner Diameter', 'pyname': u'pipe_inner_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe outer diameter', {'name': u'Pipe Outer Diameter', 'pyname': u'pipe_outer_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'circuit inlet node', {'name': u'Circuit Inlet Node', 'pyname': u'circuit_inlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'circuit outlet node', {'name': u'Circuit Outlet Node', 'pyname': u'circuit_outlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence criterion for the inner radial iteration loop', {'name': u'Convergence Criterion for the Inner Radial Iteration Loop', 'pyname': u'convergence_criterion_for_the_inner_radial_iteration_loop', 'default': 0.001, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 1e-06, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum iterations in the inner radial iteration loop', {'name': u'Maximum Iterations in the Inner Radial Iteration Loop', 'pyname': u'maximum_iterations_in_the_inner_radial_iteration_loop', 'default': 500, 'maximum': 10000, 'required-field': False, 'autosizable': False, 'minimum': 3, 'autocalculatable': False, 'type': u'integer'}), (u'number of soil nodes in the inner radial near pipe mesh region', {'name': u'Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region', 'pyname': u'number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region', 'default': 3, 'maximum': 15, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'radial thickness of inner radial near pipe mesh region', {'name': u'Radial Thickness of Inner Radial Near Pipe Mesh Region', 'pyname': u'radial_thickness_of_inner_radial_near_pipe_mesh_region', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'number of pipe segments entered for this pipe circuit', {'name': u'Number of Pipe Segments Entered for this Pipe Circuit', 'pyname': u'number_of_pipe_segments_entered_for_this_pipe_circuit', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'pipe segment 1', {'name': u'Pipe Segment 1', 'pyname': u'pipe_segment_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15, 'name': u'PipingSystem:Underground:PipeCircuit', 'pyname': u'PipingSystemUndergroundPipeCircuit', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'pipe thermal conductivity', {'name': u'Pipe Thermal Conductivity', 'pyname': u'pipe_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'pipe density', {'name': u'Pipe Density', 'pyname': u'pipe_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'pipe specific heat', {'name': u'Pipe Specific Heat', 'pyname': u'pipe_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'pipe inner diameter', {'name': u'Pipe Inner Diameter', 'pyname': u'pipe_inner_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe outer diameter', {'name': u'Pipe Outer Diameter', 'pyname': u'pipe_outer_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'circuit inlet node', {'name': u'Circuit Inlet Node', 'pyname': u'circuit_inlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'circuit outlet node', {'name': u'Circuit Outlet Node', 'pyname': u'circuit_outlet_node', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'convergence criterion for the inner radial iteration loop', {'name': u'Convergence Criterion for the Inner Radial Iteration Loop', 'pyname': u'convergence_criterion_for_the_inner_radial_iteration_loop', 'default': 0.001, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'minimum': 1e-06, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'maximum iterations in the inner radial iteration loop', {'name': u'Maximum Iterations in the Inner Radial Iteration Loop', 'pyname': u'maximum_iterations_in_the_inner_radial_iteration_loop', 'default': 500, 'maximum': 10000, 'required-field': False, 'autosizable': False, 'minimum': 3, 'autocalculatable': False, 'type': u'integer'}), (u'number of soil nodes in the inner radial near pipe mesh region', {'name': u'Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region', 'pyname': u'number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region', 'default': 3, 'maximum': 15, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'radial thickness of inner radial near pipe mesh region', {'name': u'Radial Thickness of Inner Radial Near Pipe Mesh Region', 'pyname': u'radial_thickness_of_inner_radial_near_pipe_mesh_region', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'number of pipe segments entered for this pipe circuit', {'name': u'Number of Pipe Segments Entered for this Pipe Circuit', 'pyname': u'number_of_pipe_segments_entered_for_this_pipe_circuit', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'})]), 'extensible-fields': OrderedDict([(u'pipe segment 1', {'name': u'Pipe Segment 1', 'pyname': u'pipe_segment_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -2230,7 +2296,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2253,7 +2319,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @pipe_thermal_conductivity.setter
     def pipe_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `Pipe Thermal Conductivity`
+        """  Corresponds to IDD field `Pipe Thermal Conductivity`
 
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
@@ -2277,7 +2343,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @pipe_density.setter
     def pipe_density(self, value=None):
-        """  Corresponds to IDD Field `Pipe Density`
+        """  Corresponds to IDD field `Pipe Density`
 
         Args:
             value (float): value for IDD Field `Pipe Density`
@@ -2301,7 +2367,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @pipe_specific_heat.setter
     def pipe_specific_heat(self, value=None):
-        """  Corresponds to IDD Field `Pipe Specific Heat`
+        """  Corresponds to IDD field `Pipe Specific Heat`
 
         Args:
             value (float): value for IDD Field `Pipe Specific Heat`
@@ -2325,7 +2391,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @pipe_inner_diameter.setter
     def pipe_inner_diameter(self, value=None):
-        """  Corresponds to IDD Field `Pipe Inner Diameter`
+        """  Corresponds to IDD field `Pipe Inner Diameter`
 
         Args:
             value (float): value for IDD Field `Pipe Inner Diameter`
@@ -2349,7 +2415,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @pipe_outer_diameter.setter
     def pipe_outer_diameter(self, value=None):
-        """  Corresponds to IDD Field `Pipe Outer Diameter`
+        """  Corresponds to IDD field `Pipe Outer Diameter`
 
         Args:
             value (float): value for IDD Field `Pipe Outer Diameter`
@@ -2373,7 +2439,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Design Flow Rate`
+        """  Corresponds to IDD field `Design Flow Rate`
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -2397,7 +2463,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @circuit_inlet_node.setter
     def circuit_inlet_node(self, value=None):
-        """  Corresponds to IDD Field `Circuit Inlet Node`
+        """  Corresponds to IDD field `Circuit Inlet Node`
 
         Args:
             value (str): value for IDD Field `Circuit Inlet Node`
@@ -2420,7 +2486,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @circuit_outlet_node.setter
     def circuit_outlet_node(self, value=None):
-        """  Corresponds to IDD Field `Circuit Outlet Node`
+        """  Corresponds to IDD field `Circuit Outlet Node`
 
         Args:
             value (str): value for IDD Field `Circuit Outlet Node`
@@ -2443,7 +2509,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @convergence_criterion_for_the_inner_radial_iteration_loop.setter
     def convergence_criterion_for_the_inner_radial_iteration_loop(self, value=0.001):
-        """  Corresponds to IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
+        """  Corresponds to IDD field `Convergence Criterion for the Inner Radial Iteration Loop`
 
         Args:
             value (float): value for IDD Field `Convergence Criterion for the Inner Radial Iteration Loop`
@@ -2470,7 +2536,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @maximum_iterations_in_the_inner_radial_iteration_loop.setter
     def maximum_iterations_in_the_inner_radial_iteration_loop(self, value=500):
-        """  Corresponds to IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
+        """  Corresponds to IDD field `Maximum Iterations in the Inner Radial Iteration Loop`
 
         Args:
             value (int): value for IDD Field `Maximum Iterations in the Inner Radial Iteration Loop`
@@ -2496,7 +2562,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region.setter
     def number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region(self, value=3):
-        """  Corresponds to IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
+        """  Corresponds to IDD field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
 
         Args:
             value (int): value for IDD Field `Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region`
@@ -2522,7 +2588,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @radial_thickness_of_inner_radial_near_pipe_mesh_region.setter
     def radial_thickness_of_inner_radial_near_pipe_mesh_region(self, value=None):
-        """  Corresponds to IDD Field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
+        """  Corresponds to IDD field `Radial Thickness of Inner Radial Near Pipe Mesh Region`
         Required because it must be selected by user instead of being
         inferred from circuit/domain object inputs.
 
@@ -2547,7 +2613,7 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
 
     @number_of_pipe_segments_entered_for_this_pipe_circuit.setter
     def number_of_pipe_segments_entered_for_this_pipe_circuit(self, value=None):
-        """  Corresponds to IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
+        """  Corresponds to IDD field `Number of Pipe Segments Entered for this Pipe Circuit`
 
         Args:
             value (int): value for IDD Field `Number of Pipe Segments Entered for this Pipe Circuit`
@@ -2582,6 +2648,17 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class PipingSystemUndergroundPipeSegment(DataObject):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeSegment`
@@ -2589,7 +2666,7 @@ class PipingSystemUndergroundPipeSegment(DataObject):
         This object represents a single pipe leg positioned axially
         in the local z-direction, at a given x, y location in the domain
     """
-    schema = {'min-fields': 4, 'name': u'PipingSystem:Underground:PipeSegment', 'pyname': u'PipingSystemUndergroundPipeSegment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'x position', {'name': u'X Position', 'pyname': u'x_position', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y position', {'name': u'Y Position', 'pyname': u'y_position', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'flow direction', {'name': u'Flow Direction', 'pyname': u'flow_direction', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IncreasingZ', u'DecreasingZ'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'PipingSystem:Underground:PipeSegment', 'pyname': u'PipingSystemUndergroundPipeSegment', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'x position', {'name': u'X Position', 'pyname': u'x_position', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'y position', {'name': u'Y Position', 'pyname': u'y_position', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'flow direction', {'name': u'Flow Direction', 'pyname': u'flow_direction', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IncreasingZ', u'DecreasingZ'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -2602,7 +2679,7 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2625,7 +2702,7 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @x_position.setter
     def x_position(self, value=None):
-        """  Corresponds to IDD Field `X Position`
+        """  Corresponds to IDD field `X Position`
         This segment will be centered at this distance from the x=0
         domain surface or the basement wall surface, based on whether
         a basement exists in this domain and the selection of the
@@ -2653,7 +2730,7 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @y_position.setter
     def y_position(self, value=None):
-        """  Corresponds to IDD Field `Y Position`
+        """  Corresponds to IDD field `Y Position`
         This segment will be centered at this distance away from the
         ground surface; thus this value represents the burial depth
         of this pipe segment.
@@ -2680,7 +2757,7 @@ class PipingSystemUndergroundPipeSegment(DataObject):
 
     @flow_direction.setter
     def flow_direction(self, value=None):
-        """  Corresponds to IDD Field `Flow Direction`
+        """  Corresponds to IDD field `Flow Direction`
         This segment will be simulated such that the flow is in the
         selected direction.  This can allow for detailed analysis
         of circuiting effects in a single domain.
@@ -2700,7 +2777,7 @@ class Duct(DataObject):
     """ Corresponds to IDD object `Duct`
         Passes inlet node state variables to outlet node state variables
     """
-    schema = {'min-fields': 0, 'name': u'Duct', 'pyname': u'Duct', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Duct', 'pyname': u'Duct', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'inlet node name', {'name': u'Inlet Node Name', 'pyname': u'inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outlet node name', {'name': u'Outlet Node Name', 'pyname': u'outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Node'}
 
     @property
     def name(self):
@@ -2713,7 +2790,7 @@ class Duct(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2736,7 +2813,7 @@ class Duct(DataObject):
 
     @inlet_node_name.setter
     def inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Inlet Node Name`
+        """  Corresponds to IDD field `Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Inlet Node Name`
@@ -2759,7 +2836,7 @@ class Duct(DataObject):
 
     @outlet_node_name.setter
     def outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Outlet Node Name`
+        """  Corresponds to IDD field `Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Outlet Node Name`

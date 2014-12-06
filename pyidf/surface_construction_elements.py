@@ -12,7 +12,7 @@ class Material(DataObject):
     """ Corresponds to IDD object `Material`
         Regular materials described with full set of thermal properties
     """
-    schema = {'min-fields': 6, 'name': u'Material', 'pyname': u'Material', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'maximum': 3.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'density', {'name': u'Density', 'pyname': u'density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'specific heat', {'name': u'Specific Heat', 'pyname': u'specific_heat', 'required-field': True, 'autosizable': False, 'minimum': 100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.0, 'maximum': 0.99999, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 6, 'name': u'Material', 'pyname': u'Material', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'maximum': 3.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'density', {'name': u'Density', 'pyname': u'density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'specific heat', {'name': u'Specific Heat', 'pyname': u'specific_heat', 'required-field': True, 'autosizable': False, 'minimum': 100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.0, 'maximum': 0.99999, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -25,7 +25,7 @@ class Material(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -48,7 +48,7 @@ class Material(DataObject):
 
     @roughness.setter
     def roughness(self, value=None):
-        """  Corresponds to IDD Field `Roughness`
+        """  Corresponds to IDD field `Roughness`
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -71,7 +71,7 @@ class Material(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -97,7 +97,7 @@ class Material(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=None):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -121,7 +121,7 @@ class Material(DataObject):
 
     @density.setter
     def density(self, value=None):
-        """  Corresponds to IDD Field `Density`
+        """  Corresponds to IDD field `Density`
 
         Args:
             value (float): value for IDD Field `Density`
@@ -145,7 +145,7 @@ class Material(DataObject):
 
     @specific_heat.setter
     def specific_heat(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat`
+        """  Corresponds to IDD field `Specific Heat`
 
         Args:
             value (float): value for IDD Field `Specific Heat`
@@ -170,7 +170,7 @@ class Material(DataObject):
 
     @thermal_absorptance.setter
     def thermal_absorptance(self, value=0.9):
-        """  Corresponds to IDD Field `Thermal Absorptance`
+        """  Corresponds to IDD field `Thermal Absorptance`
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
@@ -195,7 +195,7 @@ class Material(DataObject):
 
     @solar_absorptance.setter
     def solar_absorptance(self, value=0.7):
-        """  Corresponds to IDD Field `Solar Absorptance`
+        """  Corresponds to IDD field `Solar Absorptance`
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
@@ -220,7 +220,7 @@ class Material(DataObject):
 
     @visible_absorptance.setter
     def visible_absorptance(self, value=0.7):
-        """  Corresponds to IDD Field `Visible Absorptance`
+        """  Corresponds to IDD field `Visible Absorptance`
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -239,7 +239,7 @@ class MaterialNoMass(DataObject):
     """ Corresponds to IDD object `Material:NoMass`
         Regular materials properties described whose principal description is R (Thermal Resistance)
     """
-    schema = {'min-fields': 3, 'name': u'Material:NoMass', 'pyname': u'MaterialNoMass', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal resistance', {'name': u'Thermal Resistance', 'pyname': u'thermal_resistance', 'required-field': True, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.0, 'maximum': 0.99999, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'Material:NoMass', 'pyname': u'MaterialNoMass', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'Rough', u'MediumRough', u'MediumSmooth', u'Smooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal resistance', {'name': u'Thermal Resistance', 'pyname': u'thermal_resistance', 'required-field': True, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.0, 'maximum': 0.99999, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -252,7 +252,7 @@ class MaterialNoMass(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -275,7 +275,7 @@ class MaterialNoMass(DataObject):
 
     @roughness.setter
     def roughness(self, value=None):
-        """  Corresponds to IDD Field `Roughness`
+        """  Corresponds to IDD field `Roughness`
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -298,7 +298,7 @@ class MaterialNoMass(DataObject):
 
     @thermal_resistance.setter
     def thermal_resistance(self, value=None):
-        """  Corresponds to IDD Field `Thermal Resistance`
+        """  Corresponds to IDD field `Thermal Resistance`
 
         Args:
             value (float): value for IDD Field `Thermal Resistance`
@@ -323,7 +323,7 @@ class MaterialNoMass(DataObject):
 
     @thermal_absorptance.setter
     def thermal_absorptance(self, value=0.9):
-        """  Corresponds to IDD Field `Thermal Absorptance`
+        """  Corresponds to IDD field `Thermal Absorptance`
 
         Args:
             value (float): value for IDD Field `Thermal Absorptance`
@@ -348,7 +348,7 @@ class MaterialNoMass(DataObject):
 
     @solar_absorptance.setter
     def solar_absorptance(self, value=0.7):
-        """  Corresponds to IDD Field `Solar Absorptance`
+        """  Corresponds to IDD field `Solar Absorptance`
 
         Args:
             value (float): value for IDD Field `Solar Absorptance`
@@ -373,7 +373,7 @@ class MaterialNoMass(DataObject):
 
     @visible_absorptance.setter
     def visible_absorptance(self, value=0.7):
-        """  Corresponds to IDD Field `Visible Absorptance`
+        """  Corresponds to IDD field `Visible Absorptance`
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -397,7 +397,7 @@ class MaterialInfraredTransparent(DataObject):
         All thermal properties are set internally. User needs only to supply name.
         Cannot be used with ConductionFiniteDifference solution algorithms
     """
-    schema = {'min-fields': 1, 'name': u'Material:InfraredTransparent', 'pyname': u'MaterialInfraredTransparent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 1, 'name': u'Material:InfraredTransparent', 'pyname': u'MaterialInfraredTransparent', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -410,7 +410,7 @@ class MaterialInfraredTransparent(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -427,7 +427,7 @@ class MaterialAirGap(DataObject):
     """ Corresponds to IDD object `Material:AirGap`
         Air Space in Opaque Construction
     """
-    schema = {'min-fields': 2, 'name': u'Material:AirGap', 'pyname': u'MaterialAirGap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thermal resistance', {'name': u'Thermal Resistance', 'pyname': u'thermal_resistance', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Material:AirGap', 'pyname': u'MaterialAirGap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thermal resistance', {'name': u'Thermal Resistance', 'pyname': u'thermal_resistance', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2-K/W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -440,7 +440,7 @@ class MaterialAirGap(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -463,7 +463,7 @@ class MaterialAirGap(DataObject):
 
     @thermal_resistance.setter
     def thermal_resistance(self, value=None):
-        """  Corresponds to IDD Field `Thermal Resistance`
+        """  Corresponds to IDD field `Thermal Resistance`
 
         Args:
             value (float): value for IDD Field `Thermal Resistance`
@@ -486,7 +486,7 @@ class MaterialRoofVegetation(DataObject):
         used in multiple constructions. New moisture redistribution scheme (2010) requires higher
         number of timesteps per hour (minimum 12 recommended).
     """
-    schema = {'min-fields': 18, 'name': u'Material:RoofVegetation', 'pyname': u'MaterialRoofVegetation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'height of plants', {'name': u'Height of Plants', 'pyname': u'height_of_plants', 'default': 0.2, 'minimum>': 0.005, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'leaf area index', {'name': u'Leaf Area Index', 'pyname': u'leaf_area_index', 'default': 1.0, 'minimum>': 0.001, 'maximum': 5.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'leaf reflectivity', {'name': u'Leaf Reflectivity', 'pyname': u'leaf_reflectivity', 'default': 0.22, 'maximum': 0.5, 'required-field': True, 'autosizable': False, 'minimum': 0.05, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'leaf emissivity', {'name': u'Leaf Emissivity', 'pyname': u'leaf_emissivity', 'default': 0.95, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.8, 'autocalculatable': False, 'type': u'real'}), (u'minimum stomatal resistance', {'name': u'Minimum Stomatal Resistance', 'pyname': u'minimum_stomatal_resistance', 'default': 180.0, 'maximum': 300.0, 'required-field': False, 'autosizable': False, 'minimum': 50.0, 'autocalculatable': False, 'type': u'real', 'unit': u's/m'}), (u'soil layer name', {'name': u'Soil Layer Name', 'pyname': u'soil_layer_name', 'default': u'Green Roof Soil', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'default': u'MediumRough', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'MediumRough', u'Rough', u'Smooth', u'MediumSmooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'default': 0.1, 'minimum>': 0.05, 'maximum': 0.7, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity of dry soil', {'name': u'Conductivity of Dry Soil', 'pyname': u'conductivity_of_dry_soil', 'default': 0.35, 'maximum': 1.5, 'required-field': True, 'autosizable': False, 'minimum': 0.2, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'density of dry soil', {'name': u'Density of Dry Soil', 'pyname': u'density_of_dry_soil', 'default': 1100.0, 'maximum': 2000.0, 'required-field': True, 'autosizable': False, 'minimum': 300.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'specific heat of dry soil', {'name': u'Specific Heat of Dry Soil', 'pyname': u'specific_heat_of_dry_soil', 'default': 1200.0, 'minimum>': 500.0, 'maximum': 2000.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.8, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 0.9, 'required-field': False, 'autosizable': False, 'minimum': 0.4, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.75, 'minimum>': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'saturation volumetric moisture content of the soil layer', {'name': u'Saturation Volumetric Moisture Content of the Soil Layer', 'pyname': u'saturation_volumetric_moisture_content_of_the_soil_layer', 'default': 0.3, 'minimum>': 0.1, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'residual volumetric moisture content of the soil layer', {'name': u'Residual Volumetric Moisture Content of the Soil Layer', 'pyname': u'residual_volumetric_moisture_content_of_the_soil_layer', 'default': 0.01, 'maximum': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.01, 'autocalculatable': False, 'type': u'real'}), (u'initial volumetric moisture content of the soil layer', {'name': u'Initial Volumetric Moisture Content of the Soil Layer', 'pyname': u'initial_volumetric_moisture_content_of_the_soil_layer', 'default': 0.1, 'minimum>': 0.05, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'moisture diffusion calculation method', {'name': u'Moisture Diffusion Calculation Method', 'pyname': u'moisture_diffusion_calculation_method', 'default': u'Advanced', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Simple', u'Advanced'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 18, 'name': u'Material:RoofVegetation', 'pyname': u'MaterialRoofVegetation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'height of plants', {'name': u'Height of Plants', 'pyname': u'height_of_plants', 'default': 0.2, 'minimum>': 0.005, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'leaf area index', {'name': u'Leaf Area Index', 'pyname': u'leaf_area_index', 'default': 1.0, 'minimum>': 0.001, 'maximum': 5.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'leaf reflectivity', {'name': u'Leaf Reflectivity', 'pyname': u'leaf_reflectivity', 'default': 0.22, 'maximum': 0.5, 'required-field': True, 'autosizable': False, 'minimum': 0.05, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'leaf emissivity', {'name': u'Leaf Emissivity', 'pyname': u'leaf_emissivity', 'default': 0.95, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.8, 'autocalculatable': False, 'type': u'real'}), (u'minimum stomatal resistance', {'name': u'Minimum Stomatal Resistance', 'pyname': u'minimum_stomatal_resistance', 'default': 180.0, 'maximum': 300.0, 'required-field': False, 'autosizable': False, 'minimum': 50.0, 'autocalculatable': False, 'type': u'real', 'unit': u's/m'}), (u'soil layer name', {'name': u'Soil Layer Name', 'pyname': u'soil_layer_name', 'default': u'Green Roof Soil', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'roughness', {'name': u'Roughness', 'pyname': u'roughness', 'default': u'MediumRough', 'required-field': True, 'autosizable': False, 'accepted-values': [u'VeryRough', u'MediumRough', u'Rough', u'Smooth', u'MediumSmooth', u'VerySmooth'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'default': 0.1, 'minimum>': 0.05, 'maximum': 0.7, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity of dry soil', {'name': u'Conductivity of Dry Soil', 'pyname': u'conductivity_of_dry_soil', 'default': 0.35, 'maximum': 1.5, 'required-field': True, 'autosizable': False, 'minimum': 0.2, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'density of dry soil', {'name': u'Density of Dry Soil', 'pyname': u'density_of_dry_soil', 'default': 1100.0, 'maximum': 2000.0, 'required-field': True, 'autosizable': False, 'minimum': 300.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'specific heat of dry soil', {'name': u'Specific Heat of Dry Soil', 'pyname': u'specific_heat_of_dry_soil', 'default': 1200.0, 'minimum>': 500.0, 'maximum': 2000.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'thermal absorptance', {'name': u'Thermal Absorptance', 'pyname': u'thermal_absorptance', 'default': 0.9, 'minimum>': 0.8, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar absorptance', {'name': u'Solar Absorptance', 'pyname': u'solar_absorptance', 'default': 0.7, 'maximum': 0.9, 'required-field': False, 'autosizable': False, 'minimum': 0.4, 'autocalculatable': False, 'type': u'real'}), (u'visible absorptance', {'name': u'Visible Absorptance', 'pyname': u'visible_absorptance', 'default': 0.75, 'minimum>': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'saturation volumetric moisture content of the soil layer', {'name': u'Saturation Volumetric Moisture Content of the Soil Layer', 'pyname': u'saturation_volumetric_moisture_content_of_the_soil_layer', 'default': 0.3, 'minimum>': 0.1, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'residual volumetric moisture content of the soil layer', {'name': u'Residual Volumetric Moisture Content of the Soil Layer', 'pyname': u'residual_volumetric_moisture_content_of_the_soil_layer', 'default': 0.01, 'maximum': 0.1, 'required-field': False, 'autosizable': False, 'minimum': 0.01, 'autocalculatable': False, 'type': u'real'}), (u'initial volumetric moisture content of the soil layer', {'name': u'Initial Volumetric Moisture Content of the Soil Layer', 'pyname': u'initial_volumetric_moisture_content_of_the_soil_layer', 'default': 0.1, 'minimum>': 0.05, 'maximum': 0.5, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'moisture diffusion calculation method', {'name': u'Moisture Diffusion Calculation Method', 'pyname': u'moisture_diffusion_calculation_method', 'default': u'Advanced', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Simple', u'Advanced'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -499,7 +499,7 @@ class MaterialRoofVegetation(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -522,7 +522,7 @@ class MaterialRoofVegetation(DataObject):
 
     @height_of_plants.setter
     def height_of_plants(self, value=0.2):
-        """  Corresponds to IDD Field `Height of Plants`
+        """  Corresponds to IDD field `Height of Plants`
         The ecoroof module is designed for short plants and shrubs.
 
         Args:
@@ -550,7 +550,7 @@ class MaterialRoofVegetation(DataObject):
 
     @leaf_area_index.setter
     def leaf_area_index(self, value=1.0):
-        """  Corresponds to IDD Field `Leaf Area Index`
+        """  Corresponds to IDD field `Leaf Area Index`
         Entire surface is assumed covered, so decrease LAI accordingly.
 
         Args:
@@ -578,7 +578,7 @@ class MaterialRoofVegetation(DataObject):
 
     @leaf_reflectivity.setter
     def leaf_reflectivity(self, value=0.22):
-        """  Corresponds to IDD Field `Leaf Reflectivity`
+        """  Corresponds to IDD field `Leaf Reflectivity`
         Leaf reflectivity (albedo) is typically 0.18-0.25
 
         Args:
@@ -606,7 +606,7 @@ class MaterialRoofVegetation(DataObject):
 
     @leaf_emissivity.setter
     def leaf_emissivity(self, value=0.95):
-        """  Corresponds to IDD Field `Leaf Emissivity`
+        """  Corresponds to IDD field `Leaf Emissivity`
 
         Args:
             value (float): value for IDD Field `Leaf Emissivity`
@@ -632,7 +632,7 @@ class MaterialRoofVegetation(DataObject):
 
     @minimum_stomatal_resistance.setter
     def minimum_stomatal_resistance(self, value=180.0):
-        """  Corresponds to IDD Field `Minimum Stomatal Resistance`
+        """  Corresponds to IDD field `Minimum Stomatal Resistance`
         This depends upon plant type
 
         Args:
@@ -660,7 +660,7 @@ class MaterialRoofVegetation(DataObject):
 
     @soil_layer_name.setter
     def soil_layer_name(self, value="Green Roof Soil"):
-        """  Corresponds to IDD Field `Soil Layer Name`
+        """  Corresponds to IDD field `Soil Layer Name`
 
         Args:
             value (str): value for IDD Field `Soil Layer Name`
@@ -684,7 +684,7 @@ class MaterialRoofVegetation(DataObject):
 
     @roughness.setter
     def roughness(self, value="MediumRough"):
-        """  Corresponds to IDD Field `Roughness`
+        """  Corresponds to IDD field `Roughness`
 
         Args:
             value (str): value for IDD Field `Roughness`
@@ -708,7 +708,7 @@ class MaterialRoofVegetation(DataObject):
 
     @thickness.setter
     def thickness(self, value=0.1):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
         thickness of the soil layer of the EcoRoof
         Soil depths of 0.15m (6in) and 0.30m (12in) are common.
 
@@ -738,7 +738,7 @@ class MaterialRoofVegetation(DataObject):
 
     @conductivity_of_dry_soil.setter
     def conductivity_of_dry_soil(self, value=0.35):
-        """  Corresponds to IDD Field `Conductivity of Dry Soil`
+        """  Corresponds to IDD field `Conductivity of Dry Soil`
         Thermal conductivity of dry soil.
         Typical ecoroof soils range from 0.3 to 0.5
 
@@ -767,7 +767,7 @@ class MaterialRoofVegetation(DataObject):
 
     @density_of_dry_soil.setter
     def density_of_dry_soil(self, value=1100.0):
-        """  Corresponds to IDD Field `Density of Dry Soil`
+        """  Corresponds to IDD field `Density of Dry Soil`
         Density of dry soil (the code modifies this as the soil becomes moist)
         Typical ecoroof soils range from 400 to 1000 (dry to wet)
 
@@ -796,7 +796,7 @@ class MaterialRoofVegetation(DataObject):
 
     @specific_heat_of_dry_soil.setter
     def specific_heat_of_dry_soil(self, value=1200.0):
-        """  Corresponds to IDD Field `Specific Heat of Dry Soil`
+        """  Corresponds to IDD field `Specific Heat of Dry Soil`
         Specific heat of dry soil
 
         Args:
@@ -824,7 +824,7 @@ class MaterialRoofVegetation(DataObject):
 
     @thermal_absorptance.setter
     def thermal_absorptance(self, value=0.9):
-        """  Corresponds to IDD Field `Thermal Absorptance`
+        """  Corresponds to IDD field `Thermal Absorptance`
         Soil emissivity is typically in range of 0.90 to 0.98
 
         Args:
@@ -851,7 +851,7 @@ class MaterialRoofVegetation(DataObject):
 
     @solar_absorptance.setter
     def solar_absorptance(self, value=0.7):
-        """  Corresponds to IDD Field `Solar Absorptance`
+        """  Corresponds to IDD field `Solar Absorptance`
         Solar absorptance of dry soil (1-albedo) is typically 0.60 to 0.85
         corresponding to a dry albedo of 0.15 to 0.40
 
@@ -879,7 +879,7 @@ class MaterialRoofVegetation(DataObject):
 
     @visible_absorptance.setter
     def visible_absorptance(self, value=0.75):
-        """  Corresponds to IDD Field `Visible Absorptance`
+        """  Corresponds to IDD field `Visible Absorptance`
 
         Args:
             value (float): value for IDD Field `Visible Absorptance`
@@ -905,7 +905,7 @@ class MaterialRoofVegetation(DataObject):
 
     @saturation_volumetric_moisture_content_of_the_soil_layer.setter
     def saturation_volumetric_moisture_content_of_the_soil_layer(self, value=0.3):
-        """  Corresponds to IDD Field `Saturation Volumetric Moisture Content of the Soil Layer`
+        """  Corresponds to IDD field `Saturation Volumetric Moisture Content of the Soil Layer`
         Maximum moisture content is typically less than 0.5
 
         Args:
@@ -932,7 +932,7 @@ class MaterialRoofVegetation(DataObject):
 
     @residual_volumetric_moisture_content_of_the_soil_layer.setter
     def residual_volumetric_moisture_content_of_the_soil_layer(self, value=0.01):
-        """  Corresponds to IDD Field `Residual Volumetric Moisture Content of the Soil Layer`
+        """  Corresponds to IDD field `Residual Volumetric Moisture Content of the Soil Layer`
 
         Args:
             value (float): value for IDD Field `Residual Volumetric Moisture Content of the Soil Layer`
@@ -958,7 +958,7 @@ class MaterialRoofVegetation(DataObject):
 
     @initial_volumetric_moisture_content_of_the_soil_layer.setter
     def initial_volumetric_moisture_content_of_the_soil_layer(self, value=0.1):
-        """  Corresponds to IDD Field `Initial Volumetric Moisture Content of the Soil Layer`
+        """  Corresponds to IDD field `Initial Volumetric Moisture Content of the Soil Layer`
 
         Args:
             value (float): value for IDD Field `Initial Volumetric Moisture Content of the Soil Layer`
@@ -984,7 +984,7 @@ class MaterialRoofVegetation(DataObject):
 
     @moisture_diffusion_calculation_method.setter
     def moisture_diffusion_calculation_method(self, value="Advanced"):
-        """  Corresponds to IDD Field `Moisture Diffusion Calculation Method`
+        """  Corresponds to IDD field `Moisture Diffusion Calculation Method`
         Advanced calculation requires increased number of timesteps (recommended >20).
 
         Args:
@@ -1005,7 +1005,7 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
         This window material object is used to define an entire glazing system
         using simple performance parameters.
     """
-    schema = {'min-fields': 3, 'name': u'WindowMaterial:SimpleGlazingSystem', 'pyname': u'WindowMaterialSimpleGlazingSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'u-factor', {'name': u'U-Factor', 'pyname': u'ufactor', 'minimum>': 0.0, 'maximum': 7.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'solar heat gain coefficient', {'name': u'Solar Heat Gain Coefficient', 'pyname': u'solar_heat_gain_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 1.0}), (u'visible transmittance', {'name': u'Visible Transmittance', 'pyname': u'visible_transmittance', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'WindowMaterial:SimpleGlazingSystem', 'pyname': u'WindowMaterialSimpleGlazingSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'u-factor', {'name': u'U-Factor', 'pyname': u'ufactor', 'minimum>': 0.0, 'maximum': 7.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m2-K'}), (u'solar heat gain coefficient', {'name': u'Solar Heat Gain Coefficient', 'pyname': u'solar_heat_gain_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 1.0}), (u'visible transmittance', {'name': u'Visible Transmittance', 'pyname': u'visible_transmittance', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -1018,7 +1018,7 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1041,7 +1041,7 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @ufactor.setter
     def ufactor(self, value=None):
-        """  Corresponds to IDD Field `U-Factor`
+        """  Corresponds to IDD field `U-Factor`
         Enter U-Factor including film coefficients
         Note that the effective upper limit for U-factor is 5.8 W/m2-K
 
@@ -1068,7 +1068,7 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @solar_heat_gain_coefficient.setter
     def solar_heat_gain_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Solar Heat Gain Coefficient`
+        """  Corresponds to IDD field `Solar Heat Gain Coefficient`
         SHGC at Normal Incidence
 
         Args:
@@ -1093,7 +1093,7 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
 
     @visible_transmittance.setter
     def visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Visible Transmittance`
+        """  Corresponds to IDD field `Visible Transmittance`
         VT at Normal Incidence
         optional
 
@@ -1114,7 +1114,7 @@ class WindowMaterialGlazing(DataObject):
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
     """
-    schema = {'min-fields': 14, 'name': u'WindowMaterial:Glazing', 'pyname': u'WindowMaterialGlazing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'optical data type', {'name': u'Optical Data Type', 'pyname': u'optical_data_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SpectralAverage', u'Spectral', u'BSDF'], 'autocalculatable': False, 'type': 'alpha'}), (u'window glass spectral data set name', {'name': u'Window Glass Spectral Data Set Name', 'pyname': u'window_glass_spectral_data_set_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'solar transmittance at normal incidence', {'name': u'Solar Transmittance at Normal Incidence', 'pyname': u'solar_transmittance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side solar reflectance at normal incidence', {'name': u'Front Side Solar Reflectance at Normal Incidence', 'pyname': u'front_side_solar_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side solar reflectance at normal incidence', {'name': u'Back Side Solar Reflectance at Normal Incidence', 'pyname': u'back_side_solar_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible transmittance at normal incidence', {'name': u'Visible Transmittance at Normal Incidence', 'pyname': u'visible_transmittance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side visible reflectance at normal incidence', {'name': u'Front Side Visible Reflectance at Normal Incidence', 'pyname': u'front_side_visible_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side visible reflectance at normal incidence', {'name': u'Back Side Visible Reflectance at Normal Incidence', 'pyname': u'back_side_visible_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'infrared transmittance at normal incidence', {'name': u'Infrared Transmittance at Normal Incidence', 'pyname': u'infrared_transmittance_at_normal_incidence', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side infrared hemispherical emissivity', {'name': u'Front Side Infrared Hemispherical Emissivity', 'pyname': u'front_side_infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'back side infrared hemispherical emissivity', {'name': u'Back Side Infrared Hemispherical Emissivity', 'pyname': u'back_side_infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'dirt correction factor for solar and visible transmittance', {'name': u'Dirt Correction Factor for Solar and Visible Transmittance', 'pyname': u'dirt_correction_factor_for_solar_and_visible_transmittance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar diffusing', {'name': u'Solar Diffusing', 'pyname': u'solar_diffusing', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'}), (u'youngs modulus', {'name': u'Youngs modulus', 'pyname': u'youngs_modulus', 'default': 72000000000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'poissons ratio', {'name': u'Poissons ratio', 'pyname': u'poissons_ratio', 'default': 0.22, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 14, 'name': u'WindowMaterial:Glazing', 'pyname': u'WindowMaterialGlazing', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'optical data type', {'name': u'Optical Data Type', 'pyname': u'optical_data_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SpectralAverage', u'Spectral', u'BSDF'], 'autocalculatable': False, 'type': 'alpha'}), (u'window glass spectral data set name', {'name': u'Window Glass Spectral Data Set Name', 'pyname': u'window_glass_spectral_data_set_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'solar transmittance at normal incidence', {'name': u'Solar Transmittance at Normal Incidence', 'pyname': u'solar_transmittance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side solar reflectance at normal incidence', {'name': u'Front Side Solar Reflectance at Normal Incidence', 'pyname': u'front_side_solar_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side solar reflectance at normal incidence', {'name': u'Back Side Solar Reflectance at Normal Incidence', 'pyname': u'back_side_solar_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'visible transmittance at normal incidence', {'name': u'Visible Transmittance at Normal Incidence', 'pyname': u'visible_transmittance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side visible reflectance at normal incidence', {'name': u'Front Side Visible Reflectance at Normal Incidence', 'pyname': u'front_side_visible_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side visible reflectance at normal incidence', {'name': u'Back Side Visible Reflectance at Normal Incidence', 'pyname': u'back_side_visible_reflectance_at_normal_incidence', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'infrared transmittance at normal incidence', {'name': u'Infrared Transmittance at Normal Incidence', 'pyname': u'infrared_transmittance_at_normal_incidence', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side infrared hemispherical emissivity', {'name': u'Front Side Infrared Hemispherical Emissivity', 'pyname': u'front_side_infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'back side infrared hemispherical emissivity', {'name': u'Back Side Infrared Hemispherical Emissivity', 'pyname': u'back_side_infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'dirt correction factor for solar and visible transmittance', {'name': u'Dirt Correction Factor for Solar and Visible Transmittance', 'pyname': u'dirt_correction_factor_for_solar_and_visible_transmittance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar diffusing', {'name': u'Solar Diffusing', 'pyname': u'solar_diffusing', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'}), (u'youngs modulus', {'name': u'Youngs modulus', 'pyname': u'youngs_modulus', 'default': 72000000000.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'poissons ratio', {'name': u'Poissons ratio', 'pyname': u'poissons_ratio', 'default': 0.22, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -1127,7 +1127,7 @@ class WindowMaterialGlazing(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1150,7 +1150,7 @@ class WindowMaterialGlazing(DataObject):
 
     @optical_data_type.setter
     def optical_data_type(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Type`
+        """  Corresponds to IDD field `Optical Data Type`
 
         Args:
             value (str): value for IDD Field `Optical Data Type`
@@ -1173,7 +1173,7 @@ class WindowMaterialGlazing(DataObject):
 
     @window_glass_spectral_data_set_name.setter
     def window_glass_spectral_data_set_name(self, value=None):
-        """  Corresponds to IDD Field `Window Glass Spectral Data Set Name`
+        """  Corresponds to IDD field `Window Glass Spectral Data Set Name`
         Used only when Optical Data Type = Spectral
 
         Args:
@@ -1197,7 +1197,7 @@ class WindowMaterialGlazing(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -1222,7 +1222,7 @@ class WindowMaterialGlazing(DataObject):
 
     @solar_transmittance_at_normal_incidence.setter
     def solar_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Solar Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Solar Transmittance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -1247,7 +1247,7 @@ class WindowMaterialGlazing(DataObject):
 
     @front_side_solar_reflectance_at_normal_incidence.setter
     def front_side_solar_reflectance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Front Side Solar Reflectance at Normal Incidence`
+        """  Corresponds to IDD field `Front Side Solar Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
 
@@ -1273,7 +1273,7 @@ class WindowMaterialGlazing(DataObject):
 
     @back_side_solar_reflectance_at_normal_incidence.setter
     def back_side_solar_reflectance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Back Side Solar Reflectance at Normal Incidence`
+        """  Corresponds to IDD field `Back Side Solar Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
 
@@ -1299,7 +1299,7 @@ class WindowMaterialGlazing(DataObject):
 
     @visible_transmittance_at_normal_incidence.setter
     def visible_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Visible Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Visible Transmittance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -1324,7 +1324,7 @@ class WindowMaterialGlazing(DataObject):
 
     @front_side_visible_reflectance_at_normal_incidence.setter
     def front_side_visible_reflectance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Front Side Visible Reflectance at Normal Incidence`
+        """  Corresponds to IDD field `Front Side Visible Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -1349,7 +1349,7 @@ class WindowMaterialGlazing(DataObject):
 
     @back_side_visible_reflectance_at_normal_incidence.setter
     def back_side_visible_reflectance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Back Side Visible Reflectance at Normal Incidence`
+        """  Corresponds to IDD field `Back Side Visible Reflectance at Normal Incidence`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -1374,7 +1374,7 @@ class WindowMaterialGlazing(DataObject):
 
     @infrared_transmittance_at_normal_incidence.setter
     def infrared_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Infrared Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Infrared Transmittance at Normal Incidence`
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
@@ -1398,7 +1398,7 @@ class WindowMaterialGlazing(DataObject):
 
     @front_side_infrared_hemispherical_emissivity.setter
     def front_side_infrared_hemispherical_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Front Side Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Front Side Infrared Hemispherical Emissivity`
 
         Args:
             value (float): value for IDD Field `Front Side Infrared Hemispherical Emissivity`
@@ -1423,7 +1423,7 @@ class WindowMaterialGlazing(DataObject):
 
     @back_side_infrared_hemispherical_emissivity.setter
     def back_side_infrared_hemispherical_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Back Side Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Back Side Infrared Hemispherical Emissivity`
 
         Args:
             value (float): value for IDD Field `Back Side Infrared Hemispherical Emissivity`
@@ -1448,7 +1448,7 @@ class WindowMaterialGlazing(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=0.9):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -1473,7 +1473,7 @@ class WindowMaterialGlazing(DataObject):
 
     @dirt_correction_factor_for_solar_and_visible_transmittance.setter
     def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0):
-        """  Corresponds to IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
+        """  Corresponds to IDD field `Dirt Correction Factor for Solar and Visible Transmittance`
 
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
@@ -1498,7 +1498,7 @@ class WindowMaterialGlazing(DataObject):
 
     @solar_diffusing.setter
     def solar_diffusing(self, value="No"):
-        """  Corresponds to IDD Field `Solar Diffusing`
+        """  Corresponds to IDD field `Solar Diffusing`
 
         Args:
             value (str): value for IDD Field `Solar Diffusing`
@@ -1522,7 +1522,7 @@ class WindowMaterialGlazing(DataObject):
 
     @youngs_modulus.setter
     def youngs_modulus(self, value=72000000000.0):
-        """  Corresponds to IDD Field `Youngs modulus`
+        """  Corresponds to IDD field `Youngs modulus`
         coefficient used for deflection calculations. Used only with complex
         fenestration when deflection model is set to TemperatureAndPressureInput
 
@@ -1549,7 +1549,7 @@ class WindowMaterialGlazing(DataObject):
 
     @poissons_ratio.setter
     def poissons_ratio(self, value=0.22):
-        """  Corresponds to IDD Field `Poissons ratio`
+        """  Corresponds to IDD field `Poissons ratio`
         coefficient used for deflection calculations. Used only with complex
         fenestration when deflection model is set to TemperatureAndPressureInput
 
@@ -1570,7 +1570,7 @@ class WindowMaterialGlazingGroupThermochromic(DataObject):
     """ Corresponds to IDD object `WindowMaterial:GlazingGroup:Thermochromic`
         thermochromic glass at different temperatures
     """
-    schema = {'min-fields': 3, 'name': u'WindowMaterial:GlazingGroup:Thermochromic', 'pyname': u'WindowMaterialGlazingGroupThermochromic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'optical data temperature 1', {'name': u'Optical Data Temperature 1', 'pyname': u'optical_data_temperature_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'window material glazing name 1', {'name': u'Window Material Glazing Name 1', 'pyname': u'window_material_glazing_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'WindowMaterial:GlazingGroup:Thermochromic', 'pyname': u'WindowMaterialGlazingGroupThermochromic', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'optical data temperature 1', {'name': u'Optical Data Temperature 1', 'pyname': u'optical_data_temperature_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'window material glazing name 1', {'name': u'Window Material Glazing Name 1', 'pyname': u'window_material_glazing_name_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -1583,7 +1583,7 @@ class WindowMaterialGlazingGroupThermochromic(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1626,6 +1626,17 @@ class WindowMaterialGlazingGroupThermochromic(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Glazing:RefractionExtinctionMethod`
@@ -1633,7 +1644,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
         Index of Refraction/Extinction Coefficient input method
         Not to be used for coated glass
     """
-    schema = {'min-fields': 0, 'name': u'WindowMaterial:Glazing:RefractionExtinctionMethod', 'pyname': u'WindowMaterialGlazingRefractionExtinctionMethod', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'solar index of refraction', {'name': u'Solar Index of Refraction', 'pyname': u'solar_index_of_refraction', 'minimum>': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar extinction coefficient', {'name': u'Solar Extinction Coefficient', 'pyname': u'solar_extinction_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'visible index of refraction', {'name': u'Visible Index of Refraction', 'pyname': u'visible_index_of_refraction', 'minimum>': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'visible extinction coefficient', {'name': u'Visible Extinction Coefficient', 'pyname': u'visible_extinction_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'infrared transmittance at normal incidence', {'name': u'Infrared Transmittance at Normal Incidence', 'pyname': u'infrared_transmittance_at_normal_incidence', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'infrared hemispherical emissivity', {'name': u'Infrared Hemispherical Emissivity', 'pyname': u'infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'dirt correction factor for solar and visible transmittance', {'name': u'Dirt Correction Factor for Solar and Visible Transmittance', 'pyname': u'dirt_correction_factor_for_solar_and_visible_transmittance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar diffusing', {'name': u'Solar Diffusing', 'pyname': u'solar_diffusing', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WindowMaterial:Glazing:RefractionExtinctionMethod', 'pyname': u'WindowMaterialGlazingRefractionExtinctionMethod', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'solar index of refraction', {'name': u'Solar Index of Refraction', 'pyname': u'solar_index_of_refraction', 'minimum>': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar extinction coefficient', {'name': u'Solar Extinction Coefficient', 'pyname': u'solar_extinction_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'visible index of refraction', {'name': u'Visible Index of Refraction', 'pyname': u'visible_index_of_refraction', 'minimum>': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'visible extinction coefficient', {'name': u'Visible Extinction Coefficient', 'pyname': u'visible_extinction_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'1/m'}), (u'infrared transmittance at normal incidence', {'name': u'Infrared Transmittance at Normal Incidence', 'pyname': u'infrared_transmittance_at_normal_incidence', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'infrared hemispherical emissivity', {'name': u'Infrared Hemispherical Emissivity', 'pyname': u'infrared_hemispherical_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'dirt correction factor for solar and visible transmittance', {'name': u'Dirt Correction Factor for Solar and Visible Transmittance', 'pyname': u'dirt_correction_factor_for_solar_and_visible_transmittance', 'default': 1.0, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'solar diffusing', {'name': u'Solar Diffusing', 'pyname': u'solar_diffusing', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'No', u'Yes'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -1646,7 +1657,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1669,7 +1680,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -1694,7 +1705,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @solar_index_of_refraction.setter
     def solar_index_of_refraction(self, value=None):
-        """  Corresponds to IDD Field `Solar Index of Refraction`
+        """  Corresponds to IDD field `Solar Index of Refraction`
 
         Args:
             value (float): value for IDD Field `Solar Index of Refraction`
@@ -1718,7 +1729,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @solar_extinction_coefficient.setter
     def solar_extinction_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Solar Extinction Coefficient`
+        """  Corresponds to IDD field `Solar Extinction Coefficient`
 
         Args:
             value (float): value for IDD Field `Solar Extinction Coefficient`
@@ -1742,7 +1753,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @visible_index_of_refraction.setter
     def visible_index_of_refraction(self, value=None):
-        """  Corresponds to IDD Field `Visible Index of Refraction`
+        """  Corresponds to IDD field `Visible Index of Refraction`
 
         Args:
             value (float): value for IDD Field `Visible Index of Refraction`
@@ -1766,7 +1777,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @visible_extinction_coefficient.setter
     def visible_extinction_coefficient(self, value=None):
-        """  Corresponds to IDD Field `Visible Extinction Coefficient`
+        """  Corresponds to IDD field `Visible Extinction Coefficient`
 
         Args:
             value (float): value for IDD Field `Visible Extinction Coefficient`
@@ -1790,7 +1801,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @infrared_transmittance_at_normal_incidence.setter
     def infrared_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Infrared Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Infrared Transmittance at Normal Incidence`
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance at Normal Incidence`
@@ -1814,7 +1825,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @infrared_hemispherical_emissivity.setter
     def infrared_hemispherical_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Infrared Hemispherical Emissivity`
         Emissivity of front and back side assumed equal
 
         Args:
@@ -1840,7 +1851,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=0.9):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -1865,7 +1876,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @dirt_correction_factor_for_solar_and_visible_transmittance.setter
     def dirt_correction_factor_for_solar_and_visible_transmittance(self, value=1.0):
-        """  Corresponds to IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
+        """  Corresponds to IDD field `Dirt Correction Factor for Solar and Visible Transmittance`
 
         Args:
             value (float): value for IDD Field `Dirt Correction Factor for Solar and Visible Transmittance`
@@ -1890,7 +1901,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
 
     @solar_diffusing.setter
     def solar_diffusing(self, value="No"):
-        """  Corresponds to IDD Field `Solar Diffusing`
+        """  Corresponds to IDD field `Solar Diffusing`
 
         Args:
             value (str): value for IDD Field `Solar Diffusing`
@@ -1908,7 +1919,7 @@ class WindowMaterialGas(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Gas`
         Gas material properties that are used in Windows or Glass Doors
     """
-    schema = {'min-fields': 3, 'name': u'WindowMaterial:Gas', 'pyname': u'WindowMaterialGas', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas type', {'name': u'Gas Type', 'pyname': u'gas_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon', u'Custom'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity coefficient a', {'name': u'Conductivity Coefficient A', 'pyname': u'conductivity_coefficient_a', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'conductivity coefficient b', {'name': u'Conductivity Coefficient B', 'pyname': u'conductivity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'conductivity coefficient c', {'name': u'Conductivity Coefficient C', 'pyname': u'conductivity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K3'}), (u'viscosity coefficient a', {'name': u'Viscosity Coefficient A', 'pyname': u'viscosity_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s'}), (u'viscosity coefficient b', {'name': u'Viscosity Coefficient B', 'pyname': u'viscosity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K'}), (u'viscosity coefficient c', {'name': u'Viscosity Coefficient C', 'pyname': u'viscosity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K2'}), (u'specific heat coefficient a', {'name': u'Specific Heat Coefficient A', 'pyname': u'specific_heat_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'specific heat coefficient b', {'name': u'Specific Heat Coefficient B', 'pyname': u'specific_heat_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K2'}), (u'specific heat coefficient c', {'name': u'Specific Heat Coefficient C', 'pyname': u'specific_heat_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K3'}), (u'molecular weight', {'name': u'Molecular Weight', 'pyname': u'molecular_weight', 'maximum': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'g/mol'}), (u'specific heat ratio', {'name': u'Specific Heat Ratio', 'pyname': u'specific_heat_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'WindowMaterial:Gas', 'pyname': u'WindowMaterialGas', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas type', {'name': u'Gas Type', 'pyname': u'gas_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon', u'Custom'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity coefficient a', {'name': u'Conductivity Coefficient A', 'pyname': u'conductivity_coefficient_a', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'conductivity coefficient b', {'name': u'Conductivity Coefficient B', 'pyname': u'conductivity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'conductivity coefficient c', {'name': u'Conductivity Coefficient C', 'pyname': u'conductivity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K3'}), (u'viscosity coefficient a', {'name': u'Viscosity Coefficient A', 'pyname': u'viscosity_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s'}), (u'viscosity coefficient b', {'name': u'Viscosity Coefficient B', 'pyname': u'viscosity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K'}), (u'viscosity coefficient c', {'name': u'Viscosity Coefficient C', 'pyname': u'viscosity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K2'}), (u'specific heat coefficient a', {'name': u'Specific Heat Coefficient A', 'pyname': u'specific_heat_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'specific heat coefficient b', {'name': u'Specific Heat Coefficient B', 'pyname': u'specific_heat_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K2'}), (u'specific heat coefficient c', {'name': u'Specific Heat Coefficient C', 'pyname': u'specific_heat_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K3'}), (u'molecular weight', {'name': u'Molecular Weight', 'pyname': u'molecular_weight', 'maximum': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'g/mol'}), (u'specific heat ratio', {'name': u'Specific Heat Ratio', 'pyname': u'specific_heat_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -1921,7 +1932,7 @@ class WindowMaterialGas(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1944,7 +1955,7 @@ class WindowMaterialGas(DataObject):
 
     @gas_type.setter
     def gas_type(self, value=None):
-        """  Corresponds to IDD Field `Gas Type`
+        """  Corresponds to IDD field `Gas Type`
 
         Args:
             value (str): value for IDD Field `Gas Type`
@@ -1967,7 +1978,7 @@ class WindowMaterialGas(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -1992,7 +2003,7 @@ class WindowMaterialGas(DataObject):
 
     @conductivity_coefficient_a.setter
     def conductivity_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient A`
+        """  Corresponds to IDD field `Conductivity Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -2017,7 +2028,7 @@ class WindowMaterialGas(DataObject):
 
     @conductivity_coefficient_b.setter
     def conductivity_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient B`
+        """  Corresponds to IDD field `Conductivity Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -2042,7 +2053,7 @@ class WindowMaterialGas(DataObject):
 
     @conductivity_coefficient_c.setter
     def conductivity_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient C`
+        """  Corresponds to IDD field `Conductivity Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -2067,7 +2078,7 @@ class WindowMaterialGas(DataObject):
 
     @viscosity_coefficient_a.setter
     def viscosity_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient A`
+        """  Corresponds to IDD field `Viscosity Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -2092,7 +2103,7 @@ class WindowMaterialGas(DataObject):
 
     @viscosity_coefficient_b.setter
     def viscosity_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient B`
+        """  Corresponds to IDD field `Viscosity Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -2117,7 +2128,7 @@ class WindowMaterialGas(DataObject):
 
     @viscosity_coefficient_c.setter
     def viscosity_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient C`
+        """  Corresponds to IDD field `Viscosity Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -2142,7 +2153,7 @@ class WindowMaterialGas(DataObject):
 
     @specific_heat_coefficient_a.setter
     def specific_heat_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient A`
+        """  Corresponds to IDD field `Specific Heat Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -2167,7 +2178,7 @@ class WindowMaterialGas(DataObject):
 
     @specific_heat_coefficient_b.setter
     def specific_heat_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient B`
+        """  Corresponds to IDD field `Specific Heat Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -2192,7 +2203,7 @@ class WindowMaterialGas(DataObject):
 
     @specific_heat_coefficient_c.setter
     def specific_heat_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient C`
+        """  Corresponds to IDD field `Specific Heat Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -2217,7 +2228,7 @@ class WindowMaterialGas(DataObject):
 
     @molecular_weight.setter
     def molecular_weight(self, value=None):
-        """  Corresponds to IDD Field `Molecular Weight`
+        """  Corresponds to IDD field `Molecular Weight`
         Used only if Gas Type = Custom
 
         Args:
@@ -2244,7 +2255,7 @@ class WindowMaterialGas(DataObject):
 
     @specific_heat_ratio.setter
     def specific_heat_ratio(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Ratio`
+        """  Corresponds to IDD field `Specific Heat Ratio`
         Used only if Gas Type = Custom
 
         Args:
@@ -2262,7 +2273,7 @@ class WindowGapSupportPillar(DataObject):
     """ Corresponds to IDD object `WindowGap:SupportPillar`
         used to define pillar geometry for support pillars
     """
-    schema = {'min-fields': 0, 'name': u'WindowGap:SupportPillar', 'pyname': u'WindowGapSupportPillar', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spacing', {'name': u'Spacing', 'pyname': u'spacing', 'default': 0.04, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'radius', {'name': u'Radius', 'pyname': u'radius', 'default': 0.0004, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WindowGap:SupportPillar', 'pyname': u'WindowGapSupportPillar', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spacing', {'name': u'Spacing', 'pyname': u'spacing', 'default': 0.04, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'radius', {'name': u'Radius', 'pyname': u'radius', 'default': 0.0004, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -2275,7 +2286,7 @@ class WindowGapSupportPillar(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2298,7 +2309,7 @@ class WindowGapSupportPillar(DataObject):
 
     @spacing.setter
     def spacing(self, value=0.04):
-        """  Corresponds to IDD Field `Spacing`
+        """  Corresponds to IDD field `Spacing`
 
         Args:
             value (float): value for IDD Field `Spacing`
@@ -2323,7 +2334,7 @@ class WindowGapSupportPillar(DataObject):
 
     @radius.setter
     def radius(self, value=0.0004):
-        """  Corresponds to IDD Field `Radius`
+        """  Corresponds to IDD field `Radius`
 
         Args:
             value (float): value for IDD Field `Radius`
@@ -2344,7 +2355,7 @@ class WindowGapDeflectionState(DataObject):
         WindowMaterial:Gap object only and it is used only when deflection model is set to
         MeasuredDeflection, otherwise it is ignored.
     """
-    schema = {'min-fields': 0, 'name': u'WindowGap:DeflectionState', 'pyname': u'WindowGapDeflectionState', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'deflected thickness', {'name': u'Deflected Thickness', 'pyname': u'deflected_thickness', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'initial temperature', {'name': u'Initial Temperature', 'pyname': u'initial_temperature', 'default': 25.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial pressure', {'name': u'Initial Pressure', 'pyname': u'initial_pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WindowGap:DeflectionState', 'pyname': u'WindowGapDeflectionState', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'deflected thickness', {'name': u'Deflected Thickness', 'pyname': u'deflected_thickness', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'initial temperature', {'name': u'Initial Temperature', 'pyname': u'initial_temperature', 'default': 25.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial pressure', {'name': u'Initial Pressure', 'pyname': u'initial_pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -2357,7 +2368,7 @@ class WindowGapDeflectionState(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2380,7 +2391,7 @@ class WindowGapDeflectionState(DataObject):
 
     @deflected_thickness.setter
     def deflected_thickness(self, value=None):
-        """  Corresponds to IDD Field `Deflected Thickness`
+        """  Corresponds to IDD field `Deflected Thickness`
         If left blank will be considered that gap has no deflection.
 
         Args:
@@ -2405,7 +2416,7 @@ class WindowGapDeflectionState(DataObject):
 
     @initial_temperature.setter
     def initial_temperature(self, value=25.0):
-        """  Corresponds to IDD Field `Initial Temperature`
+        """  Corresponds to IDD field `Initial Temperature`
 
         Args:
             value (float): value for IDD Field `Initial Temperature`
@@ -2430,7 +2441,7 @@ class WindowGapDeflectionState(DataObject):
 
     @initial_pressure.setter
     def initial_pressure(self, value=101325.0):
-        """  Corresponds to IDD Field `Initial Pressure`
+        """  Corresponds to IDD field `Initial Pressure`
 
         Args:
             value (float): value for IDD Field `Initial Pressure`
@@ -2449,7 +2460,7 @@ class WindowMaterialGasMixture(DataObject):
     """ Corresponds to IDD object `WindowMaterial:GasMixture`
         Gas mixtures that are used in Windows or Glass Doors
     """
-    schema = {'min-fields': 7, 'name': u'WindowMaterial:GasMixture', 'pyname': u'WindowMaterialGasMixture', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of gases in mixture', {'name': u'Number of Gases in Mixture', 'pyname': u'number_of_gases_in_mixture', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'gas 1 type', {'name': u'Gas 1 Type', 'pyname': u'gas_1_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 1 fraction', {'name': u'Gas 1 Fraction', 'pyname': u'gas_1_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 2 type', {'name': u'Gas 2 Type', 'pyname': u'gas_2_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 2 fraction', {'name': u'Gas 2 Fraction', 'pyname': u'gas_2_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 3 type', {'name': u'Gas 3 Type', 'pyname': u'gas_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 3 fraction', {'name': u'Gas 3 Fraction', 'pyname': u'gas_3_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 4 type', {'name': u'Gas 4 Type', 'pyname': u'gas_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 4 fraction', {'name': u'Gas 4 Fraction', 'pyname': u'gas_4_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 7, 'name': u'WindowMaterial:GasMixture', 'pyname': u'WindowMaterialGasMixture', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'number of gases in mixture', {'name': u'Number of Gases in Mixture', 'pyname': u'number_of_gases_in_mixture', 'maximum': 4, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'gas 1 type', {'name': u'Gas 1 Type', 'pyname': u'gas_1_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 1 fraction', {'name': u'Gas 1 Fraction', 'pyname': u'gas_1_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 2 type', {'name': u'Gas 2 Type', 'pyname': u'gas_2_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 2 fraction', {'name': u'Gas 2 Fraction', 'pyname': u'gas_2_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 3 type', {'name': u'Gas 3 Type', 'pyname': u'gas_3_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 3 fraction', {'name': u'Gas 3 Fraction', 'pyname': u'gas_3_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'gas 4 type', {'name': u'Gas 4 Type', 'pyname': u'gas_4_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Air', u'Argon', u'Krypton', u'Xenon'], 'autocalculatable': False, 'type': 'alpha'}), (u'gas 4 fraction', {'name': u'Gas 4 Fraction', 'pyname': u'gas_4_fraction', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -2462,7 +2473,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2485,7 +2496,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -2509,7 +2520,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @number_of_gases_in_mixture.setter
     def number_of_gases_in_mixture(self, value=None):
-        """  Corresponds to IDD Field `Number of Gases in Mixture`
+        """  Corresponds to IDD field `Number of Gases in Mixture`
 
         Args:
             value (int): value for IDD Field `Number of Gases in Mixture`
@@ -2534,7 +2545,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_1_type.setter
     def gas_1_type(self, value=None):
-        """  Corresponds to IDD Field `Gas 1 Type`
+        """  Corresponds to IDD field `Gas 1 Type`
 
         Args:
             value (str): value for IDD Field `Gas 1 Type`
@@ -2557,7 +2568,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_1_fraction.setter
     def gas_1_fraction(self, value=None):
-        """  Corresponds to IDD Field `Gas 1 Fraction`
+        """  Corresponds to IDD field `Gas 1 Fraction`
 
         Args:
             value (float): value for IDD Field `Gas 1 Fraction`
@@ -2581,7 +2592,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_2_type.setter
     def gas_2_type(self, value=None):
-        """  Corresponds to IDD Field `Gas 2 Type`
+        """  Corresponds to IDD field `Gas 2 Type`
 
         Args:
             value (str): value for IDD Field `Gas 2 Type`
@@ -2604,7 +2615,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_2_fraction.setter
     def gas_2_fraction(self, value=None):
-        """  Corresponds to IDD Field `Gas 2 Fraction`
+        """  Corresponds to IDD field `Gas 2 Fraction`
 
         Args:
             value (float): value for IDD Field `Gas 2 Fraction`
@@ -2628,7 +2639,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_3_type.setter
     def gas_3_type(self, value=None):
-        """  Corresponds to IDD Field `Gas 3 Type`
+        """  Corresponds to IDD field `Gas 3 Type`
 
         Args:
             value (str): value for IDD Field `Gas 3 Type`
@@ -2651,7 +2662,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_3_fraction.setter
     def gas_3_fraction(self, value=None):
-        """  Corresponds to IDD Field `Gas 3 Fraction`
+        """  Corresponds to IDD field `Gas 3 Fraction`
 
         Args:
             value (float): value for IDD Field `Gas 3 Fraction`
@@ -2675,7 +2686,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_4_type.setter
     def gas_4_type(self, value=None):
-        """  Corresponds to IDD Field `Gas 4 Type`
+        """  Corresponds to IDD field `Gas 4 Type`
 
         Args:
             value (str): value for IDD Field `Gas 4 Type`
@@ -2698,7 +2709,7 @@ class WindowMaterialGasMixture(DataObject):
 
     @gas_4_fraction.setter
     def gas_4_fraction(self, value=None):
-        """  Corresponds to IDD Field `Gas 4 Fraction`
+        """  Corresponds to IDD field `Gas 4 Fraction`
 
         Args:
             value (float): value for IDD Field `Gas 4 Fraction`
@@ -2719,7 +2730,7 @@ class WindowMaterialGap(DataObject):
         Construction:ComplexFenestrationState object. It cannot be referenced as a layer from the
         Construction object.
     """
-    schema = {'min-fields': 0, 'name': u'WindowMaterial:Gap', 'pyname': u'WindowMaterialGap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'gas (or gas mixture)', {'name': u'Gas (or Gas Mixture)', 'pyname': u'gas_or_gas_mixture', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pressure', {'name': u'Pressure', 'pyname': u'pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'deflection state', {'name': u'Deflection State', 'pyname': u'deflection_state', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'support pillar', {'name': u'Support Pillar', 'pyname': u'support_pillar', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WindowMaterial:Gap', 'pyname': u'WindowMaterialGap', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'gas (or gas mixture)', {'name': u'Gas (or Gas Mixture)', 'pyname': u'gas_or_gas_mixture', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pressure', {'name': u'Pressure', 'pyname': u'pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'deflection state', {'name': u'Deflection State', 'pyname': u'deflection_state', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'support pillar', {'name': u'Support Pillar', 'pyname': u'support_pillar', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -2732,7 +2743,7 @@ class WindowMaterialGap(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2755,7 +2766,7 @@ class WindowMaterialGap(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -2779,7 +2790,7 @@ class WindowMaterialGap(DataObject):
 
     @gas_or_gas_mixture.setter
     def gas_or_gas_mixture(self, value=None):
-        """  Corresponds to IDD Field `Gas (or Gas Mixture)`
+        """  Corresponds to IDD field `Gas (or Gas Mixture)`
         This field should reference only WindowMaterial:Gas
         or WindowMaterial:GasMixture objects
 
@@ -2804,7 +2815,7 @@ class WindowMaterialGap(DataObject):
 
     @pressure.setter
     def pressure(self, value=101325.0):
-        """  Corresponds to IDD Field `Pressure`
+        """  Corresponds to IDD field `Pressure`
 
         Args:
             value (float): value for IDD Field `Pressure`
@@ -2829,7 +2840,7 @@ class WindowMaterialGap(DataObject):
 
     @deflection_state.setter
     def deflection_state(self, value=None):
-        """  Corresponds to IDD Field `Deflection State`
+        """  Corresponds to IDD field `Deflection State`
         If left blank, it will be considered that gap is not deflected
 
         Args:
@@ -2853,7 +2864,7 @@ class WindowMaterialGap(DataObject):
 
     @support_pillar.setter
     def support_pillar(self, value=None):
-        """  Corresponds to IDD Field `Support Pillar`
+        """  Corresponds to IDD field `Support Pillar`
         If left blank, it will be considered that gap does not have
         support pillars
 
@@ -2875,7 +2886,7 @@ class WindowMaterialShade(DataObject):
         to be perfect diffusers (all transmitted and reflected radiation is
         hemispherically-diffuse) independent of angle of incidence.
     """
-    schema = {'min-fields': 15, 'name': u'WindowMaterial:Shade', 'pyname': u'WindowMaterialShade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'solar transmittance', {'name': u'Solar Transmittance', 'pyname': u'solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar reflectance', {'name': u'Solar Reflectance', 'pyname': u'solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'visible transmittance', {'name': u'Visible Transmittance', 'pyname': u'visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'visible reflectance', {'name': u'Visible Reflectance', 'pyname': u'visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'infrared hemispherical emissivity', {'name': u'Infrared Hemispherical Emissivity', 'pyname': u'infrared_hemispherical_emissivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'infrared transmittance', {'name': u'Infrared Transmittance', 'pyname': u'infrared_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'shade to glass distance', {'name': u'Shade to Glass Distance', 'pyname': u'shade_to_glass_distance', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'left-side opening multiplier', {'name': u'Left-Side Opening Multiplier', 'pyname': u'leftside_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'right-side opening multiplier', {'name': u'Right-Side Opening Multiplier', 'pyname': u'rightside_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'airflow permeability', {'name': u'Airflow Permeability', 'pyname': u'airflow_permeability', 'default': 0.0, 'maximum': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15, 'name': u'WindowMaterial:Shade', 'pyname': u'WindowMaterialShade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'solar transmittance', {'name': u'Solar Transmittance', 'pyname': u'solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'solar reflectance', {'name': u'Solar Reflectance', 'pyname': u'solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'visible transmittance', {'name': u'Visible Transmittance', 'pyname': u'visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'visible reflectance', {'name': u'Visible Reflectance', 'pyname': u'visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'infrared hemispherical emissivity', {'name': u'Infrared Hemispherical Emissivity', 'pyname': u'infrared_hemispherical_emissivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'infrared transmittance', {'name': u'Infrared Transmittance', 'pyname': u'infrared_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'shade to glass distance', {'name': u'Shade to Glass Distance', 'pyname': u'shade_to_glass_distance', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'left-side opening multiplier', {'name': u'Left-Side Opening Multiplier', 'pyname': u'leftside_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'right-side opening multiplier', {'name': u'Right-Side Opening Multiplier', 'pyname': u'rightside_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'airflow permeability', {'name': u'Airflow Permeability', 'pyname': u'airflow_permeability', 'default': 0.0, 'maximum': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -2888,7 +2899,7 @@ class WindowMaterialShade(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2911,7 +2922,7 @@ class WindowMaterialShade(DataObject):
 
     @solar_transmittance.setter
     def solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Solar Transmittance`
+        """  Corresponds to IDD field `Solar Transmittance`
         Assumed independent of incidence angle
 
         Args:
@@ -2937,7 +2948,7 @@ class WindowMaterialShade(DataObject):
 
     @solar_reflectance.setter
     def solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Solar Reflectance`
+        """  Corresponds to IDD field `Solar Reflectance`
         Assumed same for both sides
         Assumed independent of incidence angle
 
@@ -2964,7 +2975,7 @@ class WindowMaterialShade(DataObject):
 
     @visible_transmittance.setter
     def visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Visible Transmittance`
+        """  Corresponds to IDD field `Visible Transmittance`
         Assumed independent of incidence angle
 
         Args:
@@ -2990,7 +3001,7 @@ class WindowMaterialShade(DataObject):
 
     @visible_reflectance.setter
     def visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Visible Reflectance`
+        """  Corresponds to IDD field `Visible Reflectance`
         Assumed same for both sides
         Assumed independent of incidence angle
 
@@ -3017,7 +3028,7 @@ class WindowMaterialShade(DataObject):
 
     @infrared_hemispherical_emissivity.setter
     def infrared_hemispherical_emissivity(self, value=None):
-        """  Corresponds to IDD Field `Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Infrared Hemispherical Emissivity`
 
         Args:
             value (float): value for IDD Field `Infrared Hemispherical Emissivity`
@@ -3042,7 +3053,7 @@ class WindowMaterialShade(DataObject):
 
     @infrared_transmittance.setter
     def infrared_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Infrared Transmittance`
+        """  Corresponds to IDD field `Infrared Transmittance`
 
         Args:
             value (float): value for IDD Field `Infrared Transmittance`
@@ -3067,7 +3078,7 @@ class WindowMaterialShade(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -3092,7 +3103,7 @@ class WindowMaterialShade(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=None):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -3116,7 +3127,7 @@ class WindowMaterialShade(DataObject):
 
     @shade_to_glass_distance.setter
     def shade_to_glass_distance(self, value=0.05):
-        """  Corresponds to IDD Field `Shade to Glass Distance`
+        """  Corresponds to IDD field `Shade to Glass Distance`
 
         Args:
             value (float): value for IDD Field `Shade to Glass Distance`
@@ -3144,7 +3155,7 @@ class WindowMaterialShade(DataObject):
 
     @top_opening_multiplier.setter
     def top_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Top Opening Multiplier`
+        """  Corresponds to IDD field `Top Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
@@ -3169,7 +3180,7 @@ class WindowMaterialShade(DataObject):
 
     @bottom_opening_multiplier.setter
     def bottom_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Bottom Opening Multiplier`
+        """  Corresponds to IDD field `Bottom Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
@@ -3194,7 +3205,7 @@ class WindowMaterialShade(DataObject):
 
     @leftside_opening_multiplier.setter
     def leftside_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Left-Side Opening Multiplier`
+        """  Corresponds to IDD field `Left-Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Left-Side Opening Multiplier`
@@ -3219,7 +3230,7 @@ class WindowMaterialShade(DataObject):
 
     @rightside_opening_multiplier.setter
     def rightside_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Right-Side Opening Multiplier`
+        """  Corresponds to IDD field `Right-Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Right-Side Opening Multiplier`
@@ -3244,7 +3255,7 @@ class WindowMaterialShade(DataObject):
 
     @airflow_permeability.setter
     def airflow_permeability(self, value=None):
-        """  Corresponds to IDD Field `Airflow Permeability`
+        """  Corresponds to IDD field `Airflow Permeability`
 
         Args:
             value (float): value for IDD Field `Airflow Permeability`
@@ -3263,7 +3274,7 @@ class WindowMaterialComplexShade(DataObject):
     """ Corresponds to IDD object `WindowMaterial:ComplexShade`
         Complex window shading layer thermal properties
     """
-    schema = {'min-fields': 12, 'name': u'WindowMaterial:ComplexShade', 'pyname': u'WindowMaterialComplexShade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'layer type', {'name': u'Layer Type', 'pyname': u'layer_type', 'default': u'OtherShadingType', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Venetian', u'Woven', u'Perforated', u'BSDF', u'OtherShadingType'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'default': 0.002, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'ir transmittance', {'name': u'IR Transmittance', 'pyname': u'ir_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front emissivity', {'name': u'Front Emissivity', 'pyname': u'front_emissivity', 'default': 0.84, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back emissivity', {'name': u'Back Emissivity', 'pyname': u'back_emissivity', 'default': 0.84, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front opening multiplier', {'name': u'Front Opening Multiplier', 'pyname': u'front_opening_multiplier', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'default': 0.016, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat spacing', {'name': u'Slat Spacing', 'pyname': u'slat_spacing', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat thickness', {'name': u'Slat Thickness', 'pyname': u'slat_thickness', 'default': 0.0006, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 90.0, 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'slat conductivity', {'name': u'Slat Conductivity', 'pyname': u'slat_conductivity', 'default': 160.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'slat curve', {'name': u'Slat Curve', 'pyname': u'slat_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 12, 'name': u'WindowMaterial:ComplexShade', 'pyname': u'WindowMaterialComplexShade', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'layer type', {'name': u'Layer Type', 'pyname': u'layer_type', 'default': u'OtherShadingType', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Venetian', u'Woven', u'Perforated', u'BSDF', u'OtherShadingType'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'default': 0.002, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'ir transmittance', {'name': u'IR Transmittance', 'pyname': u'ir_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front emissivity', {'name': u'Front Emissivity', 'pyname': u'front_emissivity', 'default': 0.84, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back emissivity', {'name': u'Back Emissivity', 'pyname': u'back_emissivity', 'default': 0.84, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front opening multiplier', {'name': u'Front Opening Multiplier', 'pyname': u'front_opening_multiplier', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'default': 0.016, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat spacing', {'name': u'Slat Spacing', 'pyname': u'slat_spacing', 'default': 0.012, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat thickness', {'name': u'Slat Thickness', 'pyname': u'slat_thickness', 'default': 0.0006, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 90.0, 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'slat conductivity', {'name': u'Slat Conductivity', 'pyname': u'slat_conductivity', 'default': 160.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'slat curve', {'name': u'Slat Curve', 'pyname': u'slat_curve', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -3276,7 +3287,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3299,7 +3310,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @layer_type.setter
     def layer_type(self, value="OtherShadingType"):
-        """  Corresponds to IDD Field `Layer Type`
+        """  Corresponds to IDD field `Layer Type`
 
         Args:
             value (str): value for IDD Field `Layer Type`
@@ -3323,7 +3334,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @thickness.setter
     def thickness(self, value=0.002):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -3348,7 +3359,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=1.0):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
 
         Args:
             value (float): value for IDD Field `Conductivity`
@@ -3373,7 +3384,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @ir_transmittance.setter
     def ir_transmittance(self, value=None):
-        """  Corresponds to IDD Field `IR Transmittance`
+        """  Corresponds to IDD field `IR Transmittance`
 
         Args:
             value (float): value for IDD Field `IR Transmittance`
@@ -3397,7 +3408,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @front_emissivity.setter
     def front_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Front Emissivity`
+        """  Corresponds to IDD field `Front Emissivity`
 
         Args:
             value (float): value for IDD Field `Front Emissivity`
@@ -3422,7 +3433,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @back_emissivity.setter
     def back_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Back Emissivity`
+        """  Corresponds to IDD field `Back Emissivity`
 
         Args:
             value (float): value for IDD Field `Back Emissivity`
@@ -3447,7 +3458,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @top_opening_multiplier.setter
     def top_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Top Opening Multiplier`
+        """  Corresponds to IDD field `Top Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Top Opening Multiplier`
@@ -3471,7 +3482,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @bottom_opening_multiplier.setter
     def bottom_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Bottom Opening Multiplier`
+        """  Corresponds to IDD field `Bottom Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Bottom Opening Multiplier`
@@ -3495,7 +3506,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @left_side_opening_multiplier.setter
     def left_side_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Left Side Opening Multiplier`
+        """  Corresponds to IDD field `Left Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Left Side Opening Multiplier`
@@ -3519,7 +3530,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @right_side_opening_multiplier.setter
     def right_side_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Right Side Opening Multiplier`
+        """  Corresponds to IDD field `Right Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Right Side Opening Multiplier`
@@ -3543,7 +3554,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @front_opening_multiplier.setter
     def front_opening_multiplier(self, value=0.05):
-        """  Corresponds to IDD Field `Front Opening Multiplier`
+        """  Corresponds to IDD field `Front Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Front Opening Multiplier`
@@ -3568,7 +3579,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_width.setter
     def slat_width(self, value=0.016):
-        """  Corresponds to IDD Field `Slat Width`
+        """  Corresponds to IDD field `Slat Width`
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -3593,7 +3604,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_spacing.setter
     def slat_spacing(self, value=0.012):
-        """  Corresponds to IDD Field `Slat Spacing`
+        """  Corresponds to IDD field `Slat Spacing`
         Distance between adjacent slat faces
 
         Args:
@@ -3619,7 +3630,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_thickness.setter
     def slat_thickness(self, value=0.0006):
-        """  Corresponds to IDD Field `Slat Thickness`
+        """  Corresponds to IDD field `Slat Thickness`
         Distance between top and bottom surfaces of slat
         Slat is assumed to be rectangular in cross section and flat
 
@@ -3646,7 +3657,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_angle.setter
     def slat_angle(self, value=90.0):
-        """  Corresponds to IDD Field `Slat Angle`
+        """  Corresponds to IDD field `Slat Angle`
 
         Args:
             value (float): value for IDD Field `Slat Angle`
@@ -3673,7 +3684,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_conductivity.setter
     def slat_conductivity(self, value=160.0):
-        """  Corresponds to IDD Field `Slat Conductivity`
+        """  Corresponds to IDD field `Slat Conductivity`
 
         Args:
             value (float): value for IDD Field `Slat Conductivity`
@@ -3698,7 +3709,7 @@ class WindowMaterialComplexShade(DataObject):
 
     @slat_curve.setter
     def slat_curve(self, value=None):
-        """  Corresponds to IDD Field `Slat Curve`
+        """  Corresponds to IDD field `Slat Curve`
         this value represents curvature radius of the slat.
         if the slat is flat use zero.
         if this value is not zero, then it must be > SlatWidth/2.
@@ -3719,7 +3730,7 @@ class WindowMaterialBlind(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Blind`
         Window blind thermal properties
     """
-    schema = {'min-fields': 29, 'name': u'WindowMaterial:Blind', 'pyname': u'WindowMaterialBlind', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'slat orientation', {'name': u'Slat Orientation', 'pyname': u'slat_orientation', 'default': u'Horizontal', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Horizontal', u'Vertical'], 'autocalculatable': False, 'type': 'alpha'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat separation', {'name': u'Slat Separation', 'pyname': u'slat_separation', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat thickness', {'name': u'Slat Thickness', 'pyname': u'slat_thickness', 'default': 0.00025, 'minimum>': 0.0, 'maximum': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 45.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'slat conductivity', {'name': u'Slat Conductivity', 'pyname': u'slat_conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'slat beam solar transmittance', {'name': u'Slat Beam Solar Transmittance', 'pyname': u'slat_beam_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat beam solar reflectance', {'name': u'Front Side Slat Beam Solar Reflectance', 'pyname': u'front_side_slat_beam_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam solar reflectance', {'name': u'Back Side Slat Beam Solar Reflectance', 'pyname': u'back_side_slat_beam_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat diffuse solar transmittance', {'name': u'Slat Diffuse Solar Transmittance', 'pyname': u'slat_diffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse solar reflectance', {'name': u'Front Side Slat Diffuse Solar Reflectance', 'pyname': u'front_side_slat_diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat diffuse solar reflectance', {'name': u'Back Side Slat Diffuse Solar Reflectance', 'pyname': u'back_side_slat_diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat beam visible transmittance', {'name': u'Slat Beam Visible Transmittance', 'pyname': u'slat_beam_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat beam visible reflectance', {'name': u'Front Side Slat Beam Visible Reflectance', 'pyname': u'front_side_slat_beam_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam visible reflectance', {'name': u'Back Side Slat Beam Visible Reflectance', 'pyname': u'back_side_slat_beam_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat diffuse visible transmittance', {'name': u'Slat Diffuse Visible Transmittance', 'pyname': u'slat_diffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse visible reflectance', {'name': u'Front Side Slat Diffuse Visible Reflectance', 'pyname': u'front_side_slat_diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat diffuse visible reflectance', {'name': u'Back Side Slat Diffuse Visible Reflectance', 'pyname': u'back_side_slat_diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat infrared hemispherical transmittance', {'name': u'Slat Infrared Hemispherical Transmittance', 'pyname': u'slat_infrared_hemispherical_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat infrared hemispherical emissivity', {'name': u'Front Side Slat Infrared Hemispherical Emissivity', 'pyname': u'front_side_slat_infrared_hemispherical_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat infrared hemispherical emissivity', {'name': u'Back Side Slat Infrared Hemispherical Emissivity', 'pyname': u'back_side_slat_infrared_hemispherical_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind to glass distance', {'name': u'Blind to Glass Distance', 'pyname': u'blind_to_glass_distance', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.01, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'blind top opening multiplier', {'name': u'Blind Top Opening Multiplier', 'pyname': u'blind_top_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind bottom opening multiplier', {'name': u'Blind Bottom Opening Multiplier', 'pyname': u'blind_bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind left side opening multiplier', {'name': u'Blind Left Side Opening Multiplier', 'pyname': u'blind_left_side_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind right side opening multiplier', {'name': u'Blind Right Side Opening Multiplier', 'pyname': u'blind_right_side_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum slat angle', {'name': u'Minimum Slat Angle', 'pyname': u'minimum_slat_angle', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'maximum slat angle', {'name': u'Maximum Slat Angle', 'pyname': u'maximum_slat_angle', 'default': 180.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 29, 'name': u'WindowMaterial:Blind', 'pyname': u'WindowMaterialBlind', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'slat orientation', {'name': u'Slat Orientation', 'pyname': u'slat_orientation', 'default': u'Horizontal', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Horizontal', u'Vertical'], 'autocalculatable': False, 'type': 'alpha'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat separation', {'name': u'Slat Separation', 'pyname': u'slat_separation', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat thickness', {'name': u'Slat Thickness', 'pyname': u'slat_thickness', 'default': 0.00025, 'minimum>': 0.0, 'maximum': 0.1, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 45.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'slat conductivity', {'name': u'Slat Conductivity', 'pyname': u'slat_conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'slat beam solar transmittance', {'name': u'Slat Beam Solar Transmittance', 'pyname': u'slat_beam_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat beam solar reflectance', {'name': u'Front Side Slat Beam Solar Reflectance', 'pyname': u'front_side_slat_beam_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam solar reflectance', {'name': u'Back Side Slat Beam Solar Reflectance', 'pyname': u'back_side_slat_beam_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat diffuse solar transmittance', {'name': u'Slat Diffuse Solar Transmittance', 'pyname': u'slat_diffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse solar reflectance', {'name': u'Front Side Slat Diffuse Solar Reflectance', 'pyname': u'front_side_slat_diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat diffuse solar reflectance', {'name': u'Back Side Slat Diffuse Solar Reflectance', 'pyname': u'back_side_slat_diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat beam visible transmittance', {'name': u'Slat Beam Visible Transmittance', 'pyname': u'slat_beam_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat beam visible reflectance', {'name': u'Front Side Slat Beam Visible Reflectance', 'pyname': u'front_side_slat_beam_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam visible reflectance', {'name': u'Back Side Slat Beam Visible Reflectance', 'pyname': u'back_side_slat_beam_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat diffuse visible transmittance', {'name': u'Slat Diffuse Visible Transmittance', 'pyname': u'slat_diffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse visible reflectance', {'name': u'Front Side Slat Diffuse Visible Reflectance', 'pyname': u'front_side_slat_diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat diffuse visible reflectance', {'name': u'Back Side Slat Diffuse Visible Reflectance', 'pyname': u'back_side_slat_diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slat infrared hemispherical transmittance', {'name': u'Slat Infrared Hemispherical Transmittance', 'pyname': u'slat_infrared_hemispherical_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat infrared hemispherical emissivity', {'name': u'Front Side Slat Infrared Hemispherical Emissivity', 'pyname': u'front_side_slat_infrared_hemispherical_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat infrared hemispherical emissivity', {'name': u'Back Side Slat Infrared Hemispherical Emissivity', 'pyname': u'back_side_slat_infrared_hemispherical_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind to glass distance', {'name': u'Blind to Glass Distance', 'pyname': u'blind_to_glass_distance', 'default': 0.05, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.01, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'blind top opening multiplier', {'name': u'Blind Top Opening Multiplier', 'pyname': u'blind_top_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind bottom opening multiplier', {'name': u'Blind Bottom Opening Multiplier', 'pyname': u'blind_bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind left side opening multiplier', {'name': u'Blind Left Side Opening Multiplier', 'pyname': u'blind_left_side_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blind right side opening multiplier', {'name': u'Blind Right Side Opening Multiplier', 'pyname': u'blind_right_side_opening_multiplier', 'default': 0.5, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'minimum slat angle', {'name': u'Minimum Slat Angle', 'pyname': u'minimum_slat_angle', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'maximum slat angle', {'name': u'Maximum Slat Angle', 'pyname': u'maximum_slat_angle', 'default': 180.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -3732,7 +3743,7 @@ class WindowMaterialBlind(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3755,7 +3766,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_orientation.setter
     def slat_orientation(self, value="Horizontal"):
-        """  Corresponds to IDD Field `Slat Orientation`
+        """  Corresponds to IDD field `Slat Orientation`
 
         Args:
             value (str): value for IDD Field `Slat Orientation`
@@ -3779,7 +3790,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_width.setter
     def slat_width(self, value=None):
-        """  Corresponds to IDD Field `Slat Width`
+        """  Corresponds to IDD field `Slat Width`
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -3805,7 +3816,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_separation.setter
     def slat_separation(self, value=None):
-        """  Corresponds to IDD Field `Slat Separation`
+        """  Corresponds to IDD field `Slat Separation`
         Distance between adjacent slat faces
 
         Args:
@@ -3832,7 +3843,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_thickness.setter
     def slat_thickness(self, value=0.00025):
-        """  Corresponds to IDD Field `Slat Thickness`
+        """  Corresponds to IDD field `Slat Thickness`
         Distance between top and bottom surfaces of slat
         Slat is assumed to be rectangular in cross section and flat
 
@@ -3861,7 +3872,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_angle.setter
     def slat_angle(self, value=45.0):
-        """  Corresponds to IDD Field `Slat Angle`
+        """  Corresponds to IDD field `Slat Angle`
         If WindowProperty:ShadingControl for the window that incorporates this blind
         has Type of Slat Angle Control for Blinds = FixedSlatAngle,
         then this is the fixed value of the slat angle;
@@ -3896,7 +3907,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_conductivity.setter
     def slat_conductivity(self, value=221.0):
-        """  Corresponds to IDD Field `Slat Conductivity`
+        """  Corresponds to IDD field `Slat Conductivity`
         default is for aluminum
 
         Args:
@@ -3922,7 +3933,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_beam_solar_transmittance.setter
     def slat_beam_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Beam Solar Transmittance`
+        """  Corresponds to IDD field `Slat Beam Solar Transmittance`
 
         Args:
             value (float): value for IDD Field `Slat Beam Solar Transmittance`
@@ -3946,7 +3957,7 @@ class WindowMaterialBlind(DataObject):
 
     @front_side_slat_beam_solar_reflectance.setter
     def front_side_slat_beam_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Beam Solar Reflectance`
 
         Args:
             value (float): value for IDD Field `Front Side Slat Beam Solar Reflectance`
@@ -3970,7 +3981,7 @@ class WindowMaterialBlind(DataObject):
 
     @back_side_slat_beam_solar_reflectance.setter
     def back_side_slat_beam_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Beam Solar Reflectance`
 
         Args:
             value (float): value for IDD Field `Back Side Slat Beam Solar Reflectance`
@@ -3994,7 +4005,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_diffuse_solar_transmittance.setter
     def slat_diffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Slat Diffuse Solar Transmittance`
         Must equal "Slat beam solar transmittance"
 
         Args:
@@ -4019,7 +4030,7 @@ class WindowMaterialBlind(DataObject):
 
     @front_side_slat_diffuse_solar_reflectance.setter
     def front_side_slat_diffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Diffuse Solar Reflectance`
         Must equal "Front Side Slat Beam Solar Reflectance"
 
         Args:
@@ -4044,7 +4055,7 @@ class WindowMaterialBlind(DataObject):
 
     @back_side_slat_diffuse_solar_reflectance.setter
     def back_side_slat_diffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Diffuse Solar Reflectance`
         Must equal "Back Side Slat Beam Solar Reflectance"
 
         Args:
@@ -4069,7 +4080,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_beam_visible_transmittance.setter
     def slat_beam_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Beam Visible Transmittance`
+        """  Corresponds to IDD field `Slat Beam Visible Transmittance`
         Required for detailed daylighting calculation
 
         Args:
@@ -4094,7 +4105,7 @@ class WindowMaterialBlind(DataObject):
 
     @front_side_slat_beam_visible_reflectance.setter
     def front_side_slat_beam_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam Visible Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Beam Visible Reflectance`
         Required for detailed daylighting calculation
 
         Args:
@@ -4119,7 +4130,7 @@ class WindowMaterialBlind(DataObject):
 
     @back_side_slat_beam_visible_reflectance.setter
     def back_side_slat_beam_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam Visible Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Beam Visible Reflectance`
         Required for detailed daylighting calculation
 
         Args:
@@ -4144,7 +4155,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_diffuse_visible_transmittance.setter
     def slat_diffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Slat Diffuse Visible Transmittance`
         Used only for detailed daylighting calculation
         Must equal "Slat Beam Visible Transmittance"
 
@@ -4170,7 +4181,7 @@ class WindowMaterialBlind(DataObject):
 
     @front_side_slat_diffuse_visible_reflectance.setter
     def front_side_slat_diffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Diffuse Visible Reflectance`
         Required for detailed daylighting calculation
         Must equal "Front Side Slat Beam Visible Reflectance"
 
@@ -4196,7 +4207,7 @@ class WindowMaterialBlind(DataObject):
 
     @back_side_slat_diffuse_visible_reflectance.setter
     def back_side_slat_diffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Diffuse Visible Reflectance`
         Required for detailed daylighting calculation
         Must equal "Back Side Slat Beam Visible Reflectance"
 
@@ -4222,7 +4233,7 @@ class WindowMaterialBlind(DataObject):
 
     @slat_infrared_hemispherical_transmittance.setter
     def slat_infrared_hemispherical_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Infrared Hemispherical Transmittance`
+        """  Corresponds to IDD field `Slat Infrared Hemispherical Transmittance`
 
         Args:
             value (float): value for IDD Field `Slat Infrared Hemispherical Transmittance`
@@ -4246,7 +4257,7 @@ class WindowMaterialBlind(DataObject):
 
     @front_side_slat_infrared_hemispherical_emissivity.setter
     def front_side_slat_infrared_hemispherical_emissivity(self, value=0.9):
-        """  Corresponds to IDD Field `Front Side Slat Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Front Side Slat Infrared Hemispherical Emissivity`
 
         Args:
             value (float): value for IDD Field `Front Side Slat Infrared Hemispherical Emissivity`
@@ -4271,7 +4282,7 @@ class WindowMaterialBlind(DataObject):
 
     @back_side_slat_infrared_hemispherical_emissivity.setter
     def back_side_slat_infrared_hemispherical_emissivity(self, value=0.9):
-        """  Corresponds to IDD Field `Back Side Slat Infrared Hemispherical Emissivity`
+        """  Corresponds to IDD field `Back Side Slat Infrared Hemispherical Emissivity`
 
         Args:
             value (float): value for IDD Field `Back Side Slat Infrared Hemispherical Emissivity`
@@ -4296,7 +4307,7 @@ class WindowMaterialBlind(DataObject):
 
     @blind_to_glass_distance.setter
     def blind_to_glass_distance(self, value=0.05):
-        """  Corresponds to IDD Field `Blind to Glass Distance`
+        """  Corresponds to IDD field `Blind to Glass Distance`
 
         Args:
             value (float): value for IDD Field `Blind to Glass Distance`
@@ -4324,7 +4335,7 @@ class WindowMaterialBlind(DataObject):
 
     @blind_top_opening_multiplier.setter
     def blind_top_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Blind Top Opening Multiplier`
+        """  Corresponds to IDD field `Blind Top Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Blind Top Opening Multiplier`
@@ -4349,7 +4360,7 @@ class WindowMaterialBlind(DataObject):
 
     @blind_bottom_opening_multiplier.setter
     def blind_bottom_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Blind Bottom Opening Multiplier`
+        """  Corresponds to IDD field `Blind Bottom Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Blind Bottom Opening Multiplier`
@@ -4373,7 +4384,7 @@ class WindowMaterialBlind(DataObject):
 
     @blind_left_side_opening_multiplier.setter
     def blind_left_side_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Blind Left Side Opening Multiplier`
+        """  Corresponds to IDD field `Blind Left Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Blind Left Side Opening Multiplier`
@@ -4398,7 +4409,7 @@ class WindowMaterialBlind(DataObject):
 
     @blind_right_side_opening_multiplier.setter
     def blind_right_side_opening_multiplier(self, value=0.5):
-        """  Corresponds to IDD Field `Blind Right Side Opening Multiplier`
+        """  Corresponds to IDD field `Blind Right Side Opening Multiplier`
 
         Args:
             value (float): value for IDD Field `Blind Right Side Opening Multiplier`
@@ -4423,7 +4434,7 @@ class WindowMaterialBlind(DataObject):
 
     @minimum_slat_angle.setter
     def minimum_slat_angle(self, value=None):
-        """  Corresponds to IDD Field `Minimum Slat Angle`
+        """  Corresponds to IDD field `Minimum Slat Angle`
         Used only if WindowProperty:ShadingControl for the window that incorporates
         this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
         Type of Slat Angle Control for Blinds = ScheduledSlatAngle
@@ -4452,7 +4463,7 @@ class WindowMaterialBlind(DataObject):
 
     @maximum_slat_angle.setter
     def maximum_slat_angle(self, value=180.0):
-        """  Corresponds to IDD Field `Maximum Slat Angle`
+        """  Corresponds to IDD field `Maximum Slat Angle`
         Used only if WindowProperty:ShadingControl for the window that incorporates
         this blind varies the slat angle (i.e., WindowProperty:ShadingControl with
         Type of Slat Angle Control for Blinds = ScheduledSlatAngle
@@ -4476,7 +4487,7 @@ class WindowMaterialScreen(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Screen`
         Window screen physical properties. Can only be located on the exterior side of a window construction.
     """
-    schema = {'min-fields': 9, 'name': u'WindowMaterial:Screen', 'pyname': u'WindowMaterialScreen', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reflected beam transmittance accounting method', {'name': u'Reflected Beam Transmittance Accounting Method', 'pyname': u'reflected_beam_transmittance_accounting_method', 'default': u'ModelAsDiffuse', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DoNotModel', u'ModelAsDirectBeam', u'ModelAsDiffuse'], 'autocalculatable': False, 'type': 'alpha'}), (u'diffuse solar reflectance', {'name': u'Diffuse Solar Reflectance', 'pyname': u'diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse visible reflectance', {'name': u'Diffuse Visible Reflectance', 'pyname': u'diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal hemispherical emissivity', {'name': u'Thermal Hemispherical Emissivity', 'pyname': u'thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'screen material spacing', {'name': u'Screen Material Spacing', 'pyname': u'screen_material_spacing', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen material diameter', {'name': u'Screen Material Diameter', 'pyname': u'screen_material_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen to glass distance', {'name': u'Screen to Glass Distance', 'pyname': u'screen_to_glass_distance', 'default': 0.025, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'angle of resolution for screen transmittance output map', {'name': u'Angle of Resolution for Screen Transmittance Output Map', 'pyname': u'angle_of_resolution_for_screen_transmittance_output_map', 'default': u'0', 'required-field': False, 'autosizable': False, 'accepted-values': [u'0', u'1', u'2', u'3', u'5'], 'autocalculatable': False, 'type': 'int', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 9, 'name': u'WindowMaterial:Screen', 'pyname': u'WindowMaterialScreen', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reflected beam transmittance accounting method', {'name': u'Reflected Beam Transmittance Accounting Method', 'pyname': u'reflected_beam_transmittance_accounting_method', 'default': u'ModelAsDiffuse', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DoNotModel', u'ModelAsDirectBeam', u'ModelAsDiffuse'], 'autocalculatable': False, 'type': 'alpha'}), (u'diffuse solar reflectance', {'name': u'Diffuse Solar Reflectance', 'pyname': u'diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse visible reflectance', {'name': u'Diffuse Visible Reflectance', 'pyname': u'diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal hemispherical emissivity', {'name': u'Thermal Hemispherical Emissivity', 'pyname': u'thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'screen material spacing', {'name': u'Screen Material Spacing', 'pyname': u'screen_material_spacing', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen material diameter', {'name': u'Screen Material Diameter', 'pyname': u'screen_material_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen to glass distance', {'name': u'Screen to Glass Distance', 'pyname': u'screen_to_glass_distance', 'default': 0.025, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'angle of resolution for screen transmittance output map', {'name': u'Angle of Resolution for Screen Transmittance Output Map', 'pyname': u'angle_of_resolution_for_screen_transmittance_output_map', 'default': u'0', 'required-field': False, 'autosizable': False, 'accepted-values': [u'0', u'1', u'2', u'3', u'5'], 'autocalculatable': False, 'type': 'int', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -4489,7 +4500,7 @@ class WindowMaterialScreen(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Enter a unique name for this window screen material.
 
         Args:
@@ -4513,7 +4524,7 @@ class WindowMaterialScreen(DataObject):
 
     @reflected_beam_transmittance_accounting_method.setter
     def reflected_beam_transmittance_accounting_method(self, value="ModelAsDiffuse"):
-        """  Corresponds to IDD Field `Reflected Beam Transmittance Accounting Method`
+        """  Corresponds to IDD field `Reflected Beam Transmittance Accounting Method`
         Select the method used to account for the beam solar reflected off the material surface.
 
         Args:
@@ -4538,7 +4549,7 @@ class WindowMaterialScreen(DataObject):
 
     @diffuse_solar_reflectance.setter
     def diffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Diffuse Solar Reflectance`
         Diffuse reflectance of the screen material over the entire solar radiation spectrum.
         Assumed to be the same for both sides of the screen.
 
@@ -4565,7 +4576,7 @@ class WindowMaterialScreen(DataObject):
 
     @diffuse_visible_reflectance.setter
     def diffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Diffuse Visible Reflectance`
         Diffuse visible reflectance of the screen material averaged over the solar spectrum
         and weighted by the response of the human eye.
         Assumed to be the same for both sides of the screen.
@@ -4593,7 +4604,7 @@ class WindowMaterialScreen(DataObject):
 
     @thermal_hemispherical_emissivity.setter
     def thermal_hemispherical_emissivity(self, value=0.9):
-        """  Corresponds to IDD Field `Thermal Hemispherical Emissivity`
+        """  Corresponds to IDD field `Thermal Hemispherical Emissivity`
         Long-wave emissivity of the screen material.
         Assumed to be the same for both sides of the screen.
 
@@ -4621,7 +4632,7 @@ class WindowMaterialScreen(DataObject):
 
     @conductivity.setter
     def conductivity(self, value=221.0):
-        """  Corresponds to IDD Field `Conductivity`
+        """  Corresponds to IDD field `Conductivity`
         Thermal conductivity of the screen material.
         Default is for aluminum.
 
@@ -4648,7 +4659,7 @@ class WindowMaterialScreen(DataObject):
 
     @screen_material_spacing.setter
     def screen_material_spacing(self, value=None):
-        """  Corresponds to IDD Field `Screen Material Spacing`
+        """  Corresponds to IDD field `Screen Material Spacing`
         Spacing assumed to be the same in both directions.
 
         Args:
@@ -4674,7 +4685,7 @@ class WindowMaterialScreen(DataObject):
 
     @screen_material_diameter.setter
     def screen_material_diameter(self, value=None):
-        """  Corresponds to IDD Field `Screen Material Diameter`
+        """  Corresponds to IDD field `Screen Material Diameter`
         Diameter assumed to be the same in both directions.
 
         Args:
@@ -4700,7 +4711,7 @@ class WindowMaterialScreen(DataObject):
 
     @screen_to_glass_distance.setter
     def screen_to_glass_distance(self, value=0.025):
-        """  Corresponds to IDD Field `Screen to Glass Distance`
+        """  Corresponds to IDD field `Screen to Glass Distance`
         Distance from the window screen to the adjacent glass surface.
 
         Args:
@@ -4729,7 +4740,7 @@ class WindowMaterialScreen(DataObject):
 
     @top_opening_multiplier.setter
     def top_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Top Opening Multiplier`
+        """  Corresponds to IDD field `Top Opening Multiplier`
         Effective area for air flow at the top of the screen divided by the perpendicular
         area between the glass and the top of the screen.
 
@@ -4756,7 +4767,7 @@ class WindowMaterialScreen(DataObject):
 
     @bottom_opening_multiplier.setter
     def bottom_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Bottom Opening Multiplier`
+        """  Corresponds to IDD field `Bottom Opening Multiplier`
         Effective area for air flow at the bottom of the screen divided by the perpendicular
         area between the glass and the bottom of the screen.
 
@@ -4783,7 +4794,7 @@ class WindowMaterialScreen(DataObject):
 
     @left_side_opening_multiplier.setter
     def left_side_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Left Side Opening Multiplier`
+        """  Corresponds to IDD field `Left Side Opening Multiplier`
         Effective area for air flow at the left side of the screen divided by the perpendicular
         area between the glass and the left side of the screen.
 
@@ -4810,7 +4821,7 @@ class WindowMaterialScreen(DataObject):
 
     @right_side_opening_multiplier.setter
     def right_side_opening_multiplier(self, value=None):
-        """  Corresponds to IDD Field `Right Side Opening Multiplier`
+        """  Corresponds to IDD field `Right Side Opening Multiplier`
         Effective area for air flow at the right side of the screen divided by the perpendicular
         area between the glass and the right side of the screen.
 
@@ -4837,7 +4848,7 @@ class WindowMaterialScreen(DataObject):
 
     @angle_of_resolution_for_screen_transmittance_output_map.setter
     def angle_of_resolution_for_screen_transmittance_output_map(self, value="0"):
-        """  Corresponds to IDD Field `Angle of Resolution for Screen Transmittance Output Map`
+        """  Corresponds to IDD field `Angle of Resolution for Screen Transmittance Output Map`
         Select the resolution of azimuth and altitude angles for the screen transmittance map.
         A value of 0 means no transmittance map will be generated.
         Valid values for this field are 0, 1, 2, 3 and 5.
@@ -4862,7 +4873,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
         reflected radiation is hemispherically-diffuse) independent of angle
         of incidence.  Shade represents roller blinds.
     """
-    schema = {'min-fields': 6, 'name': u'WindowMaterial:Shade:EquivalentLayer', 'pyname': u'WindowMaterialShadeEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'shade beam-beam solar transmittance', {'name': u'Shade Beam-Beam Solar Transmittance', 'pyname': u'shade_beambeam_solar_transmittance', 'default': 0.0, 'maximum': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade beam-diffuse solar transmittance', {'name': u'Front Side Shade Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_shade_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side shade beam-diffuse solar transmittance', {'name': u'Back Side Shade Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_shade_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade beam-diffuse solar reflectance', {'name': u'Front Side Shade Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_shade_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side shade beam-diffuse solar reflectance', {'name': u'Back Side Shade Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_shade_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-beam visible transmittance at normal incidence', {'name': u'Shade Beam-Beam Visible Transmittance at Normal Incidence', 'pyname': u'shade_beambeam_visible_transmittance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-diffuse visible transmittance at normal incidence', {'name': u'Shade Beam-Diffuse Visible Transmittance at Normal Incidence', 'pyname': u'shade_beamdiffuse_visible_transmittance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-diffuse visible reflectance at normal incidence', {'name': u'Shade Beam-Diffuse Visible Reflectance at Normal Incidence', 'pyname': u'shade_beamdiffuse_visible_reflectance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade material infrared transmittance', {'name': u'Shade Material Infrared Transmittance', 'pyname': u'shade_material_infrared_transmittance', 'default': 0.05, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade material infrared emissivity', {'name': u'Front Side Shade Material Infrared Emissivity', 'pyname': u'front_side_shade_material_infrared_emissivity', 'default': 0.91, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side shade material infrared emissivity', {'name': u'Back Side Shade Material Infrared Emissivity', 'pyname': u'back_side_shade_material_infrared_emissivity', 'default': 0.91, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 6, 'name': u'WindowMaterial:Shade:EquivalentLayer', 'pyname': u'WindowMaterialShadeEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'shade beam-beam solar transmittance', {'name': u'Shade Beam-Beam Solar Transmittance', 'pyname': u'shade_beambeam_solar_transmittance', 'default': 0.0, 'maximum': 0.8, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade beam-diffuse solar transmittance', {'name': u'Front Side Shade Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_shade_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side shade beam-diffuse solar transmittance', {'name': u'Back Side Shade Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_shade_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade beam-diffuse solar reflectance', {'name': u'Front Side Shade Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_shade_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side shade beam-diffuse solar reflectance', {'name': u'Back Side Shade Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_shade_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-beam visible transmittance at normal incidence', {'name': u'Shade Beam-Beam Visible Transmittance at Normal Incidence', 'pyname': u'shade_beambeam_visible_transmittance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-diffuse visible transmittance at normal incidence', {'name': u'Shade Beam-Diffuse Visible Transmittance at Normal Incidence', 'pyname': u'shade_beamdiffuse_visible_transmittance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade beam-diffuse visible reflectance at normal incidence', {'name': u'Shade Beam-Diffuse Visible Reflectance at Normal Incidence', 'pyname': u'shade_beamdiffuse_visible_reflectance_at_normal_incidence', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'shade material infrared transmittance', {'name': u'Shade Material Infrared Transmittance', 'pyname': u'shade_material_infrared_transmittance', 'default': 0.05, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side shade material infrared emissivity', {'name': u'Front Side Shade Material Infrared Emissivity', 'pyname': u'front_side_shade_material_infrared_emissivity', 'default': 0.91, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side shade material infrared emissivity', {'name': u'Back Side Shade Material Infrared Emissivity', 'pyname': u'back_side_shade_material_infrared_emissivity', 'default': 0.91, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -4875,7 +4886,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4898,7 +4909,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @shade_beambeam_solar_transmittance.setter
     def shade_beambeam_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Shade Beam-Beam Solar Transmittance`
+        """  Corresponds to IDD field `Shade Beam-Beam Solar Transmittance`
         The beam-beam solar transmittance at normal incidence.  This value is
         the same as the openness area fraction of the shade material. Assumed
         to be the same for front and back sides.
@@ -4926,7 +4937,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @front_side_shade_beamdiffuse_solar_transmittance.setter
     def front_side_shade_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Shade Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Shade Beam-Diffuse Solar Transmittance`
         The front side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -4953,7 +4964,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @back_side_shade_beamdiffuse_solar_transmittance.setter
     def back_side_shade_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Shade Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Shade Beam-Diffuse Solar Transmittance`
         The back side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -4980,7 +4991,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @front_side_shade_beamdiffuse_solar_reflectance.setter
     def front_side_shade_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Shade Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Shade Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -5007,7 +5018,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @back_side_shade_beamdiffuse_solar_reflectance.setter
     def back_side_shade_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Shade Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Shade Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -5034,7 +5045,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @shade_beambeam_visible_transmittance_at_normal_incidence.setter
     def shade_beambeam_visible_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Shade Beam-Beam Visible Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Shade Beam-Beam Visible Transmittance at Normal Incidence`
         The beam-beam visible transmittance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
@@ -5062,7 +5073,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @shade_beamdiffuse_visible_transmittance_at_normal_incidence.setter
     def shade_beamdiffuse_visible_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Shade Beam-Diffuse Visible Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Shade Beam-Diffuse Visible Transmittance at Normal Incidence`
         The beam-diffuse visible transmittance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
@@ -5090,7 +5101,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @shade_beamdiffuse_visible_reflectance_at_normal_incidence.setter
     def shade_beamdiffuse_visible_reflectance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Shade Beam-Diffuse Visible Reflectance at Normal Incidence`
+        """  Corresponds to IDD field `Shade Beam-Diffuse Visible Reflectance at Normal Incidence`
         The beam-diffuse visible reflectance at nromal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for
         front and back sides of the shade.
@@ -5118,7 +5129,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @shade_material_infrared_transmittance.setter
     def shade_material_infrared_transmittance(self, value=0.05):
-        """  Corresponds to IDD Field `Shade Material Infrared Transmittance`
+        """  Corresponds to IDD field `Shade Material Infrared Transmittance`
         The long-wave transmittance of the shade material at zero shade openness.
         Assumed to be the same for front and back sides of the shade.
 
@@ -5146,7 +5157,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @front_side_shade_material_infrared_emissivity.setter
     def front_side_shade_material_infrared_emissivity(self, value=0.91):
-        """  Corresponds to IDD Field `Front Side Shade Material Infrared Emissivity`
+        """  Corresponds to IDD field `Front Side Shade Material Infrared Emissivity`
         The front side long-wave emissivity of the shade material at zero shade
         openness. Openness fraction is used to calculate the effective emissivity
         value.
@@ -5175,7 +5186,7 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
 
     @back_side_shade_material_infrared_emissivity.setter
     def back_side_shade_material_infrared_emissivity(self, value=0.91):
-        """  Corresponds to IDD Field `Back Side Shade Material Infrared Emissivity`
+        """  Corresponds to IDD field `Back Side Shade Material Infrared Emissivity`
         The back side long-wave emissivity of the shade material at zero shade
         openness. Openness fraction is used to calculate the effective emissivity
         value.
@@ -5201,7 +5212,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
         radiation is hemispherically-diffuse) independent of angle of incidence.
         unpleated drape fabric is treated as thin and flat layer.
     """
-    schema = {'min-fields': 4, 'name': u'WindowMaterial:Drape:EquivalentLayer', 'pyname': u'WindowMaterialDrapeEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'drape beam-beam solar transmittance at normal incidence', {'name': u'Drape Beam-Beam Solar Transmittance at Normal Incidence', 'pyname': u'drape_beambeam_solar_transmittance_at_normal_incidence', 'default': 0.0, 'maximum': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape beam-diffuse solar transmittance', {'name': u'Front Side Drape Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_drape_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side drape beam-diffuse solar transmittance', {'name': u'Back Side Drape Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_drape_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape beam-diffuse solar reflectance', {'name': u'Front Side Drape Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_drape_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side drape beam-diffuse solar reflectance', {'name': u'Back Side Drape Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_drape_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-beam visible transmittance', {'name': u'Drape Beam-Beam Visible Transmittance', 'pyname': u'drape_beambeam_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-diffuse visible transmittance', {'name': u'Drape Beam-Diffuse Visible Transmittance', 'pyname': u'drape_beamdiffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-diffuse visible reflectance', {'name': u'Drape Beam-Diffuse Visible Reflectance', 'pyname': u'drape_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape material infrared transmittance', {'name': u'Drape Material Infrared Transmittance', 'pyname': u'drape_material_infrared_transmittance', 'default': 0.05, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape material infrared emissivity', {'name': u'Front Side Drape Material Infrared Emissivity', 'pyname': u'front_side_drape_material_infrared_emissivity', 'default': 0.87, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side drape material infrared emissivity', {'name': u'Back Side Drape Material Infrared Emissivity', 'pyname': u'back_side_drape_material_infrared_emissivity', 'default': 0.87, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'width of pleated fabric', {'name': u'Width of Pleated Fabric', 'pyname': u'width_of_pleated_fabric', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'length of pleated fabric', {'name': u'Length of Pleated Fabric', 'pyname': u'length_of_pleated_fabric', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'WindowMaterial:Drape:EquivalentLayer', 'pyname': u'WindowMaterialDrapeEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'drape beam-beam solar transmittance at normal incidence', {'name': u'Drape Beam-Beam Solar Transmittance at Normal Incidence', 'pyname': u'drape_beambeam_solar_transmittance_at_normal_incidence', 'default': 0.0, 'maximum': 0.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape beam-diffuse solar transmittance', {'name': u'Front Side Drape Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_drape_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side drape beam-diffuse solar transmittance', {'name': u'Back Side Drape Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_drape_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape beam-diffuse solar reflectance', {'name': u'Front Side Drape Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_drape_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side drape beam-diffuse solar reflectance', {'name': u'Back Side Drape Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_drape_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-beam visible transmittance', {'name': u'Drape Beam-Beam Visible Transmittance', 'pyname': u'drape_beambeam_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-diffuse visible transmittance', {'name': u'Drape Beam-Diffuse Visible Transmittance', 'pyname': u'drape_beamdiffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape beam-diffuse visible reflectance', {'name': u'Drape Beam-Diffuse Visible Reflectance', 'pyname': u'drape_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'drape material infrared transmittance', {'name': u'Drape Material Infrared Transmittance', 'pyname': u'drape_material_infrared_transmittance', 'default': 0.05, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side drape material infrared emissivity', {'name': u'Front Side Drape Material Infrared Emissivity', 'pyname': u'front_side_drape_material_infrared_emissivity', 'default': 0.87, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side drape material infrared emissivity', {'name': u'Back Side Drape Material Infrared Emissivity', 'pyname': u'back_side_drape_material_infrared_emissivity', 'default': 0.87, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'width of pleated fabric', {'name': u'Width of Pleated Fabric', 'pyname': u'width_of_pleated_fabric', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'length of pleated fabric', {'name': u'Length of Pleated Fabric', 'pyname': u'length_of_pleated_fabric', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -5214,7 +5225,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5237,7 +5248,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @drape_beambeam_solar_transmittance_at_normal_incidence.setter
     def drape_beambeam_solar_transmittance_at_normal_incidence(self, value=None):
-        """  Corresponds to IDD Field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
+        """  Corresponds to IDD field `Drape Beam-Beam Solar Transmittance at Normal Incidence`
         The beam-beam solar transmittance at normal incidence. This value is the
         same as the openness area fraction of the drape fabric. Assumed to be
         same for front and back sides.
@@ -5265,7 +5276,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @front_side_drape_beamdiffuse_solar_transmittance.setter
     def front_side_drape_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Drape Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Drape Beam-Diffuse Solar Transmittance`
         The front side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation. Assumed to be the same for front
         and back sides.
@@ -5293,7 +5304,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @back_side_drape_beamdiffuse_solar_transmittance.setter
     def back_side_drape_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Drape Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Drape Beam-Diffuse Solar Transmittance`
         The back side beam-diffuse solar transmittance at normal incidence averaged
         over the entire spectrum of solar radiation. Assumed to be the same for front
         and back sides.
@@ -5321,7 +5332,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @front_side_drape_beamdiffuse_solar_reflectance.setter
     def front_side_drape_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Drape Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Drape Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -5348,7 +5359,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @back_side_drape_beamdiffuse_solar_reflectance.setter
     def back_side_drape_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Drape Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Drape Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance at normal incidence averaged
         over the entire spectrum of solar radiation.
 
@@ -5375,7 +5386,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @drape_beambeam_visible_transmittance.setter
     def drape_beambeam_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Drape Beam-Beam Visible Transmittance`
+        """  Corresponds to IDD field `Drape Beam-Beam Visible Transmittance`
         The beam-beam visible transmittance at normal incidence averaged over the
         visible spectrum of solar radiation. Assumed same for front and back sides.
 
@@ -5402,7 +5413,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @drape_beamdiffuse_visible_transmittance.setter
     def drape_beamdiffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Drape Beam-Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Drape Beam-Diffuse Visible Transmittance`
         The beam-diffuse visible transmittance at normal incidence averaged over the
         visible spectrum range of solar radiation. Assumed to be the same for front
         and back sides.
@@ -5430,7 +5441,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @drape_beamdiffuse_visible_reflectance.setter
     def drape_beamdiffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Drape Beam-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Drape Beam-Diffuse Visible Reflectance`
         The beam-diffuse visible reflectance at normal incidence average over the
         visible spectrum range of solar radiation. Assumed to be the same for front
         and back sides.
@@ -5458,7 +5469,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @drape_material_infrared_transmittance.setter
     def drape_material_infrared_transmittance(self, value=0.05):
-        """  Corresponds to IDD Field `Drape Material Infrared Transmittance`
+        """  Corresponds to IDD field `Drape Material Infrared Transmittance`
         Long-wave transmittance of the drape fabric at zero openness fraction.
         Assumed same for front and back sides.
 
@@ -5486,7 +5497,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @front_side_drape_material_infrared_emissivity.setter
     def front_side_drape_material_infrared_emissivity(self, value=0.87):
-        """  Corresponds to IDD Field `Front Side Drape Material Infrared Emissivity`
+        """  Corresponds to IDD field `Front Side Drape Material Infrared Emissivity`
         Front side long-wave emissivity of the drape fabric at zero shade openness.
         Openness fraction specified above is used to calculate the effective
         emissivity value.
@@ -5515,7 +5526,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @back_side_drape_material_infrared_emissivity.setter
     def back_side_drape_material_infrared_emissivity(self, value=0.87):
-        """  Corresponds to IDD Field `Back Side Drape Material Infrared Emissivity`
+        """  Corresponds to IDD field `Back Side Drape Material Infrared Emissivity`
         Back side long-wave emissivity of the drape fabric at zero shade openness.
         Openness fraction specified above is used to calculate the effective
         emissivity value.
@@ -5544,7 +5555,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @width_of_pleated_fabric.setter
     def width_of_pleated_fabric(self, value=None):
-        """  Corresponds to IDD Field `Width of Pleated Fabric`
+        """  Corresponds to IDD field `Width of Pleated Fabric`
         Width of the pleasted section of the draped fabric. If the drape fabric is
         unpleated or is flat, then the pleated section width is set to zero.
 
@@ -5571,7 +5582,7 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
 
     @length_of_pleated_fabric.setter
     def length_of_pleated_fabric(self, value=None):
-        """  Corresponds to IDD Field `Length of Pleated Fabric`
+        """  Corresponds to IDD field `Length of Pleated Fabric`
         Length of the pleasted section of the draped fabric. If the drape fabric is
         unpleated or is flat, then the pleated section length is set to zero.
 
@@ -5595,7 +5606,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
         imperical correlation to accout for curvature effect. Slats are
         assumed to transmit and reflect diffusely.
     """
-    schema = {'min-fields': 10, 'name': u'WindowMaterial:Blind:EquivalentLayer', 'pyname': u'WindowMaterialBlindEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'slat orientation', {'name': u'Slat Orientation', 'pyname': u'slat_orientation', 'default': u'Horizontal', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Horizontal', u'Vertical'], 'autocalculatable': False, 'type': 'alpha'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'minimum>': 0.0, 'maximum': 0.025, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat separation', {'name': u'Slat Separation', 'pyname': u'slat_separation', 'minimum>': 0.0, 'maximum': 0.025, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat crown', {'name': u'Slat Crown', 'pyname': u'slat_crown', 'default': 0.0015, 'maximum': 0.00156, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 45.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'front side slat beam-diffuse solar transmittance', {'name': u'Front Side Slat Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_slat_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam-diffuse solar transmittance', {'name': u'Back Side Slat Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_slat_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse solar reflectance', {'name': u'Front Side Slat Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_slat_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse solar reflectance', {'name': u'Back Side Slat Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_slat_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse visible transmittance', {'name': u'Front Side Slat Beam-Diffuse Visible Transmittance', 'pyname': u'front_side_slat_beamdiffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse visible transmittance', {'name': u'Back Side Slat Beam-Diffuse Visible Transmittance', 'pyname': u'back_side_slat_beamdiffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse visible reflectance', {'name': u'Front Side Slat Beam-Diffuse Visible Reflectance', 'pyname': u'front_side_slat_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse visible reflectance', {'name': u'Back Side Slat Beam-Diffuse Visible Reflectance', 'pyname': u'back_side_slat_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat diffuse-diffuse solar transmittance', {'name': u'Slat Diffuse-Diffuse Solar Transmittance', 'pyname': u'slat_diffusediffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat diffuse-diffuse solar reflectance', {'name': u'Front Side Slat Diffuse-Diffuse Solar Reflectance', 'pyname': u'front_side_slat_diffusediffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat diffuse-diffuse solar reflectance', {'name': u'Back Side Slat Diffuse-Diffuse Solar Reflectance', 'pyname': u'back_side_slat_diffusediffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat diffuse-diffuse visible transmittance', {'name': u'Slat Diffuse-Diffuse Visible Transmittance', 'pyname': u'slat_diffusediffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse-diffuse visible reflectance', {'name': u'Front Side Slat Diffuse-Diffuse Visible Reflectance', 'pyname': u'front_side_slat_diffusediffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat diffuse-diffuse visible reflectance', {'name': u'Back Side Slat Diffuse-Diffuse Visible Reflectance', 'pyname': u'back_side_slat_diffusediffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat infrared transmittance', {'name': u'Slat Infrared Transmittance', 'pyname': u'slat_infrared_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat infrared emissivity', {'name': u'Front Side Slat Infrared Emissivity', 'pyname': u'front_side_slat_infrared_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat infrared emissivity', {'name': u'Back Side Slat Infrared Emissivity', 'pyname': u'back_side_slat_infrared_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat angle control', {'name': u'Slat Angle Control', 'pyname': u'slat_angle_control', 'default': u'FixedSlatAngle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedSlatAngle', u'MaximizeSolar', u'BlockBeamSolar'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 10, 'name': u'WindowMaterial:Blind:EquivalentLayer', 'pyname': u'WindowMaterialBlindEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'slat orientation', {'name': u'Slat Orientation', 'pyname': u'slat_orientation', 'default': u'Horizontal', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Horizontal', u'Vertical'], 'autocalculatable': False, 'type': 'alpha'}), (u'slat width', {'name': u'Slat Width', 'pyname': u'slat_width', 'minimum>': 0.0, 'maximum': 0.025, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat separation', {'name': u'Slat Separation', 'pyname': u'slat_separation', 'minimum>': 0.0, 'maximum': 0.025, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat crown', {'name': u'Slat Crown', 'pyname': u'slat_crown', 'default': 0.0015, 'maximum': 0.00156, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'slat angle', {'name': u'Slat Angle', 'pyname': u'slat_angle', 'default': 45.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'front side slat beam-diffuse solar transmittance', {'name': u'Front Side Slat Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_slat_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'back side slat beam-diffuse solar transmittance', {'name': u'Back Side Slat Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_slat_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse solar reflectance', {'name': u'Front Side Slat Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_slat_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse solar reflectance', {'name': u'Back Side Slat Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_slat_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse visible transmittance', {'name': u'Front Side Slat Beam-Diffuse Visible Transmittance', 'pyname': u'front_side_slat_beamdiffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse visible transmittance', {'name': u'Back Side Slat Beam-Diffuse Visible Transmittance', 'pyname': u'back_side_slat_beamdiffuse_visible_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat beam-diffuse visible reflectance', {'name': u'Front Side Slat Beam-Diffuse Visible Reflectance', 'pyname': u'front_side_slat_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat beam-diffuse visible reflectance', {'name': u'Back Side Slat Beam-Diffuse Visible Reflectance', 'pyname': u'back_side_slat_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat diffuse-diffuse solar transmittance', {'name': u'Slat Diffuse-Diffuse Solar Transmittance', 'pyname': u'slat_diffusediffuse_solar_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side slat diffuse-diffuse solar reflectance', {'name': u'Front Side Slat Diffuse-Diffuse Solar Reflectance', 'pyname': u'front_side_slat_diffusediffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat diffuse-diffuse solar reflectance', {'name': u'Back Side Slat Diffuse-Diffuse Solar Reflectance', 'pyname': u'back_side_slat_diffusediffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat diffuse-diffuse visible transmittance', {'name': u'Slat Diffuse-Diffuse Visible Transmittance', 'pyname': u'slat_diffusediffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat diffuse-diffuse visible reflectance', {'name': u'Front Side Slat Diffuse-Diffuse Visible Reflectance', 'pyname': u'front_side_slat_diffusediffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat diffuse-diffuse visible reflectance', {'name': u'Back Side Slat Diffuse-Diffuse Visible Reflectance', 'pyname': u'back_side_slat_diffusediffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat infrared transmittance', {'name': u'Slat Infrared Transmittance', 'pyname': u'slat_infrared_transmittance', 'default': 0.0, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'front side slat infrared emissivity', {'name': u'Front Side Slat Infrared Emissivity', 'pyname': u'front_side_slat_infrared_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side slat infrared emissivity', {'name': u'Back Side Slat Infrared Emissivity', 'pyname': u'back_side_slat_infrared_emissivity', 'default': 0.9, 'maximum<': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'slat angle control', {'name': u'Slat Angle Control', 'pyname': u'slat_angle_control', 'default': u'FixedSlatAngle', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FixedSlatAngle', u'MaximizeSolar', u'BlockBeamSolar'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -5608,7 +5619,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5631,7 +5642,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_orientation.setter
     def slat_orientation(self, value="Horizontal"):
-        """  Corresponds to IDD Field `Slat Orientation`
+        """  Corresponds to IDD field `Slat Orientation`
 
         Args:
             value (str): value for IDD Field `Slat Orientation`
@@ -5655,7 +5666,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_width.setter
     def slat_width(self, value=None):
-        """  Corresponds to IDD Field `Slat Width`
+        """  Corresponds to IDD field `Slat Width`
 
         Args:
             value (float): value for IDD Field `Slat Width`
@@ -5681,7 +5692,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_separation.setter
     def slat_separation(self, value=None):
-        """  Corresponds to IDD Field `Slat Separation`
+        """  Corresponds to IDD field `Slat Separation`
         Distance between adjacent slat faces
 
         Args:
@@ -5708,7 +5719,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_crown.setter
     def slat_crown(self, value=0.0015):
-        """  Corresponds to IDD Field `Slat Crown`
+        """  Corresponds to IDD field `Slat Crown`
         Perpendicular length between the cord and the curve.
         Slat is assumed to be rectangular in cross section
         and flat. Crown=0.0625xSlat width
@@ -5738,7 +5749,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_angle.setter
     def slat_angle(self, value=45.0):
-        """  Corresponds to IDD Field `Slat Angle`
+        """  Corresponds to IDD field `Slat Angle`
 
         Args:
             value (float): value for IDD Field `Slat Angle`
@@ -5764,7 +5775,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_beamdiffuse_solar_transmittance.setter
     def front_side_slat_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Slat Beam-Diffuse Solar Transmittance`
         The front side beam-diffuse solar transmittance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
 
@@ -5790,7 +5801,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_beamdiffuse_solar_transmittance.setter
     def back_side_slat_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Slat Beam-Diffuse Solar Transmittance`
         The back side beam-diffuse solar transmittance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
 
@@ -5817,7 +5828,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_beamdiffuse_solar_reflectance.setter
     def front_side_slat_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Beam-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
 
@@ -5844,7 +5855,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_beamdiffuse_solar_reflectance.setter
     def back_side_slat_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Beam-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance of the slat at normal
         incidence averaged over the entire spectrum of solar radiation.
 
@@ -5871,7 +5882,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_beamdiffuse_visible_transmittance.setter
     def front_side_slat_beamdiffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Front Side Slat Beam-Diffuse Visible Transmittance`
         The front side beam-diffuse visible transmittance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
@@ -5899,7 +5910,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_beamdiffuse_visible_transmittance.setter
     def back_side_slat_beamdiffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Back Side Slat Beam-Diffuse Visible Transmittance`
         The back side beam-diffuse visible transmittance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
@@ -5927,7 +5938,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_beamdiffuse_visible_reflectance.setter
     def front_side_slat_beamdiffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Beam-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Beam-Diffuse Visible Reflectance`
         The front side beam-diffuse visible reflectance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
@@ -5955,7 +5966,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_beamdiffuse_visible_reflectance.setter
     def back_side_slat_beamdiffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Beam-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Beam-Diffuse Visible Reflectance`
         The back side beam-diffuse visible reflectance of the slat
         at normal incidence averaged over the visible spectrum range
         of solar radiation.
@@ -5983,7 +5994,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_diffusediffuse_solar_transmittance.setter
     def slat_diffusediffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Diffuse-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Slat Diffuse-Diffuse Solar Transmittance`
         The beam-diffuse solar transmittance of the slat averaged
         over the entire solar spectrum of solar radiation.
 
@@ -6010,7 +6021,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_diffusediffuse_solar_reflectance.setter
     def front_side_slat_diffusediffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Diffuse-Diffuse Solar Reflectance`
         The front side beam-diffuse solar reflectance of the slat
         averaged over the entire solar spectrum of solar radiation.
 
@@ -6037,7 +6048,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_diffusediffuse_solar_reflectance.setter
     def back_side_slat_diffusediffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Diffuse-Diffuse Solar Reflectance`
         The back side beam-diffuse solar reflectance of the slat
         averaged over the entire solar spectrum of solar radiation.
 
@@ -6064,7 +6075,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_diffusediffuse_visible_transmittance.setter
     def slat_diffusediffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Diffuse-Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Slat Diffuse-Diffuse Visible Transmittance`
         The beam-diffuse visible transmittance of the slat averaged
         over the visible spectrum range of solar radiation.
 
@@ -6090,7 +6101,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_diffusediffuse_visible_reflectance.setter
     def front_side_slat_diffusediffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Front Side Slat Diffuse-Diffuse Visible Reflectance`
         The front side beam-diffuse visible reflectance of the slat
         averaged over the visible spectrum range of solar radiation.
 
@@ -6117,7 +6128,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_diffusediffuse_visible_reflectance.setter
     def back_side_slat_diffusediffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Back Side Slat Diffuse-Diffuse Visible Reflectance`
         The back side beam-diffuse visible reflectance of the slat
         averaged over the visible spectrum range of solar radiation.
 
@@ -6144,7 +6155,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_infrared_transmittance.setter
     def slat_infrared_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Slat Infrared Transmittance`
+        """  Corresponds to IDD field `Slat Infrared Transmittance`
         Long-wave hemispherical transmittance of the slat material.
         Assumed to be the same for both sides of the slat.
 
@@ -6170,7 +6181,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @front_side_slat_infrared_emissivity.setter
     def front_side_slat_infrared_emissivity(self, value=0.9):
-        """  Corresponds to IDD Field `Front Side Slat Infrared Emissivity`
+        """  Corresponds to IDD field `Front Side Slat Infrared Emissivity`
         Front side long-wave hemispherical emissivity of the slat material.
 
         Args:
@@ -6197,7 +6208,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @back_side_slat_infrared_emissivity.setter
     def back_side_slat_infrared_emissivity(self, value=0.9):
-        """  Corresponds to IDD Field `Back Side Slat Infrared Emissivity`
+        """  Corresponds to IDD field `Back Side Slat Infrared Emissivity`
         Back side long-wave hemispherical emissivity of the slat material.
 
         Args:
@@ -6224,7 +6235,7 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
 
     @slat_angle_control.setter
     def slat_angle_control(self, value="FixedSlatAngle"):
-        """  Corresponds to IDD Field `Slat Angle Control`
+        """  Corresponds to IDD field `Slat Angle Control`
         Used only if slat angle control is deired to either maximize solar
         gain (MaximizeSolar), maximize visibiity while eliminating beam solar
         radiation (BlockBeamSolar), or fixed slate angle (FixedSlatAngle).
@@ -6247,7 +6258,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
         Equivalent layer window screen physical properties. Can only be
         located on the exterior side of a window construction.
     """
-    schema = {'min-fields': 4, 'name': u'WindowMaterial:Screen:EquivalentLayer', 'pyname': u'WindowMaterialScreenEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'screen beam-beam solar transmittance', {'name': u'Screen Beam-Beam Solar Transmittance', 'pyname': u'screen_beambeam_solar_transmittance', 'default': 'autocalculate', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse solar transmittance', {'name': u'Screen Beam-Diffuse Solar Transmittance', 'pyname': u'screen_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse solar reflectance', {'name': u'Screen Beam-Diffuse Solar Reflectance', 'pyname': u'screen_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-beam visible transmittance', {'name': u'Screen Beam-Beam Visible Transmittance', 'pyname': u'screen_beambeam_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse visible transmittance', {'name': u'Screen Beam-Diffuse Visible Transmittance', 'pyname': u'screen_beamdiffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse visible reflectance', {'name': u'Screen Beam-Diffuse Visible Reflectance', 'pyname': u'screen_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen infrared transmittance', {'name': u'Screen Infrared Transmittance', 'pyname': u'screen_infrared_transmittance', 'default': 0.02, 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen infrared emissivity', {'name': u'Screen Infrared Emissivity', 'pyname': u'screen_infrared_emissivity', 'default': 0.93, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'screen wire spacing', {'name': u'Screen Wire Spacing', 'pyname': u'screen_wire_spacing', 'default': 0.025, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen wire diameter', {'name': u'Screen Wire Diameter', 'pyname': u'screen_wire_diameter', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 4, 'name': u'WindowMaterial:Screen:EquivalentLayer', 'pyname': u'WindowMaterialScreenEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'screen beam-beam solar transmittance', {'name': u'Screen Beam-Beam Solar Transmittance', 'pyname': u'screen_beambeam_solar_transmittance', 'default': 'autocalculate', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse solar transmittance', {'name': u'Screen Beam-Diffuse Solar Transmittance', 'pyname': u'screen_beamdiffuse_solar_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse solar reflectance', {'name': u'Screen Beam-Diffuse Solar Reflectance', 'pyname': u'screen_beamdiffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-beam visible transmittance', {'name': u'Screen Beam-Beam Visible Transmittance', 'pyname': u'screen_beambeam_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse visible transmittance', {'name': u'Screen Beam-Diffuse Visible Transmittance', 'pyname': u'screen_beamdiffuse_visible_transmittance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen beam-diffuse visible reflectance', {'name': u'Screen Beam-Diffuse Visible Reflectance', 'pyname': u'screen_beamdiffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen infrared transmittance', {'name': u'Screen Infrared Transmittance', 'pyname': u'screen_infrared_transmittance', 'default': 0.02, 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'screen infrared emissivity', {'name': u'Screen Infrared Emissivity', 'pyname': u'screen_infrared_emissivity', 'default': 0.93, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'screen wire spacing', {'name': u'Screen Wire Spacing', 'pyname': u'screen_wire_spacing', 'default': 0.025, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen wire diameter', {'name': u'Screen Wire Diameter', 'pyname': u'screen_wire_diameter', 'default': 0.005, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -6260,7 +6271,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Enter a unique name for this window screen material.
 
         Args:
@@ -6284,7 +6295,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beambeam_solar_transmittance.setter
     def screen_beambeam_solar_transmittance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Screen Beam-Beam Solar Transmittance`
+        """  Corresponds to IDD field `Screen Beam-Beam Solar Transmittance`
         The beam-beam transmittance of the screen material at normal incidence.
         This input field is the same as the material oppenness area fraction
         and can be autocalculated from the wire spacing and wire and diameter.
@@ -6314,7 +6325,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beamdiffuse_solar_transmittance.setter
     def screen_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Screen Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Screen Beam-Diffuse Solar Transmittance`
         The beam-diffuse solar transmittance of the screen material at normal
         incidence averaged over the entire spectrum of solar radiation.
         Assumed to be the same for both sides of the screen.
@@ -6342,7 +6353,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beamdiffuse_solar_reflectance.setter
     def screen_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Screen Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Screen Beam-Diffuse Solar Reflectance`
         The beam-diffuse solar reflectance of the screen material at normal
         incidence averaged over the entire spectrum of solar radiation.
         Assumed to be the same for both sides of the screen.
@@ -6370,7 +6381,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beambeam_visible_transmittance.setter
     def screen_beambeam_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Screen Beam-Beam Visible Transmittance`
+        """  Corresponds to IDD field `Screen Beam-Beam Visible Transmittance`
         The beam-beam visible transmittance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
@@ -6398,7 +6409,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beamdiffuse_visible_transmittance.setter
     def screen_beamdiffuse_visible_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Screen Beam-Diffuse Visible Transmittance`
+        """  Corresponds to IDD field `Screen Beam-Diffuse Visible Transmittance`
         The beam-diffuse visible transmittance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
@@ -6426,7 +6437,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_beamdiffuse_visible_reflectance.setter
     def screen_beamdiffuse_visible_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Screen Beam-Diffuse Visible Reflectance`
+        """  Corresponds to IDD field `Screen Beam-Diffuse Visible Reflectance`
         Beam-diffuse visible reflectance of the screen material at normal
         incidence averaged over the visible spectrum range of solar radiation.
         Assumed to be the same for both sides of the screen.
@@ -6454,7 +6465,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_infrared_transmittance.setter
     def screen_infrared_transmittance(self, value=0.02):
-        """  Corresponds to IDD Field `Screen Infrared Transmittance`
+        """  Corresponds to IDD field `Screen Infrared Transmittance`
         The long-wave hemispherical transmittance of the screen material.
         Assumed to be the same for both sides of the screen.
 
@@ -6482,7 +6493,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_infrared_emissivity.setter
     def screen_infrared_emissivity(self, value=0.93):
-        """  Corresponds to IDD Field `Screen Infrared Emissivity`
+        """  Corresponds to IDD field `Screen Infrared Emissivity`
         The long-wave hemispherical emissivity of the screen material.
         Assumed to be the same for both sides of the screen.
 
@@ -6510,7 +6521,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_wire_spacing.setter
     def screen_wire_spacing(self, value=0.025):
-        """  Corresponds to IDD Field `Screen Wire Spacing`
+        """  Corresponds to IDD field `Screen Wire Spacing`
         Spacing assumed to be the same in both directions.
 
         Args:
@@ -6537,7 +6548,7 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
 
     @screen_wire_diameter.setter
     def screen_wire_diameter(self, value=0.005):
-        """  Corresponds to IDD Field `Screen Wire Diameter`
+        """  Corresponds to IDD field `Screen Wire Diameter`
         Diameter assumed to be the same in both directions.
 
         Args:
@@ -6559,7 +6570,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
     """
-    schema = {'min-fields': 11, 'name': u'WindowMaterial:Glazing:EquivalentLayer', 'pyname': u'WindowMaterialGlazingEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'optical data type', {'name': u'Optical Data Type', 'pyname': u'optical_data_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SpectralAverage', u'Spectral (not supported now)'], 'autocalculatable': False, 'type': 'alpha'}), (u'window glass spectral data set name', {'name': u'Window Glass Spectral Data Set Name', 'pyname': u'window_glass_spectral_data_set_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'front side beam-beam solar transmittance', {'name': u'Front Side Beam-Beam Solar Transmittance', 'pyname': u'front_side_beambeam_solar_transmittance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam solar transmittance', {'name': u'Back Side Beam-Beam Solar Transmittance', 'pyname': u'back_side_beambeam_solar_transmittance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam solar reflectance', {'name': u'Front Side Beam-Beam Solar Reflectance', 'pyname': u'front_side_beambeam_solar_reflectance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam solar reflectance', {'name': u'Back Side Beam-Beam Solar Reflectance', 'pyname': u'back_side_beambeam_solar_reflectance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam visible solar transmittance', {'name': u'Front Side Beam-Beam Visible Solar Transmittance', 'pyname': u'front_side_beambeam_visible_solar_transmittance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam visible solar transmittance', {'name': u'Back Side Beam-Beam Visible Solar Transmittance', 'pyname': u'back_side_beambeam_visible_solar_transmittance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam visible solar reflectance', {'name': u'Front Side Beam-Beam Visible Solar Reflectance', 'pyname': u'front_side_beambeam_visible_solar_reflectance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam visible solar reflectance', {'name': u'Back Side Beam-Beam Visible Solar Reflectance', 'pyname': u'back_side_beambeam_visible_solar_reflectance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse solar transmittance', {'name': u'Front Side Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse solar transmittance', {'name': u'Back Side Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse solar reflectance', {'name': u'Front Side Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_beamdiffuse_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse solar reflectance', {'name': u'Back Side Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_beamdiffuse_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse visible solar transmittance', {'name': u'Front Side Beam-Diffuse Visible Solar Transmittance', 'pyname': u'front_side_beamdiffuse_visible_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse visible solar transmittance', {'name': u'Back Side Beam-Diffuse Visible Solar Transmittance', 'pyname': u'back_side_beamdiffuse_visible_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse visible solar reflectance', {'name': u'Front Side Beam-Diffuse Visible Solar Reflectance', 'pyname': u'front_side_beamdiffuse_visible_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse visible solar reflectance', {'name': u'Back Side Beam-Diffuse Visible Solar Reflectance', 'pyname': u'back_side_beamdiffuse_visible_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse-diffuse solar transmittance', {'name': u'Diffuse-Diffuse Solar Transmittance', 'pyname': u'diffusediffuse_solar_transmittance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'front side diffuse-diffuse solar reflectance', {'name': u'Front Side Diffuse-Diffuse Solar Reflectance', 'pyname': u'front_side_diffusediffuse_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'back side diffuse-diffuse solar reflectance', {'name': u'Back Side Diffuse-Diffuse Solar Reflectance', 'pyname': u'back_side_diffusediffuse_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse-diffuse visible solar transmittance', {'name': u'Diffuse-Diffuse Visible Solar Transmittance', 'pyname': u'diffusediffuse_visible_solar_transmittance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'front side diffuse-diffuse visible solar reflectance', {'name': u'Front Side Diffuse-Diffuse Visible Solar Reflectance', 'pyname': u'front_side_diffusediffuse_visible_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'back side diffuse-diffuse visible solar reflectance', {'name': u'Back Side Diffuse-Diffuse Visible Solar Reflectance', 'pyname': u'back_side_diffusediffuse_visible_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'infrared transmittance (applies to front and back)', {'name': u'Infrared Transmittance (applies to front and back)', 'pyname': u'infrared_transmittance_applies_to_front_and_back', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side infrared emissivity', {'name': u'Front Side Infrared Emissivity', 'pyname': u'front_side_infrared_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side infrared emissivity', {'name': u'Back Side Infrared Emissivity', 'pyname': u'back_side_infrared_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 11, 'name': u'WindowMaterial:Glazing:EquivalentLayer', 'pyname': u'WindowMaterialGlazingEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'optical data type', {'name': u'Optical Data Type', 'pyname': u'optical_data_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SpectralAverage', u'Spectral (not supported now)'], 'autocalculatable': False, 'type': 'alpha'}), (u'window glass spectral data set name', {'name': u'Window Glass Spectral Data Set Name', 'pyname': u'window_glass_spectral_data_set_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'front side beam-beam solar transmittance', {'name': u'Front Side Beam-Beam Solar Transmittance', 'pyname': u'front_side_beambeam_solar_transmittance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam solar transmittance', {'name': u'Back Side Beam-Beam Solar Transmittance', 'pyname': u'back_side_beambeam_solar_transmittance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam solar reflectance', {'name': u'Front Side Beam-Beam Solar Reflectance', 'pyname': u'front_side_beambeam_solar_reflectance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam solar reflectance', {'name': u'Back Side Beam-Beam Solar Reflectance', 'pyname': u'back_side_beambeam_solar_reflectance', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam visible solar transmittance', {'name': u'Front Side Beam-Beam Visible Solar Transmittance', 'pyname': u'front_side_beambeam_visible_solar_transmittance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam visible solar transmittance', {'name': u'Back Side Beam-Beam Visible Solar Transmittance', 'pyname': u'back_side_beambeam_visible_solar_transmittance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-beam visible solar reflectance', {'name': u'Front Side Beam-Beam Visible Solar Reflectance', 'pyname': u'front_side_beambeam_visible_solar_reflectance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-beam visible solar reflectance', {'name': u'Back Side Beam-Beam Visible Solar Reflectance', 'pyname': u'back_side_beambeam_visible_solar_reflectance', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse solar transmittance', {'name': u'Front Side Beam-Diffuse Solar Transmittance', 'pyname': u'front_side_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse solar transmittance', {'name': u'Back Side Beam-Diffuse Solar Transmittance', 'pyname': u'back_side_beamdiffuse_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse solar reflectance', {'name': u'Front Side Beam-Diffuse Solar Reflectance', 'pyname': u'front_side_beamdiffuse_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse solar reflectance', {'name': u'Back Side Beam-Diffuse Solar Reflectance', 'pyname': u'back_side_beamdiffuse_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse visible solar transmittance', {'name': u'Front Side Beam-Diffuse Visible Solar Transmittance', 'pyname': u'front_side_beamdiffuse_visible_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse visible solar transmittance', {'name': u'Back Side Beam-Diffuse Visible Solar Transmittance', 'pyname': u'back_side_beamdiffuse_visible_solar_transmittance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side beam-diffuse visible solar reflectance', {'name': u'Front Side Beam-Diffuse Visible Solar Reflectance', 'pyname': u'front_side_beamdiffuse_visible_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'back side beam-diffuse visible solar reflectance', {'name': u'Back Side Beam-Diffuse Visible Solar Reflectance', 'pyname': u'back_side_beamdiffuse_visible_solar_reflectance', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse-diffuse solar transmittance', {'name': u'Diffuse-Diffuse Solar Transmittance', 'pyname': u'diffusediffuse_solar_transmittance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'front side diffuse-diffuse solar reflectance', {'name': u'Front Side Diffuse-Diffuse Solar Reflectance', 'pyname': u'front_side_diffusediffuse_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'back side diffuse-diffuse solar reflectance', {'name': u'Back Side Diffuse-Diffuse Solar Reflectance', 'pyname': u'back_side_diffusediffuse_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse-diffuse visible solar transmittance', {'name': u'Diffuse-Diffuse Visible Solar Transmittance', 'pyname': u'diffusediffuse_visible_solar_transmittance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'front side diffuse-diffuse visible solar reflectance', {'name': u'Front Side Diffuse-Diffuse Visible Solar Reflectance', 'pyname': u'front_side_diffusediffuse_visible_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'back side diffuse-diffuse visible solar reflectance', {'name': u'Back Side Diffuse-Diffuse Visible Solar Reflectance', 'pyname': u'back_side_diffusediffuse_visible_solar_reflectance', 'default': 'autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'infrared transmittance (applies to front and back)', {'name': u'Infrared Transmittance (applies to front and back)', 'pyname': u'infrared_transmittance_applies_to_front_and_back', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'front side infrared emissivity', {'name': u'Front Side Infrared Emissivity', 'pyname': u'front_side_infrared_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'back side infrared emissivity', {'name': u'Back Side Infrared Emissivity', 'pyname': u'back_side_infrared_emissivity', 'default': 0.84, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -6572,7 +6583,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6595,7 +6606,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @optical_data_type.setter
     def optical_data_type(self, value=None):
-        """  Corresponds to IDD Field `Optical Data Type`
+        """  Corresponds to IDD field `Optical Data Type`
 
         Args:
             value (str): value for IDD Field `Optical Data Type`
@@ -6618,7 +6629,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @window_glass_spectral_data_set_name.setter
     def window_glass_spectral_data_set_name(self, value=None):
-        """  Corresponds to IDD Field `Window Glass Spectral Data Set Name`
+        """  Corresponds to IDD field `Window Glass Spectral Data Set Name`
         Used only when Optical Data Type = Spectral
 
         Args:
@@ -6642,7 +6653,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beambeam_solar_transmittance.setter
     def front_side_beambeam_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Beam Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Beam-Beam Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6668,7 +6679,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beambeam_solar_transmittance.setter
     def back_side_beambeam_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Beam Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Beam-Beam Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6694,7 +6705,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beambeam_solar_reflectance.setter
     def front_side_beambeam_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Beam Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Beam-Beam Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
 
@@ -6721,7 +6732,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beambeam_solar_reflectance.setter
     def back_side_beambeam_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Beam Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Beam-Beam Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
 
@@ -6748,7 +6759,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beambeam_visible_solar_transmittance.setter
     def front_side_beambeam_visible_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Beam Visible Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Beam-Beam Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6774,7 +6785,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beambeam_visible_solar_transmittance.setter
     def back_side_beambeam_visible_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Beam Visible Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Beam-Beam Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6800,7 +6811,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beambeam_visible_solar_reflectance.setter
     def front_side_beambeam_visible_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Beam Visible Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Beam-Beam Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
 
@@ -6827,7 +6838,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beambeam_visible_solar_reflectance.setter
     def back_side_beambeam_visible_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Beam Visible Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Beam-Beam Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
 
@@ -6854,7 +6865,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beamdiffuse_solar_transmittance.setter
     def front_side_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Beam-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6880,7 +6891,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beamdiffuse_solar_transmittance.setter
     def back_side_beamdiffuse_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Beam-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6906,7 +6917,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beamdiffuse_solar_reflectance.setter
     def front_side_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Beam-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
 
@@ -6933,7 +6944,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beamdiffuse_solar_reflectance.setter
     def back_side_beamdiffuse_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Beam-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
 
@@ -6960,7 +6971,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beamdiffuse_visible_solar_transmittance.setter
     def front_side_beamdiffuse_visible_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Diffuse Visible Solar Transmittance`
+        """  Corresponds to IDD field `Front Side Beam-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -6986,7 +6997,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beamdiffuse_visible_solar_transmittance.setter
     def back_side_beamdiffuse_visible_solar_transmittance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Diffuse Visible Solar Transmittance`
+        """  Corresponds to IDD field `Back Side Beam-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
 
         Args:
@@ -7012,7 +7023,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_beamdiffuse_visible_solar_reflectance.setter
     def front_side_beamdiffuse_visible_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Front Side Beam-Diffuse Visible Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Beam-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Front Side is side closest to outdoor air
 
@@ -7039,7 +7050,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_beamdiffuse_visible_solar_reflectance.setter
     def back_side_beamdiffuse_visible_solar_reflectance(self, value=None):
-        """  Corresponds to IDD Field `Back Side Beam-Diffuse Visible Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Beam-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         Back Side is side closest to zone air
 
@@ -7066,7 +7077,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @diffusediffuse_solar_transmittance.setter
     def diffusediffuse_solar_transmittance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Diffuse-Diffuse Solar Transmittance`
+        """  Corresponds to IDD field `Diffuse-Diffuse Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the diffuse-diffuse solar
         transmittance is automatically estimated from other inputs and used
@@ -7097,7 +7108,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_diffusediffuse_solar_reflectance.setter
     def front_side_diffusediffuse_solar_reflectance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Front Side Diffuse-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Diffuse-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the front diffuse-diffuse solar
         reflectance is automatically estimated from other inputs and used in
@@ -7128,7 +7139,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_diffusediffuse_solar_reflectance.setter
     def back_side_diffusediffuse_solar_reflectance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Back Side Diffuse-Diffuse Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Diffuse-Diffuse Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         If this field is autocalculate, then the back diffuse-diffuse solar
         reflectance is automatically estimated from other inputs and used in
@@ -7159,7 +7170,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @diffusediffuse_visible_solar_transmittance.setter
     def diffusediffuse_visible_solar_transmittance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Diffuse-Diffuse Visible Solar Transmittance`
+        """  Corresponds to IDD field `Diffuse-Diffuse Visible Solar Transmittance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
 
@@ -7187,7 +7198,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_diffusediffuse_visible_solar_reflectance.setter
     def front_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
+        """  Corresponds to IDD field `Front Side Diffuse-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
 
@@ -7215,7 +7226,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_diffusediffuse_visible_solar_reflectance.setter
     def back_side_diffusediffuse_visible_solar_reflectance(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
+        """  Corresponds to IDD field `Back Side Diffuse-Diffuse Visible Solar Reflectance`
         Used only when Optical Data Type = SpectralAverage
         This input field is not used currently.
 
@@ -7243,7 +7254,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @infrared_transmittance_applies_to_front_and_back.setter
     def infrared_transmittance_applies_to_front_and_back(self, value=None):
-        """  Corresponds to IDD Field `Infrared Transmittance (applies to front and back)`
+        """  Corresponds to IDD field `Infrared Transmittance (applies to front and back)`
         The long-wave hemispherical transmittance of the glazing.
         Assumed to be the same for both sides of the glazing.
 
@@ -7270,7 +7281,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @front_side_infrared_emissivity.setter
     def front_side_infrared_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Front Side Infrared Emissivity`
+        """  Corresponds to IDD field `Front Side Infrared Emissivity`
         The front side long-wave hemispherical emissivity of the glazing.
 
         Args:
@@ -7297,7 +7308,7 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
 
     @back_side_infrared_emissivity.setter
     def back_side_infrared_emissivity(self, value=0.84):
-        """  Corresponds to IDD Field `Back Side Infrared Emissivity`
+        """  Corresponds to IDD field `Back Side Infrared Emissivity`
         The back side long-wave hemispherical emissivity of the glazing.
 
         Args:
@@ -7320,7 +7331,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
         Up to 11 layers total. Up to six solid layers and up to five gaps.
         Enter the material name for each layer
     """
-    schema = {'min-fields': 2, 'name': u'Construction:WindowEquivalentLayer', 'pyname': u'ConstructionWindowEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 11', {'name': u'Layer 11', 'pyname': u'layer_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 2, 'name': u'Construction:WindowEquivalentLayer', 'pyname': u'ConstructionWindowEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 11', {'name': u'Layer 11', 'pyname': u'layer_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -7333,7 +7344,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7356,7 +7367,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @outside_layer.setter
     def outside_layer(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer`
+        """  Corresponds to IDD field `Outside Layer`
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -7379,7 +7390,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_2.setter
     def layer_2(self, value=None):
-        """  Corresponds to IDD Field `Layer 2`
+        """  Corresponds to IDD field `Layer 2`
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -7402,7 +7413,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_3.setter
     def layer_3(self, value=None):
-        """  Corresponds to IDD Field `Layer 3`
+        """  Corresponds to IDD field `Layer 3`
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -7425,7 +7436,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_4.setter
     def layer_4(self, value=None):
-        """  Corresponds to IDD Field `Layer 4`
+        """  Corresponds to IDD field `Layer 4`
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -7448,7 +7459,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_5.setter
     def layer_5(self, value=None):
-        """  Corresponds to IDD Field `Layer 5`
+        """  Corresponds to IDD field `Layer 5`
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -7471,7 +7482,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_6.setter
     def layer_6(self, value=None):
-        """  Corresponds to IDD Field `Layer 6`
+        """  Corresponds to IDD field `Layer 6`
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -7494,7 +7505,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_7.setter
     def layer_7(self, value=None):
-        """  Corresponds to IDD Field `Layer 7`
+        """  Corresponds to IDD field `Layer 7`
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -7517,7 +7528,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_8.setter
     def layer_8(self, value=None):
-        """  Corresponds to IDD Field `Layer 8`
+        """  Corresponds to IDD field `Layer 8`
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -7540,7 +7551,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_9.setter
     def layer_9(self, value=None):
-        """  Corresponds to IDD Field `Layer 9`
+        """  Corresponds to IDD field `Layer 9`
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -7563,7 +7574,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_10.setter
     def layer_10(self, value=None):
-        """  Corresponds to IDD Field `Layer 10`
+        """  Corresponds to IDD field `Layer 10`
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -7586,7 +7597,7 @@ class ConstructionWindowEquivalentLayer(DataObject):
 
     @layer_11.setter
     def layer_11(self, value=None):
-        """  Corresponds to IDD Field `Layer 11`
+        """  Corresponds to IDD field `Layer 11`
 
         Args:
             value (str): value for IDD Field `Layer 11`
@@ -7604,7 +7615,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
         Gas material properties that are used in Windows Equivalent Layer
         References only WindowMaterial:Gas properties
     """
-    schema = {'min-fields': 3, 'name': u'WindowMaterial:Gap:EquivalentLayer', 'pyname': u'WindowMaterialGapEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas type', {'name': u'Gas Type', 'pyname': u'gas_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AIR', u'ARGON', u'KRYPTON', u'XENON', u'CUSTOM'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'gap vent type', {'name': u'Gap Vent Type', 'pyname': u'gap_vent_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sealed', u'VentedIndoor', u'VentedOutdoor'], 'autocalculatable': False, 'type': 'alpha'}), (u'conductivity coefficient a', {'name': u'Conductivity Coefficient A', 'pyname': u'conductivity_coefficient_a', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'conductivity coefficient b', {'name': u'Conductivity Coefficient B', 'pyname': u'conductivity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'conductivity coefficient c', {'name': u'Conductivity Coefficient C', 'pyname': u'conductivity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K3'}), (u'viscosity coefficient a', {'name': u'Viscosity Coefficient A', 'pyname': u'viscosity_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s'}), (u'viscosity coefficient b', {'name': u'Viscosity Coefficient B', 'pyname': u'viscosity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K'}), (u'viscosity coefficient c', {'name': u'Viscosity Coefficient C', 'pyname': u'viscosity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K2'}), (u'specific heat coefficient a', {'name': u'Specific Heat Coefficient A', 'pyname': u'specific_heat_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'specific heat coefficient b', {'name': u'Specific Heat Coefficient B', 'pyname': u'specific_heat_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K2'}), (u'specific heat coefficient c', {'name': u'Specific Heat Coefficient C', 'pyname': u'specific_heat_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K3'}), (u'molecular weight', {'name': u'Molecular Weight', 'pyname': u'molecular_weight', 'maximum': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'g/mol'}), (u'specific heat ratio', {'name': u'Specific Heat Ratio', 'pyname': u'specific_heat_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 3, 'name': u'WindowMaterial:Gap:EquivalentLayer', 'pyname': u'WindowMaterialGapEquivalentLayer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'gas type', {'name': u'Gas Type', 'pyname': u'gas_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AIR', u'ARGON', u'KRYPTON', u'XENON', u'CUSTOM'], 'autocalculatable': False, 'type': 'alpha'}), (u'thickness', {'name': u'Thickness', 'pyname': u'thickness', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'gap vent type', {'name': u'Gap Vent Type', 'pyname': u'gap_vent_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sealed', u'VentedIndoor', u'VentedOutdoor'], 'autocalculatable': False, 'type': 'alpha'}), (u'conductivity coefficient a', {'name': u'Conductivity Coefficient A', 'pyname': u'conductivity_coefficient_a', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'conductivity coefficient b', {'name': u'Conductivity Coefficient B', 'pyname': u'conductivity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'conductivity coefficient c', {'name': u'Conductivity Coefficient C', 'pyname': u'conductivity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K3'}), (u'viscosity coefficient a', {'name': u'Viscosity Coefficient A', 'pyname': u'viscosity_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s'}), (u'viscosity coefficient b', {'name': u'Viscosity Coefficient B', 'pyname': u'viscosity_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K'}), (u'viscosity coefficient c', {'name': u'Viscosity Coefficient C', 'pyname': u'viscosity_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m-s-K2'}), (u'specific heat coefficient a', {'name': u'Specific Heat Coefficient A', 'pyname': u'specific_heat_coefficient_a', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'specific heat coefficient b', {'name': u'Specific Heat Coefficient B', 'pyname': u'specific_heat_coefficient_b', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K2'}), (u'specific heat coefficient c', {'name': u'Specific Heat Coefficient C', 'pyname': u'specific_heat_coefficient_c', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K3'}), (u'molecular weight', {'name': u'Molecular Weight', 'pyname': u'molecular_weight', 'maximum': 200.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'g/mol'}), (u'specific heat ratio', {'name': u'Specific Heat Ratio', 'pyname': u'specific_heat_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -7617,7 +7628,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7640,7 +7651,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @gas_type.setter
     def gas_type(self, value=None):
-        """  Corresponds to IDD Field `Gas Type`
+        """  Corresponds to IDD field `Gas Type`
 
         Args:
             value (str): value for IDD Field `Gas Type`
@@ -7663,7 +7674,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @thickness.setter
     def thickness(self, value=None):
-        """  Corresponds to IDD Field `Thickness`
+        """  Corresponds to IDD field `Thickness`
 
         Args:
             value (float): value for IDD Field `Thickness`
@@ -7688,7 +7699,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @gap_vent_type.setter
     def gap_vent_type(self, value=None):
-        """  Corresponds to IDD Field `Gap Vent Type`
+        """  Corresponds to IDD field `Gap Vent Type`
         Sealed means the gap is enclosed and gas tight, i.e., no venting to indoor or
         outdoor environment.  VentedIndoor means the gap is vented to indoor environment, and
         VentedOutdoor means the gap is vented to the outdoor environment. The gap types
@@ -7715,7 +7726,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @conductivity_coefficient_a.setter
     def conductivity_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient A`
+        """  Corresponds to IDD field `Conductivity Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -7740,7 +7751,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @conductivity_coefficient_b.setter
     def conductivity_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient B`
+        """  Corresponds to IDD field `Conductivity Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -7765,7 +7776,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @conductivity_coefficient_c.setter
     def conductivity_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Conductivity Coefficient C`
+        """  Corresponds to IDD field `Conductivity Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -7790,7 +7801,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @viscosity_coefficient_a.setter
     def viscosity_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient A`
+        """  Corresponds to IDD field `Viscosity Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -7815,7 +7826,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @viscosity_coefficient_b.setter
     def viscosity_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient B`
+        """  Corresponds to IDD field `Viscosity Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -7840,7 +7851,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @viscosity_coefficient_c.setter
     def viscosity_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Viscosity Coefficient C`
+        """  Corresponds to IDD field `Viscosity Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -7865,7 +7876,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @specific_heat_coefficient_a.setter
     def specific_heat_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient A`
+        """  Corresponds to IDD field `Specific Heat Coefficient A`
         Used only if Gas Type = Custom
 
         Args:
@@ -7890,7 +7901,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @specific_heat_coefficient_b.setter
     def specific_heat_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient B`
+        """  Corresponds to IDD field `Specific Heat Coefficient B`
         Used only if Gas Type = Custom
 
         Args:
@@ -7915,7 +7926,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @specific_heat_coefficient_c.setter
     def specific_heat_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Coefficient C`
+        """  Corresponds to IDD field `Specific Heat Coefficient C`
         Used only if Gas Type = Custom
 
         Args:
@@ -7940,7 +7951,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @molecular_weight.setter
     def molecular_weight(self, value=None):
-        """  Corresponds to IDD Field `Molecular Weight`
+        """  Corresponds to IDD field `Molecular Weight`
         Used only if Gas Type = Custom
 
         Args:
@@ -7967,7 +7978,7 @@ class WindowMaterialGapEquivalentLayer(DataObject):
 
     @specific_heat_ratio.setter
     def specific_heat_ratio(self, value=None):
-        """  Corresponds to IDD Field `Specific Heat Ratio`
+        """  Corresponds to IDD field `Specific Heat Ratio`
         Used only if Gas Type = Custom
 
         Args:
@@ -7987,7 +7998,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
         HeatBalanceAlgorithm choice=MoisturePenetrationDepthConductionTransferFunction only
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:MoisturePenetrationDepth:Settings', 'pyname': u'MaterialPropertyMoisturePenetrationDepthSettings', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'moisture penetration depth', {'name': u'Moisture Penetration Depth', 'pyname': u'moisture_penetration_depth', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'moisture equation coefficient a', {'name': u'Moisture Equation Coefficient a', 'pyname': u'moisture_equation_coefficient_a', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient b', {'name': u'Moisture Equation Coefficient b', 'pyname': u'moisture_equation_coefficient_b', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient c', {'name': u'Moisture Equation Coefficient c', 'pyname': u'moisture_equation_coefficient_c', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient d', {'name': u'Moisture Equation Coefficient d', 'pyname': u'moisture_equation_coefficient_d', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:MoisturePenetrationDepth:Settings', 'pyname': u'MaterialPropertyMoisturePenetrationDepthSettings', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'moisture penetration depth', {'name': u'Moisture Penetration Depth', 'pyname': u'moisture_penetration_depth', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'moisture equation coefficient a', {'name': u'Moisture Equation Coefficient a', 'pyname': u'moisture_equation_coefficient_a', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient b', {'name': u'Moisture Equation Coefficient b', 'pyname': u'moisture_equation_coefficient_b', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient c', {'name': u'Moisture Equation Coefficient c', 'pyname': u'moisture_equation_coefficient_c', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'moisture equation coefficient d', {'name': u'Moisture Equation Coefficient d', 'pyname': u'moisture_equation_coefficient_d', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -8000,7 +8011,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Material Name that the moisture properties will be added to.
         Additional material properties required to perform the EMPD model.
         Effective Mean Penetration Depth (EMPD)
@@ -8026,7 +8037,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @moisture_penetration_depth.setter
     def moisture_penetration_depth(self, value=None):
-        """  Corresponds to IDD Field `Moisture Penetration Depth`
+        """  Corresponds to IDD field `Moisture Penetration Depth`
         This is the penetration depth
 
         Args:
@@ -8051,7 +8062,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @moisture_equation_coefficient_a.setter
     def moisture_equation_coefficient_a(self, value=None):
-        """  Corresponds to IDD Field `Moisture Equation Coefficient a`
+        """  Corresponds to IDD field `Moisture Equation Coefficient a`
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient a`
@@ -8075,7 +8086,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @moisture_equation_coefficient_b.setter
     def moisture_equation_coefficient_b(self, value=None):
-        """  Corresponds to IDD Field `Moisture Equation Coefficient b`
+        """  Corresponds to IDD field `Moisture Equation Coefficient b`
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient b`
@@ -8099,7 +8110,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @moisture_equation_coefficient_c.setter
     def moisture_equation_coefficient_c(self, value=None):
-        """  Corresponds to IDD Field `Moisture Equation Coefficient c`
+        """  Corresponds to IDD field `Moisture Equation Coefficient c`
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient c`
@@ -8123,7 +8134,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
 
     @moisture_equation_coefficient_d.setter
     def moisture_equation_coefficient_d(self, value=None):
-        """  Corresponds to IDD Field `Moisture Equation Coefficient d`
+        """  Corresponds to IDD field `Moisture Equation Coefficient d`
 
         Args:
             value (float): value for IDD Field `Moisture Equation Coefficient d`
@@ -8145,7 +8156,7 @@ class MaterialPropertyPhaseChange(DataObject):
         Constructions with this should use the detailed CondFD process.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:PhaseChange', 'pyname': u'MaterialPropertyPhaseChange', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature coefficient for thermal conductivity', {'name': u'Temperature Coefficient for Thermal Conductivity', 'pyname': u'temperature_coefficient_for_thermal_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'temperature 1', {'name': u'Temperature 1', 'pyname': u'temperature_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 1', {'name': u'Enthalpy 1', 'pyname': u'enthalpy_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg'}), (u'temperature 2', {'name': u'Temperature 2', 'pyname': u'temperature_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 2', {'name': u'Enthalpy 2', 'pyname': u'enthalpy_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 3', {'name': u'Temperature 3', 'pyname': u'temperature_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 3', {'name': u'Enthalpy 3', 'pyname': u'enthalpy_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 4', {'name': u'Temperature 4', 'pyname': u'temperature_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 4', {'name': u'Enthalpy 4', 'pyname': u'enthalpy_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 5', {'name': u'Temperature 5', 'pyname': u'temperature_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 5', {'name': u'Enthalpy 5', 'pyname': u'enthalpy_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 6', {'name': u'Temperature 6', 'pyname': u'temperature_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 6', {'name': u'Enthalpy 6', 'pyname': u'enthalpy_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 7', {'name': u'Temperature 7', 'pyname': u'temperature_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 7', {'name': u'Enthalpy 7', 'pyname': u'enthalpy_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 8', {'name': u'Temperature 8', 'pyname': u'temperature_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 8', {'name': u'Enthalpy 8', 'pyname': u'enthalpy_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 9', {'name': u'Temperature 9', 'pyname': u'temperature_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 9', {'name': u'Enthalpy 9', 'pyname': u'enthalpy_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg'}), (u'temperature 10', {'name': u'Temperature 10', 'pyname': u'temperature_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 10', {'name': u'Enthalpy 10', 'pyname': u'enthalpy_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 11', {'name': u'Temperature 11', 'pyname': u'temperature_11', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 11', {'name': u'Enthalpy 11', 'pyname': u'enthalpy_11', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 12', {'name': u'Temperature 12', 'pyname': u'temperature_12', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 12', {'name': u'Enthalpy 12', 'pyname': u'enthalpy_12', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 13', {'name': u'Temperature 13', 'pyname': u'temperature_13', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 13', {'name': u'Enthalpy 13', 'pyname': u'enthalpy_13', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 14', {'name': u'Temperature 14', 'pyname': u'temperature_14', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 14', {'name': u'Enthalpy 14', 'pyname': u'enthalpy_14', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 15', {'name': u'Temperature 15', 'pyname': u'temperature_15', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 15', {'name': u'Enthalpy 15', 'pyname': u'enthalpy_15', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 16', {'name': u'Temperature 16', 'pyname': u'temperature_16', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 16', {'name': u'Enthalpy 16', 'pyname': u'enthalpy_16', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:PhaseChange', 'pyname': u'MaterialPropertyPhaseChange', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature coefficient for thermal conductivity', {'name': u'Temperature Coefficient for Thermal Conductivity', 'pyname': u'temperature_coefficient_for_thermal_conductivity', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K2'}), (u'temperature 1', {'name': u'Temperature 1', 'pyname': u'temperature_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 1', {'name': u'Enthalpy 1', 'pyname': u'enthalpy_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg'}), (u'temperature 2', {'name': u'Temperature 2', 'pyname': u'temperature_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 2', {'name': u'Enthalpy 2', 'pyname': u'enthalpy_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 3', {'name': u'Temperature 3', 'pyname': u'temperature_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 3', {'name': u'Enthalpy 3', 'pyname': u'enthalpy_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 4', {'name': u'Temperature 4', 'pyname': u'temperature_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 4', {'name': u'Enthalpy 4', 'pyname': u'enthalpy_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 5', {'name': u'Temperature 5', 'pyname': u'temperature_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 5', {'name': u'Enthalpy 5', 'pyname': u'enthalpy_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 6', {'name': u'Temperature 6', 'pyname': u'temperature_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 6', {'name': u'Enthalpy 6', 'pyname': u'enthalpy_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 7', {'name': u'Temperature 7', 'pyname': u'temperature_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 7', {'name': u'Enthalpy 7', 'pyname': u'enthalpy_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 8', {'name': u'Temperature 8', 'pyname': u'temperature_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 8', {'name': u'Enthalpy 8', 'pyname': u'enthalpy_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 9', {'name': u'Temperature 9', 'pyname': u'temperature_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 9', {'name': u'Enthalpy 9', 'pyname': u'enthalpy_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'J/kg'}), (u'temperature 10', {'name': u'Temperature 10', 'pyname': u'temperature_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 10', {'name': u'Enthalpy 10', 'pyname': u'enthalpy_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 11', {'name': u'Temperature 11', 'pyname': u'temperature_11', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 11', {'name': u'Enthalpy 11', 'pyname': u'enthalpy_11', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 12', {'name': u'Temperature 12', 'pyname': u'temperature_12', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 12', {'name': u'Enthalpy 12', 'pyname': u'enthalpy_12', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 13', {'name': u'Temperature 13', 'pyname': u'temperature_13', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 13', {'name': u'Enthalpy 13', 'pyname': u'enthalpy_13', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 14', {'name': u'Temperature 14', 'pyname': u'temperature_14', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 14', {'name': u'Enthalpy 14', 'pyname': u'enthalpy_14', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 15', {'name': u'Temperature 15', 'pyname': u'temperature_15', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 15', {'name': u'Enthalpy 15', 'pyname': u'enthalpy_15', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'temperature 16', {'name': u'Temperature 16', 'pyname': u'temperature_16', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy 16', {'name': u'Enthalpy 16', 'pyname': u'enthalpy_16', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -8158,7 +8169,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Regular Material Name to which the additional properties will be added.
         this the material name for the basic material properties.
 
@@ -8183,7 +8194,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_coefficient_for_thermal_conductivity.setter
     def temperature_coefficient_for_thermal_conductivity(self, value=None):
-        """  Corresponds to IDD Field `Temperature Coefficient for Thermal Conductivity`
+        """  Corresponds to IDD field `Temperature Coefficient for Thermal Conductivity`
         The base temperature is 20C.
         This is the thermal conductivity change per degree excursion from 20C.
         This variable conductivity function is overridden by the VariableThermalConductivity object, if present.
@@ -8210,7 +8221,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_1.setter
     def temperature_1(self, value=None):
-        """  Corresponds to IDD Field `Temperature 1`
+        """  Corresponds to IDD field `Temperature 1`
         for Temperature-enthalpy function
 
         Args:
@@ -8235,7 +8246,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_1.setter
     def enthalpy_1(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 1`
+        """  Corresponds to IDD field `Enthalpy 1`
         for Temperature-enthalpy function corresponding to temperature 1
 
         Args:
@@ -8260,7 +8271,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_2.setter
     def temperature_2(self, value=None):
-        """  Corresponds to IDD Field `Temperature 2`
+        """  Corresponds to IDD field `Temperature 2`
         for Temperature-enthalpy function
 
         Args:
@@ -8285,7 +8296,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_2.setter
     def enthalpy_2(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 2`
+        """  Corresponds to IDD field `Enthalpy 2`
         for Temperature-enthalpy function corresponding to temperature 2
 
         Args:
@@ -8310,7 +8321,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_3.setter
     def temperature_3(self, value=None):
-        """  Corresponds to IDD Field `Temperature 3`
+        """  Corresponds to IDD field `Temperature 3`
         for Temperature-enthalpy function
 
         Args:
@@ -8335,7 +8346,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_3.setter
     def enthalpy_3(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 3`
+        """  Corresponds to IDD field `Enthalpy 3`
         for Temperature-enthalpy function corresponding to temperature 3
 
         Args:
@@ -8360,7 +8371,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_4.setter
     def temperature_4(self, value=None):
-        """  Corresponds to IDD Field `Temperature 4`
+        """  Corresponds to IDD field `Temperature 4`
         for Temperature-enthalpy function
 
         Args:
@@ -8385,7 +8396,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_4.setter
     def enthalpy_4(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 4`
+        """  Corresponds to IDD field `Enthalpy 4`
         for Temperature-enthalpy function corresponding to temperature 4
 
         Args:
@@ -8410,7 +8421,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_5.setter
     def temperature_5(self, value=None):
-        """  Corresponds to IDD Field `Temperature 5`
+        """  Corresponds to IDD field `Temperature 5`
         for Temperature-enthalpy function
 
         Args:
@@ -8435,7 +8446,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_5.setter
     def enthalpy_5(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 5`
+        """  Corresponds to IDD field `Enthalpy 5`
         for Temperature-enthalpy function corresponding to temperature 5
 
         Args:
@@ -8460,7 +8471,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_6.setter
     def temperature_6(self, value=None):
-        """  Corresponds to IDD Field `Temperature 6`
+        """  Corresponds to IDD field `Temperature 6`
         for Temperature-enthalpy function
 
         Args:
@@ -8485,7 +8496,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_6.setter
     def enthalpy_6(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 6`
+        """  Corresponds to IDD field `Enthalpy 6`
         for Temperature-enthalpy function corresponding to temperature 6
 
         Args:
@@ -8510,7 +8521,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_7.setter
     def temperature_7(self, value=None):
-        """  Corresponds to IDD Field `Temperature 7`
+        """  Corresponds to IDD field `Temperature 7`
         for Temperature-enthalpy function
 
         Args:
@@ -8535,7 +8546,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_7.setter
     def enthalpy_7(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 7`
+        """  Corresponds to IDD field `Enthalpy 7`
         for Temperature-enthalpy function corresponding to temperature 7
 
         Args:
@@ -8560,7 +8571,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_8.setter
     def temperature_8(self, value=None):
-        """  Corresponds to IDD Field `Temperature 8`
+        """  Corresponds to IDD field `Temperature 8`
         for Temperature-enthalpy function
 
         Args:
@@ -8585,7 +8596,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_8.setter
     def enthalpy_8(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 8`
+        """  Corresponds to IDD field `Enthalpy 8`
         for Temperature-enthalpy function corresponding to temperature 8
 
         Args:
@@ -8610,7 +8621,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_9.setter
     def temperature_9(self, value=None):
-        """  Corresponds to IDD Field `Temperature 9`
+        """  Corresponds to IDD field `Temperature 9`
         for Temperature-enthalpy function
 
         Args:
@@ -8635,7 +8646,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_9.setter
     def enthalpy_9(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 9`
+        """  Corresponds to IDD field `Enthalpy 9`
         for Temperature-enthalpy function corresponding to temperature 1
 
         Args:
@@ -8660,7 +8671,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_10.setter
     def temperature_10(self, value=None):
-        """  Corresponds to IDD Field `Temperature 10`
+        """  Corresponds to IDD field `Temperature 10`
         for Temperature-enthalpy function
 
         Args:
@@ -8685,7 +8696,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_10.setter
     def enthalpy_10(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 10`
+        """  Corresponds to IDD field `Enthalpy 10`
         for Temperature-enthalpy function corresponding to temperature 2
 
         Args:
@@ -8710,7 +8721,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_11.setter
     def temperature_11(self, value=None):
-        """  Corresponds to IDD Field `Temperature 11`
+        """  Corresponds to IDD field `Temperature 11`
         for Temperature-enthalpy function
 
         Args:
@@ -8735,7 +8746,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_11.setter
     def enthalpy_11(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 11`
+        """  Corresponds to IDD field `Enthalpy 11`
         for Temperature-enthalpy function corresponding to temperature 3
 
         Args:
@@ -8760,7 +8771,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_12.setter
     def temperature_12(self, value=None):
-        """  Corresponds to IDD Field `Temperature 12`
+        """  Corresponds to IDD field `Temperature 12`
         for Temperature-enthalpy function
 
         Args:
@@ -8785,7 +8796,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_12.setter
     def enthalpy_12(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 12`
+        """  Corresponds to IDD field `Enthalpy 12`
         for Temperature-enthalpy function corresponding to temperature 14
 
         Args:
@@ -8810,7 +8821,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_13.setter
     def temperature_13(self, value=None):
-        """  Corresponds to IDD Field `Temperature 13`
+        """  Corresponds to IDD field `Temperature 13`
         for Temperature-enthalpy function
 
         Args:
@@ -8835,7 +8846,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_13.setter
     def enthalpy_13(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 13`
+        """  Corresponds to IDD field `Enthalpy 13`
         for Temperature-enthalpy function corresponding to temperature 15
 
         Args:
@@ -8860,7 +8871,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_14.setter
     def temperature_14(self, value=None):
-        """  Corresponds to IDD Field `Temperature 14`
+        """  Corresponds to IDD field `Temperature 14`
         for Temperature-enthalpy function
 
         Args:
@@ -8885,7 +8896,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_14.setter
     def enthalpy_14(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 14`
+        """  Corresponds to IDD field `Enthalpy 14`
         for Temperature-enthalpy function corresponding to temperature 16
 
         Args:
@@ -8910,7 +8921,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_15.setter
     def temperature_15(self, value=None):
-        """  Corresponds to IDD Field `Temperature 15`
+        """  Corresponds to IDD field `Temperature 15`
         for Temperature-enthalpy function
 
         Args:
@@ -8935,7 +8946,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_15.setter
     def enthalpy_15(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 15`
+        """  Corresponds to IDD field `Enthalpy 15`
         for Temperature-enthalpy function corresponding to temperature 17
 
         Args:
@@ -8960,7 +8971,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @temperature_16.setter
     def temperature_16(self, value=None):
-        """  Corresponds to IDD Field `Temperature 16`
+        """  Corresponds to IDD field `Temperature 16`
         for Temperature-enthalpy function
 
         Args:
@@ -8985,7 +8996,7 @@ class MaterialPropertyPhaseChange(DataObject):
 
     @enthalpy_16.setter
     def enthalpy_16(self, value=None):
-        """  Corresponds to IDD Field `Enthalpy 16`
+        """  Corresponds to IDD field `Enthalpy 16`
         for Temperature-enthalpy function corresponding to temperature 16
 
         Args:
@@ -9007,7 +9018,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
         HeatBalanceAlgorithm = CondFD(ConductionFiniteDifference) solution algorithm only.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:VariableThermalConductivity', 'pyname': u'MaterialPropertyVariableThermalConductivity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature 1', {'name': u'Temperature 1', 'pyname': u'temperature_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 1', {'name': u'Thermal Conductivity 1', 'pyname': u'thermal_conductivity_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'temperature 2', {'name': u'Temperature 2', 'pyname': u'temperature_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 2', {'name': u'Thermal Conductivity 2', 'pyname': u'thermal_conductivity_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 3', {'name': u'Temperature 3', 'pyname': u'temperature_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 3', {'name': u'Thermal Conductivity 3', 'pyname': u'thermal_conductivity_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 4', {'name': u'Temperature 4', 'pyname': u'temperature_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 4', {'name': u'Thermal Conductivity 4', 'pyname': u'thermal_conductivity_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 5', {'name': u'Temperature 5', 'pyname': u'temperature_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 5', {'name': u'Thermal Conductivity 5', 'pyname': u'thermal_conductivity_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 6', {'name': u'Temperature 6', 'pyname': u'temperature_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 6', {'name': u'Thermal Conductivity 6', 'pyname': u'thermal_conductivity_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 7', {'name': u'Temperature 7', 'pyname': u'temperature_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 7', {'name': u'Thermal Conductivity 7', 'pyname': u'thermal_conductivity_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 8', {'name': u'Temperature 8', 'pyname': u'temperature_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 8', {'name': u'Thermal Conductivity 8', 'pyname': u'thermal_conductivity_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 9', {'name': u'Temperature 9', 'pyname': u'temperature_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 9', {'name': u'Thermal Conductivity 9', 'pyname': u'thermal_conductivity_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'temperature 10', {'name': u'Temperature 10', 'pyname': u'temperature_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 10', {'name': u'Thermal Conductivity 10', 'pyname': u'thermal_conductivity_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:VariableThermalConductivity', 'pyname': u'MaterialPropertyVariableThermalConductivity', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'temperature 1', {'name': u'Temperature 1', 'pyname': u'temperature_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 1', {'name': u'Thermal Conductivity 1', 'pyname': u'thermal_conductivity_1', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'temperature 2', {'name': u'Temperature 2', 'pyname': u'temperature_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 2', {'name': u'Thermal Conductivity 2', 'pyname': u'thermal_conductivity_2', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 3', {'name': u'Temperature 3', 'pyname': u'temperature_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 3', {'name': u'Thermal Conductivity 3', 'pyname': u'thermal_conductivity_3', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 4', {'name': u'Temperature 4', 'pyname': u'temperature_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 4', {'name': u'Thermal Conductivity 4', 'pyname': u'thermal_conductivity_4', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 5', {'name': u'Temperature 5', 'pyname': u'temperature_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 5', {'name': u'Thermal Conductivity 5', 'pyname': u'thermal_conductivity_5', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 6', {'name': u'Temperature 6', 'pyname': u'temperature_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 6', {'name': u'Thermal Conductivity 6', 'pyname': u'thermal_conductivity_6', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 7', {'name': u'Temperature 7', 'pyname': u'temperature_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 7', {'name': u'Thermal Conductivity 7', 'pyname': u'thermal_conductivity_7', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 8', {'name': u'Temperature 8', 'pyname': u'temperature_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 8', {'name': u'Thermal Conductivity 8', 'pyname': u'thermal_conductivity_8', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'temperature 9', {'name': u'Temperature 9', 'pyname': u'temperature_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 9', {'name': u'Thermal Conductivity 9', 'pyname': u'thermal_conductivity_9', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'temperature 10', {'name': u'Temperature 10', 'pyname': u'temperature_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'thermal conductivity 10', {'name': u'Thermal Conductivity 10', 'pyname': u'thermal_conductivity_10', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -9020,7 +9031,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
         Regular Material Name to which the additional properties will be added.
         this the material name for the basic material properties.
 
@@ -9045,7 +9056,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_1.setter
     def temperature_1(self, value=None):
-        """  Corresponds to IDD Field `Temperature 1`
+        """  Corresponds to IDD field `Temperature 1`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9070,7 +9081,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_1.setter
     def thermal_conductivity_1(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 1`
+        """  Corresponds to IDD field `Thermal Conductivity 1`
         for Temperature-Thermal Conductivity function corresponding to temperature 1
 
         Args:
@@ -9095,7 +9106,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_2.setter
     def temperature_2(self, value=None):
-        """  Corresponds to IDD Field `Temperature 2`
+        """  Corresponds to IDD field `Temperature 2`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9120,7 +9131,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_2.setter
     def thermal_conductivity_2(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 2`
+        """  Corresponds to IDD field `Thermal Conductivity 2`
         for Temperature-Thermal Conductivity function corresponding to temperature 2
 
         Args:
@@ -9145,7 +9156,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_3.setter
     def temperature_3(self, value=None):
-        """  Corresponds to IDD Field `Temperature 3`
+        """  Corresponds to IDD field `Temperature 3`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9170,7 +9181,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_3.setter
     def thermal_conductivity_3(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 3`
+        """  Corresponds to IDD field `Thermal Conductivity 3`
         for Temperature-Thermal Conductivity function corresponding to temperature 3
 
         Args:
@@ -9195,7 +9206,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_4.setter
     def temperature_4(self, value=None):
-        """  Corresponds to IDD Field `Temperature 4`
+        """  Corresponds to IDD field `Temperature 4`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9220,7 +9231,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_4.setter
     def thermal_conductivity_4(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 4`
+        """  Corresponds to IDD field `Thermal Conductivity 4`
         for Temperature-Thermal Conductivity function corresponding to temperature 4
 
         Args:
@@ -9245,7 +9256,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_5.setter
     def temperature_5(self, value=None):
-        """  Corresponds to IDD Field `Temperature 5`
+        """  Corresponds to IDD field `Temperature 5`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9270,7 +9281,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_5.setter
     def thermal_conductivity_5(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 5`
+        """  Corresponds to IDD field `Thermal Conductivity 5`
         for Temperature-Thermal Conductivity function corresponding to temperature 5
 
         Args:
@@ -9295,7 +9306,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_6.setter
     def temperature_6(self, value=None):
-        """  Corresponds to IDD Field `Temperature 6`
+        """  Corresponds to IDD field `Temperature 6`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9320,7 +9331,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_6.setter
     def thermal_conductivity_6(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 6`
+        """  Corresponds to IDD field `Thermal Conductivity 6`
         for Temperature-Thermal Conductivity function corresponding to temperature 6
 
         Args:
@@ -9345,7 +9356,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_7.setter
     def temperature_7(self, value=None):
-        """  Corresponds to IDD Field `Temperature 7`
+        """  Corresponds to IDD field `Temperature 7`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9370,7 +9381,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_7.setter
     def thermal_conductivity_7(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 7`
+        """  Corresponds to IDD field `Thermal Conductivity 7`
         for Temperature-Thermal Conductivity function corresponding to temperature 7
 
         Args:
@@ -9395,7 +9406,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_8.setter
     def temperature_8(self, value=None):
-        """  Corresponds to IDD Field `Temperature 8`
+        """  Corresponds to IDD field `Temperature 8`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9420,7 +9431,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_8.setter
     def thermal_conductivity_8(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 8`
+        """  Corresponds to IDD field `Thermal Conductivity 8`
         for Temperature-Thermal Conductivity function corresponding to temperature 8
 
         Args:
@@ -9445,7 +9456,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_9.setter
     def temperature_9(self, value=None):
-        """  Corresponds to IDD Field `Temperature 9`
+        """  Corresponds to IDD field `Temperature 9`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9470,7 +9481,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_9.setter
     def thermal_conductivity_9(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 9`
+        """  Corresponds to IDD field `Thermal Conductivity 9`
         for Temperature-Thermal Conductivity function corresponding to temperature 9
 
         Args:
@@ -9495,7 +9506,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @temperature_10.setter
     def temperature_10(self, value=None):
-        """  Corresponds to IDD Field `Temperature 10`
+        """  Corresponds to IDD field `Temperature 10`
         for Temperature-Thermal Conductivity function
 
         Args:
@@ -9520,7 +9531,7 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
 
     @thermal_conductivity_10.setter
     def thermal_conductivity_10(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 10`
+        """  Corresponds to IDD field `Thermal Conductivity 10`
         for Temperature-Thermal Conductivity function corresponding to temperature 10
 
         Args:
@@ -9541,7 +9552,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
         Additional material properties for surfaces.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Settings', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSettings', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'porosity', {'name': u'Porosity', 'pyname': u'porosity', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m3'}), (u'initial water content ratio', {'name': u'Initial Water Content Ratio', 'pyname': u'initial_water_content_ratio', 'default': 0.2, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Settings', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSettings', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'porosity', {'name': u'Porosity', 'pyname': u'porosity', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/m3'}), (u'initial water content ratio', {'name': u'Initial Water Content Ratio', 'pyname': u'initial_water_content_ratio', 'default': 0.2, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/kg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -9554,7 +9565,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         Material Name that the moisture properties will be added to.
         This augments material properties needed for combined heat and moisture transfer for surfaces.
 
@@ -9579,7 +9590,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
 
     @porosity.setter
     def porosity(self, value=None):
-        """  Corresponds to IDD Field `Porosity`
+        """  Corresponds to IDD field `Porosity`
 
         Args:
             value (float): value for IDD Field `Porosity`
@@ -9604,7 +9615,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
 
     @initial_water_content_ratio.setter
     def initial_water_content_ratio(self, value=0.2):
-        """  Corresponds to IDD Field `Initial Water Content Ratio`
+        """  Corresponds to IDD field `Initial Water Content Ratio`
         units are the water/material density ratio at the begining of each run period.
 
         Args:
@@ -9626,7 +9637,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
         Relationship between moisture content and relative humidity fraction.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSorptionIsotherm', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of isotherm coordinates', {'name': u'Number of Isotherm Coordinates', 'pyname': u'number_of_isotherm_coordinates', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'relative humidity fraction 1', {'name': u'Relative Humidity Fraction 1', 'pyname': u'relative_humidity_fraction_1', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 2', {'name': u'Relative Humidity Fraction 2', 'pyname': u'relative_humidity_fraction_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 3', {'name': u'Relative Humidity Fraction 3', 'pyname': u'relative_humidity_fraction_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 4', {'name': u'Relative Humidity Fraction 4', 'pyname': u'relative_humidity_fraction_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 5', {'name': u'Relative Humidity Fraction 5', 'pyname': u'relative_humidity_fraction_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 6', {'name': u'Relative Humidity Fraction 6', 'pyname': u'relative_humidity_fraction_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 7', {'name': u'Relative Humidity Fraction 7', 'pyname': u'relative_humidity_fraction_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 8', {'name': u'Relative Humidity Fraction 8', 'pyname': u'relative_humidity_fraction_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 9', {'name': u'Relative Humidity Fraction 9', 'pyname': u'relative_humidity_fraction_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 10', {'name': u'Relative Humidity Fraction 10', 'pyname': u'relative_humidity_fraction_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 11', {'name': u'Relative Humidity Fraction 11', 'pyname': u'relative_humidity_fraction_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 12', {'name': u'Relative Humidity Fraction 12', 'pyname': u'relative_humidity_fraction_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 13', {'name': u'Relative Humidity Fraction 13', 'pyname': u'relative_humidity_fraction_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 14', {'name': u'Relative Humidity Fraction 14', 'pyname': u'relative_humidity_fraction_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 15', {'name': u'Relative Humidity Fraction 15', 'pyname': u'relative_humidity_fraction_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 16', {'name': u'Relative Humidity Fraction 16', 'pyname': u'relative_humidity_fraction_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 17', {'name': u'Relative Humidity Fraction 17', 'pyname': u'relative_humidity_fraction_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 18', {'name': u'Relative Humidity Fraction 18', 'pyname': u'relative_humidity_fraction_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 19', {'name': u'Relative Humidity Fraction 19', 'pyname': u'relative_humidity_fraction_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 20', {'name': u'Relative Humidity Fraction 20', 'pyname': u'relative_humidity_fraction_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 21', {'name': u'Relative Humidity Fraction 21', 'pyname': u'relative_humidity_fraction_21', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 22', {'name': u'Relative Humidity Fraction 22', 'pyname': u'relative_humidity_fraction_22', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 23', {'name': u'Relative Humidity Fraction 23', 'pyname': u'relative_humidity_fraction_23', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 24', {'name': u'Relative Humidity Fraction 24', 'pyname': u'relative_humidity_fraction_24', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 25', {'name': u'Relative Humidity Fraction 25', 'pyname': u'relative_humidity_fraction_25', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSorptionIsotherm', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of isotherm coordinates', {'name': u'Number of Isotherm Coordinates', 'pyname': u'number_of_isotherm_coordinates', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'relative humidity fraction 1', {'name': u'Relative Humidity Fraction 1', 'pyname': u'relative_humidity_fraction_1', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 2', {'name': u'Relative Humidity Fraction 2', 'pyname': u'relative_humidity_fraction_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 3', {'name': u'Relative Humidity Fraction 3', 'pyname': u'relative_humidity_fraction_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 4', {'name': u'Relative Humidity Fraction 4', 'pyname': u'relative_humidity_fraction_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 5', {'name': u'Relative Humidity Fraction 5', 'pyname': u'relative_humidity_fraction_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 6', {'name': u'Relative Humidity Fraction 6', 'pyname': u'relative_humidity_fraction_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 7', {'name': u'Relative Humidity Fraction 7', 'pyname': u'relative_humidity_fraction_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 8', {'name': u'Relative Humidity Fraction 8', 'pyname': u'relative_humidity_fraction_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 9', {'name': u'Relative Humidity Fraction 9', 'pyname': u'relative_humidity_fraction_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 10', {'name': u'Relative Humidity Fraction 10', 'pyname': u'relative_humidity_fraction_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 11', {'name': u'Relative Humidity Fraction 11', 'pyname': u'relative_humidity_fraction_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 12', {'name': u'Relative Humidity Fraction 12', 'pyname': u'relative_humidity_fraction_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 13', {'name': u'Relative Humidity Fraction 13', 'pyname': u'relative_humidity_fraction_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 14', {'name': u'Relative Humidity Fraction 14', 'pyname': u'relative_humidity_fraction_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 15', {'name': u'Relative Humidity Fraction 15', 'pyname': u'relative_humidity_fraction_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 16', {'name': u'Relative Humidity Fraction 16', 'pyname': u'relative_humidity_fraction_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 17', {'name': u'Relative Humidity Fraction 17', 'pyname': u'relative_humidity_fraction_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 18', {'name': u'Relative Humidity Fraction 18', 'pyname': u'relative_humidity_fraction_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 19', {'name': u'Relative Humidity Fraction 19', 'pyname': u'relative_humidity_fraction_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 20', {'name': u'Relative Humidity Fraction 20', 'pyname': u'relative_humidity_fraction_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 21', {'name': u'Relative Humidity Fraction 21', 'pyname': u'relative_humidity_fraction_21', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 22', {'name': u'Relative Humidity Fraction 22', 'pyname': u'relative_humidity_fraction_22', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 23', {'name': u'Relative Humidity Fraction 23', 'pyname': u'relative_humidity_fraction_23', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 24', {'name': u'Relative Humidity Fraction 24', 'pyname': u'relative_humidity_fraction_24', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'relative humidity fraction 25', {'name': u'Relative Humidity Fraction 25', 'pyname': u'relative_humidity_fraction_25', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -9639,7 +9650,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         The Material Name that the moisture sorption isotherm will be added to.
 
         Args:
@@ -9663,7 +9674,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @number_of_isotherm_coordinates.setter
     def number_of_isotherm_coordinates(self, value=None):
-        """  Corresponds to IDD Field `Number of Isotherm Coordinates`
+        """  Corresponds to IDD field `Number of Isotherm Coordinates`
         Number of data Coordinates
 
         Args:
@@ -9689,7 +9700,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_1.setter
     def relative_humidity_fraction_1(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 1`
+        """  Corresponds to IDD field `Relative Humidity Fraction 1`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9715,7 +9726,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 1`
+        """  Corresponds to IDD field `Moisture Content 1`
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -9739,7 +9750,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_2.setter
     def relative_humidity_fraction_2(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 2`
+        """  Corresponds to IDD field `Relative Humidity Fraction 2`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9765,7 +9776,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 2`
+        """  Corresponds to IDD field `Moisture Content 2`
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -9789,7 +9800,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_3.setter
     def relative_humidity_fraction_3(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 3`
+        """  Corresponds to IDD field `Relative Humidity Fraction 3`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9815,7 +9826,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 3`
+        """  Corresponds to IDD field `Moisture Content 3`
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -9839,7 +9850,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_4.setter
     def relative_humidity_fraction_4(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 4`
+        """  Corresponds to IDD field `Relative Humidity Fraction 4`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9865,7 +9876,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 4`
+        """  Corresponds to IDD field `Moisture Content 4`
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -9889,7 +9900,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_5.setter
     def relative_humidity_fraction_5(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 5`
+        """  Corresponds to IDD field `Relative Humidity Fraction 5`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9915,7 +9926,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 5`
+        """  Corresponds to IDD field `Moisture Content 5`
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -9939,7 +9950,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_6.setter
     def relative_humidity_fraction_6(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 6`
+        """  Corresponds to IDD field `Relative Humidity Fraction 6`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -9965,7 +9976,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 6`
+        """  Corresponds to IDD field `Moisture Content 6`
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -9989,7 +10000,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_7.setter
     def relative_humidity_fraction_7(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 7`
+        """  Corresponds to IDD field `Relative Humidity Fraction 7`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10015,7 +10026,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 7`
+        """  Corresponds to IDD field `Moisture Content 7`
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -10039,7 +10050,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_8.setter
     def relative_humidity_fraction_8(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 8`
+        """  Corresponds to IDD field `Relative Humidity Fraction 8`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10065,7 +10076,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 8`
+        """  Corresponds to IDD field `Moisture Content 8`
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -10089,7 +10100,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_9.setter
     def relative_humidity_fraction_9(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 9`
+        """  Corresponds to IDD field `Relative Humidity Fraction 9`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10115,7 +10126,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 9`
+        """  Corresponds to IDD field `Moisture Content 9`
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -10139,7 +10150,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_10.setter
     def relative_humidity_fraction_10(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 10`
+        """  Corresponds to IDD field `Relative Humidity Fraction 10`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10165,7 +10176,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 10`
+        """  Corresponds to IDD field `Moisture Content 10`
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -10189,7 +10200,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_11.setter
     def relative_humidity_fraction_11(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 11`
+        """  Corresponds to IDD field `Relative Humidity Fraction 11`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10215,7 +10226,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 11`
+        """  Corresponds to IDD field `Moisture Content 11`
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -10239,7 +10250,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_12.setter
     def relative_humidity_fraction_12(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 12`
+        """  Corresponds to IDD field `Relative Humidity Fraction 12`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10265,7 +10276,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 12`
+        """  Corresponds to IDD field `Moisture Content 12`
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -10289,7 +10300,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_13.setter
     def relative_humidity_fraction_13(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 13`
+        """  Corresponds to IDD field `Relative Humidity Fraction 13`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10315,7 +10326,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 13`
+        """  Corresponds to IDD field `Moisture Content 13`
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -10339,7 +10350,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_14.setter
     def relative_humidity_fraction_14(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 14`
+        """  Corresponds to IDD field `Relative Humidity Fraction 14`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10365,7 +10376,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 14`
+        """  Corresponds to IDD field `Moisture Content 14`
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -10389,7 +10400,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_15.setter
     def relative_humidity_fraction_15(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 15`
+        """  Corresponds to IDD field `Relative Humidity Fraction 15`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10415,7 +10426,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 15`
+        """  Corresponds to IDD field `Moisture Content 15`
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -10439,7 +10450,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_16.setter
     def relative_humidity_fraction_16(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 16`
+        """  Corresponds to IDD field `Relative Humidity Fraction 16`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10465,7 +10476,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 16`
+        """  Corresponds to IDD field `Moisture Content 16`
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -10489,7 +10500,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_17.setter
     def relative_humidity_fraction_17(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 17`
+        """  Corresponds to IDD field `Relative Humidity Fraction 17`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10515,7 +10526,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 17`
+        """  Corresponds to IDD field `Moisture Content 17`
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -10539,7 +10550,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_18.setter
     def relative_humidity_fraction_18(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 18`
+        """  Corresponds to IDD field `Relative Humidity Fraction 18`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10565,7 +10576,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 18`
+        """  Corresponds to IDD field `Moisture Content 18`
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -10589,7 +10600,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_19.setter
     def relative_humidity_fraction_19(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 19`
+        """  Corresponds to IDD field `Relative Humidity Fraction 19`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10615,7 +10626,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 19`
+        """  Corresponds to IDD field `Moisture Content 19`
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -10639,7 +10650,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_20.setter
     def relative_humidity_fraction_20(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 20`
+        """  Corresponds to IDD field `Relative Humidity Fraction 20`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10665,7 +10676,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 20`
+        """  Corresponds to IDD field `Moisture Content 20`
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -10689,7 +10700,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_21.setter
     def relative_humidity_fraction_21(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 21`
+        """  Corresponds to IDD field `Relative Humidity Fraction 21`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10715,7 +10726,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 21`
+        """  Corresponds to IDD field `Moisture Content 21`
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -10739,7 +10750,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_22.setter
     def relative_humidity_fraction_22(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 22`
+        """  Corresponds to IDD field `Relative Humidity Fraction 22`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10765,7 +10776,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 22`
+        """  Corresponds to IDD field `Moisture Content 22`
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -10789,7 +10800,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_23.setter
     def relative_humidity_fraction_23(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 23`
+        """  Corresponds to IDD field `Relative Humidity Fraction 23`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10815,7 +10826,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 23`
+        """  Corresponds to IDD field `Moisture Content 23`
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -10839,7 +10850,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_24.setter
     def relative_humidity_fraction_24(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 24`
+        """  Corresponds to IDD field `Relative Humidity Fraction 24`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10865,7 +10876,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 24`
+        """  Corresponds to IDD field `Moisture Content 24`
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -10889,7 +10900,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @relative_humidity_fraction_25.setter
     def relative_humidity_fraction_25(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 25`
+        """  Corresponds to IDD field `Relative Humidity Fraction 25`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -10915,7 +10926,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
 
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 25`
+        """  Corresponds to IDD field `Moisture Content 25`
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -10935,7 +10946,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
         Relationship between liquid suction transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Suction', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSuction', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of suction points', {'name': u'Number of Suction points', 'pyname': u'number_of_suction_points', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 1', {'name': u'Liquid Transport Coefficient 1', 'pyname': u'liquid_transport_coefficient_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 2', {'name': u'Liquid Transport Coefficient 2', 'pyname': u'liquid_transport_coefficient_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 3', {'name': u'Liquid Transport Coefficient 3', 'pyname': u'liquid_transport_coefficient_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 4', {'name': u'Liquid Transport Coefficient 4', 'pyname': u'liquid_transport_coefficient_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 5', {'name': u'Liquid Transport Coefficient 5', 'pyname': u'liquid_transport_coefficient_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 6', {'name': u'Liquid Transport Coefficient 6', 'pyname': u'liquid_transport_coefficient_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 7', {'name': u'Liquid Transport Coefficient 7', 'pyname': u'liquid_transport_coefficient_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 8', {'name': u'Liquid Transport Coefficient 8', 'pyname': u'liquid_transport_coefficient_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 9', {'name': u'Liquid Transport Coefficient 9', 'pyname': u'liquid_transport_coefficient_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 10', {'name': u'Liquid Transport Coefficient 10', 'pyname': u'liquid_transport_coefficient_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 11', {'name': u'Liquid Transport Coefficient 11', 'pyname': u'liquid_transport_coefficient_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 12', {'name': u'Liquid Transport Coefficient 12', 'pyname': u'liquid_transport_coefficient_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 13', {'name': u'Liquid Transport Coefficient 13', 'pyname': u'liquid_transport_coefficient_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 14', {'name': u'Liquid Transport Coefficient 14', 'pyname': u'liquid_transport_coefficient_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 15', {'name': u'Liquid Transport Coefficient 15', 'pyname': u'liquid_transport_coefficient_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 16', {'name': u'Liquid Transport Coefficient 16', 'pyname': u'liquid_transport_coefficient_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 17', {'name': u'Liquid Transport Coefficient 17', 'pyname': u'liquid_transport_coefficient_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 18', {'name': u'Liquid Transport Coefficient 18', 'pyname': u'liquid_transport_coefficient_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 19', {'name': u'Liquid Transport Coefficient 19', 'pyname': u'liquid_transport_coefficient_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 20', {'name': u'Liquid Transport Coefficient 20', 'pyname': u'liquid_transport_coefficient_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 21', {'name': u'Liquid Transport Coefficient 21', 'pyname': u'liquid_transport_coefficient_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 22', {'name': u'Liquid Transport Coefficient 22', 'pyname': u'liquid_transport_coefficient_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 23', {'name': u'Liquid Transport Coefficient 23', 'pyname': u'liquid_transport_coefficient_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 24', {'name': u'Liquid Transport Coefficient 24', 'pyname': u'liquid_transport_coefficient_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 25', {'name': u'Liquid Transport Coefficient 25', 'pyname': u'liquid_transport_coefficient_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Suction', 'pyname': u'MaterialPropertyHeatAndMoistureTransferSuction', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of suction points', {'name': u'Number of Suction points', 'pyname': u'number_of_suction_points', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 1', {'name': u'Liquid Transport Coefficient 1', 'pyname': u'liquid_transport_coefficient_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 2', {'name': u'Liquid Transport Coefficient 2', 'pyname': u'liquid_transport_coefficient_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 3', {'name': u'Liquid Transport Coefficient 3', 'pyname': u'liquid_transport_coefficient_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 4', {'name': u'Liquid Transport Coefficient 4', 'pyname': u'liquid_transport_coefficient_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 5', {'name': u'Liquid Transport Coefficient 5', 'pyname': u'liquid_transport_coefficient_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 6', {'name': u'Liquid Transport Coefficient 6', 'pyname': u'liquid_transport_coefficient_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 7', {'name': u'Liquid Transport Coefficient 7', 'pyname': u'liquid_transport_coefficient_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 8', {'name': u'Liquid Transport Coefficient 8', 'pyname': u'liquid_transport_coefficient_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 9', {'name': u'Liquid Transport Coefficient 9', 'pyname': u'liquid_transport_coefficient_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 10', {'name': u'Liquid Transport Coefficient 10', 'pyname': u'liquid_transport_coefficient_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 11', {'name': u'Liquid Transport Coefficient 11', 'pyname': u'liquid_transport_coefficient_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 12', {'name': u'Liquid Transport Coefficient 12', 'pyname': u'liquid_transport_coefficient_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 13', {'name': u'Liquid Transport Coefficient 13', 'pyname': u'liquid_transport_coefficient_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 14', {'name': u'Liquid Transport Coefficient 14', 'pyname': u'liquid_transport_coefficient_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 15', {'name': u'Liquid Transport Coefficient 15', 'pyname': u'liquid_transport_coefficient_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 16', {'name': u'Liquid Transport Coefficient 16', 'pyname': u'liquid_transport_coefficient_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 17', {'name': u'Liquid Transport Coefficient 17', 'pyname': u'liquid_transport_coefficient_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 18', {'name': u'Liquid Transport Coefficient 18', 'pyname': u'liquid_transport_coefficient_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 19', {'name': u'Liquid Transport Coefficient 19', 'pyname': u'liquid_transport_coefficient_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 20', {'name': u'Liquid Transport Coefficient 20', 'pyname': u'liquid_transport_coefficient_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 21', {'name': u'Liquid Transport Coefficient 21', 'pyname': u'liquid_transport_coefficient_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 22', {'name': u'Liquid Transport Coefficient 22', 'pyname': u'liquid_transport_coefficient_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 23', {'name': u'Liquid Transport Coefficient 23', 'pyname': u'liquid_transport_coefficient_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 24', {'name': u'Liquid Transport Coefficient 24', 'pyname': u'liquid_transport_coefficient_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 25', {'name': u'Liquid Transport Coefficient 25', 'pyname': u'liquid_transport_coefficient_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -10948,7 +10959,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         Material Name that the moisture properties will be added to.
 
         Args:
@@ -10972,7 +10983,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @number_of_suction_points.setter
     def number_of_suction_points(self, value=None):
-        """  Corresponds to IDD Field `Number of Suction points`
+        """  Corresponds to IDD field `Number of Suction points`
         Number of Suction Liquid Transport Coefficient coordinates
 
         Args:
@@ -10998,7 +11009,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 1`
+        """  Corresponds to IDD field `Moisture Content 1`
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -11022,7 +11033,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_1.setter
     def liquid_transport_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 1`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 1`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
@@ -11046,7 +11057,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 2`
+        """  Corresponds to IDD field `Moisture Content 2`
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -11070,7 +11081,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_2.setter
     def liquid_transport_coefficient_2(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 2`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 2`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
@@ -11094,7 +11105,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 3`
+        """  Corresponds to IDD field `Moisture Content 3`
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -11118,7 +11129,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_3.setter
     def liquid_transport_coefficient_3(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 3`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 3`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
@@ -11142,7 +11153,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 4`
+        """  Corresponds to IDD field `Moisture Content 4`
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -11166,7 +11177,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_4.setter
     def liquid_transport_coefficient_4(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 4`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 4`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
@@ -11190,7 +11201,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 5`
+        """  Corresponds to IDD field `Moisture Content 5`
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -11214,7 +11225,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_5.setter
     def liquid_transport_coefficient_5(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 5`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 5`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
@@ -11238,7 +11249,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 6`
+        """  Corresponds to IDD field `Moisture Content 6`
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -11262,7 +11273,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_6.setter
     def liquid_transport_coefficient_6(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 6`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 6`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
@@ -11286,7 +11297,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 7`
+        """  Corresponds to IDD field `Moisture Content 7`
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -11310,7 +11321,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_7.setter
     def liquid_transport_coefficient_7(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 7`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 7`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
@@ -11334,7 +11345,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 8`
+        """  Corresponds to IDD field `Moisture Content 8`
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -11358,7 +11369,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_8.setter
     def liquid_transport_coefficient_8(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 8`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 8`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
@@ -11382,7 +11393,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 9`
+        """  Corresponds to IDD field `Moisture Content 9`
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -11406,7 +11417,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_9.setter
     def liquid_transport_coefficient_9(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 9`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 9`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
@@ -11430,7 +11441,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 10`
+        """  Corresponds to IDD field `Moisture Content 10`
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -11454,7 +11465,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_10.setter
     def liquid_transport_coefficient_10(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 10`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 10`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
@@ -11478,7 +11489,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 11`
+        """  Corresponds to IDD field `Moisture Content 11`
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -11502,7 +11513,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_11.setter
     def liquid_transport_coefficient_11(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 11`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 11`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
@@ -11526,7 +11537,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 12`
+        """  Corresponds to IDD field `Moisture Content 12`
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -11550,7 +11561,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_12.setter
     def liquid_transport_coefficient_12(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 12`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 12`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
@@ -11574,7 +11585,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 13`
+        """  Corresponds to IDD field `Moisture Content 13`
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -11598,7 +11609,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_13.setter
     def liquid_transport_coefficient_13(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 13`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 13`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
@@ -11622,7 +11633,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 14`
+        """  Corresponds to IDD field `Moisture Content 14`
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -11646,7 +11657,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_14.setter
     def liquid_transport_coefficient_14(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 14`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 14`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
@@ -11670,7 +11681,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 15`
+        """  Corresponds to IDD field `Moisture Content 15`
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -11694,7 +11705,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_15.setter
     def liquid_transport_coefficient_15(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 15`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 15`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
@@ -11718,7 +11729,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 16`
+        """  Corresponds to IDD field `Moisture Content 16`
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -11742,7 +11753,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_16.setter
     def liquid_transport_coefficient_16(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 16`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 16`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
@@ -11766,7 +11777,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 17`
+        """  Corresponds to IDD field `Moisture Content 17`
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -11790,7 +11801,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_17.setter
     def liquid_transport_coefficient_17(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 17`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 17`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
@@ -11814,7 +11825,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 18`
+        """  Corresponds to IDD field `Moisture Content 18`
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -11838,7 +11849,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_18.setter
     def liquid_transport_coefficient_18(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 18`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 18`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
@@ -11862,7 +11873,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 19`
+        """  Corresponds to IDD field `Moisture Content 19`
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -11886,7 +11897,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_19.setter
     def liquid_transport_coefficient_19(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 19`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 19`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
@@ -11910,7 +11921,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 20`
+        """  Corresponds to IDD field `Moisture Content 20`
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -11934,7 +11945,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_20.setter
     def liquid_transport_coefficient_20(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 20`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 20`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
@@ -11958,7 +11969,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 21`
+        """  Corresponds to IDD field `Moisture Content 21`
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -11982,7 +11993,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_21.setter
     def liquid_transport_coefficient_21(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 21`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 21`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
@@ -12006,7 +12017,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 22`
+        """  Corresponds to IDD field `Moisture Content 22`
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -12030,7 +12041,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_22.setter
     def liquid_transport_coefficient_22(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 22`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 22`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
@@ -12054,7 +12065,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 23`
+        """  Corresponds to IDD field `Moisture Content 23`
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -12078,7 +12089,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_23.setter
     def liquid_transport_coefficient_23(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 23`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 23`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
@@ -12102,7 +12113,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 24`
+        """  Corresponds to IDD field `Moisture Content 24`
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -12126,7 +12137,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_24.setter
     def liquid_transport_coefficient_24(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 24`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 24`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
@@ -12150,7 +12161,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 25`
+        """  Corresponds to IDD field `Moisture Content 25`
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -12174,7 +12185,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
 
     @liquid_transport_coefficient_25.setter
     def liquid_transport_coefficient_25(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 25`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 25`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
@@ -12194,7 +12205,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
         Relationship between liquid transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Redistribution', 'pyname': u'MaterialPropertyHeatAndMoistureTransferRedistribution', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of redistribution points', {'name': u'Number of Redistribution points', 'pyname': u'number_of_redistribution_points', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 1', {'name': u'Liquid Transport Coefficient 1', 'pyname': u'liquid_transport_coefficient_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 2', {'name': u'Liquid Transport Coefficient 2', 'pyname': u'liquid_transport_coefficient_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 3', {'name': u'Liquid Transport Coefficient 3', 'pyname': u'liquid_transport_coefficient_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 4', {'name': u'Liquid Transport Coefficient 4', 'pyname': u'liquid_transport_coefficient_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 5', {'name': u'Liquid Transport Coefficient 5', 'pyname': u'liquid_transport_coefficient_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 6', {'name': u'Liquid Transport Coefficient 6', 'pyname': u'liquid_transport_coefficient_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 7', {'name': u'Liquid Transport Coefficient 7', 'pyname': u'liquid_transport_coefficient_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 8', {'name': u'Liquid Transport Coefficient 8', 'pyname': u'liquid_transport_coefficient_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 9', {'name': u'Liquid Transport Coefficient 9', 'pyname': u'liquid_transport_coefficient_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 10', {'name': u'Liquid Transport Coefficient 10', 'pyname': u'liquid_transport_coefficient_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 11', {'name': u'Liquid Transport Coefficient 11', 'pyname': u'liquid_transport_coefficient_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 12', {'name': u'Liquid Transport Coefficient 12', 'pyname': u'liquid_transport_coefficient_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 13', {'name': u'Liquid Transport Coefficient 13', 'pyname': u'liquid_transport_coefficient_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 14', {'name': u'Liquid Transport Coefficient 14', 'pyname': u'liquid_transport_coefficient_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 15', {'name': u'Liquid Transport Coefficient 15', 'pyname': u'liquid_transport_coefficient_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 16', {'name': u'Liquid Transport Coefficient 16', 'pyname': u'liquid_transport_coefficient_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 17', {'name': u'Liquid Transport Coefficient 17', 'pyname': u'liquid_transport_coefficient_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 18', {'name': u'Liquid Transport Coefficient 18', 'pyname': u'liquid_transport_coefficient_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 19', {'name': u'Liquid Transport Coefficient 19', 'pyname': u'liquid_transport_coefficient_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 20', {'name': u'Liquid Transport Coefficient 20', 'pyname': u'liquid_transport_coefficient_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 21', {'name': u'Liquid Transport Coefficient 21', 'pyname': u'liquid_transport_coefficient_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 22', {'name': u'Liquid Transport Coefficient 22', 'pyname': u'liquid_transport_coefficient_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 23', {'name': u'Liquid Transport Coefficient 23', 'pyname': u'liquid_transport_coefficient_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 24', {'name': u'Liquid Transport Coefficient 24', 'pyname': u'liquid_transport_coefficient_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 25', {'name': u'Liquid Transport Coefficient 25', 'pyname': u'liquid_transport_coefficient_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Redistribution', 'pyname': u'MaterialPropertyHeatAndMoistureTransferRedistribution', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of redistribution points', {'name': u'Number of Redistribution points', 'pyname': u'number_of_redistribution_points', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 1', {'name': u'Liquid Transport Coefficient 1', 'pyname': u'liquid_transport_coefficient_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 2', {'name': u'Liquid Transport Coefficient 2', 'pyname': u'liquid_transport_coefficient_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 3', {'name': u'Liquid Transport Coefficient 3', 'pyname': u'liquid_transport_coefficient_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 4', {'name': u'Liquid Transport Coefficient 4', 'pyname': u'liquid_transport_coefficient_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 5', {'name': u'Liquid Transport Coefficient 5', 'pyname': u'liquid_transport_coefficient_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 6', {'name': u'Liquid Transport Coefficient 6', 'pyname': u'liquid_transport_coefficient_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 7', {'name': u'Liquid Transport Coefficient 7', 'pyname': u'liquid_transport_coefficient_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 8', {'name': u'Liquid Transport Coefficient 8', 'pyname': u'liquid_transport_coefficient_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 9', {'name': u'Liquid Transport Coefficient 9', 'pyname': u'liquid_transport_coefficient_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 10', {'name': u'Liquid Transport Coefficient 10', 'pyname': u'liquid_transport_coefficient_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 11', {'name': u'Liquid Transport Coefficient 11', 'pyname': u'liquid_transport_coefficient_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 12', {'name': u'Liquid Transport Coefficient 12', 'pyname': u'liquid_transport_coefficient_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 13', {'name': u'Liquid Transport Coefficient 13', 'pyname': u'liquid_transport_coefficient_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 14', {'name': u'Liquid Transport Coefficient 14', 'pyname': u'liquid_transport_coefficient_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 15', {'name': u'Liquid Transport Coefficient 15', 'pyname': u'liquid_transport_coefficient_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 16', {'name': u'Liquid Transport Coefficient 16', 'pyname': u'liquid_transport_coefficient_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 17', {'name': u'Liquid Transport Coefficient 17', 'pyname': u'liquid_transport_coefficient_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 18', {'name': u'Liquid Transport Coefficient 18', 'pyname': u'liquid_transport_coefficient_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 19', {'name': u'Liquid Transport Coefficient 19', 'pyname': u'liquid_transport_coefficient_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 20', {'name': u'Liquid Transport Coefficient 20', 'pyname': u'liquid_transport_coefficient_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 21', {'name': u'Liquid Transport Coefficient 21', 'pyname': u'liquid_transport_coefficient_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 22', {'name': u'Liquid Transport Coefficient 22', 'pyname': u'liquid_transport_coefficient_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 23', {'name': u'Liquid Transport Coefficient 23', 'pyname': u'liquid_transport_coefficient_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 24', {'name': u'Liquid Transport Coefficient 24', 'pyname': u'liquid_transport_coefficient_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'liquid transport coefficient 25', {'name': u'Liquid Transport Coefficient 25', 'pyname': u'liquid_transport_coefficient_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2/s'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -12207,7 +12218,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         Moisture Material Name that the moisture properties will be added to.
 
         Args:
@@ -12231,7 +12242,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @number_of_redistribution_points.setter
     def number_of_redistribution_points(self, value=None):
-        """  Corresponds to IDD Field `Number of Redistribution points`
+        """  Corresponds to IDD field `Number of Redistribution points`
         number of data points
 
         Args:
@@ -12257,7 +12268,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 1`
+        """  Corresponds to IDD field `Moisture Content 1`
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -12281,7 +12292,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_1.setter
     def liquid_transport_coefficient_1(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 1`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 1`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 1`
@@ -12305,7 +12316,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 2`
+        """  Corresponds to IDD field `Moisture Content 2`
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -12329,7 +12340,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_2.setter
     def liquid_transport_coefficient_2(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 2`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 2`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 2`
@@ -12353,7 +12364,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 3`
+        """  Corresponds to IDD field `Moisture Content 3`
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -12377,7 +12388,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_3.setter
     def liquid_transport_coefficient_3(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 3`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 3`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 3`
@@ -12401,7 +12412,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 4`
+        """  Corresponds to IDD field `Moisture Content 4`
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -12425,7 +12436,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_4.setter
     def liquid_transport_coefficient_4(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 4`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 4`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 4`
@@ -12449,7 +12460,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 5`
+        """  Corresponds to IDD field `Moisture Content 5`
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -12473,7 +12484,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_5.setter
     def liquid_transport_coefficient_5(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 5`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 5`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 5`
@@ -12497,7 +12508,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 6`
+        """  Corresponds to IDD field `Moisture Content 6`
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -12521,7 +12532,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_6.setter
     def liquid_transport_coefficient_6(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 6`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 6`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 6`
@@ -12545,7 +12556,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 7`
+        """  Corresponds to IDD field `Moisture Content 7`
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -12569,7 +12580,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_7.setter
     def liquid_transport_coefficient_7(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 7`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 7`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 7`
@@ -12593,7 +12604,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 8`
+        """  Corresponds to IDD field `Moisture Content 8`
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -12617,7 +12628,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_8.setter
     def liquid_transport_coefficient_8(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 8`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 8`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 8`
@@ -12641,7 +12652,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 9`
+        """  Corresponds to IDD field `Moisture Content 9`
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -12665,7 +12676,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_9.setter
     def liquid_transport_coefficient_9(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 9`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 9`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 9`
@@ -12689,7 +12700,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 10`
+        """  Corresponds to IDD field `Moisture Content 10`
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -12713,7 +12724,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_10.setter
     def liquid_transport_coefficient_10(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 10`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 10`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 10`
@@ -12737,7 +12748,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 11`
+        """  Corresponds to IDD field `Moisture Content 11`
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -12761,7 +12772,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_11.setter
     def liquid_transport_coefficient_11(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 11`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 11`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 11`
@@ -12785,7 +12796,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 12`
+        """  Corresponds to IDD field `Moisture Content 12`
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -12809,7 +12820,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_12.setter
     def liquid_transport_coefficient_12(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 12`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 12`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 12`
@@ -12833,7 +12844,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 13`
+        """  Corresponds to IDD field `Moisture Content 13`
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -12857,7 +12868,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_13.setter
     def liquid_transport_coefficient_13(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 13`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 13`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 13`
@@ -12881,7 +12892,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 14`
+        """  Corresponds to IDD field `Moisture Content 14`
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -12905,7 +12916,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_14.setter
     def liquid_transport_coefficient_14(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 14`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 14`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 14`
@@ -12929,7 +12940,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 15`
+        """  Corresponds to IDD field `Moisture Content 15`
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -12953,7 +12964,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_15.setter
     def liquid_transport_coefficient_15(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 15`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 15`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 15`
@@ -12977,7 +12988,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 16`
+        """  Corresponds to IDD field `Moisture Content 16`
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -13001,7 +13012,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_16.setter
     def liquid_transport_coefficient_16(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 16`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 16`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 16`
@@ -13025,7 +13036,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 17`
+        """  Corresponds to IDD field `Moisture Content 17`
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -13049,7 +13060,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_17.setter
     def liquid_transport_coefficient_17(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 17`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 17`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 17`
@@ -13073,7 +13084,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 18`
+        """  Corresponds to IDD field `Moisture Content 18`
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -13097,7 +13108,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_18.setter
     def liquid_transport_coefficient_18(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 18`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 18`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 18`
@@ -13121,7 +13132,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 19`
+        """  Corresponds to IDD field `Moisture Content 19`
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -13145,7 +13156,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_19.setter
     def liquid_transport_coefficient_19(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 19`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 19`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 19`
@@ -13169,7 +13180,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 20`
+        """  Corresponds to IDD field `Moisture Content 20`
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -13193,7 +13204,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_20.setter
     def liquid_transport_coefficient_20(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 20`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 20`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 20`
@@ -13217,7 +13228,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 21`
+        """  Corresponds to IDD field `Moisture Content 21`
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -13241,7 +13252,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_21.setter
     def liquid_transport_coefficient_21(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 21`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 21`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 21`
@@ -13265,7 +13276,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 22`
+        """  Corresponds to IDD field `Moisture Content 22`
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -13289,7 +13300,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_22.setter
     def liquid_transport_coefficient_22(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 22`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 22`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 22`
@@ -13313,7 +13324,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 23`
+        """  Corresponds to IDD field `Moisture Content 23`
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -13337,7 +13348,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_23.setter
     def liquid_transport_coefficient_23(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 23`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 23`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 23`
@@ -13361,7 +13372,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 24`
+        """  Corresponds to IDD field `Moisture Content 24`
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -13385,7 +13396,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_24.setter
     def liquid_transport_coefficient_24(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 24`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 24`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 24`
@@ -13409,7 +13420,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 25`
+        """  Corresponds to IDD field `Moisture Content 25`
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -13433,7 +13444,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
 
     @liquid_transport_coefficient_25.setter
     def liquid_transport_coefficient_25(self, value=None):
-        """  Corresponds to IDD Field `Liquid Transport Coefficient 25`
+        """  Corresponds to IDD field `Liquid Transport Coefficient 25`
 
         Args:
             value (float): value for IDD Field `Liquid Transport Coefficient 25`
@@ -13453,7 +13464,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
         Relationship between water vapor diffusion and relative humidity fraction
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Diffusion', 'pyname': u'MaterialPropertyHeatAndMoistureTransferDiffusion', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of data pairs', {'name': u'Number of Data Pairs', 'pyname': u'number_of_data_pairs', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'relative humidity fraction 1', {'name': u'Relative Humidity Fraction 1', 'pyname': u'relative_humidity_fraction_1', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 1', {'name': u'Water Vapor Diffusion Resistance Factor 1', 'pyname': u'water_vapor_diffusion_resistance_factor_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 2', {'name': u'Relative Humidity Fraction 2', 'pyname': u'relative_humidity_fraction_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 2', {'name': u'Water Vapor Diffusion Resistance Factor 2', 'pyname': u'water_vapor_diffusion_resistance_factor_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 3', {'name': u'Relative Humidity Fraction 3', 'pyname': u'relative_humidity_fraction_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 3', {'name': u'Water Vapor Diffusion Resistance Factor 3', 'pyname': u'water_vapor_diffusion_resistance_factor_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 4', {'name': u'Relative Humidity Fraction 4', 'pyname': u'relative_humidity_fraction_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 4', {'name': u'Water Vapor Diffusion Resistance Factor 4', 'pyname': u'water_vapor_diffusion_resistance_factor_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 5', {'name': u'Relative Humidity Fraction 5', 'pyname': u'relative_humidity_fraction_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 5', {'name': u'Water Vapor Diffusion Resistance Factor 5', 'pyname': u'water_vapor_diffusion_resistance_factor_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 6', {'name': u'Relative Humidity Fraction 6', 'pyname': u'relative_humidity_fraction_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 6', {'name': u'Water Vapor Diffusion Resistance Factor 6', 'pyname': u'water_vapor_diffusion_resistance_factor_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 7', {'name': u'Relative Humidity Fraction 7', 'pyname': u'relative_humidity_fraction_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 7', {'name': u'Water Vapor Diffusion Resistance Factor 7', 'pyname': u'water_vapor_diffusion_resistance_factor_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 8', {'name': u'Relative Humidity Fraction 8', 'pyname': u'relative_humidity_fraction_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 8', {'name': u'Water Vapor Diffusion Resistance Factor 8', 'pyname': u'water_vapor_diffusion_resistance_factor_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 9', {'name': u'Relative Humidity Fraction 9', 'pyname': u'relative_humidity_fraction_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 9', {'name': u'Water Vapor Diffusion Resistance Factor 9', 'pyname': u'water_vapor_diffusion_resistance_factor_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 10', {'name': u'Relative Humidity Fraction 10', 'pyname': u'relative_humidity_fraction_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 10', {'name': u'Water Vapor Diffusion Resistance Factor 10', 'pyname': u'water_vapor_diffusion_resistance_factor_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 11', {'name': u'Relative Humidity Fraction 11', 'pyname': u'relative_humidity_fraction_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 11', {'name': u'Water Vapor Diffusion Resistance Factor 11', 'pyname': u'water_vapor_diffusion_resistance_factor_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 12', {'name': u'Relative Humidity Fraction 12', 'pyname': u'relative_humidity_fraction_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 12', {'name': u'Water Vapor Diffusion Resistance Factor 12', 'pyname': u'water_vapor_diffusion_resistance_factor_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 13', {'name': u'Relative Humidity Fraction 13', 'pyname': u'relative_humidity_fraction_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 13', {'name': u'Water Vapor Diffusion Resistance Factor 13', 'pyname': u'water_vapor_diffusion_resistance_factor_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 14', {'name': u'Relative Humidity Fraction 14', 'pyname': u'relative_humidity_fraction_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 14', {'name': u'Water Vapor Diffusion Resistance Factor 14', 'pyname': u'water_vapor_diffusion_resistance_factor_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 15', {'name': u'Relative Humidity Fraction 15', 'pyname': u'relative_humidity_fraction_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 15', {'name': u'Water Vapor Diffusion Resistance Factor 15', 'pyname': u'water_vapor_diffusion_resistance_factor_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 16', {'name': u'Relative Humidity Fraction 16', 'pyname': u'relative_humidity_fraction_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 16', {'name': u'Water Vapor Diffusion Resistance Factor 16', 'pyname': u'water_vapor_diffusion_resistance_factor_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 17', {'name': u'Relative Humidity Fraction 17', 'pyname': u'relative_humidity_fraction_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 17', {'name': u'Water Vapor Diffusion Resistance Factor 17', 'pyname': u'water_vapor_diffusion_resistance_factor_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 18', {'name': u'Relative Humidity Fraction 18', 'pyname': u'relative_humidity_fraction_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 18', {'name': u'Water Vapor Diffusion Resistance Factor 18', 'pyname': u'water_vapor_diffusion_resistance_factor_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 19', {'name': u'Relative Humidity Fraction 19', 'pyname': u'relative_humidity_fraction_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 19', {'name': u'Water Vapor Diffusion Resistance Factor 19', 'pyname': u'water_vapor_diffusion_resistance_factor_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 20', {'name': u'Relative Humidity Fraction 20', 'pyname': u'relative_humidity_fraction_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 20', {'name': u'Water Vapor Diffusion Resistance Factor 20', 'pyname': u'water_vapor_diffusion_resistance_factor_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 21', {'name': u'Relative Humidity Fraction 21', 'pyname': u'relative_humidity_fraction_21', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 21', {'name': u'Water Vapor Diffusion Resistance Factor 21', 'pyname': u'water_vapor_diffusion_resistance_factor_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 22', {'name': u'Relative Humidity Fraction 22', 'pyname': u'relative_humidity_fraction_22', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 22', {'name': u'Water Vapor Diffusion Resistance Factor 22', 'pyname': u'water_vapor_diffusion_resistance_factor_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 23', {'name': u'Relative Humidity Fraction 23', 'pyname': u'relative_humidity_fraction_23', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 23', {'name': u'Water Vapor Diffusion Resistance Factor 23', 'pyname': u'water_vapor_diffusion_resistance_factor_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 24', {'name': u'Relative Humidity Fraction 24', 'pyname': u'relative_humidity_fraction_24', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 24', {'name': u'Water Vapor Diffusion Resistance Factor 24', 'pyname': u'water_vapor_diffusion_resistance_factor_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 25', {'name': u'Relative Humidity Fraction 25', 'pyname': u'relative_humidity_fraction_25', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 25', {'name': u'Water Vapor Diffusion Resistance Factor 25', 'pyname': u'water_vapor_diffusion_resistance_factor_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:Diffusion', 'pyname': u'MaterialPropertyHeatAndMoistureTransferDiffusion', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of data pairs', {'name': u'Number of Data Pairs', 'pyname': u'number_of_data_pairs', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'relative humidity fraction 1', {'name': u'Relative Humidity Fraction 1', 'pyname': u'relative_humidity_fraction_1', 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 1', {'name': u'Water Vapor Diffusion Resistance Factor 1', 'pyname': u'water_vapor_diffusion_resistance_factor_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 2', {'name': u'Relative Humidity Fraction 2', 'pyname': u'relative_humidity_fraction_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 2', {'name': u'Water Vapor Diffusion Resistance Factor 2', 'pyname': u'water_vapor_diffusion_resistance_factor_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 3', {'name': u'Relative Humidity Fraction 3', 'pyname': u'relative_humidity_fraction_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 3', {'name': u'Water Vapor Diffusion Resistance Factor 3', 'pyname': u'water_vapor_diffusion_resistance_factor_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 4', {'name': u'Relative Humidity Fraction 4', 'pyname': u'relative_humidity_fraction_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 4', {'name': u'Water Vapor Diffusion Resistance Factor 4', 'pyname': u'water_vapor_diffusion_resistance_factor_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 5', {'name': u'Relative Humidity Fraction 5', 'pyname': u'relative_humidity_fraction_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 5', {'name': u'Water Vapor Diffusion Resistance Factor 5', 'pyname': u'water_vapor_diffusion_resistance_factor_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 6', {'name': u'Relative Humidity Fraction 6', 'pyname': u'relative_humidity_fraction_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 6', {'name': u'Water Vapor Diffusion Resistance Factor 6', 'pyname': u'water_vapor_diffusion_resistance_factor_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 7', {'name': u'Relative Humidity Fraction 7', 'pyname': u'relative_humidity_fraction_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 7', {'name': u'Water Vapor Diffusion Resistance Factor 7', 'pyname': u'water_vapor_diffusion_resistance_factor_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 8', {'name': u'Relative Humidity Fraction 8', 'pyname': u'relative_humidity_fraction_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 8', {'name': u'Water Vapor Diffusion Resistance Factor 8', 'pyname': u'water_vapor_diffusion_resistance_factor_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 9', {'name': u'Relative Humidity Fraction 9', 'pyname': u'relative_humidity_fraction_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 9', {'name': u'Water Vapor Diffusion Resistance Factor 9', 'pyname': u'water_vapor_diffusion_resistance_factor_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 10', {'name': u'Relative Humidity Fraction 10', 'pyname': u'relative_humidity_fraction_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 10', {'name': u'Water Vapor Diffusion Resistance Factor 10', 'pyname': u'water_vapor_diffusion_resistance_factor_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 11', {'name': u'Relative Humidity Fraction 11', 'pyname': u'relative_humidity_fraction_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 11', {'name': u'Water Vapor Diffusion Resistance Factor 11', 'pyname': u'water_vapor_diffusion_resistance_factor_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 12', {'name': u'Relative Humidity Fraction 12', 'pyname': u'relative_humidity_fraction_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 12', {'name': u'Water Vapor Diffusion Resistance Factor 12', 'pyname': u'water_vapor_diffusion_resistance_factor_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 13', {'name': u'Relative Humidity Fraction 13', 'pyname': u'relative_humidity_fraction_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 13', {'name': u'Water Vapor Diffusion Resistance Factor 13', 'pyname': u'water_vapor_diffusion_resistance_factor_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 14', {'name': u'Relative Humidity Fraction 14', 'pyname': u'relative_humidity_fraction_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 14', {'name': u'Water Vapor Diffusion Resistance Factor 14', 'pyname': u'water_vapor_diffusion_resistance_factor_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 15', {'name': u'Relative Humidity Fraction 15', 'pyname': u'relative_humidity_fraction_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 15', {'name': u'Water Vapor Diffusion Resistance Factor 15', 'pyname': u'water_vapor_diffusion_resistance_factor_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 16', {'name': u'Relative Humidity Fraction 16', 'pyname': u'relative_humidity_fraction_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 16', {'name': u'Water Vapor Diffusion Resistance Factor 16', 'pyname': u'water_vapor_diffusion_resistance_factor_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 17', {'name': u'Relative Humidity Fraction 17', 'pyname': u'relative_humidity_fraction_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 17', {'name': u'Water Vapor Diffusion Resistance Factor 17', 'pyname': u'water_vapor_diffusion_resistance_factor_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 18', {'name': u'Relative Humidity Fraction 18', 'pyname': u'relative_humidity_fraction_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 18', {'name': u'Water Vapor Diffusion Resistance Factor 18', 'pyname': u'water_vapor_diffusion_resistance_factor_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 19', {'name': u'Relative Humidity Fraction 19', 'pyname': u'relative_humidity_fraction_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 19', {'name': u'Water Vapor Diffusion Resistance Factor 19', 'pyname': u'water_vapor_diffusion_resistance_factor_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 20', {'name': u'Relative Humidity Fraction 20', 'pyname': u'relative_humidity_fraction_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 20', {'name': u'Water Vapor Diffusion Resistance Factor 20', 'pyname': u'water_vapor_diffusion_resistance_factor_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 21', {'name': u'Relative Humidity Fraction 21', 'pyname': u'relative_humidity_fraction_21', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 21', {'name': u'Water Vapor Diffusion Resistance Factor 21', 'pyname': u'water_vapor_diffusion_resistance_factor_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 22', {'name': u'Relative Humidity Fraction 22', 'pyname': u'relative_humidity_fraction_22', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 22', {'name': u'Water Vapor Diffusion Resistance Factor 22', 'pyname': u'water_vapor_diffusion_resistance_factor_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 23', {'name': u'Relative Humidity Fraction 23', 'pyname': u'relative_humidity_fraction_23', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 23', {'name': u'Water Vapor Diffusion Resistance Factor 23', 'pyname': u'water_vapor_diffusion_resistance_factor_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 24', {'name': u'Relative Humidity Fraction 24', 'pyname': u'relative_humidity_fraction_24', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 24', {'name': u'Water Vapor Diffusion Resistance Factor 24', 'pyname': u'water_vapor_diffusion_resistance_factor_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'relative humidity fraction 25', {'name': u'Relative Humidity Fraction 25', 'pyname': u'relative_humidity_fraction_25', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'water vapor diffusion resistance factor 25', {'name': u'Water Vapor Diffusion Resistance Factor 25', 'pyname': u'water_vapor_diffusion_resistance_factor_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -13466,7 +13477,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         Moisture Material Name that the moisture properties will be added to.
 
         Args:
@@ -13490,7 +13501,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @number_of_data_pairs.setter
     def number_of_data_pairs(self, value=None):
-        """  Corresponds to IDD Field `Number of Data Pairs`
+        """  Corresponds to IDD field `Number of Data Pairs`
         Water Vapor Diffusion Resistance Factor
 
         Args:
@@ -13516,7 +13527,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_1.setter
     def relative_humidity_fraction_1(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 1`
+        """  Corresponds to IDD field `Relative Humidity Fraction 1`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13542,7 +13553,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_1.setter
     def water_vapor_diffusion_resistance_factor_1(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 1`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 1`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 1`
@@ -13566,7 +13577,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_2.setter
     def relative_humidity_fraction_2(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 2`
+        """  Corresponds to IDD field `Relative Humidity Fraction 2`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13592,7 +13603,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_2.setter
     def water_vapor_diffusion_resistance_factor_2(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 2`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 2`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 2`
@@ -13616,7 +13627,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_3.setter
     def relative_humidity_fraction_3(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 3`
+        """  Corresponds to IDD field `Relative Humidity Fraction 3`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13642,7 +13653,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_3.setter
     def water_vapor_diffusion_resistance_factor_3(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 3`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 3`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 3`
@@ -13666,7 +13677,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_4.setter
     def relative_humidity_fraction_4(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 4`
+        """  Corresponds to IDD field `Relative Humidity Fraction 4`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13692,7 +13703,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_4.setter
     def water_vapor_diffusion_resistance_factor_4(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 4`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 4`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 4`
@@ -13716,7 +13727,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_5.setter
     def relative_humidity_fraction_5(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 5`
+        """  Corresponds to IDD field `Relative Humidity Fraction 5`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13742,7 +13753,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_5.setter
     def water_vapor_diffusion_resistance_factor_5(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 5`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 5`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 5`
@@ -13766,7 +13777,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_6.setter
     def relative_humidity_fraction_6(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 6`
+        """  Corresponds to IDD field `Relative Humidity Fraction 6`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13792,7 +13803,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_6.setter
     def water_vapor_diffusion_resistance_factor_6(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 6`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 6`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 6`
@@ -13816,7 +13827,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_7.setter
     def relative_humidity_fraction_7(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 7`
+        """  Corresponds to IDD field `Relative Humidity Fraction 7`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13842,7 +13853,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_7.setter
     def water_vapor_diffusion_resistance_factor_7(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 7`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 7`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 7`
@@ -13866,7 +13877,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_8.setter
     def relative_humidity_fraction_8(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 8`
+        """  Corresponds to IDD field `Relative Humidity Fraction 8`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13892,7 +13903,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_8.setter
     def water_vapor_diffusion_resistance_factor_8(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 8`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 8`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 8`
@@ -13916,7 +13927,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_9.setter
     def relative_humidity_fraction_9(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 9`
+        """  Corresponds to IDD field `Relative Humidity Fraction 9`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13942,7 +13953,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_9.setter
     def water_vapor_diffusion_resistance_factor_9(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 9`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 9`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 9`
@@ -13966,7 +13977,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_10.setter
     def relative_humidity_fraction_10(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 10`
+        """  Corresponds to IDD field `Relative Humidity Fraction 10`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -13992,7 +14003,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_10.setter
     def water_vapor_diffusion_resistance_factor_10(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 10`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 10`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 10`
@@ -14016,7 +14027,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_11.setter
     def relative_humidity_fraction_11(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 11`
+        """  Corresponds to IDD field `Relative Humidity Fraction 11`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14042,7 +14053,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_11.setter
     def water_vapor_diffusion_resistance_factor_11(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 11`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 11`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 11`
@@ -14066,7 +14077,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_12.setter
     def relative_humidity_fraction_12(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 12`
+        """  Corresponds to IDD field `Relative Humidity Fraction 12`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14092,7 +14103,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_12.setter
     def water_vapor_diffusion_resistance_factor_12(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 12`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 12`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 12`
@@ -14116,7 +14127,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_13.setter
     def relative_humidity_fraction_13(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 13`
+        """  Corresponds to IDD field `Relative Humidity Fraction 13`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14142,7 +14153,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_13.setter
     def water_vapor_diffusion_resistance_factor_13(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 13`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 13`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 13`
@@ -14166,7 +14177,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_14.setter
     def relative_humidity_fraction_14(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 14`
+        """  Corresponds to IDD field `Relative Humidity Fraction 14`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14192,7 +14203,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_14.setter
     def water_vapor_diffusion_resistance_factor_14(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 14`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 14`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 14`
@@ -14216,7 +14227,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_15.setter
     def relative_humidity_fraction_15(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 15`
+        """  Corresponds to IDD field `Relative Humidity Fraction 15`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14242,7 +14253,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_15.setter
     def water_vapor_diffusion_resistance_factor_15(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 15`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 15`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 15`
@@ -14266,7 +14277,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_16.setter
     def relative_humidity_fraction_16(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 16`
+        """  Corresponds to IDD field `Relative Humidity Fraction 16`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14292,7 +14303,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_16.setter
     def water_vapor_diffusion_resistance_factor_16(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 16`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 16`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 16`
@@ -14316,7 +14327,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_17.setter
     def relative_humidity_fraction_17(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 17`
+        """  Corresponds to IDD field `Relative Humidity Fraction 17`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14342,7 +14353,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_17.setter
     def water_vapor_diffusion_resistance_factor_17(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 17`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 17`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 17`
@@ -14366,7 +14377,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_18.setter
     def relative_humidity_fraction_18(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 18`
+        """  Corresponds to IDD field `Relative Humidity Fraction 18`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14392,7 +14403,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_18.setter
     def water_vapor_diffusion_resistance_factor_18(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 18`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 18`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 18`
@@ -14416,7 +14427,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_19.setter
     def relative_humidity_fraction_19(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 19`
+        """  Corresponds to IDD field `Relative Humidity Fraction 19`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14442,7 +14453,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_19.setter
     def water_vapor_diffusion_resistance_factor_19(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 19`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 19`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 19`
@@ -14466,7 +14477,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_20.setter
     def relative_humidity_fraction_20(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 20`
+        """  Corresponds to IDD field `Relative Humidity Fraction 20`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14492,7 +14503,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_20.setter
     def water_vapor_diffusion_resistance_factor_20(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 20`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 20`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 20`
@@ -14516,7 +14527,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_21.setter
     def relative_humidity_fraction_21(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 21`
+        """  Corresponds to IDD field `Relative Humidity Fraction 21`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14542,7 +14553,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_21.setter
     def water_vapor_diffusion_resistance_factor_21(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 21`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 21`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 21`
@@ -14566,7 +14577,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_22.setter
     def relative_humidity_fraction_22(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 22`
+        """  Corresponds to IDD field `Relative Humidity Fraction 22`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14592,7 +14603,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_22.setter
     def water_vapor_diffusion_resistance_factor_22(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 22`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 22`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 22`
@@ -14616,7 +14627,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_23.setter
     def relative_humidity_fraction_23(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 23`
+        """  Corresponds to IDD field `Relative Humidity Fraction 23`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14642,7 +14653,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_23.setter
     def water_vapor_diffusion_resistance_factor_23(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 23`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 23`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 23`
@@ -14666,7 +14677,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_24.setter
     def relative_humidity_fraction_24(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 24`
+        """  Corresponds to IDD field `Relative Humidity Fraction 24`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14692,7 +14703,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_24.setter
     def water_vapor_diffusion_resistance_factor_24(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 24`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 24`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 24`
@@ -14716,7 +14727,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @relative_humidity_fraction_25.setter
     def relative_humidity_fraction_25(self, value=None):
-        """  Corresponds to IDD Field `Relative Humidity Fraction 25`
+        """  Corresponds to IDD field `Relative Humidity Fraction 25`
         The relative humidity is entered as a fraction.
 
         Args:
@@ -14742,7 +14753,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
 
     @water_vapor_diffusion_resistance_factor_25.setter
     def water_vapor_diffusion_resistance_factor_25(self, value=None):
-        """  Corresponds to IDD Field `Water Vapor Diffusion Resistance Factor 25`
+        """  Corresponds to IDD field `Water Vapor Diffusion Resistance Factor 25`
 
         Args:
             value (float): value for IDD Field `Water Vapor Diffusion Resistance Factor 25`
@@ -14762,7 +14773,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
         Relationship between thermal conductivity and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity', 'pyname': u'MaterialPropertyHeatAndMoistureTransferThermalConductivity', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of thermal coordinates', {'name': u'Number of Thermal Coordinates', 'pyname': u'number_of_thermal_coordinates', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 1', {'name': u'Thermal Conductivity 1', 'pyname': u'thermal_conductivity_1', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 2', {'name': u'Thermal Conductivity 2', 'pyname': u'thermal_conductivity_2', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 3', {'name': u'Thermal Conductivity 3', 'pyname': u'thermal_conductivity_3', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 4', {'name': u'Thermal Conductivity 4', 'pyname': u'thermal_conductivity_4', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 5', {'name': u'Thermal Conductivity 5', 'pyname': u'thermal_conductivity_5', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 6', {'name': u'Thermal Conductivity 6', 'pyname': u'thermal_conductivity_6', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 7', {'name': u'Thermal Conductivity 7', 'pyname': u'thermal_conductivity_7', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 8', {'name': u'Thermal Conductivity 8', 'pyname': u'thermal_conductivity_8', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 9', {'name': u'Thermal Conductivity 9', 'pyname': u'thermal_conductivity_9', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 10', {'name': u'Thermal Conductivity 10', 'pyname': u'thermal_conductivity_10', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 11', {'name': u'Thermal Conductivity 11', 'pyname': u'thermal_conductivity_11', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 12', {'name': u'Thermal Conductivity 12', 'pyname': u'thermal_conductivity_12', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 13', {'name': u'Thermal Conductivity 13', 'pyname': u'thermal_conductivity_13', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 14', {'name': u'Thermal Conductivity 14', 'pyname': u'thermal_conductivity_14', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 15', {'name': u'Thermal Conductivity 15', 'pyname': u'thermal_conductivity_15', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 16', {'name': u'Thermal Conductivity 16', 'pyname': u'thermal_conductivity_16', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 17', {'name': u'Thermal Conductivity 17', 'pyname': u'thermal_conductivity_17', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 18', {'name': u'Thermal Conductivity 18', 'pyname': u'thermal_conductivity_18', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 19', {'name': u'Thermal Conductivity 19', 'pyname': u'thermal_conductivity_19', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 20', {'name': u'Thermal Conductivity 20', 'pyname': u'thermal_conductivity_20', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 21', {'name': u'Thermal Conductivity 21', 'pyname': u'thermal_conductivity_21', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 22', {'name': u'Thermal Conductivity 22', 'pyname': u'thermal_conductivity_22', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 23', {'name': u'Thermal Conductivity 23', 'pyname': u'thermal_conductivity_23', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 24', {'name': u'Thermal Conductivity 24', 'pyname': u'thermal_conductivity_24', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 25', {'name': u'Thermal Conductivity 25', 'pyname': u'thermal_conductivity_25', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity', 'pyname': u'MaterialPropertyHeatAndMoistureTransferThermalConductivity', 'format': None, 'fields': OrderedDict([(u'material name', {'name': u'Material Name', 'pyname': u'material_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of thermal coordinates', {'name': u'Number of Thermal Coordinates', 'pyname': u'number_of_thermal_coordinates', 'maximum': 25, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'moisture content 1', {'name': u'Moisture Content 1', 'pyname': u'moisture_content_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 1', {'name': u'Thermal Conductivity 1', 'pyname': u'thermal_conductivity_1', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 2', {'name': u'Moisture Content 2', 'pyname': u'moisture_content_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 2', {'name': u'Thermal Conductivity 2', 'pyname': u'thermal_conductivity_2', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 3', {'name': u'Moisture Content 3', 'pyname': u'moisture_content_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 3', {'name': u'Thermal Conductivity 3', 'pyname': u'thermal_conductivity_3', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 4', {'name': u'Moisture Content 4', 'pyname': u'moisture_content_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 4', {'name': u'Thermal Conductivity 4', 'pyname': u'thermal_conductivity_4', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 5', {'name': u'Moisture Content 5', 'pyname': u'moisture_content_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 5', {'name': u'Thermal Conductivity 5', 'pyname': u'thermal_conductivity_5', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 6', {'name': u'Moisture Content 6', 'pyname': u'moisture_content_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 6', {'name': u'Thermal Conductivity 6', 'pyname': u'thermal_conductivity_6', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 7', {'name': u'Moisture Content 7', 'pyname': u'moisture_content_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 7', {'name': u'Thermal Conductivity 7', 'pyname': u'thermal_conductivity_7', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 8', {'name': u'Moisture Content 8', 'pyname': u'moisture_content_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 8', {'name': u'Thermal Conductivity 8', 'pyname': u'thermal_conductivity_8', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 9', {'name': u'Moisture Content 9', 'pyname': u'moisture_content_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 9', {'name': u'Thermal Conductivity 9', 'pyname': u'thermal_conductivity_9', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 10', {'name': u'Moisture Content 10', 'pyname': u'moisture_content_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 10', {'name': u'Thermal Conductivity 10', 'pyname': u'thermal_conductivity_10', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 11', {'name': u'Moisture Content 11', 'pyname': u'moisture_content_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 11', {'name': u'Thermal Conductivity 11', 'pyname': u'thermal_conductivity_11', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 12', {'name': u'Moisture Content 12', 'pyname': u'moisture_content_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 12', {'name': u'Thermal Conductivity 12', 'pyname': u'thermal_conductivity_12', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 13', {'name': u'Moisture Content 13', 'pyname': u'moisture_content_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 13', {'name': u'Thermal Conductivity 13', 'pyname': u'thermal_conductivity_13', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 14', {'name': u'Moisture Content 14', 'pyname': u'moisture_content_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 14', {'name': u'Thermal Conductivity 14', 'pyname': u'thermal_conductivity_14', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 15', {'name': u'Moisture Content 15', 'pyname': u'moisture_content_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 15', {'name': u'Thermal Conductivity 15', 'pyname': u'thermal_conductivity_15', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 16', {'name': u'Moisture Content 16', 'pyname': u'moisture_content_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 16', {'name': u'Thermal Conductivity 16', 'pyname': u'thermal_conductivity_16', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 17', {'name': u'Moisture Content 17', 'pyname': u'moisture_content_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 17', {'name': u'Thermal Conductivity 17', 'pyname': u'thermal_conductivity_17', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 18', {'name': u'Moisture Content 18', 'pyname': u'moisture_content_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 18', {'name': u'Thermal Conductivity 18', 'pyname': u'thermal_conductivity_18', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 19', {'name': u'Moisture Content 19', 'pyname': u'moisture_content_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 19', {'name': u'Thermal Conductivity 19', 'pyname': u'thermal_conductivity_19', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 20', {'name': u'Moisture Content 20', 'pyname': u'moisture_content_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 20', {'name': u'Thermal Conductivity 20', 'pyname': u'thermal_conductivity_20', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 21', {'name': u'Moisture Content 21', 'pyname': u'moisture_content_21', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 21', {'name': u'Thermal Conductivity 21', 'pyname': u'thermal_conductivity_21', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 22', {'name': u'Moisture Content 22', 'pyname': u'moisture_content_22', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 22', {'name': u'Thermal Conductivity 22', 'pyname': u'thermal_conductivity_22', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 23', {'name': u'Moisture Content 23', 'pyname': u'moisture_content_23', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 23', {'name': u'Thermal Conductivity 23', 'pyname': u'thermal_conductivity_23', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 24', {'name': u'Moisture Content 24', 'pyname': u'moisture_content_24', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 24', {'name': u'Thermal Conductivity 24', 'pyname': u'thermal_conductivity_24', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'}), (u'moisture content 25', {'name': u'Moisture Content 25', 'pyname': u'moisture_content_25', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'kg/m3'}), (u'thermal conductivity 25', {'name': u'Thermal Conductivity 25', 'pyname': u'thermal_conductivity_25', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W/m-K'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def material_name(self):
@@ -14775,7 +14786,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @material_name.setter
     def material_name(self, value=None):
-        """  Corresponds to IDD Field `Material Name`
+        """  Corresponds to IDD field `Material Name`
         Moisture Material Name that the Thermal Conductivity will be added to.
 
         Args:
@@ -14799,7 +14810,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @number_of_thermal_coordinates.setter
     def number_of_thermal_coordinates(self, value=None):
-        """  Corresponds to IDD Field `Number of Thermal Coordinates`
+        """  Corresponds to IDD field `Number of Thermal Coordinates`
         number of data coordinates
 
         Args:
@@ -14825,7 +14836,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_1.setter
     def moisture_content_1(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 1`
+        """  Corresponds to IDD field `Moisture Content 1`
 
         Args:
             value (float): value for IDD Field `Moisture Content 1`
@@ -14849,7 +14860,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_1.setter
     def thermal_conductivity_1(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 1`
+        """  Corresponds to IDD field `Thermal Conductivity 1`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 1`
@@ -14873,7 +14884,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_2.setter
     def moisture_content_2(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 2`
+        """  Corresponds to IDD field `Moisture Content 2`
 
         Args:
             value (float): value for IDD Field `Moisture Content 2`
@@ -14897,7 +14908,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_2.setter
     def thermal_conductivity_2(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 2`
+        """  Corresponds to IDD field `Thermal Conductivity 2`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 2`
@@ -14921,7 +14932,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_3.setter
     def moisture_content_3(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 3`
+        """  Corresponds to IDD field `Moisture Content 3`
 
         Args:
             value (float): value for IDD Field `Moisture Content 3`
@@ -14945,7 +14956,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_3.setter
     def thermal_conductivity_3(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 3`
+        """  Corresponds to IDD field `Thermal Conductivity 3`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 3`
@@ -14969,7 +14980,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_4.setter
     def moisture_content_4(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 4`
+        """  Corresponds to IDD field `Moisture Content 4`
 
         Args:
             value (float): value for IDD Field `Moisture Content 4`
@@ -14993,7 +15004,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_4.setter
     def thermal_conductivity_4(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 4`
+        """  Corresponds to IDD field `Thermal Conductivity 4`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 4`
@@ -15017,7 +15028,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_5.setter
     def moisture_content_5(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 5`
+        """  Corresponds to IDD field `Moisture Content 5`
 
         Args:
             value (float): value for IDD Field `Moisture Content 5`
@@ -15041,7 +15052,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_5.setter
     def thermal_conductivity_5(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 5`
+        """  Corresponds to IDD field `Thermal Conductivity 5`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 5`
@@ -15065,7 +15076,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_6.setter
     def moisture_content_6(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 6`
+        """  Corresponds to IDD field `Moisture Content 6`
 
         Args:
             value (float): value for IDD Field `Moisture Content 6`
@@ -15089,7 +15100,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_6.setter
     def thermal_conductivity_6(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 6`
+        """  Corresponds to IDD field `Thermal Conductivity 6`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 6`
@@ -15113,7 +15124,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_7.setter
     def moisture_content_7(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 7`
+        """  Corresponds to IDD field `Moisture Content 7`
 
         Args:
             value (float): value for IDD Field `Moisture Content 7`
@@ -15137,7 +15148,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_7.setter
     def thermal_conductivity_7(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 7`
+        """  Corresponds to IDD field `Thermal Conductivity 7`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 7`
@@ -15161,7 +15172,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_8.setter
     def moisture_content_8(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 8`
+        """  Corresponds to IDD field `Moisture Content 8`
 
         Args:
             value (float): value for IDD Field `Moisture Content 8`
@@ -15185,7 +15196,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_8.setter
     def thermal_conductivity_8(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 8`
+        """  Corresponds to IDD field `Thermal Conductivity 8`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 8`
@@ -15209,7 +15220,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_9.setter
     def moisture_content_9(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 9`
+        """  Corresponds to IDD field `Moisture Content 9`
 
         Args:
             value (float): value for IDD Field `Moisture Content 9`
@@ -15233,7 +15244,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_9.setter
     def thermal_conductivity_9(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 9`
+        """  Corresponds to IDD field `Thermal Conductivity 9`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 9`
@@ -15257,7 +15268,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_10.setter
     def moisture_content_10(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 10`
+        """  Corresponds to IDD field `Moisture Content 10`
 
         Args:
             value (float): value for IDD Field `Moisture Content 10`
@@ -15281,7 +15292,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_10.setter
     def thermal_conductivity_10(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 10`
+        """  Corresponds to IDD field `Thermal Conductivity 10`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 10`
@@ -15305,7 +15316,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_11.setter
     def moisture_content_11(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 11`
+        """  Corresponds to IDD field `Moisture Content 11`
 
         Args:
             value (float): value for IDD Field `Moisture Content 11`
@@ -15329,7 +15340,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_11.setter
     def thermal_conductivity_11(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 11`
+        """  Corresponds to IDD field `Thermal Conductivity 11`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 11`
@@ -15353,7 +15364,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_12.setter
     def moisture_content_12(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 12`
+        """  Corresponds to IDD field `Moisture Content 12`
 
         Args:
             value (float): value for IDD Field `Moisture Content 12`
@@ -15377,7 +15388,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_12.setter
     def thermal_conductivity_12(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 12`
+        """  Corresponds to IDD field `Thermal Conductivity 12`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 12`
@@ -15401,7 +15412,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_13.setter
     def moisture_content_13(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 13`
+        """  Corresponds to IDD field `Moisture Content 13`
 
         Args:
             value (float): value for IDD Field `Moisture Content 13`
@@ -15425,7 +15436,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_13.setter
     def thermal_conductivity_13(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 13`
+        """  Corresponds to IDD field `Thermal Conductivity 13`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 13`
@@ -15449,7 +15460,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_14.setter
     def moisture_content_14(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 14`
+        """  Corresponds to IDD field `Moisture Content 14`
 
         Args:
             value (float): value for IDD Field `Moisture Content 14`
@@ -15473,7 +15484,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_14.setter
     def thermal_conductivity_14(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 14`
+        """  Corresponds to IDD field `Thermal Conductivity 14`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 14`
@@ -15497,7 +15508,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_15.setter
     def moisture_content_15(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 15`
+        """  Corresponds to IDD field `Moisture Content 15`
 
         Args:
             value (float): value for IDD Field `Moisture Content 15`
@@ -15521,7 +15532,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_15.setter
     def thermal_conductivity_15(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 15`
+        """  Corresponds to IDD field `Thermal Conductivity 15`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 15`
@@ -15545,7 +15556,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_16.setter
     def moisture_content_16(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 16`
+        """  Corresponds to IDD field `Moisture Content 16`
 
         Args:
             value (float): value for IDD Field `Moisture Content 16`
@@ -15569,7 +15580,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_16.setter
     def thermal_conductivity_16(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 16`
+        """  Corresponds to IDD field `Thermal Conductivity 16`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 16`
@@ -15593,7 +15604,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_17.setter
     def moisture_content_17(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 17`
+        """  Corresponds to IDD field `Moisture Content 17`
 
         Args:
             value (float): value for IDD Field `Moisture Content 17`
@@ -15617,7 +15628,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_17.setter
     def thermal_conductivity_17(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 17`
+        """  Corresponds to IDD field `Thermal Conductivity 17`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 17`
@@ -15641,7 +15652,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_18.setter
     def moisture_content_18(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 18`
+        """  Corresponds to IDD field `Moisture Content 18`
 
         Args:
             value (float): value for IDD Field `Moisture Content 18`
@@ -15665,7 +15676,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_18.setter
     def thermal_conductivity_18(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 18`
+        """  Corresponds to IDD field `Thermal Conductivity 18`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 18`
@@ -15689,7 +15700,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_19.setter
     def moisture_content_19(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 19`
+        """  Corresponds to IDD field `Moisture Content 19`
 
         Args:
             value (float): value for IDD Field `Moisture Content 19`
@@ -15713,7 +15724,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_19.setter
     def thermal_conductivity_19(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 19`
+        """  Corresponds to IDD field `Thermal Conductivity 19`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 19`
@@ -15737,7 +15748,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_20.setter
     def moisture_content_20(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 20`
+        """  Corresponds to IDD field `Moisture Content 20`
 
         Args:
             value (float): value for IDD Field `Moisture Content 20`
@@ -15761,7 +15772,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_20.setter
     def thermal_conductivity_20(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 20`
+        """  Corresponds to IDD field `Thermal Conductivity 20`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 20`
@@ -15785,7 +15796,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_21.setter
     def moisture_content_21(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 21`
+        """  Corresponds to IDD field `Moisture Content 21`
 
         Args:
             value (float): value for IDD Field `Moisture Content 21`
@@ -15809,7 +15820,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_21.setter
     def thermal_conductivity_21(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 21`
+        """  Corresponds to IDD field `Thermal Conductivity 21`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 21`
@@ -15833,7 +15844,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_22.setter
     def moisture_content_22(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 22`
+        """  Corresponds to IDD field `Moisture Content 22`
 
         Args:
             value (float): value for IDD Field `Moisture Content 22`
@@ -15857,7 +15868,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_22.setter
     def thermal_conductivity_22(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 22`
+        """  Corresponds to IDD field `Thermal Conductivity 22`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 22`
@@ -15881,7 +15892,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_23.setter
     def moisture_content_23(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 23`
+        """  Corresponds to IDD field `Moisture Content 23`
 
         Args:
             value (float): value for IDD Field `Moisture Content 23`
@@ -15905,7 +15916,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_23.setter
     def thermal_conductivity_23(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 23`
+        """  Corresponds to IDD field `Thermal Conductivity 23`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 23`
@@ -15929,7 +15940,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_24.setter
     def moisture_content_24(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 24`
+        """  Corresponds to IDD field `Moisture Content 24`
 
         Args:
             value (float): value for IDD Field `Moisture Content 24`
@@ -15953,7 +15964,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_24.setter
     def thermal_conductivity_24(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 24`
+        """  Corresponds to IDD field `Thermal Conductivity 24`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 24`
@@ -15977,7 +15988,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @moisture_content_25.setter
     def moisture_content_25(self, value=None):
-        """  Corresponds to IDD Field `Moisture Content 25`
+        """  Corresponds to IDD field `Moisture Content 25`
 
         Args:
             value (float): value for IDD Field `Moisture Content 25`
@@ -16001,7 +16012,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
 
     @thermal_conductivity_25.setter
     def thermal_conductivity_25(self, value=None):
-        """  Corresponds to IDD Field `Thermal Conductivity 25`
+        """  Corresponds to IDD field `Thermal Conductivity 25`
 
         Args:
             value (float): value for IDD Field `Thermal Conductivity 25`
@@ -16021,7 +16032,7 @@ class MaterialPropertyGlazingSpectralData(DataObject):
         [wavelength, transmittance, front reflectance, back reflectance] for wavelengths
         covering the solar spectrum (from about 0.25 to 2.5 microns)
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:GlazingSpectralData', 'pyname': u'MaterialPropertyGlazingSpectralData', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'wavelength', {'name': u'Wavelength', 'pyname': u'wavelength', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'transmittance', {'name': u'Transmittance', 'pyname': u'transmittance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'front reflectance', {'name': u'Front Reflectance', 'pyname': u'front_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'back reflectance', {'name': u'Back Reflectance', 'pyname': u'back_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:GlazingSpectralData', 'pyname': u'MaterialPropertyGlazingSpectralData', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'wavelength', {'name': u'Wavelength', 'pyname': u'wavelength', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'transmittance', {'name': u'Transmittance', 'pyname': u'transmittance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'front reflectance', {'name': u'Front Reflectance', 'pyname': u'front_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'back reflectance', {'name': u'Back Reflectance', 'pyname': u'back_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16034,7 +16045,7 @@ class MaterialPropertyGlazingSpectralData(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16090,6 +16101,17 @@ class MaterialPropertyGlazingSpectralData(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class Construction(DataObject):
     """ Corresponds to IDD object `Construction`
@@ -16097,7 +16119,7 @@ class Construction(DataObject):
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
     """
-    schema = {'min-fields': 0, 'name': u'Construction', 'pyname': u'Construction', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction', 'pyname': u'Construction', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16110,7 +16132,7 @@ class Construction(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16133,7 +16155,7 @@ class Construction(DataObject):
 
     @outside_layer.setter
     def outside_layer(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer`
+        """  Corresponds to IDD field `Outside Layer`
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -16156,7 +16178,7 @@ class Construction(DataObject):
 
     @layer_2.setter
     def layer_2(self, value=None):
-        """  Corresponds to IDD Field `Layer 2`
+        """  Corresponds to IDD field `Layer 2`
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -16179,7 +16201,7 @@ class Construction(DataObject):
 
     @layer_3.setter
     def layer_3(self, value=None):
-        """  Corresponds to IDD Field `Layer 3`
+        """  Corresponds to IDD field `Layer 3`
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -16202,7 +16224,7 @@ class Construction(DataObject):
 
     @layer_4.setter
     def layer_4(self, value=None):
-        """  Corresponds to IDD Field `Layer 4`
+        """  Corresponds to IDD field `Layer 4`
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -16225,7 +16247,7 @@ class Construction(DataObject):
 
     @layer_5.setter
     def layer_5(self, value=None):
-        """  Corresponds to IDD Field `Layer 5`
+        """  Corresponds to IDD field `Layer 5`
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -16248,7 +16270,7 @@ class Construction(DataObject):
 
     @layer_6.setter
     def layer_6(self, value=None):
-        """  Corresponds to IDD Field `Layer 6`
+        """  Corresponds to IDD field `Layer 6`
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -16271,7 +16293,7 @@ class Construction(DataObject):
 
     @layer_7.setter
     def layer_7(self, value=None):
-        """  Corresponds to IDD Field `Layer 7`
+        """  Corresponds to IDD field `Layer 7`
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -16294,7 +16316,7 @@ class Construction(DataObject):
 
     @layer_8.setter
     def layer_8(self, value=None):
-        """  Corresponds to IDD Field `Layer 8`
+        """  Corresponds to IDD field `Layer 8`
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -16317,7 +16339,7 @@ class Construction(DataObject):
 
     @layer_9.setter
     def layer_9(self, value=None):
-        """  Corresponds to IDD Field `Layer 9`
+        """  Corresponds to IDD field `Layer 9`
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -16340,7 +16362,7 @@ class Construction(DataObject):
 
     @layer_10.setter
     def layer_10(self, value=None):
-        """  Corresponds to IDD Field `Layer 10`
+        """  Corresponds to IDD field `Layer 10`
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -16357,7 +16379,7 @@ class ConstructionCfactorUndergroundWall(DataObject):
     """ Corresponds to IDD object `Construction:CfactorUndergroundWall`
         Alternate method of describing underground wall constructions
     """
-    schema = {'min-fields': 0, 'name': u'Construction:CfactorUndergroundWall', 'pyname': u'ConstructionCfactorUndergroundWall', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'c-factor', {'name': u'C-Factor', 'pyname': u'cfactor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'height', {'name': u'Height', 'pyname': u'height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction:CfactorUndergroundWall', 'pyname': u'ConstructionCfactorUndergroundWall', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'c-factor', {'name': u'C-Factor', 'pyname': u'cfactor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m2-K'}), (u'height', {'name': u'Height', 'pyname': u'height', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16370,7 +16392,7 @@ class ConstructionCfactorUndergroundWall(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16393,7 +16415,7 @@ class ConstructionCfactorUndergroundWall(DataObject):
 
     @cfactor.setter
     def cfactor(self, value=None):
-        """  Corresponds to IDD Field `C-Factor`
+        """  Corresponds to IDD field `C-Factor`
         Enter C-Factor without film coefficients or soil
 
         Args:
@@ -16418,7 +16440,7 @@ class ConstructionCfactorUndergroundWall(DataObject):
 
     @height.setter
     def height(self, value=None):
-        """  Corresponds to IDD Field `Height`
+        """  Corresponds to IDD field `Height`
         Enter height of the underground wall
 
         Args:
@@ -16437,7 +16459,7 @@ class ConstructionFfactorGroundFloor(DataObject):
     """ Corresponds to IDD object `Construction:FfactorGroundFloor`
         Alternate method of describing slab-on-grade or underground floor constructions
     """
-    schema = {'min-fields': 0, 'name': u'Construction:FfactorGroundFloor', 'pyname': u'ConstructionFfactorGroundFloor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'f-factor', {'name': u'F-Factor', 'pyname': u'ffactor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'area', {'name': u'Area', 'pyname': u'area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'perimeterexposed', {'name': u'PerimeterExposed', 'pyname': u'perimeterexposed', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction:FfactorGroundFloor', 'pyname': u'ConstructionFfactorGroundFloor', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'f-factor', {'name': u'F-Factor', 'pyname': u'ffactor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'area', {'name': u'Area', 'pyname': u'area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'perimeterexposed', {'name': u'PerimeterExposed', 'pyname': u'perimeterexposed', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16450,7 +16472,7 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16473,7 +16495,7 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @ffactor.setter
     def ffactor(self, value=None):
-        """  Corresponds to IDD Field `F-Factor`
+        """  Corresponds to IDD field `F-Factor`
 
         Args:
             value (float): value for IDD Field `F-Factor`
@@ -16498,7 +16520,7 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @area.setter
     def area(self, value=None):
-        """  Corresponds to IDD Field `Area`
+        """  Corresponds to IDD field `Area`
         Enter area of the floor
 
         Args:
@@ -16523,7 +16545,7 @@ class ConstructionFfactorGroundFloor(DataObject):
 
     @perimeterexposed.setter
     def perimeterexposed(self, value=None):
-        """  Corresponds to IDD Field `PerimeterExposed`
+        """  Corresponds to IDD field `PerimeterExposed`
         Enter exposed perimeter of the floor
 
         Args:
@@ -16544,7 +16566,7 @@ class ConstructionInternalSource(DataObject):
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
     """
-    schema = {'min-fields': 0, 'name': u'Construction:InternalSource', 'pyname': u'ConstructionInternalSource', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'source present after layer number', {'name': u'Source Present After Layer Number', 'pyname': u'source_present_after_layer_number', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'temperature calculation requested after layer number', {'name': u'Temperature Calculation Requested After Layer Number', 'pyname': u'temperature_calculation_requested_after_layer_number', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'dimensions for the ctf calculation', {'name': u'Dimensions for the CTF Calculation', 'pyname': u'dimensions_for_the_ctf_calculation', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'tube spacing', {'name': u'Tube Spacing', 'pyname': u'tube_spacing', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction:InternalSource', 'pyname': u'ConstructionInternalSource', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'source present after layer number', {'name': u'Source Present After Layer Number', 'pyname': u'source_present_after_layer_number', 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'temperature calculation requested after layer number', {'name': u'Temperature Calculation Requested After Layer Number', 'pyname': u'temperature_calculation_requested_after_layer_number', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'dimensions for the ctf calculation', {'name': u'Dimensions for the CTF Calculation', 'pyname': u'dimensions_for_the_ctf_calculation', 'maximum': 2, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'tube spacing', {'name': u'Tube Spacing', 'pyname': u'tube_spacing', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'outside layer', {'name': u'Outside Layer', 'pyname': u'outside_layer', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2', {'name': u'Layer 2', 'pyname': u'layer_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3', {'name': u'Layer 3', 'pyname': u'layer_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4', {'name': u'Layer 4', 'pyname': u'layer_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5', {'name': u'Layer 5', 'pyname': u'layer_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 6', {'name': u'Layer 6', 'pyname': u'layer_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 7', {'name': u'Layer 7', 'pyname': u'layer_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 8', {'name': u'Layer 8', 'pyname': u'layer_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 9', {'name': u'Layer 9', 'pyname': u'layer_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 10', {'name': u'Layer 10', 'pyname': u'layer_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16557,7 +16579,7 @@ class ConstructionInternalSource(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16580,7 +16602,7 @@ class ConstructionInternalSource(DataObject):
 
     @source_present_after_layer_number.setter
     def source_present_after_layer_number(self, value=None):
-        """  Corresponds to IDD Field `Source Present After Layer Number`
+        """  Corresponds to IDD field `Source Present After Layer Number`
         refers to the list of materials which follows
 
         Args:
@@ -16605,7 +16627,7 @@ class ConstructionInternalSource(DataObject):
 
     @temperature_calculation_requested_after_layer_number.setter
     def temperature_calculation_requested_after_layer_number(self, value=None):
-        """  Corresponds to IDD Field `Temperature Calculation Requested After Layer Number`
+        """  Corresponds to IDD field `Temperature Calculation Requested After Layer Number`
         refers to the list of materials which follows
 
         Args:
@@ -16629,7 +16651,7 @@ class ConstructionInternalSource(DataObject):
 
     @dimensions_for_the_ctf_calculation.setter
     def dimensions_for_the_ctf_calculation(self, value=None):
-        """  Corresponds to IDD Field `Dimensions for the CTF Calculation`
+        """  Corresponds to IDD field `Dimensions for the CTF Calculation`
         1 = 1-dimensional calculation, 2 = 2-dimensional calculation
 
         Args:
@@ -16655,7 +16677,7 @@ class ConstructionInternalSource(DataObject):
 
     @tube_spacing.setter
     def tube_spacing(self, value=None):
-        """  Corresponds to IDD Field `Tube Spacing`
+        """  Corresponds to IDD field `Tube Spacing`
         uniform spacing between tubes or resistance wires in direction
         perpendicular to main intended direction of heat transfer
 
@@ -16681,7 +16703,7 @@ class ConstructionInternalSource(DataObject):
 
     @outside_layer.setter
     def outside_layer(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer`
+        """  Corresponds to IDD field `Outside Layer`
 
         Args:
             value (str): value for IDD Field `Outside Layer`
@@ -16704,7 +16726,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_2.setter
     def layer_2(self, value=None):
-        """  Corresponds to IDD Field `Layer 2`
+        """  Corresponds to IDD field `Layer 2`
 
         Args:
             value (str): value for IDD Field `Layer 2`
@@ -16727,7 +16749,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_3.setter
     def layer_3(self, value=None):
-        """  Corresponds to IDD Field `Layer 3`
+        """  Corresponds to IDD field `Layer 3`
 
         Args:
             value (str): value for IDD Field `Layer 3`
@@ -16750,7 +16772,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_4.setter
     def layer_4(self, value=None):
-        """  Corresponds to IDD Field `Layer 4`
+        """  Corresponds to IDD field `Layer 4`
 
         Args:
             value (str): value for IDD Field `Layer 4`
@@ -16773,7 +16795,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_5.setter
     def layer_5(self, value=None):
-        """  Corresponds to IDD Field `Layer 5`
+        """  Corresponds to IDD field `Layer 5`
 
         Args:
             value (str): value for IDD Field `Layer 5`
@@ -16796,7 +16818,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_6.setter
     def layer_6(self, value=None):
-        """  Corresponds to IDD Field `Layer 6`
+        """  Corresponds to IDD field `Layer 6`
 
         Args:
             value (str): value for IDD Field `Layer 6`
@@ -16819,7 +16841,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_7.setter
     def layer_7(self, value=None):
-        """  Corresponds to IDD Field `Layer 7`
+        """  Corresponds to IDD field `Layer 7`
 
         Args:
             value (str): value for IDD Field `Layer 7`
@@ -16842,7 +16864,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_8.setter
     def layer_8(self, value=None):
-        """  Corresponds to IDD Field `Layer 8`
+        """  Corresponds to IDD field `Layer 8`
 
         Args:
             value (str): value for IDD Field `Layer 8`
@@ -16865,7 +16887,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_9.setter
     def layer_9(self, value=None):
-        """  Corresponds to IDD Field `Layer 9`
+        """  Corresponds to IDD field `Layer 9`
 
         Args:
             value (str): value for IDD Field `Layer 9`
@@ -16888,7 +16910,7 @@ class ConstructionInternalSource(DataObject):
 
     @layer_10.setter
     def layer_10(self, value=None):
-        """  Corresponds to IDD Field `Layer 10`
+        """  Corresponds to IDD field `Layer 10`
 
         Args:
             value (str): value for IDD Field `Layer 10`
@@ -16905,7 +16927,7 @@ class WindowThermalModelParams(DataObject):
     """ Corresponds to IDD object `WindowThermalModel:Params`
         object is used to select which thermal model should be used in tarcog simulations
     """
-    schema = {'min-fields': 0, 'name': u'WindowThermalModel:Params', 'pyname': u'WindowThermalModelParams', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'standard', {'name': u'standard', 'pyname': u'standard', 'default': u'ISO15099', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ISO15099', u'EN673Declared', u'EN673Design'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal model', {'name': u'Thermal Model', 'pyname': u'thermal_model', 'default': u'ISO15099', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ISO15099', u'ScaledCavityWidth', u'ConvectiveScalarModel_NoSDThickness', u'ConvectiveScalarModel_withSDThickness'], 'autocalculatable': False, 'type': 'alpha'}), (u'sdscalar', {'name': u'SDScalar', 'pyname': u'sdscalar', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'deflection model', {'name': u'Deflection Model', 'pyname': u'deflection_model', 'default': u'NoDeflection', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoDeflection', u'TemperatureAndPressureInput', u'MeasuredDeflection'], 'autocalculatable': False, 'type': 'alpha'}), (u'vacuum pressure limit', {'name': u'Vacuum Pressure Limit', 'pyname': u'vacuum_pressure_limit', 'default': 13.238, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'initial temperature', {'name': u'Initial temperature', 'pyname': u'initial_temperature', 'default': 25.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial pressure', {'name': u'Initial pressure', 'pyname': u'initial_pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'WindowThermalModel:Params', 'pyname': u'WindowThermalModelParams', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'standard', {'name': u'standard', 'pyname': u'standard', 'default': u'ISO15099', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ISO15099', u'EN673Declared', u'EN673Design'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermal model', {'name': u'Thermal Model', 'pyname': u'thermal_model', 'default': u'ISO15099', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ISO15099', u'ScaledCavityWidth', u'ConvectiveScalarModel_NoSDThickness', u'ConvectiveScalarModel_withSDThickness'], 'autocalculatable': False, 'type': 'alpha'}), (u'sdscalar', {'name': u'SDScalar', 'pyname': u'sdscalar', 'default': 1.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'deflection model', {'name': u'Deflection Model', 'pyname': u'deflection_model', 'default': u'NoDeflection', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoDeflection', u'TemperatureAndPressureInput', u'MeasuredDeflection'], 'autocalculatable': False, 'type': 'alpha'}), (u'vacuum pressure limit', {'name': u'Vacuum Pressure Limit', 'pyname': u'vacuum_pressure_limit', 'default': 13.238, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'initial temperature', {'name': u'Initial temperature', 'pyname': u'initial_temperature', 'default': 25.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'initial pressure', {'name': u'Initial pressure', 'pyname': u'initial_pressure', 'default': 101325.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16918,7 +16940,7 @@ class WindowThermalModelParams(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -16941,7 +16963,7 @@ class WindowThermalModelParams(DataObject):
 
     @standard.setter
     def standard(self, value="ISO15099"):
-        """  Corresponds to IDD Field `standard`
+        """  Corresponds to IDD field `standard`
 
         Args:
             value (str): value for IDD Field `standard`
@@ -16965,7 +16987,7 @@ class WindowThermalModelParams(DataObject):
 
     @thermal_model.setter
     def thermal_model(self, value="ISO15099"):
-        """  Corresponds to IDD Field `Thermal Model`
+        """  Corresponds to IDD field `Thermal Model`
 
         Args:
             value (str): value for IDD Field `Thermal Model`
@@ -16989,7 +17011,7 @@ class WindowThermalModelParams(DataObject):
 
     @sdscalar.setter
     def sdscalar(self, value=1.0):
-        """  Corresponds to IDD Field `SDScalar`
+        """  Corresponds to IDD field `SDScalar`
 
         Args:
             value (float): value for IDD Field `SDScalar`
@@ -17014,7 +17036,7 @@ class WindowThermalModelParams(DataObject):
 
     @deflection_model.setter
     def deflection_model(self, value="NoDeflection"):
-        """  Corresponds to IDD Field `Deflection Model`
+        """  Corresponds to IDD field `Deflection Model`
 
         Args:
             value (str): value for IDD Field `Deflection Model`
@@ -17038,7 +17060,7 @@ class WindowThermalModelParams(DataObject):
 
     @vacuum_pressure_limit.setter
     def vacuum_pressure_limit(self, value=13.238):
-        """  Corresponds to IDD Field `Vacuum Pressure Limit`
+        """  Corresponds to IDD field `Vacuum Pressure Limit`
 
         Args:
             value (float): value for IDD Field `Vacuum Pressure Limit`
@@ -17063,7 +17085,7 @@ class WindowThermalModelParams(DataObject):
 
     @initial_temperature.setter
     def initial_temperature(self, value=25.0):
-        """  Corresponds to IDD Field `Initial temperature`
+        """  Corresponds to IDD field `Initial temperature`
         This is temperature in time of window fabrication
 
         Args:
@@ -17089,7 +17111,7 @@ class WindowThermalModelParams(DataObject):
 
     @initial_pressure.setter
     def initial_pressure(self, value=101325.0):
-        """  Corresponds to IDD Field `Initial pressure`
+        """  Corresponds to IDD field `Initial pressure`
         This is pressure in time of window fabrication
 
         Args:
@@ -17110,7 +17132,7 @@ class ConstructionComplexFenestrationState(DataObject):
         Describes one state for a complex glazing system
         These input objects are typically generated by using WINDOW software and export to IDF syntax
     """
-    schema = {'min-fields': 0, 'name': u'Construction:ComplexFenestrationState', 'pyname': u'ConstructionComplexFenestrationState', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'basis type', {'name': u'Basis Type', 'pyname': u'basis_type', 'default': u'LBNLWINDOW', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LBNLWINDOW', u'UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'basis symmetry type', {'name': u'Basis Symmetry Type', 'pyname': u'basis_symmetry_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Axisymmetric', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'window thermal model', {'name': u'Window Thermal Model', 'pyname': u'window_thermal_model', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'basis matrix name', {'name': u'Basis Matrix Name', 'pyname': u'basis_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'solar optical complex front transmittance matrix name', {'name': u'Solar Optical Complex Front Transmittance Matrix Name', 'pyname': u'solar_optical_complex_front_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'solar optical complex back reflectance matrix name', {'name': u'Solar Optical Complex Back Reflectance Matrix Name', 'pyname': u'solar_optical_complex_back_reflectance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'visible optical complex front transmittance matrix name', {'name': u'Visible Optical Complex Front Transmittance Matrix Name', 'pyname': u'visible_optical_complex_front_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'visible optical complex back transmittance matrix name', {'name': u'Visible Optical Complex Back Transmittance Matrix Name', 'pyname': u'visible_optical_complex_back_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer name', {'name': u'Outside Layer Name', 'pyname': u'outside_layer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer directional front absoptance matrix name', {'name': u'Outside Layer Directional Front Absoptance Matrix Name', 'pyname': u'outside_layer_directional_front_absoptance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer directional back absoptance matrix name', {'name': u'Outside Layer Directional Back Absoptance Matrix Name', 'pyname': u'outside_layer_directional_back_absoptance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 1 name', {'name': u'Gap 1 Name', 'pyname': u'gap_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cfs gap 1 directional front absoptance matrix name', {'name': u'CFS Gap 1 Directional Front Absoptance Matrix Name', 'pyname': u'cfs_gap_1_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cfs gap 1 directional back absoptance matrix name', {'name': u'CFS Gap 1 Directional Back Absoptance Matrix Name', 'pyname': u'cfs_gap_1_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 name', {'name': u'Layer 2 Name', 'pyname': u'layer_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 directional front absoptance matrix name', {'name': u'Layer 2 Directional Front Absoptance Matrix Name', 'pyname': u'layer_2_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 directional back absoptance matrix name', {'name': u'Layer 2 Directional Back Absoptance Matrix Name', 'pyname': u'layer_2_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 name', {'name': u'Gap 2 Name', 'pyname': u'gap_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 directional front absoptance matrix name', {'name': u'Gap 2 Directional Front Absoptance Matrix Name', 'pyname': u'gap_2_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 directional back absoptance matrix name', {'name': u'Gap 2 Directional Back Absoptance Matrix Name', 'pyname': u'gap_2_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 material', {'name': u'Layer 3 Material', 'pyname': u'layer_3_material', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 directional front absoptance matrix name', {'name': u'Layer 3 Directional Front Absoptance Matrix Name', 'pyname': u'layer_3_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 directional back absoptance matrix name', {'name': u'Layer 3 Directional Back Absoptance Matrix Name', 'pyname': u'layer_3_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 name', {'name': u'Gap 3 Name', 'pyname': u'gap_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 directional front absoptance matrix name', {'name': u'Gap 3 Directional Front Absoptance Matrix Name', 'pyname': u'gap_3_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 directional back absoptance matrix name', {'name': u'Gap 3 Directional Back Absoptance Matrix Name', 'pyname': u'gap_3_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 name', {'name': u'Layer 4 Name', 'pyname': u'layer_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 directional front absoptance matrix name', {'name': u'Layer 4 Directional Front Absoptance Matrix Name', 'pyname': u'layer_4_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 directional back absoptance matrix name', {'name': u'Layer 4 Directional Back Absoptance Matrix Name', 'pyname': u'layer_4_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 name', {'name': u'Gap 4 Name', 'pyname': u'gap_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 directional front absoptance matrix name', {'name': u'Gap 4 Directional Front Absoptance Matrix Name', 'pyname': u'gap_4_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 directional back absoptance matrix name', {'name': u'Gap 4 Directional Back Absoptance Matrix Name', 'pyname': u'gap_4_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 name', {'name': u'Layer 5 Name', 'pyname': u'layer_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 directional front absoptance matrix name', {'name': u'Layer 5 Directional Front Absoptance Matrix Name', 'pyname': u'layer_5_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 directional back absoptance matrix name', {'name': u'Layer 5 Directional Back Absoptance Matrix Name', 'pyname': u'layer_5_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction:ComplexFenestrationState', 'pyname': u'ConstructionComplexFenestrationState', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'basis type', {'name': u'Basis Type', 'pyname': u'basis_type', 'default': u'LBNLWINDOW', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LBNLWINDOW', u'UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'basis symmetry type', {'name': u'Basis Symmetry Type', 'pyname': u'basis_symmetry_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Axisymmetric', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'window thermal model', {'name': u'Window Thermal Model', 'pyname': u'window_thermal_model', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'basis matrix name', {'name': u'Basis Matrix Name', 'pyname': u'basis_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'solar optical complex front transmittance matrix name', {'name': u'Solar Optical Complex Front Transmittance Matrix Name', 'pyname': u'solar_optical_complex_front_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'solar optical complex back reflectance matrix name', {'name': u'Solar Optical Complex Back Reflectance Matrix Name', 'pyname': u'solar_optical_complex_back_reflectance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'visible optical complex front transmittance matrix name', {'name': u'Visible Optical Complex Front Transmittance Matrix Name', 'pyname': u'visible_optical_complex_front_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'visible optical complex back transmittance matrix name', {'name': u'Visible Optical Complex Back Transmittance Matrix Name', 'pyname': u'visible_optical_complex_back_transmittance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer name', {'name': u'Outside Layer Name', 'pyname': u'outside_layer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer directional front absoptance matrix name', {'name': u'Outside Layer Directional Front Absoptance Matrix Name', 'pyname': u'outside_layer_directional_front_absoptance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside layer directional back absoptance matrix name', {'name': u'Outside Layer Directional Back Absoptance Matrix Name', 'pyname': u'outside_layer_directional_back_absoptance_matrix_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 1 name', {'name': u'Gap 1 Name', 'pyname': u'gap_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cfs gap 1 directional front absoptance matrix name', {'name': u'CFS Gap 1 Directional Front Absoptance Matrix Name', 'pyname': u'cfs_gap_1_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cfs gap 1 directional back absoptance matrix name', {'name': u'CFS Gap 1 Directional Back Absoptance Matrix Name', 'pyname': u'cfs_gap_1_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 name', {'name': u'Layer 2 Name', 'pyname': u'layer_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 directional front absoptance matrix name', {'name': u'Layer 2 Directional Front Absoptance Matrix Name', 'pyname': u'layer_2_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 2 directional back absoptance matrix name', {'name': u'Layer 2 Directional Back Absoptance Matrix Name', 'pyname': u'layer_2_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 name', {'name': u'Gap 2 Name', 'pyname': u'gap_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 directional front absoptance matrix name', {'name': u'Gap 2 Directional Front Absoptance Matrix Name', 'pyname': u'gap_2_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 2 directional back absoptance matrix name', {'name': u'Gap 2 Directional Back Absoptance Matrix Name', 'pyname': u'gap_2_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 material', {'name': u'Layer 3 Material', 'pyname': u'layer_3_material', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 directional front absoptance matrix name', {'name': u'Layer 3 Directional Front Absoptance Matrix Name', 'pyname': u'layer_3_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 3 directional back absoptance matrix name', {'name': u'Layer 3 Directional Back Absoptance Matrix Name', 'pyname': u'layer_3_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 name', {'name': u'Gap 3 Name', 'pyname': u'gap_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 directional front absoptance matrix name', {'name': u'Gap 3 Directional Front Absoptance Matrix Name', 'pyname': u'gap_3_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 3 directional back absoptance matrix name', {'name': u'Gap 3 Directional Back Absoptance Matrix Name', 'pyname': u'gap_3_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 name', {'name': u'Layer 4 Name', 'pyname': u'layer_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 directional front absoptance matrix name', {'name': u'Layer 4 Directional Front Absoptance Matrix Name', 'pyname': u'layer_4_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 4 directional back absoptance matrix name', {'name': u'Layer 4 Directional Back Absoptance Matrix Name', 'pyname': u'layer_4_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 name', {'name': u'Gap 4 Name', 'pyname': u'gap_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 directional front absoptance matrix name', {'name': u'Gap 4 Directional Front Absoptance Matrix Name', 'pyname': u'gap_4_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gap 4 directional back absoptance matrix name', {'name': u'Gap 4 Directional Back Absoptance Matrix Name', 'pyname': u'gap_4_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 name', {'name': u'Layer 5 Name', 'pyname': u'layer_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 directional front absoptance matrix name', {'name': u'Layer 5 Directional Front Absoptance Matrix Name', 'pyname': u'layer_5_directional_front_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'layer 5 directional back absoptance matrix name', {'name': u'Layer 5 Directional Back Absoptance Matrix Name', 'pyname': u'layer_5_directional_back_absoptance_matrix_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -17123,7 +17145,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -17146,7 +17168,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @basis_type.setter
     def basis_type(self, value="LBNLWINDOW"):
-        """  Corresponds to IDD Field `Basis Type`
+        """  Corresponds to IDD field `Basis Type`
 
         Args:
             value (str): value for IDD Field `Basis Type`
@@ -17170,7 +17192,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @basis_symmetry_type.setter
     def basis_symmetry_type(self, value="None"):
-        """  Corresponds to IDD Field `Basis Symmetry Type`
+        """  Corresponds to IDD field `Basis Symmetry Type`
 
         Args:
             value (str): value for IDD Field `Basis Symmetry Type`
@@ -17194,7 +17216,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @window_thermal_model.setter
     def window_thermal_model(self, value=None):
-        """  Corresponds to IDD Field `Window Thermal Model`
+        """  Corresponds to IDD field `Window Thermal Model`
 
         Args:
             value (str): value for IDD Field `Window Thermal Model`
@@ -17217,7 +17239,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @basis_matrix_name.setter
     def basis_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Basis Matrix Name`
+        """  Corresponds to IDD field `Basis Matrix Name`
 
         Args:
             value (str): value for IDD Field `Basis Matrix Name`
@@ -17240,7 +17262,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @solar_optical_complex_front_transmittance_matrix_name.setter
     def solar_optical_complex_front_transmittance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Solar Optical Complex Front Transmittance Matrix Name`
+        """  Corresponds to IDD field `Solar Optical Complex Front Transmittance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Solar Optical Complex Front Transmittance Matrix Name`
@@ -17263,7 +17285,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @solar_optical_complex_back_reflectance_matrix_name.setter
     def solar_optical_complex_back_reflectance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Solar Optical Complex Back Reflectance Matrix Name`
+        """  Corresponds to IDD field `Solar Optical Complex Back Reflectance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Solar Optical Complex Back Reflectance Matrix Name`
@@ -17286,7 +17308,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @visible_optical_complex_front_transmittance_matrix_name.setter
     def visible_optical_complex_front_transmittance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Visible Optical Complex Front Transmittance Matrix Name`
+        """  Corresponds to IDD field `Visible Optical Complex Front Transmittance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Visible Optical Complex Front Transmittance Matrix Name`
@@ -17309,7 +17331,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @visible_optical_complex_back_transmittance_matrix_name.setter
     def visible_optical_complex_back_transmittance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Visible Optical Complex Back Transmittance Matrix Name`
+        """  Corresponds to IDD field `Visible Optical Complex Back Transmittance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Visible Optical Complex Back Transmittance Matrix Name`
@@ -17332,7 +17354,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @outside_layer_name.setter
     def outside_layer_name(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer Name`
+        """  Corresponds to IDD field `Outside Layer Name`
 
         Args:
             value (str): value for IDD Field `Outside Layer Name`
@@ -17355,7 +17377,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @outside_layer_directional_front_absoptance_matrix_name.setter
     def outside_layer_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Outside Layer Directional Front Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Outside Layer Directional Front Absoptance Matrix Name`
@@ -17378,7 +17400,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @outside_layer_directional_back_absoptance_matrix_name.setter
     def outside_layer_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Outside Layer Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Outside Layer Directional Back Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Outside Layer Directional Back Absoptance Matrix Name`
@@ -17401,7 +17423,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_1_name.setter
     def gap_1_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 1 Name`
+        """  Corresponds to IDD field `Gap 1 Name`
 
         Args:
             value (str): value for IDD Field `Gap 1 Name`
@@ -17424,7 +17446,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @cfs_gap_1_directional_front_absoptance_matrix_name.setter
     def cfs_gap_1_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `CFS Gap 1 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `CFS Gap 1 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17448,7 +17470,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @cfs_gap_1_directional_back_absoptance_matrix_name.setter
     def cfs_gap_1_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `CFS Gap 1 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `CFS Gap 1 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17472,7 +17494,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_2_name.setter
     def layer_2_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 2 Name`
+        """  Corresponds to IDD field `Layer 2 Name`
 
         Args:
             value (str): value for IDD Field `Layer 2 Name`
@@ -17495,7 +17517,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_2_directional_front_absoptance_matrix_name.setter
     def layer_2_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 2 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 2 Directional Front Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 2 Directional Front Absoptance Matrix Name`
@@ -17518,7 +17540,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_2_directional_back_absoptance_matrix_name.setter
     def layer_2_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 2 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 2 Directional Back Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 2 Directional Back Absoptance Matrix Name`
@@ -17541,7 +17563,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_2_name.setter
     def gap_2_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 2 Name`
+        """  Corresponds to IDD field `Gap 2 Name`
 
         Args:
             value (str): value for IDD Field `Gap 2 Name`
@@ -17564,7 +17586,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_2_directional_front_absoptance_matrix_name.setter
     def gap_2_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 2 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 2 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17588,7 +17610,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_2_directional_back_absoptance_matrix_name.setter
     def gap_2_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 2 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 2 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17612,7 +17634,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_3_material.setter
     def layer_3_material(self, value=None):
-        """  Corresponds to IDD Field `Layer 3 Material`
+        """  Corresponds to IDD field `Layer 3 Material`
 
         Args:
             value (str): value for IDD Field `Layer 3 Material`
@@ -17635,7 +17657,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_3_directional_front_absoptance_matrix_name.setter
     def layer_3_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 3 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 3 Directional Front Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 3 Directional Front Absoptance Matrix Name`
@@ -17658,7 +17680,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_3_directional_back_absoptance_matrix_name.setter
     def layer_3_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 3 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 3 Directional Back Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 3 Directional Back Absoptance Matrix Name`
@@ -17681,7 +17703,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_3_name.setter
     def gap_3_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 3 Name`
+        """  Corresponds to IDD field `Gap 3 Name`
 
         Args:
             value (str): value for IDD Field `Gap 3 Name`
@@ -17704,7 +17726,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_3_directional_front_absoptance_matrix_name.setter
     def gap_3_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 3 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 3 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17728,7 +17750,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_3_directional_back_absoptance_matrix_name.setter
     def gap_3_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 3 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 3 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17752,7 +17774,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_4_name.setter
     def layer_4_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 4 Name`
+        """  Corresponds to IDD field `Layer 4 Name`
 
         Args:
             value (str): value for IDD Field `Layer 4 Name`
@@ -17775,7 +17797,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_4_directional_front_absoptance_matrix_name.setter
     def layer_4_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 4 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 4 Directional Front Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 4 Directional Front Absoptance Matrix Name`
@@ -17798,7 +17820,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_4_directional_back_absoptance_matrix_name.setter
     def layer_4_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 4 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 4 Directional Back Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 4 Directional Back Absoptance Matrix Name`
@@ -17821,7 +17843,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_4_name.setter
     def gap_4_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 4 Name`
+        """  Corresponds to IDD field `Gap 4 Name`
 
         Args:
             value (str): value for IDD Field `Gap 4 Name`
@@ -17844,7 +17866,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_4_directional_front_absoptance_matrix_name.setter
     def gap_4_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 4 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 4 Directional Front Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17868,7 +17890,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @gap_4_directional_back_absoptance_matrix_name.setter
     def gap_4_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Gap 4 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Gap 4 Directional Back Absoptance Matrix Name`
         Reserved for future use. Leave it blank for this version
 
         Args:
@@ -17892,7 +17914,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_5_name.setter
     def layer_5_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 5 Name`
+        """  Corresponds to IDD field `Layer 5 Name`
 
         Args:
             value (str): value for IDD Field `Layer 5 Name`
@@ -17915,7 +17937,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_5_directional_front_absoptance_matrix_name.setter
     def layer_5_directional_front_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 5 Directional Front Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 5 Directional Front Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 5 Directional Front Absoptance Matrix Name`
@@ -17938,7 +17960,7 @@ class ConstructionComplexFenestrationState(DataObject):
 
     @layer_5_directional_back_absoptance_matrix_name.setter
     def layer_5_directional_back_absoptance_matrix_name(self, value=None):
-        """  Corresponds to IDD Field `Layer 5 Directional Back Absoptance Matrix Name`
+        """  Corresponds to IDD field `Layer 5 Directional Back Absoptance Matrix Name`
 
         Args:
             value (str): value for IDD Field `Layer 5 Directional Back Absoptance Matrix Name`
@@ -17955,7 +17977,7 @@ class ConstructionWindowDataFile(DataObject):
     """ Corresponds to IDD object `Construction:WindowDataFile`
         Initiates search of the Window data file for a window called Name.
     """
-    schema = {'min-fields': 0, 'name': u'Construction:WindowDataFile', 'pyname': u'ConstructionWindowDataFile', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'file name', {'name': u'File Name', 'pyname': u'file_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'Construction:WindowDataFile', 'pyname': u'ConstructionWindowDataFile', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'file name', {'name': u'File Name', 'pyname': u'file_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -17968,7 +17990,7 @@ class ConstructionWindowDataFile(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -17991,7 +18013,7 @@ class ConstructionWindowDataFile(DataObject):
 
     @file_name.setter
     def file_name(self, value=None):
-        """  Corresponds to IDD Field `File Name`
+        """  Corresponds to IDD field `File Name`
         default file name is "Window5DataFile.dat"
         limit on this field is 100 characters.
 

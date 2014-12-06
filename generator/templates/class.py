@@ -23,7 +23,7 @@ class {{ obj.class_name }}(DataObject):
 
     @{{field.field_name}}.setter
     def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
-        """  Corresponds to IDD Field `{{field.internal_name}}`
+        """  Corresponds to IDD field `{{field.internal_name}}`
 
         {%- if field.attributes.deprecated %}
         This field is not really used and will be deleted from the object.
@@ -77,7 +77,6 @@ class {{ obj.class_name }}(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["{{ field.internal_name }}"] = value
-
     {%- endfor %}
 
     {%- if obj.extensible_fields|count > 0 %}
@@ -143,6 +142,17 @@ class {{ obj.class_name }}(DataObject):
         """ Get list of all extensibles
         """
         return self._extdata
+
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
 
     {%- endif %}
 

@@ -13,7 +13,7 @@ class GroundHeatTransferSlabXface(DataObject):
         This is only needed when using manual gridding (not recommended)
         XFACE: X Direction cell face coordinates: m
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:XFACE', 'pyname': u'GroundHeatTransferSlabXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:XFACE', 'pyname': u'GroundHeatTransferSlabXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class GroundHeatTransferSlabYface(DataObject):
@@ -21,7 +21,7 @@ class GroundHeatTransferSlabYface(DataObject):
         This is only needed when using manual gridding (not recommended)
         YFACE: Y Direction cell face coordinates: m,
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:YFACE', 'pyname': u'GroundHeatTransferSlabYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:YFACE', 'pyname': u'GroundHeatTransferSlabYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class GroundHeatTransferSlabZface(DataObject):
@@ -29,7 +29,7 @@ class GroundHeatTransferSlabZface(DataObject):
         This is only needed when usuing manual gridding (not recommended)
         ZFACE: Z Direction cell face coordinates: m
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:ZFACE', 'pyname': u'GroundHeatTransferSlabZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:ZFACE', 'pyname': u'GroundHeatTransferSlabZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class GroundHeatTransferBasementXface(DataObject):
@@ -37,7 +37,7 @@ class GroundHeatTransferBasementXface(DataObject):
         This is only needed when using manual gridding (not recommended)
         XFACE: X Direction cell face coordinates: m
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:XFACE', 'pyname': u'GroundHeatTransferBasementXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:XFACE', 'pyname': u'GroundHeatTransferBasementXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class GroundHeatTransferBasementYface(DataObject):
@@ -45,7 +45,7 @@ class GroundHeatTransferBasementYface(DataObject):
         This is only needed when using manual gridding (not recommended)
         YFACE: Y Direction cell face coordinates: m
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:YFACE', 'pyname': u'GroundHeatTransferBasementYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:YFACE', 'pyname': u'GroundHeatTransferBasementYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class GroundHeatTransferBasementZface(DataObject):
@@ -53,7 +53,7 @@ class GroundHeatTransferBasementZface(DataObject):
         This is only needed when using manual gridding (not recommended)
         ZFACE: Z Direction cell face coordinates: m
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ZFACE', 'pyname': u'GroundHeatTransferBasementZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ZFACE', 'pyname': u'GroundHeatTransferBasementZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
 class RoomAirModelType(DataObject):
@@ -62,7 +62,7 @@ class RoomAirModelType(DataObject):
         object is specified then the default Mixing model (all zone air at the same
         temperature) will be used.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAirModelType', 'pyname': u'RoomAirModelType', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'room-air modeling type', {'name': u'Room-Air Modeling Type', 'pyname': u'roomair_modeling_type', 'default': u'Mixing', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Mixing', u'UserDefined', u'OneNodeDisplacementVentilation', u'ThreeNodeDisplacementVentilation', u'CrossVentilation', u'UnderFloorAirDistributionInterior', u'UnderFloorAirDistributionExterior'], 'autocalculatable': False, 'type': 'alpha'}), (u'air temperature coupling strategy', {'name': u'Air Temperature Coupling Strategy', 'pyname': u'air_temperature_coupling_strategy', 'default': u'Direct', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Direct', u'Indirect'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAirModelType', 'pyname': u'RoomAirModelType', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'room-air modeling type', {'name': u'Room-Air Modeling Type', 'pyname': u'roomair_modeling_type', 'default': u'Mixing', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Mixing', u'UserDefined', u'OneNodeDisplacementVentilation', u'ThreeNodeDisplacementVentilation', u'CrossVentilation', u'UnderFloorAirDistributionInterior', u'UnderFloorAirDistributionExterior'], 'autocalculatable': False, 'type': 'alpha'}), (u'air temperature coupling strategy', {'name': u'Air Temperature Coupling Strategy', 'pyname': u'air_temperature_coupling_strategy', 'default': u'Direct', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Direct', u'Indirect'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -75,7 +75,7 @@ class RoomAirModelType(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -98,7 +98,7 @@ class RoomAirModelType(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -121,7 +121,7 @@ class RoomAirModelType(DataObject):
 
     @roomair_modeling_type.setter
     def roomair_modeling_type(self, value="Mixing"):
-        """  Corresponds to IDD Field `Room-Air Modeling Type`
+        """  Corresponds to IDD field `Room-Air Modeling Type`
         Complete mixing air model
         UserDefined Room Air Temperature Patterns
         needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone
@@ -158,7 +158,7 @@ class RoomAirModelType(DataObject):
 
     @air_temperature_coupling_strategy.setter
     def air_temperature_coupling_strategy(self, value="Direct"):
-        """  Corresponds to IDD Field `Air Temperature Coupling Strategy`
+        """  Corresponds to IDD field `Air Temperature Coupling Strategy`
 
         Args:
             value (str): value for IDD Field `Air Temperature Coupling Strategy`
@@ -177,7 +177,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
         Used to explicitly define temperature patterns that are to be applied to the mean air
         temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:UserDefined', 'pyname': u'RoomAirTemperaturePatternUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pattern control schedule name', {'name': u'Pattern Control Schedule Name', 'pyname': u'pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:UserDefined', 'pyname': u'RoomAirTemperaturePatternUserDefined', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'pattern control schedule name', {'name': u'Pattern Control Schedule Name', 'pyname': u'pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -190,7 +190,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -213,7 +213,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -236,7 +236,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this model. Schedule value > 0 means the model is
         active. Schedule value = 0 means the model is inactive and the zone will be modeled
         as fully mixed (Mixing). If this field is blank, the model is always active.
@@ -262,7 +262,7 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
 
     @pattern_control_schedule_name.setter
     def pattern_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Pattern Control Schedule Name`
+        """  Corresponds to IDD field `Pattern Control Schedule Name`
         The schedule should contain integer values that
         correspond to unique Control Integer fields in
         one of the RoomAir:TemperaturePattern:* objects.
@@ -283,7 +283,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
         Used to model room air with a fixed temperature gradient in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:ConstantGradient', 'pyname': u'RoomAirTemperaturePatternConstantGradient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature gradient', {'name': u'Temperature Gradient', 'pyname': u'temperature_gradient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:ConstantGradient', 'pyname': u'RoomAirTemperaturePatternConstantGradient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature gradient', {'name': u'Temperature Gradient', 'pyname': u'temperature_gradient', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -296,7 +296,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -319,7 +319,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @control_integer_for_pattern_control_schedule_name.setter
     def control_integer_for_pattern_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
+        """  Corresponds to IDD field `Control Integer for Pattern Control Schedule Name`
         reference this entry in Schedule Name
 
         Args:
@@ -343,7 +343,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @thermostat_offset.setter
     def thermostat_offset(self, value=None):
-        """  Corresponds to IDD Field `Thermostat Offset`
+        """  Corresponds to IDD field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
 
         Args:
@@ -368,7 +368,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @return_air_offset.setter
     def return_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Return Air Offset`
+        """  Corresponds to IDD field `Return Air Offset`
         = (Tleaving - Mean Air Temp )
 
         Args:
@@ -393,7 +393,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @exhaust_air_offset.setter
     def exhaust_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Exhaust Air Offset`
+        """  Corresponds to IDD field `Exhaust Air Offset`
         = (Texhaust - Mean Air Temp) deg C
 
         Args:
@@ -418,7 +418,7 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
 
     @temperature_gradient.setter
     def temperature_gradient(self, value=None):
-        """  Corresponds to IDD Field `Temperature Gradient`
+        """  Corresponds to IDD field `Temperature Gradient`
         Slope of temperature change in vertical direction
 
         Args:
@@ -438,7 +438,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
         Used to model room air with two temperature gradients in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:TwoGradient', 'pyname': u'RoomAirTemperaturePatternTwoGradient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'return air height', {'name': u'Return Air Height', 'pyname': u'return_air_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'exhaust air height', {'name': u'Exhaust Air Height', 'pyname': u'exhaust_air_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature gradient lower bound', {'name': u'Temperature Gradient Lower Bound', 'pyname': u'temperature_gradient_lower_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'}), (u'temperature gradient upper  bound', {'name': u'Temperature Gradient Upper  Bound', 'pyname': u'temperature_gradient_upper_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'}), (u'gradient interpolation mode', {'name': u'Gradient Interpolation Mode', 'pyname': u'gradient_interpolation_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorDryBulbTemperature', u'ZoneDryBulbTemperature', u'ZoneAndOutdoorTemperatureDifference', u'SensibleCoolingLoad', u'SensibleHeatingLoad'], 'autocalculatable': False, 'type': 'alpha'}), (u'upper temperature bound', {'name': u'Upper Temperature Bound', 'pyname': u'upper_temperature_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'lower temperature bound', {'name': u'Lower Temperature Bound', 'pyname': u'lower_temperature_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'upper heat rate bound', {'name': u'Upper Heat Rate Bound', 'pyname': u'upper_heat_rate_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'lower heat rate bound', {'name': u'Lower Heat Rate Bound', 'pyname': u'lower_heat_rate_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:TwoGradient', 'pyname': u'RoomAirTemperaturePatternTwoGradient', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'return air height', {'name': u'Return Air Height', 'pyname': u'return_air_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'exhaust air height', {'name': u'Exhaust Air Height', 'pyname': u'exhaust_air_height', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature gradient lower bound', {'name': u'Temperature Gradient Lower Bound', 'pyname': u'temperature_gradient_lower_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'}), (u'temperature gradient upper  bound', {'name': u'Temperature Gradient Upper  Bound', 'pyname': u'temperature_gradient_upper_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'}), (u'gradient interpolation mode', {'name': u'Gradient Interpolation Mode', 'pyname': u'gradient_interpolation_mode', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorDryBulbTemperature', u'ZoneDryBulbTemperature', u'ZoneAndOutdoorTemperatureDifference', u'SensibleCoolingLoad', u'SensibleHeatingLoad'], 'autocalculatable': False, 'type': 'alpha'}), (u'upper temperature bound', {'name': u'Upper Temperature Bound', 'pyname': u'upper_temperature_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'lower temperature bound', {'name': u'Lower Temperature Bound', 'pyname': u'lower_temperature_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'upper heat rate bound', {'name': u'Upper Heat Rate Bound', 'pyname': u'upper_heat_rate_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'lower heat rate bound', {'name': u'Lower Heat Rate Bound', 'pyname': u'lower_heat_rate_bound', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -451,7 +451,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -474,7 +474,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @control_integer_for_pattern_control_schedule_name.setter
     def control_integer_for_pattern_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
+        """  Corresponds to IDD field `Control Integer for Pattern Control Schedule Name`
         reference this entry in Schedule Name
 
         Args:
@@ -498,7 +498,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @thermostat_height.setter
     def thermostat_height(self, value=None):
-        """  Corresponds to IDD Field `Thermostat Height`
+        """  Corresponds to IDD field `Thermostat Height`
         = Distance from floor of zone
 
         Args:
@@ -523,7 +523,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @return_air_height.setter
     def return_air_height(self, value=None):
-        """  Corresponds to IDD Field `Return Air Height`
+        """  Corresponds to IDD field `Return Air Height`
         = Distance from floor of zone
 
         Args:
@@ -548,7 +548,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @exhaust_air_height.setter
     def exhaust_air_height(self, value=None):
-        """  Corresponds to IDD Field `Exhaust Air Height`
+        """  Corresponds to IDD field `Exhaust Air Height`
         = Distance from floor of zone
 
         Args:
@@ -573,7 +573,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @temperature_gradient_lower_bound.setter
     def temperature_gradient_lower_bound(self, value=None):
-        """  Corresponds to IDD Field `Temperature Gradient Lower Bound`
+        """  Corresponds to IDD field `Temperature Gradient Lower Bound`
         Slope of temperature change in vertical direction
 
         Args:
@@ -598,7 +598,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @temperature_gradient_upper_bound.setter
     def temperature_gradient_upper_bound(self, value=None):
-        """  Corresponds to IDD Field `Temperature Gradient Upper  Bound`
+        """  Corresponds to IDD field `Temperature Gradient Upper  Bound`
         Slope of temperature change in vertical direction
 
         Args:
@@ -623,7 +623,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @gradient_interpolation_mode.setter
     def gradient_interpolation_mode(self, value=None):
-        """  Corresponds to IDD Field `Gradient Interpolation Mode`
+        """  Corresponds to IDD field `Gradient Interpolation Mode`
 
         Args:
             value (str): value for IDD Field `Gradient Interpolation Mode`
@@ -646,7 +646,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @upper_temperature_bound.setter
     def upper_temperature_bound(self, value=None):
-        """  Corresponds to IDD Field `Upper Temperature Bound`
+        """  Corresponds to IDD field `Upper Temperature Bound`
 
         Args:
             value (float): value for IDD Field `Upper Temperature Bound`
@@ -670,7 +670,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @lower_temperature_bound.setter
     def lower_temperature_bound(self, value=None):
-        """  Corresponds to IDD Field `Lower Temperature Bound`
+        """  Corresponds to IDD field `Lower Temperature Bound`
 
         Args:
             value (float): value for IDD Field `Lower Temperature Bound`
@@ -694,7 +694,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @upper_heat_rate_bound.setter
     def upper_heat_rate_bound(self, value=None):
-        """  Corresponds to IDD Field `Upper Heat Rate Bound`
+        """  Corresponds to IDD field `Upper Heat Rate Bound`
 
         Args:
             value (float): value for IDD Field `Upper Heat Rate Bound`
@@ -718,7 +718,7 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
 
     @lower_heat_rate_bound.setter
     def lower_heat_rate_bound(self, value=None):
-        """  Corresponds to IDD Field `Lower Heat Rate Bound`
+        """  Corresponds to IDD field `Lower Heat Rate Bound`
 
         Args:
             value (float): value for IDD Field `Lower Heat Rate Bound`
@@ -739,7 +739,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
         by normalizing with the zone ceiling height.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:NondimensionalHeight', 'pyname': u'RoomAirTemperaturePatternNondimensionalHeight', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict([(u'pair 1 zeta nondimensional height', {'name': u'Pair 1 Zeta Nondimensional Height', 'pyname': u'pair_1_zeta_nondimensional_height', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pair 1 delta adjacent air temperature', {'name': u'Pair 1 Delta Adjacent Air Temperature', 'pyname': u'pair_1_delta_adjacent_air_temperature', 'maximum': 20.0, 'required-field': True, 'autosizable': False, 'minimum': -10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:NondimensionalHeight', 'pyname': u'RoomAirTemperaturePatternNondimensionalHeight', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict([(u'pair 1 zeta nondimensional height', {'name': u'Pair 1 Zeta Nondimensional Height', 'pyname': u'pair_1_zeta_nondimensional_height', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pair 1 delta adjacent air temperature', {'name': u'Pair 1 Delta Adjacent Air Temperature', 'pyname': u'pair_1_delta_adjacent_air_temperature', 'maximum': 20.0, 'required-field': True, 'autosizable': False, 'minimum': -10.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -752,7 +752,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -775,7 +775,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @control_integer_for_pattern_control_schedule_name.setter
     def control_integer_for_pattern_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
+        """  Corresponds to IDD field `Control Integer for Pattern Control Schedule Name`
         this value should appear in as a schedule value
 
         Args:
@@ -799,7 +799,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @thermostat_offset.setter
     def thermostat_offset(self, value=None):
-        """  Corresponds to IDD Field `Thermostat Offset`
+        """  Corresponds to IDD field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
 
         Args:
@@ -824,7 +824,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @return_air_offset.setter
     def return_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Return Air Offset`
+        """  Corresponds to IDD field `Return Air Offset`
         = (Temp leaving - Mean Air Temp ) deg C
 
         Args:
@@ -849,7 +849,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
 
     @exhaust_air_offset.setter
     def exhaust_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Exhaust Air Offset`
+        """  Corresponds to IDD field `Exhaust Air Offset`
         = (Temp exhaust - Mean Air Temp) deg C
         the remaining fields have pairs that describe the relative
         temperature pattern in the vertical direction of a zone
@@ -900,6 +900,17 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class RoomAirTemperaturePatternSurfaceMapping(DataObject):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:SurfaceMapping`
@@ -909,7 +920,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
         the opposite sides of the zone. Used in combination with
         RoomAir:TemperaturePattern:UserDefined.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:SurfaceMapping', 'pyname': u'RoomAirTemperaturePatternSurfaceMapping', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict([(u'surface name pair 1', {'name': u'Surface Name Pair 1', 'pyname': u'surface_name_pair_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta adjacent air temperature pair 1', {'name': u'Delta Adjacent Air Temperature Pair 1', 'pyname': u'delta_adjacent_air_temperature_pair_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:TemperaturePattern:SurfaceMapping', 'pyname': u'RoomAirTemperaturePatternSurfaceMapping', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'control integer for pattern control schedule name', {'name': u'Control Integer for Pattern Control Schedule Name', 'pyname': u'control_integer_for_pattern_control_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'integer'}), (u'thermostat offset', {'name': u'Thermostat Offset', 'pyname': u'thermostat_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'return air offset', {'name': u'Return Air Offset', 'pyname': u'return_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'exhaust air offset', {'name': u'Exhaust Air Offset', 'pyname': u'exhaust_air_offset', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict([(u'surface name pair 1', {'name': u'Surface Name Pair 1', 'pyname': u'surface_name_pair_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta adjacent air temperature pair 1', {'name': u'Delta Adjacent Air Temperature Pair 1', 'pyname': u'delta_adjacent_air_temperature_pair_1', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -922,7 +933,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -945,7 +956,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @control_integer_for_pattern_control_schedule_name.setter
     def control_integer_for_pattern_control_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Control Integer for Pattern Control Schedule Name`
+        """  Corresponds to IDD field `Control Integer for Pattern Control Schedule Name`
         reference this entry in schedule
 
         Args:
@@ -969,7 +980,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @thermostat_offset.setter
     def thermostat_offset(self, value=None):
-        """  Corresponds to IDD Field `Thermostat Offset`
+        """  Corresponds to IDD field `Thermostat Offset`
         = (Temp at thermostat- Mean Air Temp)
 
         Args:
@@ -994,7 +1005,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @return_air_offset.setter
     def return_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Return Air Offset`
+        """  Corresponds to IDD field `Return Air Offset`
         = (Tleaving - Mean Air Temp ) deg C
 
         Args:
@@ -1019,7 +1030,7 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
 
     @exhaust_air_offset.setter
     def exhaust_air_offset(self, value=None):
-        """  Corresponds to IDD Field `Exhaust Air Offset`
+        """  Corresponds to IDD field `Exhaust Air Offset`
         = (Texhaust - Mean Air Temp) deg C
 
         Args:
@@ -1063,12 +1074,23 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
         """
         return self._extdata
 
+    @extensibles.setter
+    def extensibles(self, extensibles):
+        """ Replaces extensible fields with `extensibles`
+
+        Args:
+            extensibles (list): nested list of extensible values
+        """
+        self._extdata = []
+        for ext in extensibles:
+            self.add_extensible(*ext)
+
 
 class RoomAirNode(DataObject):
     """ Corresponds to IDD object `RoomAir:Node`
         Define an air node for some types of nodal room air models
     """
-    schema = {'min-fields': 0, 'name': u'RoomAir:Node', 'pyname': u'RoomAirNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Alpha'}), (u'node type', {'name': u'Node Type', 'pyname': u'node_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Inlet', u'Floor', u'Control', u'Ceiling', u'MundtRoom', u'Return'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'height of nodal control volume center', {'name': u'Height of Nodal Control Volume Center', 'pyname': u'height_of_nodal_control_volume_center', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 2 name', {'name': u'Surface 2 Name', 'pyname': u'surface_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 3 name', {'name': u'Surface 3 Name', 'pyname': u'surface_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 4 name', {'name': u'Surface 4 Name', 'pyname': u'surface_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 5 name', {'name': u'Surface 5 Name', 'pyname': u'surface_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 6 name', {'name': u'Surface 6 Name', 'pyname': u'surface_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 7 name', {'name': u'Surface 7 Name', 'pyname': u'surface_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 8 name', {'name': u'Surface 8 Name', 'pyname': u'surface_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 9 name', {'name': u'Surface 9 Name', 'pyname': u'surface_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 10 name', {'name': u'Surface 10 Name', 'pyname': u'surface_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 11 name', {'name': u'Surface 11 Name', 'pyname': u'surface_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 12 name', {'name': u'Surface 12 Name', 'pyname': u'surface_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 13 name', {'name': u'Surface 13 Name', 'pyname': u'surface_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 14 name', {'name': u'Surface 14 Name', 'pyname': u'surface_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 15 name', {'name': u'Surface 15 Name', 'pyname': u'surface_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 16 name', {'name': u'Surface 16 Name', 'pyname': u'surface_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 17 name', {'name': u'Surface 17 Name', 'pyname': u'surface_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 18 name', {'name': u'Surface 18 Name', 'pyname': u'surface_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 19 name', {'name': u'Surface 19 Name', 'pyname': u'surface_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 20 name', {'name': u'Surface 20 Name', 'pyname': u'surface_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 21 name', {'name': u'Surface 21 Name', 'pyname': u'surface_21_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAir:Node', 'pyname': u'RoomAirNode', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'Alpha'}), (u'node type', {'name': u'Node Type', 'pyname': u'node_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Inlet', u'Floor', u'Control', u'Ceiling', u'MundtRoom', u'Return'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'height of nodal control volume center', {'name': u'Height of Nodal Control Volume Center', 'pyname': u'height_of_nodal_control_volume_center', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'surface 1 name', {'name': u'Surface 1 Name', 'pyname': u'surface_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 2 name', {'name': u'Surface 2 Name', 'pyname': u'surface_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 3 name', {'name': u'Surface 3 Name', 'pyname': u'surface_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 4 name', {'name': u'Surface 4 Name', 'pyname': u'surface_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 5 name', {'name': u'Surface 5 Name', 'pyname': u'surface_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 6 name', {'name': u'Surface 6 Name', 'pyname': u'surface_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 7 name', {'name': u'Surface 7 Name', 'pyname': u'surface_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 8 name', {'name': u'Surface 8 Name', 'pyname': u'surface_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 9 name', {'name': u'Surface 9 Name', 'pyname': u'surface_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 10 name', {'name': u'Surface 10 Name', 'pyname': u'surface_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 11 name', {'name': u'Surface 11 Name', 'pyname': u'surface_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 12 name', {'name': u'Surface 12 Name', 'pyname': u'surface_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 13 name', {'name': u'Surface 13 Name', 'pyname': u'surface_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 14 name', {'name': u'Surface 14 Name', 'pyname': u'surface_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 15 name', {'name': u'Surface 15 Name', 'pyname': u'surface_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 16 name', {'name': u'Surface 16 Name', 'pyname': u'surface_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 17 name', {'name': u'Surface 17 Name', 'pyname': u'surface_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 18 name', {'name': u'Surface 18 Name', 'pyname': u'surface_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 19 name', {'name': u'Surface 19 Name', 'pyname': u'surface_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 20 name', {'name': u'Surface 20 Name', 'pyname': u'surface_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'surface 21 name', {'name': u'Surface 21 Name', 'pyname': u'surface_21_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def name(self):
@@ -1081,7 +1103,7 @@ class RoomAirNode(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1104,7 +1126,7 @@ class RoomAirNode(DataObject):
 
     @node_type.setter
     def node_type(self, value=None):
-        """  Corresponds to IDD Field `Node Type`
+        """  Corresponds to IDD field `Node Type`
 
         Args:
             value (str): value for IDD Field `Node Type`
@@ -1127,7 +1149,7 @@ class RoomAirNode(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1150,7 +1172,7 @@ class RoomAirNode(DataObject):
 
     @height_of_nodal_control_volume_center.setter
     def height_of_nodal_control_volume_center(self, value=None):
-        """  Corresponds to IDD Field `Height of Nodal Control Volume Center`
+        """  Corresponds to IDD field `Height of Nodal Control Volume Center`
 
         Args:
             value (float): value for IDD Field `Height of Nodal Control Volume Center`
@@ -1174,7 +1196,7 @@ class RoomAirNode(DataObject):
 
     @surface_1_name.setter
     def surface_1_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 1 Name`
+        """  Corresponds to IDD field `Surface 1 Name`
 
         Args:
             value (str): value for IDD Field `Surface 1 Name`
@@ -1197,7 +1219,7 @@ class RoomAirNode(DataObject):
 
     @surface_2_name.setter
     def surface_2_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 2 Name`
+        """  Corresponds to IDD field `Surface 2 Name`
 
         Args:
             value (str): value for IDD Field `Surface 2 Name`
@@ -1220,7 +1242,7 @@ class RoomAirNode(DataObject):
 
     @surface_3_name.setter
     def surface_3_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 3 Name`
+        """  Corresponds to IDD field `Surface 3 Name`
 
         Args:
             value (str): value for IDD Field `Surface 3 Name`
@@ -1243,7 +1265,7 @@ class RoomAirNode(DataObject):
 
     @surface_4_name.setter
     def surface_4_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 4 Name`
+        """  Corresponds to IDD field `Surface 4 Name`
 
         Args:
             value (str): value for IDD Field `Surface 4 Name`
@@ -1266,7 +1288,7 @@ class RoomAirNode(DataObject):
 
     @surface_5_name.setter
     def surface_5_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 5 Name`
+        """  Corresponds to IDD field `Surface 5 Name`
 
         Args:
             value (str): value for IDD Field `Surface 5 Name`
@@ -1289,7 +1311,7 @@ class RoomAirNode(DataObject):
 
     @surface_6_name.setter
     def surface_6_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 6 Name`
+        """  Corresponds to IDD field `Surface 6 Name`
 
         Args:
             value (str): value for IDD Field `Surface 6 Name`
@@ -1312,7 +1334,7 @@ class RoomAirNode(DataObject):
 
     @surface_7_name.setter
     def surface_7_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 7 Name`
+        """  Corresponds to IDD field `Surface 7 Name`
 
         Args:
             value (str): value for IDD Field `Surface 7 Name`
@@ -1335,7 +1357,7 @@ class RoomAirNode(DataObject):
 
     @surface_8_name.setter
     def surface_8_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 8 Name`
+        """  Corresponds to IDD field `Surface 8 Name`
 
         Args:
             value (str): value for IDD Field `Surface 8 Name`
@@ -1358,7 +1380,7 @@ class RoomAirNode(DataObject):
 
     @surface_9_name.setter
     def surface_9_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 9 Name`
+        """  Corresponds to IDD field `Surface 9 Name`
 
         Args:
             value (str): value for IDD Field `Surface 9 Name`
@@ -1381,7 +1403,7 @@ class RoomAirNode(DataObject):
 
     @surface_10_name.setter
     def surface_10_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 10 Name`
+        """  Corresponds to IDD field `Surface 10 Name`
 
         Args:
             value (str): value for IDD Field `Surface 10 Name`
@@ -1404,7 +1426,7 @@ class RoomAirNode(DataObject):
 
     @surface_11_name.setter
     def surface_11_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 11 Name`
+        """  Corresponds to IDD field `Surface 11 Name`
 
         Args:
             value (str): value for IDD Field `Surface 11 Name`
@@ -1427,7 +1449,7 @@ class RoomAirNode(DataObject):
 
     @surface_12_name.setter
     def surface_12_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 12 Name`
+        """  Corresponds to IDD field `Surface 12 Name`
 
         Args:
             value (str): value for IDD Field `Surface 12 Name`
@@ -1450,7 +1472,7 @@ class RoomAirNode(DataObject):
 
     @surface_13_name.setter
     def surface_13_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 13 Name`
+        """  Corresponds to IDD field `Surface 13 Name`
 
         Args:
             value (str): value for IDD Field `Surface 13 Name`
@@ -1473,7 +1495,7 @@ class RoomAirNode(DataObject):
 
     @surface_14_name.setter
     def surface_14_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 14 Name`
+        """  Corresponds to IDD field `Surface 14 Name`
 
         Args:
             value (str): value for IDD Field `Surface 14 Name`
@@ -1496,7 +1518,7 @@ class RoomAirNode(DataObject):
 
     @surface_15_name.setter
     def surface_15_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 15 Name`
+        """  Corresponds to IDD field `Surface 15 Name`
 
         Args:
             value (str): value for IDD Field `Surface 15 Name`
@@ -1519,7 +1541,7 @@ class RoomAirNode(DataObject):
 
     @surface_16_name.setter
     def surface_16_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 16 Name`
+        """  Corresponds to IDD field `Surface 16 Name`
 
         Args:
             value (str): value for IDD Field `Surface 16 Name`
@@ -1542,7 +1564,7 @@ class RoomAirNode(DataObject):
 
     @surface_17_name.setter
     def surface_17_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 17 Name`
+        """  Corresponds to IDD field `Surface 17 Name`
 
         Args:
             value (str): value for IDD Field `Surface 17 Name`
@@ -1565,7 +1587,7 @@ class RoomAirNode(DataObject):
 
     @surface_18_name.setter
     def surface_18_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 18 Name`
+        """  Corresponds to IDD field `Surface 18 Name`
 
         Args:
             value (str): value for IDD Field `Surface 18 Name`
@@ -1588,7 +1610,7 @@ class RoomAirNode(DataObject):
 
     @surface_19_name.setter
     def surface_19_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 19 Name`
+        """  Corresponds to IDD field `Surface 19 Name`
 
         Args:
             value (str): value for IDD Field `Surface 19 Name`
@@ -1611,7 +1633,7 @@ class RoomAirNode(DataObject):
 
     @surface_20_name.setter
     def surface_20_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 20 Name`
+        """  Corresponds to IDD field `Surface 20 Name`
 
         Args:
             value (str): value for IDD Field `Surface 20 Name`
@@ -1634,7 +1656,7 @@ class RoomAirNode(DataObject):
 
     @surface_21_name.setter
     def surface_21_name(self, value=None):
-        """  Corresponds to IDD Field `Surface 21 Name`
+        """  Corresponds to IDD field `Surface 21 Name`
 
         Args:
             value (str): value for IDD Field `Surface 21 Name`
@@ -1651,7 +1673,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
     """ Corresponds to IDD object `RoomAirSettings:OneNodeDisplacementVentilation`
         The Mundt model for displacement ventilation
     """
-    schema = {'min-fields': 0, 'name': u'RoomAirSettings:OneNodeDisplacementVentilation', 'pyname': u'RoomAirSettingsOneNodeDisplacementVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of convective internal loads added to floor air', {'name': u'Fraction of Convective Internal Loads Added to Floor Air', 'pyname': u'fraction_of_convective_internal_loads_added_to_floor_air', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of infiltration internal loads added to floor air', {'name': u'Fraction of Infiltration Internal Loads Added to Floor Air', 'pyname': u'fraction_of_infiltration_internal_loads_added_to_floor_air', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAirSettings:OneNodeDisplacementVentilation', 'pyname': u'RoomAirSettingsOneNodeDisplacementVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fraction of convective internal loads added to floor air', {'name': u'Fraction of Convective Internal Loads Added to Floor Air', 'pyname': u'fraction_of_convective_internal_loads_added_to_floor_air', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'fraction of infiltration internal loads added to floor air', {'name': u'Fraction of Infiltration Internal Loads Added to Floor Air', 'pyname': u'fraction_of_infiltration_internal_loads_added_to_floor_air', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def zone_name(self):
@@ -1664,7 +1686,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1687,7 +1709,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
 
     @fraction_of_convective_internal_loads_added_to_floor_air.setter
     def fraction_of_convective_internal_loads_added_to_floor_air(self, value=None):
-        """  Corresponds to IDD Field `Fraction of Convective Internal Loads Added to Floor Air`
+        """  Corresponds to IDD field `Fraction of Convective Internal Loads Added to Floor Air`
 
         Args:
             value (float): value for IDD Field `Fraction of Convective Internal Loads Added to Floor Air`
@@ -1711,7 +1733,7 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
 
     @fraction_of_infiltration_internal_loads_added_to_floor_air.setter
     def fraction_of_infiltration_internal_loads_added_to_floor_air(self, value=None):
-        """  Corresponds to IDD Field `Fraction of Infiltration Internal Loads Added to Floor Air`
+        """  Corresponds to IDD field `Fraction of Infiltration Internal Loads Added to Floor Air`
 
         Args:
             value (float): value for IDD Field `Fraction of Infiltration Internal Loads Added to Floor Air`
@@ -1729,7 +1751,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
     """ Corresponds to IDD object `RoomAirSettings:ThreeNodeDisplacementVentilation`
         The UCSD model for Displacement Ventilation
     """
-    schema = {'min-fields': 0, 'name': u'RoomAirSettings:ThreeNodeDisplacementVentilation', 'pyname': u'RoomAirSettingsThreeNodeDisplacementVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gain distribution schedule name', {'name': u'Gain Distribution Schedule Name', 'pyname': u'gain_distribution_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of plumes per occupant', {'name': u'Number of Plumes per Occupant', 'pyname': u'number_of_plumes_per_occupant', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAirSettings:ThreeNodeDisplacementVentilation', 'pyname': u'RoomAirSettingsThreeNodeDisplacementVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gain distribution schedule name', {'name': u'Gain Distribution Schedule Name', 'pyname': u'gain_distribution_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of plumes per occupant', {'name': u'Number of Plumes per Occupant', 'pyname': u'number_of_plumes_per_occupant', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def zone_name(self):
@@ -1742,7 +1764,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
         Name of Zone being described. Any existing zone name
 
         Args:
@@ -1766,7 +1788,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @gain_distribution_schedule_name.setter
     def gain_distribution_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Gain Distribution Schedule Name`
+        """  Corresponds to IDD field `Gain Distribution Schedule Name`
         Distribution of the convective heat gains between the occupied and mixed zones.
         0<= Accepted Value <= 1.
         In the DV model 1 means all convective gains in the lower layer.
@@ -1792,7 +1814,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @number_of_plumes_per_occupant.setter
     def number_of_plumes_per_occupant(self, value=1.0):
-        """  Corresponds to IDD Field `Number of Plumes per Occupant`
+        """  Corresponds to IDD field `Number of Plumes per Occupant`
         Used only in the UCSD displacement ventilation model.
         Effective number of separate plumes per occupant in the occupied zone.
         Plumes that merge together in the occupied zone count as one.
@@ -1819,7 +1841,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @thermostat_height.setter
     def thermostat_height(self, value=1.1):
-        """  Corresponds to IDD Field `Thermostat Height`
+        """  Corresponds to IDD field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
 
         Args:
@@ -1845,7 +1867,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @comfort_height.setter
     def comfort_height(self, value=1.1):
-        """  Corresponds to IDD Field `Comfort Height`
+        """  Corresponds to IDD field `Comfort Height`
         Height at which air temperature is calculated for comfort purposes
 
         Args:
@@ -1871,7 +1893,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
 
     @temperature_difference_threshold_for_reporting.setter
     def temperature_difference_threshold_for_reporting(self, value=0.4):
-        """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
+        """  Corresponds to IDD field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between predicted upper and lower layer
         temperatures above which DV auxilliary outputs are calculated.
         These outputs are 'DV Transition Height', 'DV Fraction Min Recommended Flow Rate'
@@ -1900,7 +1922,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
         and predicts characteristic airflow velocities and average air temperatures.
         Used with RoomAirModelType = CrossVentilation.
     """
-    schema = {'min-fields': 0, 'name': u'RoomAirSettings:CrossVentilation', 'pyname': u'RoomAirSettingsCrossVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gain distribution schedule name', {'name': u'Gain Distribution Schedule Name', 'pyname': u'gain_distribution_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflow region used for thermal comfort evaluation', {'name': u'Airflow Region Used for Thermal Comfort Evaluation', 'pyname': u'airflow_region_used_for_thermal_comfort_evaluation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Jet', u'Recirculation'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'RoomAirSettings:CrossVentilation', 'pyname': u'RoomAirSettingsCrossVentilation', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'gain distribution schedule name', {'name': u'Gain Distribution Schedule Name', 'pyname': u'gain_distribution_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflow region used for thermal comfort evaluation', {'name': u'Airflow Region Used for Thermal Comfort Evaluation', 'pyname': u'airflow_region_used_for_thermal_comfort_evaluation', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Jet', u'Recirculation'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def zone_name(self):
@@ -1913,7 +1935,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
         Name of Zone being described. Any existing zone name
 
         Args:
@@ -1937,7 +1959,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
     @gain_distribution_schedule_name.setter
     def gain_distribution_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Gain Distribution Schedule Name`
+        """  Corresponds to IDD field `Gain Distribution Schedule Name`
         Distribution of the convective heat gains between the jet and recirculation zones.
         0<= Accepted Value <= 1.
         In the CV model 1 means all convective gains in the jet region.
@@ -1963,7 +1985,7 @@ class RoomAirSettingsCrossVentilation(DataObject):
 
     @airflow_region_used_for_thermal_comfort_evaluation.setter
     def airflow_region_used_for_thermal_comfort_evaluation(self, value=None):
-        """  Corresponds to IDD Field `Airflow Region Used for Thermal Comfort Evaluation`
+        """  Corresponds to IDD field `Airflow Region Used for Thermal Comfort Evaluation`
         Required field whenever thermal comfort is predicted
         defines Air temperature and Airflow velocity that will be used in the Fanger model
         conditions must refer to one of the two regions: jet or recirculation
@@ -1988,7 +2010,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
         through exterior walls or windows or which have considerable direct solar gain.
         Used with RoomAirModelType = UnderFloorAirDistributionInterior.
     """
-    schema = {'min-fields': 15, 'name': u'RoomAirSettings:UnderFloorAirDistributionInterior', 'pyname': u'RoomAirSettingsUnderFloorAirDistributionInterior', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of diffusers', {'name': u'Number of Diffusers', 'pyname': u'number_of_diffusers', 'default': 'autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'power per plume', {'name': u'Power per Plume', 'pyname': u'power_per_plume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'design effective area of diffuser', {'name': u'Design Effective Area of Diffuser', 'pyname': u'design_effective_area_of_diffuser', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'diffuser slot angle from vertical', {'name': u'Diffuser Slot Angle from Vertical', 'pyname': u'diffuser_slot_angle_from_vertical', 'default': 'Autocalculate', 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'deg'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'floor diffuser type', {'name': u'Floor Diffuser Type', 'pyname': u'floor_diffuser_type', 'default': u'Swirl', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], 'autocalculatable': False, 'type': 'alpha'}), (u'transition height', {'name': u'Transition Height', 'pyname': u'transition_height', 'default': 1.7, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'coefficient a', {'name': u'Coefficient A', 'pyname': u'coefficient_a', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient b', {'name': u'Coefficient B', 'pyname': u'coefficient_b', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient c', {'name': u'Coefficient C', 'pyname': u'coefficient_c', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient d', {'name': u'Coefficient D', 'pyname': u'coefficient_d', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient e', {'name': u'Coefficient E', 'pyname': u'coefficient_e', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15, 'name': u'RoomAirSettings:UnderFloorAirDistributionInterior', 'pyname': u'RoomAirSettingsUnderFloorAirDistributionInterior', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of diffusers', {'name': u'Number of Diffusers', 'pyname': u'number_of_diffusers', 'default': 'autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'power per plume', {'name': u'Power per Plume', 'pyname': u'power_per_plume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'design effective area of diffuser', {'name': u'Design Effective Area of Diffuser', 'pyname': u'design_effective_area_of_diffuser', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'diffuser slot angle from vertical', {'name': u'Diffuser Slot Angle from Vertical', 'pyname': u'diffuser_slot_angle_from_vertical', 'default': 'Autocalculate', 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'deg'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'floor diffuser type', {'name': u'Floor Diffuser Type', 'pyname': u'floor_diffuser_type', 'default': u'Swirl', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], 'autocalculatable': False, 'type': 'alpha'}), (u'transition height', {'name': u'Transition Height', 'pyname': u'transition_height', 'default': 1.7, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'coefficient a', {'name': u'Coefficient A', 'pyname': u'coefficient_a', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient b', {'name': u'Coefficient B', 'pyname': u'coefficient_b', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient c', {'name': u'Coefficient C', 'pyname': u'coefficient_c', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient d', {'name': u'Coefficient D', 'pyname': u'coefficient_d', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient e', {'name': u'Coefficient E', 'pyname': u'coefficient_e', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def zone_name(self):
@@ -2001,7 +2023,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
         Name of Zone with underfloor air distribution
 
         Args:
@@ -2025,7 +2047,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @number_of_diffusers.setter
     def number_of_diffusers(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Number of Diffusers`
+        """  Corresponds to IDD field `Number of Diffusers`
         Total number of diffusers in this zone
 
         Args:
@@ -2050,7 +2072,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @power_per_plume.setter
     def power_per_plume(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Power per Plume`
+        """  Corresponds to IDD field `Power per Plume`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
@@ -2075,7 +2097,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @design_effective_area_of_diffuser.setter
     def design_effective_area_of_diffuser(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Design Effective Area of Diffuser`
+        """  Corresponds to IDD field `Design Effective Area of Diffuser`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
@@ -2100,7 +2122,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @diffuser_slot_angle_from_vertical.setter
     def diffuser_slot_angle_from_vertical(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Diffuser Slot Angle from Vertical`
+        """  Corresponds to IDD field `Diffuser Slot Angle from Vertical`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
@@ -2126,7 +2148,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @thermostat_height.setter
     def thermostat_height(self, value=1.2):
-        """  Corresponds to IDD Field `Thermostat Height`
+        """  Corresponds to IDD field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
 
         Args:
@@ -2152,7 +2174,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @comfort_height.setter
     def comfort_height(self, value=1.1):
-        """  Corresponds to IDD Field `Comfort Height`
+        """  Corresponds to IDD field `Comfort Height`
         Height at which air temperature is calculated for comfort purposes
 
         Args:
@@ -2178,7 +2200,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @temperature_difference_threshold_for_reporting.setter
     def temperature_difference_threshold_for_reporting(self, value=0.4):
-        """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
+        """  Corresponds to IDD field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between predicted upper and lower layer
         temperatures above which UFAD auxilliary outputs are calculated.
         These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
@@ -2208,7 +2230,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @floor_diffuser_type.setter
     def floor_diffuser_type(self, value="Swirl"):
-        """  Corresponds to IDD Field `Floor Diffuser Type`
+        """  Corresponds to IDD field `Floor Diffuser Type`
 
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
@@ -2232,7 +2254,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @transition_height.setter
     def transition_height(self, value=1.7):
-        """  Corresponds to IDD Field `Transition Height`
+        """  Corresponds to IDD field `Transition Height`
         user-specified height above floor of boundary between occupied and upper subzones
 
         Args:
@@ -2258,7 +2280,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @coefficient_a.setter
     def coefficient_a(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient A`
+        """  Corresponds to IDD field `Coefficient A`
         Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
 
@@ -2284,7 +2306,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @coefficient_b.setter
     def coefficient_b(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient B`
+        """  Corresponds to IDD field `Coefficient B`
         Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
 
@@ -2310,7 +2332,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @coefficient_c.setter
     def coefficient_c(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient C`
+        """  Corresponds to IDD field `Coefficient C`
         Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
 
@@ -2336,7 +2358,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @coefficient_d.setter
     def coefficient_d(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient D`
+        """  Corresponds to IDD field `Coefficient D`
         Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
 
@@ -2362,7 +2384,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
 
     @coefficient_e.setter
     def coefficient_e(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient E`
+        """  Corresponds to IDD field `Coefficient E`
         Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
         Kc is the fraction of the total zone load attributable to the lower subzone
 
@@ -2385,7 +2407,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
         localized sources located in the occupied part of the room, as well as convective gain
         coming from a warm window. Used with RoomAirModelType = CrossVentilation.
     """
-    schema = {'min-fields': 15, 'name': u'RoomAirSettings:UnderFloorAirDistributionExterior', 'pyname': u'RoomAirSettingsUnderFloorAirDistributionExterior', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of diffusers per zone', {'name': u'Number of Diffusers per Zone', 'pyname': u'number_of_diffusers_per_zone', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'power per plume', {'name': u'Power per Plume', 'pyname': u'power_per_plume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'design effective area of diffuser', {'name': u'Design Effective Area of Diffuser', 'pyname': u'design_effective_area_of_diffuser', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'diffuser slot angle from vertical', {'name': u'Diffuser Slot Angle from Vertical', 'pyname': u'diffuser_slot_angle_from_vertical', 'default': 'autocalculate', 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'deg'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'floor diffuser type', {'name': u'Floor Diffuser Type', 'pyname': u'floor_diffuser_type', 'default': u'Swirl', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], 'autocalculatable': False, 'type': 'alpha'}), (u'transition height', {'name': u'Transition Height', 'pyname': u'transition_height', 'default': 1.7, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'coefficient a in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient b in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient c in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient d in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient e in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 15, 'name': u'RoomAirSettings:UnderFloorAirDistributionExterior', 'pyname': u'RoomAirSettingsUnderFloorAirDistributionExterior', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'number of diffusers per zone', {'name': u'Number of Diffusers per Zone', 'pyname': u'number_of_diffusers_per_zone', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'power per plume', {'name': u'Power per Plume', 'pyname': u'power_per_plume', 'default': 'autocalculate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'W'}), (u'design effective area of diffuser', {'name': u'Design Effective Area of Diffuser', 'pyname': u'design_effective_area_of_diffuser', 'default': 'Autocalculate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm2'}), (u'diffuser slot angle from vertical', {'name': u'Diffuser Slot Angle from Vertical', 'pyname': u'diffuser_slot_angle_from_vertical', 'default': 'autocalculate', 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'deg'}), (u'thermostat height', {'name': u'Thermostat Height', 'pyname': u'thermostat_height', 'default': 1.2, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'comfort height', {'name': u'Comfort Height', 'pyname': u'comfort_height', 'default': 1.1, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'temperature difference threshold for reporting', {'name': u'Temperature Difference Threshold for Reporting', 'pyname': u'temperature_difference_threshold_for_reporting', 'default': 0.4, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'floor diffuser type', {'name': u'Floor Diffuser Type', 'pyname': u'floor_diffuser_type', 'default': u'Swirl', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Custom', u'Swirl', u'VariableArea', u'HorizontalSwirl', u'LinearBarGrille'], 'autocalculatable': False, 'type': 'alpha'}), (u'transition height', {'name': u'Transition Height', 'pyname': u'transition_height', 'default': 1.7, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real', 'unit': u'm'}), (u'coefficient a in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient b in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient c in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient d in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'}), (u'coefficient e in formula kc = a*gamma**b + c + d*gamma + e*gamma**2', {'name': u'Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2', 'pyname': u'coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2', 'default': 'Autocalculate', 'required-field': False, 'autosizable': False, 'autocalculatable': True, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
     @property
     def zone_name(self):
@@ -2398,7 +2420,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD Field `Zone Name`
+        """  Corresponds to IDD field `Zone Name`
         Name of Zone being described. Any existing zone name
 
         Args:
@@ -2422,7 +2444,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @number_of_diffusers_per_zone.setter
     def number_of_diffusers_per_zone(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Number of Diffusers per Zone`
+        """  Corresponds to IDD field `Number of Diffusers per Zone`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Number of Diffusers per Zone`
@@ -2446,7 +2468,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @power_per_plume.setter
     def power_per_plume(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Power per Plume`
+        """  Corresponds to IDD field `Power per Plume`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Power per Plume`
@@ -2471,7 +2493,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @design_effective_area_of_diffuser.setter
     def design_effective_area_of_diffuser(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Design Effective Area of Diffuser`
+        """  Corresponds to IDD field `Design Effective Area of Diffuser`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Design Effective Area of Diffuser`
@@ -2496,7 +2518,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @diffuser_slot_angle_from_vertical.setter
     def diffuser_slot_angle_from_vertical(self, value="autocalculate"):
-        """  Corresponds to IDD Field `Diffuser Slot Angle from Vertical`
+        """  Corresponds to IDD field `Diffuser Slot Angle from Vertical`
 
         Args:
             value (float or "Autocalculate"): value for IDD Field `Diffuser Slot Angle from Vertical`
@@ -2522,7 +2544,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @thermostat_height.setter
     def thermostat_height(self, value=1.2):
-        """  Corresponds to IDD Field `Thermostat Height`
+        """  Corresponds to IDD field `Thermostat Height`
         Height of thermostat/temperature control sensor above floor
 
         Args:
@@ -2548,7 +2570,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @comfort_height.setter
     def comfort_height(self, value=1.1):
-        """  Corresponds to IDD Field `Comfort Height`
+        """  Corresponds to IDD field `Comfort Height`
         Height at which Air temperature is calculated for comfort purposes
 
         Args:
@@ -2574,7 +2596,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @temperature_difference_threshold_for_reporting.setter
     def temperature_difference_threshold_for_reporting(self, value=0.4):
-        """  Corresponds to IDD Field `Temperature Difference Threshold for Reporting`
+        """  Corresponds to IDD field `Temperature Difference Threshold for Reporting`
         Minimum temperature difference between upper and lower layer
         temperatures above which UFAD auxilliary outputs are calculated.
         These outputs are 'UF Transition Height'and 'UF Average Temp Gradient'.  They
@@ -2604,7 +2626,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @floor_diffuser_type.setter
     def floor_diffuser_type(self, value="Swirl"):
-        """  Corresponds to IDD Field `Floor Diffuser Type`
+        """  Corresponds to IDD field `Floor Diffuser Type`
 
         Args:
             value (str): value for IDD Field `Floor Diffuser Type`
@@ -2628,7 +2650,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @transition_height.setter
     def transition_height(self, value=1.7):
-        """  Corresponds to IDD Field `Transition Height`
+        """  Corresponds to IDD field `Transition Height`
         User-specified height above floor of boundary between occupied and upper subzones
 
         Args:
@@ -2654,7 +2676,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2.setter
     def coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
+        """  Corresponds to IDD field `Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
 
         Args:
@@ -2679,7 +2701,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2.setter
     def coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
+        """  Corresponds to IDD field `Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
 
         Args:
@@ -2704,7 +2726,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2.setter
     def coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
+        """  Corresponds to IDD field `Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
 
         Args:
@@ -2729,7 +2751,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2.setter
     def coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
+        """  Corresponds to IDD field `Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
 
         Args:
@@ -2754,7 +2776,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
 
     @coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2.setter
     def coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2(self, value="Autocalculate"):
-        """  Corresponds to IDD Field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
+        """  Corresponds to IDD field `Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2`
         Kc is the fraction of the total zone load attributable to the lower subzone
 
         Args:

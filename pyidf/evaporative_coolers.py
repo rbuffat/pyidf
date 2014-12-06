@@ -13,7 +13,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
         Direct evaporative cooler with rigid media evaporative pad and recirculating water
         pump. This model has no controls other than its availability schedule.
     """
-    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Direct:CelDekPad', 'pyname': u'EvaporativeCoolerDirectCelDekPad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'direct pad area', {'name': u'Direct Pad Area', 'pyname': u'direct_pad_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'direct pad depth', {'name': u'Direct Pad Depth', 'pyname': u'direct_pad_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Direct:CelDekPad', 'pyname': u'EvaporativeCoolerDirectCelDekPad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'direct pad area', {'name': u'Direct Pad Area', 'pyname': u'direct_pad_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'direct pad depth', {'name': u'Direct Pad Depth', 'pyname': u'direct_pad_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Evaporative Coolers'}
 
     @property
     def name(self):
@@ -26,7 +26,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -49,7 +49,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -74,7 +74,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @direct_pad_area.setter
     def direct_pad_area(self, value=None):
-        """  Corresponds to IDD Field `Direct Pad Area`
+        """  Corresponds to IDD field `Direct Pad Area`
 
         Args:
             value (float): value for IDD Field `Direct Pad Area`
@@ -98,7 +98,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @direct_pad_depth.setter
     def direct_pad_depth(self, value=None):
-        """  Corresponds to IDD Field `Direct Pad Depth`
+        """  Corresponds to IDD field `Direct Pad Depth`
 
         Args:
             value (float): value for IDD Field `Direct Pad Depth`
@@ -122,7 +122,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @recirculating_water_pump_power_consumption.setter
     def recirculating_water_pump_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Recirculating Water Pump Power Consumption`
+        """  Corresponds to IDD field `Recirculating Water Pump Power Consumption`
 
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
@@ -147,7 +147,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -170,7 +170,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -193,7 +193,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @control_type.setter
     def control_type(self, value=None):
-        """  Corresponds to IDD Field `Control Type`
+        """  Corresponds to IDD field `Control Type`
         This field is not currently used and can be left blank
 
         Args:
@@ -217,7 +217,7 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Water Supply Storage Tank Name`
+        """  Corresponds to IDD field `Water Supply Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -236,7 +236,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
         pump, and secondary air fan. This model has no controls other than its availability
         schedule.
     """
-    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:CelDekPad', 'pyname': u'EvaporativeCoolerIndirectCelDekPad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'direct pad area', {'name': u'Direct Pad Area', 'pyname': u'direct_pad_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'direct pad depth', {'name': u'Direct Pad Depth', 'pyname': u'direct_pad_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'indirect heat exchanger effectiveness', {'name': u'Indirect Heat Exchanger Effectiveness', 'pyname': u'indirect_heat_exchanger_effectiveness', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:CelDekPad', 'pyname': u'EvaporativeCoolerIndirectCelDekPad', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'direct pad area', {'name': u'Direct Pad Area', 'pyname': u'direct_pad_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm2'}), (u'direct pad depth', {'name': u'Direct Pad Depth', 'pyname': u'direct_pad_depth', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'indirect heat exchanger effectiveness', {'name': u'Indirect Heat Exchanger Effectiveness', 'pyname': u'indirect_heat_exchanger_effectiveness', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Evaporative Coolers'}
 
     @property
     def name(self):
@@ -249,7 +249,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -272,7 +272,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -297,7 +297,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @direct_pad_area.setter
     def direct_pad_area(self, value=None):
-        """  Corresponds to IDD Field `Direct Pad Area`
+        """  Corresponds to IDD field `Direct Pad Area`
 
         Args:
             value (float): value for IDD Field `Direct Pad Area`
@@ -321,7 +321,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @direct_pad_depth.setter
     def direct_pad_depth(self, value=None):
-        """  Corresponds to IDD Field `Direct Pad Depth`
+        """  Corresponds to IDD field `Direct Pad Depth`
 
         Args:
             value (float): value for IDD Field `Direct Pad Depth`
@@ -345,7 +345,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @recirculating_water_pump_power_consumption.setter
     def recirculating_water_pump_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Recirculating Water Pump Power Consumption`
+        """  Corresponds to IDD field `Recirculating Water Pump Power Consumption`
 
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
@@ -370,7 +370,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @secondary_fan_flow_rate.setter
     def secondary_fan_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Flow Rate`
+        """  Corresponds to IDD field `Secondary Fan Flow Rate`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Flow Rate`
@@ -394,7 +394,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @secondary_fan_total_efficiency.setter
     def secondary_fan_total_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Total Efficiency`
+        """  Corresponds to IDD field `Secondary Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
@@ -418,7 +418,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @secondary_fan_delta_pressure.setter
     def secondary_fan_delta_pressure(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Delta Pressure`
+        """  Corresponds to IDD field `Secondary Fan Delta Pressure`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
@@ -443,7 +443,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @indirect_heat_exchanger_effectiveness.setter
     def indirect_heat_exchanger_effectiveness(self, value=None):
-        """  Corresponds to IDD Field `Indirect Heat Exchanger Effectiveness`
+        """  Corresponds to IDD field `Indirect Heat Exchanger Effectiveness`
 
         Args:
             value (float): value for IDD Field `Indirect Heat Exchanger Effectiveness`
@@ -466,7 +466,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Inlet Node Name`
+        """  Corresponds to IDD field `Primary Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -489,7 +489,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Outlet Node Name`
+        """  Corresponds to IDD field `Primary Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -512,7 +512,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @control_type.setter
     def control_type(self, value=None):
-        """  Corresponds to IDD Field `Control Type`
+        """  Corresponds to IDD field `Control Type`
         This field is not currently used and can be left blank
 
         Args:
@@ -536,7 +536,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Water Supply Storage Tank Name`
+        """  Corresponds to IDD field `Water Supply Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -559,7 +559,7 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
+        """  Corresponds to IDD field `Secondary Air Inlet Node Name`
         Enter the name of an outdoor air node
 
         Args:
@@ -578,7 +578,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
         Indirect evaporative cooler with wetted coil, recirculating water pump, and secondary
         air fan. This model has no controls other than its availability schedule.
     """
-    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:WetCoil', 'pyname': u'EvaporativeCoolerIndirectWetCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil maximum efficiency', {'name': u'Coil Maximum Efficiency', 'pyname': u'coil_maximum_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'coil flow ratio', {'name': u'Coil Flow Ratio', 'pyname': u'coil_flow_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:WetCoil', 'pyname': u'EvaporativeCoolerIndirectWetCoil', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil maximum efficiency', {'name': u'Coil Maximum Efficiency', 'pyname': u'coil_maximum_efficiency', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'coil flow ratio', {'name': u'Coil Flow Ratio', 'pyname': u'coil_flow_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Evaporative Coolers'}
 
     @property
     def name(self):
@@ -591,7 +591,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -614,7 +614,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -639,7 +639,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @coil_maximum_efficiency.setter
     def coil_maximum_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Coil Maximum Efficiency`
+        """  Corresponds to IDD field `Coil Maximum Efficiency`
 
         Args:
             value (float): value for IDD Field `Coil Maximum Efficiency`
@@ -663,7 +663,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @coil_flow_ratio.setter
     def coil_flow_ratio(self, value=None):
-        """  Corresponds to IDD Field `Coil Flow Ratio`
+        """  Corresponds to IDD field `Coil Flow Ratio`
 
         Args:
             value (float): value for IDD Field `Coil Flow Ratio`
@@ -686,7 +686,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @recirculating_water_pump_power_consumption.setter
     def recirculating_water_pump_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Recirculating Water Pump Power Consumption`
+        """  Corresponds to IDD field `Recirculating Water Pump Power Consumption`
 
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
@@ -711,7 +711,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @secondary_fan_flow_rate.setter
     def secondary_fan_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Flow Rate`
+        """  Corresponds to IDD field `Secondary Fan Flow Rate`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Flow Rate`
@@ -735,7 +735,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @secondary_fan_total_efficiency.setter
     def secondary_fan_total_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Total Efficiency`
+        """  Corresponds to IDD field `Secondary Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
@@ -759,7 +759,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @secondary_fan_delta_pressure.setter
     def secondary_fan_delta_pressure(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Delta Pressure`
+        """  Corresponds to IDD field `Secondary Fan Delta Pressure`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
@@ -784,7 +784,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Inlet Node Name`
+        """  Corresponds to IDD field `Primary Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -807,7 +807,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Outlet Node Name`
+        """  Corresponds to IDD field `Primary Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -830,7 +830,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @control_type.setter
     def control_type(self, value=None):
-        """  Corresponds to IDD Field `Control Type`
+        """  Corresponds to IDD field `Control Type`
         This field is not currently used and can be left blank
 
         Args:
@@ -854,7 +854,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Water Supply Storage Tank Name`
+        """  Corresponds to IDD field `Water Supply Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -877,7 +877,7 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
+        """  Corresponds to IDD field `Secondary Air Inlet Node Name`
         Enter the name of an outdoor air node
 
         Args:
@@ -897,7 +897,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
         or wetted coil), recirculating water pump, and secondary air fan. This model is
         controlled to meet the primary air outlet temperature setpoint.
     """
-    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:ResearchSpecial', 'pyname': u'EvaporativeCoolerIndirectResearchSpecial', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooler maximum effectiveness', {'name': u'Cooler Maximum Effectiveness', 'pyname': u'cooler_maximum_effectiveness', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cooler flow ratio', {'name': u'Cooler Flow Ratio', 'pyname': u'cooler_flow_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dewpoint effectiveness factor', {'name': u'Dewpoint Effectiveness Factor', 'pyname': u'dewpoint_effectiveness_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air inlet node name', {'name': u'Relief Air Inlet Node Name', 'pyname': u'relief_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drift loss fraction', {'name': u'Drift Loss Fraction', 'pyname': u'drift_loss_fraction', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blowdown concentration ratio', {'name': u'Blowdown Concentration Ratio', 'pyname': u'blowdown_concentration_ratio', 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Indirect:ResearchSpecial', 'pyname': u'EvaporativeCoolerIndirectResearchSpecial', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooler maximum effectiveness', {'name': u'Cooler Maximum Effectiveness', 'pyname': u'cooler_maximum_effectiveness', 'maximum': 2.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cooler flow ratio', {'name': u'Cooler Flow Ratio', 'pyname': u'cooler_flow_ratio', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'secondary fan flow rate', {'name': u'Secondary Fan Flow Rate', 'pyname': u'secondary_fan_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'secondary fan total efficiency', {'name': u'Secondary Fan Total Efficiency', 'pyname': u'secondary_fan_total_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'secondary fan delta pressure', {'name': u'Secondary Fan Delta Pressure', 'pyname': u'secondary_fan_delta_pressure', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'Pa'}), (u'primary air inlet node name', {'name': u'Primary Air Inlet Node Name', 'pyname': u'primary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'primary air outlet node name', {'name': u'Primary Air Outlet Node Name', 'pyname': u'primary_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'dewpoint effectiveness factor', {'name': u'Dewpoint Effectiveness Factor', 'pyname': u'dewpoint_effectiveness_factor', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'secondary air inlet node name', {'name': u'Secondary Air Inlet Node Name', 'pyname': u'secondary_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'relief air inlet node name', {'name': u'Relief Air Inlet Node Name', 'pyname': u'relief_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drift loss fraction', {'name': u'Drift Loss Fraction', 'pyname': u'drift_loss_fraction', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blowdown concentration ratio', {'name': u'Blowdown Concentration Ratio', 'pyname': u'blowdown_concentration_ratio', 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Evaporative Coolers'}
 
     @property
     def name(self):
@@ -910,7 +910,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -933,7 +933,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -958,7 +958,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @cooler_maximum_effectiveness.setter
     def cooler_maximum_effectiveness(self, value=None):
-        """  Corresponds to IDD Field `Cooler Maximum Effectiveness`
+        """  Corresponds to IDD field `Cooler Maximum Effectiveness`
 
         Args:
             value (float): value for IDD Field `Cooler Maximum Effectiveness`
@@ -982,7 +982,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @cooler_flow_ratio.setter
     def cooler_flow_ratio(self, value=None):
-        """  Corresponds to IDD Field `Cooler Flow Ratio`
+        """  Corresponds to IDD field `Cooler Flow Ratio`
 
         Args:
             value (float): value for IDD Field `Cooler Flow Ratio`
@@ -1005,7 +1005,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @recirculating_water_pump_power_consumption.setter
     def recirculating_water_pump_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Recirculating Water Pump Power Consumption`
+        """  Corresponds to IDD field `Recirculating Water Pump Power Consumption`
 
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
@@ -1030,7 +1030,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @secondary_fan_flow_rate.setter
     def secondary_fan_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Flow Rate`
+        """  Corresponds to IDD field `Secondary Fan Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Secondary Fan Flow Rate`
@@ -1054,7 +1054,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @secondary_fan_total_efficiency.setter
     def secondary_fan_total_efficiency(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Total Efficiency`
+        """  Corresponds to IDD field `Secondary Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Total Efficiency`
@@ -1078,7 +1078,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @secondary_fan_delta_pressure.setter
     def secondary_fan_delta_pressure(self, value=None):
-        """  Corresponds to IDD Field `Secondary Fan Delta Pressure`
+        """  Corresponds to IDD field `Secondary Fan Delta Pressure`
 
         Args:
             value (float): value for IDD Field `Secondary Fan Delta Pressure`
@@ -1103,7 +1103,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @primary_air_inlet_node_name.setter
     def primary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Inlet Node Name`
+        """  Corresponds to IDD field `Primary Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Inlet Node Name`
@@ -1126,7 +1126,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @primary_air_outlet_node_name.setter
     def primary_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Primary Air Outlet Node Name`
+        """  Corresponds to IDD field `Primary Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Primary Air Outlet Node Name`
@@ -1149,7 +1149,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @control_type.setter
     def control_type(self, value=None):
-        """  Corresponds to IDD Field `Control Type`
+        """  Corresponds to IDD field `Control Type`
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -1172,7 +1172,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @dewpoint_effectiveness_factor.setter
     def dewpoint_effectiveness_factor(self, value=None):
-        """  Corresponds to IDD Field `Dewpoint Effectiveness Factor`
+        """  Corresponds to IDD field `Dewpoint Effectiveness Factor`
 
         Args:
             value (float): value for IDD Field `Dewpoint Effectiveness Factor`
@@ -1195,7 +1195,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @secondary_air_inlet_node_name.setter
     def secondary_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Secondary Air Inlet Node Name`
+        """  Corresponds to IDD field `Secondary Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Secondary Air Inlet Node Name`
@@ -1218,7 +1218,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `Sensor Node Name`
+        """  Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -1241,7 +1241,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @relief_air_inlet_node_name.setter
     def relief_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Relief Air Inlet Node Name`
+        """  Corresponds to IDD field `Relief Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Relief Air Inlet Node Name`
@@ -1264,7 +1264,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Water Supply Storage Tank Name`
+        """  Corresponds to IDD field `Water Supply Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -1287,7 +1287,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @drift_loss_fraction.setter
     def drift_loss_fraction(self, value=None):
-        """  Corresponds to IDD Field `Drift Loss Fraction`
+        """  Corresponds to IDD field `Drift Loss Fraction`
         Rate of drift loss as a fraction of evaporated water flow rate
 
         Args:
@@ -1311,7 +1311,7 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
 
     @blowdown_concentration_ratio.setter
     def blowdown_concentration_ratio(self, value=None):
-        """  Corresponds to IDD Field `Blowdown Concentration Ratio`
+        """  Corresponds to IDD field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the evaporative cooler.
         Blowdown is water intentionally drained from the cooler in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
@@ -1336,7 +1336,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
         or similar media), and recirculating water pump, and secondary air fan. This model is
         controlled to meet the primary air outlet temperature setpoint.
     """
-    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Direct:ResearchSpecial', 'pyname': u'EvaporativeCoolerDirectResearchSpecial', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooler effectiveness', {'name': u'Cooler Effectiveness', 'pyname': u'cooler_effectiveness', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drift loss fraction', {'name': u'Drift Loss Fraction', 'pyname': u'drift_loss_fraction', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blowdown concentration ratio', {'name': u'Blowdown Concentration Ratio', 'pyname': u'blowdown_concentration_ratio', 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False}
+    schema = {'min-fields': 0, 'name': u'EvaporativeCooler:Direct:ResearchSpecial', 'pyname': u'EvaporativeCoolerDirectResearchSpecial', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooler effectiveness', {'name': u'Cooler Effectiveness', 'pyname': u'cooler_effectiveness', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'recirculating water pump power consumption', {'name': u'Recirculating Water Pump Power Consumption', 'pyname': u'recirculating_water_pump_power_consumption', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'drift loss fraction', {'name': u'Drift Loss Fraction', 'pyname': u'drift_loss_fraction', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'blowdown concentration ratio', {'name': u'Blowdown Concentration Ratio', 'pyname': u'blowdown_concentration_ratio', 'required-field': False, 'autosizable': False, 'minimum': 2.0, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Evaporative Coolers'}
 
     @property
     def name(self):
@@ -1349,7 +1349,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD Field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1372,7 +1372,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD Field `Availability Schedule Name`
+        """  Corresponds to IDD field `Availability Schedule Name`
         Availability schedule name for this system. Schedule value > 0 means the system is available.
         If this field is blank, the system is always available.
 
@@ -1397,7 +1397,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @cooler_effectiveness.setter
     def cooler_effectiveness(self, value=None):
-        """  Corresponds to IDD Field `Cooler Effectiveness`
+        """  Corresponds to IDD field `Cooler Effectiveness`
         effectiveness with respect to wetbulb depression
 
         Args:
@@ -1422,7 +1422,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @recirculating_water_pump_power_consumption.setter
     def recirculating_water_pump_power_consumption(self, value=None):
-        """  Corresponds to IDD Field `Recirculating Water Pump Power Consumption`
+        """  Corresponds to IDD field `Recirculating Water Pump Power Consumption`
 
         Args:
             value (float): value for IDD Field `Recirculating Water Pump Power Consumption`
@@ -1447,7 +1447,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Inlet Node Name`
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1470,7 +1470,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD Field `Air Outlet Node Name`
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1493,7 +1493,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD Field `Sensor Node Name`
+        """  Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -1516,7 +1516,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD Field `Water Supply Storage Tank Name`
+        """  Corresponds to IDD field `Water Supply Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -1539,7 +1539,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @drift_loss_fraction.setter
     def drift_loss_fraction(self, value=None):
-        """  Corresponds to IDD Field `Drift Loss Fraction`
+        """  Corresponds to IDD field `Drift Loss Fraction`
         Rate of drift loss as a fraction of evaporated water flow rate
 
         Args:
@@ -1563,7 +1563,7 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
 
     @blowdown_concentration_ratio.setter
     def blowdown_concentration_ratio(self, value=None):
-        """  Corresponds to IDD Field `Blowdown Concentration Ratio`
+        """  Corresponds to IDD field `Blowdown Concentration Ratio`
         Characterizes the rate of blowdown in the evaporative cooler.
         Blowdown is water intentionally drained from the cooler in order to offset the build up
         of solids in the water that would otherwise occur because of evaporation.
