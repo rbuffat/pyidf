@@ -81,6 +81,10 @@ class {{ obj.class_name }}(DataObject):
 
     {%- if obj.extensible_fields|count > 0 %}
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        {%- for field in obj.extensible_fields %}
                        {{field.field_name}}={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %},

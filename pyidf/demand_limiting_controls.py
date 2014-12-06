@@ -208,6 +208,10 @@ class DemandManagerAssignmentList(DataObject):
         """
         self["Demand Manager Priority"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        demandmanager_1_object_type=None,
                        demandmanager_1_name=None,
@@ -449,6 +453,10 @@ class DemandManagerExteriorLights(DataObject):
         """
         self["Rotation Duration"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        exterior_lights_1_name=None,
                        ):
@@ -683,6 +691,10 @@ class DemandManagerLights(DataObject):
         """
         self["Rotation Duration"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        lights_1_name=None,
                        ):
@@ -916,6 +928,10 @@ class DemandManagerElectricEquipment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Rotation Duration"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        electric_equipment_1_name=None,
@@ -1174,6 +1190,10 @@ class DemandManagerThermostats(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Rotation Duration"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        thermostat_1_name=None,

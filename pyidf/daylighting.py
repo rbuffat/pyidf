@@ -1227,6 +1227,10 @@ class DaylightingDeviceTubular(DataObject):
         """
         self["Effective Thermal Resistance"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        transition_zone_1_name=None,
                        transition_zone_1_length=None,

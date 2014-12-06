@@ -213,6 +213,10 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
         """
         self["Algorithm"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        surface_name_1=None,
                        ):
@@ -4720,6 +4724,10 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
         """
         self["Discharge Coefficient for Openings with Respect to Buoyancy Driven Flow"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        surface_1_name=None,
                        ):
@@ -5081,6 +5089,10 @@ class ZonePropertyUserViewFactorsBySurfaceName(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        from_surface_1=None,

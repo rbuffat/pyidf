@@ -8,7 +8,7 @@ from collections import defaultdict
 from docformatter import format_code
 import multiprocessing
 import Queue
-from generator import generate_class, generate_helper
+from generator import generate_class, generate_helper, generate_test
 from generator import generate_idf, generate_init, generate_group
 from iddparser import IDDParser
 num_worker_threads = 4
@@ -63,7 +63,7 @@ if __name__ == '__main__':
     q = multiprocessing.Queue()
     for fname in files:
         q.put((fname, files[fname], groups[fname]))
-
+ 
     ps = [
         multiprocessing.Process(
             target=worker,
@@ -74,7 +74,7 @@ if __name__ == '__main__':
         p.start()
     for p in ps:
         p.join()
-
+ 
     source_file = generate_idf(objs)
 #     source_file = autopep8.fix_code(
 #         source_file, options=autopep8.parse_args(['--aggressive',
@@ -82,15 +82,19 @@ if __name__ == '__main__':
 #                                                   '--aggressive',
 #                                                   '']))
 #     source_file = format_code(source_file)
-
+ 
     with open("../pyidf/idf.py", 'w') as f:
         f.write(source_file)
-
+ 
     helper_source = generate_helper(objs)
     with open("../pyidf/helper.py", 'w') as f:
         f.write(helper_source)
-        
+ 
     init_source = generate_init(version)
     with open("../pyidf/__init__.py", 'w') as f:
         f.write(init_source)
-        
+
+    for obj in objs:
+        test_source = generate_test(obj)
+        with open("../tests/test_{}.py".format(obj.var_name), 'w') as f:
+            f.write(test_source)

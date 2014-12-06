@@ -263,11 +263,11 @@ class DataField(object):
 #                                                                    self.internal_name))
                 self.attributes["type"] = "real"
 
-        if self.attributes["type"] == "choice":
+        if self.attributes["type"].lower() == "choice":
             if self.ftype == "A":
                 self.attributes["type"] = "alpha"
             elif self.ftype == "N":
-                self.attributes["type"] = "int"
+                self.attributes["type"] = "integer"
 
         self.attributes["pytype"] = self.pytype(self.attributes["type"])
 
@@ -293,6 +293,12 @@ class DataField(object):
 #                                                                                        self.internal_name))
 
             self.attributes["pytype"] = self.pytype(self.attributes["type"])
+
+        if "key" in self.attributes:
+            conv_keys = []
+            for key in self.attributes["key"]:
+                conv_keys.append(self.value2py(key, self.attributes["type"]))
+            self.attributes["key"] = conv_keys
 
         # unitsBasedOnField
         if "unitsBasedOnField" in self.attributes:

@@ -432,12 +432,12 @@ class DataObject(object):
             # Replace None values for required fields with default values
             if field['required-field'] and 'default' in field:
                 if pyidf.validation_level == ValidationLevel.warn:
-                    logger.warn('Value is Mone for required field `{}.{}` '
+                    logger.warn('Value is None for required field `{}.{}` '
                                 'with default value {}'.format(schema['pyname'],
                                                                field['pyname'],
                                                                field['default']))
                 elif pyidf.validation_level == ValidationLevel.error:
-                    raise ValueError('Value is Mone for required field `{}.{}` '
+                    raise ValueError('Value is None for required field `{}.{}` '
                                      'with default value {}'.format(schema['pyname'],
                                                                     field['pyname'],
                                                                     field['default']))
@@ -516,7 +516,7 @@ class DataObject(object):
                 break
 
         if has_extensibles:
-            maxel = len(self._data) - 1
+            maxel = len(self._data)
         else:
             maxel = 0
             for i, key in reversed(list(enumerate(self._data.keys()))):

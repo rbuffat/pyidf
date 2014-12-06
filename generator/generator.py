@@ -68,5 +68,65 @@ def generate_init(version):
     context['version'] = version
     return template.render(context)
 
+
+def generate_test(obj):
+    template = env.get_template('test_class.py')
+    i = 0
+
+    def get_default(i, field):
+
+        if 'accepted-values' in field and len(field['accepted-values']) > 0:
+            return field['accepted-values'][0]
+
+        val = []
+        if field['type'] == 'real':
+
+            if 'minimum' in field:
+                val.append(field['minimum'])
+            if 'minimum>' in field:
+                val.append(field['minimum>'] + 0.0001)
+            if 'maximum' in field:
+                val.append(field['maximum'])
+            if 'maximum<' in field:
+                val.append(field['maximum<'] - 0.0001)
+            if len(val) > 0:
+                return (min(val) + max(val)) * 0.5
+            else:
+                return float("{}.{}".format(i, i))
+
+        elif field['type'] == 'integer':
+            if 'minimum' in field:
+                val.append(field['minimum'])
+            if 'minimum>' in field:
+                val.append(field['minimum>'] + 1)
+            if 'maximum' in field:
+                val.append(field['maximum'])
+            if 'maximum<' in field:
+                val.append(field['maximum<'] - 1)
+            if len(val) > 0:
+                return int((min(val) + max(val)) * 0.5)
+            else:
+                return i
+
+        elif field['type'] == 'alpha':
+            return field['name']
+
+        return u"{}|{}".format(field['type'], field['name'])
+
+    default = {}
+    for key in obj.schema['fields']:
+        field = obj.schema['fields'][key]
+        i += 1
+        default[field['pyname']] = get_default(i, field)
+    for key in obj.schema['extensible-fields']:
+        field = obj.schema['extensible-fields'][key]
+        i += 1
+        default[field['pyname']] = get_default(i, field)
+
+    context = {}
+    context['obj'] = obj
+    context['default'] = default
+    return template.render(context)
+
 if __name__ == '__main__':
     pass

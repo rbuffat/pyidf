@@ -1127,7 +1127,7 @@ class GroundHeatTransferSlabInsulation(DataObject):
         There are two possible configurations: under the slab or vertical insulation
         around the slab.
     """
-    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Insulation', 'pyname': u'GroundHeatTransferSlabInsulation', 'format': None, 'fields': OrderedDict([(u'rins: r value of under slab insulation', {'name': u'RINS: R value of under slab insulation', 'pyname': u'rins_r_value_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'dins: width of strip of under slab insulation', {'name': u'DINS: Width of strip of under slab insulation', 'pyname': u'dins_width_of_strip_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'rvins: r value of vertical insulation', {'name': u'RVINS: R value of vertical insulation', 'pyname': u'rvins_r_value_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'zvins: depth of vertical insulation', {'name': u'ZVINS: Depth of vertical insulation', 'pyname': u'zvins_depth_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'ivins: flag: is there vertical insulation', {'name': u'IVINS: Flag: Is there vertical insulation', 'pyname': u'ivins_flag_is_there_vertical_insulation', 'default': u'0', 'required-field': True, 'autosizable': False, 'accepted-values': [u'0', u'1'], 'autocalculatable': False, 'type': 'int'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Detailed Ground Heat Transfer'}
+    schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:Insulation', 'pyname': u'GroundHeatTransferSlabInsulation', 'format': None, 'fields': OrderedDict([(u'rins: r value of under slab insulation', {'name': u'RINS: R value of under slab insulation', 'pyname': u'rins_r_value_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'dins: width of strip of under slab insulation', {'name': u'DINS: Width of strip of under slab insulation', 'pyname': u'dins_width_of_strip_of_under_slab_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'rvins: r value of vertical insulation', {'name': u'RVINS: R value of vertical insulation', 'pyname': u'rvins_r_value_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm2-K/W'}), (u'zvins: depth of vertical insulation', {'name': u'ZVINS: Depth of vertical insulation', 'pyname': u'zvins_depth_of_vertical_insulation', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm'}), (u'ivins: flag: is there vertical insulation', {'name': u'IVINS: Flag: Is there vertical insulation', 'pyname': u'ivins_flag_is_there_vertical_insulation', 'default': 0, 'required-field': True, 'autosizable': False, 'accepted-values': [0, 1], 'autocalculatable': False, 'type': 'integer'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Detailed Ground Heat Transfer'}
 
     @property
     def rins_r_value_of_under_slab_insulation(self):
@@ -1248,19 +1248,18 @@ class GroundHeatTransferSlabInsulation(DataObject):
         """Get ivins_flag_is_there_vertical_insulation
 
         Returns:
-            str: the value of `ivins_flag_is_there_vertical_insulation` or None if not set
+            int: the value of `ivins_flag_is_there_vertical_insulation` or None if not set
         """
         return self["IVINS: Flag: Is there vertical insulation"]
 
     @ivins_flag_is_there_vertical_insulation.setter
-    def ivins_flag_is_there_vertical_insulation(self, value="0"):
+    def ivins_flag_is_there_vertical_insulation(self, value=None):
         """  Corresponds to IDD field `IVINS: Flag: Is there vertical insulation`
         Specifies if the vertical insulation configuration is being used.
         values: 1=yes vertical insulation 0=no underslab insulation
 
         Args:
-            value (str): value for IDD Field `IVINS: Flag: Is there vertical insulation`
-                Default value: 0
+            value (int): value for IDD Field `IVINS: Flag: Is there vertical insulation`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 

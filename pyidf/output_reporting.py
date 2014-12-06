@@ -1398,6 +1398,10 @@ class OutputTableMonthly(DataObject):
         """
         self["Digits After Decimal"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        variable_or_meter_1_name=None,
                        aggregation_type_for_variable_or_meter_1=None,
@@ -2003,6 +2007,10 @@ class MeterCustom(DataObject):
         """
         self["Fuel Type"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        key_name_1=None,
                        output_variable_or_meter_name_1=None,
@@ -2122,6 +2130,10 @@ class MeterCustomDecrement(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Source Meter Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        key_name_1=None,

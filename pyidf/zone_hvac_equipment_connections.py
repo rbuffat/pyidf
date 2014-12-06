@@ -50,6 +50,10 @@ class ZoneHvacEquipmentList(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        zone_equipment_1_object_type=None,
                        zone_equipment_1_name=None,

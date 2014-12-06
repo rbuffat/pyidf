@@ -1611,6 +1611,10 @@ class WindowMaterialGlazingGroupThermochromic(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        optical_data_temperature_1=None,
                        window_material_glazing_name_1=None,
@@ -4523,7 +4527,7 @@ class WindowMaterialScreen(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Screen`
         Window screen physical properties. Can only be located on the exterior side of a window construction.
     """
-    schema = {'min-fields': 9, 'name': u'WindowMaterial:Screen', 'pyname': u'WindowMaterialScreen', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reflected beam transmittance accounting method', {'name': u'Reflected Beam Transmittance Accounting Method', 'pyname': u'reflected_beam_transmittance_accounting_method', 'default': u'ModelAsDiffuse', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DoNotModel', u'ModelAsDirectBeam', u'ModelAsDiffuse'], 'autocalculatable': False, 'type': 'alpha'}), (u'diffuse solar reflectance', {'name': u'Diffuse Solar Reflectance', 'pyname': u'diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse visible reflectance', {'name': u'Diffuse Visible Reflectance', 'pyname': u'diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal hemispherical emissivity', {'name': u'Thermal Hemispherical Emissivity', 'pyname': u'thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'screen material spacing', {'name': u'Screen Material Spacing', 'pyname': u'screen_material_spacing', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen material diameter', {'name': u'Screen Material Diameter', 'pyname': u'screen_material_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen to glass distance', {'name': u'Screen to Glass Distance', 'pyname': u'screen_to_glass_distance', 'default': 0.025, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'angle of resolution for screen transmittance output map', {'name': u'Angle of Resolution for Screen Transmittance Output Map', 'pyname': u'angle_of_resolution_for_screen_transmittance_output_map', 'default': u'0', 'required-field': False, 'autosizable': False, 'accepted-values': [u'0', u'1', u'2', u'3', u'5'], 'autocalculatable': False, 'type': 'int', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
+    schema = {'min-fields': 9, 'name': u'WindowMaterial:Screen', 'pyname': u'WindowMaterialScreen', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'reflected beam transmittance accounting method', {'name': u'Reflected Beam Transmittance Accounting Method', 'pyname': u'reflected_beam_transmittance_accounting_method', 'default': u'ModelAsDiffuse', 'required-field': False, 'autosizable': False, 'accepted-values': [u'DoNotModel', u'ModelAsDirectBeam', u'ModelAsDiffuse'], 'autocalculatable': False, 'type': 'alpha'}), (u'diffuse solar reflectance', {'name': u'Diffuse Solar Reflectance', 'pyname': u'diffuse_solar_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'diffuse visible reflectance', {'name': u'Diffuse Visible Reflectance', 'pyname': u'diffuse_visible_reflectance', 'maximum<': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'thermal hemispherical emissivity', {'name': u'Thermal Hemispherical Emissivity', 'pyname': u'thermal_hemispherical_emissivity', 'default': 0.9, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 1.0, 'unit': u'dimensionless'}), (u'conductivity', {'name': u'Conductivity', 'pyname': u'conductivity', 'default': 221.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'screen material spacing', {'name': u'Screen Material Spacing', 'pyname': u'screen_material_spacing', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen material diameter', {'name': u'Screen Material Diameter', 'pyname': u'screen_material_diameter', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'screen to glass distance', {'name': u'Screen to Glass Distance', 'pyname': u'screen_to_glass_distance', 'default': 0.025, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.001, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'top opening multiplier', {'name': u'Top Opening Multiplier', 'pyname': u'top_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'bottom opening multiplier', {'name': u'Bottom Opening Multiplier', 'pyname': u'bottom_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'left side opening multiplier', {'name': u'Left Side Opening Multiplier', 'pyname': u'left_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'right side opening multiplier', {'name': u'Right Side Opening Multiplier', 'pyname': u'right_side_opening_multiplier', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'angle of resolution for screen transmittance output map', {'name': u'Angle of Resolution for Screen Transmittance Output Map', 'pyname': u'angle_of_resolution_for_screen_transmittance_output_map', 'default': 0, 'required-field': False, 'autosizable': False, 'accepted-values': [0, 1, 2, 3, 5], 'autocalculatable': False, 'type': 'integer', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -4878,21 +4882,20 @@ class WindowMaterialScreen(DataObject):
         """Get angle_of_resolution_for_screen_transmittance_output_map
 
         Returns:
-            str: the value of `angle_of_resolution_for_screen_transmittance_output_map` or None if not set
+            int: the value of `angle_of_resolution_for_screen_transmittance_output_map` or None if not set
         """
         return self["Angle of Resolution for Screen Transmittance Output Map"]
 
     @angle_of_resolution_for_screen_transmittance_output_map.setter
-    def angle_of_resolution_for_screen_transmittance_output_map(self, value="0"):
+    def angle_of_resolution_for_screen_transmittance_output_map(self, value=None):
         """  Corresponds to IDD field `Angle of Resolution for Screen Transmittance Output Map`
         Select the resolution of azimuth and altitude angles for the screen transmittance map.
         A value of 0 means no transmittance map will be generated.
         Valid values for this field are 0, 1, 2, 3 and 5.
 
         Args:
-            value (str): value for IDD Field `Angle of Resolution for Screen Transmittance Output Map`
+            value (int): value for IDD Field `Angle of Resolution for Screen Transmittance Output Map`
                 Units: deg
-                Default value: 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16126,6 +16129,10 @@ class MaterialPropertyGlazingSpectralData(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        wavelength=None,

@@ -1523,6 +1523,10 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         """
         self["Number of Speeds for Cooling"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        speed_1_supply_air_flow_ratio_during_heating_operation=None,
                        speed_1_supply_air_flow_ratio_during_cooling_operation=None,

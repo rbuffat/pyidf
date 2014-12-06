@@ -1619,6 +1619,10 @@ class RefrigerationCaseAndWalkInList(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        case_or_walkin_1_name=None,
                        ):
@@ -3595,6 +3599,10 @@ class RefrigerationTransferLoadList(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        cascade_condenser_name_or_secondary_system_1_name=None,
                        ):
@@ -4158,6 +4166,10 @@ class RefrigerationCompressorList(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        refrigeration_compressor_1_name=None,
                        ):
@@ -4200,7 +4212,7 @@ class RefrigerationSystem(DataObject):
         other objects to define the refrigeration load(s), the compressor(s), and the
         condenser.
     """
-    schema = {'min-fields': 7, 'name': u'Refrigeration:System', 'pyname': u'RefrigerationSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration transfer load or transferload list name', {'name': u'Refrigeration Transfer Load or TransferLoad List Name', 'pyname': u'refrigeration_transfer_load_or_transferload_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration condenser name', {'name': u'Refrigeration Condenser Name', 'pyname': u'refrigeration_condenser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor or compressorlist name', {'name': u'Compressor or CompressorList Name', 'pyname': u'compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'suction temperature control type', {'name': u'Suction Temperature Control Type', 'pyname': u'suction_temperature_control_type', 'default': u'ConstantSuctionTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FloatSuctionTemperature', u'ConstantSuctionTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical subcooler name', {'name': u'Mechanical Subcooler Name', 'pyname': u'mechanical_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'liquid suction heat exchanger subcooler name', {'name': u'Liquid Suction Heat Exchanger Subcooler Name', 'pyname': u'liquid_suction_heat_exchanger_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping', {'name': u'Sum UA Suction Piping', 'pyname': u'sum_ua_suction_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'suction piping zone name', {'name': u'Suction Piping Zone Name', 'pyname': u'suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of compressor stages', {'name': u'Number of Compressor Stages', 'pyname': u'number_of_compressor_stages', 'default': u'1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'1', u'2'], 'autocalculatable': False, 'type': 'int'}), (u'intercooler type', {'name': u'Intercooler Type', 'pyname': u'intercooler_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Flash Intercooler', u'Shell-and-Coil Intercooler'], 'autocalculatable': False, 'type': 'alpha'}), (u'shell-and-coil intercooler effectiveness', {'name': u'Shell-and-Coil Intercooler Effectiveness', 'pyname': u'shellandcoil_intercooler_effectiveness', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'high-stage compressor or compressorlist name', {'name': u'High-Stage Compressor or CompressorList Name', 'pyname': u'highstage_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Refrigeration'}
+    schema = {'min-fields': 7, 'name': u'Refrigeration:System', 'pyname': u'RefrigerationSystem', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'refrigerated case or walkin or caseandwalkinlist name', {'name': u'Refrigerated Case or Walkin or CaseAndWalkInList Name', 'pyname': u'refrigerated_case_or_walkin_or_caseandwalkinlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration transfer load or transferload list name', {'name': u'Refrigeration Transfer Load or TransferLoad List Name', 'pyname': u'refrigeration_transfer_load_or_transferload_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'refrigeration condenser name', {'name': u'Refrigeration Condenser Name', 'pyname': u'refrigeration_condenser_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'compressor or compressorlist name', {'name': u'Compressor or CompressorList Name', 'pyname': u'compressor_or_compressorlist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum condensing temperature', {'name': u'Minimum Condensing Temperature', 'pyname': u'minimum_condensing_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'refrigeration system working fluid type', {'name': u'Refrigeration System Working Fluid Type', 'pyname': u'refrigeration_system_working_fluid_type', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'suction temperature control type', {'name': u'Suction Temperature Control Type', 'pyname': u'suction_temperature_control_type', 'default': u'ConstantSuctionTemperature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'FloatSuctionTemperature', u'ConstantSuctionTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'mechanical subcooler name', {'name': u'Mechanical Subcooler Name', 'pyname': u'mechanical_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'liquid suction heat exchanger subcooler name', {'name': u'Liquid Suction Heat Exchanger Subcooler Name', 'pyname': u'liquid_suction_heat_exchanger_subcooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sum ua suction piping', {'name': u'Sum UA Suction Piping', 'pyname': u'sum_ua_suction_piping', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/K'}), (u'suction piping zone name', {'name': u'Suction Piping Zone Name', 'pyname': u'suction_piping_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'end-use subcategory', {'name': u'End-Use Subcategory', 'pyname': u'enduse_subcategory', 'default': u'General', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'number of compressor stages', {'name': u'Number of Compressor Stages', 'pyname': u'number_of_compressor_stages', 'default': 1, 'required-field': False, 'autosizable': False, 'accepted-values': [1, 2], 'autocalculatable': False, 'type': 'integer'}), (u'intercooler type', {'name': u'Intercooler Type', 'pyname': u'intercooler_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Flash Intercooler', u'Shell-and-Coil Intercooler'], 'autocalculatable': False, 'type': 'alpha'}), (u'shell-and-coil intercooler effectiveness', {'name': u'Shell-and-Coil Intercooler Effectiveness', 'pyname': u'shellandcoil_intercooler_effectiveness', 'default': 0.8, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'high-stage compressor or compressorlist name', {'name': u'High-Stage Compressor or CompressorList Name', 'pyname': u'highstage_compressor_or_compressorlist_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Refrigeration'}
 
     @property
     def name(self):
@@ -4537,16 +4549,16 @@ class RefrigerationSystem(DataObject):
         """Get number_of_compressor_stages
 
         Returns:
-            str: the value of `number_of_compressor_stages` or None if not set
+            int: the value of `number_of_compressor_stages` or None if not set
         """
         return self["Number of Compressor Stages"]
 
     @number_of_compressor_stages.setter
-    def number_of_compressor_stages(self, value="1"):
+    def number_of_compressor_stages(self, value=1):
         """  Corresponds to IDD field `Number of Compressor Stages`
 
         Args:
-            value (str): value for IDD Field `Number of Compressor Stages`
+            value (int): value for IDD Field `Number of Compressor Stages`
                 Default value: 1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6189,6 +6201,10 @@ class RefrigerationWalkIn(DataObject):
         """
         self["Insulated Floor U-Value"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        zone_1_name=None,
                        total_insulated_surface_area_facing_zone_1=None,
@@ -7200,6 +7216,10 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
         """
         self["Air Outlet Node Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        air_chiller_name=None,
                        ):
@@ -7312,6 +7332,10 @@ class MatrixTwoDimension(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Number of Columns"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        value=None,

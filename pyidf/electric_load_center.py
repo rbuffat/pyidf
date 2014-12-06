@@ -5344,6 +5344,10 @@ class GeneratorFuelCellAirSupply(DataObject):
         """
         self["Number of UserDefined Constituents"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        constituent_1_name=None,
                        molar_fraction_1=None,
@@ -9652,6 +9656,10 @@ class ElectricLoadCenterGenerators(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        generator_1_name=None,
                        generator_1_object_type=None,
@@ -11263,7 +11271,7 @@ class ElectricLoadCenterTransformer(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'ElectricLoadCenter:Transformer', 'pyname': u'ElectricLoadCenterTransformer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transformer usage', {'name': u'Transformer Usage', 'pyname': u'transformer_usage', 'default': u'PowerInFromGrid', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PowerInFromGrid', u'PowerOutFromOnsiteGeneration'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'VA'}), (u'phase', {'name': u'Phase', 'pyname': u'phase', 'default': u'3', 'required-field': False, 'autosizable': False, 'accepted-values': [u'1', u'3'], 'autocalculatable': False, 'type': 'int'}), (u'conductor material', {'name': u'Conductor Material', 'pyname': u'conductor_material', 'default': u'Aluminum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Copper', u'Aluminum'], 'autocalculatable': False, 'type': 'alpha'}), (u'full load temperature rise', {'name': u'Full Load Temperature Rise', 'pyname': u'full_load_temperature_rise', 'default': 150.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of eddy current losses', {'name': u'Fraction of Eddy Current Losses', 'pyname': u'fraction_of_eddy_current_losses', 'default': 0.1, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'performance input method', {'name': u'Performance Input Method', 'pyname': u'performance_input_method', 'default': u'RatedLosses', 'required-field': False, 'autosizable': False, 'accepted-values': [u'RatedLosses', u'NominalEfficiency'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated no load loss', {'name': u'Rated No Load Loss', 'pyname': u'rated_no_load_loss', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated load loss', {'name': u'Rated Load Loss', 'pyname': u'rated_load_loss', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nameplate efficiency', {'name': u'Nameplate Efficiency', 'pyname': u'nameplate_efficiency', 'default': 0.98, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'per unit load for nameplate efficiency', {'name': u'Per Unit Load for Nameplate Efficiency', 'pyname': u'per_unit_load_for_nameplate_efficiency', 'default': 0.35, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference temperature for nameplate efficiency', {'name': u'Reference Temperature for Nameplate Efficiency', 'pyname': u'reference_temperature_for_nameplate_efficiency', 'default': 75.0, 'maximum': 150.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'per unit load for maximum efficiency', {'name': u'Per Unit Load for Maximum Efficiency', 'pyname': u'per_unit_load_for_maximum_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'consider transformer loss for utility cost', {'name': u'Consider Transformer Loss for Utility Cost', 'pyname': u'consider_transformer_loss_for_utility_cost', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'meter 1 name', {'name': u'Meter 1 Name', 'pyname': u'meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Electric Load Center'}
+    schema = {'min-fields': 0, 'name': u'ElectricLoadCenter:Transformer', 'pyname': u'ElectricLoadCenterTransformer', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'transformer usage', {'name': u'Transformer Usage', 'pyname': u'transformer_usage', 'default': u'PowerInFromGrid', 'required-field': False, 'autosizable': False, 'accepted-values': [u'PowerInFromGrid', u'PowerOutFromOnsiteGeneration'], 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'radiative fraction', {'name': u'Radiative Fraction', 'pyname': u'radiative_fraction', 'default': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'VA'}), (u'phase', {'name': u'Phase', 'pyname': u'phase', 'default': 3, 'required-field': False, 'autosizable': False, 'accepted-values': [1, 3], 'autocalculatable': False, 'type': 'integer'}), (u'conductor material', {'name': u'Conductor Material', 'pyname': u'conductor_material', 'default': u'Aluminum', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Copper', u'Aluminum'], 'autocalculatable': False, 'type': 'alpha'}), (u'full load temperature rise', {'name': u'Full Load Temperature Rise', 'pyname': u'full_load_temperature_rise', 'default': 150.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': 50.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of eddy current losses', {'name': u'Fraction of Eddy Current Losses', 'pyname': u'fraction_of_eddy_current_losses', 'default': 0.1, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'performance input method', {'name': u'Performance Input Method', 'pyname': u'performance_input_method', 'default': u'RatedLosses', 'required-field': False, 'autosizable': False, 'accepted-values': [u'RatedLosses', u'NominalEfficiency'], 'autocalculatable': False, 'type': 'alpha'}), (u'rated no load loss', {'name': u'Rated No Load Loss', 'pyname': u'rated_no_load_loss', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated load loss', {'name': u'Rated Load Loss', 'pyname': u'rated_load_loss', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'nameplate efficiency', {'name': u'Nameplate Efficiency', 'pyname': u'nameplate_efficiency', 'default': 0.98, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'per unit load for nameplate efficiency', {'name': u'Per Unit Load for Nameplate Efficiency', 'pyname': u'per_unit_load_for_nameplate_efficiency', 'default': 0.35, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'reference temperature for nameplate efficiency', {'name': u'Reference Temperature for Nameplate Efficiency', 'pyname': u'reference_temperature_for_nameplate_efficiency', 'default': 75.0, 'maximum': 150.0, 'required-field': False, 'autosizable': False, 'minimum': 20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'per unit load for maximum efficiency', {'name': u'Per Unit Load for Maximum Efficiency', 'pyname': u'per_unit_load_for_maximum_efficiency', 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'consider transformer loss for utility cost', {'name': u'Consider Transformer Loss for Utility Cost', 'pyname': u'consider_transformer_loss_for_utility_cost', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'meter 1 name', {'name': u'Meter 1 Name', 'pyname': u'meter_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'})]), 'unique-object': False, 'required-object': False, 'group': u'Electric Load Center'}
 
     @property
     def name(self):
@@ -11419,18 +11427,18 @@ class ElectricLoadCenterTransformer(DataObject):
         """Get phase
 
         Returns:
-            str: the value of `phase` or None if not set
+            int: the value of `phase` or None if not set
         """
         return self["Phase"]
 
     @phase.setter
-    def phase(self, value="3"):
+    def phase(self, value=3):
         """  Corresponds to IDD field `Phase`
         Must be single or three phase transformer.
         NOT used in the current model.
 
         Args:
-            value (str): value for IDD Field `Phase`
+            value (int): value for IDD Field `Phase`
                 Default value: 3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11726,6 +11734,10 @@ class ElectricLoadCenterTransformer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Consider Transformer Loss for Utility Cost"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        meter_1_name=None,

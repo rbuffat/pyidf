@@ -890,6 +890,10 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
         """
         self["Exhaust Air Offset"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        pair_1_zeta_nondimensional_height=None,
                        pair_1_delta_adjacent_air_temperature=None,
@@ -1067,6 +1071,10 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Exhaust Air Offset"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        surface_name_pair_1=None,

@@ -993,6 +993,10 @@ class AirLoopHvacZoneSplitter(DataObject):
         """
         self["Inlet Node Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        outlet_node_name=None,
                        ):
@@ -1128,6 +1132,10 @@ class AirLoopHvacSupplyPlenum(DataObject):
         """
         self["Inlet Node Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        outlet_node_name=None,
                        ):
@@ -1216,6 +1224,10 @@ class AirLoopHvacSupplyPath(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Supply Air Path Inlet Node Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        component_1_object_type=None,
@@ -1312,6 +1324,10 @@ class AirLoopHvacZoneMixer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Node Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        inlet_1_node_name=None,
@@ -1472,6 +1488,10 @@ class AirLoopHvacReturnPlenum(DataObject):
         """
         self["Induced Air Outlet Node or NodeList Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        inlet_node_name=None,
                        ):
@@ -1560,6 +1580,10 @@ class AirLoopHvacReturnPath(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Return Air Path Outlet Node Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        component_1_object_type=None,

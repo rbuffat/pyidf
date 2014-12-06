@@ -379,6 +379,10 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
         """
         self["Fraction of Radiant Energy Incident on People"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        surface_1_name=None,
                        fraction_of_radiant_energy_to_surface_1=None,
@@ -756,6 +760,10 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
         """
         self["Fraction of Radiant Energy Incident on People"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        surface_1_name=None,
                        fraction_of_radiant_energy_to_surface_1=None,
@@ -1037,6 +1045,10 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fraction of Radiant Energy Incident on People"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        surface_1_name=None,
@@ -3344,6 +3356,10 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
         """
         self["Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        surface_1_name=None,
                        flow_fraction_for_surface_1=None,
@@ -3799,6 +3815,10 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fraction of Radiant Energy Incident on People"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        surface_1_name=None,
@@ -4850,6 +4870,10 @@ class ZoneHvacVentilatedSlabSlabGroup(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
+
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
 
     def add_extensible(self,
                        zone_1_name=None,

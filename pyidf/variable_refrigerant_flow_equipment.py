@@ -2241,6 +2241,10 @@ class ZoneTerminalUnitList(DataObject):
         """
         self["Zone Terminal Unit List Name"] = value
 
+
+    def extensible_field_index(self, name):
+        return self.schema['extensible-fields'].keys().index(name.lower())
+
     def add_extensible(self,
                        zone_terminal_unit_name_1=None,
                        ):

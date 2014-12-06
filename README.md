@@ -2,6 +2,7 @@
 
 Python library to read, modify and create EnergyPlus idf files
 
+[![Build Status](https://travis-ci.org/rbuffat/pyidf.svg?branch=master)](https://travis-ci.org/rbuffat/pyidf)
 [![Code Health](https://landscape.io/github/rbuffat/pyidf/master/landscape.svg)](https://landscape.io/github/rbuffat/pyidf/master)
 
 *This is a work in progress, do NOT expect it to actually work! As this is an early work, changes in the API are very likely to happen.*
@@ -141,3 +142,7 @@ All values with corresponding keys of a data object can be accessed with the met
 ```python
 print bsd.items()
 ```
+
+## Library generation
+
+Large parts of this library are generated automatically. In case the library should be rebuilt, for example to fix bugs or generate the library for a different EnergyPlus version, main.py in the generator package should be executed. Currently generator/V8-2-0-Energy+.idd is used as basis to generate the library. generator/V8-2-0-Energy+Alt.idd contains modified data objects from the specification. Every data object in V8-2-0-Energy+Alt.idd overwrites data objects with the same name in the original idd. Generating the library requires the libraries jinja2, autopep8 and docformatter.
