@@ -11,17 +11,35 @@ logger.addHandler(logging.NullHandler())
 
 
 class ComplianceBuilding(DataObject):
+
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
     """
-    schema = {'min-fields': 1, 'name': u'Compliance:Building', 'pyname': u'ComplianceBuilding', 'format': None, 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Compliance Objects'}
+    schema = {'min-fields': 1,
+              'name': u'Compliance:Building',
+              'pyname': u'ComplianceBuilding',
+              'format': None,
+              'fields': OrderedDict([(u'building rotation for appendix g',
+                                      {'name': u'Building Rotation for Appendix G',
+                                       'pyname': u'building_rotation_for_appendix_g',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': True,
+              'required-object': False,
+              'group': u'Compliance Objects'}
 
     @property
     def building_rotation_for_appendix_g(self):
-        """Get building_rotation_for_appendix_g
+        """Get building_rotation_for_appendix_g.
 
         Returns:
             float: the value of `building_rotation_for_appendix_g` or None if not set
+
         """
         return self["Building Rotation for Appendix G"]
 

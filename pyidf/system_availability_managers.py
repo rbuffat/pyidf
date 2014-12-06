@@ -11,24 +11,47 @@ logger.addHandler(logging.NullHandler())
 
 
 class AvailabilityManagerScheduled(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:Scheduled`
         Determines the availability of a loop or system: whether it is on or off.
         Schedule overrides fan/pump schedule.
     """
-    schema = {'min-fields': 2, 'name': u'AvailabilityManager:Scheduled', 'pyname': u'AvailabilityManagerScheduled', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 2,
+              'name': u'AvailabilityManager:Scheduled',
+              'pyname': u'AvailabilityManagerScheduled',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -37,21 +60,23 @@ class AvailabilityManagerScheduled(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -60,6 +85,7 @@ class AvailabilityManagerScheduled(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
@@ -67,24 +93,47 @@ class AvailabilityManagerScheduled(DataObject):
 
 
 class AvailabilityManagerScheduledOn(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOn`
         Determines the availability of a loop or system: only controls the turn on action.
         Schedule overrides fan/pump schedule.
     """
-    schema = {'min-fields': 2, 'name': u'AvailabilityManager:ScheduledOn', 'pyname': u'AvailabilityManagerScheduledOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 2,
+              'name': u'AvailabilityManager:ScheduledOn',
+              'pyname': u'AvailabilityManagerScheduledOn',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -93,21 +142,23 @@ class AvailabilityManagerScheduledOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -116,6 +167,7 @@ class AvailabilityManagerScheduledOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
@@ -123,24 +175,47 @@ class AvailabilityManagerScheduledOn(DataObject):
 
 
 class AvailabilityManagerScheduledOff(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOff`
         Determines the availability of a loop or system: only controls the turn off action.
         Schedule overrides fan/pump schedule.
     """
-    schema = {'min-fields': 2, 'name': u'AvailabilityManager:ScheduledOff', 'pyname': u'AvailabilityManagerScheduledOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 2,
+              'name': u'AvailabilityManager:ScheduledOff',
+              'pyname': u'AvailabilityManagerScheduledOff',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -149,21 +224,23 @@ class AvailabilityManagerScheduledOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -172,6 +249,7 @@ class AvailabilityManagerScheduledOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
@@ -179,23 +257,150 @@ class AvailabilityManagerScheduledOff(DataObject):
 
 
 class AvailabilityManagerOptimumStart(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:OptimumStart`
         Determines the optimal start of HVAC systems before occupancy.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:OptimumStart', 'pyname': u'AvailabilityManagerOptimumStart', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'ControlZone', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StayOff', u'ControlZone', u'MaximumofZoneList'], 'autocalculatable': False, 'type': 'alpha'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone list name', {'name': u'Zone List Name', 'pyname': u'zone_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum value for optimum start time', {'name': u'Maximum Value for Optimum Start Time', 'pyname': u'maximum_value_for_optimum_start_time', 'default': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'hr'}), (u'control algorithm', {'name': u'Control Algorithm', 'pyname': u'control_algorithm', 'default': u'AdaptiveASHRAE', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ConstantTemperatureGradient', u'AdaptiveTemperatureGradient', u'AdaptiveASHRAE', u'ConstantStartTime'], 'autocalculatable': False, 'type': 'alpha'}), (u'constant temperature gradient during cooling', {'name': u'Constant Temperature Gradient during Cooling', 'pyname': u'constant_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant temperature gradient during heating', {'name': u'Constant Temperature Gradient during Heating', 'pyname': u'constant_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during cooling', {'name': u'Initial Temperature Gradient during Cooling', 'pyname': u'initial_temperature_gradient_during_cooling', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'initial temperature gradient during heating', {'name': u'Initial Temperature Gradient during Heating', 'pyname': u'initial_temperature_gradient_during_heating', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC/hr'}), (u'constant start time', {'name': u'Constant Start Time', 'pyname': u'constant_start_time', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'number of previous days', {'name': u'Number of Previous Days', 'pyname': u'number_of_previous_days', 'default': 2, 'maximum': 5, 'required-field': False, 'autosizable': False, 'minimum': 2, 'autocalculatable': False, 'type': u'integer', 'unit': u'days'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:OptimumStart',
+              'pyname': u'AvailabilityManagerOptimumStart',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'applicability schedule name',
+                                      {'name': u'Applicability Schedule Name',
+                                       'pyname': u'applicability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fan schedule name',
+                                      {'name': u'Fan Schedule Name',
+                                       'pyname': u'fan_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control type',
+                                      {'name': u'Control Type',
+                                       'pyname': u'control_type',
+                                       'default': u'ControlZone',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'StayOff',
+                                                           u'ControlZone',
+                                                           u'MaximumofZoneList'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'control zone name',
+                                      {'name': u'Control Zone Name',
+                                       'pyname': u'control_zone_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone list name',
+                                      {'name': u'Zone List Name',
+                                       'pyname': u'zone_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum value for optimum start time',
+                                      {'name': u'Maximum Value for Optimum Start Time',
+                                       'pyname': u'maximum_value_for_optimum_start_time',
+                                       'default': 6.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'hr'}),
+                                     (u'control algorithm',
+                                      {'name': u'Control Algorithm',
+                                       'pyname': u'control_algorithm',
+                                       'default': u'AdaptiveASHRAE',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ConstantTemperatureGradient',
+                                                           u'AdaptiveTemperatureGradient',
+                                                           u'AdaptiveASHRAE',
+                                                           u'ConstantStartTime'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'constant temperature gradient during cooling',
+                                      {'name': u'Constant Temperature Gradient during Cooling',
+                                       'pyname': u'constant_temperature_gradient_during_cooling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC/hr'}),
+                                     (u'constant temperature gradient during heating',
+                                      {'name': u'Constant Temperature Gradient during Heating',
+                                       'pyname': u'constant_temperature_gradient_during_heating',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC/hr'}),
+                                     (u'initial temperature gradient during cooling',
+                                      {'name': u'Initial Temperature Gradient during Cooling',
+                                       'pyname': u'initial_temperature_gradient_during_cooling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC/hr'}),
+                                     (u'initial temperature gradient during heating',
+                                      {'name': u'Initial Temperature Gradient during Heating',
+                                       'pyname': u'initial_temperature_gradient_during_heating',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC/hr'}),
+                                     (u'constant start time',
+                                      {'name': u'Constant Start Time',
+                                       'pyname': u'constant_start_time',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'hr'}),
+                                     (u'number of previous days',
+                                      {'name': u'Number of Previous Days',
+                                       'pyname': u'number_of_previous_days',
+                                       'default': 2,
+                                       'maximum': 5,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 2,
+                                       'autocalculatable': False,
+                                       'type': u'integer',
+                                       'unit': u'days'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -204,21 +409,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def applicability_schedule_name(self):
-        """Get applicability_schedule_name
+        """Get applicability_schedule_name.
 
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
+
         """
         return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Applicability Schedule Name`
+        """Corresponds to IDD field `Applicability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -227,21 +434,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Applicability Schedule Name"] = value
 
     @property
     def fan_schedule_name(self):
-        """Get fan_schedule_name
+        """Get fan_schedule_name.
 
         Returns:
             str: the value of `fan_schedule_name` or None if not set
+
         """
         return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Fan Schedule Name`
+        """Corresponds to IDD field `Fan Schedule Name`
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -250,21 +459,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Schedule Name"] = value
 
     @property
     def control_type(self):
-        """Get control_type
+        """Get control_type.
 
         Returns:
             str: the value of `control_type` or None if not set
+
         """
         return self["Control Type"]
 
     @control_type.setter
     def control_type(self, value="ControlZone"):
-        """  Corresponds to IDD field `Control Type`
+        """Corresponds to IDD field `Control Type`
 
         Args:
             value (str): value for IDD Field `Control Type`
@@ -274,21 +485,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Control Type"] = value
 
     @property
     def control_zone_name(self):
-        """Get control_zone_name
+        """Get control_zone_name.
 
         Returns:
             str: the value of `control_zone_name` or None if not set
+
         """
         return self["Control Zone Name"]
 
     @control_zone_name.setter
     def control_zone_name(self, value=None):
-        """  Corresponds to IDD field `Control Zone Name`
+        """Corresponds to IDD field `Control Zone Name`
 
         Args:
             value (str): value for IDD Field `Control Zone Name`
@@ -297,21 +510,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Control Zone Name"] = value
 
     @property
     def zone_list_name(self):
-        """Get zone_list_name
+        """Get zone_list_name.
 
         Returns:
             str: the value of `zone_list_name` or None if not set
+
         """
         return self["Zone List Name"]
 
     @zone_list_name.setter
     def zone_list_name(self, value=None):
-        """  Corresponds to IDD field `Zone List Name`
+        """Corresponds to IDD field `Zone List Name`
 
         Args:
             value (str): value for IDD Field `Zone List Name`
@@ -320,22 +535,25 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone List Name"] = value
 
     @property
     def maximum_value_for_optimum_start_time(self):
-        """Get maximum_value_for_optimum_start_time
+        """Get maximum_value_for_optimum_start_time.
 
         Returns:
             float: the value of `maximum_value_for_optimum_start_time` or None if not set
+
         """
         return self["Maximum Value for Optimum Start Time"]
 
     @maximum_value_for_optimum_start_time.setter
     def maximum_value_for_optimum_start_time(self, value=6.0):
-        """  Corresponds to IDD field `Maximum Value for Optimum Start Time`
-        this is the maximum number of hours that a system can start before occupancy
+        """Corresponds to IDD field `Maximum Value for Optimum Start Time` this
+        is the maximum number of hours that a system can start before
+        occupancy.
 
         Args:
             value (float): value for IDD Field `Maximum Value for Optimum Start Time`
@@ -346,21 +564,23 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Value for Optimum Start Time"] = value
 
     @property
     def control_algorithm(self):
-        """Get control_algorithm
+        """Get control_algorithm.
 
         Returns:
             str: the value of `control_algorithm` or None if not set
+
         """
         return self["Control Algorithm"]
 
     @control_algorithm.setter
     def control_algorithm(self, value="AdaptiveASHRAE"):
-        """  Corresponds to IDD field `Control Algorithm`
+        """Corresponds to IDD field `Control Algorithm`
 
         Args:
             value (str): value for IDD Field `Control Algorithm`
@@ -370,21 +590,24 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Control Algorithm"] = value
 
     @property
     def constant_temperature_gradient_during_cooling(self):
-        """Get constant_temperature_gradient_during_cooling
+        """Get constant_temperature_gradient_during_cooling.
 
         Returns:
             float: the value of `constant_temperature_gradient_during_cooling` or None if not set
+
         """
         return self["Constant Temperature Gradient during Cooling"]
 
     @constant_temperature_gradient_during_cooling.setter
     def constant_temperature_gradient_during_cooling(self, value=None):
-        """  Corresponds to IDD field `Constant Temperature Gradient during Cooling`
+        """Corresponds to IDD field `Constant Temperature Gradient during
+        Cooling`
 
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Cooling`
@@ -394,21 +617,24 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Temperature Gradient during Cooling"] = value
 
     @property
     def constant_temperature_gradient_during_heating(self):
-        """Get constant_temperature_gradient_during_heating
+        """Get constant_temperature_gradient_during_heating.
 
         Returns:
             float: the value of `constant_temperature_gradient_during_heating` or None if not set
+
         """
         return self["Constant Temperature Gradient during Heating"]
 
     @constant_temperature_gradient_during_heating.setter
     def constant_temperature_gradient_during_heating(self, value=None):
-        """  Corresponds to IDD field `Constant Temperature Gradient during Heating`
+        """Corresponds to IDD field `Constant Temperature Gradient during
+        Heating`
 
         Args:
             value (float): value for IDD Field `Constant Temperature Gradient during Heating`
@@ -418,21 +644,24 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Temperature Gradient during Heating"] = value
 
     @property
     def initial_temperature_gradient_during_cooling(self):
-        """Get initial_temperature_gradient_during_cooling
+        """Get initial_temperature_gradient_during_cooling.
 
         Returns:
             float: the value of `initial_temperature_gradient_during_cooling` or None if not set
+
         """
         return self["Initial Temperature Gradient during Cooling"]
 
     @initial_temperature_gradient_during_cooling.setter
     def initial_temperature_gradient_during_cooling(self, value=None):
-        """  Corresponds to IDD field `Initial Temperature Gradient during Cooling`
+        """Corresponds to IDD field `Initial Temperature Gradient during
+        Cooling`
 
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Cooling`
@@ -442,21 +671,24 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Initial Temperature Gradient during Cooling"] = value
 
     @property
     def initial_temperature_gradient_during_heating(self):
-        """Get initial_temperature_gradient_during_heating
+        """Get initial_temperature_gradient_during_heating.
 
         Returns:
             float: the value of `initial_temperature_gradient_during_heating` or None if not set
+
         """
         return self["Initial Temperature Gradient during Heating"]
 
     @initial_temperature_gradient_during_heating.setter
     def initial_temperature_gradient_during_heating(self, value=None):
-        """  Corresponds to IDD field `Initial Temperature Gradient during Heating`
+        """Corresponds to IDD field `Initial Temperature Gradient during
+        Heating`
 
         Args:
             value (float): value for IDD Field `Initial Temperature Gradient during Heating`
@@ -466,22 +698,24 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Initial Temperature Gradient during Heating"] = value
 
     @property
     def constant_start_time(self):
-        """Get constant_start_time
+        """Get constant_start_time.
 
         Returns:
             float: the value of `constant_start_time` or None if not set
+
         """
         return self["Constant Start Time"]
 
     @constant_start_time.setter
     def constant_start_time(self, value=None):
-        """  Corresponds to IDD field `Constant Start Time`
-        this is the number of hours before occupancy for a system
+        """Corresponds to IDD field `Constant Start Time` this is the number of
+        hours before occupancy for a system.
 
         Args:
             value (float): value for IDD Field `Constant Start Time`
@@ -491,23 +725,25 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Start Time"] = value
 
     @property
     def number_of_previous_days(self):
-        """Get number_of_previous_days
+        """Get number_of_previous_days.
 
         Returns:
             int: the value of `number_of_previous_days` or None if not set
+
         """
         return self["Number of Previous Days"]
 
     @number_of_previous_days.setter
     def number_of_previous_days(self, value=2):
-        """  Corresponds to IDD field `Number of Previous Days`
-        this is the number of days that their actual temperature
-        gradients will be used in the AdaptiveTemperatureGradient method
+        """Corresponds to IDD field `Number of Previous Days` this is the
+        number of days that their actual temperature gradients will be used in
+        the AdaptiveTemperatureGradient method.
 
         Args:
             value (int): value for IDD Field `Number of Previous Days`
@@ -520,6 +756,7 @@ class AvailabilityManagerOptimumStart(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Number of Previous Days"] = value
 
@@ -527,24 +764,91 @@ class AvailabilityManagerOptimumStart(DataObject):
 
 
 class AvailabilityManagerNightCycle(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:NightCycle`
         Determines the availability of a loop or system: whether it is on or off.
         Depending on zone temperatures, overrides Schedules and forces system Fans on.
     """
-    schema = {'min-fields': 6, 'name': u'AvailabilityManager:NightCycle', 'pyname': u'AvailabilityManagerNightCycle', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'default': u'StayOff', 'required-field': False, 'autosizable': False, 'accepted-values': [u'StayOff', u'CycleOnAny', u'CycleOnControlZone', u'CycleOnAnyZoneFansOnly'], 'autocalculatable': False, 'type': 'alpha'}), (u'thermostat tolerance', {'name': u'Thermostat Tolerance', 'pyname': u'thermostat_tolerance', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'cycling run time', {'name': u'Cycling Run Time', 'pyname': u'cycling_run_time', 'default': 3600.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 6,
+              'name': u'AvailabilityManager:NightCycle',
+              'pyname': u'AvailabilityManagerNightCycle',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'applicability schedule name',
+                                      {'name': u'Applicability Schedule Name',
+                                       'pyname': u'applicability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fan schedule name',
+                                      {'name': u'Fan Schedule Name',
+                                       'pyname': u'fan_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'control type',
+                                      {'name': u'Control Type',
+                                       'pyname': u'control_type',
+                                       'default': u'StayOff',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'StayOff',
+                                                           u'CycleOnAny',
+                                                           u'CycleOnControlZone',
+                                                           u'CycleOnAnyZoneFansOnly'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'thermostat tolerance',
+                                      {'name': u'Thermostat Tolerance',
+                                       'pyname': u'thermostat_tolerance',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'}),
+                                     (u'cycling run time',
+                                      {'name': u'Cycling Run Time',
+                                       'pyname': u'cycling_run_time',
+                                       'default': 3600.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u's'}),
+                                     (u'control zone name',
+                                      {'name': u'Control Zone Name',
+                                       'pyname': u'control_zone_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -553,21 +857,23 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def applicability_schedule_name(self):
-        """Get applicability_schedule_name
+        """Get applicability_schedule_name.
 
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
+
         """
         return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Applicability Schedule Name`
+        """Corresponds to IDD field `Applicability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -576,21 +882,23 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Applicability Schedule Name"] = value
 
     @property
     def fan_schedule_name(self):
-        """Get fan_schedule_name
+        """Get fan_schedule_name.
 
         Returns:
             str: the value of `fan_schedule_name` or None if not set
+
         """
         return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Fan Schedule Name`
+        """Corresponds to IDD field `Fan Schedule Name`
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -599,15 +907,17 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Schedule Name"] = value
 
     @property
     def control_type(self):
-        """Get control_type
+        """Get control_type.
 
         Returns:
             str: the value of `control_type` or None if not set
+
         """
         return self["Control Type"]
 
@@ -631,16 +941,17 @@ class AvailabilityManagerNightCycle(DataObject):
 
     @property
     def thermostat_tolerance(self):
-        """Get thermostat_tolerance
+        """Get thermostat_tolerance.
 
         Returns:
             float: the value of `thermostat_tolerance` or None if not set
+
         """
         return self["Thermostat Tolerance"]
 
     @thermostat_tolerance.setter
     def thermostat_tolerance(self, value=1.0):
-        """  Corresponds to IDD field `Thermostat Tolerance`
+        """Corresponds to IDD field `Thermostat Tolerance`
 
         Args:
             value (float): value for IDD Field `Thermostat Tolerance`
@@ -651,21 +962,23 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Thermostat Tolerance"] = value
 
     @property
     def cycling_run_time(self):
-        """Get cycling_run_time
+        """Get cycling_run_time.
 
         Returns:
             float: the value of `cycling_run_time` or None if not set
+
         """
         return self["Cycling Run Time"]
 
     @cycling_run_time.setter
     def cycling_run_time(self, value=3600.0):
-        """  Corresponds to IDD field `Cycling Run Time`
+        """Corresponds to IDD field `Cycling Run Time`
 
         Args:
             value (float): value for IDD Field `Cycling Run Time`
@@ -676,15 +989,17 @@ class AvailabilityManagerNightCycle(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cycling Run Time"] = value
 
     @property
     def control_zone_name(self):
-        """Get control_zone_name
+        """Get control_zone_name.
 
         Returns:
             str: the value of `control_zone_name` or None if not set
+
         """
         return self["Control Zone Name"]
 
@@ -709,23 +1024,69 @@ class AvailabilityManagerNightCycle(DataObject):
 
 
 class AvailabilityManagerDifferentialThermostat(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:DifferentialThermostat`
         Overrides fan/pump schedules depending on temperature difference between two nodes.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:DifferentialThermostat', 'pyname': u'AvailabilityManagerDifferentialThermostat', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hot node name', {'name': u'Hot Node Name', 'pyname': u'hot_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cold node name', {'name': u'Cold Node Name', 'pyname': u'cold_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature difference on limit', {'name': u'Temperature Difference On Limit', 'pyname': u'temperature_difference_on_limit', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'temperature difference off limit', {'name': u'Temperature Difference Off Limit', 'pyname': u'temperature_difference_off_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:DifferentialThermostat',
+              'pyname': u'AvailabilityManagerDifferentialThermostat',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'hot node name',
+                                      {'name': u'Hot Node Name',
+                                       'pyname': u'hot_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'cold node name',
+                                      {'name': u'Cold Node Name',
+                                       'pyname': u'cold_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'temperature difference on limit',
+                                      {'name': u'Temperature Difference On Limit',
+                                       'pyname': u'temperature_difference_on_limit',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'temperature difference off limit',
+                                      {'name': u'Temperature Difference Off Limit',
+                                       'pyname': u'temperature_difference_off_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -734,21 +1095,23 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def hot_node_name(self):
-        """Get hot_node_name
+        """Get hot_node_name.
 
         Returns:
             str: the value of `hot_node_name` or None if not set
+
         """
         return self["Hot Node Name"]
 
     @hot_node_name.setter
     def hot_node_name(self, value=None):
-        """  Corresponds to IDD field `Hot Node Name`
+        """Corresponds to IDD field `Hot Node Name`
 
         Args:
             value (str): value for IDD Field `Hot Node Name`
@@ -757,21 +1120,23 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Hot Node Name"] = value
 
     @property
     def cold_node_name(self):
-        """Get cold_node_name
+        """Get cold_node_name.
 
         Returns:
             str: the value of `cold_node_name` or None if not set
+
         """
         return self["Cold Node Name"]
 
     @cold_node_name.setter
     def cold_node_name(self, value=None):
-        """  Corresponds to IDD field `Cold Node Name`
+        """Corresponds to IDD field `Cold Node Name`
 
         Args:
             value (str): value for IDD Field `Cold Node Name`
@@ -780,21 +1145,23 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cold Node Name"] = value
 
     @property
     def temperature_difference_on_limit(self):
-        """Get temperature_difference_on_limit
+        """Get temperature_difference_on_limit.
 
         Returns:
             float: the value of `temperature_difference_on_limit` or None if not set
+
         """
         return self["Temperature Difference On Limit"]
 
     @temperature_difference_on_limit.setter
     def temperature_difference_on_limit(self, value=None):
-        """  Corresponds to IDD field `Temperature Difference On Limit`
+        """Corresponds to IDD field `Temperature Difference On Limit`
 
         Args:
             value (float): value for IDD Field `Temperature Difference On Limit`
@@ -804,22 +1171,24 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature Difference On Limit"] = value
 
     @property
     def temperature_difference_off_limit(self):
-        """Get temperature_difference_off_limit
+        """Get temperature_difference_off_limit.
 
         Returns:
             float: the value of `temperature_difference_off_limit` or None if not set
+
         """
         return self["Temperature Difference Off Limit"]
 
     @temperature_difference_off_limit.setter
     def temperature_difference_off_limit(self, value=None):
-        """  Corresponds to IDD field `Temperature Difference Off Limit`
-        Defaults to Temperature Difference On Limit.
+        """Corresponds to IDD field `Temperature Difference Off Limit` Defaults
+        to Temperature Difference On Limit.
 
         Args:
             value (float): value for IDD Field `Temperature Difference Off Limit`
@@ -829,6 +1198,7 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature Difference Off Limit"] = value
 
@@ -836,23 +1206,54 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
 
 
 class AvailabilityManagerHighTemperatureTurnOff(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:HighTemperatureTurnOff', 'pyname': u'AvailabilityManagerHighTemperatureTurnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:HighTemperatureTurnOff',
+              'pyname': u'AvailabilityManagerHighTemperatureTurnOff',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'sensor node name',
+                                      {'name': u'Sensor Node Name',
+                                       'pyname': u'sensor_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'temperature',
+                                      {'name': u'Temperature',
+                                       'pyname': u'temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -861,21 +1262,23 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def sensor_node_name(self):
-        """Get sensor_node_name
+        """Get sensor_node_name.
 
         Returns:
             str: the value of `sensor_node_name` or None if not set
+
         """
         return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD field `Sensor Node Name`
+        """Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -884,21 +1287,23 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Sensor Node Name"] = value
 
     @property
     def temperature(self):
-        """Get temperature
+        """Get temperature.
 
         Returns:
             float: the value of `temperature` or None if not set
+
         """
         return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD field `Temperature`
+        """Corresponds to IDD field `Temperature`
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -908,6 +1313,7 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature"] = value
 
@@ -915,23 +1321,54 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
 
 
 class AvailabilityManagerHighTemperatureTurnOn(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:HighTemperatureTurnOn', 'pyname': u'AvailabilityManagerHighTemperatureTurnOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:HighTemperatureTurnOn',
+              'pyname': u'AvailabilityManagerHighTemperatureTurnOn',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'sensor node name',
+                                      {'name': u'Sensor Node Name',
+                                       'pyname': u'sensor_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'temperature',
+                                      {'name': u'Temperature',
+                                       'pyname': u'temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -940,21 +1377,23 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def sensor_node_name(self):
-        """Get sensor_node_name
+        """Get sensor_node_name.
 
         Returns:
             str: the value of `sensor_node_name` or None if not set
+
         """
         return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD field `Sensor Node Name`
+        """Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -963,21 +1402,23 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Sensor Node Name"] = value
 
     @property
     def temperature(self):
-        """Get temperature
+        """Get temperature.
 
         Returns:
             float: the value of `temperature` or None if not set
+
         """
         return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD field `Temperature`
+        """Corresponds to IDD field `Temperature`
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -987,6 +1428,7 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature"] = value
 
@@ -994,23 +1436,61 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
 
 
 class AvailabilityManagerLowTemperatureTurnOff(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:LowTemperatureTurnOff', 'pyname': u'AvailabilityManagerLowTemperatureTurnOff', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:LowTemperatureTurnOff',
+              'pyname': u'AvailabilityManagerLowTemperatureTurnOff',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'sensor node name',
+                                      {'name': u'Sensor Node Name',
+                                       'pyname': u'sensor_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'temperature',
+                                      {'name': u'Temperature',
+                                       'pyname': u'temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'applicability schedule name',
+                                      {'name': u'Applicability Schedule Name',
+                                       'pyname': u'applicability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1019,21 +1499,23 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def sensor_node_name(self):
-        """Get sensor_node_name
+        """Get sensor_node_name.
 
         Returns:
             str: the value of `sensor_node_name` or None if not set
+
         """
         return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD field `Sensor Node Name`
+        """Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -1042,21 +1524,23 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Sensor Node Name"] = value
 
     @property
     def temperature(self):
-        """Get temperature
+        """Get temperature.
 
         Returns:
             float: the value of `temperature` or None if not set
+
         """
         return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD field `Temperature`
+        """Corresponds to IDD field `Temperature`
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -1066,22 +1550,24 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature"] = value
 
     @property
     def applicability_schedule_name(self):
-        """Get applicability_schedule_name
+        """Get applicability_schedule_name.
 
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
+
         """
         return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Applicability Schedule Name`
-        If blank, defaults to always active
+        """Corresponds to IDD field `Applicability Schedule Name` If blank,
+        defaults to always active.
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -1090,6 +1576,7 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Applicability Schedule Name"] = value
 
@@ -1097,23 +1584,54 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
 
 
 class AvailabilityManagerLowTemperatureTurnOn(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
     """
-    schema = {'min-fields': 0, 'name': u'AvailabilityManager:LowTemperatureTurnOn', 'pyname': u'AvailabilityManagerLowTemperatureTurnOn', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'temperature', {'name': u'Temperature', 'pyname': u'temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 0,
+              'name': u'AvailabilityManager:LowTemperatureTurnOn',
+              'pyname': u'AvailabilityManagerLowTemperatureTurnOn',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'sensor node name',
+                                      {'name': u'Sensor Node Name',
+                                       'pyname': u'sensor_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'temperature',
+                                      {'name': u'Temperature',
+                                       'pyname': u'temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1122,21 +1640,23 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def sensor_node_name(self):
-        """Get sensor_node_name
+        """Get sensor_node_name.
 
         Returns:
             str: the value of `sensor_node_name` or None if not set
+
         """
         return self["Sensor Node Name"]
 
     @sensor_node_name.setter
     def sensor_node_name(self, value=None):
-        """  Corresponds to IDD field `Sensor Node Name`
+        """Corresponds to IDD field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
@@ -1145,21 +1665,23 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Sensor Node Name"] = value
 
     @property
     def temperature(self):
-        """Get temperature
+        """Get temperature.
 
         Returns:
             float: the value of `temperature` or None if not set
+
         """
         return self["Temperature"]
 
     @temperature.setter
     def temperature(self, value=None):
-        """  Corresponds to IDD field `Temperature`
+        """Corresponds to IDD field `Temperature`
 
         Args:
             value (float): value for IDD Field `Temperature`
@@ -1169,6 +1691,7 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature"] = value
 
@@ -1176,24 +1699,95 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
 
 
 class AvailabilityManagerNightVentilation(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:NightVentilation`
         depending on zone and outdoor conditions overides fan schedule to do
         precooling with outdoor air
     """
-    schema = {'min-fields': 7, 'name': u'AvailabilityManager:NightVentilation', 'pyname': u'AvailabilityManagerNightVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'applicability schedule name', {'name': u'Applicability Schedule Name', 'pyname': u'applicability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan schedule name', {'name': u'Fan Schedule Name', 'pyname': u'fan_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation temperature schedule name', {'name': u'Ventilation Temperature Schedule Name', 'pyname': u'ventilation_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation temperature difference', {'name': u'Ventilation Temperature Difference', 'pyname': u'ventilation_temperature_difference', 'default': 2.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'ventilation temperature low limit', {'name': u'Ventilation Temperature Low Limit', 'pyname': u'ventilation_temperature_low_limit', 'default': 15.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'C'}), (u'night venting flow fraction', {'name': u'Night Venting Flow Fraction', 'pyname': u'night_venting_flow_fraction', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'control zone name', {'name': u'Control Zone Name', 'pyname': u'control_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 7,
+              'name': u'AvailabilityManager:NightVentilation',
+              'pyname': u'AvailabilityManagerNightVentilation',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'applicability schedule name',
+                                      {'name': u'Applicability Schedule Name',
+                                       'pyname': u'applicability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fan schedule name',
+                                      {'name': u'Fan Schedule Name',
+                                       'pyname': u'fan_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ventilation temperature schedule name',
+                                      {'name': u'Ventilation Temperature Schedule Name',
+                                       'pyname': u'ventilation_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ventilation temperature difference',
+                                      {'name': u'Ventilation Temperature Difference',
+                                       'pyname': u'ventilation_temperature_difference',
+                                       'default': 2.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'deltaC'}),
+                                     (u'ventilation temperature low limit',
+                                      {'name': u'Ventilation Temperature Low Limit',
+                                       'pyname': u'ventilation_temperature_low_limit',
+                                       'default': 15.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'C'}),
+                                     (u'night venting flow fraction',
+                                      {'name': u'Night Venting Flow Fraction',
+                                       'pyname': u'night_venting_flow_fraction',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'control zone name',
+                                      {'name': u'Control Zone Name',
+                                       'pyname': u'control_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1202,21 +1796,23 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def applicability_schedule_name(self):
-        """Get applicability_schedule_name
+        """Get applicability_schedule_name.
 
         Returns:
             str: the value of `applicability_schedule_name` or None if not set
+
         """
         return self["Applicability Schedule Name"]
 
     @applicability_schedule_name.setter
     def applicability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Applicability Schedule Name`
+        """Corresponds to IDD field `Applicability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Applicability Schedule Name`
@@ -1225,21 +1821,23 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Applicability Schedule Name"] = value
 
     @property
     def fan_schedule_name(self):
-        """Get fan_schedule_name
+        """Get fan_schedule_name.
 
         Returns:
             str: the value of `fan_schedule_name` or None if not set
+
         """
         return self["Fan Schedule Name"]
 
     @fan_schedule_name.setter
     def fan_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Fan Schedule Name`
+        """Corresponds to IDD field `Fan Schedule Name`
 
         Args:
             value (str): value for IDD Field `Fan Schedule Name`
@@ -1248,23 +1846,25 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Schedule Name"] = value
 
     @property
     def ventilation_temperature_schedule_name(self):
-        """Get ventilation_temperature_schedule_name
+        """Get ventilation_temperature_schedule_name.
 
         Returns:
             str: the value of `ventilation_temperature_schedule_name` or None if not set
+
         """
         return self["Ventilation Temperature Schedule Name"]
 
     @ventilation_temperature_schedule_name.setter
     def ventilation_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Ventilation Temperature Schedule Name`
-        One zone temperature must be above this scheduled temperature
-        for night ventilation to be enabled
+        """Corresponds to IDD field `Ventilation Temperature Schedule Name` One
+        zone temperature must be above this scheduled temperature for night
+        ventilation to be enabled.
 
         Args:
             value (str): value for IDD Field `Ventilation Temperature Schedule Name`
@@ -1273,23 +1873,25 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Ventilation Temperature Schedule Name"] = value
 
     @property
     def ventilation_temperature_difference(self):
-        """Get ventilation_temperature_difference
+        """Get ventilation_temperature_difference.
 
         Returns:
             float: the value of `ventilation_temperature_difference` or None if not set
+
         """
         return self["Ventilation Temperature Difference"]
 
     @ventilation_temperature_difference.setter
     def ventilation_temperature_difference(self, value=2.0):
-        """  Corresponds to IDD field `Ventilation Temperature Difference`
-        The outdoor air temperature minus the control zone temperature
-        must be greater than the ventilation delta T
+        """Corresponds to IDD field `Ventilation Temperature Difference` The
+        outdoor air temperature minus the control zone temperature must be
+        greater than the ventilation delta T.
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Difference`
@@ -1300,23 +1902,25 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Ventilation Temperature Difference"] = value
 
     @property
     def ventilation_temperature_low_limit(self):
-        """Get ventilation_temperature_low_limit
+        """Get ventilation_temperature_low_limit.
 
         Returns:
             float: the value of `ventilation_temperature_low_limit` or None if not set
+
         """
         return self["Ventilation Temperature Low Limit"]
 
     @ventilation_temperature_low_limit.setter
     def ventilation_temperature_low_limit(self, value=15.0):
-        """  Corresponds to IDD field `Ventilation Temperature Low Limit`
-        Night ventilation is disabled if any conditioned zone served by
-        the system falls below this temperature
+        """Corresponds to IDD field `Ventilation Temperature Low Limit` Night
+        ventilation is disabled if any conditioned zone served by the system
+        falls below this temperature.
 
         Args:
             value (float): value for IDD Field `Ventilation Temperature Low Limit`
@@ -1327,23 +1931,25 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Ventilation Temperature Low Limit"] = value
 
     @property
     def night_venting_flow_fraction(self):
-        """Get night_venting_flow_fraction
+        """Get night_venting_flow_fraction.
 
         Returns:
             float: the value of `night_venting_flow_fraction` or None if not set
+
         """
         return self["Night Venting Flow Fraction"]
 
     @night_venting_flow_fraction.setter
     def night_venting_flow_fraction(self, value=1.0):
-        """  Corresponds to IDD field `Night Venting Flow Fraction`
-        the fraction (could be > 1) of the design system Flow Rate at which
-        night ventilation will be done
+        """Corresponds to IDD field `Night Venting Flow Fraction` the fraction
+        (could be > 1) of the design system Flow Rate at which night
+        ventilation will be done.
 
         Args:
             value (float): value for IDD Field `Night Venting Flow Fraction`
@@ -1353,15 +1959,17 @@ class AvailabilityManagerNightVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Night Venting Flow Fraction"] = value
 
     @property
     def control_zone_name(self):
-        """Get control_zone_name
+        """Get control_zone_name.
 
         Returns:
             str: the value of `control_zone_name` or None if not set
+
         """
         return self["Control Zone Name"]
 
@@ -1386,6 +1994,7 @@ class AvailabilityManagerNightVentilation(DataObject):
 
 
 class AvailabilityManagerHybridVentilation(DataObject):
+
     """ Corresponds to IDD object `AvailabilityManager:HybridVentilation`
         Depending on zone and outdoor conditions overrides window/door opening controls
         to maximize natural ventilation and turn off an HVAC system when ventilation control
@@ -1400,20 +2009,176 @@ class AvailabilityManagerHybridVentilation(DataObject):
         air loop and one of the zones served by that air loop also has hybrid ventilation manager,
         then zone hybrid ventilation manager is disabled.
     """
-    schema = {'min-fields': 13, 'name': u'AvailabilityManager:HybridVentilation', 'pyname': u'AvailabilityManagerHybridVentilation', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'hvac air loop name', {'name': u'HVAC Air Loop Name', 'pyname': u'hvac_air_loop_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controlled zone name', {'name': u'Controlled Zone Name', 'pyname': u'controlled_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation control mode schedule name', {'name': u'Ventilation Control Mode Schedule Name', 'pyname': u'ventilation_control_mode_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor enthalpy', {'name': u'Minimum Outdoor Enthalpy', 'pyname': u'minimum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'maximum outdoor enthalpy', {'name': u'Maximum Outdoor Enthalpy', 'pyname': u'maximum_outdoor_enthalpy', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'maximum<': 300000.0, 'unit': u'J/kg'}), (u'minimum outdoor dewpoint', {'name': u'Minimum Outdoor Dewpoint', 'pyname': u'minimum_outdoor_dewpoint', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dewpoint', {'name': u'Maximum Outdoor Dewpoint', 'pyname': u'maximum_outdoor_dewpoint', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor ventilation air schedule name', {'name': u'Minimum Outdoor Ventilation Air Schedule Name', 'pyname': u'minimum_outdoor_ventilation_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening factor function of wind speed curve name', {'name': u'Opening Factor Function of Wind Speed Curve Name', 'pyname': u'opening_factor_function_of_wind_speed_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'airflownetwork control type schedule name', {'name': u'AirflowNetwork Control Type Schedule Name', 'pyname': u'airflownetwork_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'simple airflow control type schedule name', {'name': u'Simple Airflow Control Type Schedule Name', 'pyname': u'simple_airflow_control_type_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zoneventilation object name', {'name': u'ZoneVentilation Object Name', 'pyname': u'zoneventilation_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 13,
+              'name': u'AvailabilityManager:HybridVentilation',
+              'pyname': u'AvailabilityManagerHybridVentilation',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'hvac air loop name',
+                                      {'name': u'HVAC Air Loop Name',
+                                       'pyname': u'hvac_air_loop_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'controlled zone name',
+                                      {'name': u'Controlled Zone Name',
+                                       'pyname': u'controlled_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ventilation control mode schedule name',
+                                      {'name': u'Ventilation Control Mode Schedule Name',
+                                       'pyname': u'ventilation_control_mode_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'use weather file rain indicators',
+                                      {'name': u'Use Weather File Rain Indicators',
+                                       'pyname': u'use_weather_file_rain_indicators',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Yes',
+                                                           u'No'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum wind speed',
+                                      {'name': u'Maximum Wind Speed',
+                                       'pyname': u'maximum_wind_speed',
+                                       'default': 40.0,
+                                       'maximum': 40.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'}),
+                                     (u'minimum outdoor temperature',
+                                      {'name': u'Minimum Outdoor Temperature',
+                                       'pyname': u'minimum_outdoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature',
+                                      {'name': u'Maximum Outdoor Temperature',
+                                       'pyname': u'maximum_outdoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor enthalpy',
+                                      {'name': u'Minimum Outdoor Enthalpy',
+                                       'pyname': u'minimum_outdoor_enthalpy',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 300000.0,
+                                       'unit': u'J/kg'}),
+                                     (u'maximum outdoor enthalpy',
+                                      {'name': u'Maximum Outdoor Enthalpy',
+                                       'pyname': u'maximum_outdoor_enthalpy',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'maximum<': 300000.0,
+                                       'unit': u'J/kg'}),
+                                     (u'minimum outdoor dewpoint',
+                                      {'name': u'Minimum Outdoor Dewpoint',
+                                       'pyname': u'minimum_outdoor_dewpoint',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor dewpoint',
+                                      {'name': u'Maximum Outdoor Dewpoint',
+                                       'pyname': u'maximum_outdoor_dewpoint',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor ventilation air schedule name',
+                                      {'name': u'Minimum Outdoor Ventilation Air Schedule Name',
+                                       'pyname': u'minimum_outdoor_ventilation_air_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'opening factor function of wind speed curve name',
+                                      {'name': u'Opening Factor Function of Wind Speed Curve Name',
+                                       'pyname': u'opening_factor_function_of_wind_speed_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'airflownetwork control type schedule name',
+                                      {'name': u'AirflowNetwork Control Type Schedule Name',
+                                       'pyname': u'airflownetwork_control_type_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'simple airflow control type schedule name',
+                                      {'name': u'Simple Airflow Control Type Schedule Name',
+                                       'pyname': u'simple_airflow_control_type_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zoneventilation object name',
+                                      {'name': u'ZoneVentilation Object Name',
+                                       'pyname': u'zoneventilation_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'extensible-fields': OrderedDict(),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1422,15 +2187,17 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def hvac_air_loop_name(self):
-        """Get hvac_air_loop_name
+        """Get hvac_air_loop_name.
 
         Returns:
             str: the value of `hvac_air_loop_name` or None if not set
+
         """
         return self["HVAC Air Loop Name"]
 
@@ -1453,17 +2220,18 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def controlled_zone_name(self):
-        """Get controlled_zone_name
+        """Get controlled_zone_name.
 
         Returns:
             str: the value of `controlled_zone_name` or None if not set
+
         """
         return self["Controlled Zone Name"]
 
     @controlled_zone_name.setter
     def controlled_zone_name(self, value=None):
-        """  Corresponds to IDD field `Controlled Zone Name`
-        the controlled zone name should be a zone where a thermostat or humidistat is located
+        """Corresponds to IDD field `Controlled Zone Name` the controlled zone
+        name should be a zone where a thermostat or humidistat is located
         served by an air primary loop.
 
         Args:
@@ -1473,22 +2241,26 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Controlled Zone Name"] = value
 
     @property
     def ventilation_control_mode_schedule_name(self):
-        """Get ventilation_control_mode_schedule_name
+        """Get ventilation_control_mode_schedule_name.
 
         Returns:
             str: the value of `ventilation_control_mode_schedule_name` or None if not set
+
         """
         return self["Ventilation Control Mode Schedule Name"]
 
     @ventilation_control_mode_schedule_name.setter
     def ventilation_control_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Ventilation Control Mode Schedule Name`
-        The Ventilation control mode contains appropriate integer control types.
+        """Corresponds to IDD field `Ventilation Control Mode Schedule Name`
+        The Ventilation control mode contains appropriate integer control
+        types.
+
         0 - uncontrolled (Natural ventilation and HVAC system are controlled by themselves)
         1 = Temperature control
         2 = Enthalpy control
@@ -1502,23 +2274,25 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Ventilation Control Mode Schedule Name"] = value
 
     @property
     def use_weather_file_rain_indicators(self):
-        """Get use_weather_file_rain_indicators
+        """Get use_weather_file_rain_indicators.
 
         Returns:
             str: the value of `use_weather_file_rain_indicators` or None if not set
+
         """
         return self["Use Weather File Rain Indicators"]
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """  Corresponds to IDD field `Use Weather File Rain Indicators`
-        If Yes, ventilation is shutoff when there is rain
-        If No, there is no rain control
+        """Corresponds to IDD field `Use Weather File Rain Indicators` If Yes,
+        ventilation is shutoff when there is rain If No, there is no rain
+        control.
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -1528,22 +2302,24 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Use Weather File Rain Indicators"] = value
 
     @property
     def maximum_wind_speed(self):
-        """Get maximum_wind_speed
+        """Get maximum_wind_speed.
 
         Returns:
             float: the value of `maximum_wind_speed` or None if not set
+
         """
         return self["Maximum Wind Speed"]
 
     @maximum_wind_speed.setter
     def maximum_wind_speed(self, value=40.0):
-        """  Corresponds to IDD field `Maximum Wind Speed`
-        this is the wind speed above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Wind Speed` this is the wind speed
+        above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
@@ -1555,22 +2331,24 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Wind Speed"] = value
 
     @property
     def minimum_outdoor_temperature(self):
-        """Get minimum_outdoor_temperature
+        """Get minimum_outdoor_temperature.
 
         Returns:
             float: the value of `minimum_outdoor_temperature` or None if not set
+
         """
         return self["Minimum Outdoor Temperature"]
 
     @minimum_outdoor_temperature.setter
     def minimum_outdoor_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature`
-        this is the outdoor temperature below which ventilation is shutoff
+        """Corresponds to IDD field `Minimum Outdoor Temperature` this is the
+        outdoor temperature below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
@@ -1583,22 +2361,24 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature"] = value
 
     @property
     def maximum_outdoor_temperature(self):
-        """Get maximum_outdoor_temperature
+        """Get maximum_outdoor_temperature.
 
         Returns:
             float: the value of `maximum_outdoor_temperature` or None if not set
+
         """
         return self["Maximum Outdoor Temperature"]
 
     @maximum_outdoor_temperature.setter
     def maximum_outdoor_temperature(self, value=100.0):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature`
-        this is the outdoor temperature above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Outdoor Temperature` this is the
+        outdoor temperature above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
@@ -1611,22 +2391,24 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature"] = value
 
     @property
     def minimum_outdoor_enthalpy(self):
-        """Get minimum_outdoor_enthalpy
+        """Get minimum_outdoor_enthalpy.
 
         Returns:
             float: the value of `minimum_outdoor_enthalpy` or None if not set
+
         """
         return self["Minimum Outdoor Enthalpy"]
 
     @minimum_outdoor_enthalpy.setter
     def minimum_outdoor_enthalpy(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Enthalpy`
-        this is the outdoor Enthalpy below which ventilation is shutoff
+        """Corresponds to IDD field `Minimum Outdoor Enthalpy` this is the
+        outdoor Enthalpy below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Enthalpy`
@@ -1637,22 +2419,24 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Enthalpy"] = value
 
     @property
     def maximum_outdoor_enthalpy(self):
-        """Get maximum_outdoor_enthalpy
+        """Get maximum_outdoor_enthalpy.
 
         Returns:
             float: the value of `maximum_outdoor_enthalpy` or None if not set
+
         """
         return self["Maximum Outdoor Enthalpy"]
 
     @maximum_outdoor_enthalpy.setter
     def maximum_outdoor_enthalpy(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Enthalpy`
-        this is the outdoor Enthalpy above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Outdoor Enthalpy` this is the
+        outdoor Enthalpy above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Enthalpy`
@@ -1663,15 +2447,17 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Enthalpy"] = value
 
     @property
     def minimum_outdoor_dewpoint(self):
-        """Get minimum_outdoor_dewpoint
+        """Get minimum_outdoor_dewpoint.
 
         Returns:
             float: the value of `minimum_outdoor_dewpoint` or None if not set
+
         """
         return self["Minimum Outdoor Dewpoint"]
 
@@ -1697,10 +2483,11 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def maximum_outdoor_dewpoint(self):
-        """Get maximum_outdoor_dewpoint
+        """Get maximum_outdoor_dewpoint.
 
         Returns:
             float: the value of `maximum_outdoor_dewpoint` or None if not set
+
         """
         return self["Maximum Outdoor Dewpoint"]
 
@@ -1726,10 +2513,11 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def minimum_outdoor_ventilation_air_schedule_name(self):
-        """Get minimum_outdoor_ventilation_air_schedule_name
+        """Get minimum_outdoor_ventilation_air_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_ventilation_air_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Ventilation Air Schedule Name"]
 
@@ -1750,10 +2538,11 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def opening_factor_function_of_wind_speed_curve_name(self):
-        """Get opening_factor_function_of_wind_speed_curve_name
+        """Get opening_factor_function_of_wind_speed_curve_name.
 
         Returns:
             str: the value of `opening_factor_function_of_wind_speed_curve_name` or None if not set
+
         """
         return self["Opening Factor Function of Wind Speed Curve Name"]
 
@@ -1777,18 +2566,19 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
     @property
     def airflownetwork_control_type_schedule_name(self):
-        """Get airflownetwork_control_type_schedule_name
+        """Get airflownetwork_control_type_schedule_name.
 
         Returns:
             str: the value of `airflownetwork_control_type_schedule_name` or None if not set
+
         """
         return self["AirflowNetwork Control Type Schedule Name"]
 
     @airflownetwork_control_type_schedule_name.setter
     def airflownetwork_control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD field `AirflowNetwork Control Type Schedule Name`
-        The schedule is used to incorporate operation of AirflowNetwork large opening
-        objects and HVAC system operation.
+        """Corresponds to IDD field `AirflowNetwork Control Type Schedule Name`
+        The schedule is used to incorporate operation of AirflowNetwork large
+        opening objects and HVAC system operation.
 
         Args:
             value (str): value for IDD Field `AirflowNetwork Control Type Schedule Name`
@@ -1797,24 +2587,26 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["AirflowNetwork Control Type Schedule Name"] = value
 
     @property
     def simple_airflow_control_type_schedule_name(self):
-        """Get simple_airflow_control_type_schedule_name
+        """Get simple_airflow_control_type_schedule_name.
 
         Returns:
             str: the value of `simple_airflow_control_type_schedule_name` or None if not set
+
         """
         return self["Simple Airflow Control Type Schedule Name"]
 
     @simple_airflow_control_type_schedule_name.setter
     def simple_airflow_control_type_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Simple Airflow Control Type Schedule Name`
-        The schedule is used to incorporate operation of simple airflow objects and HVAC
-        system operation.
-        The simple airflow objects are Ventilation and Mixing only
+        """Corresponds to IDD field `Simple Airflow Control Type Schedule Name`
+        The schedule is used to incorporate operation of simple airflow objects
+        and HVAC system operation. The simple airflow objects are Ventilation
+        and Mixing only.
 
         Args:
             value (str): value for IDD Field `Simple Airflow Control Type Schedule Name`
@@ -1823,15 +2615,17 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Simple Airflow Control Type Schedule Name"] = value
 
     @property
     def zoneventilation_object_name(self):
-        """Get zoneventilation_object_name
+        """Get zoneventilation_object_name.
 
         Returns:
             str: the value of `zoneventilation_object_name` or None if not set
+
         """
         return self["ZoneVentilation Object Name"]
 
@@ -1860,26 +2654,68 @@ class AvailabilityManagerHybridVentilation(DataObject):
 
 
 class AvailabilityManagerAssignmentList(DataObject):
-    """ Corresponds to IDD object `AvailabilityManagerAssignmentList`
-        Defines the applicable managers used for an AirLoopHVAC or PlantLoop. The priority of
-        availability managers is based on a set of rules and are specific to the type of loop.
-        The output from each availability manager is an availability status flag:
-        NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
+
+    """Corresponds to IDD object `AvailabilityManagerAssignmentList` Defines
+    the applicable managers used for an AirLoopHVAC or PlantLoop.
+
+    The priority of
+    availability managers is based on a set of rules and are specific to the type of loop.
+    The output from each availability manager is an availability status flag:
+    NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
+
     """
-    schema = {'min-fields': 3, 'name': u'AvailabilityManagerAssignmentList', 'pyname': u'AvailabilityManagerAssignmentList', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]), 'extensible-fields': OrderedDict([(u'availability manager 1 object type', {'name': u'Availability Manager 1 Object Type', 'pyname': u'availability_manager_1_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'AvailabilityManager:Scheduled', u'AvailabilityManager:ScheduledOn', u'AvailabilityManager:ScheduledOff', u'AvailabilityManager:NightCycle', u'AvailabilityManager:DifferentialThermostat', u'AvailabilityManager:HighTemperatureTurnOff', u'AvailabilityManager:HighTemperatureTurnOn', u'AvailabilityManager:LowTemperatureTurnOff', u'AvailabilityManager:LowTemperatureTurnOn', u'AvailabilityManager:NightVentilation'], 'autocalculatable': False, 'type': 'alpha'}), (u'availability manager 1 name', {'name': u'Availability Manager 1 Name', 'pyname': u'availability_manager_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'unique-object': False, 'required-object': False, 'group': u'System Availability Managers'}
+    schema = {'min-fields': 3,
+              'name': u'AvailabilityManagerAssignmentList',
+              'pyname': u'AvailabilityManagerAssignmentList',
+              'format': None,
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'})]),
+              'extensible-fields': OrderedDict([(u'availability manager 1 object type',
+                                                 {'name': u'Availability Manager 1 Object Type',
+                                                  'pyname': u'availability_manager_1_object_type',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'accepted-values': [u'AvailabilityManager:Scheduled',
+                                                                      u'AvailabilityManager:ScheduledOn',
+                                                                      u'AvailabilityManager:ScheduledOff',
+                                                                      u'AvailabilityManager:NightCycle',
+                                                                      u'AvailabilityManager:DifferentialThermostat',
+                                                                      u'AvailabilityManager:HighTemperatureTurnOff',
+                                                                      u'AvailabilityManager:HighTemperatureTurnOn',
+                                                                      u'AvailabilityManager:LowTemperatureTurnOff',
+                                                                      u'AvailabilityManager:LowTemperatureTurnOn',
+                                                                      u'AvailabilityManager:NightVentilation'],
+                                                  'autocalculatable': False,
+                                                  'type': 'alpha'}),
+                                                (u'availability manager 1 name',
+                                                 {'name': u'Availability Manager 1 Name',
+                                                  'pyname': u'availability_manager_1_name',
+                                                  'required-field': True,
+                                                  'autosizable': False,
+                                                  'autocalculatable': False,
+                                                  'type': u'object-list'})]),
+              'unique-object': False,
+              'required-object': False,
+              'group': u'System Availability Managers'}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1888,6 +2724,7 @@ class AvailabilityManagerAssignmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
@@ -1895,7 +2732,7 @@ class AvailabilityManagerAssignmentList(DataObject):
                        availability_manager_1_object_type=None,
                        availability_manager_1_name=None,
                        ):
-        """ Add values for extensible fields
+        """Add values for extensible fields.
 
         Args:
 
@@ -1906,26 +2743,31 @@ class AvailabilityManagerAssignmentList(DataObject):
             availability_manager_1_name (str): value for IDD Field `Availability Manager 1 Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
+
         """
         vals = []
-        availability_manager_1_object_type = self.check_value("Availability Manager 1 Object Type", availability_manager_1_object_type)
+        availability_manager_1_object_type = self.check_value(
+            "Availability Manager 1 Object Type",
+            availability_manager_1_object_type)
         vals.append(availability_manager_1_object_type)
-        availability_manager_1_name = self.check_value("Availability Manager 1 Name", availability_manager_1_name)
+        availability_manager_1_name = self.check_value(
+            "Availability Manager 1 Name",
+            availability_manager_1_name)
         vals.append(availability_manager_1_name)
         self._extdata.append(vals)
 
     @property
     def extensibles(self):
-        """ Get list of all extensibles
-        """
+        """Get list of all extensibles."""
         return self._extdata
 
     @extensibles.setter
     def extensibles(self, extensibles):
-        """ Replaces extensible fields with `extensibles`
+        """Replaces extensible fields with `extensibles`
 
         Args:
             extensibles (list): nested list of extensible values
+
         """
         self._extdata = []
         for ext in extensibles:
