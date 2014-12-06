@@ -1,6 +1,8 @@
+""" Data objects in group "User Defined HVAC and Plant Component Models"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -416,6 +418,8 @@ class ZoneHvacForcedAirUserDefined(DataObject):
         self["Ambient Zone Name"] = value
 
 
+
+
 class AirTerminalSingleDuctUserDefined(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:UserDefined`
         Defines a generic single duct air terminal unit for custom modeling
@@ -778,6 +782,8 @@ class AirTerminalSingleDuctUserDefined(DataObject):
         self["Ambient Zone Name"] = value
 
 
+
+
 class CoilUserDefined(DataObject):
     """ Corresponds to IDD object `Coil:UserDefined`
         Defines a generic air system component for custom modeling
@@ -1116,6 +1122,8 @@ class CoilUserDefined(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Ambient Zone Name"] = value
+
+
 
 
 class PlantComponentUserDefined(DataObject):
@@ -1870,6 +1878,8 @@ class PlantComponentUserDefined(DataObject):
         self["Ambient Zone Name"] = value
 
 
+
+
 class PlantEquipmentOperationUserDefined(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:UserDefined`
         Defines a generic plant operation scheme for custom supervisory control
@@ -2406,3 +2416,5 @@ class PlantEquipmentOperationUserDefined(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Equipment 10 Name"] = value
+
+

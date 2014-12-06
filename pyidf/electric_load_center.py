@@ -1,6 +1,8 @@
+""" Data objects in group "Electric Load Center"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -531,6 +533,8 @@ class GeneratorInternalCombustionEngine(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heat Recovery Maximum Temperature"] = value
+
+
 
 
 class GeneratorCombustionTurbine(DataObject):
@@ -1138,6 +1142,8 @@ class GeneratorCombustionTurbine(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outdoor Air Inlet Node Name"] = value
+
+
 
 
 class GeneratorMicroTurbine(DataObject):
@@ -2153,6 +2159,8 @@ class GeneratorMicroTurbine(DataObject):
         self["Exhaust Air Temperature Function of Part Load Ratio Curve Name"] = value
 
 
+
+
 class GeneratorPhotovoltaic(DataObject):
     """ Corresponds to IDD object `Generator:Photovoltaic`
         Describes an array of photovoltaic (PV) modules.  A series of different PV arrays
@@ -2336,6 +2344,8 @@ class GeneratorPhotovoltaic(DataObject):
         self["Number of Modules in Series"] = value
 
 
+
+
 class PhotovoltaicPerformanceSimple(DataObject):
     """ Corresponds to IDD object `PhotovoltaicPerformance:Simple`
         Describes a simple model of photovoltaics that may be useful for early phase
@@ -2463,6 +2473,8 @@ class PhotovoltaicPerformanceSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Efficiency Schedule Name"] = value
+
+
 
 
 class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
@@ -2981,6 +2993,8 @@ class PhotovoltaicPerformanceEquivalentOneDiode(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Total Heat Capacity"] = value
+
+
 
 
 class PhotovoltaicPerformanceSandia(DataObject):
@@ -3988,6 +4002,8 @@ class PhotovoltaicPerformanceSandia(DataObject):
         self["Sandia Database Parameter c7"] = value
 
 
+
+
 class GeneratorFuelCell(DataObject):
     """ Corresponds to IDD object `Generator:FuelCell`
         This generator model is the FC model from IEA Annex 42
@@ -4233,6 +4249,8 @@ class GeneratorFuelCell(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Stack Cooler Name"] = value
+
+
 
 
 class GeneratorFuelCellPowerModule(DataObject):
@@ -5035,6 +5053,8 @@ class GeneratorFuelCellPowerModule(DataObject):
         self["Maximum Operating Point"] = value
 
 
+
+
 class GeneratorFuelCellAirSupply(DataObject):
     """ Corresponds to IDD object `Generator:FuelCell:AirSupply`
         Used to define details of the air supply subsystem for a fuel cell power generator.
@@ -5366,6 +5386,8 @@ class GeneratorFuelCellAirSupply(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class GeneratorFuelCellWaterSupply(DataObject):
     """ Corresponds to IDD object `Generator:FuelCell:WaterSupply`
         Used to provide details of the water supply subsystem for a fuel cell power generator.
@@ -5536,6 +5558,8 @@ class GeneratorFuelCellWaterSupply(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Water Temperature Schedule Name"] = value
+
+
 
 
 class GeneratorFuelCellAuxiliaryHeater(DataObject):
@@ -5827,6 +5851,8 @@ class GeneratorFuelCellAuxiliaryHeater(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Minimum Heating Capacity in Kmol per Second"] = value
+
+
 
 
 class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
@@ -6393,6 +6419,8 @@ class GeneratorFuelCellExhaustGasToWaterHeatExchanger(DataObject):
         self["Method 4 Condensation Threshold"] = value
 
 
+
+
 class GeneratorFuelCellElectricalStorage(DataObject):
     """ Corresponds to IDD object `Generator:FuelCell:ElectricalStorage`
         Used to describe the electrical storage subsystem for a fuel cell power generator.
@@ -6592,6 +6620,8 @@ class GeneratorFuelCellElectricalStorage(DataObject):
         self["Initial Charge State"] = value
 
 
+
+
 class GeneratorFuelCellInverter(DataObject):
     """ Corresponds to IDD object `Generator:FuelCell:Inverter`
         Used to describe the power condition unit subsystem of a fuel cell power generator.
@@ -6693,6 +6723,8 @@ class GeneratorFuelCellInverter(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Efficiency Function of DC Power Curve Name"] = value
+
+
 
 
 class GeneratorFuelCellStackCooler(DataObject):
@@ -7195,6 +7227,8 @@ class GeneratorFuelCellStackCooler(DataObject):
         self["Stack Air Cooler Fan Coefficient f2"] = value
 
 
+
+
 class GeneratorMicroChp(DataObject):
     """ Corresponds to IDD object `Generator:MicroCHP`
         Small-scale combined heat and power (micro CHP) electric generator using the model
@@ -7414,6 +7448,8 @@ class GeneratorMicroChp(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Availability Schedule Name"] = value
+
+
 
 
 class GeneratorMicroChpNonNormalizedParameters(DataObject):
@@ -8066,6 +8102,8 @@ class GeneratorMicroChpNonNormalizedParameters(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Restart Mode"] = value
+
+
 
 
 class GeneratorFuelSupply(DataObject):
@@ -8921,6 +8959,8 @@ class GeneratorFuelSupply(DataObject):
         self["Constituent 12 Molar Fraction"] = value
 
 
+
+
 class GeneratorWindTurbine(DataObject):
     """ Corresponds to IDD object `Generator:WindTurbine`
         Wind turbine generator.
@@ -9579,6 +9619,8 @@ class GeneratorWindTurbine(DataObject):
         self["Power Coefficient C6"] = value
 
 
+
+
 class ElectricLoadCenterGenerators(DataObject):
     """ Corresponds to IDD object `ElectricLoadCenter:Generators`
         List of electric power generators to include in the simulation including the name and
@@ -9671,6 +9713,8 @@ class ElectricLoadCenterGenerators(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ElectricLoadCenterInverterSimple(DataObject):
@@ -9801,6 +9845,8 @@ class ElectricLoadCenterInverterSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Inverter Efficiency"] = value
+
+
 
 
 class ElectricLoadCenterInverterFunctionOfPower(DataObject):
@@ -10077,6 +10123,8 @@ class ElectricLoadCenterInverterFunctionOfPower(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Ancillary Power Consumed In Standby"] = value
+
+
 
 
 class ElectricLoadCenterInverterLookUpTable(DataObject):
@@ -10401,6 +10449,8 @@ class ElectricLoadCenterInverterLookUpTable(DataObject):
         self["Efficiency at 100% Power and Nominal Voltage"] = value
 
 
+
+
 class ElectricLoadCenterStorageSimple(DataObject):
     """ Corresponds to IDD object `ElectricLoadCenter:Storage:Simple`
         Used to model storage of electricity in an electric load center.  This is a simple
@@ -10651,6 +10701,8 @@ class ElectricLoadCenterStorageSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial State of Charge"] = value
+
+
 
 
 class ElectricLoadCenterStorageBattery(DataObject):
@@ -11204,6 +11256,8 @@ class ElectricLoadCenterStorageBattery(DataObject):
         self["Battery Life Curve Name"] = value
 
 
+
+
 class ElectricLoadCenterTransformer(DataObject):
     """ Corresponds to IDD object `ElectricLoadCenter:Transformer`
         a list of meters that can be reported are available after a run on
@@ -11707,6 +11761,8 @@ class ElectricLoadCenterTransformer(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ElectricLoadCenterDistribution(DataObject):
     """ Corresponds to IDD object `ElectricLoadCenter:Distribution`
         a list of meters that can be reported are available after a run on
@@ -11953,3 +12009,5 @@ class ElectricLoadCenterDistribution(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Transformer Object Name"] = value
+
+

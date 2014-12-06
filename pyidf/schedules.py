@@ -1,6 +1,8 @@
+""" Data objects in group "Schedules"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -147,6 +149,8 @@ class ScheduleTypeLimits(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Unit Type"] = value
+
+
 
 
 class ScheduleDayHourly(DataObject):
@@ -754,6 +758,8 @@ class ScheduleDayHourly(DataObject):
         self["Hour 24"] = value
 
 
+
+
 class ScheduleDayInterval(DataObject):
     """ Corresponds to IDD object `Schedule:Day:Interval`
         A Schedule:Day:Interval contains a full day of values with specified end times for each value
@@ -874,6 +880,8 @@ class ScheduleDayInterval(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ScheduleDayList(DataObject):
@@ -1013,6 +1021,8 @@ class ScheduleDayList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ScheduleWeekDaily(DataObject):
@@ -1321,6 +1331,8 @@ class ScheduleWeekDaily(DataObject):
         self["CustomDay2 Schedule:Day Name"] = value
 
 
+
+
 class ScheduleWeekCompact(DataObject):
     """ Corresponds to IDD object `Schedule:Week:Compact`
         Compact definition for Schedule:Day:List
@@ -1389,6 +1401,8 @@ class ScheduleWeekCompact(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ScheduleYear(DataObject):
@@ -1513,6 +1527,8 @@ class ScheduleYear(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ScheduleCompact(DataObject):
     """ Corresponds to IDD object `Schedule:Compact`
         Irregular object.  Does not follow the usual definition for fields.  Fields A3... are:
@@ -1523,7 +1539,7 @@ class ScheduleCompact(DataObject):
         <numeric value>
         words "Through","For","Interpolate","Until" must be included.
     """
-    schema = {'min-fields': 5, 'name': u'Schedule:Compact', 'pyname': u'ScheduleCompact', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'field', {'name': u'Field', 'pyname': u'field', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False, 'group': u'Schedules'}
+    schema = {'min-fields': 5, 'name': u'Schedule:Compact', 'pyname': u'ScheduleCompact', 'format': u'compactschedule', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'field', {'name': u'Field', 'pyname': u'field', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'unique-object': False, 'required-object': False, 'group': u'Schedules'}
 
     @property
     def name(self):
@@ -1605,11 +1621,13 @@ class ScheduleCompact(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ScheduleConstant(DataObject):
     """ Corresponds to IDD object `Schedule:Constant`
         Constant hourly value for entire year.
     """
-    schema = {'min-fields': 0, 'name': u'Schedule:Constant', 'pyname': u'ScheduleConstant', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hourly value', {'name': u'Hourly Value', 'pyname': u'hourly_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Schedules'}
+    schema = {'min-fields': 0, 'name': u'Schedule:Constant', 'pyname': u'ScheduleConstant', 'format': u'singleline', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'schedule type limits name', {'name': u'Schedule Type Limits Name', 'pyname': u'schedule_type_limits_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'hourly value', {'name': u'Hourly Value', 'pyname': u'hourly_value', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Schedules'}
 
     @property
     def name(self):
@@ -1679,6 +1697,8 @@ class ScheduleConstant(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Hourly Value"] = value
+
+
 
 
 class ScheduleFile(DataObject):
@@ -1907,3 +1927,5 @@ class ScheduleFile(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Minutes per Item"] = value
+
+

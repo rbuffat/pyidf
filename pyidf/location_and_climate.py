@@ -1,6 +1,8 @@
+""" Data objects in group "Location and Climate"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -145,6 +147,8 @@ class SiteLocation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Elevation"] = value
+
+
 
 
 class SizingPeriodDesignDay(DataObject):
@@ -843,6 +847,8 @@ class SizingPeriodDesignDay(DataObject):
         self["Sky Clearness"] = value
 
 
+
+
 class SizingPeriodWeatherFileDays(DataObject):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileDays`
         Use a weather file period for design sizing calculations.
@@ -1053,6 +1059,8 @@ class SizingPeriodWeatherFileDays(DataObject):
         self["Use Weather File Rain and Snow Indicators"] = value
 
 
+
+
 class SizingPeriodWeatherFileConditionType(DataObject):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileConditionType`
         Use a weather file period for design sizing calculations.
@@ -1190,6 +1198,8 @@ class SizingPeriodWeatherFileConditionType(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Use Weather File Rain and Snow Indicators"] = value
+
+
 
 
 class RunPeriod(DataObject):
@@ -1551,6 +1561,8 @@ class RunPeriod(DataObject):
         self["Start Year"] = value
 
 
+
+
 class RunPeriodCustomRange(DataObject):
     """ Corresponds to IDD object `RunPeriod:CustomRange`
         run simulation for a custom created weather file
@@ -1882,6 +1894,8 @@ class RunPeriodCustomRange(DataObject):
         self["Use Weather File Snow Indicators"] = value
 
 
+
+
 class RunPeriodControlSpecialDays(DataObject):
     """ Corresponds to IDD object `RunPeriodControl:SpecialDays`
         This object sets up holidays/special days to be used during weather file
@@ -2002,6 +2016,8 @@ class RunPeriodControlSpecialDays(DataObject):
         self["Special Day Type"] = value
 
 
+
+
 class RunPeriodControlDaylightSavingTime(DataObject):
     """ Corresponds to IDD object `RunPeriodControl:DaylightSavingTime`
         This object sets up the daylight saving time period for any RunPeriod.
@@ -2066,6 +2082,8 @@ class RunPeriodControlDaylightSavingTime(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End Date"] = value
+
+
 
 
 class WeatherPropertySkyTemperature(DataObject):
@@ -2148,6 +2166,8 @@ class WeatherPropertySkyTemperature(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Name"] = value
+
+
 
 
 class SiteWeatherStation(DataObject):
@@ -2258,6 +2278,8 @@ class SiteWeatherStation(DataObject):
         self["Air Temperature Sensor Height Above Ground"] = value
 
 
+
+
 class SiteHeightVariation(DataObject):
     """ Corresponds to IDD object `Site:HeightVariation`
         This object is used if the user requires advanced control over height-dependent
@@ -2344,6 +2366,8 @@ class SiteHeightVariation(DataObject):
         self["Air Temperature Gradient Coefficient"] = value
 
 
+
+
 class SiteGroundTemperatureBuildingSurface(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:BuildingSurface`
         These temperatures are specifically for those surfaces that have the outside environment
@@ -2355,7 +2379,7 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
         average ground temperatures (see Auxiliary Programs).  For typical commercial
         buildings in the USA, a reasonable default value is 2C less than the average indoor space temperature.
     """
-    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:BuildingSurface', 'pyname': u'SiteGroundTemperatureBuildingSurface', 'format': None, 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:BuildingSurface', 'pyname': u'SiteGroundTemperatureBuildingSurface', 'format': u'singleline', 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
 
     @property
     def january_ground_temperature(self):
@@ -2658,13 +2682,15 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
         self["December Ground Temperature"] = value
 
 
+
+
 class SiteGroundTemperatureFcfactorMethod(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:FCfactorMethod`
         These temperatures are specifically for underground walls and ground floors
         defined with the C-factor and F-factor methods, and should be close to the
         monthly average outdoor air temperature delayed by 3 months for the location.
     """
-    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:FCfactorMethod', 'pyname': u'SiteGroundTemperatureFcfactorMethod', 'format': None, 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:FCfactorMethod', 'pyname': u'SiteGroundTemperatureFcfactorMethod', 'format': u'singleline', 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
 
     @property
     def january_ground_temperature(self):
@@ -2967,13 +2993,15 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
         self["December Ground Temperature"] = value
 
 
+
+
 class SiteGroundTemperatureShallow(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:Shallow`
         These temperatures are specifically for the Surface Ground Heat Exchanger and
         should probably be close to the average outdoor air temperature for the location.
         They are not used in other models.
     """
-    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Shallow', 'pyname': u'SiteGroundTemperatureShallow', 'format': None, 'fields': OrderedDict([(u'january surface ground temperature', {'name': u'January Surface Ground Temperature', 'pyname': u'january_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february surface ground temperature', {'name': u'February Surface Ground Temperature', 'pyname': u'february_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march surface ground temperature', {'name': u'March Surface Ground Temperature', 'pyname': u'march_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april surface ground temperature', {'name': u'April Surface Ground Temperature', 'pyname': u'april_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may surface ground temperature', {'name': u'May Surface Ground Temperature', 'pyname': u'may_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june surface ground temperature', {'name': u'June Surface Ground Temperature', 'pyname': u'june_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july surface ground temperature', {'name': u'July Surface Ground Temperature', 'pyname': u'july_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august surface ground temperature', {'name': u'August Surface Ground Temperature', 'pyname': u'august_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september surface ground temperature', {'name': u'September Surface Ground Temperature', 'pyname': u'september_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october surface ground temperature', {'name': u'October Surface Ground Temperature', 'pyname': u'october_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november surface ground temperature', {'name': u'November Surface Ground Temperature', 'pyname': u'november_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december surface ground temperature', {'name': u'December Surface Ground Temperature', 'pyname': u'december_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Shallow', 'pyname': u'SiteGroundTemperatureShallow', 'format': u'singleline', 'fields': OrderedDict([(u'january surface ground temperature', {'name': u'January Surface Ground Temperature', 'pyname': u'january_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february surface ground temperature', {'name': u'February Surface Ground Temperature', 'pyname': u'february_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march surface ground temperature', {'name': u'March Surface Ground Temperature', 'pyname': u'march_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april surface ground temperature', {'name': u'April Surface Ground Temperature', 'pyname': u'april_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may surface ground temperature', {'name': u'May Surface Ground Temperature', 'pyname': u'may_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june surface ground temperature', {'name': u'June Surface Ground Temperature', 'pyname': u'june_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july surface ground temperature', {'name': u'July Surface Ground Temperature', 'pyname': u'july_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august surface ground temperature', {'name': u'August Surface Ground Temperature', 'pyname': u'august_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september surface ground temperature', {'name': u'September Surface Ground Temperature', 'pyname': u'september_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october surface ground temperature', {'name': u'October Surface Ground Temperature', 'pyname': u'october_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november surface ground temperature', {'name': u'November Surface Ground Temperature', 'pyname': u'november_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december surface ground temperature', {'name': u'December Surface Ground Temperature', 'pyname': u'december_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
 
     @property
     def january_surface_ground_temperature(self):
@@ -3276,13 +3304,15 @@ class SiteGroundTemperatureShallow(DataObject):
         self["December Surface Ground Temperature"] = value
 
 
+
+
 class SiteGroundTemperatureDeep(DataObject):
     """ Corresponds to IDD object `Site:GroundTemperature:Deep`
         These temperatures are specifically for the ground heat exchangers that would use
         "deep" (3-4 m depth) ground temperatures for their heat source.
         They are not used in other models.
     """
-    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Deep', 'pyname': u'SiteGroundTemperatureDeep', 'format': None, 'fields': OrderedDict([(u'january deep ground temperature', {'name': u'January Deep Ground Temperature', 'pyname': u'january_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february deep ground temperature', {'name': u'February Deep Ground Temperature', 'pyname': u'february_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march deep ground temperature', {'name': u'March Deep Ground Temperature', 'pyname': u'march_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april deep ground temperature', {'name': u'April Deep Ground Temperature', 'pyname': u'april_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may deep ground temperature', {'name': u'May Deep Ground Temperature', 'pyname': u'may_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june deep ground temperature', {'name': u'June Deep Ground Temperature', 'pyname': u'june_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july deep ground temperature', {'name': u'July Deep Ground Temperature', 'pyname': u'july_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august deep ground temperature', {'name': u'August Deep Ground Temperature', 'pyname': u'august_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september deep ground temperature', {'name': u'September Deep Ground Temperature', 'pyname': u'september_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october deep ground temperature', {'name': u'October Deep Ground Temperature', 'pyname': u'october_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november deep ground temperature', {'name': u'November Deep Ground Temperature', 'pyname': u'november_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december deep ground temperature', {'name': u'December Deep Ground Temperature', 'pyname': u'december_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
+    schema = {'min-fields': 12, 'name': u'Site:GroundTemperature:Deep', 'pyname': u'SiteGroundTemperatureDeep', 'format': u'singleline', 'fields': OrderedDict([(u'january deep ground temperature', {'name': u'January Deep Ground Temperature', 'pyname': u'january_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february deep ground temperature', {'name': u'February Deep Ground Temperature', 'pyname': u'february_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march deep ground temperature', {'name': u'March Deep Ground Temperature', 'pyname': u'march_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april deep ground temperature', {'name': u'April Deep Ground Temperature', 'pyname': u'april_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may deep ground temperature', {'name': u'May Deep Ground Temperature', 'pyname': u'may_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june deep ground temperature', {'name': u'June Deep Ground Temperature', 'pyname': u'june_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july deep ground temperature', {'name': u'July Deep Ground Temperature', 'pyname': u'july_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august deep ground temperature', {'name': u'August Deep Ground Temperature', 'pyname': u'august_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september deep ground temperature', {'name': u'September Deep Ground Temperature', 'pyname': u'september_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october deep ground temperature', {'name': u'October Deep Ground Temperature', 'pyname': u'october_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november deep ground temperature', {'name': u'November Deep Ground Temperature', 'pyname': u'november_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december deep ground temperature', {'name': u'December Deep Ground Temperature', 'pyname': u'december_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
 
     @property
     def january_deep_ground_temperature(self):
@@ -3583,6 +3613,8 @@ class SiteGroundTemperatureDeep(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["December Deep Ground Temperature"] = value
+
+
 
 
 class SiteGroundDomain(DataObject):
@@ -4191,13 +4223,15 @@ class SiteGroundDomain(DataObject):
         self["Simulation Timestep"] = value
 
 
+
+
 class SiteGroundReflectance(DataObject):
     """ Corresponds to IDD object `Site:GroundReflectance`
         Specifies the ground reflectance values used to calculate ground reflected solar.
         The ground reflectance can be further modified when snow is on the ground
         by Site:GroundReflectance:SnowModifier.
     """
-    schema = {'min-fields': 12, 'name': u'Site:GroundReflectance', 'pyname': u'SiteGroundReflectance', 'format': None, 'fields': OrderedDict([(u'january ground reflectance', {'name': u'January Ground Reflectance', 'pyname': u'january_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'february ground reflectance', {'name': u'February Ground Reflectance', 'pyname': u'february_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'march ground reflectance', {'name': u'March Ground Reflectance', 'pyname': u'march_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'april ground reflectance', {'name': u'April Ground Reflectance', 'pyname': u'april_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'may ground reflectance', {'name': u'May Ground Reflectance', 'pyname': u'may_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'june ground reflectance', {'name': u'June Ground Reflectance', 'pyname': u'june_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'july ground reflectance', {'name': u'July Ground Reflectance', 'pyname': u'july_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'august ground reflectance', {'name': u'August Ground Reflectance', 'pyname': u'august_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'september ground reflectance', {'name': u'September Ground Reflectance', 'pyname': u'september_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'october ground reflectance', {'name': u'October Ground Reflectance', 'pyname': u'october_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'november ground reflectance', {'name': u'November Ground Reflectance', 'pyname': u'november_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'december ground reflectance', {'name': u'December Ground Reflectance', 'pyname': u'december_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
+    schema = {'min-fields': 12, 'name': u'Site:GroundReflectance', 'pyname': u'SiteGroundReflectance', 'format': u'singleline', 'fields': OrderedDict([(u'january ground reflectance', {'name': u'January Ground Reflectance', 'pyname': u'january_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'february ground reflectance', {'name': u'February Ground Reflectance', 'pyname': u'february_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'march ground reflectance', {'name': u'March Ground Reflectance', 'pyname': u'march_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'april ground reflectance', {'name': u'April Ground Reflectance', 'pyname': u'april_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'may ground reflectance', {'name': u'May Ground Reflectance', 'pyname': u'may_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'june ground reflectance', {'name': u'June Ground Reflectance', 'pyname': u'june_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'july ground reflectance', {'name': u'July Ground Reflectance', 'pyname': u'july_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'august ground reflectance', {'name': u'August Ground Reflectance', 'pyname': u'august_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'september ground reflectance', {'name': u'September Ground Reflectance', 'pyname': u'september_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'october ground reflectance', {'name': u'October Ground Reflectance', 'pyname': u'october_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'november ground reflectance', {'name': u'November Ground Reflectance', 'pyname': u'november_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'december ground reflectance', {'name': u'December Ground Reflectance', 'pyname': u'december_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Location and Climate'}
 
     @property
     def january_ground_reflectance(self):
@@ -4512,6 +4546,8 @@ class SiteGroundReflectance(DataObject):
         self["December Ground Reflectance"] = value
 
 
+
+
 class SiteGroundReflectanceSnowModifier(DataObject):
     """ Corresponds to IDD object `Site:GroundReflectance:SnowModifier`
         Specifies ground reflectance multipliers when snow resident on the ground.
@@ -4581,6 +4617,8 @@ class SiteGroundReflectanceSnowModifier(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Daylighting Ground Reflected Solar Modifier"] = value
+
+
 
 
 class SiteWaterMainsTemperature(DataObject):
@@ -4684,6 +4722,8 @@ class SiteWaterMainsTemperature(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
+
+
 
 
 class SitePrecipitation(DataObject):
@@ -4792,6 +4832,8 @@ class SitePrecipitation(DataObject):
         self["Average Total Annual Precipitation"] = value
 
 
+
+
 class RoofIrrigation(DataObject):
     """ Corresponds to IDD object `RoofIrrigation`
         Used to describe the amount of irrigation on the ecoroof surface over the course
@@ -4876,6 +4918,8 @@ class RoofIrrigation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Irrigation Maximum Saturation Threshold"] = value
+
+
 
 
 class SiteSolarAndVisibleSpectrum(DataObject):
@@ -4979,6 +5023,8 @@ class SiteSolarAndVisibleSpectrum(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Visible Spectrum Data Object Name"] = value
+
+
 
 
 class SiteSpectrumData(DataObject):
@@ -10063,3 +10109,5 @@ class SiteSpectrumData(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Spectrum 107"] = value
+
+

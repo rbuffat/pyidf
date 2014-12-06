@@ -1,6 +1,8 @@
+""" Data objects in group "Fans"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -258,6 +260,8 @@ class FanConstantVolume(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+
 
 
 class FanVariableVolume(DataObject):
@@ -702,6 +706,8 @@ class FanVariableVolume(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class FanOnOff(DataObject):
     """ Corresponds to IDD object `Fan:OnOff`
         Constant volume fan that is intended to cycle on and off based on cooling/heating load
@@ -1002,6 +1008,8 @@ class FanOnOff(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class FanZoneExhaust(DataObject):
     """ Corresponds to IDD object `Fan:ZoneExhaust`
         Models a fan that exhausts air from a zone.
@@ -1299,6 +1307,8 @@ class FanZoneExhaust(DataObject):
         self["Balanced Exhaust Fraction Schedule Name"] = value
 
 
+
+
 class FanPerformanceNightVentilation(DataObject):
     """ Corresponds to IDD object `FanPerformance:NightVentilation`
         Specifies an alternate set of performance parameters for a fan. These alternate
@@ -1456,6 +1466,8 @@ class FanPerformanceNightVentilation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Motor in Airstream Fraction"] = value
+
+
 
 
 class FanComponentModel(DataObject):
@@ -2410,3 +2422,5 @@ class FanComponentModel(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+

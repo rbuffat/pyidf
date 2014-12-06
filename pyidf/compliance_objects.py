@@ -1,6 +1,8 @@
+""" Data objects in group "Compliance Objects"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -39,3 +41,5 @@ class ComplianceBuilding(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Building Rotation for Appendix G"] = value
+
+

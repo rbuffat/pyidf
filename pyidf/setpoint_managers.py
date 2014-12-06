@@ -1,6 +1,8 @@
+""" Data objects in group "Setpoint Managers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -107,6 +109,8 @@ class SetpointManagerScheduled(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerScheduledDualSetpoint(DataObject):
@@ -232,6 +236,8 @@ class SetpointManagerScheduledDualSetpoint(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerOutdoorAirReset(DataObject):
@@ -535,6 +541,8 @@ class SetpointManagerOutdoorAirReset(DataObject):
         self["Outdoor High Temperature 2"] = value
 
 
+
+
 class SetpointManagerSingleZoneReheat(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Reheat`
         This setpoint manager detects the control zone load, zone inlet node flow rate, and
@@ -733,6 +741,8 @@ class SetpointManagerSingleZoneReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerSingleZoneHeating(DataObject):
@@ -935,6 +945,8 @@ class SetpointManagerSingleZoneHeating(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerSingleZoneCooling(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Cooling`
         This setpoint manager detects the control zone load to meet the current cooling
@@ -1135,6 +1147,8 @@ class SetpointManagerSingleZoneCooling(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerSingleZoneHumidityMinimum(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Humidity:Minimum`
         The Single Zone Minimum Humidity Setpoint Manager allows the
@@ -1268,6 +1282,8 @@ class SetpointManagerSingleZoneHumidityMinimum(DataObject):
         self["Control Zone Air Node Name"] = value
 
 
+
+
 class SetpointManagerSingleZoneHumidityMaximum(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:Humidity:Maximum`
         The Single Zone Maximum Humidity Setpoint Manager allows the
@@ -1399,6 +1415,8 @@ class SetpointManagerSingleZoneHumidityMaximum(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Control Zone Air Node Name"] = value
+
+
 
 
 class SetpointManagerMixedAir(DataObject):
@@ -1548,6 +1566,8 @@ class SetpointManagerMixedAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerOutdoorAirPretreat(DataObject):
@@ -1838,6 +1858,8 @@ class SetpointManagerOutdoorAirPretreat(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerWarmest(DataObject):
     """ Corresponds to IDD object `SetpointManager:Warmest`
         This SetpointManager resets the cooling supply air temperature
@@ -2014,6 +2036,8 @@ class SetpointManagerWarmest(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerColdest(DataObject):
@@ -2195,6 +2219,8 @@ class SetpointManagerColdest(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerReturnAirBypassFlow(DataObject):
     """ Corresponds to IDD object `SetpointManager:ReturnAirBypassFlow`
         This setpoint manager determines the required
@@ -2296,6 +2322,8 @@ class SetpointManagerReturnAirBypassFlow(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Temperature Setpoint Schedule Name"] = value
+
+
 
 
 class SetpointManagerWarmestTemperatureFlow(DataObject):
@@ -2509,6 +2537,8 @@ class SetpointManagerWarmestTemperatureFlow(DataObject):
         self["Minimum Turndown Ratio"] = value
 
 
+
+
 class SetpointManagerMultiZoneHeatingAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Heating:Average`
         This setpoint manager sets the average supply air temperature based on the heating load
@@ -2636,6 +2666,8 @@ class SetpointManagerMultiZoneHeatingAverage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerMultiZoneCoolingAverage(DataObject):
@@ -2767,6 +2799,8 @@ class SetpointManagerMultiZoneCoolingAverage(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MinimumHumidity:Average`
         This setpoint manager sets the average supply air minimum humidity ratio based on moisture
@@ -2896,6 +2930,8 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MaximumHumidity:Average`
         This setpoint manager sets the average supply air maximum humidity ratio based on moisture
@@ -3023,6 +3059,8 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerMultiZoneHumidityMinimum(DataObject):
@@ -3155,6 +3193,8 @@ class SetpointManagerMultiZoneHumidityMinimum(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerMultiZoneHumidityMaximum(DataObject):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Humidity:Maximum`
         This setpoint manager sets the maximum supply air humidity ratio based on dehumidification
@@ -3283,6 +3323,8 @@ class SetpointManagerMultiZoneHumidityMaximum(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerFollowOutdoorAirTemperature(DataObject):
@@ -3459,6 +3501,8 @@ class SetpointManagerFollowOutdoorAirTemperature(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerFollowSystemNodeTemperature(DataObject):
@@ -3664,6 +3708,8 @@ class SetpointManagerFollowSystemNodeTemperature(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerFollowGroundTemperature(DataObject):
     """ Corresponds to IDD object `SetpointManager:FollowGroundTemperature`
         This setpoint manager is used to place a temperature setpoint on a
@@ -3840,6 +3886,8 @@ class SetpointManagerFollowGroundTemperature(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerCondenserEnteringReset(DataObject):
@@ -4094,6 +4142,8 @@ class SetpointManagerCondenserEnteringReset(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerCondenserEnteringResetIdeal(DataObject):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset:Ideal`
         This setpoint manager determine the ideal optimum condenser entering water temperature
@@ -4221,6 +4271,8 @@ class SetpointManagerCondenserEnteringResetIdeal(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+
 
 
 class SetpointManagerSingleZoneOneStageCooling(DataObject):
@@ -4354,6 +4406,8 @@ class SetpointManagerSingleZoneOneStageCooling(DataObject):
         self["Setpoint Node or NodeList Name"] = value
 
 
+
+
 class SetpointManagerSingleZoneOneStageHeating(DataObject):
     """ Corresponds to IDD object `SetpointManager:SingleZone:OneStageHeating`
         This object can be used with CoilSystem:Heating:DX, Coil:Heating:Gas,
@@ -4484,3 +4538,5 @@ class SetpointManagerSingleZoneOneStageHeating(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Node or NodeList Name"] = value
+
+

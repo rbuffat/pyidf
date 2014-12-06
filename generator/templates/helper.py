@@ -1,3 +1,6 @@
+""" Helper methods for pyidf
+"""
+
 from collections import OrderedDict
 import logging
 import re
@@ -162,7 +165,10 @@ class DataObject(object):
                 raise logger.warn('No field exists with name in data object`{}`'.format(schema['name']))
                 return value
 
+        # Only cast values to Python types for validation level no
         if pyidf.validation_level == ValidationLevel.no:
+            if value is None:
+                return value
             try:
                 if field['type'] == "alpha":
                     value = str(value)
@@ -370,7 +376,7 @@ class DataObject(object):
                     if pyidf.validation_level == ValidationLevel.transition:
                         for key in vals:
                             if key in value_lower or value_lower in key:
-                                value_lower = key
+                                value = vals[key]
                                 found = True
                                 break
                         if not found:
@@ -380,7 +386,7 @@ class DataObject(object):
                                 key_stripped = re.sub(r'[^a-zA-Z0-9]', '', key)
                                 if key_stripped == value_stripped:
                                     value_lower = key
-                                    transition_vals.append(key)
+                                    transition_vals.append(vals[key])
                                     found = True
                             if len(transition_vals) > 1:
                                 trans = ", ".join(transition_vals)
@@ -391,6 +397,7 @@ class DataObject(object):
                                                                     field['pyname'],
                                                                     trans))
                             elif len(transition_vals) == 1:
+                                value = transition_vals[0]
                                 logger.warn('change value {} to accepted value {} for '
                                             'field `{}.{}`'.format(value,
                                                                    vals[value_lower],
@@ -404,11 +411,9 @@ class DataObject(object):
                                                                 field['pyname']))
                     elif not found and not pyidf.validation_level == ValidationLevel.error:
                         logger.warn('value {} is not an accepted value for '
-                                         'field `{}.{}`'.format(value,
-                                                                schema['pyname'],
-                                                                field['pyname']))
-                    if found:
-                        value = value_lower
+                                    'field `{}.{}`'.format(value,
+                                                           schema['pyname'],
+                                                           field['pyname']))
 
         # value is None
         else:

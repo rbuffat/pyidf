@@ -1,6 +1,8 @@
+""" Data objects in group "Non"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -156,3 +158,5 @@ class LoadProfilePlant(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Flow Rate Fraction Schedule Name"] = value
+
+

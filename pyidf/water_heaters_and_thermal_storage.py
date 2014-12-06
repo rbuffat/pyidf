@@ -1,6 +1,8 @@
+""" Data objects in group "Water Heaters and Thermal Storage"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -1008,6 +1010,8 @@ class WaterHeaterMixed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Indirect Alternate Setpoint Temperature Schedule Name"] = value
+
+
 
 
 class WaterHeaterStratified(DataObject):
@@ -2605,6 +2609,8 @@ class WaterHeaterStratified(DataObject):
         self["Indirect Alternate Setpoint Temperature Schedule Name"] = value
 
 
+
+
 class WaterHeaterSizing(DataObject):
     """ Corresponds to IDD object `WaterHeater:Sizing`
         This input object is used with WaterHeater:Mixed or
@@ -3007,6 +3013,8 @@ class WaterHeaterSizing(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Height Aspect Ratio"] = value
+
+
 
 
 class WaterHeaterHeatPump(DataObject):
@@ -3924,6 +3932,8 @@ class WaterHeaterHeatPump(DataObject):
         self["Control Sensor Location In Stratified Tank"] = value
 
 
+
+
 class ThermalStorageIceSimple(DataObject):
     """ Corresponds to IDD object `ThermalStorage:Ice:Simple`
         This ice storage model is a simplified model
@@ -4052,6 +4062,8 @@ class ThermalStorageIceSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Node Name"] = value
+
+
 
 
 class ThermalStorageIceDetailed(DataObject):
@@ -4428,6 +4440,8 @@ class ThermalStorageIceDetailed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Thaw Process Indicator"] = value
+
+
 
 
 class ThermalStorageChilledWaterMixed(DataObject):
@@ -4970,6 +4984,8 @@ class ThermalStorageChilledWaterMixed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Tank Recovery Time"] = value
+
+
 
 
 class ThermalStorageChilledWaterStratified(DataObject):
@@ -6034,3 +6050,5 @@ class ThermalStorageChilledWaterStratified(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Node 10 Additional Loss Coefficient"] = value
+
+

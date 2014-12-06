@@ -1,6 +1,8 @@
+""" Data objects in group "Zone HVAC Controls and Thermostats"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -107,6 +109,8 @@ class ZoneControlHumidistat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
+
+
 
 
 class ZoneControlThermostat(DataObject):
@@ -382,6 +386,8 @@ class ZoneControlThermostat(DataObject):
         self["Control 4 Name"] = value
 
 
+
+
 class ZoneControlThermostatOperativeTemperature(DataObject):
     """ Corresponds to IDD object `ZoneControl:Thermostat:OperativeTemperature`
         This object can be used with the ZoneList option on a thermostat or with one
@@ -486,6 +492,8 @@ class ZoneControlThermostatOperativeTemperature(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Radiative Fraction Schedule Name"] = value
+
+
 
 
 class ZoneControlThermostatThermalComfort(DataObject):
@@ -864,6 +872,8 @@ class ZoneControlThermostatThermalComfort(DataObject):
         self["Thermal Comfort Control 4 Name"] = value
 
 
+
+
 class ZoneControlThermostatTemperatureAndHumidity(DataObject):
     """ Corresponds to IDD object `ZoneControl:Thermostat:TemperatureAndHumidity`
         This object modifies a ZoneControl:Thermostat object to effect temperature control based on
@@ -1060,6 +1070,8 @@ class ZoneControlThermostatTemperatureAndHumidity(DataObject):
         self["Overcool Control Ratio"] = value
 
 
+
+
 class ThermostatSetpointSingleHeating(DataObject):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeating`
         Used for a heating only thermostat. The setpoint can be scheduled and varied throughout
@@ -1112,6 +1124,8 @@ class ThermostatSetpointSingleHeating(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Temperature Schedule Name"] = value
+
+
 
 
 class ThermostatSetpointSingleCooling(DataObject):
@@ -1168,6 +1182,8 @@ class ThermostatSetpointSingleCooling(DataObject):
         self["Setpoint Temperature Schedule Name"] = value
 
 
+
+
 class ThermostatSetpointSingleHeatingOrCooling(DataObject):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeatingOrCooling`
         Used for a heating and cooling thermostat with a single setpoint. The setpoint can be
@@ -1220,6 +1236,8 @@ class ThermostatSetpointSingleHeatingOrCooling(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Setpoint Temperature Schedule Name"] = value
+
+
 
 
 class ThermostatSetpointDualSetpoint(DataObject):
@@ -1299,6 +1317,8 @@ class ThermostatSetpointDualSetpoint(DataObject):
         self["Cooling Setpoint Temperature Schedule Name"] = value
 
 
+
+
 class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
         Used for heating only thermal comfort control. The PMV setpoint can be scheduled and
@@ -1352,6 +1372,8 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fanger Thermal Comfort Schedule Name"] = value
+
+
 
 
 class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
@@ -1409,6 +1431,8 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(DataObject):
         self["Fanger Thermal Comfort Schedule Name"] = value
 
 
+
+
 class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
         Used for heating and cooling thermal comfort control with a single setpoint. The PMV
@@ -1463,6 +1487,8 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fanger Thermal Comfort Schedule Name"] = value
+
+
 
 
 class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
@@ -1543,6 +1569,8 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fanger Thermal Comfort Cooling Schedule Name"] = value
+
+
 
 
 class ZoneControlThermostatStagedDualSetpoint(DataObject):
@@ -1984,6 +2012,8 @@ class ZoneControlThermostatStagedDualSetpoint(DataObject):
         self["Stage 4 Cooling Temperature Offset"] = value
 
 
+
+
 class ZoneControlContaminantController(DataObject):
     """ Corresponds to IDD object `ZoneControl:ContaminantController`
         Used to control a zone to a specified indoor level of CO2 or generic contaminants, or
@@ -2165,3 +2195,5 @@ class ZoneControlContaminantController(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Generic Contaminant Setpoint Schedule Name"] = value
+
+

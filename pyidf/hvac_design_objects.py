@@ -1,6 +1,8 @@
+""" Data objects in group "HVAC Design Objects"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -198,6 +200,8 @@ class DesignSpecificationOutdoorAir(DataObject):
         self["Outdoor Air Flow Rate Fraction Schedule Name"] = value
 
 
+
+
 class DesignSpecificationZoneAirDistribution(DataObject):
     """ Corresponds to IDD object `DesignSpecification:ZoneAirDistribution`
         This object is used to describe zone air distribution in terms of air distribution
@@ -329,6 +333,8 @@ class DesignSpecificationZoneAirDistribution(DataObject):
         self["Zone Secondary Recirculation Fraction"] = value
 
 
+
+
 class SizingParameters(DataObject):
     """ Corresponds to IDD object `Sizing:Parameters`
         Specifies global heating and cooling sizing factors/ratios.
@@ -414,6 +420,8 @@ class SizingParameters(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Timesteps in Averaging Window"] = value
+
+
 
 
 class SizingZone(DataObject):
@@ -1006,6 +1014,8 @@ class SizingZone(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification Zone Air Distribution Object Name"] = value
+
+
 
 
 class DesignSpecificationZoneHvacSizing(DataObject):
@@ -1681,6 +1691,8 @@ class DesignSpecificationZoneHvacSizing(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fraction of Autosized Heating Design Capacity"] = value
+
+
 
 
 class SizingSystem(DataObject):
@@ -2614,6 +2626,8 @@ class SizingSystem(DataObject):
         self["Fraction of Autosized Heating Design Capacity"] = value
 
 
+
+
 class SizingPlant(DataObject):
     """ Corresponds to IDD object `Sizing:Plant`
         Specifies the input needed to autosize plant loop flow rates and equipment capacities.
@@ -2719,6 +2733,8 @@ class SizingPlant(DataObject):
         self["Loop Design Temperature Difference"] = value
 
 
+
+
 class OutputControlSizingStyle(DataObject):
     """ Corresponds to IDD object `OutputControl:Sizing:Style`
         default style for the Sizing output files is comma -- this works well for
@@ -2750,3 +2766,5 @@ class OutputControlSizingStyle(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Column Separator"] = value
+
+

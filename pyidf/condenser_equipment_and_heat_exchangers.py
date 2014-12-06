@@ -1,6 +1,8 @@
+""" Data objects in group "Condenser Equipment and Heat Exchangers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -867,6 +869,8 @@ class CoolingTowerSingleSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sizing Factor"] = value
+
+
 
 
 class CoolingTowerTwoSpeed(DataObject):
@@ -1921,6 +1925,8 @@ class CoolingTowerTwoSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sizing Factor"] = value
+
+
 
 
 class CoolingTowerVariableSpeedMerkel(DataObject):
@@ -3001,6 +3007,8 @@ class CoolingTowerVariableSpeedMerkel(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class CoolingTowerVariableSpeed(DataObject):
     """ Corresponds to IDD object `CoolingTower:VariableSpeed`
         This tower model is based on purely empirical algorithms derived from manufacturer's
@@ -3795,6 +3803,8 @@ class CoolingTowerVariableSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sizing Factor"] = value
+
+
 
 
 class CoolingTowerPerformanceCoolTools(DataObject):
@@ -4838,6 +4848,8 @@ class CoolingTowerPerformanceCoolTools(DataObject):
         self["Coefficient 35"] = value
 
 
+
+
 class CoolingTowerPerformanceYorkCalc(DataObject):
     """ Corresponds to IDD object `CoolingTowerPerformance:YorkCalc`
         This object is used to define coefficients for the approach temperature
@@ -5720,6 +5732,8 @@ class CoolingTowerPerformanceYorkCalc(DataObject):
         self["Coefficient 27"] = value
 
 
+
+
 class EvaporativeFluidCoolerSingleSpeed(DataObject):
     """ Corresponds to IDD object `EvaporativeFluidCooler:SingleSpeed`
         This model is based on Merkel's theory, which is also the basis
@@ -6383,6 +6397,8 @@ class EvaporativeFluidCoolerSingleSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Supply Water Storage Tank Name"] = value
+
+
 
 
 class EvaporativeFluidCoolerTwoSpeed(DataObject):
@@ -7292,6 +7308,8 @@ class EvaporativeFluidCoolerTwoSpeed(DataObject):
         self["Supply Water Storage Tank Name"] = value
 
 
+
+
 class FluidCoolerSingleSpeed(DataObject):
     """ Corresponds to IDD object `FluidCooler:SingleSpeed`
         The fluid cooler is modeled as a cross flow heat exchanger (both streams unmixed) with
@@ -7627,6 +7645,8 @@ class FluidCoolerSingleSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outdoor Air Inlet Node Name"] = value
+
+
 
 
 class FluidCoolerTwoSpeed(DataObject):
@@ -8170,6 +8190,8 @@ class FluidCoolerTwoSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outdoor Air Inlet Node Name"] = value
+
+
 
 
 class GroundHeatExchangerVertical(DataObject):
@@ -13239,6 +13261,8 @@ class GroundHeatExchangerVertical(DataObject):
         self["G-Function G Value 100"] = value
 
 
+
+
 class GroundHeatExchangerPond(DataObject):
     """ Corresponds to IDD object `GroundHeatExchanger:Pond`
         A model of a shallow pond with immersed pipe loops.
@@ -13511,6 +13535,8 @@ class GroundHeatExchangerPond(DataObject):
         self["Length of Each Tubing Circuit"] = value
 
 
+
+
 class GroundHeatExchangerSurface(DataObject):
     """ Corresponds to IDD object `GroundHeatExchanger:Surface`
         A hydronic surface/panel consisting of a multi-layer construction with embedded rows of tubes.
@@ -13756,6 +13782,8 @@ class GroundHeatExchangerSurface(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Lower Surface Environment"] = value
+
+
 
 
 class GroundHeatExchangerHorizontalTrench(DataObject):
@@ -14341,6 +14369,8 @@ class GroundHeatExchangerHorizontalTrench(DataObject):
         self["Evapotranspiration Ground Cover Parameter"] = value
 
 
+
+
 class HeatExchangerFluidToFluid(DataObject):
     """ Corresponds to IDD object `HeatExchanger:FluidToFluid`
         A fluid/fluid heat exchanger designed to couple the supply side of one loop to the demand side of another loop
@@ -14836,3 +14866,5 @@ class HeatExchangerFluidToFluid(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Operation Maximum Temperature Limit"] = value
+
+

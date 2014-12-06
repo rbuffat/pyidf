@@ -1,6 +1,8 @@
+""" Data objects in group "Room Air Models"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -16,12 +18,16 @@ class GroundHeatTransferSlabXface(DataObject):
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:XFACE', 'pyname': u'GroundHeatTransferSlabXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
+
+
 class GroundHeatTransferSlabYface(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:YFACE`
         This is only needed when using manual gridding (not recommended)
         YFACE: Y Direction cell face coordinates: m,
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:YFACE', 'pyname': u'GroundHeatTransferSlabYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
+
+
 
 
 class GroundHeatTransferSlabZface(DataObject):
@@ -32,12 +38,16 @@ class GroundHeatTransferSlabZface(DataObject):
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Slab:ZFACE', 'pyname': u'GroundHeatTransferSlabZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
+
+
 class GroundHeatTransferBasementXface(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:XFACE`
         This is only needed when using manual gridding (not recommended)
         XFACE: X Direction cell face coordinates: m
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:XFACE', 'pyname': u'GroundHeatTransferBasementXface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
+
+
 
 
 class GroundHeatTransferBasementYface(DataObject):
@@ -48,12 +58,16 @@ class GroundHeatTransferBasementYface(DataObject):
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:YFACE', 'pyname': u'GroundHeatTransferBasementYface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
 
 
+
+
 class GroundHeatTransferBasementZface(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ZFACE`
         This is only needed when using manual gridding (not recommended)
         ZFACE: Z Direction cell face coordinates: m
     """
     schema = {'min-fields': 0, 'name': u'GroundHeatTransfer:Basement:ZFACE', 'pyname': u'GroundHeatTransferBasementZface', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Room Air Models'}
+
+
 
 
 class RoomAirModelType(DataObject):
@@ -172,6 +186,8 @@ class RoomAirModelType(DataObject):
         self["Air Temperature Coupling Strategy"] = value
 
 
+
+
 class RoomAirTemperaturePatternUserDefined(DataObject):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:UserDefined`
         Used to explicitly define temperature patterns that are to be applied to the mean air
@@ -276,6 +292,8 @@ class RoomAirTemperaturePatternUserDefined(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pattern Control Schedule Name"] = value
+
+
 
 
 class RoomAirTemperaturePatternConstantGradient(DataObject):
@@ -431,6 +449,8 @@ class RoomAirTemperaturePatternConstantGradient(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Temperature Gradient"] = value
+
+
 
 
 class RoomAirTemperaturePatternTwoGradient(DataObject):
@@ -732,6 +752,8 @@ class RoomAirTemperaturePatternTwoGradient(DataObject):
         self["Lower Heat Rate Bound"] = value
 
 
+
+
 class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:NondimensionalHeight`
         Defines a distribution pattern for air temperatures relative to the current mean air
@@ -912,6 +934,8 @@ class RoomAirTemperaturePatternNondimensionalHeight(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class RoomAirTemperaturePatternSurfaceMapping(DataObject):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:SurfaceMapping`
         Defines a distribution pattern for the air temperatures adjacent to individual surfaces.
@@ -1084,6 +1108,8 @@ class RoomAirTemperaturePatternSurfaceMapping(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class RoomAirNode(DataObject):
@@ -1669,6 +1695,8 @@ class RoomAirNode(DataObject):
         self["Surface 21 Name"] = value
 
 
+
+
 class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
     """ Corresponds to IDD object `RoomAirSettings:OneNodeDisplacementVentilation`
         The Mundt model for displacement ventilation
@@ -1745,6 +1773,8 @@ class RoomAirSettingsOneNodeDisplacementVentilation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fraction of Infiltration Internal Loads Added to Floor Air"] = value
+
+
 
 
 class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
@@ -1914,6 +1944,8 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(DataObject):
         self["Temperature Difference Threshold for Reporting"] = value
 
 
+
+
 class RoomAirSettingsCrossVentilation(DataObject):
     """ Corresponds to IDD object `RoomAirSettings:CrossVentilation`
         This UCSD Cross Ventilation Room Air Model provides a simple model for heat transfer
@@ -1999,6 +2031,8 @@ class RoomAirSettingsCrossVentilation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Airflow Region Used for Thermal Comfort Evaluation"] = value
+
+
 
 
 class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
@@ -2400,6 +2434,8 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(DataObject):
         self["Coefficient E"] = value
 
 
+
+
 class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
     """ Corresponds to IDD object `RoomAirSettings:UnderFloorAirDistributionExterior`
         Applicable to exterior spaces that are served by an underfloor air distribution system.
@@ -2789,3 +2825,5 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+
+

@@ -1,6 +1,8 @@
+""" Data objects in group "Zone HVAC Radiative"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -419,6 +421,8 @@ class ZoneHvacBaseboardRadiantConvectiveWater(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Steam`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
@@ -794,6 +798,8 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Electric`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
@@ -1072,6 +1078,8 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ZoneHvacBaseboardConvectiveWater(DataObject):
@@ -1358,6 +1366,8 @@ class ZoneHvacBaseboardConvectiveWater(DataObject):
         self["Convergence Tolerance"] = value
 
 
+
+
 class ZoneHvacBaseboardConvectiveElectric(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Electric`
         Electric baseboard heater, convection-only. Natural convection electric heating unit.
@@ -1546,6 +1556,8 @@ class ZoneHvacBaseboardConvectiveElectric(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Efficiency"] = value
+
+
 
 
 class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
@@ -2287,6 +2299,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(DataObject):
         self["Circuit Length"] = value
 
 
+
+
 class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:ConstantFlow`
         Low temperature hydronic radiant heating and/or cooling system embedded in a building
@@ -3007,6 +3021,8 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(DataObject):
         self["Circuit Length"] = value
 
 
+
+
 class ZoneHvacLowTemperatureRadiantElectric(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:Electric`
         Electric resistance low temperature radiant system
@@ -3294,6 +3310,8 @@ class ZoneHvacLowTemperatureRadiantElectric(DataObject):
         self["Heating Setpoint Temperature Schedule Name"] = value
 
 
+
+
 class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:SurfaceGroup`
         This is used to allow the coordinate control of several radiant system surfaces.
@@ -3365,6 +3383,8 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ZoneHvacHighTemperatureRadiant(DataObject):
@@ -3820,6 +3840,8 @@ class ZoneHvacHighTemperatureRadiant(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ZoneHvacVentilatedSlab(DataObject):
@@ -4795,6 +4817,8 @@ class ZoneHvacVentilatedSlab(DataObject):
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
 
+
+
 class ZoneHvacVentilatedSlabSlabGroup(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:VentilatedSlab:SlabGroup`
         This is used to allow the coordinate control of several ventilad slab system
@@ -4903,3 +4927,5 @@ class ZoneHvacVentilatedSlabSlabGroup(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

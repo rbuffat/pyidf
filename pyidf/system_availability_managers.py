@@ -1,6 +1,8 @@
+""" Data objects in group "System Availability Managers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -62,6 +64,8 @@ class AvailabilityManagerScheduled(DataObject):
         self["Schedule Name"] = value
 
 
+
+
 class AvailabilityManagerScheduledOn(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOn`
         Determines the availability of a loop or system: only controls the turn on action.
@@ -116,6 +120,8 @@ class AvailabilityManagerScheduledOn(DataObject):
         self["Schedule Name"] = value
 
 
+
+
 class AvailabilityManagerScheduledOff(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOff`
         Determines the availability of a loop or system: only controls the turn off action.
@@ -168,6 +174,8 @@ class AvailabilityManagerScheduledOff(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Name"] = value
+
+
 
 
 class AvailabilityManagerOptimumStart(DataObject):
@@ -516,6 +524,8 @@ class AvailabilityManagerOptimumStart(DataObject):
         self["Number of Previous Days"] = value
 
 
+
+
 class AvailabilityManagerNightCycle(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:NightCycle`
         Determines the availability of a loop or system: whether it is on or off.
@@ -696,6 +706,8 @@ class AvailabilityManagerNightCycle(DataObject):
         self["Control Zone Name"] = value
 
 
+
+
 class AvailabilityManagerDifferentialThermostat(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:DifferentialThermostat`
         Overrides fan/pump schedules depending on temperature difference between two nodes.
@@ -821,6 +833,8 @@ class AvailabilityManagerDifferentialThermostat(DataObject):
         self["Temperature Difference Off Limit"] = value
 
 
+
+
 class AvailabilityManagerHighTemperatureTurnOff(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
@@ -898,6 +912,8 @@ class AvailabilityManagerHighTemperatureTurnOff(DataObject):
         self["Temperature"] = value
 
 
+
+
 class AvailabilityManagerHighTemperatureTurnOn(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
@@ -973,6 +989,8 @@ class AvailabilityManagerHighTemperatureTurnOn(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Temperature"] = value
+
+
 
 
 class AvailabilityManagerLowTemperatureTurnOff(DataObject):
@@ -1076,6 +1094,8 @@ class AvailabilityManagerLowTemperatureTurnOff(DataObject):
         self["Applicability Schedule Name"] = value
 
 
+
+
 class AvailabilityManagerLowTemperatureTurnOn(DataObject):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
@@ -1151,6 +1171,8 @@ class AvailabilityManagerLowTemperatureTurnOn(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Temperature"] = value
+
+
 
 
 class AvailabilityManagerNightVentilation(DataObject):
@@ -1359,6 +1381,8 @@ class AvailabilityManagerNightVentilation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Control Zone Name"] = value
+
+
 
 
 class AvailabilityManagerHybridVentilation(DataObject):
@@ -1833,6 +1857,8 @@ class AvailabilityManagerHybridVentilation(DataObject):
         self["ZoneVentilation Object Name"] = value
 
 
+
+
 class AvailabilityManagerAssignmentList(DataObject):
     """ Corresponds to IDD object `AvailabilityManagerAssignmentList`
         Defines the applicable managers used for an AirLoopHVAC or PlantLoop. The priority of
@@ -1904,3 +1930,5 @@ class AvailabilityManagerAssignmentList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

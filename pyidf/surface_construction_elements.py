@@ -1,6 +1,8 @@
+""" Data objects in group "Surface Construction Elements"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -235,6 +237,8 @@ class Material(DataObject):
         self["Visible Absorptance"] = value
 
 
+
+
 class MaterialNoMass(DataObject):
     """ Corresponds to IDD object `Material:NoMass`
         Regular materials properties described whose principal description is R (Thermal Resistance)
@@ -388,6 +392,8 @@ class MaterialNoMass(DataObject):
         self["Visible Absorptance"] = value
 
 
+
+
 class MaterialInfraredTransparent(DataObject):
     """ Corresponds to IDD object `Material:InfraredTransparent`
         Special infrared transparent material.  Similar to a Material:Nomass with low thermal resistance.
@@ -421,6 +427,8 @@ class MaterialInfraredTransparent(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name"] = value
+
+
 
 
 class MaterialAirGap(DataObject):
@@ -475,6 +483,8 @@ class MaterialAirGap(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Thermal Resistance"] = value
+
+
 
 
 class MaterialRoofVegetation(DataObject):
@@ -999,6 +1009,8 @@ class MaterialRoofVegetation(DataObject):
         self["Moisture Diffusion Calculation Method"] = value
 
 
+
+
 class WindowMaterialSimpleGlazingSystem(DataObject):
     """ Corresponds to IDD object `WindowMaterial:SimpleGlazingSystem`
         Alternate method of describing windows
@@ -1107,6 +1119,8 @@ class WindowMaterialSimpleGlazingSystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Visible Transmittance"] = value
+
+
 
 
 class WindowMaterialGlazing(DataObject):
@@ -1566,6 +1580,8 @@ class WindowMaterialGlazing(DataObject):
         self["Poissons ratio"] = value
 
 
+
+
 class WindowMaterialGlazingGroupThermochromic(DataObject):
     """ Corresponds to IDD object `WindowMaterial:GlazingGroup:Thermochromic`
         thermochromic glass at different temperatures
@@ -1636,6 +1652,8 @@ class WindowMaterialGlazingGroupThermochromic(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
@@ -1913,6 +1931,8 @@ class WindowMaterialGlazingRefractionExtinctionMethod(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Solar Diffusing"] = value
+
+
 
 
 class WindowMaterialGas(DataObject):
@@ -2269,6 +2289,8 @@ class WindowMaterialGas(DataObject):
         self["Specific Heat Ratio"] = value
 
 
+
+
 class WindowGapSupportPillar(DataObject):
     """ Corresponds to IDD object `WindowGap:SupportPillar`
         used to define pillar geometry for support pillars
@@ -2347,6 +2369,8 @@ class WindowGapSupportPillar(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Radius"] = value
+
+
 
 
 class WindowGapDeflectionState(DataObject):
@@ -2454,6 +2478,8 @@ class WindowGapDeflectionState(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Pressure"] = value
+
+
 
 
 class WindowMaterialGasMixture(DataObject):
@@ -2723,6 +2749,8 @@ class WindowMaterialGasMixture(DataObject):
         self["Gas 4 Fraction"] = value
 
 
+
+
 class WindowMaterialGap(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Gap`
         Used to define the gap between two layers in a complex fenestration system, where the
@@ -2877,6 +2905,8 @@ class WindowMaterialGap(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Support Pillar"] = value
+
+
 
 
 class WindowMaterialShade(DataObject):
@@ -3268,6 +3298,8 @@ class WindowMaterialShade(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Airflow Permeability"] = value
+
+
 
 
 class WindowMaterialComplexShade(DataObject):
@@ -3724,6 +3756,8 @@ class WindowMaterialComplexShade(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Slat Curve"] = value
+
+
 
 
 class WindowMaterialBlind(DataObject):
@@ -4483,6 +4517,8 @@ class WindowMaterialBlind(DataObject):
         self["Maximum Slat Angle"] = value
 
 
+
+
 class WindowMaterialScreen(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Screen`
         Window screen physical properties. Can only be located on the exterior side of a window construction.
@@ -4866,6 +4902,8 @@ class WindowMaterialScreen(DataObject):
         self["Angle of Resolution for Screen Transmittance Output Map"] = value
 
 
+
+
 class WindowMaterialShadeEquivalentLayer(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Shade:EquivalentLayer`
         Specifies the properties of equivalent layer window shade material
@@ -5203,6 +5241,8 @@ class WindowMaterialShadeEquivalentLayer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Back Side Shade Material Infrared Emissivity"] = value
+
+
 
 
 class WindowMaterialDrapeEquivalentLayer(DataObject):
@@ -5597,6 +5637,8 @@ class WindowMaterialDrapeEquivalentLayer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Length of Pleated Fabric"] = value
+
+
 
 
 class WindowMaterialBlindEquivalentLayer(DataObject):
@@ -6253,6 +6295,8 @@ class WindowMaterialBlindEquivalentLayer(DataObject):
         self["Slat Angle Control"] = value
 
 
+
+
 class WindowMaterialScreenEquivalentLayer(DataObject):
     """ Corresponds to IDD object `WindowMaterial:Screen:EquivalentLayer`
         Equivalent layer window screen physical properties. Can only be
@@ -6563,6 +6607,8 @@ class WindowMaterialScreenEquivalentLayer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Screen Wire Diameter"] = value
+
+
 
 
 class WindowMaterialGlazingEquivalentLayer(DataObject):
@@ -7325,6 +7371,8 @@ class WindowMaterialGlazingEquivalentLayer(DataObject):
         self["Back Side Infrared Emissivity"] = value
 
 
+
+
 class ConstructionWindowEquivalentLayer(DataObject):
     """ Corresponds to IDD object `Construction:WindowEquivalentLayer`
         Start with outside layer and work your way to the inside Layer
@@ -7608,6 +7656,8 @@ class ConstructionWindowEquivalentLayer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Layer 11"] = value
+
+
 
 
 class WindowMaterialGapEquivalentLayer(DataObject):
@@ -7992,6 +8042,8 @@ class WindowMaterialGapEquivalentLayer(DataObject):
         self["Specific Heat Ratio"] = value
 
 
+
+
 class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
     """ Corresponds to IDD object `MaterialProperty:MoisturePenetrationDepth:Settings`
         Additional properties for moisture using EMPD procedure
@@ -8146,6 +8198,8 @@ class MaterialPropertyMoisturePenetrationDepthSettings(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Moisture Equation Coefficient d"] = value
+
+
 
 
 class MaterialPropertyPhaseChange(DataObject):
@@ -9011,6 +9065,8 @@ class MaterialPropertyPhaseChange(DataObject):
         self["Enthalpy 16"] = value
 
 
+
+
 class MaterialPropertyVariableThermalConductivity(DataObject):
     """ Corresponds to IDD object `MaterialProperty:VariableThermalConductivity`
         Additional properties for temperature dependent thermal conductivity
@@ -9546,6 +9602,8 @@ class MaterialPropertyVariableThermalConductivity(DataObject):
         self["Thermal Conductivity 10"] = value
 
 
+
+
 class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Settings`
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
@@ -9629,6 +9687,8 @@ class MaterialPropertyHeatAndMoistureTransferSettings(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Water Content Ratio"] = value
+
+
 
 
 class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
@@ -10940,6 +11000,8 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(DataObject):
         self["Moisture Content 25"] = value
 
 
+
+
 class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Suction`
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
@@ -12199,6 +12261,8 @@ class MaterialPropertyHeatAndMoistureTransferSuction(DataObject):
         self["Liquid Transport Coefficient 25"] = value
 
 
+
+
 class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Redistribution`
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
@@ -13456,6 +13520,8 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Liquid Transport Coefficient 25"] = value
+
+
 
 
 class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
@@ -14767,6 +14833,8 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(DataObject):
         self["Water Vapor Diffusion Resistance Factor 25"] = value
 
 
+
+
 class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity`
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
@@ -16026,13 +16094,15 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(DataObject):
         self["Thermal Conductivity 25"] = value
 
 
+
+
 class MaterialPropertyGlazingSpectralData(DataObject):
     """ Corresponds to IDD object `MaterialProperty:GlazingSpectralData`
         Name is followed by up to 800 sets of normal-incidence measured values of
         [wavelength, transmittance, front reflectance, back reflectance] for wavelengths
         covering the solar spectrum (from about 0.25 to 2.5 microns)
     """
-    schema = {'min-fields': 0, 'name': u'MaterialProperty:GlazingSpectralData', 'pyname': u'MaterialPropertyGlazingSpectralData', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'wavelength', {'name': u'Wavelength', 'pyname': u'wavelength', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'transmittance', {'name': u'Transmittance', 'pyname': u'transmittance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'front reflectance', {'name': u'Front Reflectance', 'pyname': u'front_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'back reflectance', {'name': u'Back Reflectance', 'pyname': u'back_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
+    schema = {'min-fields': 0, 'name': u'MaterialProperty:GlazingSpectralData', 'pyname': u'MaterialPropertyGlazingSpectralData', 'format': u'spectral', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict([(u'wavelength', {'name': u'Wavelength', 'pyname': u'wavelength', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'transmittance', {'name': u'Transmittance', 'pyname': u'transmittance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'front reflectance', {'name': u'Front Reflectance', 'pyname': u'front_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'back reflectance', {'name': u'Back Reflectance', 'pyname': u'back_reflectance', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Surface Construction Elements'}
 
     @property
     def name(self):
@@ -16111,6 +16181,8 @@ class MaterialPropertyGlazingSpectralData(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class Construction(DataObject):
@@ -16375,6 +16447,8 @@ class Construction(DataObject):
         self["Layer 10"] = value
 
 
+
+
 class ConstructionCfactorUndergroundWall(DataObject):
     """ Corresponds to IDD object `Construction:CfactorUndergroundWall`
         Alternate method of describing underground wall constructions
@@ -16453,6 +16527,8 @@ class ConstructionCfactorUndergroundWall(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Height"] = value
+
+
 
 
 class ConstructionFfactorGroundFloor(DataObject):
@@ -16558,6 +16634,8 @@ class ConstructionFfactorGroundFloor(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["PerimeterExposed"] = value
+
+
 
 
 class ConstructionInternalSource(DataObject):
@@ -16923,6 +17001,8 @@ class ConstructionInternalSource(DataObject):
         self["Layer 10"] = value
 
 
+
+
 class WindowThermalModelParams(DataObject):
     """ Corresponds to IDD object `WindowThermalModel:Params`
         object is used to select which thermal model should be used in tarcog simulations
@@ -17125,6 +17205,8 @@ class WindowThermalModelParams(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial pressure"] = value
+
+
 
 
 class ConstructionComplexFenestrationState(DataObject):
@@ -17973,6 +18055,8 @@ class ConstructionComplexFenestrationState(DataObject):
         self["Layer 5 Directional Back Absoptance Matrix Name"] = value
 
 
+
+
 class ConstructionWindowDataFile(DataObject):
     """ Corresponds to IDD object `Construction:WindowDataFile`
         Initiates search of the Window data file for a window called Name.
@@ -18026,3 +18110,5 @@ class ConstructionWindowDataFile(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["File Name"] = value
+
+

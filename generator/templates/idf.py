@@ -37,8 +37,8 @@ class IDF(object):
 
         if path is not None:
             self.read(path)
-   
-   
+
+
     def add(self, dataobject):
         """ Adds a data object to the IDF. If data object is unique, it replaces an
         eventual existing data object
@@ -61,10 +61,10 @@ class IDF(object):
 
     def save(self, path, check=True):
         """ Save data to path
-        
+
             Args:
                 path (str): path where data should be save
-            
+
             Raises:
                 ValueError: if required objects are not present or 
                     unique objects are not unique
@@ -80,15 +80,16 @@ class IDF(object):
                                                                            len(self._data[group][key])))
                         for obj in self._data[group][key]:
                             obj.check(strict=True)
-            
+
             f.write("!- Generated with pyidf version {}, "
                     "generation date: {}\n".format(pyidf.__version__, str(datetime.datetime.now())))
+            f.write("!- Validation level: {}\n".format(pyidf.validation_level))
 
             if len(self.comment_headers) > 0:
                 f.write("\n!- Previous comments:\n\n")
                 for comment in self.comment_headers:
                     f.write("{}\n".format(comment))
-                       
+
             for group in self._data:
                 f.write("\n!-   ===========  ALL OBJECTS OF GROUP: {}  ===========\n".format(group))
                 for key in self._data[group]:
@@ -104,7 +105,7 @@ class IDF(object):
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
-    
+
                                     if ((i + 2) < cval and "x" in vals[i][0].lower() and 
                                         "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
                                         val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
@@ -114,12 +115,12 @@ class IDF(object):
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
-    
+
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
                                     blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-    
+
                                     f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
                                                                                        sep=sep,
                                                                                        blanks=blanks,
@@ -130,7 +131,7 @@ class IDF(object):
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
-    
+
                                     if "until" in vals[i][1].lower():
                                         j = i + 1
                                         while j < cval:
@@ -139,24 +140,24 @@ class IDF(object):
                                                 break
                                             j += 1
                                         val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
-                                        comment = " Fields {} - {}".format(i + 1, j + 1)
+                                        comment = "Fields {} - {}".format(i + 1, j + 1)
                                         i += (j - i)
                                     else: 
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
-    
+
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
                                     blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-    
+
                                     f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
                                                                                        sep=sep,
                                                                                        blanks=blanks,
                                                                                        comment=comment))
                             elif dobj.schema['format'] == "fluidproperty":
-    
+
                                 f.write("\n  {},\n".format(dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
@@ -165,13 +166,13 @@ class IDF(object):
     
                                     is_fluidprops = True
                                     for j in range(min(7, cval - i)):
-    
+
                                         # Test the next values
                                         fluidprops_match = re.search(r"([0-9]|value|property)", vals[i + j][0])
                                         if fluidprops_match is None:
                                             is_fluidprops = False
                                             break
-    
+
                                     if  is_fluidprops:                                    
                                         val = ",".join([vals[i + j][1] for j in range(min(7, cval - i))])
                                         comment = ""
@@ -180,12 +181,12 @@ class IDF(object):
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
-    
+
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
                                     blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-    
+
                                     f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
                                                                                        sep=sep,
                                                                                        blanks=blanks,
@@ -196,10 +197,10 @@ class IDF(object):
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
-    
+
                                     start = i
                                     end = min(i + 4, cval)
-    
+
                                     if False not in ["name" not in jval[0].lower() for jval in vals[start:end]]:
                                         val = ",".join([vals[j][1] for j in range(start, end) ])
                                         i += (end - start)
@@ -208,29 +209,29 @@ class IDF(object):
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
-    
+
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
                                     blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
-    
+
                                     f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
                                                                                        sep=sep,
                                                                                        blanks=blanks,
                                                                                        comment=comment))
-    
+
                             else:
                                 f.write("\n  {},\n".format(dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 for i, val in enumerate(vals):
-    
+
                                     sep = ','
                                     if i == (cval - 1):
                                         sep = ';'
                                     blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
                                     comment = val[0]
-    
+
                                     f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val[1],
                                                                                        sep=sep,
                                                                                        blanks=blanks,

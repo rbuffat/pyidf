@@ -1,6 +1,8 @@
+""" Data objects in group "Advanced Construction"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -65,6 +67,8 @@ class SurfacePropertyHeatTransferAlgorithm(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Algorithm"] = value
+
+
 
 
 class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
@@ -147,6 +151,8 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Algorithm"] = value
+
+
 
 
 class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
@@ -241,6 +247,8 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:Construction`
         Determines which Heat Balance Algorithm will be used for surfaces that have a specific type of construction
@@ -321,6 +329,8 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Construction Name"] = value
+
+
 
 
 class SurfaceControlMovableInsulation(DataObject):
@@ -420,6 +430,8 @@ class SurfaceControlMovableInsulation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Name"] = value
+
+
 
 
 class SurfacePropertyOtherSideCoefficients(DataObject):
@@ -778,6 +790,8 @@ class SurfacePropertyOtherSideCoefficients(DataObject):
         self["Maximum Other Side Temperature Limit"] = value
 
 
+
+
 class SurfacePropertyOtherSideConditionsModel(DataObject):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideConditionsModel`
         This object sets up modifying the other side conditions for a surface from other model results.
@@ -837,6 +851,8 @@ class SurfacePropertyOtherSideConditionsModel(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Type of Modeling"] = value
+
+
 
 
 class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
@@ -3109,6 +3125,8 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(DataObject):
         self["Mixed Regime Window Equation User Curve Name"] = value
 
 
+
+
 class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections`
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
@@ -3431,6 +3449,8 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(DataObject):
         self["Natural Convection Unstable Horizontal Equation User Curve Name"] = value
 
 
+
+
 class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
@@ -3588,6 +3608,8 @@ class SurfaceConvectionAlgorithmInsideUserCurve(DataObject):
         self["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
 
 
+
+
 class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
@@ -3717,6 +3739,8 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Hn Function of Temperature Difference Divided by Height Curve Name"] = value
+
+
 
 
 class SurfacePropertyConvectionCoefficients(DataObject):
@@ -3998,6 +4022,8 @@ class SurfacePropertyConvectionCoefficients(DataObject):
         self["Convection Coefficient 2 User Curve Name"] = value
 
 
+
+
 class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
     """ Corresponds to IDD object `SurfaceProperty:ConvectionCoefficients:MultipleSurface`
         Allow user settable interior and/or exterior convection coefficients.
@@ -4277,6 +4303,8 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(DataObject):
         self["Convection Coefficient 2 User Curve Name"] = value
 
 
+
+
 class SurfacePropertiesVaporCoefficients(DataObject):
     """ Corresponds to IDD object `SurfaceProperties:VaporCoefficients`
         The interior and external vapor transfer coefficients.
@@ -4406,6 +4434,8 @@ class SurfacePropertiesVaporCoefficients(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Internal Vapor Coefficient Value"] = value
+
+
 
 
 class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
@@ -4724,6 +4754,8 @@ class SurfacePropertyExteriorNaturalVentedCavity(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class SurfacePropertySolarIncidentInside(DataObject):
     """ Corresponds to IDD object `SurfaceProperty:SolarIncidentInside`
         Used to provide incident solar radiation on the inside of the surface. Reference surface-construction pair
@@ -4822,6 +4854,8 @@ class SurfacePropertySolarIncidentInside(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
+
+
 
 
 class ComplexFenestrationPropertySolarAbsorbedLayers(DataObject):
@@ -5016,12 +5050,14 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(DataObject):
         self["Layer 5 Solar Radiation Absorbed Schedule Name"] = value
 
 
+
+
 class ZonePropertyUserViewFactorsBySurfaceName(DataObject):
     """ Corresponds to IDD object `ZoneProperty:UserViewFactors:bySurfaceName`
         View factors for Surface to Surface in a zone.
         (Number of Surfaces)**2 must be entered.
     """
-    schema = {'min-fields': 0, 'name': u'ZoneProperty:UserViewFactors:bySurfaceName', 'pyname': u'ZonePropertyUserViewFactorsBySurfaceName', 'format': None, 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'from surface 1', {'name': u'From Surface 1', 'pyname': u'from_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'to surface 1', {'name': u'To Surface 1', 'pyname': u'to_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor 1', {'name': u'View Factor 1', 'pyname': u'view_factor_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Advanced Construction'}
+    schema = {'min-fields': 0, 'name': u'ZoneProperty:UserViewFactors:bySurfaceName', 'pyname': u'ZonePropertyUserViewFactorsBySurfaceName', 'format': u'viewfactor', 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict([(u'from surface 1', {'name': u'From Surface 1', 'pyname': u'from_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'to surface 1', {'name': u'To Surface 1', 'pyname': u'to_surface_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'view factor 1', {'name': u'View Factor 1', 'pyname': u'view_factor_1', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]), 'unique-object': False, 'required-object': False, 'group': u'Advanced Construction'}
 
     @property
     def zone_name(self):
@@ -5093,3 +5129,5 @@ class ZonePropertyUserViewFactorsBySurfaceName(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

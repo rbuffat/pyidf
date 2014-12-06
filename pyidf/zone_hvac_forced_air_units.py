@@ -1,6 +1,8 @@
+""" Data objects in group "Zone HVAC Forced Air Units"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -721,6 +723,8 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
 
+
+
 class ZoneHvacFourPipeFanCoil(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:FourPipeFanCoil`
         Four pipe fan coil system. Forced-convection hydronic heating-cooling unit with
@@ -1355,6 +1359,8 @@ class ZoneHvacFourPipeFanCoil(DataObject):
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
 
+
+
 class ZoneHvacWindowAirConditioner(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:WindowAirConditioner`
         Window air conditioner. Forced-convection cooling-only unit with supply fan, direct
@@ -1769,6 +1775,8 @@ class ZoneHvacWindowAirConditioner(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+
 
 
 class ZoneHvacPackagedTerminalAirConditioner(DataObject):
@@ -2329,6 +2337,8 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+
 
 
 class ZoneHvacPackagedTerminalHeatPump(DataObject):
@@ -3069,6 +3079,8 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+
 
 
 class ZoneHvacWaterToAirHeatPump(DataObject):
@@ -3882,6 +3894,8 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
 
+
+
 class ZoneHvacDehumidifierDx(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:Dehumidifier:DX`
         This object calculates the performance of zone (room) air dehumidifiers.
@@ -4263,6 +4277,8 @@ class ZoneHvacDehumidifierDx(DataObject):
         self["Condensate Collection Water Storage Tank Name"] = value
 
 
+
+
 class ZoneHvacEnergyRecoveryVentilator(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator`
         This compound component models a stand-alone energy recovery ventilator (ERV)
@@ -4542,6 +4558,8 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Availability Manager List Name"] = value
+
+
 
 
 class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
@@ -4882,6 +4900,8 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
+
+
 
 
 class ZoneHvacUnitVentilator(DataObject):
@@ -5488,6 +5508,8 @@ class ZoneHvacUnitVentilator(DataObject):
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
 
+
+
 class ZoneHvacUnitHeater(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:UnitHeater`
         Unit heater. Forced-convection heating-only unit with supply fan, heating coil
@@ -5887,6 +5909,8 @@ class ZoneHvacUnitHeater(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+
 
 
 class ZoneHvacEvaporativeCoolerUnit(DataObject):
@@ -6324,6 +6348,8 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+
 
 
 class ZoneHvacOutdoorAirUnit(DataObject):
@@ -6794,6 +6820,8 @@ class ZoneHvacOutdoorAirUnit(DataObject):
         self["Availability Manager List Name"] = value
 
 
+
+
 class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit:EquipmentList`
         Equipment list for components in a ZoneHVAC:OutdoorAirUnit. Components are simulated
@@ -7191,6 +7219,8 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Component 8 Name"] = value
+
+
 
 
 class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
@@ -7833,3 +7863,5 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+

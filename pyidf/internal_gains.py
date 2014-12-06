@@ -1,6 +1,8 @@
+""" Data objects in group "Internal Gains"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -605,6 +607,8 @@ class People(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Thermal Comfort Model 5 Type"] = value
+
+
 
 
 class ComfortViewFactorAngles(DataObject):
@@ -1600,6 +1604,8 @@ class ComfortViewFactorAngles(DataObject):
         self["Angle Factor 20"] = value
 
 
+
+
 class Lights(DataObject):
     """ Corresponds to IDD object `Lights`
         Sets internal gains for lights in the zone.
@@ -1983,6 +1989,8 @@ class Lights(DataObject):
         self["Return Air Fraction Function of Plenum Temperature Coefficient 2"] = value
 
 
+
+
 class ElectricEquipment(DataObject):
     """ Corresponds to IDD object `ElectricEquipment`
         Sets internal gains for electric equipment in the zone.
@@ -2260,6 +2268,8 @@ class ElectricEquipment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+
 
 
 class GasEquipment(DataObject):
@@ -2571,6 +2581,8 @@ class GasEquipment(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class HotWaterEquipment(DataObject):
     """ Corresponds to IDD object `HotWaterEquipment`
         Sets internal gains for hot water equipment in the zone.
@@ -2847,6 +2859,8 @@ class HotWaterEquipment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+
 
 
 class SteamEquipment(DataObject):
@@ -3126,6 +3140,8 @@ class SteamEquipment(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class OtherEquipment(DataObject):
     """ Corresponds to IDD object `OtherEquipment`
         Sets internal gains or losses for "other" equipment in the zone.
@@ -3380,6 +3396,8 @@ class OtherEquipment(DataObject):
         self["Fraction Lost"] = value
 
 
+
+
 class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
     """ Corresponds to IDD object `ZoneBaseboard:OutdoorTemperatureControlled`
         Specifies outside temperature-controlled electric baseboard heating.
@@ -3601,6 +3619,8 @@ class ZoneBaseboardOutdoorTemperatureControlled(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:CarbonDioxide`
         Represents internal CO2 gains and sinks in the zone.
@@ -3701,6 +3721,8 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Name"] = value
+
+
 
 
 class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
@@ -3855,6 +3877,8 @@ class ZoneContaminantSourceAndSinkGenericConstant(DataObject):
         self["Removal Schedule Name"] = value
 
 
+
+
 class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
         Simulate generic contaminant source driven by the pressure difference across a surface.
@@ -3980,6 +4004,8 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Generation Exponent"] = value
+
+
 
 
 class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
@@ -4110,6 +4136,8 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(DataObject):
         self["Cutoff Generic Contaminant at which Emission Ceases"] = value
 
 
+
+
 class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DecaySource`
         Simulate generic contaminant source driven by the cutoff concentration model.
@@ -4235,6 +4263,8 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Delay Time Constant"] = value
+
+
 
 
 class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
@@ -4364,6 +4394,8 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(DataObject):
         self["Henry adsorption constant or partition coefficient"] = value
 
 
+
+
 class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
@@ -4467,6 +4499,8 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(DataObject):
         self["Schedule Name"] = value
 
 
+
+
 class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
@@ -4568,3 +4602,5 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Schedule Name"] = value
+
+

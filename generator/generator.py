@@ -24,6 +24,14 @@ def generate_class(obj):
     return template.render(context)
 
 
+def generate_group(groupname, sources):
+    template = env.get_template('group.py')
+    context = {}
+    context["sources"] = sources
+    context["group"] = groupname
+    return template.render(context)
+
+
 def generate_idf(objs):
     source_files = set()
     required_objects = set()

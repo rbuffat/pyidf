@@ -1,6 +1,8 @@
+""" Data objects in group "Zone HVAC Air Loop Terminal Units"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -109,6 +111,8 @@ class AirTerminalSingleDuctUncontrolled(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Air Flow Rate"] = value
+
+
 
 
 class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
@@ -411,6 +415,8 @@ class AirTerminalSingleDuctConstantVolumeReheat(DataObject):
         self["Maximum Reheat Air Temperature"] = value
 
 
+
+
 class AirTerminalSingleDuctVavNoReheat(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:NoReheat`
         Central air system terminal unit, single duct, variable volume, with no reheat coil.
@@ -671,6 +677,8 @@ class AirTerminalSingleDuctVavNoReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification Outdoor Air Object Name"] = value
+
+
 
 
 class AirTerminalSingleDuctVavReheat(DataObject):
@@ -1197,6 +1205,8 @@ class AirTerminalSingleDuctVavReheat(DataObject):
         self["Design Specification Outdoor Air Object Name"] = value
 
 
+
+
 class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan`
         Central air system terminal unit, single duct, variable volume, with reheat coil (hot
@@ -1601,6 +1611,8 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(DataObject):
         self["Heating Convergence Tolerance"] = value
 
 
+
+
 class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
         Central air system terminal unit, single duct, variable volume for both cooling and
@@ -1752,6 +1764,8 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Minimum Air Flow Fraction"] = value
+
+
 
 
 class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
@@ -2105,6 +2119,8 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Reheat Air Temperature"] = value
+
+
 
 
 class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
@@ -2520,6 +2536,8 @@ class AirTerminalSingleDuctSeriesPiuReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Convergence Tolerance"] = value
+
+
 
 
 class AirTerminalSingleDuctParallelPiuReheat(DataObject):
@@ -2961,6 +2979,8 @@ class AirTerminalSingleDuctParallelPiuReheat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Convergence Tolerance"] = value
+
+
 
 
 class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
@@ -3454,6 +3474,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Mixer Name"] = value
+
+
 
 
 class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
@@ -4022,6 +4044,8 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(DataObject):
         self["Leaving Pipe Inside Diameter"] = value
 
 
+
+
 class AirTerminalSingleDuctInletSideMixer(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:InletSideMixer`
         Mix 2 inlet air streams into one outlet stream.
@@ -4167,6 +4191,8 @@ class AirTerminalSingleDuctInletSideMixer(DataObject):
         self["Terminal Unit Secondary Air Inlet Node Name"] = value
 
 
+
+
 class AirTerminalSingleDuctSupplySideMixer(DataObject):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SupplySideMixer`
         Mix 2 inlet air streams into one outlet stream.
@@ -4310,6 +4336,8 @@ class AirTerminalSingleDuctSupplySideMixer(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Terminal Unit Secondary Air Inlet Node Name"] = value
+
+
 
 
 class AirTerminalDualDuctConstantVolume(DataObject):
@@ -4460,6 +4488,8 @@ class AirTerminalDualDuctConstantVolume(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Air Flow Rate"] = value
+
+
 
 
 class AirTerminalDualDuctVav(DataObject):
@@ -4665,6 +4695,8 @@ class AirTerminalDualDuctVav(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification Outdoor Air Object Name"] = value
+
+
 
 
 class AirTerminalDualDuctVavOutdoorAir(DataObject):
@@ -4873,6 +4905,8 @@ class AirTerminalDualDuctVavOutdoorAir(DataObject):
         self["Per Person Ventilation Rate Mode"] = value
 
 
+
+
 class ZoneHvacAirDistributionUnit(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:AirDistributionUnit`
         Central air system air distribution unit, serves as a wrapper for a specific type of
@@ -5021,3 +5055,5 @@ class ZoneHvacAirDistributionUnit(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Constant Downstream Leakage Fraction"] = value
+
+

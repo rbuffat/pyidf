@@ -1,6 +1,8 @@
+""" Data objects in group "Air Distribution"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -252,6 +254,8 @@ class AirLoopHvac(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Supply Side Outlet Node Names"] = value
+
+
 
 
 class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
@@ -698,6 +702,8 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(DataObject):
         self["Component 9 Name"] = value
 
 
+
+
 class AirLoopHvacOutdoorAirSystem(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem`
         Outdoor air subsystem for an AirLoopHVAC. Includes an outdoor air mixing box and
@@ -801,6 +807,8 @@ class AirLoopHvacOutdoorAirSystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Availability Manager List Name"] = value
+
+
 
 
 class OutdoorAirMixer(DataObject):
@@ -930,6 +938,8 @@ class OutdoorAirMixer(DataObject):
         self["Return Air Stream Node Name"] = value
 
 
+
+
 class AirLoopHvacZoneSplitter(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ZoneSplitter`
         Split one air stream into N outlet streams (currently 500 per air loop, but extensible).  Node names
@@ -1015,6 +1025,8 @@ class AirLoopHvacZoneSplitter(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class AirLoopHvacSupplyPlenum(DataObject):
@@ -1150,6 +1162,8 @@ class AirLoopHvacSupplyPlenum(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class AirLoopHvacSupplyPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
         A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
@@ -1244,6 +1258,8 @@ class AirLoopHvacSupplyPath(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class AirLoopHvacZoneMixer(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ZoneMixer`
         Mix N inlet air streams into one (currently 500 per air loop, but extensible).  Node names cannot
@@ -1329,6 +1345,8 @@ class AirLoopHvacZoneMixer(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class AirLoopHvacReturnPlenum(DataObject):
@@ -1488,6 +1506,8 @@ class AirLoopHvacReturnPlenum(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class AirLoopHvacReturnPath(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
         A return air path can only contain one AirLoopHVAC:ZoneMixer
@@ -1580,3 +1600,5 @@ class AirLoopHvacReturnPath(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

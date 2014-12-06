@@ -1,6 +1,8 @@
+""" Data objects in group "Solar Collectors"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -260,6 +262,8 @@ class SolarCollectorPerformanceFlatPlate(DataObject):
         self["Coefficient 3 of Incident Angle Modifier"] = value
 
 
+
+
 class SolarCollectorFlatPlateWater(DataObject):
     """ Corresponds to IDD object `SolarCollector:FlatPlate:Water`
         Flat plate water solar collector (single glazed, unglazed, or evacuated tube).
@@ -408,6 +412,8 @@ class SolarCollectorFlatPlateWater(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Flow Rate"] = value
+
+
 
 
 class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
@@ -650,6 +656,8 @@ class SolarCollectorFlatPlatePhotovoltaicThermal(DataObject):
         self["Design Flow Rate"] = value
 
 
+
+
 class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
@@ -799,6 +807,8 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Front Surface Emittance"] = value
+
+
 
 
 class SolarCollectorIntegralCollectorStorage(DataObject):
@@ -999,6 +1009,8 @@ class SolarCollectorIntegralCollectorStorage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Flow Rate"] = value
+
+
 
 
 class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
@@ -1520,6 +1532,8 @@ class SolarCollectorPerformanceIntegralCollectorStorage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Emissivity of Absorber Plate"] = value
+
+
 
 
 class SolarCollectorUnglazedTranspired(DataObject):
@@ -2111,6 +2125,8 @@ class SolarCollectorUnglazedTranspired(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired:Multisystem`
         quad-tuples of inlet, outlet, control, and zone nodes
@@ -2195,3 +2211,5 @@ class SolarCollectorUnglazedTranspiredMultisystem(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

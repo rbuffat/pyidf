@@ -1,6 +1,8 @@
+""" Data objects in group "Evaporative Coolers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -228,6 +230,8 @@ class EvaporativeCoolerDirectCelDekPad(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Water Supply Storage Tank Name"] = value
+
+
 
 
 class EvaporativeCoolerIndirectCelDekPad(DataObject):
@@ -573,6 +577,8 @@ class EvaporativeCoolerIndirectCelDekPad(DataObject):
         self["Secondary Air Inlet Node Name"] = value
 
 
+
+
 class EvaporativeCoolerIndirectWetCoil(DataObject):
     """ Corresponds to IDD object `EvaporativeCooler:Indirect:WetCoil`
         Indirect evaporative cooler with wetted coil, recirculating water pump, and secondary
@@ -889,6 +895,8 @@ class EvaporativeCoolerIndirectWetCoil(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Secondary Air Inlet Node Name"] = value
+
+
 
 
 class EvaporativeCoolerIndirectResearchSpecial(DataObject):
@@ -1330,6 +1338,8 @@ class EvaporativeCoolerIndirectResearchSpecial(DataObject):
         self["Blowdown Concentration Ratio"] = value
 
 
+
+
 class EvaporativeCoolerDirectResearchSpecial(DataObject):
     """ Corresponds to IDD object `EvaporativeCooler:Direct:ResearchSpecial`
         Direct evaporative cooler with user-specified effectiveness (can represent rigid pad
@@ -1580,3 +1590,5 @@ class EvaporativeCoolerDirectResearchSpecial(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Blowdown Concentration Ratio"] = value
+
+

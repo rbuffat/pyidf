@@ -1,6 +1,8 @@
+""" Data objects in group "Refrigeration"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -900,6 +902,8 @@ class RefrigerationCase(DataObject):
         self["Average Refrigerant Charge Inventory"] = value
 
 
+
+
 class RefrigerationCompressorRack(DataObject):
     """ Corresponds to IDD object `Refrigeration:CompressorRack`
         Works in conjunction with the refrigeration case and walkin objects to simulate the
@@ -1579,6 +1583,8 @@ class RefrigerationCompressorRack(DataObject):
         self["Heat Rejection Zone Name"] = value
 
 
+
+
 class RefrigerationCaseAndWalkInList(DataObject):
     """ Corresponds to IDD object `Refrigeration:CaseAndWalkInList`
         Provides a list of all the refrigerated cases, walk in coolers, or air chillers
@@ -1645,6 +1651,8 @@ class RefrigerationCaseAndWalkInList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class RefrigerationCondenserAirCooled(DataObject):
@@ -1931,6 +1939,8 @@ class RefrigerationCondenserAirCooled(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Condensate Piping Refrigerant Inventory"] = value
+
+
 
 
 class RefrigerationCondenserEvaporativeCooled(DataObject):
@@ -2536,6 +2546,8 @@ class RefrigerationCondenserEvaporativeCooled(DataObject):
         self["Condensate Piping Refrigerant Inventory"] = value
 
 
+
+
 class RefrigerationCondenserWaterCooled(DataObject):
     """ Corresponds to IDD object `Refrigeration:Condenser:WaterCooled`
         Water cooled condenser for a refrigeration system (Refrigeration:System).
@@ -2966,6 +2978,8 @@ class RefrigerationCondenserWaterCooled(DataObject):
         self["Condensate Piping Refrigerant Inventory"] = value
 
 
+
+
 class RefrigerationCondenserCascade(DataObject):
     """ Corresponds to IDD object `Refrigeration:Condenser:Cascade`
         Cascade condenser for a refrigeration system (Refrigeration:System). The cascade
@@ -3176,6 +3190,8 @@ class RefrigerationCondenserCascade(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Condensate Piping Refrigerant Inventory"] = value
+
+
 
 
 class RefrigerationGasCoolerAirCooled(DataObject):
@@ -3544,6 +3560,8 @@ class RefrigerationGasCoolerAirCooled(DataObject):
         self["Gas Cooler Outlet Piping Refrigerant Inventory"] = value
 
 
+
+
 class RefrigerationTransferLoadList(DataObject):
     """ Corresponds to IDD object `Refrigeration:TransferLoadList`
         A refrigeration system may provide cooling to other, secondary, systems through
@@ -3609,6 +3627,8 @@ class RefrigerationTransferLoadList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class RefrigerationSubcooler(DataObject):
@@ -3799,6 +3819,8 @@ class RefrigerationSubcooler(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Control Temperature"] = value
+
+
 
 
 class RefrigerationCompressor(DataObject):
@@ -4100,6 +4122,8 @@ class RefrigerationCompressor(DataObject):
         self["Transcritical Compressor Capacity Curve Name"] = value
 
 
+
+
 class RefrigerationCompressorList(DataObject):
     """ Corresponds to IDD object `Refrigeration:CompressorList`
         List of all the compressors included within a single refrigeration system
@@ -4166,6 +4190,8 @@ class RefrigerationCompressorList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class RefrigerationSystem(DataObject):
@@ -4602,6 +4628,8 @@ class RefrigerationSystem(DataObject):
         self["High-Stage Compressor or CompressorList Name"] = value
 
 
+
+
 class RefrigerationTranscriticalSystem(DataObject):
     """ Corresponds to IDD object `Refrigeration:TranscriticalSystem`
         Detailed transcritical carbon dioxide (CO2) booster refrigeration systems used in
@@ -4984,6 +5012,8 @@ class RefrigerationTranscriticalSystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+
 
 
 class RefrigerationSecondarySystem(DataObject):
@@ -5604,6 +5634,8 @@ class RefrigerationSecondarySystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+
 
 
 class RefrigerationWalkIn(DataObject):
@@ -6280,6 +6312,8 @@ class RefrigerationWalkIn(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class RefrigerationAirChiller(DataObject):
@@ -7028,6 +7062,8 @@ class RefrigerationAirChiller(DataObject):
         self["Average Refrigerant Charge Inventory"] = value
 
 
+
+
 class ZoneHvacRefrigerationChillerSet(DataObject):
     """ Corresponds to IDD object `ZoneHVAC:RefrigerationChillerSet`
         Works in conjunction with one or multiple air chillers, compressor racks,
@@ -7198,6 +7234,8 @@ class ZoneHvacRefrigerationChillerSet(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class MatrixTwoDimension(DataObject):
     """ Corresponds to IDD object `Matrix:TwoDimension`
         matrix data in row-major order
@@ -7307,3 +7345,5 @@ class MatrixTwoDimension(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

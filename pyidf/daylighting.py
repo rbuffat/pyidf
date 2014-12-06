@@ -1,6 +1,8 @@
+""" Data objects in group "Daylighting"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -516,6 +518,8 @@ class DaylightingControls(DataObject):
         self["Availability Schedule Name"] = value
 
 
+
+
 class DaylightingDelightControls(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:Controls`
         Dimming of overhead electric lighting is determined from
@@ -726,6 +730,8 @@ class DaylightingDelightControls(DataObject):
         self["Gridding Resolution"] = value
 
 
+
+
 class DaylightingDelightReferencePoint(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:ReferencePoint`
         DElight reference point for illuminance calculation and electric lighting dimming.
@@ -904,6 +910,8 @@ class DaylightingDelightReferencePoint(DataObject):
         self["Illuminance Setpoint at Reference Point"] = value
 
 
+
+
 class DaylightingDelightComplexFenestration(DataObject):
     """ Corresponds to IDD object `Daylighting:DELight:ComplexFenestration`
         Used for DElight Complex Fenestration of all types
@@ -1037,6 +1045,8 @@ class DaylightingDelightComplexFenestration(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fenestration Rotation"] = value
+
+
 
 
 class DaylightingDeviceTubular(DataObject):
@@ -1259,6 +1269,8 @@ class DaylightingDeviceTubular(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class DaylightingDeviceShelf(DataObject):
     """ Corresponds to IDD object `DaylightingDevice:Shelf`
         Defines a daylighting which can have an inside shelf, an outside shelf, or both.
@@ -1411,6 +1423,8 @@ class DaylightingDeviceShelf(DataObject):
         self["View Factor to Outside Shelf"] = value
 
 
+
+
 class DaylightingDeviceLightWell(DataObject):
     """ Corresponds to IDD object `DaylightingDevice:LightWell`
         Applies only to exterior windows in daylighting-controlled zones or
@@ -1541,12 +1555,14 @@ class DaylightingDeviceLightWell(DataObject):
         self["Visible Reflectance of Well Walls"] = value
 
 
+
+
 class OutputDaylightFactors(DataObject):
     """ Corresponds to IDD object `Output:DaylightFactors`
         Reports hourly daylight factors for each exterior window for four sky types
         (clear, turbid clear, intermediate, and overcast).
     """
-    schema = {'min-fields': 0, 'name': u'Output:DaylightFactors', 'pyname': u'OutputDaylightFactors', 'format': None, 'fields': OrderedDict([(u'reporting days', {'name': u'Reporting Days', 'pyname': u'reporting_days', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SizingDays', u'AllShadowCalculationDays'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Daylighting'}
+    schema = {'min-fields': 0, 'name': u'Output:DaylightFactors', 'pyname': u'OutputDaylightFactors', 'format': u'singleline', 'fields': OrderedDict([(u'reporting days', {'name': u'Reporting Days', 'pyname': u'reporting_days', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SizingDays', u'AllShadowCalculationDays'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Daylighting'}
 
     @property
     def reporting_days(self):
@@ -1570,6 +1586,8 @@ class OutputDaylightFactors(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reporting Days"] = value
+
+
 
 
 class OutputIlluminanceMap(DataObject):
@@ -1798,6 +1816,8 @@ class OutputIlluminanceMap(DataObject):
         self["Number of Y Grid Points"] = value
 
 
+
+
 class OutputControlIlluminanceMapStyle(DataObject):
     """ Corresponds to IDD object `OutputControl:IlluminanceMap:Style`
         default style for the Daylighting Illuminance Map is comma -- this works well for
@@ -1830,3 +1850,5 @@ class OutputControlIlluminanceMapStyle(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Column Separator"] = value
+
+

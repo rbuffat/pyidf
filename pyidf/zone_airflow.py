@@ -1,6 +1,8 @@
+""" Data objects in group "Zone Airflow"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -315,6 +317,8 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
         self["Velocity Squared Term Coefficient"] = value
 
 
+
+
 class ZoneInfiltrationEffectiveLeakageArea(DataObject):
     """ Corresponds to IDD object `ZoneInfiltration:EffectiveLeakageArea`
         Infiltration is specified as effective leakage area at 4 Pa, schedule fraction, stack and wind coefficients, and
@@ -465,6 +469,8 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Wind Coefficient"] = value
+
+
 
 
 class ZoneInfiltrationFlowCoefficient(DataObject):
@@ -664,6 +670,8 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Shelter Factor"] = value
+
+
 
 
 class ZoneVentilationDesignFlowRate(DataObject):
@@ -1337,6 +1345,8 @@ class ZoneVentilationDesignFlowRate(DataObject):
         self["Maximum Wind Speed"] = value
 
 
+
+
 class ZoneVentilationWindandStackOpenArea(DataObject):
     """ Corresponds to IDD object `ZoneVentilation:WindandStackOpenArea`
         This object is specified as natural ventilation driven by wind and stack effect only:
@@ -1851,6 +1861,8 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
         self["Maximum Wind Speed"] = value
 
 
+
+
 class ZoneAirBalanceOutdoorAir(DataObject):
     """ Corresponds to IDD object `ZoneAirBalance:OutdoorAir`
         Provide a combined zone outdoor air flow by including interactions between
@@ -1981,6 +1993,8 @@ class ZoneAirBalanceOutdoorAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Induced Outdoor Air Schedule Name"] = value
+
+
 
 
 class ZoneMixing(DataObject):
@@ -2414,6 +2428,8 @@ class ZoneMixing(DataObject):
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
 
+
+
 class ZoneCrossMixing(DataObject):
     """ Corresponds to IDD object `ZoneCrossMixing`
         ZoneCrossMixing exchanges an equal amount of air between two zones. Note that this
@@ -2843,6 +2859,8 @@ class ZoneCrossMixing(DataObject):
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
 
+
+
 class ZoneRefrigerationDoorMixing(DataObject):
     """ Corresponds to IDD object `ZoneRefrigerationDoorMixing`
         Refrigeration Door Mixing is used for an opening between two zones that are at the
@@ -3031,6 +3049,8 @@ class ZoneRefrigerationDoorMixing(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Door Protection Type"] = value
+
+
 
 
 class ZoneEarthtube(DataObject):
@@ -3582,6 +3602,8 @@ class ZoneEarthtube(DataObject):
         self["Velocity Squared Term Flow Coefficient"] = value
 
 
+
+
 class ZoneCoolTowerShower(DataObject):
     """ Corresponds to IDD object `ZoneCoolTower:Shower`
         A cooltower (sometimes referred to as a wind tower or a shower cooling tower)
@@ -3932,6 +3954,8 @@ class ZoneCoolTowerShower(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Rated Power Consumption"] = value
+
+
 
 
 class ZoneThermalChimney(DataObject):
@@ -5987,3 +6011,5 @@ class ZoneThermalChimney(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Cross Sectional Areas of Air Channel Inlet 20"] = value
+
+

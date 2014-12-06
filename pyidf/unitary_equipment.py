@@ -1,6 +1,8 @@
+""" Data objects in group "Unitary Equipment"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -1436,6 +1438,8 @@ class AirLoopHvacUnitarySystem(DataObject):
         self["Design Specification Multispeed Heat Pump Object Name"] = value
 
 
+
+
 class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
     """ Corresponds to IDD object `UnitarySystemPerformance:HeatPump:Multispeed`
         The UnitarySystemPerformance object is used to specify the air flow ratio at each
@@ -1560,6 +1564,8 @@ class UnitarySystemPerformanceHeatPumpMultispeed(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
@@ -1884,6 +1890,8 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heating Coil Name"] = value
+
+
 
 
 class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
@@ -2401,6 +2409,8 @@ class AirLoopHvacUnitaryFurnaceHeatCool(DataObject):
         self["Reheat Coil Name"] = value
 
 
+
+
 class AirLoopHvacUnitaryHeatOnly(DataObject):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatOnly`
         Unitary system, heating-only with constant volume supply fan (continuous or cycling)
@@ -2723,6 +2733,8 @@ class AirLoopHvacUnitaryHeatOnly(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heating Coil Name"] = value
+
+
 
 
 class AirLoopHvacUnitaryHeatCool(DataObject):
@@ -3236,6 +3248,8 @@ class AirLoopHvacUnitaryHeatCool(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reheat Coil Name"] = value
+
+
 
 
 class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
@@ -3780,6 +3794,8 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Dehumidification Control Type"] = value
+
+
 
 
 class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
@@ -4463,6 +4479,8 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heat Pump Coil Water Flow Mode"] = value
+
+
 
 
 class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
@@ -5185,6 +5203,8 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Dehumidification Control Type"] = value
+
+
 
 
 class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
@@ -6073,3 +6093,5 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Speed 4 Supply Air Flow Rate During Cooling Operation"] = value
+
+

@@ -1,6 +1,8 @@
+""" Data objects in group "Output Reporting"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -16,7 +18,7 @@ class OutputVariableDictionary(DataObject):
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IDF', u'regular'], 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Name', u'Unsorted'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:VariableDictionary', 'pyname': u'OutputVariableDictionary', 'format': u'singleline', 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'default': u'regular', 'required-field': True, 'autosizable': False, 'accepted-values': [u'IDF', u'regular'], 'autocalculatable': False, 'type': 'alpha'}), (u'sort option', {'name': u'Sort Option', 'pyname': u'sort_option', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Name', u'Unsorted'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def key_field(self):
@@ -66,11 +68,13 @@ class OutputVariableDictionary(DataObject):
         self["Sort Option"] = value
 
 
+
+
 class OutputSurfacesList(DataObject):
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Details', u'Vertices', u'DetailsWithVertices', u'ViewFactorInfo', u'Lines', u'CostInfo', u'DecayCurvesfromZoneComponentLoads'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'accepted-values': [u'IDF'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:List', 'pyname': u'OutputSurfacesList', 'format': u'singleline', 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Details', u'Vertices', u'DetailsWithVertices', u'ViewFactorInfo', u'Lines', u'CostInfo', u'DecayCurvesfromZoneComponentLoads'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications', {'name': u'Report Specifications', 'pyname': u'report_specifications', 'required-field': False, 'autosizable': False, 'accepted-values': [u'IDF'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def report_type(self):
@@ -121,13 +125,15 @@ class OutputSurfacesList(DataObject):
         self["Report Specifications"] = value
 
 
+
+
 class OutputSurfacesDrawing(DataObject):
     """ Corresponds to IDD object `Output:Surfaces:Drawing`
         Produces reports/files that are capable of rendering graphically or
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': None, 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'DXF', u'DXF:WireFrame', u'VRML'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Triangulate3DFace', u'ThickPolyline', u'RegularPolyline'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Surfaces:Drawing', 'pyname': u'OutputSurfacesDrawing', 'format': u'singleline', 'fields': OrderedDict([(u'report type', {'name': u'Report Type', 'pyname': u'report_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'DXF', u'DXF:WireFrame', u'VRML'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 1', {'name': u'Report Specifications 1', 'pyname': u'report_specifications_1', 'default': u'Triangulate3DFace', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Triangulate3DFace', u'ThickPolyline', u'RegularPolyline'], 'autocalculatable': False, 'type': 'alpha'}), (u'report specifications 2', {'name': u'Report Specifications 2', 'pyname': u'report_specifications_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def report_type(self):
@@ -203,13 +209,15 @@ class OutputSurfacesDrawing(DataObject):
         self["Report Specifications 2"] = value
 
 
+
+
 class OutputSchedules(DataObject):
     """ Corresponds to IDD object `Output:Schedules`
         Produces a condensed reporting that illustrates the full range of schedule values in
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': None, 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Hourly', u'Timestep'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Schedules', 'pyname': u'OutputSchedules', 'format': u'singleline', 'fields': OrderedDict([(u'key field', {'name': u'Key Field', 'pyname': u'key_field', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Hourly', u'Timestep'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def key_field(self):
@@ -235,13 +243,15 @@ class OutputSchedules(DataObject):
         self["Key Field"] = value
 
 
+
+
 class OutputConstructions(DataObject):
     """ Corresponds to IDD object `Output:Constructions`
         Adds a report to the eio output file which shows details for each construction,
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': None, 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Constructions', 'pyname': u'OutputConstructions', 'format': u'singleline', 'fields': OrderedDict([(u'details type 1', {'name': u'Details Type 1', 'pyname': u'details_type_1', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'}), (u'details type 2', {'name': u'Details Type 2', 'pyname': u'details_type_2', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constructions', u'Materials'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def details_type_1(self):
@@ -288,6 +298,8 @@ class OutputConstructions(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Details Type 2"] = value
+
+
 
 
 class OutputEnergyManagementSystem(DataObject):
@@ -367,6 +379,8 @@ class OutputEnergyManagementSystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["EMS Runtime Language Debug Output Level"] = value
+
+
 
 
 class OutputControlSurfaceColorScheme(DataObject):
@@ -1124,6 +1138,8 @@ class OutputControlSurfaceColorScheme(DataObject):
         self["Color for Drawing Element 15"] = value
 
 
+
+
 class OutputTableSummaryReports(DataObject):
     """ Corresponds to IDD object `Output:Table:SummaryReports`
         This object allows the user to call report types that are predefined and will appear with the
@@ -1134,6 +1150,8 @@ class OutputTableSummaryReports(DataObject):
         AllSummary+AllMonthly+AllSummaryAndMonthly)
     """
     schema = {'min-fields': 0, 'name': u'Output:Table:SummaryReports', 'pyname': u'OutputTableSummaryReports', 'format': None, 'fields': OrderedDict(), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Output Reporting'}
+
+
 
 
 class OutputTableTimeBins(DataObject):
@@ -1319,6 +1337,8 @@ class OutputTableTimeBins(DataObject):
         self["Variable Type"] = value
 
 
+
+
 class OutputTableMonthly(DataObject):
     """ Corresponds to IDD object `Output:Table:Monthly`
         Provides a generic method of setting up tables of monthly results. The report
@@ -1419,6 +1439,8 @@ class OutputTableMonthly(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class OutputControlTableStyle(DataObject):
     """ Corresponds to IDD object `OutputControl:Table:Style`
         default style for the OutputControl:Table:Style is comma -- this works well for
@@ -1476,6 +1498,8 @@ class OutputControlTableStyle(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Unit Conversion"] = value
+
+
 
 
 class OutputControlReportingTolerances(DataObject):
@@ -1550,6 +1574,8 @@ class OutputControlReportingTolerances(DataObject):
         self["Tolerance for Time Cooling Setpoint Not Met"] = value
 
 
+
+
 class OutputVariable(DataObject):
     """ Corresponds to IDD object `Output:Variable`
         each Output:Variable command picks variables to be put onto the standard output file (.eso)
@@ -1557,7 +1583,7 @@ class OutputVariable(DataObject):
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': None, 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Detailed', u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Variable', 'pyname': u'OutputVariable', 'format': u'singleline', 'fields': OrderedDict([(u'key value', {'name': u'Key Value', 'pyname': u'key_value', 'default': u'*', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'variable name', {'name': u'Variable Name', 'pyname': u'variable_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Detailed', u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def key_value(self):
@@ -1659,6 +1685,8 @@ class OutputVariable(DataObject):
         self["Schedule Name"] = value
 
 
+
+
 class OutputMeter(DataObject):
     """ Corresponds to IDD object `Output:Meter`
         Each Output:Meter command picks meters to be put onto the standard output file (.eso) and
@@ -1666,7 +1694,7 @@ class OutputMeter(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Meter', 'pyname': u'OutputMeter', 'format': u'singleline', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def name(self):
@@ -1722,6 +1750,8 @@ class OutputMeter(DataObject):
         self["Reporting Frequency"] = value
 
 
+
+
 class OutputMeterMeterFileOnly(DataObject):
     """ Corresponds to IDD object `Output:Meter:MeterFileOnly`
         Each Output:Meter:MeterFileOnly command picks meters to be put only onto meter file (.mtr).
@@ -1729,7 +1759,7 @@ class OutputMeterMeterFileOnly(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Meter:MeterFileOnly', 'pyname': u'OutputMeterMeterFileOnly', 'format': u'singleline', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def name(self):
@@ -1785,6 +1815,8 @@ class OutputMeterMeterFileOnly(DataObject):
         self["Reporting Frequency"] = value
 
 
+
+
 class OutputMeterCumulative(DataObject):
     """ Corresponds to IDD object `Output:Meter:Cumulative`
         Each Output:Meter:Cumulative command picks meters to be reported cumulatively onto the
@@ -1793,7 +1825,7 @@ class OutputMeterCumulative(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative', 'pyname': u'OutputMeterCumulative', 'format': u'singleline', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def name(self):
@@ -1849,6 +1881,8 @@ class OutputMeterCumulative(DataObject):
         self["Reporting Frequency"] = value
 
 
+
+
 class OutputMeterCumulativeMeterFileOnly(DataObject):
     """ Corresponds to IDD object `Output:Meter:Cumulative:MeterFileOnly`
         Each Output:Meter:Cumulative:MeterFileOnly command picks meters to be reported cumulatively
@@ -1857,7 +1891,7 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
     """
-    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': None, 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:Meter:Cumulative:MeterFileOnly', 'pyname': u'OutputMeterCumulativeMeterFileOnly', 'format': u'singleline', 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'external-list'}), (u'reporting frequency', {'name': u'Reporting Frequency', 'pyname': u'reporting_frequency', 'default': u'Hourly', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Timestep', u'Hourly', u'Daily', u'Monthly', u'RunPeriod', u'Environment', u'Annual'], 'autocalculatable': False, 'type': 'alpha'})]), 'extensible-fields': OrderedDict(), 'unique-object': False, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def name(self):
@@ -1911,6 +1945,8 @@ class OutputMeterCumulativeMeterFileOnly(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reporting Frequency"] = value
+
+
 
 
 class MeterCustom(DataObject):
@@ -2006,6 +2042,8 @@ class MeterCustom(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class MeterCustomDecrement(DataObject):
@@ -2126,6 +2164,8 @@ class MeterCustomDecrement(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class OutputSqlite(DataObject):
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
@@ -2154,6 +2194,8 @@ class OutputSqlite(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Option Type"] = value
+
+
 
 
 class OutputEnvironmentalImpactFactors(DataObject):
@@ -2185,6 +2227,8 @@ class OutputEnvironmentalImpactFactors(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reporting Frequency"] = value
+
+
 
 
 class EnvironmentalImpactFactors(DataObject):
@@ -2344,6 +2388,8 @@ class EnvironmentalImpactFactors(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Total Carbon Equivalent Emission Factor From CO2"] = value
+
+
 
 
 class FuelFactors(DataObject):
@@ -3223,6 +3269,8 @@ class FuelFactors(DataObject):
         self["Nuclear Low Level Emission Factor Schedule Name"] = value
 
 
+
+
 class OutputDiagnostics(DataObject):
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
@@ -3276,11 +3324,13 @@ class OutputDiagnostics(DataObject):
         self["Key 2"] = value
 
 
+
+
 class OutputDebuggingData(DataObject):
     """ Corresponds to IDD object `Output:DebuggingData`
         switch eplusout.dbg file on or off
     """
-    schema = {'min-fields': 0, 'name': u'Output:DebuggingData', 'pyname': u'OutputDebuggingData', 'format': None, 'fields': OrderedDict([(u'report debugging data', {'name': u'Report Debugging Data', 'pyname': u'report_debugging_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'report during warmup', {'name': u'Report During Warmup', 'pyname': u'report_during_warmup', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Output Reporting'}
+    schema = {'min-fields': 0, 'name': u'Output:DebuggingData', 'pyname': u'OutputDebuggingData', 'format': u'singleline', 'fields': OrderedDict([(u'report debugging data', {'name': u'Report Debugging Data', 'pyname': u'report_debugging_data', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'report during warmup', {'name': u'Report During Warmup', 'pyname': u'report_during_warmup', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]), 'extensible-fields': OrderedDict(), 'unique-object': True, 'required-object': False, 'group': u'Output Reporting'}
 
     @property
     def report_debugging_data(self):
@@ -3329,6 +3379,8 @@ class OutputDebuggingData(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Report During Warmup"] = value
+
+
 
 
 class OutputPreprocessorMessage(DataObject):
@@ -3614,3 +3666,5 @@ class OutputPreprocessorMessage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Message Line 10"] = value
+
+

@@ -1,6 +1,8 @@
+""" Data objects in group "Variable Refrigerant Flow Equipment"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -2206,6 +2208,8 @@ class AirConditionerVariableRefrigerantFlow(DataObject):
         self["Heat Recovery Heating Energy Time Constant"] = value
 
 
+
+
 class ZoneTerminalUnitList(DataObject):
     """ Corresponds to IDD object `ZoneTerminalUnitList`
         List of variable refrigerant flow (VRF) terminal units served by a given VRF condensing
@@ -2269,3 +2273,5 @@ class ZoneTerminalUnitList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

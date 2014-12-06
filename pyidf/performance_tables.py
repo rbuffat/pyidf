@@ -1,6 +1,8 @@
+""" Data objects in group "Performance Tables"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -318,6 +320,8 @@ class TableOneIndependentVariable(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class TableTwoIndependentVariables(DataObject):
@@ -692,6 +696,8 @@ class TableTwoIndependentVariables(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class TableMultiVariableLookup(DataObject):
@@ -1617,3 +1623,5 @@ class TableMultiVariableLookup(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

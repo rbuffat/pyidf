@@ -1,6 +1,8 @@
+""" Data objects in group "HVAC Templates"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -141,6 +143,8 @@ class HvactemplateThermostat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Constant Cooling Setpoint"] = value
+
+
 
 
 class HvactemplateZoneIdealLoadsAirSystem(DataObject):
@@ -943,6 +947,8 @@ class HvactemplateZoneIdealLoadsAirSystem(DataObject):
         self["Latent Heat Recovery Effectiveness"] = value
 
 
+
+
 class HvactemplateZoneBaseboardHeat(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:BaseboardHeat`
         Zone baseboard heating system.
@@ -1280,6 +1286,8 @@ class HvactemplateZoneBaseboardHeat(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification Zone Air Distribution Object Name"] = value
+
+
 
 
 class HvactemplateZoneFanCoil(DataObject):
@@ -2156,6 +2164,8 @@ class HvactemplateZoneFanCoil(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Baseboard Heating Capacity"] = value
+
+
 
 
 class HvactemplateZonePtac(DataObject):
@@ -3177,6 +3187,8 @@ class HvactemplateZonePtac(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Baseboard Heating Capacity"] = value
+
+
 
 
 class HvactemplateZonePthp(DataObject):
@@ -4458,6 +4470,8 @@ class HvactemplateZonePthp(DataObject):
         self["Baseboard Heating Capacity"] = value
 
 
+
+
 class HvactemplateZoneWaterToAirHeatPump(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:WaterToAirHeatPump`
         Water to Air Heat Pump to be used with HVACTemplate:Plant:MixedWaterLoop
@@ -5618,6 +5632,8 @@ class HvactemplateZoneWaterToAirHeatPump(DataObject):
         self["Baseboard Heating Capacity"] = value
 
 
+
+
 class HvactemplateZoneVrf(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:VRF`
         Zone terminal unit with variable refrigerant flow (VRF) DX cooling and heating coils
@@ -6775,6 +6791,8 @@ class HvactemplateZoneVrf(DataObject):
         self["Baseboard Heating Capacity"] = value
 
 
+
+
 class HvactemplateZoneUnitary(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:Unitary`
         Zone terminal unit, constant volume, no controls.
@@ -7380,6 +7398,8 @@ class HvactemplateZoneUnitary(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Design Specification Zone Air Distribution Object Name"] = value
+
+
 
 
 class HvactemplateZoneVav(DataObject):
@@ -8293,6 +8313,8 @@ class HvactemplateZoneVav(DataObject):
         self["Design Specification Zone Air Distribution Object Name"] = value
 
 
+
+
 class HvactemplateZoneVavFanPowered(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:VAV:FanPowered`
         Zone terminal unit, fan powered variable volume, reheat optional.
@@ -9153,6 +9175,8 @@ class HvactemplateZoneVavFanPowered(DataObject):
         self["Design Specification Zone Air Distribution Object Name"] = value
 
 
+
+
 class HvactemplateZoneVavHeatAndCool(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:VAV:HeatAndCool`
         VAV system with VAV for both heating and cooling and optional rehaert coil.
@@ -9865,6 +9889,8 @@ class HvactemplateZoneVavHeatAndCool(DataObject):
         self["Zone Heating Design Supply Air Temperature Difference"] = value
 
 
+
+
 class HvactemplateZoneConstantVolume(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Zone:ConstantVolume`
         Zone terminal unit, constant volume, reheat optional.
@@ -10541,6 +10567,8 @@ class HvactemplateZoneConstantVolume(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Heating Design Supply Air Temperature Difference"] = value
+
+
 
 
 class HvactemplateZoneDualDuct(DataObject):
@@ -11233,6 +11261,8 @@ class HvactemplateZoneDualDuct(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Heating Design Supply Air Temperature Difference"] = value
+
+
 
 
 class HvactemplateSystemVrf(DataObject):
@@ -12277,6 +12307,8 @@ class HvactemplateSystemVrf(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Outdoor Temperature in Heat Recovery Mode"] = value
+
+
 
 
 class HvactemplateSystemUnitary(DataObject):
@@ -13604,6 +13636,8 @@ class HvactemplateSystemUnitary(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Return Fan Motor in Air Stream Fraction"] = value
+
+
 
 
 class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
@@ -15178,6 +15212,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Return Fan Motor in Air Stream Fraction"] = value
+
+
 
 
 class HvactemplateSystemUnitarySystem(DataObject):
@@ -17043,6 +17079,8 @@ class HvactemplateSystemUnitarySystem(DataObject):
         self["Return Fan Motor in Air Stream Fraction"] = value
 
 
+
+
 class HvactemplateSystemVav(DataObject):
     """ Corresponds to IDD object `HVACTemplate:System:VAV`
         Variable Air Volume (VAV) air loop with optional heating coil
@@ -18603,6 +18641,8 @@ class HvactemplateSystemVav(DataObject):
         self["Return Fan Part-Load Power Coefficients"] = value
 
 
+
+
 class HvactemplateSystemPackagedVav(DataObject):
     """ Corresponds to IDD object `HVACTemplate:System:PackagedVAV`
         Packaged Variable Air Volume (PVAV) air loop with optional heating coil
@@ -20118,6 +20158,8 @@ class HvactemplateSystemPackagedVav(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Return Fan Part-Load Power Coefficients"] = value
+
+
 
 
 class HvactemplateSystemConstantVolume(DataObject):
@@ -21894,6 +21936,8 @@ class HvactemplateSystemConstantVolume(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Return Fan Motor in Air Stream Fraction"] = value
+
+
 
 
 class HvactemplateSystemDualDuct(DataObject):
@@ -24217,6 +24261,8 @@ class HvactemplateSystemDualDuct(DataObject):
         self["Return Fan Part-Load Power Coefficients"] = value
 
 
+
+
 class HvactemplateSystemDedicatedOutdoorAir(DataObject):
     """ Corresponds to IDD object `HVACTemplate:System:DedicatedOutdoorAir`
         This object creates a dedicated outdoor air system that must be used with
@@ -25399,6 +25445,8 @@ class HvactemplateSystemDedicatedOutdoorAir(DataObject):
         self["Humidifier Setpoint Schedule Name"] = value
 
 
+
+
 class HvactemplatePlantChilledWaterLoop(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:ChilledWaterLoop`
         Plant and condenser loops to serve all HVACTemplate
@@ -26252,6 +26300,8 @@ class HvactemplatePlantChilledWaterLoop(DataObject):
         self["Condenser Water Load Distribution Scheme"] = value
 
 
+
+
 class HvactemplatePlantChiller(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:Chiller`
         This object adds a chiller to an HVACTemplate:Plant:ChilledWaterLoop.
@@ -26561,6 +26611,8 @@ class HvactemplatePlantChiller(DataObject):
         self["Leaving Chilled Water Lower Temperature Limit"] = value
 
 
+
+
 class HvactemplatePlantChillerObjectReference(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:Chiller:ObjectReference`
         This object references a detailed chiller object and adds it to
@@ -26666,6 +26718,8 @@ class HvactemplatePlantChillerObjectReference(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Priority"] = value
+
+
 
 
 class HvactemplatePlantTower(DataObject):
@@ -26948,6 +27002,8 @@ class HvactemplatePlantTower(DataObject):
         self["Template Plant Loop Type"] = value
 
 
+
+
 class HvactemplatePlantTowerObjectReference(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:Tower:ObjectReference`
         This object references a detailed cooling tower object and adds it to
@@ -27079,6 +27135,8 @@ class HvactemplatePlantTowerObjectReference(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Template Plant Loop Type"] = value
+
+
 
 
 class HvactemplatePlantHotWaterLoop(DataObject):
@@ -27620,6 +27678,8 @@ class HvactemplatePlantHotWaterLoop(DataObject):
         self["Load Distribution Scheme"] = value
 
 
+
+
 class HvactemplatePlantBoiler(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:Boiler`
         This object adds a boiler to an HVACTemplate:Plant:HotWaterLoop or MixedWaterLoop.
@@ -27921,6 +27981,8 @@ class HvactemplatePlantBoiler(DataObject):
         self["Template Plant Loop Type"] = value
 
 
+
+
 class HvactemplatePlantBoilerObjectReference(DataObject):
     """ Corresponds to IDD object `HVACTemplate:Plant:Boiler:ObjectReference`
         This object references a detailed boiler object and adds it to
@@ -28052,6 +28114,8 @@ class HvactemplatePlantBoilerObjectReference(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Template Plant Loop Type"] = value
+
+
 
 
 class HvactemplatePlantMixedWaterLoop(DataObject):
@@ -28490,3 +28554,5 @@ class HvactemplatePlantMixedWaterLoop(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Load Distribution Scheme"] = value
+
+

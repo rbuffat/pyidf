@@ -1,6 +1,8 @@
+""" Data objects in group "Exterior Equipment"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -135,6 +137,8 @@ class ExteriorLights(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class ExteriorFuelEquipment(DataObject):
     """ Corresponds to IDD object `Exterior:FuelEquipment`
         only used for Meter type reporting, does not affect building loads
@@ -261,6 +265,8 @@ class ExteriorFuelEquipment(DataObject):
         self["End-Use Subcategory"] = value
 
 
+
+
 class ExteriorWaterEquipment(DataObject):
     """ Corresponds to IDD object `Exterior:WaterEquipment`
         only used for Meter type reporting, does not affect building loads
@@ -385,3 +391,5 @@ class ExteriorWaterEquipment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["End-Use Subcategory"] = value
+
+

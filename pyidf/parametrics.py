@@ -1,6 +1,8 @@
+""" Data objects in group "Parametrics"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -79,6 +81,8 @@ class ParametricSetValueForRun(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ParametricLogic(DataObject):
     """ Corresponds to IDD object `Parametric:Logic`
         This object allows some types of objects to be included for some parametric cases and
@@ -143,6 +147,8 @@ class ParametricLogic(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ParametricRunControl(DataObject):
@@ -210,6 +216,8 @@ class ParametricRunControl(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ParametricFileNameSuffix(DataObject):
     """ Corresponds to IDD object `Parametric:FileNameSuffix`
         Defines the suffixes to be appended to the idf and output file names for each
@@ -272,3 +280,5 @@ class ParametricFileNameSuffix(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

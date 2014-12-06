@@ -1,6 +1,8 @@
+""" Data objects in group "Plant"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -157,6 +159,8 @@ class TemperingValve(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pump Outlet Node Name"] = value
+
+
 
 
 class PlantLoop(DataObject):
@@ -718,6 +722,8 @@ class PlantLoop(DataObject):
         self["Pressure Simulation Type"] = value
 
 
+
+
 class CondenserLoop(DataObject):
     """ Corresponds to IDD object `CondenserLoop`
         Defines a central plant condenser loop. CondenserLoop and PlantLoop are nearly
@@ -1198,6 +1204,8 @@ class CondenserLoop(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pressure Simulation Type"] = value
+
+
 
 
 class PlantEquipmentList(DataObject):
@@ -1694,6 +1702,8 @@ class PlantEquipmentList(DataObject):
         self["Equipment 10 Name"] = value
 
 
+
+
 class CondenserEquipmentList(DataObject):
     """ Corresponds to IDD object `CondenserEquipmentList`
         List condenser equipment in order of operating priority, 1st in list will be used 1st, etc
@@ -2188,6 +2198,8 @@ class CondenserEquipmentList(DataObject):
         self["Equipment 10 Name"] = value
 
 
+
+
 class PlantEquipmentOperationUncontrolled(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:Uncontrolled`
         Plant equipment operation scheme for uncontrolled operation. Specifies a group of
@@ -2241,6 +2253,8 @@ class PlantEquipmentOperationUncontrolled(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Equipment List Name"] = value
+
+
 
 
 class PlantEquipmentOperationCoolingLoad(DataObject):
@@ -2985,6 +2999,8 @@ class PlantEquipmentOperationCoolingLoad(DataObject):
         self["Range 10 Equipment List Name"] = value
 
 
+
+
 class PlantEquipmentOperationHeatingLoad(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:HeatingLoad`
         Plant equipment operation scheme for heating load range operation. Specifies one or
@@ -3725,6 +3741,8 @@ class PlantEquipmentOperationHeatingLoad(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Range 10 Equipment List Name"] = value
+
+
 
 
 class PlantEquipmentOperationOutdoorDryBulb(DataObject):
@@ -4509,6 +4527,8 @@ class PlantEquipmentOperationOutdoorDryBulb(DataObject):
         self["Range 10 Equipment List Name"] = value
 
 
+
+
 class PlantEquipmentOperationOutdoorWetBulb(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:OutdoorWetBulb`
         Plant equipment operation scheme for outdoor wet-bulb temperature range operation.
@@ -5291,6 +5311,8 @@ class PlantEquipmentOperationOutdoorWetBulb(DataObject):
         self["Range 10 Equipment List Name"] = value
 
 
+
+
 class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:OutdoorRelativeHumidity`
         Plant equipment operation scheme for outdoor relative humidity range operation.
@@ -6051,6 +6073,8 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Range 10 Equipment List Name"] = value
+
+
 
 
 class PlantEquipmentOperationOutdoorDewpoint(DataObject):
@@ -6833,6 +6857,8 @@ class PlantEquipmentOperationOutdoorDewpoint(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Range 10 Equipment List Name"] = value
+
+
 
 
 class PlantEquipmentOperationComponentSetpoint(DataObject):
@@ -8257,6 +8283,8 @@ class PlantEquipmentOperationComponentSetpoint(DataObject):
         self["Operation 10 Type"] = value
 
 
+
+
 class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:OutdoorDryBulbDifference`
         Plant equipment operation scheme for outdoor dry-bulb temperature difference
@@ -9061,6 +9089,8 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Range 10 Equipment List Name"] = value
+
+
 
 
 class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
@@ -9869,6 +9899,8 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(DataObject):
         self["Range 10 Equipment List Name"] = value
 
 
+
+
 class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperation:OutdoorDewpointDifference`
         Plant equipment operation scheme for outdoor dewpoint temperature difference
@@ -10675,6 +10707,8 @@ class PlantEquipmentOperationOutdoorDewpointDifference(DataObject):
         self["Range 10 Equipment List Name"] = value
 
 
+
+
 class PlantEquipmentOperationSchemes(DataObject):
     """ Corresponds to IDD object `PlantEquipmentOperationSchemes`
         Operation schemes are listed in "priority" order.  Note that each scheme
@@ -11262,6 +11296,8 @@ class PlantEquipmentOperationSchemes(DataObject):
         self["Control Scheme 8 Schedule Name"] = value
 
 
+
+
 class CondenserEquipmentOperationSchemes(DataObject):
     """ Corresponds to IDD object `CondenserEquipmentOperationSchemes`
         Operation schemes are listed in "priority" order.  Note that each scheme
@@ -11847,3 +11883,5 @@ class CondenserEquipmentOperationSchemes(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Control Scheme 8 Schedule Name"] = value
+
+

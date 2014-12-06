@@ -1,6 +1,8 @@
+""" Data objects in group "Heat Recovery"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -372,6 +374,8 @@ class HeatExchangerAirToAirFlatPlate(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Secondary Air Outlet Node Name"] = value
+
+
 
 
 class HeatExchangerAirToAirSensibleAndLatent(DataObject):
@@ -953,6 +957,8 @@ class HeatExchangerAirToAirSensibleAndLatent(DataObject):
         self["Economizer Lockout"] = value
 
 
+
+
 class HeatExchangerDesiccantBalancedFlow(DataObject):
     """ Corresponds to IDD object `HeatExchanger:Desiccant:BalancedFlow`
         This object models a balanced desiccant heat exchanger.
@@ -1175,6 +1181,8 @@ class HeatExchangerDesiccantBalancedFlow(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Economizer Lockout"] = value
+
+
 
 
 class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
@@ -2447,3 +2455,5 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+
+

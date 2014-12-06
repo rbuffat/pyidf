@@ -1,6 +1,8 @@
+""" Data objects in group "Operational Faults"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -156,6 +158,8 @@ class FaultModelTemperatureSensorOffsetOutdoorAir(DataObject):
         self["Temperature Sensor Offset"] = value
 
 
+
+
 class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:HumiditySensorOffset:OutdoorAir`
         This object describes outdoor air humidity sensor offset
@@ -302,6 +306,8 @@ class FaultModelHumiditySensorOffsetOutdoorAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Humidity Sensor Offset"] = value
+
+
 
 
 class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
@@ -452,6 +458,8 @@ class FaultModelEnthalpySensorOffsetOutdoorAir(DataObject):
         self["Enthalpy Sensor Offset"] = value
 
 
+
+
 class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
     """ Corresponds to IDD object `FaultModel:PressureSensorOffset:OutdoorAir`
         This object describes outdoor air pressure sensor offset
@@ -598,6 +606,8 @@ class FaultModelPressureSensorOffsetOutdoorAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pressure Sensor Offset"] = value
+
+
 
 
 class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
@@ -748,6 +758,8 @@ class FaultModelTemperatureSensorOffsetReturnAir(DataObject):
         self["Temperature Sensor Offset"] = value
 
 
+
+
 class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
     """ Corresponds to IDD object `FaultModel:EnthalpySensorOffset:ReturnAir`
         This object describes return air enthalpy sensor offset
@@ -894,6 +906,8 @@ class FaultModelEnthalpySensorOffsetReturnAir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Enthalpy Sensor Offset"] = value
+
+
 
 
 class FaultModelFoulingCoil(DataObject):
@@ -1144,3 +1158,5 @@ class FaultModelFoulingCoil(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Inside to Outside Coil Surface Area Ratio"] = value
+
+

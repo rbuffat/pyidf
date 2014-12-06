@@ -1,6 +1,8 @@
+""" Data objects in group "Demand Limiting Controls"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -247,6 +249,8 @@ class DemandManagerAssignmentList(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class DemandManagerExteriorLights(DataObject):
     """ Corresponds to IDD object `DemandManager:ExteriorLights`
         used for demand limiting Exterior:Lights objects.
@@ -477,6 +481,8 @@ class DemandManagerExteriorLights(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class DemandManagerLights(DataObject):
@@ -711,6 +717,8 @@ class DemandManagerLights(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class DemandManagerElectricEquipment(DataObject):
     """ Corresponds to IDD object `DemandManager:ElectricEquipment`
         used for demand limiting ElectricEquipment objects.
@@ -941,6 +949,8 @@ class DemandManagerElectricEquipment(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class DemandManagerThermostats(DataObject):
@@ -1197,3 +1207,5 @@ class DemandManagerThermostats(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

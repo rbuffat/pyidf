@@ -1,6 +1,8 @@
+""" Data objects in group "Natural Ventilation and Duct Leakage"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -406,6 +408,8 @@ class AirflowNetworkSimulationControl(DataObject):
         self["Height Dependence of External Node Temperature"] = value
 
 
+
+
 class AirflowNetworkMultiZoneZone(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Zone`
         This object is used to simultaneously control a thermal zone's window and door openings,
@@ -706,6 +710,8 @@ class AirflowNetworkMultiZoneZone(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Facade Width"] = value
+
+
 
 
 class AirflowNetworkMultiZoneSurface(DataObject):
@@ -1048,6 +1054,8 @@ class AirflowNetworkMultiZoneSurface(DataObject):
         self["Venting Availability Schedule Name"] = value
 
 
+
+
 class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ReferenceCrackConditions`
         This object specifies the conditions under which the air mass flow coefficient was measured.
@@ -1159,6 +1167,8 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(DataObject):
         self["Reference Humidity Ratio"] = value
 
 
+
+
 class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:Crack`
         This object specifies the properties of airflow through a crack.
@@ -1268,6 +1278,8 @@ class AirflowNetworkMultiZoneSurfaceCrack(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reference Crack Conditions"] = value
+
+
 
 
 class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
@@ -1404,6 +1416,8 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Air Mass Flow Exponent"] = value
+
+
 
 
 class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
@@ -2129,6 +2143,8 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(DataObject):
         self["Start Height Factor for Opening Factor 4"] = value
 
 
+
+
 class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:SimpleOpening`
         This object specifies the properties of air flow through windows and doors (window, door and
@@ -2267,6 +2283,8 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Discharge Coefficient"] = value
+
+
 
 
 class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
@@ -2410,6 +2428,8 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(DataObject):
         self["Discharge Coefficient"] = value
 
 
+
+
 class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
         This object specifies the additional properties for a zone exhaust fan
@@ -2527,6 +2547,8 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(DataObject):
         self["Reference Crack Conditions"] = value
 
 
+
+
 class AirflowNetworkMultiZoneExternalNode(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ExternalNode`
         This object defines outdoor environmental conditions outside of the building.
@@ -2606,6 +2628,8 @@ class AirflowNetworkMultiZoneExternalNode(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Wind Pressure Coefficient Values Object Name"] = value
+
+
 
 
 class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
@@ -3578,6 +3602,8 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(DataObject):
         self["Wind Direction 36"] = value
 
 
+
+
 class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
         Used only if Wind Pressure Coefficient (WPC) Type = INPUT in the AirflowNetwork:SimulationControl
@@ -4535,6 +4561,8 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(DataObject):
         self["Wind Pressure Coefficient Value 36"] = value
 
 
+
+
 class AirflowNetworkDistributionNode(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Node`
         This object represents an air distribution node in the AirflowNetwork model.
@@ -4653,6 +4681,8 @@ class AirflowNetworkDistributionNode(DataObject):
         self["Node Height"] = value
 
 
+
+
 class AirflowNetworkDistributionComponentLeak(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Leak`
         This object defines the characteristics of a supply or return air leak.
@@ -4738,6 +4768,8 @@ class AirflowNetworkDistributionComponentLeak(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Air Mass Flow Exponent"] = value
+
+
 
 
 class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
@@ -4874,6 +4906,8 @@ class AirflowNetworkDistributionComponentLeakageRatio(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Air Mass Flow Exponent"] = value
+
+
 
 
 class AirflowNetworkDistributionComponentDuct(DataObject):
@@ -5090,6 +5124,8 @@ class AirflowNetworkDistributionComponentDuct(DataObject):
         self["Overall Moisture Transmittance Coefficient from Air to Air"] = value
 
 
+
+
 class AirflowNetworkDistributionComponentFan(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Fan`
         This object defines the name of the constant volume supply Air Fan used in an Air loop.
@@ -5143,6 +5179,8 @@ class AirflowNetworkDistributionComponentFan(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Supply Fan Object Type"] = value
+
+
 
 
 class AirflowNetworkDistributionComponentCoil(DataObject):
@@ -5251,6 +5289,8 @@ class AirflowNetworkDistributionComponentCoil(DataObject):
         self["Air Path Hydraulic Diameter"] = value
 
 
+
+
 class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:HeatExchanger`
         This object defines the name of an air-to-air heat exchanger used in an air loop.
@@ -5355,6 +5395,8 @@ class AirflowNetworkDistributionComponentHeatExchanger(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Air Path Hydraulic Diameter"] = value
+
+
 
 
 class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
@@ -5463,6 +5505,8 @@ class AirflowNetworkDistributionComponentTerminalUnit(DataObject):
         self["Air Path Hydraulic Diameter"] = value
 
 
+
+
 class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
         This object defines the characteristics of a constant pressure drop component (e.g. filter).
@@ -5519,6 +5563,8 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pressure Difference Across the Component"] = value
+
+
 
 
 class AirflowNetworkDistributionLinkage(DataObject):
@@ -5650,3 +5696,5 @@ class AirflowNetworkDistributionLinkage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Thermal Zone Name"] = value
+
+

@@ -1,6 +1,8 @@
+""" Data objects in group "Plant Heating and Cooling Equipment"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -441,6 +443,8 @@ class BoilerHotWater(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class BoilerSteam(DataObject):
     """ Corresponds to IDD object `Boiler:Steam`
         This boiler model is an adaptation of the empirical model from the Building
@@ -801,6 +805,8 @@ class BoilerSteam(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sizing Factor"] = value
+
+
 
 
 class ChillerElectricEir(DataObject):
@@ -1661,6 +1667,8 @@ class ChillerElectricEir(DataObject):
         self["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
 
 
+
+
 class ChillerElectricReformulatedEir(DataObject):
     """ Corresponds to IDD object `Chiller:Electric:ReformulatedEIR`
         This chiller model is an empirical model, a reformulated version of Chiller:Electric:EIR
@@ -2382,6 +2390,8 @@ class ChillerElectricReformulatedEir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
+
+
 
 
 class ChillerElectric(DataObject):
@@ -3291,6 +3301,8 @@ class ChillerElectric(DataObject):
         self["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
 
 
+
+
 class ChillerAbsorptionIndirect(DataObject):
     """ Corresponds to IDD object `Chiller:Absorption:Indirect`
         This indirect absorption chiller model is an enhanced model from the
@@ -4079,6 +4091,8 @@ class ChillerAbsorptionIndirect(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class ChillerAbsorption(DataObject):
     """ Corresponds to IDD object `Chiller:Absorption`
         This indirect absorption chiller model is the empirical model from the
@@ -4742,6 +4756,8 @@ class ChillerAbsorption(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class ChillerConstantCop(DataObject):
     """ Corresponds to IDD object `Chiller:ConstantCOP`
         This constant COP chiller model provides a means of quickly specifying a
@@ -5126,6 +5142,8 @@ class ChillerConstantCop(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Basin Heater Operating Schedule Name"] = value
+
+
 
 
 class ChillerEngineDriven(DataObject):
@@ -6265,6 +6283,8 @@ class ChillerEngineDriven(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Basin Heater Operating Schedule Name"] = value
+
+
 
 
 class ChillerCombustionTurbine(DataObject):
@@ -7707,6 +7727,8 @@ class ChillerCombustionTurbine(DataObject):
         self["Basin Heater Operating Schedule Name"] = value
 
 
+
+
 class ChillerHeaterAbsorptionDirectFired(DataObject):
     """ Corresponds to IDD object `ChillerHeater:Absorption:DirectFired`
         Direct fired gas absorption chiller-heater using performance curves similar to DOE-2
@@ -8633,6 +8655,8 @@ class ChillerHeaterAbsorptionDirectFired(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class ChillerHeaterAbsorptionDoubleEffect(DataObject):
     """ Corresponds to IDD object `ChillerHeater:Absorption:DoubleEffect`
         Exhaust fired absorption chiller-heater using performance curves similar to DOE-2
@@ -9530,6 +9554,8 @@ class ChillerHeaterAbsorptionDoubleEffect(DataObject):
         self["Sizing Factor"] = value
 
 
+
+
 class HeatPumpWaterToWaterEquationFitHeating(DataObject):
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Heating`
         simple water-water hp curve-fit model
@@ -9978,6 +10004,8 @@ class HeatPumpWaterToWaterEquationFitHeating(DataObject):
         self["Heating Compressor Power Coefficient 5"] = value
 
 
+
+
 class HeatPumpWaterToWaterEquationFitCooling(DataObject):
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Cooling`
         simple water-water heatpump curve-fit model
@@ -10424,6 +10452,8 @@ class HeatPumpWaterToWaterEquationFitCooling(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Cooling Compressor Power Coefficient 5"] = value
+
+
 
 
 class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
@@ -10956,6 +10986,8 @@ class HeatPumpWaterToWaterParameterEstimationCooling(DataObject):
         self["Low Pressure Cut Off"] = value
 
 
+
+
 class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
     """ Corresponds to IDD object `HeatPump:WaterToWater:ParameterEstimation:Heating`
         OSU parameter estimation model
@@ -11486,6 +11518,8 @@ class HeatPumpWaterToWaterParameterEstimationHeating(DataObject):
         self["Low Pressure Cut Off"] = value
 
 
+
+
 class DistrictCooling(DataObject):
     """ Corresponds to IDD object `DistrictCooling`
         Centralized source of chilled water, such as a district cooling system.
@@ -11610,6 +11644,8 @@ class DistrictCooling(DataObject):
         self["Capacity Fraction Schedule Name"] = value
 
 
+
+
 class DistrictHeating(DataObject):
     """ Corresponds to IDD object `DistrictHeating`
         Centralized source of hot water, such as a district heating system.
@@ -11732,6 +11768,8 @@ class DistrictHeating(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Capacity Fraction Schedule Name"] = value
+
+
 
 
 class PlantComponentTemperatureSource(DataObject):
@@ -11913,6 +11951,8 @@ class PlantComponentTemperatureSource(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Source Temperature Schedule Name"] = value
+
+
 
 
 class CentralHeatPumpSystem(DataObject):
@@ -14039,6 +14079,8 @@ class CentralHeatPumpSystem(DataObject):
         self["Number of Chiller Heater Modules 20"] = value
 
 
+
+
 class ChillerHeaterPerformanceElectricEir(DataObject):
     """ Corresponds to IDD object `ChillerHeaterPerformance:Electric:EIR`
         This chiller model is a generic chiller-heater where the cooling mode performance is a
@@ -14840,3 +14882,5 @@ class ChillerHeaterPerformanceElectricEir(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sizing Factor"] = value
+
+

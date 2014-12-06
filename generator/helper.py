@@ -83,10 +83,11 @@ class DataObject:
         schema['name'] = self.internal_name
         schema['pyname'] = self.class_name
         schema['group'] = self.group
-        if format in self.attributes:
+        if 'format' in self.attributes:
             schema['format'] = self.attributes['format'].lower()
         else:
             schema['format'] = None
+        print self.internal_name, schema['format']
 
         if "min-fields" in self.attributes:
             schema['min-fields'] = int(self.attributes['min-fields'])

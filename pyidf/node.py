@@ -1,6 +1,8 @@
+""" Data objects in group "Node"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -154,6 +156,8 @@ class Branch(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ConnectorSplitter(DataObject):
     """ Corresponds to IDD object `Connector:Splitter`
         Split one air/water stream into N outlet streams.  Branch names cannot be duplicated
@@ -241,6 +245,8 @@ class ConnectorSplitter(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class ConnectorMixer(DataObject):
     """ Corresponds to IDD object `Connector:Mixer`
         Mix N inlet air/water streams into one.  Branch names cannot be duplicated within
@@ -326,6 +332,8 @@ class ConnectorMixer(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ConnectorList(DataObject):
@@ -451,6 +459,8 @@ class ConnectorList(DataObject):
         self["Connector 2 Name"] = value
 
 
+
+
 class NodeList(DataObject):
     """ Corresponds to IDD object `NodeList`
         This object is used in places where lists of nodes may be
@@ -515,6 +525,8 @@ class NodeList(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class OutdoorAirNode(DataObject):
     """ Corresponds to IDD object `OutdoorAir:Node`
         This object sets the temperature and humidity conditions
@@ -575,6 +587,8 @@ class OutdoorAirNode(DataObject):
         self["Height Above Ground"] = value
 
 
+
+
 class OutdoorAirNodeList(DataObject):
     """ Corresponds to IDD object `OutdoorAir:NodeList`
         This object sets the temperature and humidity conditions
@@ -619,6 +633,8 @@ class OutdoorAirNodeList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class PipeAdiabatic(DataObject):
@@ -697,6 +713,8 @@ class PipeAdiabatic(DataObject):
         self["Outlet Node Name"] = value
 
 
+
+
 class PipeAdiabaticSteam(DataObject):
     """ Corresponds to IDD object `Pipe:Adiabatic:Steam`
         Passes Inlet Node state variables to Outlet Node state variables
@@ -771,6 +789,8 @@ class PipeAdiabaticSteam(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Node Name"] = value
+
+
 
 
 class PipeIndoor(DataObject):
@@ -1014,6 +1034,8 @@ class PipeIndoor(DataObject):
         self["Pipe Length"] = value
 
 
+
+
 class PipeOutdoor(DataObject):
     """ Corresponds to IDD object `Pipe:Outdoor`
         Pipe model with transport delay and heat transfer to the environment.
@@ -1183,6 +1205,8 @@ class PipeOutdoor(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Pipe Length"] = value
+
+
 
 
 class PipeUnderground(DataObject):
@@ -1455,6 +1479,8 @@ class PipeUnderground(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Phase Constant of Soil Surface Temperature"] = value
+
+
 
 
 class PipingSystemUndergroundDomain(DataObject):
@@ -2277,6 +2303,8 @@ class PipingSystemUndergroundDomain(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class PipingSystemUndergroundPipeCircuit(DataObject):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeCircuit`
         The pipe circuit object in an underground piping system.
@@ -2660,6 +2688,8 @@ class PipingSystemUndergroundPipeCircuit(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class PipingSystemUndergroundPipeSegment(DataObject):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeSegment`
         The pipe segment to be used in an underground piping system
@@ -2773,6 +2803,8 @@ class PipingSystemUndergroundPipeSegment(DataObject):
         self["Flow Direction"] = value
 
 
+
+
 class Duct(DataObject):
     """ Corresponds to IDD object `Duct`
         Passes inlet node state variables to outlet node state variables
@@ -2847,3 +2879,5 @@ class Duct(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Outlet Node Name"] = value
+
+

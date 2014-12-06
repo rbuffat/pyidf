@@ -1,6 +1,8 @@
+""" Data objects in group "Coils"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -401,6 +403,8 @@ class CoilCoolingWater(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Condensate Collection Water Storage Tank Name"] = value
+
+
 
 
 class CoilCoolingWaterDetailedGeometry(DataObject):
@@ -986,6 +990,8 @@ class CoilCoolingWaterDetailedGeometry(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Condensate Collection Water Storage Tank Name"] = value
+
+
 
 
 class CoilCoolingDxSingleSpeed(DataObject):
@@ -1838,6 +1844,8 @@ class CoilCoolingDxSingleSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
+
+
 
 
 class CoilCoolingDxTwoSpeed(DataObject):
@@ -2820,6 +2828,8 @@ class CoilCoolingDxTwoSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Low Speed Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
+
+
 
 
 class CoilCoolingDxMultiSpeed(DataObject):
@@ -5332,6 +5342,8 @@ class CoilCoolingDxMultiSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Speed 4 Rated Evaporative Condenser Pump Power Consumption"] = value
+
+
 
 
 class CoilCoolingDxVariableSpeed(DataObject):
@@ -8405,6 +8417,8 @@ class CoilCoolingDxVariableSpeed(DataObject):
         self["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = value
 
 
+
+
 class CoilCoolingDxTwoStageWithHumidityControlMode(DataObject):
     """ Corresponds to IDD object `Coil:Cooling:DX:TwoStageWithHumidityControlMode`
         Direct expansion (DX) cooling coil and condensing unit (includes electric compressor
@@ -8923,6 +8937,8 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Basin Heater Operating Schedule Name"] = value
+
+
 
 
 class CoilPerformanceDxCooling(DataObject):
@@ -9525,6 +9541,8 @@ class CoilPerformanceDxCooling(DataObject):
         self["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
 
 
+
+
 class CoilCoolingDxVariableRefrigerantFlow(DataObject):
     """ Corresponds to IDD object `Coil:Cooling:DX:VariableRefrigerantFlow`
         Variable refrigerant flow (VRF) direct expansion (DX) cooling coil. Used with
@@ -9779,6 +9797,8 @@ class CoilCoolingDxVariableRefrigerantFlow(DataObject):
         self["Name of Water Storage Tank for Condensate Collection"] = value
 
 
+
+
 class CoilHeatingDxVariableRefrigerantFlow(DataObject):
     """ Corresponds to IDD object `Coil:Heating:DX:VariableRefrigerantFlow`
         Variable refrigerant flow (VRF) direct expansion (DX) heating coil (air-to-air heat
@@ -9986,6 +10006,8 @@ class CoilHeatingDxVariableRefrigerantFlow(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heating Capacity Modifier Function of Flow Fraction Curve Name"] = value
+
+
 
 
 class CoilHeatingWater(DataObject):
@@ -10362,6 +10384,8 @@ class CoilHeatingWater(DataObject):
         self["Rated Ratio for Air and Water Convection"] = value
 
 
+
+
 class CoilHeatingSteam(DataObject):
     """ Corresponds to IDD object `Coil:Heating:Steam`
         Steam heating coil. Condenses and sub-cools steam at loop pressure and discharges
@@ -10636,6 +10660,8 @@ class CoilHeatingSteam(DataObject):
         self["Temperature Setpoint Node Name"] = value
 
 
+
+
 class CoilHeatingElectric(DataObject):
     """ Corresponds to IDD object `Coil:Heating:Electric`
         Electric heating coil. If the coil is located directly in an air loop branch or
@@ -10813,6 +10839,8 @@ class CoilHeatingElectric(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Temperature Setpoint Node Name"] = value
+
+
 
 
 class CoilHeatingElectricMultiStage(DataObject):
@@ -11165,6 +11193,8 @@ class CoilHeatingElectricMultiStage(DataObject):
         self["Stage 4 Nominal Capacity"] = value
 
 
+
+
 class CoilHeatingGas(DataObject):
     """ Corresponds to IDD object `Coil:Heating:Gas`
         Gas heating coil. If the coil is located directly in an air loop branch or
@@ -11426,6 +11456,8 @@ class CoilHeatingGas(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Parasitic Gas Load"] = value
+
+
 
 
 class CoilHeatingGasMultiStage(DataObject):
@@ -11949,6 +11981,8 @@ class CoilHeatingGasMultiStage(DataObject):
         self["Stage 4 Parasitic Electric Load"] = value
 
 
+
+
 class CoilHeatingDesuperheater(DataObject):
     """ Corresponds to IDD object `Coil:Heating:Desuperheater`
         Desuperheater air heating coil. The heating energy provided by this coil is reclaimed
@@ -12175,6 +12209,8 @@ class CoilHeatingDesuperheater(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Parasitic Electric Load"] = value
+
+
 
 
 class CoilHeatingDxSingleSpeed(DataObject):
@@ -12844,6 +12880,8 @@ class CoilHeatingDxSingleSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Evaporator Air Inlet Node Name"] = value
+
+
 
 
 class CoilHeatingDxMultiSpeed(DataObject):
@@ -14542,6 +14580,8 @@ class CoilHeatingDxMultiSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Speed 4 Waste Heat Function of Temperature Curve Name"] = value
+
+
 
 
 class CoilHeatingDxVariableSpeed(DataObject):
@@ -16824,6 +16864,8 @@ class CoilHeatingDxVariableSpeed(DataObject):
         self["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = value
 
 
+
+
 class CoilCoolingWaterToAirHeatPumpParameterEstimation(DataObject):
     """ Corresponds to IDD object `Coil:Cooling:WaterToAirHeatPump:ParameterEstimation`
         Direct expansion (DX) cooling coil for water-to-air heat pump (includes electric
@@ -17522,6 +17564,8 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(DataObject):
         self["Source Side Heat Transfer Resistance2"] = value
 
 
+
+
 class CoilHeatingWaterToAirHeatPumpParameterEstimation(DataObject):
     """ Corresponds to IDD object `Coil:Heating:WaterToAirHeatPump:ParameterEstimation`
         Direct expansion (DX) heating coil for water-to-air heat pump (includes electric
@@ -18134,6 +18178,8 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Source Side Heat Transfer Resistance2"] = value
+
+
 
 
 class CoilCoolingWaterToAirHeatPumpEquationFit(DataObject):
@@ -18806,6 +18852,8 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity"] = value
+
+
 
 
 class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(DataObject):
@@ -22570,6 +22618,8 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(DataObject):
         self["Speed 10 Waste Heat Function of Temperature Curve Name"] = value
 
 
+
+
 class CoilHeatingWaterToAirHeatPumpEquationFit(DataObject):
     """ Corresponds to IDD object `Coil:Heating:WaterToAirHeatPump:EquationFit`
         Direct expansion (DX) heating coil for water-to-air heat pump (includes electric
@@ -23018,6 +23068,8 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heating Power Consumption Coefficient 5"] = value
+
+
 
 
 class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(DataObject):
@@ -26457,6 +26509,8 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(DataObject):
         self["Speed 10 Waste Heat Function of Temperature Curve Name"] = value
 
 
+
+
 class CoilWaterHeatingAirToWaterHeatPump(DataObject):
     """ Corresponds to IDD object `Coil:WaterHeating:AirToWaterHeatPump`
         Heat pump water heater (HPWH) heating coil, air-to-water direct-expansion (DX)
@@ -27244,6 +27298,8 @@ class CoilWaterHeatingAirToWaterHeatPump(DataObject):
         self["Part Load Fraction Correlation Curve Name"] = value
 
 
+
+
 class CoilWaterHeatingDesuperheater(DataObject):
     """ Corresponds to IDD object `Coil:WaterHeating:Desuperheater`
         Desuperheater air heating coil. The heating energy provided by this coil is reclaimed
@@ -27775,6 +27831,8 @@ class CoilWaterHeatingDesuperheater(DataObject):
         self["Off-Cycle Parasitic Electric Load"] = value
 
 
+
+
 class CoilSystemCoolingDx(DataObject):
     """ Corresponds to IDD object `CoilSystem:Cooling:DX`
         Virtual container component that consists of a DX cooling coil and its associated
@@ -28102,6 +28160,8 @@ class CoilSystemCoolingDx(DataObject):
         self["Outdoor Air DX Cooling Coil Leaving Minimum Air Temperature"] = value
 
 
+
+
 class CoilSystemHeatingDx(DataObject):
     """ Corresponds to IDD object `CoilSystem:Heating:DX`
         Virtual container component that consists of a DX heating coil (heat pump) and its
@@ -28203,6 +28263,8 @@ class CoilSystemHeatingDx(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Heating Coil Name"] = value
+
+
 
 
 class CoilSystemCoolingWaterHeatExchangerAssisted(DataObject):
@@ -28331,6 +28393,8 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(DataObject):
         self["Cooling Coil Name"] = value
 
 
+
+
 class CoilSystemCoolingDxHeatExchangerAssisted(DataObject):
     """ Corresponds to IDD object `CoilSystem:Cooling:DX:HeatExchangerAssisted`
         Virtual component consisting of a direct expansion (DX) cooling coil and an
@@ -28455,6 +28519,8 @@ class CoilSystemCoolingDxHeatExchangerAssisted(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Cooling Coil Name"] = value
+
+
 
 
 class CoilCoolingDxSingleSpeedThermalStorage(DataObject):
@@ -31392,3 +31458,5 @@ class CoilCoolingDxSingleSpeedThermalStorage(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Storage Tank Maximum Operating Limit Fluid Temperature"] = value
+
+

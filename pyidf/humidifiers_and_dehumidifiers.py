@@ -1,6 +1,8 @@
+""" Data objects in group "Humidifiers and Dehumidifiers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -234,6 +236,8 @@ class HumidifierSteamElectric(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Water Storage Tank Name"] = value
+
+
 
 
 class DehumidifierDesiccantNoFans(DataObject):
@@ -925,6 +929,8 @@ class DehumidifierDesiccantNoFans(DataObject):
         self["Nominal Regeneration Temperature"] = value
 
 
+
+
 class DehumidifierDesiccantSystem(DataObject):
     """ Corresponds to IDD object `Dehumidifier:Desiccant:System`
         This compound object models a desiccant heat exchanger, an optional
@@ -1363,3 +1369,5 @@ class DehumidifierDesiccantSystem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Exhaust Fan Power Curve Name"] = value
+
+

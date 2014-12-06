@@ -1,6 +1,8 @@
+""" Data objects in group "Zone HVAC Equipment Connections"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -103,6 +105,8 @@ class ZoneHvacEquipmentList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class ZoneHvacEquipmentConnections(DataObject):
@@ -251,3 +255,5 @@ class ZoneHvacEquipmentConnections(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Zone Return Air Node Name"] = value
+
+

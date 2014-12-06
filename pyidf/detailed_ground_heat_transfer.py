@@ -1,6 +1,8 @@
+""" Data objects in group "Detailed Ground Heat Transfer"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -86,6 +88,8 @@ class GroundHeatTransferControl(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Run Slab Preprocessor"] = value
+
+
 
 
 class GroundHeatTransferSlabMaterials(DataObject):
@@ -335,6 +339,8 @@ class GroundHeatTransferSlabMaterials(DataObject):
         self["HIN: Indoor HConv: Upward"] = value
 
 
+
+
 class GroundHeatTransferSlabMatlProps(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:MatlProps`
         This object contains the material properties for the materials
@@ -505,6 +511,8 @@ class GroundHeatTransferSlabMatlProps(DataObject):
         self["TCON: Soil k"] = value
 
 
+
+
 class GroundHeatTransferSlabBoundConds(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BoundConds`
         Supplies some of the boundary conditions used in the ground heat transfer calculations.
@@ -644,6 +652,8 @@ class GroundHeatTransferSlabBoundConds(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["USERH: User specified ground surface heat transfer coefficient"] = value
+
+
 
 
 class GroundHeatTransferSlabBldgProps(DataObject):
@@ -1109,6 +1119,8 @@ class GroundHeatTransferSlabBldgProps(DataObject):
         self["ConvTol: Convergence Tolerance"] = value
 
 
+
+
 class GroundHeatTransferSlabInsulation(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Insulation`
         This object supplies the information about insulation used around the slab.
@@ -1258,6 +1270,8 @@ class GroundHeatTransferSlabInsulation(DataObject):
         self["IVINS: Flag: Is there vertical insulation"] = value
 
 
+
+
 class GroundHeatTransferSlabEquivalentSlab(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:EquivalentSlab`
         Using an equivalent slab allows non-rectangular shapes to be modeled accurately.
@@ -1382,6 +1396,8 @@ class GroundHeatTransferSlabEquivalentSlab(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
+
+
 
 
 class GroundHeatTransferSlabAutoGrid(DataObject):
@@ -1521,6 +1537,8 @@ class GroundHeatTransferSlabAutoGrid(DataObject):
         self["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
 
 
+
+
 class GroundHeatTransferSlabManualGrid(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:ManualGrid`
         Manual Grid only necessary when using manual gridding (not recommended)
@@ -1650,6 +1668,8 @@ class GroundHeatTransferSlabManualGrid(DataObject):
         self["JBOX: Y direction cell indicator of slab edge"] = value
 
 
+
+
 class GroundHeatTransferBasementSimParameters(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SimParameters`
         Specifies certain parameters that control the Basement preprocessor ground heat
@@ -1707,6 +1727,8 @@ class GroundHeatTransferBasementSimParameters(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["IYRS: Maximum number of yearly iterations:"] = value
+
+
 
 
 class GroundHeatTransferBasementMatlProps(DataObject):
@@ -2192,6 +2214,8 @@ class GroundHeatTransferBasementMatlProps(DataObject):
         self["thermal conductivity for wood"] = value
 
 
+
+
 class GroundHeatTransferBasementInsulation(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Insulation`
         Describes the insulation used on an exterior basement wall for the Basement
@@ -2247,6 +2271,8 @@ class GroundHeatTransferBasementInsulation(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["INSFULL: Flag: Is the wall fully insulated?"] = value
+
+
 
 
 class GroundHeatTransferBasementSurfaceProps(DataObject):
@@ -2432,6 +2458,8 @@ class GroundHeatTransferBasementSurfaceProps(DataObject):
         self["PET: Flag, Potential evapotranspiration on?"] = value
 
 
+
+
 class GroundHeatTransferBasementBldgData(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:BldgData`
         Specifies the surface and gravel thicknesses used for the Basement
@@ -2565,6 +2593,8 @@ class GroundHeatTransferBasementBldgData(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["DGRAVZP: Gravel depth below the floor slab"] = value
+
+
 
 
 class GroundHeatTransferBasementInterior(DataObject):
@@ -2748,6 +2778,8 @@ class GroundHeatTransferBasementInterior(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = value
+
+
 
 
 class GroundHeatTransferBasementComBldg(DataObject):
@@ -3082,6 +3114,8 @@ class GroundHeatTransferBasementComBldg(DataObject):
         self["Daily variation sine wave amplitude"] = value
 
 
+
+
 class GroundHeatTransferBasementEquivSlab(DataObject):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivSlab`
         Using an equivalent slab allows non-rectangular shapes to be
@@ -3139,6 +3173,8 @@ class GroundHeatTransferBasementEquivSlab(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["EquivSizing: Flag"] = value
+
+
 
 
 class GroundHeatTransferBasementEquivAutoGrid(DataObject):
@@ -3221,6 +3257,8 @@ class GroundHeatTransferBasementEquivAutoGrid(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["BaseDepth: Depth of the basement wall below grade"] = value
+
+
 
 
 class GroundHeatTransferBasementAutoGrid(DataObject):
@@ -3379,6 +3417,8 @@ class GroundHeatTransferBasementAutoGrid(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["BaseDepth: Depth of the basement wall below grade"] = value
+
+
 
 
 class GroundHeatTransferBasementManualGrid(DataObject):
@@ -3551,3 +3591,5 @@ class GroundHeatTransferBasementManualGrid(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value
+
+

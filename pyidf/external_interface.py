@@ -1,6 +1,8 @@
+""" Data objects in group "External Interface"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -43,6 +45,8 @@ class ExternalInterface(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Name of External Interface"] = value
+
+
 
 
 class ExternalInterfaceSchedule(DataObject):
@@ -123,6 +127,8 @@ class ExternalInterfaceSchedule(DataObject):
         self["Initial Value"] = value
 
 
+
+
 class ExternalInterfaceVariable(DataObject):
     """ Corresponds to IDD object `ExternalInterface:Variable`
         This input object is similar to EnergyManagementSystem:GlobalVariable. However, at
@@ -181,6 +187,8 @@ class ExternalInterfaceVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Value"] = value
+
+
 
 
 class ExternalInterfaceActuator(DataObject):
@@ -310,6 +318,8 @@ class ExternalInterfaceActuator(DataObject):
         self["Optional Initial Value"] = value
 
 
+
+
 class ExternalInterfaceFunctionalMockupUnitImport(DataObject):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport`
         This object declares an FMU
@@ -386,6 +396,8 @@ class ExternalInterfaceFunctionalMockupUnitImport(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["FMU LoggingOn"] = value
+
+
 
 
 class ExternalInterfaceFunctionalMockupUnitImportFromVariable(DataObject):
@@ -508,6 +520,8 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["FMU Variable Name"] = value
+
+
 
 
 class ExternalInterfaceFunctionalMockupUnitImportToSchedule(DataObject):
@@ -655,6 +669,8 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Value"] = value
+
+
 
 
 class ExternalInterfaceFunctionalMockupUnitImportToActuator(DataObject):
@@ -852,6 +868,8 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(DataObject):
         self["Initial Value"] = value
 
 
+
+
 class ExternalInterfaceFunctionalMockupUnitImportToVariable(DataObject):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Variable`
         Declares Erl variable as having global scope
@@ -978,6 +996,8 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(DataObject):
         self["Initial Value"] = value
 
 
+
+
 class ExternalInterfaceFunctionalMockupUnitExportFromVariable(DataObject):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:From:Variable`
         This object declares an FMU input variable
@@ -1052,6 +1072,8 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["FMU Variable Name"] = value
+
+
 
 
 class ExternalInterfaceFunctionalMockupUnitExportToSchedule(DataObject):
@@ -1153,6 +1175,8 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Value"] = value
+
+
 
 
 class ExternalInterfaceFunctionalMockupUnitExportToActuator(DataObject):
@@ -1304,6 +1328,8 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(DataObject):
         self["Initial Value"] = value
 
 
+
+
 class ExternalInterfaceFunctionalMockupUnitExportToVariable(DataObject):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Variable`
         Declares Erl variable as having global scope
@@ -1382,3 +1408,5 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Initial Value"] = value
+
+

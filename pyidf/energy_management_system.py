@@ -1,6 +1,8 @@
+""" Data objects in group "Energy Management System"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -87,6 +89,8 @@ class EnergyManagementSystemSensor(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output:Variable or Output:Meter Name"] = value
+
+
 
 
 class EnergyManagementSystemActuator(DataObject):
@@ -190,6 +194,8 @@ class EnergyManagementSystemActuator(DataObject):
         self["Actuated Component Control Type"] = value
 
 
+
+
 class EnergyManagementSystemProgramCallingManager(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:ProgramCallingManager`
         Input EMS program. a program needs a name
@@ -279,6 +285,8 @@ class EnergyManagementSystemProgramCallingManager(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class EnergyManagementSystemProgram(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:Program`
         This input defines an Erl program
@@ -342,6 +350,8 @@ class EnergyManagementSystemProgram(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class EnergyManagementSystemSubroutine(DataObject):
@@ -409,6 +419,8 @@ class EnergyManagementSystemSubroutine(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class EnergyManagementSystemGlobalVariable(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:GlobalVariable`
         Declares Erl variable as having global scope
@@ -448,6 +460,8 @@ class EnergyManagementSystemGlobalVariable(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class EnergyManagementSystemOutputVariable(DataObject):
@@ -597,6 +611,8 @@ class EnergyManagementSystemOutputVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Units"] = value
+
+
 
 
 class EnergyManagementSystemMeteredOutputVariable(DataObject):
@@ -821,6 +837,8 @@ class EnergyManagementSystemMeteredOutputVariable(DataObject):
         self["Units"] = value
 
 
+
+
 class EnergyManagementSystemTrendVariable(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:TrendVariable`
         This object sets up an EMS trend variable from an Erl variable
@@ -901,6 +919,8 @@ class EnergyManagementSystemTrendVariable(DataObject):
         self["Number of Timesteps to be Logged"] = value
 
 
+
+
 class EnergyManagementSystemInternalVariable(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:InternalVariable`
         Declares EMS variable as an internal data variable
@@ -979,6 +999,8 @@ class EnergyManagementSystemInternalVariable(DataObject):
         self["Internal Data Type"] = value
 
 
+
+
 class EnergyManagementSystemCurveOrTableIndexVariable(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:CurveOrTableIndexVariable`
         Declares EMS variable that identifies a curve or table
@@ -1034,6 +1056,8 @@ class EnergyManagementSystemCurveOrTableIndexVariable(DataObject):
         self["Curve or Table Object Name"] = value
 
 
+
+
 class EnergyManagementSystemConstructionIndexVariable(DataObject):
     """ Corresponds to IDD object `EnergyManagementSystem:ConstructionIndexVariable`
         Declares EMS variable that identifies a construction
@@ -1087,3 +1111,5 @@ class EnergyManagementSystemConstructionIndexVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Construction Object Name"] = value
+
+

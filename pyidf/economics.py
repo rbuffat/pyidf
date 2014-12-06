@@ -1,6 +1,8 @@
+""" Data objects in group "Economics"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -38,6 +40,8 @@ class CurrencyType(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Monetary Unit"] = value
+
+
 
 
 class ComponentCostAdjustments(DataObject):
@@ -218,6 +222,8 @@ class ComponentCostAdjustments(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Regional Adjustment Factor"] = value
+
+
 
 
 class ComponentCostReference(DataObject):
@@ -425,6 +431,8 @@ class ComponentCostReference(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Reference Building Regional Adjustment Factor"] = value
+
+
 
 
 class ComponentCostLineItem(DataObject):
@@ -746,6 +754,8 @@ class ComponentCostLineItem(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Quantity"] = value
+
+
 
 
 class UtilityCostTariff(DataObject):
@@ -1150,6 +1160,8 @@ class UtilityCostTariff(DataObject):
         self["Buy Or Sell"] = value
 
 
+
+
 class UtilityCostQualify(DataObject):
     """ Corresponds to IDD object `UtilityCost:Qualify`
         The qualify object allows only tariffs to be selected based on limits which may apply
@@ -1367,6 +1379,8 @@ class UtilityCostQualify(DataObject):
         self["Number of Months"] = value
 
 
+
+
 class UtilityCostChargeSimple(DataObject):
     """ Corresponds to IDD object `UtilityCost:Charge:Simple`
         UtilityCost:Charge:Simple is one of the most often used objects for tariff
@@ -1537,6 +1551,8 @@ class UtilityCostChargeSimple(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Cost per Unit Value or Variable Name"] = value
+
+
 
 
 class UtilityCostChargeBlock(DataObject):
@@ -2501,6 +2517,8 @@ class UtilityCostChargeBlock(DataObject):
         self["Block 15 Cost per Unit Value or Variable Name"] = value
 
 
+
+
 class UtilityCostRatchet(DataObject):
     """ Corresponds to IDD object `UtilityCost:Ratchet`
         Allows the modeling of tariffs that include some type of seasonal ratcheting.
@@ -2717,6 +2735,8 @@ class UtilityCostRatchet(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Offset Value or Variable Name"] = value
+
+
 
 
 class UtilityCostVariable(DataObject):
@@ -3071,6 +3091,8 @@ class UtilityCostVariable(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["December Value"] = value
+
+
 
 
 class UtilityCostComputation(DataObject):
@@ -3823,6 +3845,8 @@ class UtilityCostComputation(DataObject):
         self["Compute Step 30"] = value
 
 
+
+
 class LifeCycleCostParameters(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:Parameters`
         Provides inputs related to the overall life-cycle analysis. It establishes many of
@@ -4183,6 +4207,8 @@ class LifeCycleCostParameters(DataObject):
         self["Depreciation Method"] = value
 
 
+
+
 class LifeCycleCostRecurringCosts(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:RecurringCosts`
         Recurring costs are costs that repeat over time on a regular schedule during the
@@ -4432,6 +4458,8 @@ class LifeCycleCostRecurringCosts(DataObject):
         self["Annual escalation rate"] = value
 
 
+
+
 class LifeCycleCostNonrecurringCost(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:NonrecurringCost`
         A non-recurring cost happens only once during the study period. For costs that occur
@@ -4599,6 +4627,8 @@ class LifeCycleCostNonrecurringCost(DataObject):
         self["Months from Start"] = value
 
 
+
+
 class LifeCycleCostUsePriceEscalation(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:UsePriceEscalation`
         Life cycle cost escalation factors. The values for this object may be found in the
@@ -4746,6 +4776,8 @@ class LifeCycleCostUsePriceEscalation(DataObject):
             self.add_extensible(*ext)
 
 
+
+
 class LifeCycleCostUseAdjustment(DataObject):
     """ Corresponds to IDD object `LifeCycleCost:UseAdjustment`
         Used by advanced users to adjust the energy or water use costs for future years. This
@@ -4834,3 +4866,5 @@ class LifeCycleCostUseAdjustment(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+

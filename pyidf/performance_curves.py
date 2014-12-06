@@ -1,6 +1,8 @@
+""" Data objects in group "Performance Curves"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -232,6 +234,8 @@ class CurveLinear(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveQuadLinear(DataObject):
@@ -721,6 +725,8 @@ class CurveQuadLinear(DataObject):
         self["Input Unit Type for z"] = value
 
 
+
+
 class CurveQuadratic(DataObject):
     """ Corresponds to IDD object `Curve:Quadratic`
         Quadratic curve with one independent variable.
@@ -968,6 +974,8 @@ class CurveQuadratic(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveCubic(DataObject):
@@ -1240,6 +1248,8 @@ class CurveCubic(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveQuartic(DataObject):
@@ -1538,6 +1548,8 @@ class CurveQuartic(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveExponent(DataObject):
     """ Corresponds to IDD object `Curve:Exponent`
         Exponent curve with one independent variable.
@@ -1788,6 +1800,8 @@ class CurveExponent(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveBicubic(DataObject):
@@ -2273,6 +2287,8 @@ class CurveBicubic(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveBiquadratic(DataObject):
     """ Corresponds to IDD object `Curve:Biquadratic`
         Quadratic curve with two independent variables. Input consists of the curve name, the
@@ -2663,6 +2679,8 @@ class CurveBiquadratic(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveQuadraticLinear(DataObject):
     """ Corresponds to IDD object `Curve:QuadraticLinear`
         Quadratic-linear curve with two independent variables. Input consists of the curve
@@ -3051,6 +3069,8 @@ class CurveQuadraticLinear(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveTriquadratic(DataObject):
@@ -4004,6 +4024,8 @@ class CurveTriquadratic(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveFunctionalPressureDrop(DataObject):
     """ Corresponds to IDD object `Curve:Functional:PressureDrop`
         Sets up curve information for minor loss and/or friction
@@ -4159,6 +4181,8 @@ class CurveFunctionalPressureDrop(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Fixed Friction Factor"] = value
+
+
 
 
 class CurveFanPressureRise(DataObject):
@@ -4440,6 +4464,8 @@ class CurveFanPressureRise(DataObject):
         self["Maximum Curve Output"] = value
 
 
+
+
 class CurveExponentialSkewNormal(DataObject):
     """ Corresponds to IDD object `Curve:ExponentialSkewNormal`
         Exponential-modified skew normal curve with one independent variable.
@@ -4711,6 +4737,8 @@ class CurveExponentialSkewNormal(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveSigmoid(DataObject):
@@ -5009,6 +5037,8 @@ class CurveSigmoid(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveRectangularHyperbola1(DataObject):
     """ Corresponds to IDD object `Curve:RectangularHyperbola1`
         Rectangular hyperbola type 1 curve with one independent variable.
@@ -5256,6 +5286,8 @@ class CurveRectangularHyperbola1(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveRectangularHyperbola2(DataObject):
@@ -5507,6 +5539,8 @@ class CurveRectangularHyperbola2(DataObject):
         self["Output Unit Type"] = value
 
 
+
+
 class CurveExponentialDecay(DataObject):
     """ Corresponds to IDD object `Curve:ExponentialDecay`
         Exponential decay curve with one independent variable.
@@ -5754,6 +5788,8 @@ class CurveExponentialDecay(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+
 
 
 class CurveDoubleExponentialDecay(DataObject):
@@ -6049,3 +6085,5 @@ class CurveDoubleExponentialDecay(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Output Unit Type"] = value
+
+

@@ -1,6 +1,8 @@
+""" Data objects in group "Controllers"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -237,6 +239,8 @@ class ControllerWaterCoil(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Minimum Actuated Flow"] = value
+
+
 
 
 class ControllerOutdoorAir(DataObject):
@@ -909,6 +913,8 @@ class ControllerOutdoorAir(DataObject):
         self["Heat Recovery Bypass Control Type"] = value
 
 
+
+
 class ControllerMechanicalVentilation(DataObject):
     """ Corresponds to IDD object `Controller:MechanicalVentilation`
         This object is used in conjuction with Controller:OutdoorAir to specify outdoor
@@ -1088,6 +1094,8 @@ class ControllerMechanicalVentilation(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class AirLoopHvacControllerList(DataObject):
@@ -1486,3 +1494,5 @@ class AirLoopHvacControllerList(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Controller 8 Name"] = value
+
+

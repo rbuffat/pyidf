@@ -1,6 +1,8 @@
+""" Data objects in group "Pumps"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -70,6 +72,8 @@ class BranchList(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class PumpVariableSpeed(DataObject):
@@ -699,6 +703,8 @@ class PumpVariableSpeed(DataObject):
         self["Skin Loss Radiative Fraction"] = value
 
 
+
+
 class PumpConstantSpeed(DataObject):
     """ Corresponds to IDD object `Pump:ConstantSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
@@ -1087,6 +1093,8 @@ class PumpConstantSpeed(DataObject):
         self["Skin Loss Radiative Fraction"] = value
 
 
+
+
 class PumpVariableSpeedCondensate(DataObject):
     """ Corresponds to IDD object `Pump:VariableSpeed:Condensate`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
@@ -1463,6 +1471,8 @@ class PumpVariableSpeedCondensate(DataObject):
         self["Skin Loss Radiative Fraction"] = value
 
 
+
+
 class HeaderedPumpsConstantSpeed(DataObject):
     """ Corresponds to IDD object `HeaderedPumps:ConstantSpeed`
         This Headered pump object describes a pump bank with more than 1 pump in parallel
@@ -1818,6 +1828,8 @@ class HeaderedPumpsConstantSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Skin Loss Radiative Fraction"] = value
+
+
 
 
 class HeaderedPumpsVariableSpeed(DataObject):
@@ -2293,3 +2305,5 @@ class HeaderedPumpsVariableSpeed(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Skin Loss Radiative Fraction"] = value
+
+

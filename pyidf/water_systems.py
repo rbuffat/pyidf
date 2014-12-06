@@ -1,6 +1,8 @@
+""" Data objects in group "Water Systems"
+"""
+
 from collections import OrderedDict
 import logging
-import re
 from helper import DataObject
 
 logger = logging.getLogger("pyidf")
@@ -256,6 +258,8 @@ class WaterUseEquipment(DataObject):
             ValueError: if `value` is not a valid value
         """
         self["Latent Fraction Schedule Name"] = value
+
+
 
 
 class WaterUseConnections(DataObject):
@@ -536,6 +540,8 @@ class WaterUseConnections(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
 
 
 class WaterUseStorage(DataObject):
@@ -1027,6 +1033,8 @@ class WaterUseStorage(DataObject):
         self["Tank Outside Surface Material Name"] = value
 
 
+
+
 class WaterUseWell(DataObject):
     """ Corresponds to IDD object `WaterUse:Well`
         Simulates on-site water supply from a well. Well water is pumped out of the ground
@@ -1320,6 +1328,8 @@ class WaterUseWell(DataObject):
         self["Water Table Depth Schedule Name"] = value
 
 
+
+
 class WaterUseRainCollector(DataObject):
     """ Corresponds to IDD object `WaterUse:RainCollector`
         Used for harvesting rainwater falling on building surfaces. The rainwater is sent to a
@@ -1503,3 +1513,5 @@ class WaterUseRainCollector(DataObject):
         self._extdata = []
         for ext in extensibles:
             self.add_extensible(*ext)
+
+
