@@ -35,21 +35,21 @@ class DataObject(object):
 
         elif isinstance(key, tuple):
             if (not len(key) == 2
-                    and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
+                    or not isinstance(key[0], six.string_types) or not isinstance(key[1], int)):
                 raise TypeError("{} is not a tuple(str, int) "
                                 "with length 2 for object {}".format(str(key),
                                                                      self.schema['pyname']))
-                key_name = key[0].lower()
-                if key_name not in self.schema['extensible-fields']:
-                    raise KeyError("{} is not an extensible field "
-                                   " name for object {}".format(key[0],
-                                                                self.schema['pyname']))
-                while len(self._extdata) <= key[1]:
-                    self._extdata.append([None] * len(self.schema['extensible-fields']))
+            key_name = key[0].lower()
+            if key_name not in self.schema['extensible-fields']:
+                raise KeyError("{} is not an extensible field "
+                               " name for object {}".format(key[0],
+                                                            self.schema['pyname']))
+            while len(self._extdata) <= key[1]:
+                self._extdata.append([None] * len(self.schema['extensible-fields']))
 
-                ind = self.schema['extensible-fields'].index(key_name)
-                value = self.check_value(key_name, value)
-                self._extdata[key[1]][ind] = value
+            ind = self.schema['extensible-fields'].keys().index(key_name)
+            value = self.check_value(key_name, value)
+            self._extdata[key[1]][ind] = value
 
         else:
             raise TypeError("{} not found in {}".format(key,
@@ -67,23 +67,23 @@ class DataObject(object):
 
         elif isinstance(key, tuple):
             if (not len(key) == 2
-                    and isinstance(key[0], six.string_types) and isinstance(key[1], int)):
+                    or not isinstance(key[0], six.string_types) or not isinstance(key[1], int)):
                 raise TypeError("{} is not a tuple(str, int) "
                                 "with length 2 for object {}".format(str(key),
                                                                      self.schema['pyname']))
-                key_name = key[0].lower()
-                if key_name not in self.schema['extensible-fields']:
-                    raise KeyError("{} is not an extensible field "
-                                   " name for object {}".format(key[0],
-                                                                self.schema['pyname']))
+            key_name = key[0].lower()
+            if key_name not in self.schema['extensible-fields']:
+                raise KeyError("{} is not an extensible field "
+                               " name for object {}".format(key[0],
+                                                            self.schema['pyname']))
 
-                if len(self._extdata) < key[1]:
-                    raise IndexError("Only {} extensible values available, key asks for value {}"
-                                     " for object {}".format(len(self._extdata),
-                                                             key[1],
-                                                             self.schema['pyname']))
-                key_pos = self.schema['extensible-fields'].index(key_name)
-                return self._extdata[key[1]][key_pos]
+            if len(self._extdata) < key[1]:
+                raise IndexError("Only {} extensible values available, key asks for value {}"
+                                 " for object {}".format(len(self._extdata),
+                                                         key[1],
+                                                         self.schema['pyname']))
+            key_pos = self.schema['extensible-fields'].keys().index(key_name)
+            return self._extdata[key[1]][key_pos]
 
         elif isinstance(key, int):
             i = key

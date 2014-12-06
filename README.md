@@ -122,3 +122,22 @@ bsd.name = "test"
 
 idf.add(bsd)
 ```
+
+Extensible fields can be added with add_extensibles:
+
+```python
+bsd.add_extensible(1.0, 2.0, 3.0)
+```
+
+Changing single values of extensible fields can be altered by passing a tuple (field name, index):
+
+```python
+print bsd[(u'Vertex 1 Y-coordinate', 4)]
+bsd[(u'Vertex 1 Y-coordinate', 4)] = 11.0
+print bsd[(u'Vertex 1 Y-coordinate', 4)]
+```
+
+All values with corresponding keys can be access by items:
+```python
+print bsd.items()
+```
