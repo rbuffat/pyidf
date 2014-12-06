@@ -24,7 +24,7 @@ Python library to read, modify and create EnergyPlus idf files
 
 ### Validation levels
 
-Pyidf supports four different levels of validation. `ValidationLevel.no` does not perform any validation. `ValidationLevel.warn` issues warnings for all values not following the specification. `ValidationLevel.transition` tries to transition values to follow the specification. This includes casting float values to integers, matching values for choice types to values from the specification and setting default values for required fields when no value was given. For values it is not possible to match or cast, a warning is issued. `ValidationLevel.error` issues exceptions when a value is not according the specification. The default validation level is `ValidationLevel.transition`. The level can be changed with:
+Pyidf supports four different levels of validation. `ValidationLevel.no` does not perform any validation. `ValidationLevel.warn` issues warnings for all values not following the specification. `ValidationLevel.transition` tries to transition values to follow the specification. This includes casting float values to integers, matching values of choice types to values from the specification and setting default values for required fields when no value is set. For values not possible to match or cast, a warning is issued. `ValidationLevel.error` issues exceptions when a value is not valid according the specification. The default validation level is `ValidationLevel.transition`. The level can be changed with:
 
 ```python
 from pyidf import ValidationLevel
@@ -71,7 +71,7 @@ for obj in idf:
     print obj
 ```
 
-There are two types of fields. Normal fields and extensible fields. Normal fields exists only once while extensible fields can exist multiple times. Normal fields of a data object can similarly be accessed as data objects by their name, corresponding property or additionally by their position:
+There are two types of fields. Normal fields and extensible fields. Normal fields exists only once while extensible fields can exist multiple times. Normal fields of a data object can similarly be accessed as data objects by their name, corresponding property or additionally by their index:
 
 ```python
 print idf['Building'][0]['Name']
@@ -100,10 +100,25 @@ Extensible fields can be accessed with:
 print idf.buildingsurfacedetaileds[0].extensibles
 ```
 
-For example for `BuildingSurface:Detailed` the extensible fields are vertexes consisting of x,y,z values. The following codes adds one to all vertex coordinates:
+For example for `BuildingSurface:Detailed` the extensible fields are vertexes consisting of x,y,z values. The following code adds one to all coordinates:
+
 ```python
 print idf["BuildingSurface:Detailed"][0].schema['extensible-fields'].keys()
 a = idf.buildingsurfacedetaileds[0].extensibles
 b = [map(lambda x: x + 1, ext) for ext in a]
 idf.buildingsurfacedetaileds[0].extensibles = b
+```
+
+### Creating data objects
+
+The following code creates a new `BuildingSurfaceDetailed` object and fills the values from an existing object: 
+
+```python
+bsd = BuildingSurfaceDetailed()
+for key in bsd.schema['fields']:
+    bsd[key] = idf.buildingsurfacedetaileds[0][key]
+bsd.extensibles = idf.buildingsurfacedetaileds[0].extensibles
+bsd.name = "test"
+
+idf.add(bsd)
 ```
