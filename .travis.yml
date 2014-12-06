@@ -13,6 +13,6 @@ install:
   - "pip install -e ."
 script: 
   - nosetests --exclude-dir=generator
-  - coverage run --source=pyidf --omit='*/generator/*,*/tests/*'
+  - coverage run --source=pyidf --omit='*/generator/*,*/tests/*' -m nose --exclude test_class
 after_success:
   - coveralls
