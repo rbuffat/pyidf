@@ -6,7 +6,7 @@ python:
   - "3.4"
 # command to install dependencies
 install:
-  - pip install nose-exclude
+  - "pip install nose-exclude"
   - "pip install -r requirements.txt"
   - "pip install pytest"
   - "pip install coveralls"
