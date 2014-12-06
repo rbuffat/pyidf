@@ -192,7 +192,7 @@ class IDF(object):
                                                 break
                                             j += 1
                                         val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
-                                        comment = " Fields {} - {}".format(i + 1, j + 1)
+                                        comment = "Fields {} - {}".format(i + 1, j + 1)
                                         i += (j - i)
                                     else: 
                                         val = vals[i][1]

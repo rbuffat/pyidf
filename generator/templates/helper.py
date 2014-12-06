@@ -54,6 +54,17 @@ class DataObject(object):
             value = self.check_value(key_name, value)
             self._extdata[key[1]][ind] = value
 
+        elif isinstance(key, int):
+            if key < len(self.schema['fields']):
+                field_name = self.schema['fields'].keys()[key]
+                self[field_name] = value
+            else:
+                i = key - len(self.schema['fields'])
+                group = int(i / len(self.schema['extensible-fields']))
+                item = i % len(self.schema['extensible-fields'])
+                field_name = self.schema['extensible-fields'].keys()[item]
+                self[(field_name, group)] = value
+
         else:
             raise TypeError("{} not found in {}".format(key,
                                                         self.schema['pyname']))
@@ -460,7 +471,6 @@ class DataObject(object):
                 if strict:
                     raise ValueError("Required field {}.{} is None".format(self.schema['pyname'],
                                                                            field['pyname']))
-                    break
                 else:
                     logger.warn("Required field {}.{} is None".format(self.schema['pyname'],
                                                                       field['pyname']))

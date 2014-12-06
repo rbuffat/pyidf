@@ -24,7 +24,7 @@ Python library to read, modify and create EnergyPlus idf files
 
 ### Validation levels
 
-Pyidf supports four different levels of validation. `ValidationLevel.no` does not perform any validation. `ValidationLevel.warn` issues warnings for all values not following the specification. `ValidationLevel.transition` tries to transition values to follow the specification. This includes casting float values to integers, matching values of choice types to values from the specification and setting default values for required fields when no value is set. For values not possible to match or cast, a warning is issued. `ValidationLevel.error` issues exceptions when a value is not valid according the specification. The default validation level is `ValidationLevel.transition`. The level can be changed with:
+Pyidf supports four different levels of validation. `ValidationLevel.no` does not perform any validation. `ValidationLevel.warn` issues warnings for all values not following the specification. `ValidationLevel.transition` tries to transition values to follow the specification. This includes casting float values to integers, matching values of choice types to values from the specification and setting default values for required fields when no value is set. For values not possible to match or cast, a warning is issued. `ValidationLevel.error` issues exceptions when a value is not valid according the specification. The default validation level is `ValidationLevel.transition`. The validation level can be changed with:
 
 ```python
 from pyidf import ValidationLevel
