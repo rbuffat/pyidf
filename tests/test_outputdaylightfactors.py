@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.daylighting import OutputDaylightFactors
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.daylighting import OutputDaylightFactors
 
+log = logging.getLogger(__name__)
 
 class TestOutputDaylightFactors(unittest.TestCase):
 
@@ -30,7 +32,7 @@ class TestOutputDaylightFactors(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputdaylightfactorss[0].reporting_days, var_reporting_days)

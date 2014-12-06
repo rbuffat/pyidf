@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputControlTableStyle
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputControlTableStyle
 
+log = logging.getLogger(__name__)
 
 class TestOutputControlTableStyle(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestOutputControlTableStyle(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputcontroltablestyles[0].column_separator, var_column_separator)

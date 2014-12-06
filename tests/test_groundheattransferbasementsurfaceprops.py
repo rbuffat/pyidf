@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSurfaceProps
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSurfaceProps
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementSurfaceProps(unittest.TestCase):
 
@@ -48,7 +50,7 @@ class TestGroundHeatTransferBasementSurfaceProps(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementsurfacepropss[0].albedo_surface_albedo_for_no_snow_conditions, var_albedo_surface_albedo_for_no_snow_conditions)

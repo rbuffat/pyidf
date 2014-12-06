@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import EnvironmentalImpactFactors
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import EnvironmentalImpactFactors
 
+log = logging.getLogger(__name__)
 
 class TestEnvironmentalImpactFactors(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestEnvironmentalImpactFactors(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.environmentalimpactfactorss[0].district_heating_efficiency, var_district_heating_efficiency)

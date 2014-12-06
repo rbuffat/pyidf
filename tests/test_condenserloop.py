@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.plant import CondenserLoop
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.plant import CondenserLoop
 
+log = logging.getLogger(__name__)
 
 class TestCondenserLoop(unittest.TestCase):
 
@@ -87,7 +89,7 @@ class TestCondenserLoop(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.condenserloops[0].name, var_name)

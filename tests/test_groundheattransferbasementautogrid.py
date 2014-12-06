@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementAutoGrid
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementAutoGrid
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementAutoGrid(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestGroundHeatTransferBasementAutoGrid(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementautogrids[0].clearance_distance_from_outside_of_wall_to_edge_, var_clearance_distance_from_outside_of_wall_to_edge_)

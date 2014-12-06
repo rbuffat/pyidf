@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputControlReportingTolerances
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputControlReportingTolerances
 
+log = logging.getLogger(__name__)
 
 class TestOutputControlReportingTolerances(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestOutputControlReportingTolerances(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.outputcontrolreportingtolerancess[0].tolerance_for_time_heating_setpoint_not_met, var_tolerance_for_time_heating_setpoint_not_met)

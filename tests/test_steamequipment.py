@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.internal_gains import SteamEquipment
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.internal_gains import SteamEquipment
 
+log = logging.getLogger(__name__)
 
 class TestSteamEquipment(unittest.TestCase):
 
@@ -60,7 +62,7 @@ class TestSteamEquipment(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.steamequipments[0].name, var_name)

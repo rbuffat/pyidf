@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.room_air_models import GroundHeatTransferBasementYface
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.room_air_models import GroundHeatTransferBasementYface
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementYface(unittest.TestCase):
 
@@ -27,6 +29,6 @@ class TestGroundHeatTransferBasementYface(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)

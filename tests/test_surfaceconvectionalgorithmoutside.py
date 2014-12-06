@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import SurfaceConvectionAlgorithmOutside
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import SurfaceConvectionAlgorithmOutside
 
+log = logging.getLogger(__name__)
 
 class TestSurfaceConvectionAlgorithmOutside(unittest.TestCase):
 
@@ -30,7 +32,7 @@ class TestSurfaceConvectionAlgorithmOutside(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.surfaceconvectionalgorithmoutsides[0].algorithm, var_algorithm)

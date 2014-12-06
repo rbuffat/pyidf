@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericDecaySource
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.internal_gains import ZoneContaminantSourceAndSinkGenericDecaySource
 
+log = logging.getLogger(__name__)
 
 class TestZoneContaminantSourceAndSinkGenericDecaySource(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestZoneContaminantSourceAndSinkGenericDecaySource(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.zonecontaminantsourceandsinkgenericdecaysources[0].name, var_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputControlSurfaceColorScheme
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputControlSurfaceColorScheme
 
+log = logging.getLogger(__name__)
 
 class TestOutputControlSurfaceColorScheme(unittest.TestCase):
 
@@ -120,7 +122,7 @@ class TestOutputControlSurfaceColorScheme(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputcontrolsurfacecolorschemes[0].name, var_name)

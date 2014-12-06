@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.water_systems import WaterUseConnections
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.water_systems import WaterUseConnections
 
+log = logging.getLogger(__name__)
 
 class TestWaterUseConnections(unittest.TestCase):
 
@@ -62,7 +64,7 @@ class TestWaterUseConnections(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.wateruseconnectionss[0].name, var_name)

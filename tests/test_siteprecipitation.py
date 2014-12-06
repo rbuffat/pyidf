@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.location_and_climate import SitePrecipitation
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.location_and_climate import SitePrecipitation
 
+log = logging.getLogger(__name__)
 
 class TestSitePrecipitation(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestSitePrecipitation(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.siteprecipitations[0].precipitation_model_type, var_precipitation_model_type)

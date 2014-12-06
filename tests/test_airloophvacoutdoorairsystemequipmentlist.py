@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.air_distribution import AirLoopHvacOutdoorAirSystemEquipmentList
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.air_distribution import AirLoopHvacOutdoorAirSystemEquipmentList
 
+log = logging.getLogger(__name__)
 
 class TestAirLoopHvacOutdoorAirSystemEquipmentList(unittest.TestCase):
 
@@ -84,7 +86,7 @@ class TestAirLoopHvacOutdoorAirSystemEquipmentList(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airloophvacoutdoorairsystemequipmentlists[0].name, var_name)

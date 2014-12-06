@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.evaporative_coolers import EvaporativeCoolerDirectResearchSpecial
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.evaporative_coolers import EvaporativeCoolerDirectResearchSpecial
 
+log = logging.getLogger(__name__)
 
 class TestEvaporativeCoolerDirectResearchSpecial(unittest.TestCase):
 
@@ -57,7 +59,7 @@ class TestEvaporativeCoolerDirectResearchSpecial(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.evaporativecoolerdirectresearchspecials[0].name, var_name)

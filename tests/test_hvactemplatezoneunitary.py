@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.hvac_templates import HvactemplateZoneUnitary
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.hvac_templates import HvactemplateZoneUnitary
 
+log = logging.getLogger(__name__)
 
 class TestHvactemplateZoneUnitary(unittest.TestCase):
 
@@ -96,7 +98,7 @@ class TestHvactemplateZoneUnitary(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.hvactemplatezoneunitarys[0].zone_name, var_zone_name)

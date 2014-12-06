@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSimParameters
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementSimParameters
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementSimParameters(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestGroundHeatTransferBasementSimParameters(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementsimparameterss[0].f_multiplier_for_the_adi_solution, var_f_multiplier_for_the_adi_solution)

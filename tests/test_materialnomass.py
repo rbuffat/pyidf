@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.surface_construction_elements import MaterialNoMass
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.surface_construction_elements import MaterialNoMass
 
+log = logging.getLogger(__name__)
 
 class TestMaterialNoMass(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestMaterialNoMass(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.materialnomasss[0].name, var_name)

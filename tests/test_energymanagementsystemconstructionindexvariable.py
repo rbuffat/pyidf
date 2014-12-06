@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.energy_management_system import EnergyManagementSystemConstructionIndexVariable
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.energy_management_system import EnergyManagementSystemConstructionIndexVariable
 
+log = logging.getLogger(__name__)
 
 class TestEnergyManagementSystemConstructionIndexVariable(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestEnergyManagementSystemConstructionIndexVariable(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.energymanagementsystemconstructionindexvariables[0].name, var_name)

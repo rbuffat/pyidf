@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.fluid_properties import FluidPropertiesName
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.fluid_properties import FluidPropertiesName
 
+log = logging.getLogger(__name__)
 
 class TestFluidPropertiesName(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestFluidPropertiesName(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.fluidpropertiesnames[0].fluid_name, var_fluid_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctConstantVolumeCooledBeam
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctConstantVolumeCooledBeam
 
+log = logging.getLogger(__name__)
 
 class TestAirTerminalSingleDuctConstantVolumeCooledBeam(unittest.TestCase):
 
@@ -96,7 +98,7 @@ class TestAirTerminalSingleDuctConstantVolumeCooledBeam(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airterminalsingleductconstantvolumecooledbeams[0].name, var_name)

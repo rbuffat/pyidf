@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.evaporative_coolers import EvaporativeCoolerIndirectCelDekPad
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.evaporative_coolers import EvaporativeCoolerIndirectCelDekPad
 
+log = logging.getLogger(__name__)
 
 class TestEvaporativeCoolerIndirectCelDekPad(unittest.TestCase):
 
@@ -69,7 +71,7 @@ class TestEvaporativeCoolerIndirectCelDekPad(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.evaporativecoolerindirectceldekpads[0].name, var_name)

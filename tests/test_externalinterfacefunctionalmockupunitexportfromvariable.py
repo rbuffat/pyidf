@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportFromVariable
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.external_interface import ExternalInterfaceFunctionalMockupUnitExportFromVariable
 
+log = logging.getLogger(__name__)
 
 class TestExternalInterfaceFunctionalMockupUnitExportFromVariable(unittest.TestCase):
 
@@ -36,7 +38,7 @@ class TestExternalInterfaceFunctionalMockupUnitExportFromVariable(unittest.TestC
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.externalinterfacefunctionalmockupunitexportfromvariables[0].outputvariable_index_key_name, var_outputvariable_index_key_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.economics import UtilityCostChargeSimple
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.economics import UtilityCostChargeSimple
 
+log = logging.getLogger(__name__)
 
 class TestUtilityCostChargeSimple(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestUtilityCostChargeSimple(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.utilitycostchargesimples[0].name, var_name)

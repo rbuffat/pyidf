@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.room_air_models import RoomAirSettingsThreeNodeDisplacementVentilation
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.room_air_models import RoomAirSettingsThreeNodeDisplacementVentilation
 
+log = logging.getLogger(__name__)
 
 class TestRoomAirSettingsThreeNodeDisplacementVentilation(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestRoomAirSettingsThreeNodeDisplacementVentilation(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.roomairsettingsthreenodedisplacementventilations[0].zone_name, var_zone_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.setpoint_managers import SetpointManagerColdest
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.setpoint_managers import SetpointManagerColdest
 
+log = logging.getLogger(__name__)
 
 class TestSetpointManagerColdest(unittest.TestCase):
 
@@ -48,7 +50,7 @@ class TestSetpointManagerColdest(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.setpointmanagercoldests[0].name, var_name)

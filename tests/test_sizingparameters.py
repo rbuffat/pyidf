@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.hvac_design_objects import SizingParameters
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.hvac_design_objects import SizingParameters
 
+log = logging.getLogger(__name__)
 
 class TestSizingParameters(unittest.TestCase):
 
@@ -36,7 +38,7 @@ class TestSizingParameters(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.sizingparameterss[0].heating_sizing_factor, var_heating_sizing_factor)

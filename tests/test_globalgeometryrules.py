@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.thermal_zones_and_surfaces import GlobalGeometryRules
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.thermal_zones_and_surfaces import GlobalGeometryRules
 
+log = logging.getLogger(__name__)
 
 class TestGlobalGeometryRules(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestGlobalGeometryRules(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.globalgeometryruless[0].starting_vertex_position, var_starting_vertex_position)

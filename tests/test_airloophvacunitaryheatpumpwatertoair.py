@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatPumpWaterToAir
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.unitary_equipment import AirLoopHvacUnitaryHeatPumpWaterToAir
 
+log = logging.getLogger(__name__)
 
 class TestAirLoopHvacUnitaryHeatPumpWaterToAir(unittest.TestCase):
 
@@ -108,7 +110,7 @@ class TestAirLoopHvacUnitaryHeatPumpWaterToAir(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airloophvacunitaryheatpumpwatertoairs[0].name, var_name)

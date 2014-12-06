@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.parametrics import ParametricLogic
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.parametrics import ParametricLogic
 
+log = logging.getLogger(__name__)
 
 class TestParametricLogic(unittest.TestCase):
 
@@ -35,7 +37,7 @@ class TestParametricLogic(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.parametriclogics[0].name, var_name)

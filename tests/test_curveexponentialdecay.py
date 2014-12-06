@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.performance_curves import CurveExponentialDecay
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.performance_curves import CurveExponentialDecay
 
+log = logging.getLogger(__name__)
 
 class TestCurveExponentialDecay(unittest.TestCase):
 
@@ -57,7 +59,7 @@ class TestCurveExponentialDecay(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.curveexponentialdecays[0].name, var_name)

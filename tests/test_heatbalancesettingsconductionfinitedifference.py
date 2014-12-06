@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import HeatBalanceSettingsConductionFiniteDifference
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import HeatBalanceSettingsConductionFiniteDifference
 
+log = logging.getLogger(__name__)
 
 class TestHeatBalanceSettingsConductionFiniteDifference(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestHeatBalanceSettingsConductionFiniteDifference(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.heatbalancesettingsconductionfinitedifferences[0].difference_scheme, var_difference_scheme)

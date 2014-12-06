@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantSurfaceGroup
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.zone_hvac_radiative import ZoneHvacLowTemperatureRadiantSurfaceGroup
 
+log = logging.getLogger(__name__)
 
 class TestZoneHvacLowTemperatureRadiantSurfaceGroup(unittest.TestCase):
 
@@ -37,7 +39,7 @@ class TestZoneHvacLowTemperatureRadiantSurfaceGroup(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.zonehvaclowtemperatureradiantsurfacegroups[0].name, var_name)

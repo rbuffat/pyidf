@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneZone
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneZone
 
+log = logging.getLogger(__name__)
 
 class TestAirflowNetworkMultiZoneZone(unittest.TestCase):
 
@@ -60,7 +62,7 @@ class TestAirflowNetworkMultiZoneZone(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airflownetworkmultizonezones[0].zone_name, var_zone_name)

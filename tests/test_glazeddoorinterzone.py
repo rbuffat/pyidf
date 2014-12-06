@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.thermal_zones_and_surfaces import GlazedDoorInterzone
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.thermal_zones_and_surfaces import GlazedDoorInterzone
 
+log = logging.getLogger(__name__)
 
 class TestGlazedDoorInterzone(unittest.TestCase):
 
@@ -54,7 +56,7 @@ class TestGlazedDoorInterzone(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.glazeddoorinterzones[0].name, var_name)

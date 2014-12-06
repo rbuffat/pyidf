@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavHeatAndCoolReheat
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.zone_hvac_air_loop_terminal_units import AirTerminalSingleDuctVavHeatAndCoolReheat
 
+log = logging.getLogger(__name__)
 
 class TestAirTerminalSingleDuctVavHeatAndCoolReheat(unittest.TestCase):
 
@@ -69,7 +71,7 @@ class TestAirTerminalSingleDuctVavHeatAndCoolReheat(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airterminalsingleductvavheatandcoolreheats[0].name, var_name)

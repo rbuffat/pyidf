@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.location_and_climate import SiteGroundTemperatureFcfactorMethod
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.location_and_climate import SiteGroundTemperatureFcfactorMethod
 
+log = logging.getLogger(__name__)
 
 class TestSiteGroundTemperatureFcfactorMethod(unittest.TestCase):
 
@@ -63,7 +65,7 @@ class TestSiteGroundTemperatureFcfactorMethod(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.sitegroundtemperaturefcfactormethods[0].january_ground_temperature, var_january_ground_temperature)

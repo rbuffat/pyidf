@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementMatlProps
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementMatlProps
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementMatlProps(unittest.TestCase):
 
@@ -84,7 +86,7 @@ class TestGroundHeatTransferBasementMatlProps(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementmatlpropss[0].nmat_number_of_materials_in_this_domain, var_nmat_number_of_materials_in_this_domain)

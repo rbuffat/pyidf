@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBoundConds
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBoundConds
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferSlabBoundConds(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestGroundHeatTransferSlabBoundConds(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.groundheattransferslabboundcondss[0].evtr_is_surface_evapotranspiration_modeled, var_evtr_is_surface_evapotranspiration_modeled)

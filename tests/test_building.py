@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import Building
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import Building
 
+log = logging.getLogger(__name__)
 
 class TestBuilding(unittest.TestCase):
 
@@ -51,7 +53,7 @@ class TestBuilding(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.buildings[0].name, var_name)

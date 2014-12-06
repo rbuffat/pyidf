@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.hvac_design_objects import SizingSystem
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.hvac_design_objects import SizingSystem
 
+log = logging.getLogger(__name__)
 
 class TestSizingSystem(unittest.TestCase):
 
@@ -135,7 +137,7 @@ class TestSizingSystem(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.sizingsystems[0].airloop_name, var_airloop_name)

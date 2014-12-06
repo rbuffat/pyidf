@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentConstantPressureDrop
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkDistributionComponentConstantPressureDrop
 
+log = logging.getLogger(__name__)
 
 class TestAirflowNetworkDistributionComponentConstantPressureDrop(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestAirflowNetworkDistributionComponentConstantPressureDrop(unittest.TestC
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airflownetworkdistributioncomponentconstantpressuredrops[0].name, var_name)

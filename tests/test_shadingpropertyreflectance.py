@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.thermal_zones_and_surfaces import ShadingPropertyReflectance
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.thermal_zones_and_surfaces import ShadingPropertyReflectance
 
+log = logging.getLogger(__name__)
 
 class TestShadingPropertyReflectance(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestShadingPropertyReflectance(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.shadingpropertyreflectances[0].shading_surface_name, var_shading_surface_name)

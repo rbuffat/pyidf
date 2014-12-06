@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputPreprocessorMessage
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputPreprocessorMessage
 
+log = logging.getLogger(__name__)
 
 class TestOutputPreprocessorMessage(unittest.TestCase):
 
@@ -63,7 +65,7 @@ class TestOutputPreprocessorMessage(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputpreprocessormessages[0].preprocessor_name, var_preprocessor_name)

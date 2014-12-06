@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.electric_load_center import ElectricLoadCenterInverterLookUpTable
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.electric_load_center import ElectricLoadCenterInverterLookUpTable
 
+log = logging.getLogger(__name__)
 
 class TestElectricLoadCenterInverterLookUpTable(unittest.TestCase):
 
@@ -66,7 +68,7 @@ class TestElectricLoadCenterInverterLookUpTable(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.electricloadcenterinverterlookuptables[0].name, var_name)

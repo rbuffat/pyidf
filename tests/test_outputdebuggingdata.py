@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputDebuggingData
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputDebuggingData
 
+log = logging.getLogger(__name__)
 
 class TestOutputDebuggingData(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestOutputDebuggingData(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.outputdebuggingdatas[0].report_debugging_data, var_report_debugging_data)

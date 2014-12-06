@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.location_and_climate import SiteGroundDomain
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.location_and_climate import SiteGroundDomain
 
+log = logging.getLogger(__name__)
 
 class TestSiteGroundDomain(unittest.TestCase):
 
@@ -99,7 +101,7 @@ class TestSiteGroundDomain(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.sitegrounddomains[0].name, var_name)

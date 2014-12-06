@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.coils import CoilHeatingDxVariableSpeed
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.coils import CoilHeatingDxVariableSpeed
 
+log = logging.getLogger(__name__)
 
 class TestCoilHeatingDxVariableSpeed(unittest.TestCase):
 
@@ -291,7 +293,7 @@ class TestCoilHeatingDxVariableSpeed(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.coilheatingdxvariablespeeds[0].name, var_name)

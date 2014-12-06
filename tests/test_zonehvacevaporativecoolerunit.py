@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.zone_hvac_forced_air_units import ZoneHvacEvaporativeCoolerUnit
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.zone_hvac_forced_air_units import ZoneHvacEvaporativeCoolerUnit
 
+log = logging.getLogger(__name__)
 
 class TestZoneHvacEvaporativeCoolerUnit(unittest.TestCase):
 
@@ -81,7 +83,7 @@ class TestZoneHvacEvaporativeCoolerUnit(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.zonehvacevaporativecoolerunits[0].name, var_name)

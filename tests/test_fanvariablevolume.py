@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.fans import FanVariableVolume
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.fans import FanVariableVolume
 
+log = logging.getLogger(__name__)
 
 class TestFanVariableVolume(unittest.TestCase):
 
@@ -81,7 +83,7 @@ class TestFanVariableVolume(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.fanvariablevolumes[0].name, var_name)

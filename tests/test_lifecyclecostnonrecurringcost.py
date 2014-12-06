@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.economics import LifeCycleCostNonrecurringCost
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.economics import LifeCycleCostNonrecurringCost
 
+log = logging.getLogger(__name__)
 
 class TestLifeCycleCostNonrecurringCost(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestLifeCycleCostNonrecurringCost(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.lifecyclecostnonrecurringcosts[0].name, var_name)

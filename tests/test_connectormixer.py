@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.node import ConnectorMixer
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.node import ConnectorMixer
 
+log = logging.getLogger(__name__)
 
 class TestConnectorMixer(unittest.TestCase):
 
@@ -38,7 +40,7 @@ class TestConnectorMixer(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.connectormixers[0].name, var_name)

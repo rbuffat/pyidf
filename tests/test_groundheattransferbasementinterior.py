@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementInterior
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementInterior
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementInterior(unittest.TestCase):
 
@@ -48,7 +50,7 @@ class TestGroundHeatTransferBasementInterior(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.groundheattransferbasementinteriors[0].cond_flag_is_the_basement_conditioned, var_cond_flag_is_the_basement_conditioned)

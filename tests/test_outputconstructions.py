@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputConstructions
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputConstructions
 
+log = logging.getLogger(__name__)
 
 class TestOutputConstructions(unittest.TestCase):
 
@@ -33,7 +35,7 @@ class TestOutputConstructions(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputconstructionss[0].details_type_1, var_details_type_1)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabMatlProps
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabMatlProps
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferSlabMatlProps(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestGroundHeatTransferSlabMatlProps(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferslabmatlpropss[0].rho_slab_material_density, var_rho_slab_material_density)

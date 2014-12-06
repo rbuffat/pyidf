@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.zone_hvac_radiative import ZoneHvacBaseboardConvectiveWater
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.zone_hvac_radiative import ZoneHvacBaseboardConvectiveWater
 
+log = logging.getLogger(__name__)
 
 class TestZoneHvacBaseboardConvectiveWater(unittest.TestCase):
 
@@ -60,7 +62,7 @@ class TestZoneHvacBaseboardConvectiveWater(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.zonehvacbaseboardconvectivewaters[0].name, var_name)

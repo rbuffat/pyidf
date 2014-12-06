@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import ConvergenceLimits
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import ConvergenceLimits
 
+log = logging.getLogger(__name__)
 
 class TestConvergenceLimits(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestConvergenceLimits(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.convergencelimitss[0].minimum_system_timestep, var_minimum_system_timestep)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.daylighting import DaylightingDeviceLightWell
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.daylighting import DaylightingDeviceLightWell
 
+log = logging.getLogger(__name__)
 
 class TestDaylightingDeviceLightWell(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestDaylightingDeviceLightWell(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.daylightingdevicelightwells[0].exterior_window_name, var_exterior_window_name)

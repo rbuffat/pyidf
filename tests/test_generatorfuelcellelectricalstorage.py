@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.electric_load_center import GeneratorFuelCellElectricalStorage
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.electric_load_center import GeneratorFuelCellElectricalStorage
 
+log = logging.getLogger(__name__)
 
 class TestGeneratorFuelCellElectricalStorage(unittest.TestCase):
 
@@ -51,7 +53,7 @@ class TestGeneratorFuelCellElectricalStorage(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.generatorfuelcellelectricalstorages[0].name, var_name)

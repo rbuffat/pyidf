@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.coils import CoilHeatingWater
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.coils import CoilHeatingWater
 
+log = logging.getLogger(__name__)
 
 class TestCoilHeatingWater(unittest.TestCase):
 
@@ -72,7 +74,7 @@ class TestCoilHeatingWater(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.coilheatingwaters[0].name, var_name)

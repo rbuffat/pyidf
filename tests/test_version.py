@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import Version
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import Version
 
+log = logging.getLogger(__name__)
 
 class TestVersion(unittest.TestCase):
 
@@ -30,7 +32,7 @@ class TestVersion(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.versions[0].version_identifier, var_version_identifier)

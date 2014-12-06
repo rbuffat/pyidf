@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.advanced_construction import SurfacePropertyConvectionCoefficientsMultipleSurface
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.advanced_construction import SurfacePropertyConvectionCoefficientsMultipleSurface
 
+log = logging.getLogger(__name__)
 
 class TestSurfacePropertyConvectionCoefficientsMultipleSurface(unittest.TestCase):
 
@@ -60,7 +62,7 @@ class TestSurfacePropertyConvectionCoefficientsMultipleSurface(unittest.TestCase
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.surfacepropertyconvectioncoefficientsmultiplesurfaces[0].surface_type, var_surface_type)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.internal_gains import ComfortViewFactorAngles
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.internal_gains import ComfortViewFactorAngles
 
+log = logging.getLogger(__name__)
 
 class TestComfortViewFactorAngles(unittest.TestCase):
 
@@ -153,7 +155,7 @@ class TestComfortViewFactorAngles(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.comfortviewfactorangless[0].name, var_name)

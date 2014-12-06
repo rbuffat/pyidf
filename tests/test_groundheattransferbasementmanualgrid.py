@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementManualGrid
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementManualGrid
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementManualGrid(unittest.TestCase):
 
@@ -48,7 +50,7 @@ class TestGroundHeatTransferBasementManualGrid(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementmanualgrids[0].nx_number_of_cells_in_the_x_direction_20, var_nx_number_of_cells_in_the_x_direction_20)

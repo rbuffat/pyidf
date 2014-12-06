@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.variable_refrigerant_flow_equipment import AirConditionerVariableRefrigerantFlow
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.variable_refrigerant_flow_equipment import AirConditionerVariableRefrigerantFlow
 
+log = logging.getLogger(__name__)
 
 class TestAirConditionerVariableRefrigerantFlow(unittest.TestCase):
 
@@ -270,7 +272,7 @@ class TestAirConditionerVariableRefrigerantFlow(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airconditionervariablerefrigerantflows[0].heat_pump_name, var_heat_pump_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.location_and_climate import SiteGroundTemperatureShallow
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.location_and_climate import SiteGroundTemperatureShallow
 
+log = logging.getLogger(__name__)
 
 class TestSiteGroundTemperatureShallow(unittest.TestCase):
 
@@ -63,7 +65,7 @@ class TestSiteGroundTemperatureShallow(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.sitegroundtemperatureshallows[0].january_surface_ground_temperature, var_january_surface_ground_temperature)

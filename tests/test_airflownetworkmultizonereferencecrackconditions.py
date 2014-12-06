@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneReferenceCrackConditions
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.natural_ventilation_and_duct_leakage import AirflowNetworkMultiZoneReferenceCrackConditions
 
+log = logging.getLogger(__name__)
 
 class TestAirflowNetworkMultiZoneReferenceCrackConditions(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestAirflowNetworkMultiZoneReferenceCrackConditions(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airflownetworkmultizonereferencecrackconditionss[0].name, var_name)

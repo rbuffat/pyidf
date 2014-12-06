@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.economics import ComponentCostAdjustments
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.economics import ComponentCostAdjustments
 
+log = logging.getLogger(__name__)
 
 class TestComponentCostAdjustments(unittest.TestCase):
 
@@ -48,7 +50,7 @@ class TestComponentCostAdjustments(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.componentcostadjustmentss[0].miscellaneous_cost_per_conditioned_area, var_miscellaneous_cost_per_conditioned_area)

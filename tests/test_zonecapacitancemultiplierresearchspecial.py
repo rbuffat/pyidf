@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import ZoneCapacitanceMultiplierResearchSpecial
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import ZoneCapacitanceMultiplierResearchSpecial
 
+log = logging.getLogger(__name__)
 
 class TestZoneCapacitanceMultiplierResearchSpecial(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestZoneCapacitanceMultiplierResearchSpecial(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.zonecapacitancemultiplierresearchspecials[0].temperature_capacity_multiplier, var_temperature_capacity_multiplier)

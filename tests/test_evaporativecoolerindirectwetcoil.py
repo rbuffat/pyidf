@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.evaporative_coolers import EvaporativeCoolerIndirectWetCoil
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.evaporative_coolers import EvaporativeCoolerIndirectWetCoil
 
+log = logging.getLogger(__name__)
 
 class TestEvaporativeCoolerIndirectWetCoil(unittest.TestCase):
 
@@ -66,7 +68,7 @@ class TestEvaporativeCoolerIndirectWetCoil(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.evaporativecoolerindirectwetcoils[0].name, var_name)

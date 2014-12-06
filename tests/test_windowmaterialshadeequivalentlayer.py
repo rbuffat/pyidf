@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.surface_construction_elements import WindowMaterialShadeEquivalentLayer
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.surface_construction_elements import WindowMaterialShadeEquivalentLayer
 
+log = logging.getLogger(__name__)
 
 class TestWindowMaterialShadeEquivalentLayer(unittest.TestCase):
 
@@ -63,7 +65,7 @@ class TestWindowMaterialShadeEquivalentLayer(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.windowmaterialshadeequivalentlayers[0].name, var_name)

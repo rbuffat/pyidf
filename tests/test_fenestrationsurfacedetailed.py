@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.thermal_zones_and_surfaces import FenestrationSurfaceDetailed
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.thermal_zones_and_surfaces import FenestrationSurfaceDetailed
 
+log = logging.getLogger(__name__)
 
 class TestFenestrationSurfaceDetailed(unittest.TestCase):
 
@@ -93,7 +95,7 @@ class TestFenestrationSurfaceDetailed(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.fenestrationsurfacedetaileds[0].name, var_name)

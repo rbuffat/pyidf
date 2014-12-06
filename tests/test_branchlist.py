@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.pumps import BranchList
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.pumps import BranchList
 
+log = logging.getLogger(__name__)
 
 class TestBranchList(unittest.TestCase):
 
@@ -35,7 +37,7 @@ class TestBranchList(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.branchlists[0].name, var_name)

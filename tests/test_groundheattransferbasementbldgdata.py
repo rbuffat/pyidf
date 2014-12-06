@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementBldgData
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferBasementBldgData
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferBasementBldgData(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestGroundHeatTransferBasementBldgData(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferbasementbldgdatas[0].dwall_wall_thickness, var_dwall_wall_thickness)

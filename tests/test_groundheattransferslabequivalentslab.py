@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabEquivalentSlab
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabEquivalentSlab
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferSlabEquivalentSlab(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestGroundHeatTransferSlabEquivalentSlab(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferslabequivalentslabs[0].apratio_the_area_to_perimeter_ratio_for_this_slab, var_apratio_the_area_to_perimeter_ratio_for_this_slab)

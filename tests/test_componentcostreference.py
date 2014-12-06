@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.economics import ComponentCostReference
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.economics import ComponentCostReference
 
+log = logging.getLogger(__name__)
 
 class TestComponentCostReference(unittest.TestCase):
 
@@ -51,7 +53,7 @@ class TestComponentCostReference(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.componentcostreferences[0].reference_building_line_item_costs, var_reference_building_line_item_costs)

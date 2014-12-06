@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import ProgramControl
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import ProgramControl
 
+log = logging.getLogger(__name__)
 
 class TestProgramControl(unittest.TestCase):
 
@@ -30,7 +32,7 @@ class TestProgramControl(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.programcontrols[0].number_of_threads_allowed, var_number_of_threads_allowed)

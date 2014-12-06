@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBldgProps
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabBldgProps
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferSlabBldgProps(unittest.TestCase):
 
@@ -78,7 +80,7 @@ class TestGroundHeatTransferSlabBldgProps(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferslabbldgpropss[0].iyrs_number_of_years_to_iterate, var_iyrs_number_of_years_to_iterate)

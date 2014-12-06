@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.operational_faults import FaultModelEnthalpySensorOffsetReturnAir
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.operational_faults import FaultModelEnthalpySensorOffsetReturnAir
 
+log = logging.getLogger(__name__)
 
 class TestFaultModelEnthalpySensorOffsetReturnAir(unittest.TestCase):
 
@@ -45,7 +47,7 @@ class TestFaultModelEnthalpySensorOffsetReturnAir(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.faultmodelenthalpysensoroffsetreturnairs[0].name, var_name)

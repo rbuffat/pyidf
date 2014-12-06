@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.simulation_parameters import ShadowCalculation
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.simulation_parameters import ShadowCalculation
 
+log = logging.getLogger(__name__)
 
 class TestShadowCalculation(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestShadowCalculation(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.shadowcalculations[0].calculation_method, var_calculation_method)

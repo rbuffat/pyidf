@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import OutputVariable
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import OutputVariable
 
+log = logging.getLogger(__name__)
 
 class TestOutputVariable(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestOutputVariable(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.outputvariables[0].key_value, var_key_value)

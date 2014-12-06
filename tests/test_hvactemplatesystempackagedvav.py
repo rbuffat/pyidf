@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.hvac_templates import HvactemplateSystemPackagedVav
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.hvac_templates import HvactemplateSystemPackagedVav
 
+log = logging.getLogger(__name__)
 
 class TestHvactemplateSystemPackagedVav(unittest.TestCase):
 
@@ -204,7 +206,7 @@ class TestHvactemplateSystemPackagedVav(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.hvactemplatesystempackagedvavs[0].name, var_name)

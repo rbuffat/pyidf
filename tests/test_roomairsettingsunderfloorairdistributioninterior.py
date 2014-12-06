@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.room_air_models import RoomAirSettingsUnderFloorAirDistributionInterior
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.room_air_models import RoomAirSettingsUnderFloorAirDistributionInterior
 
+log = logging.getLogger(__name__)
 
 class TestRoomAirSettingsUnderFloorAirDistributionInterior(unittest.TestCase):
 
@@ -72,7 +74,7 @@ class TestRoomAirSettingsUnderFloorAirDistributionInterior(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.roomairsettingsunderfloorairdistributioninteriors[0].zone_name, var_zone_name)

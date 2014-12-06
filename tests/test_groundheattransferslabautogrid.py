@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabAutoGrid
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.detailed_ground_heat_transfer import GroundHeatTransferSlabAutoGrid
 
+log = logging.getLogger(__name__)
 
 class TestGroundHeatTransferSlabAutoGrid(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestGroundHeatTransferSlabAutoGrid(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertAlmostEqual(idf2.groundheattransferslabautogrids[0].slabx_x_dimension_of_the_building_slab, var_slabx_x_dimension_of_the_building_slab)

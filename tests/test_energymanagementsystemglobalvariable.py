@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.energy_management_system import EnergyManagementSystemGlobalVariable
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.energy_management_system import EnergyManagementSystemGlobalVariable
 
+log = logging.getLogger(__name__)
 
 class TestEnergyManagementSystemGlobalVariable(unittest.TestCase):
 
@@ -32,7 +34,7 @@ class TestEnergyManagementSystemGlobalVariable(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         index = obj.extensible_field_index("Erl Variable 1 Name")

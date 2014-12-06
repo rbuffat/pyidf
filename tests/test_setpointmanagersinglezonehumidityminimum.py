@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.setpoint_managers import SetpointManagerSingleZoneHumidityMinimum
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.setpoint_managers import SetpointManagerSingleZoneHumidityMinimum
 
+log = logging.getLogger(__name__)
 
 class TestSetpointManagerSingleZoneHumidityMinimum(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestSetpointManagerSingleZoneHumidityMinimum(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.setpointmanagersinglezonehumidityminimums[0].name, var_name)

@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.user_defined_hvac_and_plant_component_models import AirTerminalSingleDuctUserDefined
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.user_defined_hvac_and_plant_component_models import AirTerminalSingleDuctUserDefined
 
+log = logging.getLogger(__name__)
 
 class TestAirTerminalSingleDuctUserDefined(unittest.TestCase):
 
@@ -72,7 +74,7 @@ class TestAirTerminalSingleDuctUserDefined(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.airterminalsingleductuserdefineds[0].name, var_name)

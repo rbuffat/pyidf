@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.output_reporting import FuelFactors
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.output_reporting import FuelFactors
 
+log = logging.getLogger(__name__)
 
 class TestFuelFactors(unittest.TestCase):
 
@@ -138,7 +140,7 @@ class TestFuelFactors(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.fuelfactorss[0].existing_fuel_resource_name, var_existing_fuel_resource_name)

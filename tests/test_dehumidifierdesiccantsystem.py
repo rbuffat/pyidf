@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.humidifiers_and_dehumidifiers import DehumidifierDesiccantSystem
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.humidifiers_and_dehumidifiers import DehumidifierDesiccantSystem
 
+log = logging.getLogger(__name__)
 
 class TestDehumidifierDesiccantSystem(unittest.TestCase):
 
@@ -81,7 +83,7 @@ class TestDehumidifierDesiccantSystem(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.dehumidifierdesiccantsystems[0].name, var_name)

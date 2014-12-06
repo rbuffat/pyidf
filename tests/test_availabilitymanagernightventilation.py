@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.system_availability_managers import AvailabilityManagerNightVentilation
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.system_availability_managers import AvailabilityManagerNightVentilation
 
+log = logging.getLogger(__name__)
 
 class TestAvailabilityManagerNightVentilation(unittest.TestCase):
 
@@ -51,7 +53,7 @@ class TestAvailabilityManagerNightVentilation(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.availabilitymanagernightventilations[0].name, var_name)

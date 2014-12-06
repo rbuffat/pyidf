@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.{{ obj.file_name }} import {{ obj.class_name }}
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.{{ obj.file_name }} import {{ obj.class_name }}
 
+log = logging.getLogger(__name__)
 
 class Test{{ obj.class_name }}(unittest.TestCase):
 
@@ -41,7 +43,7 @@ class Test{{ obj.class_name }}(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         {%- for field in obj.fields %}

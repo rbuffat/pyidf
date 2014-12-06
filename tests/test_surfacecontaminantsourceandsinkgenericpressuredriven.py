@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.internal_gains import SurfaceContaminantSourceAndSinkGenericPressureDriven
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.internal_gains import SurfaceContaminantSourceAndSinkGenericPressureDriven
 
+log = logging.getLogger(__name__)
 
 class TestSurfaceContaminantSourceAndSinkGenericPressureDriven(unittest.TestCase):
 
@@ -42,7 +44,7 @@ class TestSurfaceContaminantSourceAndSinkGenericPressureDriven(unittest.TestCase
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.surfacecontaminantsourceandsinkgenericpressuredrivens[0].name, var_name)

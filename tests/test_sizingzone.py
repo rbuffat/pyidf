@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.hvac_design_objects import SizingZone
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.hvac_design_objects import SizingZone
 
+log = logging.getLogger(__name__)
 
 class TestSizingZone(unittest.TestCase):
 
@@ -96,7 +98,7 @@ class TestSizingZone(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.sizingzones[0].zone_or_zonelist_name, var_zone_or_zonelist_name)

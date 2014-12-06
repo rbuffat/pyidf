@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.system_availability_managers import AvailabilityManagerHighTemperatureTurnOff
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.system_availability_managers import AvailabilityManagerHighTemperatureTurnOff
 
+log = logging.getLogger(__name__)
 
 class TestAvailabilityManagerHighTemperatureTurnOff(unittest.TestCase):
 
@@ -36,7 +38,7 @@ class TestAvailabilityManagerHighTemperatureTurnOff(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.availabilitymanagerhightemperatureturnoffs[0].name, var_name)

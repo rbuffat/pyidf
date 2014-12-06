@@ -1,11 +1,13 @@
 import os
 import tempfile
 import unittest
-import pyidf
-from pyidf.setpoint_managers import SetpointManagerReturnAirBypassFlow
+import logging
 from pyidf import ValidationLevel
+import pyidf
 from pyidf.idf import IDF
+from pyidf.setpoint_managers import SetpointManagerReturnAirBypassFlow
 
+log = logging.getLogger(__name__)
 
 class TestSetpointManagerReturnAirBypassFlow(unittest.TestCase):
 
@@ -39,7 +41,7 @@ class TestSetpointManagerReturnAirBypassFlow(unittest.TestCase):
 
         with open(self.path, mode='r') as f:
             for line in f:
-                print line.strip()
+                log.debug(line.strip())
 
         idf2 = IDF(self.path)
         self.assertEqual(idf2.setpointmanagerreturnairbypassflows[0].name, var_name)
