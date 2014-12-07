@@ -4,7 +4,7 @@ from pyidf import __version__
 setup(name='pyidf',
       version=__version__,
       description='Python library to read, modify and create EnergyPlus idf files',
-      url='https://github.com/rbuffat/pyepw',
+      url='https://github.com/rbuffat/pyidf',
       download_url='https://github.com/rbuffat/pyidf/tarball/0.1.2',
       author='Rene Buffat',
       author_email='buffat@gmail.com',
