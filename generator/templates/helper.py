@@ -29,6 +29,15 @@ class DataObject(object):
     def add_extensible(self):
         raise NotImplementedError("add_extensible is not implemented for class DataObject")
 
+    def keys(self):
+        keys = []
+        for field in self.schema['fields'].values():
+            keys.append(field['name'])
+        for i in range(len(self._extdata)):
+            for field in self.schema['extensible-fields'].values():
+                keys.append((field['name'], i))
+        return keys
+
     def __setitem__(self, key, value):
         if isinstance(key, six.string_types):
             key_lower = key.lower()
@@ -173,7 +182,7 @@ class DataObject(object):
             if pyidf.validation_level == ValidationLevel.error:
                 raise ValueError('No field exists with name in data object`{}`'.format(schema['name']))
             else:
-                raise logger.warn('No field exists with name in data object`{}`'.format(schema['name']))
+                logger.warn('No field exists with name in data object`{}`'.format(schema['name']))
                 return value
 
         # Only cast values to Python types for validation level no
@@ -189,7 +198,7 @@ class DataObject(object):
                     value = float(value)
                 else:
                     value = str(value)
-            except TypeError:
+            except (TypeError, ValueError):
                     return value
             return value
 
@@ -243,7 +252,7 @@ class DataObject(object):
                     value = float(value)
                 else:
                     value = str(value)
-            except TypeError:
+            except (TypeError, ValueError):
                 if pyidf.validation_level == ValidationLevel.no:
                     return value
 

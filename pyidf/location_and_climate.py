@@ -11,84 +11,32 @@ logger.addHandler(logging.NullHandler())
 
 
 class SiteLocation(DataObject):
-
     """ Corresponds to IDD object `Site:Location`
         Specifies the building's location. Only one location is allowed.
         Weather data file location, if it exists, will override this object.
     """
-    schema = {'min-fields': 5,
-              'name': u'Site:Location',
-              'pyname': u'SiteLocation',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'latitude',
-                                      {'name': u'Latitude',
-                                       'pyname': u'latitude',
-                                       'default': 0.0,
-                                       'maximum': 90.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': -90.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deg'}),
-                                     (u'longitude',
-                                      {'name': u'Longitude',
-                                       'pyname': u'longitude',
-                                       'default': 0.0,
-                                       'maximum': 180.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': -180.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deg'}),
-                                     (u'time zone',
-                                      {'name': u'Time Zone',
-                                       'pyname': u'time_zone',
-                                       'default': 0.0,
-                                       'maximum': 14.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': -12.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'hr'}),
-                                     (u'elevation',
-                                      {'name': u'Elevation',
-                                       'pyname': u'elevation',
-                                       'default': 0.0,
-                                       'maximum<': 8900.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': -300.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'latitude', {'name': u'Latitude', 'pyname': u'latitude', 'default': 0.0, 'maximum': 90.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'longitude', {'name': u'Longitude', 'pyname': u'longitude', 'default': 0.0, 'maximum': 180.0, 'required-field': False, 'autosizable': False, 'minimum': -180.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'time zone', {'name': u'Time Zone', 'pyname': u'time_zone', 'default': 0.0, 'maximum': 14.0, 'required-field': False, 'autosizable': False, 'minimum': -12.0, 'autocalculatable': False, 'type': u'real', 'unit': u'hr'}), (u'elevation', {'name': u'Elevation', 'pyname': u'elevation', 'default': 0.0, 'maximum<': 8900.0, 'required-field': False, 'autosizable': False, 'minimum': -300.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 5,
+ 'name': u'Site:Location',
+ 'pyname': u'SiteLocation',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -97,24 +45,21 @@ class SiteLocation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def latitude(self):
-        """Get latitude.
+        """Get latitude
 
         Returns:
             float: the value of `latitude` or None if not set
-
         """
         return self["Latitude"]
 
     @latitude.setter
     def latitude(self, value=None):
-        """Corresponds to IDD field `Latitude`
-
+        """  Corresponds to IDD field `Latitude`
         + is North, - is South, degree minutes represented in decimal (i.e. 30 minutes is .5)
 
         Args:
@@ -127,24 +72,21 @@ class SiteLocation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Latitude"] = value
 
     @property
     def longitude(self):
-        """Get longitude.
+        """Get longitude
 
         Returns:
             float: the value of `longitude` or None if not set
-
         """
         return self["Longitude"]
 
     @longitude.setter
     def longitude(self, value=None):
-        """Corresponds to IDD field `Longitude`
-
+        """  Corresponds to IDD field `Longitude`
         - is West, + is East, degree minutes represented in decimal (i.e. 30 minutes is .5)
 
         Args:
@@ -157,24 +99,23 @@ class SiteLocation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Longitude"] = value
 
     @property
     def time_zone(self):
-        """Get time_zone.
+        """Get time_zone
 
         Returns:
             float: the value of `time_zone` or None if not set
-
         """
         return self["Time Zone"]
 
     @time_zone.setter
     def time_zone(self, value=None):
-        """Corresponds to IDD field `Time Zone` basic these limits on the
-        WorldTimeZone Map (2003) Time relative to GMT. Decimal hours.
+        """  Corresponds to IDD field `Time Zone`
+        basic these limits on the WorldTimeZone Map (2003)
+        Time relative to GMT. Decimal hours.
 
         Args:
             value (float): value for IDD Field `Time Zone`
@@ -186,23 +127,21 @@ class SiteLocation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Time Zone"] = value
 
     @property
     def elevation(self):
-        """Get elevation.
+        """Get elevation
 
         Returns:
             float: the value of `elevation` or None if not set
-
         """
         return self["Elevation"]
 
     @elevation.setter
     def elevation(self, value=None):
-        """Corresponds to IDD field `Elevation`
+        """  Corresponds to IDD field `Elevation`
 
         Args:
             value (float): value for IDD Field `Elevation`
@@ -214,7 +153,6 @@ class SiteLocation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Elevation"] = value
 
@@ -222,7 +160,6 @@ class SiteLocation(DataObject):
 
 
 class SizingPeriodDesignDay(DataObject):
-
     """ Corresponds to IDD object `SizingPeriod:DesignDay`
         The design day object creates the parameters for the program to create
         the 24 hour weather profile that can be used for sizing as well as
@@ -231,284 +168,28 @@ class SizingPeriodDesignDay(DataObject):
         schedules for either sizing or simple tests), min/max temperatures,
         wind speeds, and solar radiation values.
     """
-    schema = {'min-fields': 0,
-              'name': u'SizingPeriod:DesignDay',
-              'pyname': u'SizingPeriodDesignDay',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'month',
-                                      {'name': u'Month',
-                                       'pyname': u'month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'day of month',
-                                      {'name': u'Day of Month',
-                                       'pyname': u'day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'day type',
-                                      {'name': u'Day Type',
-                                       'pyname': u'day_type',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Sunday',
-                                                           u'Monday',
-                                                           u'Tuesday',
-                                                           u'Wednesday',
-                                                           u'Thursday',
-                                                           u'Friday',
-                                                           u'Saturday',
-                                                           u'Holiday',
-                                                           u'SummerDesignDay',
-                                                           u'WinterDesignDay',
-                                                           u'CustomDay1',
-                                                           u'CustomDay2'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'maximum dry-bulb temperature',
-                                      {'name': u'Maximum Dry-Bulb Temperature',
-                                       'pyname': u'maximum_drybulb_temperature',
-                                       'maximum': 70.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': -90.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'daily dry-bulb temperature range',
-                                      {'name': u'Daily Dry-Bulb Temperature Range',
-                                       'pyname': u'daily_drybulb_temperature_range',
-                                       'default': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deltaC'}),
-                                     (u'dry-bulb temperature range modifier type',
-                                      {'name': u'Dry-Bulb Temperature Range Modifier Type',
-                                       'pyname': u'drybulb_temperature_range_modifier_type',
-                                       'default': u'DefaultMultipliers',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'MultiplierSchedule',
-                                                           u'DifferenceSchedule',
-                                                           u'TemperatureProfileSchedule',
-                                                           u'DefaultMultipliers'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'dry-bulb temperature range modifier day schedule name',
-                                      {'name': u'Dry-Bulb Temperature Range Modifier Day Schedule Name',
-                                       'pyname': u'drybulb_temperature_range_modifier_day_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'humidity condition type',
-                                      {'name': u'Humidity Condition Type',
-                                       'pyname': u'humidity_condition_type',
-                                       'default': u'WetBulb',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'WetBulb',
-                                                           u'DewPoint',
-                                                           u'HumidityRatio',
-                                                           u'Enthalpy',
-                                                           u'RelativeHumiditySchedule',
-                                                           u'WetBulbProfileMultiplierSchedule',
-                                                           u'WetBulbProfileDifferenceSchedule',
-                                                           u'WetBulbProfileDefaultMultipliers'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'wetbulb or dewpoint at maximum dry-bulb',
-                                      {'name': u'Wetbulb or DewPoint at Maximum Dry-Bulb',
-                                       'pyname': u'wetbulb_or_dewpoint_at_maximum_drybulb',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'humidity condition day schedule name',
-                                      {'name': u'Humidity Condition Day Schedule Name',
-                                       'pyname': u'humidity_condition_day_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'humidity ratio at maximum dry-bulb',
-                                      {'name': u'Humidity Ratio at Maximum Dry-Bulb',
-                                       'pyname': u'humidity_ratio_at_maximum_drybulb',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'kgWater/kgDryAir'}),
-                                     (u'enthalpy at maximum dry-bulb  !will require units transition.',
-                                      {'name': u'Enthalpy at Maximum Dry-Bulb  !will require units transition.',
-                                       'pyname': u'enthalpy_at_maximum_drybulb_will_require_units_transition_',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'J/kg'}),
-                                     (u'daily wet-bulb temperature range',
-                                      {'name': u'Daily Wet-Bulb Temperature Range',
-                                       'pyname': u'daily_wetbulb_temperature_range',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'deltaC'}),
-                                     (u'barometric pressure',
-                                      {'name': u'Barometric Pressure',
-                                       'pyname': u'barometric_pressure',
-                                       'maximum': 120000.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 31000.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'Pa'}),
-                                     (u'wind speed',
-                                      {'name': u'Wind Speed',
-                                       'pyname': u'wind_speed',
-                                       'maximum': 40.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm/s'}),
-                                     (u'wind direction',
-                                      {'name': u'Wind Direction',
-                                       'pyname': u'wind_direction',
-                                       'maximum': 360.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deg'}),
-                                     (u'rain indicator',
-                                      {'name': u'Rain Indicator',
-                                       'pyname': u'rain_indicator',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'snow indicator',
-                                      {'name': u'Snow Indicator',
-                                       'pyname': u'snow_indicator',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'daylight saving time indicator',
-                                      {'name': u'Daylight Saving Time Indicator',
-                                       'pyname': u'daylight_saving_time_indicator',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'solar model indicator',
-                                      {'name': u'Solar Model Indicator',
-                                       'pyname': u'solar_model_indicator',
-                                       'default': u'ASHRAEClearSky',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'ASHRAEClearSky',
-                                                           u'ZhangHuang',
-                                                           u'Schedule',
-                                                           u'ASHRAETau'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'beam solar day schedule name',
-                                      {'name': u'Beam Solar Day Schedule Name',
-                                       'pyname': u'beam_solar_day_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'diffuse solar day schedule name',
-                                      {'name': u'Diffuse Solar Day Schedule Name',
-                                       'pyname': u'diffuse_solar_day_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'ashrae clear sky optical depth for beam irradiance (taub)',
-                                      {'name': u'ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)',
-                                       'pyname': u'ashrae_clear_sky_optical_depth_for_beam_irradiance_taub',
-                                       'default': 0.0,
-                                       'maximum': 1.2,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'ashrae clear sky optical depth for diffuse irradiance (taud)',
-                                      {'name': u'ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)',
-                                       'pyname': u'ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud',
-                                       'default': 0.0,
-                                       'maximum': 3.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'sky clearness',
-                                      {'name': u'Sky Clearness',
-                                       'pyname': u'sky_clearness',
-                                       'default': 0.0,
-                                       'maximum': 1.2,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'month', {'name': u'Month', 'pyname': u'month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of month', {'name': u'Day of Month', 'pyname': u'day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day type', {'name': u'Day Type', 'pyname': u'day_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum dry-bulb temperature', {'name': u'Maximum Dry-Bulb Temperature', 'pyname': u'maximum_drybulb_temperature', 'maximum': 70.0, 'required-field': False, 'autosizable': False, 'minimum': -90.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'daily dry-bulb temperature range', {'name': u'Daily Dry-Bulb Temperature Range', 'pyname': u'daily_drybulb_temperature_range', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'dry-bulb temperature range modifier type', {'name': u'Dry-Bulb Temperature Range Modifier Type', 'pyname': u'drybulb_temperature_range_modifier_type', 'default': u'DefaultMultipliers', 'required-field': False, 'autosizable': False, 'accepted-values': [u'MultiplierSchedule', u'DifferenceSchedule', u'TemperatureProfileSchedule', u'DefaultMultipliers'], 'autocalculatable': False, 'type': 'alpha'}), (u'dry-bulb temperature range modifier day schedule name', {'name': u'Dry-Bulb Temperature Range Modifier Day Schedule Name', 'pyname': u'drybulb_temperature_range_modifier_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity condition type', {'name': u'Humidity Condition Type', 'pyname': u'humidity_condition_type', 'default': u'WetBulb', 'required-field': False, 'autosizable': False, 'accepted-values': [u'WetBulb', u'DewPoint', u'HumidityRatio', u'Enthalpy', u'RelativeHumiditySchedule', u'WetBulbProfileMultiplierSchedule', u'WetBulbProfileDifferenceSchedule', u'WetBulbProfileDefaultMultipliers'], 'autocalculatable': False, 'type': 'alpha'}), (u'wetbulb or dewpoint at maximum dry-bulb', {'name': u'Wetbulb or DewPoint at Maximum Dry-Bulb', 'pyname': u'wetbulb_or_dewpoint_at_maximum_drybulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'humidity condition day schedule name', {'name': u'Humidity Condition Day Schedule Name', 'pyname': u'humidity_condition_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'humidity ratio at maximum dry-bulb', {'name': u'Humidity Ratio at Maximum Dry-Bulb', 'pyname': u'humidity_ratio_at_maximum_drybulb', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'enthalpy at maximum dry-bulb  !will require units transition.', {'name': u'Enthalpy at Maximum Dry-Bulb  !will require units transition.', 'pyname': u'enthalpy_at_maximum_drybulb_will_require_units_transition_', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'daily wet-bulb temperature range', {'name': u'Daily Wet-Bulb Temperature Range', 'pyname': u'daily_wetbulb_temperature_range', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'deltaC'}), (u'barometric pressure', {'name': u'Barometric Pressure', 'pyname': u'barometric_pressure', 'maximum': 120000.0, 'required-field': False, 'autosizable': False, 'minimum': 31000.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'wind speed', {'name': u'Wind Speed', 'pyname': u'wind_speed', 'maximum': 40.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'wind direction', {'name': u'Wind Direction', 'pyname': u'wind_direction', 'maximum': 360.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'rain indicator', {'name': u'Rain Indicator', 'pyname': u'rain_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'snow indicator', {'name': u'Snow Indicator', 'pyname': u'snow_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'daylight saving time indicator', {'name': u'Daylight Saving Time Indicator', 'pyname': u'daylight_saving_time_indicator', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'solar model indicator', {'name': u'Solar Model Indicator', 'pyname': u'solar_model_indicator', 'default': u'ASHRAEClearSky', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ASHRAEClearSky', u'ZhangHuang', u'Schedule', u'ASHRAETau'], 'autocalculatable': False, 'type': 'alpha'}), (u'beam solar day schedule name', {'name': u'Beam Solar Day Schedule Name', 'pyname': u'beam_solar_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'diffuse solar day schedule name', {'name': u'Diffuse Solar Day Schedule Name', 'pyname': u'diffuse_solar_day_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ashrae clear sky optical depth for beam irradiance (taub)', {'name': u'ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)', 'pyname': u'ashrae_clear_sky_optical_depth_for_beam_irradiance_taub', 'default': 0.0, 'maximum': 1.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'ashrae clear sky optical depth for diffuse irradiance (taud)', {'name': u'ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)', 'pyname': u'ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud', 'default': 0.0, 'maximum': 3.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'sky clearness', {'name': u'Sky Clearness', 'pyname': u'sky_clearness', 'default': 0.0, 'maximum': 1.2, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'SizingPeriod:DesignDay',
+ 'pyname': u'SizingPeriodDesignDay',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -517,23 +198,21 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def month(self):
-        """Get month.
+        """Get month
 
         Returns:
             int: the value of `month` or None if not set
-
         """
         return self["Month"]
 
     @month.setter
     def month(self, value=None):
-        """Corresponds to IDD field `Month`
+        """  Corresponds to IDD field `Month`
 
         Args:
             value (int): value for IDD Field `Month`
@@ -544,24 +223,22 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Month"] = value
 
     @property
     def day_of_month(self):
-        """Get day_of_month.
+        """Get day_of_month
 
         Returns:
             int: the value of `day_of_month` or None if not set
-
         """
         return self["Day of Month"]
 
     @day_of_month.setter
     def day_of_month(self, value=None):
-        """Corresponds to IDD field `Day of Month` must be valid for Month
-        field.
+        """  Corresponds to IDD field `Day of Month`
+        must be valid for Month field
 
         Args:
             value (int): value for IDD Field `Day of Month`
@@ -572,24 +249,22 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day of Month"] = value
 
     @property
     def day_type(self):
-        """Get day_type.
+        """Get day_type
 
         Returns:
             str: the value of `day_type` or None if not set
-
         """
         return self["Day Type"]
 
     @day_type.setter
     def day_type(self, value=None):
-        """Corresponds to IDD field `Day Type` Day Type selects the schedules
-        appropriate for this design day.
+        """  Corresponds to IDD field `Day Type`
+        Day Type selects the schedules appropriate for this design day
 
         Args:
             value (str): value for IDD Field `Day Type`
@@ -598,17 +273,15 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day Type"] = value
 
     @property
     def maximum_drybulb_temperature(self):
-        """Get maximum_drybulb_temperature.
+        """Get maximum_drybulb_temperature
 
         Returns:
             float: the value of `maximum_drybulb_temperature` or None if not set
-
         """
         return self["Maximum Dry-Bulb Temperature"]
 
@@ -633,11 +306,10 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def daily_drybulb_temperature_range(self):
-        """Get daily_drybulb_temperature_range.
+        """Get daily_drybulb_temperature_range
 
         Returns:
             float: the value of `daily_drybulb_temperature_range` or None if not set
-
         """
         return self["Daily Dry-Bulb Temperature Range"]
 
@@ -661,18 +333,15 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def drybulb_temperature_range_modifier_type(self):
-        """Get drybulb_temperature_range_modifier_type.
+        """Get drybulb_temperature_range_modifier_type
 
         Returns:
             str: the value of `drybulb_temperature_range_modifier_type` or None if not set
-
         """
         return self["Dry-Bulb Temperature Range Modifier Type"]
 
     @drybulb_temperature_range_modifier_type.setter
-    def drybulb_temperature_range_modifier_type(
-            self,
-            value="DefaultMultipliers"):
+    def drybulb_temperature_range_modifier_type(self, value="DefaultMultipliers"):
         """  Corresponds to IDD field `Dry-Bulb Temperature Range Modifier Type`
         Type of modifier to the dry-bulb temperature calculated for the timestep
 
@@ -689,11 +358,10 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def drybulb_temperature_range_modifier_day_schedule_name(self):
-        """Get drybulb_temperature_range_modifier_day_schedule_name.
+        """Get drybulb_temperature_range_modifier_day_schedule_name
 
         Returns:
             str: the value of `drybulb_temperature_range_modifier_day_schedule_name` or None if not set
-
         """
         return self["Dry-Bulb Temperature Range Modifier Day Schedule Name"]
 
@@ -724,19 +392,18 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def humidity_condition_type(self):
-        """Get humidity_condition_type.
+        """Get humidity_condition_type
 
         Returns:
             str: the value of `humidity_condition_type` or None if not set
-
         """
         return self["Humidity Condition Type"]
 
     @humidity_condition_type.setter
     def humidity_condition_type(self, value="WetBulb"):
-        """Corresponds to IDD field `Humidity Condition Type` values/schedules
-        indicated here and in subsequent fields create the humidity values in
-        the 24 hour design day conditions profile.
+        """  Corresponds to IDD field `Humidity Condition Type`
+        values/schedules indicated here and in subsequent fields create the humidity
+        values in the 24 hour design day conditions profile.
 
         Args:
             value (str): value for IDD Field `Humidity Condition Type`
@@ -746,17 +413,15 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Humidity Condition Type"] = value
 
     @property
     def wetbulb_or_dewpoint_at_maximum_drybulb(self):
-        """Get wetbulb_or_dewpoint_at_maximum_drybulb.
+        """Get wetbulb_or_dewpoint_at_maximum_drybulb
 
         Returns:
             float: the value of `wetbulb_or_dewpoint_at_maximum_drybulb` or None if not set
-
         """
         return self["Wetbulb or DewPoint at Maximum Dry-Bulb"]
 
@@ -781,11 +446,10 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def humidity_condition_day_schedule_name(self):
-        """Get humidity_condition_day_schedule_name.
+        """Get humidity_condition_day_schedule_name
 
         Returns:
             str: the value of `humidity_condition_day_schedule_name` or None if not set
-
         """
         return self["Humidity Condition Day Schedule Name"]
 
@@ -814,11 +478,10 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def humidity_ratio_at_maximum_drybulb(self):
-        """Get humidity_ratio_at_maximum_drybulb.
+        """Get humidity_ratio_at_maximum_drybulb
 
         Returns:
             float: the value of `humidity_ratio_at_maximum_drybulb` or None if not set
-
         """
         return self["Humidity Ratio at Maximum Dry-Bulb"]
 
@@ -845,15 +508,11 @@ class SizingPeriodDesignDay(DataObject):
 
         Returns:
             float: the value of `enthalpy_at_maximum_drybulb_will_require_units_transition_` or None if not set
-
         """
-        return self[
-            "Enthalpy at Maximum Dry-Bulb  !will require units transition."]
+        return self["Enthalpy at Maximum Dry-Bulb  !will require units transition."]
 
     @enthalpy_at_maximum_drybulb_will_require_units_transition_.setter
-    def enthalpy_at_maximum_drybulb_will_require_units_transition_(
-            self,
-            value=None):
+    def enthalpy_at_maximum_drybulb_will_require_units_transition_(self, value=None):
         """  Corresponds to IDD field `Enthalpy at Maximum Dry-Bulb  !will require units transition.`
         Enthalpy coincident with the maximum temperature.
         Required only if field Humidity Condition Type is "Enthalpy".
@@ -867,16 +526,14 @@ class SizingPeriodDesignDay(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self[
-            "Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
+        self["Enthalpy at Maximum Dry-Bulb  !will require units transition."] = value
 
     @property
     def daily_wetbulb_temperature_range(self):
-        """Get daily_wetbulb_temperature_range.
+        """Get daily_wetbulb_temperature_range
 
         Returns:
             float: the value of `daily_wetbulb_temperature_range` or None if not set
-
         """
         return self["Daily Wet-Bulb Temperature Range"]
 
@@ -899,20 +556,18 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def barometric_pressure(self):
-        """Get barometric_pressure.
+        """Get barometric_pressure
 
         Returns:
             float: the value of `barometric_pressure` or None if not set
-
         """
         return self["Barometric Pressure"]
 
     @barometric_pressure.setter
     def barometric_pressure(self, value=None):
-        """Corresponds to IDD field `Barometric Pressure` This field's value is
-        also checked against the calculated "standard barometric pressure" for
-        the location.  If out of range (>10%) or blank, then is replaced by
-        standard value.
+        """  Corresponds to IDD field `Barometric Pressure`
+        This field's value is also checked against the calculated "standard barometric pressure"
+        for the location.  If out of range (>10%) or blank, then is replaced by standard value.
 
         Args:
             value (float): value for IDD Field `Barometric Pressure`
@@ -925,23 +580,21 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Barometric Pressure"] = value
 
     @property
     def wind_speed(self):
-        """Get wind_speed.
+        """Get wind_speed
 
         Returns:
             float: the value of `wind_speed` or None if not set
-
         """
         return self["Wind Speed"]
 
     @wind_speed.setter
     def wind_speed(self, value=None):
-        """Corresponds to IDD field `Wind Speed`
+        """  Corresponds to IDD field `Wind Speed`
 
         Args:
             value (float): value for IDD Field `Wind Speed`
@@ -953,17 +606,15 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Speed"] = value
 
     @property
     def wind_direction(self):
-        """Get wind_direction.
+        """Get wind_direction
 
         Returns:
             float: the value of `wind_direction` or None if not set
-
         """
         return self["Wind Direction"]
 
@@ -987,18 +638,17 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def rain_indicator(self):
-        """Get rain_indicator.
+        """Get rain_indicator
 
         Returns:
             str: the value of `rain_indicator` or None if not set
-
         """
         return self["Rain Indicator"]
 
     @rain_indicator.setter
     def rain_indicator(self, value="No"):
-        """Corresponds to IDD field `Rain Indicator` Yes is raining (all day),
-        No is not raining.
+        """  Corresponds to IDD field `Rain Indicator`
+        Yes is raining (all day), No is not raining
 
         Args:
             value (str): value for IDD Field `Rain Indicator`
@@ -1008,24 +658,22 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Rain Indicator"] = value
 
     @property
     def snow_indicator(self):
-        """Get snow_indicator.
+        """Get snow_indicator
 
         Returns:
             str: the value of `snow_indicator` or None if not set
-
         """
         return self["Snow Indicator"]
 
     @snow_indicator.setter
     def snow_indicator(self, value="No"):
-        """Corresponds to IDD field `Snow Indicator` Yes is Snow on Ground, No
-        is no Snow on Ground.
+        """  Corresponds to IDD field `Snow Indicator`
+        Yes is Snow on Ground, No is no Snow on Ground
 
         Args:
             value (str): value for IDD Field `Snow Indicator`
@@ -1035,17 +683,15 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Snow Indicator"] = value
 
     @property
     def daylight_saving_time_indicator(self):
-        """Get daylight_saving_time_indicator.
+        """Get daylight_saving_time_indicator
 
         Returns:
             str: the value of `daylight_saving_time_indicator` or None if not set
-
         """
         return self["Daylight Saving Time Indicator"]
 
@@ -1068,17 +714,16 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def solar_model_indicator(self):
-        """Get solar_model_indicator.
+        """Get solar_model_indicator
 
         Returns:
             str: the value of `solar_model_indicator` or None if not set
-
         """
         return self["Solar Model Indicator"]
 
     @solar_model_indicator.setter
     def solar_model_indicator(self, value="ASHRAEClearSky"):
-        """Corresponds to IDD field `Solar Model Indicator`
+        """  Corresponds to IDD field `Solar Model Indicator`
 
         Args:
             value (str): value for IDD Field `Solar Model Indicator`
@@ -1088,17 +733,15 @@ class SizingPeriodDesignDay(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Solar Model Indicator"] = value
 
     @property
     def beam_solar_day_schedule_name(self):
-        """Get beam_solar_day_schedule_name.
+        """Get beam_solar_day_schedule_name
 
         Returns:
             str: the value of `beam_solar_day_schedule_name` or None if not set
-
         """
         return self["Beam Solar Day Schedule Name"]
 
@@ -1119,11 +762,10 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def diffuse_solar_day_schedule_name(self):
-        """Get diffuse_solar_day_schedule_name.
+        """Get diffuse_solar_day_schedule_name
 
         Returns:
             str: the value of `diffuse_solar_day_schedule_name` or None if not set
-
         """
         return self["Diffuse Solar Day Schedule Name"]
 
@@ -1144,19 +786,15 @@ class SizingPeriodDesignDay(DataObject):
 
     @property
     def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self):
-        """Get ashrae_clear_sky_optical_depth_for_beam_irradiance_taub.
+        """Get ashrae_clear_sky_optical_depth_for_beam_irradiance_taub
 
         Returns:
             float: the value of `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub` or None if not set
-
         """
-        return self[
-            "ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"]
+        return self["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"]
 
     @ashrae_clear_sky_optical_depth_for_beam_irradiance_taub.setter
-    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(
-            self,
-            value=None):
+    def ashrae_clear_sky_optical_depth_for_beam_irradiance_taub(self, value=None):
         """  Corresponds to IDD field `ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)`
         Required if Solar Model Indicator = ASHRAETau
 
@@ -1170,24 +808,19 @@ class SizingPeriodDesignDay(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self[
-            "ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = value
+        self["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = value
 
     @property
     def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self):
-        """Get ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud.
+        """Get ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud
 
         Returns:
             float: the value of `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud` or None if not set
-
         """
-        return self[
-            "ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"]
+        return self["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"]
 
     @ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud.setter
-    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(
-            self,
-            value=None):
+    def ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud(self, value=None):
         """  Corresponds to IDD field `ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)`
         Required if Solar Model Indicator = ASHRAETau
 
@@ -1201,16 +834,14 @@ class SizingPeriodDesignDay(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self[
-            "ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = value
+        self["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = value
 
     @property
     def sky_clearness(self):
-        """Get sky_clearness.
+        """Get sky_clearness
 
         Returns:
             float: the value of `sky_clearness` or None if not set
-
         """
         return self["Sky Clearness"]
 
@@ -1235,114 +866,32 @@ class SizingPeriodDesignDay(DataObject):
 
 
 class SizingPeriodWeatherFileDays(DataObject):
-
     """ Corresponds to IDD object `SizingPeriod:WeatherFileDays`
         Use a weather file period for design sizing calculations.
     """
-    schema = {'min-fields': 0,
-              'name': u'SizingPeriod:WeatherFileDays',
-              'pyname': u'SizingPeriodWeatherFileDays',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'begin month',
-                                      {'name': u'Begin Month',
-                                       'pyname': u'begin_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'begin day of month',
-                                      {'name': u'Begin Day of Month',
-                                       'pyname': u'begin_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end month',
-                                      {'name': u'End Month',
-                                       'pyname': u'end_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end day of month',
-                                      {'name': u'End Day of Month',
-                                       'pyname': u'end_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'day of week for start day',
-                                      {'name': u'Day of Week for Start Day',
-                                       'pyname': u'day_of_week_for_start_day',
-                                       'default': u'Monday',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Sunday',
-                                                           u'Monday',
-                                                           u'Tuesday',
-                                                           u'Wednesday',
-                                                           u'Thursday',
-                                                           u'Friday',
-                                                           u'Saturday',
-                                                           u'SummerDesignDay',
-                                                           u'WinterDesignDay',
-                                                           u'CustomDay1',
-                                                           u'CustomDay2'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file daylight saving period',
-                                      {'name': u'Use Weather File Daylight Saving Period',
-                                       'pyname': u'use_weather_file_daylight_saving_period',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file rain and snow indicators',
-                                      {'name': u'Use Weather File Rain and Snow Indicators',
-                                       'pyname': u'use_weather_file_rain_and_snow_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'Monday', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain and snow indicators', {'name': u'Use Weather File Rain and Snow Indicators', 'pyname': u'use_weather_file_rain_and_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'SizingPeriod:WeatherFileDays',
+ 'pyname': u'SizingPeriodWeatherFileDays',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name` user supplied name for reporting.
+        """  Corresponds to IDD field `Name`
+        user supplied name for reporting
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1351,23 +900,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def begin_month(self):
-        """Get begin_month.
+        """Get begin_month
 
         Returns:
             int: the value of `begin_month` or None if not set
-
         """
         return self["Begin Month"]
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """Corresponds to IDD field `Begin Month`
+        """  Corresponds to IDD field `Begin Month`
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -1378,23 +925,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
-        """Get begin_day_of_month.
+        """Get begin_day_of_month
 
         Returns:
             int: the value of `begin_day_of_month` or None if not set
-
         """
         return self["Begin Day of Month"]
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """Corresponds to IDD field `Begin Day of Month`
+        """  Corresponds to IDD field `Begin Day of Month`
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -1405,23 +950,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Day of Month"] = value
 
     @property
     def end_month(self):
-        """Get end_month.
+        """Get end_month
 
         Returns:
             int: the value of `end_month` or None if not set
-
         """
         return self["End Month"]
 
     @end_month.setter
     def end_month(self, value=None):
-        """Corresponds to IDD field `End Month`
+        """  Corresponds to IDD field `End Month`
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -1432,23 +975,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Month"] = value
 
     @property
     def end_day_of_month(self):
-        """Get end_day_of_month.
+        """Get end_day_of_month
 
         Returns:
             int: the value of `end_day_of_month` or None if not set
-
         """
         return self["End Day of Month"]
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """Corresponds to IDD field `End Day of Month`
+        """  Corresponds to IDD field `End Day of Month`
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -1459,24 +1000,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Day of Month"] = value
 
     @property
     def day_of_week_for_start_day(self):
-        """Get day_of_week_for_start_day.
+        """Get day_of_week_for_start_day
 
         Returns:
             str: the value of `day_of_week_for_start_day` or None if not set
-
         """
         return self["Day of Week for Start Day"]
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="Monday"):
-        """Corresponds to IDD field `Day of Week for Start Day`
-
+        """  Corresponds to IDD field `Day of Week for Start Day`
         =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
         |CustomDay1|CustomDay2];
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
@@ -1491,26 +1029,23 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """Get use_weather_file_daylight_saving_period.
+        """Get use_weather_file_daylight_saving_period
 
         Returns:
             str: the value of `use_weather_file_daylight_saving_period` or None if not set
-
         """
         return self["Use Weather File Daylight Saving Period"]
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Daylight Saving Period`
-        If yes or blank, use daylight saving period as specified on
-        Weatherfile. If no, do not use the daylight saving period as specified
-        on the Weatherfile.
+        """  Corresponds to IDD field `Use Weather File Daylight Saving Period`
+        If yes or blank, use daylight saving period as specified on Weatherfile.
+        If no, do not use the daylight saving period as specified on the Weatherfile.
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -1520,23 +1055,21 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def use_weather_file_rain_and_snow_indicators(self):
-        """Get use_weather_file_rain_and_snow_indicators.
+        """Get use_weather_file_rain_and_snow_indicators
 
         Returns:
             str: the value of `use_weather_file_rain_and_snow_indicators` or None if not set
-
         """
         return self["Use Weather File Rain and Snow Indicators"]
 
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Rain and Snow Indicators`
+        """  Corresponds to IDD field `Use Weather File Rain and Snow Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
@@ -1546,7 +1079,6 @@ class SizingPeriodWeatherFileDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Rain and Snow Indicators"] = value
 
@@ -1554,104 +1086,35 @@ class SizingPeriodWeatherFileDays(DataObject):
 
 
 class SizingPeriodWeatherFileConditionType(DataObject):
-
     """ Corresponds to IDD object `SizingPeriod:WeatherFileConditionType`
         Use a weather file period for design sizing calculations.
         EPW weather files are created with typical and extreme periods
         created heuristically from the weather file data.  For more
         details on these periods, see AuxiliaryPrograms document.
     """
-    schema = {'min-fields': 0,
-              'name': u'SizingPeriod:WeatherFileConditionType',
-              'pyname': u'SizingPeriodWeatherFileConditionType',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'period selection',
-                                      {'name': u'Period Selection',
-                                       'pyname': u'period_selection',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'SummerExtreme',
-                                                           u'SummerTypical',
-                                                           u'WinterExtreme',
-                                                           u'WinterTypical',
-                                                           u'AutumnTypical',
-                                                           u'SpringTypical',
-                                                           u'WetSeason',
-                                                           u'DrySeason',
-                                                           u'NoDrySeason',
-                                                           u'NoWetSeason',
-                                                           u'TropicalHot',
-                                                           u'TropicalCold',
-                                                           u'NoDrySeasonMax',
-                                                           u'NoDrySeasonMin',
-                                                           u'NoWetSeasonMax',
-                                                           u'NoWetSeasonMin'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'day of week for start day',
-                                      {'name': u'Day of Week for Start Day',
-                                       'pyname': u'day_of_week_for_start_day',
-                                       'default': u'Monday',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Sunday',
-                                                           u'Monday',
-                                                           u'Tuesday',
-                                                           u'Wednesday',
-                                                           u'Thursday',
-                                                           u'Friday',
-                                                           u'Saturday',
-                                                           u'SummerDesignDay',
-                                                           u'WinterDesignDay',
-                                                           u'CustomDay1',
-                                                           u'CustomDay2'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file daylight saving period',
-                                      {'name': u'Use Weather File Daylight Saving Period',
-                                       'pyname': u'use_weather_file_daylight_saving_period',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file rain and snow indicators',
-                                      {'name': u'Use Weather File Rain and Snow Indicators',
-                                       'pyname': u'use_weather_file_rain_and_snow_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'period selection', {'name': u'Period Selection', 'pyname': u'period_selection', 'required-field': True, 'autosizable': False, 'accepted-values': [u'SummerExtreme', u'SummerTypical', u'WinterExtreme', u'WinterTypical', u'AutumnTypical', u'SpringTypical', u'WetSeason', u'DrySeason', u'NoDrySeason', u'NoWetSeason', u'TropicalHot', u'TropicalCold', u'NoDrySeasonMax', u'NoDrySeasonMin', u'NoWetSeasonMax', u'NoWetSeasonMin'], 'autocalculatable': False, 'type': 'alpha'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'Monday', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain and snow indicators', {'name': u'Use Weather File Rain and Snow Indicators', 'pyname': u'use_weather_file_rain_and_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'SizingPeriod:WeatherFileConditionType',
+ 'pyname': u'SizingPeriodWeatherFileConditionType',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name` user supplied name for reporting.
+        """  Corresponds to IDD field `Name`
+        user supplied name for reporting
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1660,25 +1123,23 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def period_selection(self):
-        """Get period_selection.
+        """Get period_selection
 
         Returns:
             str: the value of `period_selection` or None if not set
-
         """
         return self["Period Selection"]
 
     @period_selection.setter
     def period_selection(self, value=None):
-        """Corresponds to IDD field `Period Selection` Following is a list of
-        all possible types of Extreme and Typical periods that might be
-        identified in the Weather File. Not all possible types are available
+        """  Corresponds to IDD field `Period Selection`
+        Following is a list of all possible types of Extreme and Typical periods that
+        might be identified in the Weather File. Not all possible types are available
         for all weather files.
 
         Args:
@@ -1688,24 +1149,21 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Period Selection"] = value
 
     @property
     def day_of_week_for_start_day(self):
-        """Get day_of_week_for_start_day.
+        """Get day_of_week_for_start_day
 
         Returns:
             str: the value of `day_of_week_for_start_day` or None if not set
-
         """
         return self["Day of Week for Start Day"]
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="Monday"):
-        """Corresponds to IDD field `Day of Week for Start Day`
-
+        """  Corresponds to IDD field `Day of Week for Start Day`
         =[|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|SummerDesignDay|WinterDesignDay|
         |CustomDay1|CustomDay2];
         if you use SummerDesignDay or WinterDesignDay or the CustomDays then this will apply
@@ -1720,26 +1178,23 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """Get use_weather_file_daylight_saving_period.
+        """Get use_weather_file_daylight_saving_period
 
         Returns:
             str: the value of `use_weather_file_daylight_saving_period` or None if not set
-
         """
         return self["Use Weather File Daylight Saving Period"]
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Daylight Saving Period`
-        If yes or blank, use daylight saving period as specified on
-        Weatherfile. If no, do not use the daylight saving period as specified
-        on the Weatherfile.
+        """  Corresponds to IDD field `Use Weather File Daylight Saving Period`
+        If yes or blank, use daylight saving period as specified on Weatherfile.
+        If no, do not use the daylight saving period as specified on the Weatherfile.
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -1749,23 +1204,21 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def use_weather_file_rain_and_snow_indicators(self):
-        """Get use_weather_file_rain_and_snow_indicators.
+        """Get use_weather_file_rain_and_snow_indicators
 
         Returns:
             str: the value of `use_weather_file_rain_and_snow_indicators` or None if not set
-
         """
         return self["Use Weather File Rain and Snow Indicators"]
 
     @use_weather_file_rain_and_snow_indicators.setter
     def use_weather_file_rain_and_snow_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Rain and Snow Indicators`
+        """  Corresponds to IDD field `Use Weather File Rain and Snow Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain and Snow Indicators`
@@ -1775,7 +1228,6 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Rain and Snow Indicators"] = value
 
@@ -1783,172 +1235,34 @@ class SizingPeriodWeatherFileConditionType(DataObject):
 
 
 class RunPeriod(DataObject):
-
-    """Corresponds to IDD object `RunPeriod` Specified a range of dates and
-    other parameters for a weather file simulation.
-
-    Multiple run periods may be input, but they may not overlap.
-
+    """ Corresponds to IDD object `RunPeriod`
+        Specified a range of dates and other parameters for a weather file simulation.
+        Multiple run periods may be input, but they may not overlap.
     """
-    schema = {'min-fields': 11,
-              'name': u'RunPeriod',
-              'pyname': u'RunPeriod',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'begin month',
-                                      {'name': u'Begin Month',
-                                       'pyname': u'begin_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'begin day of month',
-                                      {'name': u'Begin Day of Month',
-                                       'pyname': u'begin_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end month',
-                                      {'name': u'End Month',
-                                       'pyname': u'end_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end day of month',
-                                      {'name': u'End Day of Month',
-                                       'pyname': u'end_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'day of week for start day',
-                                      {'name': u'Day of Week for Start Day',
-                                       'pyname': u'day_of_week_for_start_day',
-                                       'default': u'UseWeatherFile',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Sunday',
-                                                           u'Monday',
-                                                           u'Tuesday',
-                                                           u'Wednesday',
-                                                           u'Thursday',
-                                                           u'Friday',
-                                                           u'Saturday',
-                                                           u'UseWeatherFile'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file holidays and special days',
-                                      {'name': u'Use Weather File Holidays and Special Days',
-                                       'pyname': u'use_weather_file_holidays_and_special_days',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file daylight saving period',
-                                      {'name': u'Use Weather File Daylight Saving Period',
-                                       'pyname': u'use_weather_file_daylight_saving_period',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'apply weekend holiday rule',
-                                      {'name': u'Apply Weekend Holiday Rule',
-                                       'pyname': u'apply_weekend_holiday_rule',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file rain indicators',
-                                      {'name': u'Use Weather File Rain Indicators',
-                                       'pyname': u'use_weather_file_rain_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file snow indicators',
-                                      {'name': u'Use Weather File Snow Indicators',
-                                       'pyname': u'use_weather_file_snow_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'number of times runperiod to be repeated',
-                                      {'name': u'Number of Times Runperiod to be Repeated',
-                                       'pyname': u'number_of_times_runperiod_to_be_repeated',
-                                       'default': 1,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'increment day of week on repeat',
-                                      {'name': u'Increment Day of Week on repeat',
-                                       'pyname': u'increment_day_of_week_on_repeat',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'start year',
-                                      {'name': u'Start Year',
-                                       'pyname': u'start_year',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'real'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'UseWeatherFile', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file holidays and special days', {'name': u'Use Weather File Holidays and Special Days', 'pyname': u'use_weather_file_holidays_and_special_days', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'apply weekend holiday rule', {'name': u'Apply Weekend Holiday Rule', 'pyname': u'apply_weekend_holiday_rule', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file snow indicators', {'name': u'Use Weather File Snow Indicators', 'pyname': u'use_weather_file_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'number of times runperiod to be repeated', {'name': u'Number of Times Runperiod to be Repeated', 'pyname': u'number_of_times_runperiod_to_be_repeated', 'default': 1, 'required-field': False, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'increment day of week on repeat', {'name': u'Increment Day of Week on repeat', 'pyname': u'increment_day_of_week_on_repeat', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'start year', {'name': u'Start Year', 'pyname': u'start_year', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 11,
+ 'name': u'RunPeriod',
+ 'pyname': u'RunPeriod',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name` descriptive name (used in reporting
-        mainly) if blank, weather file title is used.  if not blank, must be
-        unique.
+        """  Corresponds to IDD field `Name`
+        descriptive name (used in reporting mainly)
+        if blank, weather file title is used.  if not blank, must be unique
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1957,23 +1271,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def begin_month(self):
-        """Get begin_month.
+        """Get begin_month
 
         Returns:
             int: the value of `begin_month` or None if not set
-
         """
         return self["Begin Month"]
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """Corresponds to IDD field `Begin Month`
+        """  Corresponds to IDD field `Begin Month`
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -1984,23 +1296,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
-        """Get begin_day_of_month.
+        """Get begin_day_of_month
 
         Returns:
             int: the value of `begin_day_of_month` or None if not set
-
         """
         return self["Begin Day of Month"]
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """Corresponds to IDD field `Begin Day of Month`
+        """  Corresponds to IDD field `Begin Day of Month`
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -2011,23 +1321,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Day of Month"] = value
 
     @property
     def end_month(self):
-        """Get end_month.
+        """Get end_month
 
         Returns:
             int: the value of `end_month` or None if not set
-
         """
         return self["End Month"]
 
     @end_month.setter
     def end_month(self, value=None):
-        """Corresponds to IDD field `End Month`
+        """  Corresponds to IDD field `End Month`
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -2038,23 +1346,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Month"] = value
 
     @property
     def end_day_of_month(self):
-        """Get end_day_of_month.
+        """Get end_day_of_month
 
         Returns:
             int: the value of `end_day_of_month` or None if not set
-
         """
         return self["End Day of Month"]
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """Corresponds to IDD field `End Day of Month`
+        """  Corresponds to IDD field `End Day of Month`
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -2065,24 +1371,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Day of Month"] = value
 
     @property
     def day_of_week_for_start_day(self):
-        """Get day_of_week_for_start_day.
+        """Get day_of_week_for_start_day
 
         Returns:
             str: the value of `day_of_week_for_start_day` or None if not set
-
         """
         return self["Day of Week for Start Day"]
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
-        """Corresponds to IDD field `Day of Week for Start Day`
-
+        """  Corresponds to IDD field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
 
         Args:
@@ -2093,17 +1396,15 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_holidays_and_special_days(self):
-        """Get use_weather_file_holidays_and_special_days.
+        """Get use_weather_file_holidays_and_special_days
 
         Returns:
             str: the value of `use_weather_file_holidays_and_special_days` or None if not set
-
         """
         return self["Use Weather File Holidays and Special Days"]
 
@@ -2127,20 +1428,18 @@ class RunPeriod(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """Get use_weather_file_daylight_saving_period.
+        """Get use_weather_file_daylight_saving_period
 
         Returns:
             str: the value of `use_weather_file_daylight_saving_period` or None if not set
-
         """
         return self["Use Weather File Daylight Saving Period"]
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Daylight Saving Period`
-        If yes or blank, use daylight saving period as specified on
-        Weatherfile. If no, do not use the daylight saving period as specified
-        on the Weatherfile.
+        """  Corresponds to IDD field `Use Weather File Daylight Saving Period`
+        If yes or blank, use daylight saving period as specified on Weatherfile.
+        If no, do not use the daylight saving period as specified on the Weatherfile.
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -2150,25 +1449,22 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def apply_weekend_holiday_rule(self):
-        """Get apply_weekend_holiday_rule.
+        """Get apply_weekend_holiday_rule
 
         Returns:
             str: the value of `apply_weekend_holiday_rule` or None if not set
-
         """
         return self["Apply Weekend Holiday Rule"]
 
     @apply_weekend_holiday_rule.setter
     def apply_weekend_holiday_rule(self, value="No"):
-        """Corresponds to IDD field `Apply Weekend Holiday Rule` if yes and
-        single day holiday falls on weekend, "holiday" occurs on following
-        Monday.
+        """  Corresponds to IDD field `Apply Weekend Holiday Rule`
+        if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
@@ -2178,23 +1474,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Apply Weekend Holiday Rule"] = value
 
     @property
     def use_weather_file_rain_indicators(self):
-        """Get use_weather_file_rain_indicators.
+        """Get use_weather_file_rain_indicators
 
         Returns:
             str: the value of `use_weather_file_rain_indicators` or None if not set
-
         """
         return self["Use Weather File Rain Indicators"]
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Rain Indicators`
+        """  Corresponds to IDD field `Use Weather File Rain Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -2204,23 +1498,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Rain Indicators"] = value
 
     @property
     def use_weather_file_snow_indicators(self):
-        """Get use_weather_file_snow_indicators.
+        """Get use_weather_file_snow_indicators
 
         Returns:
             str: the value of `use_weather_file_snow_indicators` or None if not set
-
         """
         return self["Use Weather File Snow Indicators"]
 
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Snow Indicators`
+        """  Corresponds to IDD field `Use Weather File Snow Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
@@ -2230,23 +1522,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Snow Indicators"] = value
 
     @property
     def number_of_times_runperiod_to_be_repeated(self):
-        """Get number_of_times_runperiod_to_be_repeated.
+        """Get number_of_times_runperiod_to_be_repeated
 
         Returns:
             int: the value of `number_of_times_runperiod_to_be_repeated` or None if not set
-
         """
         return self["Number of Times Runperiod to be Repeated"]
 
     @number_of_times_runperiod_to_be_repeated.setter
     def number_of_times_runperiod_to_be_repeated(self, value=1):
-        """Corresponds to IDD field `Number of Times Runperiod to be Repeated`
+        """  Corresponds to IDD field `Number of Times Runperiod to be Repeated`
 
         Args:
             value (int): value for IDD Field `Number of Times Runperiod to be Repeated`
@@ -2257,23 +1547,21 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Number of Times Runperiod to be Repeated"] = value
 
     @property
     def increment_day_of_week_on_repeat(self):
-        """Get increment_day_of_week_on_repeat.
+        """Get increment_day_of_week_on_repeat
 
         Returns:
             str: the value of `increment_day_of_week_on_repeat` or None if not set
-
         """
         return self["Increment Day of Week on repeat"]
 
     @increment_day_of_week_on_repeat.setter
     def increment_day_of_week_on_repeat(self, value="Yes"):
-        """Corresponds to IDD field `Increment Day of Week on repeat`
+        """  Corresponds to IDD field `Increment Day of Week on repeat`
 
         Args:
             value (str): value for IDD Field `Increment Day of Week on repeat`
@@ -2283,17 +1571,15 @@ class RunPeriod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Increment Day of Week on repeat"] = value
 
     @property
     def start_year(self):
-        """Get start_year.
+        """Get start_year
 
         Returns:
             float: the value of `start_year` or None if not set
-
         """
         return self["Start Year"]
 
@@ -2318,157 +1604,33 @@ class RunPeriod(DataObject):
 
 
 class RunPeriodCustomRange(DataObject):
-
     """ Corresponds to IDD object `RunPeriod:CustomRange`
         run simulation for a custom created weather file
     """
-    schema = {'min-fields': 13,
-              'name': u'RunPeriod:CustomRange',
-              'pyname': u'RunPeriodCustomRange',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'begin month',
-                                      {'name': u'Begin Month',
-                                       'pyname': u'begin_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'begin day of month',
-                                      {'name': u'Begin Day of Month',
-                                       'pyname': u'begin_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'begin year',
-                                      {'name': u'Begin Year',
-                                       'pyname': u'begin_year',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'real'}),
-                                     (u'end month',
-                                      {'name': u'End Month',
-                                       'pyname': u'end_month',
-                                       'maximum': 12,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end day of month',
-                                      {'name': u'End Day of Month',
-                                       'pyname': u'end_day_of_month',
-                                       'maximum': 31,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'minimum': 1,
-                                       'autocalculatable': False,
-                                       'type': u'integer'}),
-                                     (u'end year',
-                                      {'name': u'End Year',
-                                       'pyname': u'end_year',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'real'}),
-                                     (u'day of week for start day',
-                                      {'name': u'Day of Week for Start Day',
-                                       'pyname': u'day_of_week_for_start_day',
-                                       'default': u'UseWeatherFile',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Sunday',
-                                                           u'Monday',
-                                                           u'Tuesday',
-                                                           u'Wednesday',
-                                                           u'Thursday',
-                                                           u'Friday',
-                                                           u'Saturday',
-                                                           u'UseWeatherFile'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file holidays and special days',
-                                      {'name': u'Use Weather File Holidays and Special Days',
-                                       'pyname': u'use_weather_file_holidays_and_special_days',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file daylight saving period',
-                                      {'name': u'Use Weather File Daylight Saving Period',
-                                       'pyname': u'use_weather_file_daylight_saving_period',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'apply weekend holiday rule',
-                                      {'name': u'Apply Weekend Holiday Rule',
-                                       'pyname': u'apply_weekend_holiday_rule',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file rain indicators',
-                                      {'name': u'Use Weather File Rain Indicators',
-                                       'pyname': u'use_weather_file_rain_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'use weather file snow indicators',
-                                      {'name': u'Use Weather File Snow Indicators',
-                                       'pyname': u'use_weather_file_snow_indicators',
-                                       'default': u'Yes',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'begin month', {'name': u'Begin Month', 'pyname': u'begin_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin day of month', {'name': u'Begin Day of Month', 'pyname': u'begin_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'begin year', {'name': u'Begin Year', 'pyname': u'begin_year', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'end month', {'name': u'End Month', 'pyname': u'end_month', 'maximum': 12, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end day of month', {'name': u'End Day of Month', 'pyname': u'end_day_of_month', 'maximum': 31, 'required-field': True, 'autosizable': False, 'minimum': 1, 'autocalculatable': False, 'type': u'integer'}), (u'end year', {'name': u'End Year', 'pyname': u'end_year', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'real'}), (u'day of week for start day', {'name': u'Day of Week for Start Day', 'pyname': u'day_of_week_for_start_day', 'default': u'UseWeatherFile', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Sunday', u'Monday', u'Tuesday', u'Wednesday', u'Thursday', u'Friday', u'Saturday', u'UseWeatherFile'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file holidays and special days', {'name': u'Use Weather File Holidays and Special Days', 'pyname': u'use_weather_file_holidays_and_special_days', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file daylight saving period', {'name': u'Use Weather File Daylight Saving Period', 'pyname': u'use_weather_file_daylight_saving_period', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'apply weekend holiday rule', {'name': u'Apply Weekend Holiday Rule', 'pyname': u'apply_weekend_holiday_rule', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file rain indicators', {'name': u'Use Weather File Rain Indicators', 'pyname': u'use_weather_file_rain_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'use weather file snow indicators', {'name': u'Use Weather File Snow Indicators', 'pyname': u'use_weather_file_snow_indicators', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 13,
+ 'name': u'RunPeriod:CustomRange',
+ 'pyname': u'RunPeriodCustomRange',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name` descriptive name (used in reporting
-        mainly) if blank, weather file title is used.  if not blank, must be
-        unique.
+        """  Corresponds to IDD field `Name`
+        descriptive name (used in reporting mainly)
+        if blank, weather file title is used.  if not blank, must be unique
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2477,23 +1639,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def begin_month(self):
-        """Get begin_month.
+        """Get begin_month
 
         Returns:
             int: the value of `begin_month` or None if not set
-
         """
         return self["Begin Month"]
 
     @begin_month.setter
     def begin_month(self, value=None):
-        """Corresponds to IDD field `Begin Month`
+        """  Corresponds to IDD field `Begin Month`
 
         Args:
             value (int): value for IDD Field `Begin Month`
@@ -2504,23 +1664,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Month"] = value
 
     @property
     def begin_day_of_month(self):
-        """Get begin_day_of_month.
+        """Get begin_day_of_month
 
         Returns:
             int: the value of `begin_day_of_month` or None if not set
-
         """
         return self["Begin Day of Month"]
 
     @begin_day_of_month.setter
     def begin_day_of_month(self, value=None):
-        """Corresponds to IDD field `Begin Day of Month`
+        """  Corresponds to IDD field `Begin Day of Month`
 
         Args:
             value (int): value for IDD Field `Begin Day of Month`
@@ -2531,24 +1689,22 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Day of Month"] = value
 
     @property
     def begin_year(self):
-        """Get begin_year.
+        """Get begin_year
 
         Returns:
             float: the value of `begin_year` or None if not set
-
         """
         return self["Begin Year"]
 
     @begin_year.setter
     def begin_year(self, value=None):
-        """Corresponds to IDD field `Begin Year` must be start year of this
-        date on weather file.
+        """  Corresponds to IDD field `Begin Year`
+        must be start year of this date on weather file
 
         Args:
             value (float): value for IDD Field `Begin Year`
@@ -2557,23 +1713,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Begin Year"] = value
 
     @property
     def end_month(self):
-        """Get end_month.
+        """Get end_month
 
         Returns:
             int: the value of `end_month` or None if not set
-
         """
         return self["End Month"]
 
     @end_month.setter
     def end_month(self, value=None):
-        """Corresponds to IDD field `End Month`
+        """  Corresponds to IDD field `End Month`
 
         Args:
             value (int): value for IDD Field `End Month`
@@ -2584,23 +1738,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Month"] = value
 
     @property
     def end_day_of_month(self):
-        """Get end_day_of_month.
+        """Get end_day_of_month
 
         Returns:
             int: the value of `end_day_of_month` or None if not set
-
         """
         return self["End Day of Month"]
 
     @end_day_of_month.setter
     def end_day_of_month(self, value=None):
-        """Corresponds to IDD field `End Day of Month`
+        """  Corresponds to IDD field `End Day of Month`
 
         Args:
             value (int): value for IDD Field `End Day of Month`
@@ -2611,24 +1763,22 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Day of Month"] = value
 
     @property
     def end_year(self):
-        """Get end_year.
+        """Get end_year
 
         Returns:
             float: the value of `end_year` or None if not set
-
         """
         return self["End Year"]
 
     @end_year.setter
     def end_year(self, value=None):
-        """Corresponds to IDD field `End Year` must be end year of this date on
-        weather file.
+        """  Corresponds to IDD field `End Year`
+        must be end year of this date on weather file
 
         Args:
             value (float): value for IDD Field `End Year`
@@ -2637,24 +1787,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["End Year"] = value
 
     @property
     def day_of_week_for_start_day(self):
-        """Get day_of_week_for_start_day.
+        """Get day_of_week_for_start_day
 
         Returns:
             str: the value of `day_of_week_for_start_day` or None if not set
-
         """
         return self["Day of Week for Start Day"]
 
     @day_of_week_for_start_day.setter
     def day_of_week_for_start_day(self, value="UseWeatherFile"):
-        """Corresponds to IDD field `Day of Week for Start Day`
-
+        """  Corresponds to IDD field `Day of Week for Start Day`
         =<blank - use WeatherFile>|Sunday|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday];
 
         Args:
@@ -2665,17 +1812,15 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Day of Week for Start Day"] = value
 
     @property
     def use_weather_file_holidays_and_special_days(self):
-        """Get use_weather_file_holidays_and_special_days.
+        """Get use_weather_file_holidays_and_special_days
 
         Returns:
             str: the value of `use_weather_file_holidays_and_special_days` or None if not set
-
         """
         return self["Use Weather File Holidays and Special Days"]
 
@@ -2699,20 +1844,18 @@ class RunPeriodCustomRange(DataObject):
 
     @property
     def use_weather_file_daylight_saving_period(self):
-        """Get use_weather_file_daylight_saving_period.
+        """Get use_weather_file_daylight_saving_period
 
         Returns:
             str: the value of `use_weather_file_daylight_saving_period` or None if not set
-
         """
         return self["Use Weather File Daylight Saving Period"]
 
     @use_weather_file_daylight_saving_period.setter
     def use_weather_file_daylight_saving_period(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Daylight Saving Period`
-        If yes or blank, use daylight saving period as specified on
-        Weatherfile. If no, do not use the daylight saving period as specified
-        on the Weatherfile.
+        """  Corresponds to IDD field `Use Weather File Daylight Saving Period`
+        If yes or blank, use daylight saving period as specified on Weatherfile.
+        If no, do not use the daylight saving period as specified on the Weatherfile.
 
         Args:
             value (str): value for IDD Field `Use Weather File Daylight Saving Period`
@@ -2722,25 +1865,22 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Daylight Saving Period"] = value
 
     @property
     def apply_weekend_holiday_rule(self):
-        """Get apply_weekend_holiday_rule.
+        """Get apply_weekend_holiday_rule
 
         Returns:
             str: the value of `apply_weekend_holiday_rule` or None if not set
-
         """
         return self["Apply Weekend Holiday Rule"]
 
     @apply_weekend_holiday_rule.setter
     def apply_weekend_holiday_rule(self, value="No"):
-        """Corresponds to IDD field `Apply Weekend Holiday Rule` if yes and
-        single day holiday falls on weekend, "holiday" occurs on following
-        Monday.
+        """  Corresponds to IDD field `Apply Weekend Holiday Rule`
+        if yes and single day holiday falls on weekend, "holiday" occurs on following Monday
 
         Args:
             value (str): value for IDD Field `Apply Weekend Holiday Rule`
@@ -2750,23 +1890,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Apply Weekend Holiday Rule"] = value
 
     @property
     def use_weather_file_rain_indicators(self):
-        """Get use_weather_file_rain_indicators.
+        """Get use_weather_file_rain_indicators
 
         Returns:
             str: the value of `use_weather_file_rain_indicators` or None if not set
-
         """
         return self["Use Weather File Rain Indicators"]
 
     @use_weather_file_rain_indicators.setter
     def use_weather_file_rain_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Rain Indicators`
+        """  Corresponds to IDD field `Use Weather File Rain Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Rain Indicators`
@@ -2776,23 +1914,21 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Rain Indicators"] = value
 
     @property
     def use_weather_file_snow_indicators(self):
-        """Get use_weather_file_snow_indicators.
+        """Get use_weather_file_snow_indicators
 
         Returns:
             str: the value of `use_weather_file_snow_indicators` or None if not set
-
         """
         return self["Use Weather File Snow Indicators"]
 
     @use_weather_file_snow_indicators.setter
     def use_weather_file_snow_indicators(self, value="Yes"):
-        """Corresponds to IDD field `Use Weather File Snow Indicators`
+        """  Corresponds to IDD field `Use Weather File Snow Indicators`
 
         Args:
             value (str): value for IDD Field `Use Weather File Snow Indicators`
@@ -2802,7 +1938,6 @@ class RunPeriodCustomRange(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Use Weather File Snow Indicators"] = value
 
@@ -2810,7 +1945,6 @@ class RunPeriodCustomRange(DataObject):
 
 
 class RunPeriodControlSpecialDays(DataObject):
-
     """ Corresponds to IDD object `RunPeriodControl:SpecialDays`
         This object sets up holidays/special days to be used during weather file
         run periods.  (These are not used with SizingPeriod:* objects.)
@@ -2819,66 +1953,28 @@ class RunPeriodControlSpecialDays(DataObject):
         any specification shown here.  (No error message on duplicate days or overlapping
         days).
     """
-    schema = {'min-fields': 4,
-              'name': u'RunPeriodControl:SpecialDays',
-              'pyname': u'RunPeriodControlSpecialDays',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'start date',
-                                      {'name': u'Start Date',
-                                       'pyname': u'start_date',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'duration',
-                                      {'name': u'Duration',
-                                       'pyname': u'duration',
-                                       'default': 1.0,
-                                       'maximum': 366.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 1.0,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'days'}),
-                                     (u'special day type',
-                                      {'name': u'Special Day Type',
-                                       'pyname': u'special_day_type',
-                                       'default': u'Holiday',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Holiday',
-                                                           u'SummerDesignDay',
-                                                           u'WinterDesignDay',
-                                                           u'CustomDay1',
-                                                           u'CustomDay2'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'start date', {'name': u'Start Date', 'pyname': u'start_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'duration', {'name': u'Duration', 'pyname': u'duration', 'default': 1.0, 'maximum': 366.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': 'real', 'unit': u'days'}), (u'special day type', {'name': u'Special Day Type', 'pyname': u'special_day_type', 'default': u'Holiday', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Holiday', u'SummerDesignDay', u'WinterDesignDay', u'CustomDay1', u'CustomDay2'], 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 4,
+ 'name': u'RunPeriodControl:SpecialDays',
+ 'pyname': u'RunPeriodControlSpecialDays',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2887,17 +1983,15 @@ class RunPeriodControlSpecialDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def start_date(self):
-        """Get start_date.
+        """Get start_date
 
         Returns:
             str: the value of `start_date` or None if not set
-
         """
         return self["Start Date"]
 
@@ -2927,17 +2021,16 @@ class RunPeriodControlSpecialDays(DataObject):
 
     @property
     def duration(self):
-        """Get duration.
+        """Get duration
 
         Returns:
             float: the value of `duration` or None if not set
-
         """
         return self["Duration"]
 
     @duration.setter
     def duration(self, value=1.0):
-        """Corresponds to IDD field `Duration`
+        """  Corresponds to IDD field `Duration`
 
         Args:
             value (float): value for IDD Field `Duration`
@@ -2950,24 +2043,22 @@ class RunPeriodControlSpecialDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Duration"] = value
 
     @property
     def special_day_type(self):
-        """Get special_day_type.
+        """Get special_day_type
 
         Returns:
             str: the value of `special_day_type` or None if not set
-
         """
         return self["Special Day Type"]
 
     @special_day_type.setter
     def special_day_type(self, value="Holiday"):
-        """Corresponds to IDD field `Special Day Type` Special Day Type selects
-        the schedules appropriate for each day so labeled.
+        """  Corresponds to IDD field `Special Day Type`
+        Special Day Type selects the schedules appropriate for each day so labeled
 
         Args:
             value (str): value for IDD Field `Special Day Type`
@@ -2977,7 +2068,6 @@ class RunPeriodControlSpecialDays(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Special Day Type"] = value
 
@@ -2985,49 +2075,34 @@ class RunPeriodControlSpecialDays(DataObject):
 
 
 class RunPeriodControlDaylightSavingTime(DataObject):
-
     """ Corresponds to IDD object `RunPeriodControl:DaylightSavingTime`
         This object sets up the daylight saving time period for any RunPeriod.
         Ignores any daylight saving time period on the weather file and uses this definition.
         These are not used with SizingPeriod:DesignDay objects.
         Use with SizingPeriod:WeatherFileDays object can be controlled in that object.
     """
-    schema = {'min-fields': 2,
-              'name': u'RunPeriodControl:DaylightSavingTime',
-              'pyname': u'RunPeriodControlDaylightSavingTime',
-              'format': None,
-              'fields': OrderedDict([(u'start date',
-                                      {'name': u'Start Date',
-                                       'pyname': u'start_date',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'end date',
-                                      {'name': u'End Date',
-                                       'pyname': u'end_date',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'start date', {'name': u'Start Date', 'pyname': u'start_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'end date', {'name': u'End Date', 'pyname': u'end_date', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 2,
+ 'name': u'RunPeriodControl:DaylightSavingTime',
+ 'pyname': u'RunPeriodControlDaylightSavingTime',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def start_date(self):
-        """Get start_date.
+        """Get start_date
 
         Returns:
             str: the value of `start_date` or None if not set
-
         """
         return self["Start Date"]
 
     @start_date.setter
     def start_date(self, value=None):
-        """Corresponds to IDD field `Start Date`
+        """  Corresponds to IDD field `Start Date`
 
         Args:
             value (str): value for IDD Field `Start Date`
@@ -3036,17 +2111,15 @@ class RunPeriodControlDaylightSavingTime(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Start Date"] = value
 
     @property
     def end_date(self):
-        """Get end_date.
+        """Get end_date
 
         Returns:
             str: the value of `end_date` or None if not set
-
         """
         return self["End Date"]
 
@@ -3078,50 +2151,25 @@ class RunPeriodControlDaylightSavingTime(DataObject):
 
 
 class WeatherPropertySkyTemperature(DataObject):
-
     """ Corresponds to IDD object `WeatherProperty:SkyTemperature`
         This object is used to override internal sky temperature calculations.
     """
-    schema = {'min-fields': 0,
-              'name': u'WeatherProperty:SkyTemperature',
-              'pyname': u'WeatherPropertySkyTemperature',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'calculation type',
-                                      {'name': u'Calculation Type',
-                                       'pyname': u'calculation_type',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'ScheduleValue',
-                                                           u'DifferenceScheduleDryBulbValue',
-                                                           u'DifferenceScheduleDewPointValue'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'schedule name',
-                                      {'name': u'Schedule Name',
-                                       'pyname': u'schedule_name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'calculation type', {'name': u'Calculation Type', 'pyname': u'calculation_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ScheduleValue', u'DifferenceScheduleDryBulbValue', u'DifferenceScheduleDewPointValue'], 'autocalculatable': False, 'type': 'alpha'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'WeatherProperty:SkyTemperature',
+ 'pyname': u'WeatherPropertySkyTemperature',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
@@ -3144,17 +2192,16 @@ class WeatherPropertySkyTemperature(DataObject):
 
     @property
     def calculation_type(self):
-        """Get calculation_type.
+        """Get calculation_type
 
         Returns:
             str: the value of `calculation_type` or None if not set
-
         """
         return self["Calculation Type"]
 
     @calculation_type.setter
     def calculation_type(self, value=None):
-        """Corresponds to IDD field `Calculation Type`
+        """  Corresponds to IDD field `Calculation Type`
 
         Args:
             value (str): value for IDD Field `Calculation Type`
@@ -3163,17 +2210,15 @@ class WeatherPropertySkyTemperature(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Calculation Type"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name.
+        """Get schedule_name
 
         Returns:
             str: the value of `schedule_name` or None if not set
-
         """
         return self["Schedule Name"]
 
@@ -3198,73 +2243,33 @@ class WeatherPropertySkyTemperature(DataObject):
 
 
 class SiteWeatherStation(DataObject):
-
     """ Corresponds to IDD object `Site:WeatherStation`
         This object should only be used for non-standard weather data.  Standard weather data
         such as TMY2, IWEC, and ASHRAE design day data are all measured at the
         default conditions and do not require this object.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:WeatherStation',
-              'pyname': u'SiteWeatherStation',
-              'format': None,
-              'fields': OrderedDict([(u'wind sensor height above ground',
-                                      {'name': u'Wind Sensor Height Above Ground',
-                                       'pyname': u'wind_sensor_height_above_ground',
-                                       'default': 10.0,
-                                       'minimum>': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'wind speed profile exponent',
-                                      {'name': u'Wind Speed Profile Exponent',
-                                       'pyname': u'wind_speed_profile_exponent',
-                                       'default': 0.14,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wind speed profile boundary layer thickness',
-                                      {'name': u'Wind Speed Profile Boundary Layer Thickness',
-                                       'pyname': u'wind_speed_profile_boundary_layer_thickness',
-                                       'default': 270.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'air temperature sensor height above ground',
-                                      {'name': u'Air Temperature Sensor Height Above Ground',
-                                       'pyname': u'air_temperature_sensor_height_above_ground',
-                                       'default': 1.5,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'wind sensor height above ground', {'name': u'Wind Sensor Height Above Ground', 'pyname': u'wind_sensor_height_above_ground', 'default': 10.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'wind speed profile exponent', {'name': u'Wind Speed Profile Exponent', 'pyname': u'wind_speed_profile_exponent', 'default': 0.14, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'wind speed profile boundary layer thickness', {'name': u'Wind Speed Profile Boundary Layer Thickness', 'pyname': u'wind_speed_profile_boundary_layer_thickness', 'default': 270.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air temperature sensor height above ground', {'name': u'Air Temperature Sensor Height Above Ground', 'pyname': u'air_temperature_sensor_height_above_ground', 'default': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:WeatherStation',
+ 'pyname': u'SiteWeatherStation',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def wind_sensor_height_above_ground(self):
-        """Get wind_sensor_height_above_ground.
+        """Get wind_sensor_height_above_ground
 
         Returns:
             float: the value of `wind_sensor_height_above_ground` or None if not set
-
         """
         return self["Wind Sensor Height Above Ground"]
 
     @wind_sensor_height_above_ground.setter
     def wind_sensor_height_above_ground(self, value=10.0):
-        """Corresponds to IDD field `Wind Sensor Height Above Ground`
+        """  Corresponds to IDD field `Wind Sensor Height Above Ground`
 
         Args:
             value (float): value for IDD Field `Wind Sensor Height Above Ground`
@@ -3275,23 +2280,21 @@ class SiteWeatherStation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Sensor Height Above Ground"] = value
 
     @property
     def wind_speed_profile_exponent(self):
-        """Get wind_speed_profile_exponent.
+        """Get wind_speed_profile_exponent
 
         Returns:
             float: the value of `wind_speed_profile_exponent` or None if not set
-
         """
         return self["Wind Speed Profile Exponent"]
 
     @wind_speed_profile_exponent.setter
     def wind_speed_profile_exponent(self, value=0.14):
-        """Corresponds to IDD field `Wind Speed Profile Exponent`
+        """  Corresponds to IDD field `Wind Speed Profile Exponent`
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
@@ -3301,24 +2304,21 @@ class SiteWeatherStation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Speed Profile Exponent"] = value
 
     @property
     def wind_speed_profile_boundary_layer_thickness(self):
-        """Get wind_speed_profile_boundary_layer_thickness.
+        """Get wind_speed_profile_boundary_layer_thickness
 
         Returns:
             float: the value of `wind_speed_profile_boundary_layer_thickness` or None if not set
-
         """
         return self["Wind Speed Profile Boundary Layer Thickness"]
 
     @wind_speed_profile_boundary_layer_thickness.setter
     def wind_speed_profile_boundary_layer_thickness(self, value=270.0):
-        """Corresponds to IDD field `Wind Speed Profile Boundary Layer
-        Thickness`
+        """  Corresponds to IDD field `Wind Speed Profile Boundary Layer Thickness`
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
@@ -3329,24 +2329,21 @@ class SiteWeatherStation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
     def air_temperature_sensor_height_above_ground(self):
-        """Get air_temperature_sensor_height_above_ground.
+        """Get air_temperature_sensor_height_above_ground
 
         Returns:
             float: the value of `air_temperature_sensor_height_above_ground` or None if not set
-
         """
         return self["Air Temperature Sensor Height Above Ground"]
 
     @air_temperature_sensor_height_above_ground.setter
     def air_temperature_sensor_height_above_ground(self, value=1.5):
-        """Corresponds to IDD field `Air Temperature Sensor Height Above
-        Ground`
+        """  Corresponds to IDD field `Air Temperature Sensor Height Above Ground`
 
         Args:
             value (float): value for IDD Field `Air Temperature Sensor Height Above Ground`
@@ -3357,7 +2354,6 @@ class SiteWeatherStation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Air Temperature Sensor Height Above Ground"] = value
 
@@ -3365,65 +2361,35 @@ class SiteWeatherStation(DataObject):
 
 
 class SiteHeightVariation(DataObject):
-
     """ Corresponds to IDD object `Site:HeightVariation`
         This object is used if the user requires advanced control over height-dependent
         variations in wind speed and temperature.  When this object is not present, the default model
         for temperature dependence on height is used, and the wind speed is modeled according
         to the Terrain field of the BUILDING object.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:HeightVariation',
-              'pyname': u'SiteHeightVariation',
-              'format': None,
-              'fields': OrderedDict([(u'wind speed profile exponent',
-                                      {'name': u'Wind Speed Profile Exponent',
-                                       'pyname': u'wind_speed_profile_exponent',
-                                       'default': 0.22,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wind speed profile boundary layer thickness',
-                                      {'name': u'Wind Speed Profile Boundary Layer Thickness',
-                                       'pyname': u'wind_speed_profile_boundary_layer_thickness',
-                                       'default': 370.0,
-                                       'minimum>': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'air temperature gradient coefficient',
-                                      {'name': u'Air Temperature Gradient Coefficient',
-                                       'pyname': u'air_temperature_gradient_coefficient',
-                                       'default': 0.0065,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'K/m'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'wind speed profile exponent', {'name': u'Wind Speed Profile Exponent', 'pyname': u'wind_speed_profile_exponent', 'default': 0.22, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'wind speed profile boundary layer thickness', {'name': u'Wind Speed Profile Boundary Layer Thickness', 'pyname': u'wind_speed_profile_boundary_layer_thickness', 'default': 370.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'air temperature gradient coefficient', {'name': u'Air Temperature Gradient Coefficient', 'pyname': u'air_temperature_gradient_coefficient', 'default': 0.0065, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'K/m'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:HeightVariation',
+ 'pyname': u'SiteHeightVariation',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def wind_speed_profile_exponent(self):
-        """Get wind_speed_profile_exponent.
+        """Get wind_speed_profile_exponent
 
         Returns:
             float: the value of `wind_speed_profile_exponent` or None if not set
-
         """
         return self["Wind Speed Profile Exponent"]
 
     @wind_speed_profile_exponent.setter
     def wind_speed_profile_exponent(self, value=0.22):
-        """Corresponds to IDD field `Wind Speed Profile Exponent` Set to zero
-        for no wind speed dependence on height.
+        """  Corresponds to IDD field `Wind Speed Profile Exponent`
+        Set to zero for no wind speed dependence on height.
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Exponent`
@@ -3433,24 +2399,21 @@ class SiteHeightVariation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Speed Profile Exponent"] = value
 
     @property
     def wind_speed_profile_boundary_layer_thickness(self):
-        """Get wind_speed_profile_boundary_layer_thickness.
+        """Get wind_speed_profile_boundary_layer_thickness
 
         Returns:
             float: the value of `wind_speed_profile_boundary_layer_thickness` or None if not set
-
         """
         return self["Wind Speed Profile Boundary Layer Thickness"]
 
     @wind_speed_profile_boundary_layer_thickness.setter
     def wind_speed_profile_boundary_layer_thickness(self, value=370.0):
-        """Corresponds to IDD field `Wind Speed Profile Boundary Layer
-        Thickness`
+        """  Corresponds to IDD field `Wind Speed Profile Boundary Layer Thickness`
 
         Args:
             value (float): value for IDD Field `Wind Speed Profile Boundary Layer Thickness`
@@ -3461,24 +2424,22 @@ class SiteHeightVariation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wind Speed Profile Boundary Layer Thickness"] = value
 
     @property
     def air_temperature_gradient_coefficient(self):
-        """Get air_temperature_gradient_coefficient.
+        """Get air_temperature_gradient_coefficient
 
         Returns:
             float: the value of `air_temperature_gradient_coefficient` or None if not set
-
         """
         return self["Air Temperature Gradient Coefficient"]
 
     @air_temperature_gradient_coefficient.setter
     def air_temperature_gradient_coefficient(self, value=0.0065):
-        """Corresponds to IDD field `Air Temperature Gradient Coefficient` Set
-        to zero for no air temperature dependence on height.
+        """  Corresponds to IDD field `Air Temperature Gradient Coefficient`
+        Set to zero for no air temperature dependence on height.
 
         Args:
             value (float): value for IDD Field `Air Temperature Gradient Coefficient`
@@ -3489,7 +2450,6 @@ class SiteHeightVariation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Air Temperature Gradient Coefficient"] = value
 
@@ -3497,7 +2457,6 @@ class SiteHeightVariation(DataObject):
 
 
 class SiteGroundTemperatureBuildingSurface(DataObject):
-
     """ Corresponds to IDD object `Site:GroundTemperature:BuildingSurface`
         These temperatures are specifically for those surfaces that have the outside environment
         of "Ground".  Documentation about what values these should be is located in the
@@ -3508,136 +2467,28 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
         average ground temperatures (see Auxiliary Programs).  For typical commercial
         buildings in the USA, a reasonable default value is 2C less than the average indoor space temperature.
     """
-    schema = {'min-fields': 12,
-              'name': u'Site:GroundTemperature:BuildingSurface',
-              'pyname': u'SiteGroundTemperatureBuildingSurface',
-              'format': u'singleline',
-              'fields': OrderedDict([(u'january ground temperature',
-                                      {'name': u'January Ground Temperature',
-                                       'pyname': u'january_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'february ground temperature',
-                                      {'name': u'February Ground Temperature',
-                                       'pyname': u'february_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'march ground temperature',
-                                      {'name': u'March Ground Temperature',
-                                       'pyname': u'march_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'april ground temperature',
-                                      {'name': u'April Ground Temperature',
-                                       'pyname': u'april_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'may ground temperature',
-                                      {'name': u'May Ground Temperature',
-                                       'pyname': u'may_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'june ground temperature',
-                                      {'name': u'June Ground Temperature',
-                                       'pyname': u'june_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'july ground temperature',
-                                      {'name': u'July Ground Temperature',
-                                       'pyname': u'july_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'august ground temperature',
-                                      {'name': u'August Ground Temperature',
-                                       'pyname': u'august_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'september ground temperature',
-                                      {'name': u'September Ground Temperature',
-                                       'pyname': u'september_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'october ground temperature',
-                                      {'name': u'October Ground Temperature',
-                                       'pyname': u'october_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'november ground temperature',
-                                      {'name': u'November Ground Temperature',
-                                       'pyname': u'november_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'december ground temperature',
-                                      {'name': u'December Ground Temperature',
-                                       'pyname': u'december_ground_temperature',
-                                       'default': 18.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 18.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]),
+ 'format': u'singleline',
+ 'group': u'Location and Climate',
+ 'min-fields': 12,
+ 'name': u'Site:GroundTemperature:BuildingSurface',
+ 'pyname': u'SiteGroundTemperatureBuildingSurface',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def january_ground_temperature(self):
-        """Get january_ground_temperature.
+        """Get january_ground_temperature
 
         Returns:
             float: the value of `january_ground_temperature` or None if not set
-
         """
         return self["January Ground Temperature"]
 
     @january_ground_temperature.setter
     def january_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `January Ground Temperature`
+        """  Corresponds to IDD field `January Ground Temperature`
 
         Args:
             value (float): value for IDD Field `January Ground Temperature`
@@ -3648,23 +2499,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["January Ground Temperature"] = value
 
     @property
     def february_ground_temperature(self):
-        """Get february_ground_temperature.
+        """Get february_ground_temperature
 
         Returns:
             float: the value of `february_ground_temperature` or None if not set
-
         """
         return self["February Ground Temperature"]
 
     @february_ground_temperature.setter
     def february_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `February Ground Temperature`
+        """  Corresponds to IDD field `February Ground Temperature`
 
         Args:
             value (float): value for IDD Field `February Ground Temperature`
@@ -3675,23 +2524,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["February Ground Temperature"] = value
 
     @property
     def march_ground_temperature(self):
-        """Get march_ground_temperature.
+        """Get march_ground_temperature
 
         Returns:
             float: the value of `march_ground_temperature` or None if not set
-
         """
         return self["March Ground Temperature"]
 
     @march_ground_temperature.setter
     def march_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `March Ground Temperature`
+        """  Corresponds to IDD field `March Ground Temperature`
 
         Args:
             value (float): value for IDD Field `March Ground Temperature`
@@ -3702,23 +2549,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["March Ground Temperature"] = value
 
     @property
     def april_ground_temperature(self):
-        """Get april_ground_temperature.
+        """Get april_ground_temperature
 
         Returns:
             float: the value of `april_ground_temperature` or None if not set
-
         """
         return self["April Ground Temperature"]
 
     @april_ground_temperature.setter
     def april_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `April Ground Temperature`
+        """  Corresponds to IDD field `April Ground Temperature`
 
         Args:
             value (float): value for IDD Field `April Ground Temperature`
@@ -3729,23 +2574,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["April Ground Temperature"] = value
 
     @property
     def may_ground_temperature(self):
-        """Get may_ground_temperature.
+        """Get may_ground_temperature
 
         Returns:
             float: the value of `may_ground_temperature` or None if not set
-
         """
         return self["May Ground Temperature"]
 
     @may_ground_temperature.setter
     def may_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `May Ground Temperature`
+        """  Corresponds to IDD field `May Ground Temperature`
 
         Args:
             value (float): value for IDD Field `May Ground Temperature`
@@ -3756,23 +2599,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["May Ground Temperature"] = value
 
     @property
     def june_ground_temperature(self):
-        """Get june_ground_temperature.
+        """Get june_ground_temperature
 
         Returns:
             float: the value of `june_ground_temperature` or None if not set
-
         """
         return self["June Ground Temperature"]
 
     @june_ground_temperature.setter
     def june_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `June Ground Temperature`
+        """  Corresponds to IDD field `June Ground Temperature`
 
         Args:
             value (float): value for IDD Field `June Ground Temperature`
@@ -3783,23 +2624,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["June Ground Temperature"] = value
 
     @property
     def july_ground_temperature(self):
-        """Get july_ground_temperature.
+        """Get july_ground_temperature
 
         Returns:
             float: the value of `july_ground_temperature` or None if not set
-
         """
         return self["July Ground Temperature"]
 
     @july_ground_temperature.setter
     def july_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `July Ground Temperature`
+        """  Corresponds to IDD field `July Ground Temperature`
 
         Args:
             value (float): value for IDD Field `July Ground Temperature`
@@ -3810,23 +2649,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["July Ground Temperature"] = value
 
     @property
     def august_ground_temperature(self):
-        """Get august_ground_temperature.
+        """Get august_ground_temperature
 
         Returns:
             float: the value of `august_ground_temperature` or None if not set
-
         """
         return self["August Ground Temperature"]
 
     @august_ground_temperature.setter
     def august_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `August Ground Temperature`
+        """  Corresponds to IDD field `August Ground Temperature`
 
         Args:
             value (float): value for IDD Field `August Ground Temperature`
@@ -3837,23 +2674,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["August Ground Temperature"] = value
 
     @property
     def september_ground_temperature(self):
-        """Get september_ground_temperature.
+        """Get september_ground_temperature
 
         Returns:
             float: the value of `september_ground_temperature` or None if not set
-
         """
         return self["September Ground Temperature"]
 
     @september_ground_temperature.setter
     def september_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `September Ground Temperature`
+        """  Corresponds to IDD field `September Ground Temperature`
 
         Args:
             value (float): value for IDD Field `September Ground Temperature`
@@ -3864,23 +2699,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["September Ground Temperature"] = value
 
     @property
     def october_ground_temperature(self):
-        """Get october_ground_temperature.
+        """Get october_ground_temperature
 
         Returns:
             float: the value of `october_ground_temperature` or None if not set
-
         """
         return self["October Ground Temperature"]
 
     @october_ground_temperature.setter
     def october_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `October Ground Temperature`
+        """  Corresponds to IDD field `October Ground Temperature`
 
         Args:
             value (float): value for IDD Field `October Ground Temperature`
@@ -3891,23 +2724,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["October Ground Temperature"] = value
 
     @property
     def november_ground_temperature(self):
-        """Get november_ground_temperature.
+        """Get november_ground_temperature
 
         Returns:
             float: the value of `november_ground_temperature` or None if not set
-
         """
         return self["November Ground Temperature"]
 
     @november_ground_temperature.setter
     def november_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `November Ground Temperature`
+        """  Corresponds to IDD field `November Ground Temperature`
 
         Args:
             value (float): value for IDD Field `November Ground Temperature`
@@ -3918,23 +2749,21 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["November Ground Temperature"] = value
 
     @property
     def december_ground_temperature(self):
-        """Get december_ground_temperature.
+        """Get december_ground_temperature
 
         Returns:
             float: the value of `december_ground_temperature` or None if not set
-
         """
         return self["December Ground Temperature"]
 
     @december_ground_temperature.setter
     def december_ground_temperature(self, value=18.0):
-        """Corresponds to IDD field `December Ground Temperature`
+        """  Corresponds to IDD field `December Ground Temperature`
 
         Args:
             value (float): value for IDD Field `December Ground Temperature`
@@ -3945,7 +2774,6 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["December Ground Temperature"] = value
 
@@ -3953,142 +2781,33 @@ class SiteGroundTemperatureBuildingSurface(DataObject):
 
 
 class SiteGroundTemperatureFcfactorMethod(DataObject):
-
     """ Corresponds to IDD object `Site:GroundTemperature:FCfactorMethod`
         These temperatures are specifically for underground walls and ground floors
         defined with the C-factor and F-factor methods, and should be close to the
         monthly average outdoor air temperature delayed by 3 months for the location.
     """
-    schema = {'min-fields': 12,
-              'name': u'Site:GroundTemperature:FCfactorMethod',
-              'pyname': u'SiteGroundTemperatureFcfactorMethod',
-              'format': u'singleline',
-              'fields': OrderedDict([(u'january ground temperature',
-                                      {'name': u'January Ground Temperature',
-                                       'pyname': u'january_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'february ground temperature',
-                                      {'name': u'February Ground Temperature',
-                                       'pyname': u'february_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'march ground temperature',
-                                      {'name': u'March Ground Temperature',
-                                       'pyname': u'march_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'april ground temperature',
-                                      {'name': u'April Ground Temperature',
-                                       'pyname': u'april_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'may ground temperature',
-                                      {'name': u'May Ground Temperature',
-                                       'pyname': u'may_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'june ground temperature',
-                                      {'name': u'June Ground Temperature',
-                                       'pyname': u'june_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'july ground temperature',
-                                      {'name': u'July Ground Temperature',
-                                       'pyname': u'july_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'august ground temperature',
-                                      {'name': u'August Ground Temperature',
-                                       'pyname': u'august_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'september ground temperature',
-                                      {'name': u'September Ground Temperature',
-                                       'pyname': u'september_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'october ground temperature',
-                                      {'name': u'October Ground Temperature',
-                                       'pyname': u'october_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'november ground temperature',
-                                      {'name': u'November Ground Temperature',
-                                       'pyname': u'november_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'december ground temperature',
-                                      {'name': u'December Ground Temperature',
-                                       'pyname': u'december_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'january ground temperature', {'name': u'January Ground Temperature', 'pyname': u'january_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february ground temperature', {'name': u'February Ground Temperature', 'pyname': u'february_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march ground temperature', {'name': u'March Ground Temperature', 'pyname': u'march_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april ground temperature', {'name': u'April Ground Temperature', 'pyname': u'april_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may ground temperature', {'name': u'May Ground Temperature', 'pyname': u'may_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june ground temperature', {'name': u'June Ground Temperature', 'pyname': u'june_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july ground temperature', {'name': u'July Ground Temperature', 'pyname': u'july_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august ground temperature', {'name': u'August Ground Temperature', 'pyname': u'august_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september ground temperature', {'name': u'September Ground Temperature', 'pyname': u'september_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october ground temperature', {'name': u'October Ground Temperature', 'pyname': u'october_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november ground temperature', {'name': u'November Ground Temperature', 'pyname': u'november_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december ground temperature', {'name': u'December Ground Temperature', 'pyname': u'december_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]),
+ 'format': u'singleline',
+ 'group': u'Location and Climate',
+ 'min-fields': 12,
+ 'name': u'Site:GroundTemperature:FCfactorMethod',
+ 'pyname': u'SiteGroundTemperatureFcfactorMethod',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def january_ground_temperature(self):
-        """Get january_ground_temperature.
+        """Get january_ground_temperature
 
         Returns:
             float: the value of `january_ground_temperature` or None if not set
-
         """
         return self["January Ground Temperature"]
 
     @january_ground_temperature.setter
     def january_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `January Ground Temperature`
+        """  Corresponds to IDD field `January Ground Temperature`
 
         Args:
             value (float): value for IDD Field `January Ground Temperature`
@@ -4099,23 +2818,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["January Ground Temperature"] = value
 
     @property
     def february_ground_temperature(self):
-        """Get february_ground_temperature.
+        """Get february_ground_temperature
 
         Returns:
             float: the value of `february_ground_temperature` or None if not set
-
         """
         return self["February Ground Temperature"]
 
     @february_ground_temperature.setter
     def february_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `February Ground Temperature`
+        """  Corresponds to IDD field `February Ground Temperature`
 
         Args:
             value (float): value for IDD Field `February Ground Temperature`
@@ -4126,23 +2843,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["February Ground Temperature"] = value
 
     @property
     def march_ground_temperature(self):
-        """Get march_ground_temperature.
+        """Get march_ground_temperature
 
         Returns:
             float: the value of `march_ground_temperature` or None if not set
-
         """
         return self["March Ground Temperature"]
 
     @march_ground_temperature.setter
     def march_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `March Ground Temperature`
+        """  Corresponds to IDD field `March Ground Temperature`
 
         Args:
             value (float): value for IDD Field `March Ground Temperature`
@@ -4153,23 +2868,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["March Ground Temperature"] = value
 
     @property
     def april_ground_temperature(self):
-        """Get april_ground_temperature.
+        """Get april_ground_temperature
 
         Returns:
             float: the value of `april_ground_temperature` or None if not set
-
         """
         return self["April Ground Temperature"]
 
     @april_ground_temperature.setter
     def april_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `April Ground Temperature`
+        """  Corresponds to IDD field `April Ground Temperature`
 
         Args:
             value (float): value for IDD Field `April Ground Temperature`
@@ -4180,23 +2893,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["April Ground Temperature"] = value
 
     @property
     def may_ground_temperature(self):
-        """Get may_ground_temperature.
+        """Get may_ground_temperature
 
         Returns:
             float: the value of `may_ground_temperature` or None if not set
-
         """
         return self["May Ground Temperature"]
 
     @may_ground_temperature.setter
     def may_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `May Ground Temperature`
+        """  Corresponds to IDD field `May Ground Temperature`
 
         Args:
             value (float): value for IDD Field `May Ground Temperature`
@@ -4207,23 +2918,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["May Ground Temperature"] = value
 
     @property
     def june_ground_temperature(self):
-        """Get june_ground_temperature.
+        """Get june_ground_temperature
 
         Returns:
             float: the value of `june_ground_temperature` or None if not set
-
         """
         return self["June Ground Temperature"]
 
     @june_ground_temperature.setter
     def june_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `June Ground Temperature`
+        """  Corresponds to IDD field `June Ground Temperature`
 
         Args:
             value (float): value for IDD Field `June Ground Temperature`
@@ -4234,23 +2943,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["June Ground Temperature"] = value
 
     @property
     def july_ground_temperature(self):
-        """Get july_ground_temperature.
+        """Get july_ground_temperature
 
         Returns:
             float: the value of `july_ground_temperature` or None if not set
-
         """
         return self["July Ground Temperature"]
 
     @july_ground_temperature.setter
     def july_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `July Ground Temperature`
+        """  Corresponds to IDD field `July Ground Temperature`
 
         Args:
             value (float): value for IDD Field `July Ground Temperature`
@@ -4261,23 +2968,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["July Ground Temperature"] = value
 
     @property
     def august_ground_temperature(self):
-        """Get august_ground_temperature.
+        """Get august_ground_temperature
 
         Returns:
             float: the value of `august_ground_temperature` or None if not set
-
         """
         return self["August Ground Temperature"]
 
     @august_ground_temperature.setter
     def august_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `August Ground Temperature`
+        """  Corresponds to IDD field `August Ground Temperature`
 
         Args:
             value (float): value for IDD Field `August Ground Temperature`
@@ -4288,23 +2993,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["August Ground Temperature"] = value
 
     @property
     def september_ground_temperature(self):
-        """Get september_ground_temperature.
+        """Get september_ground_temperature
 
         Returns:
             float: the value of `september_ground_temperature` or None if not set
-
         """
         return self["September Ground Temperature"]
 
     @september_ground_temperature.setter
     def september_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `September Ground Temperature`
+        """  Corresponds to IDD field `September Ground Temperature`
 
         Args:
             value (float): value for IDD Field `September Ground Temperature`
@@ -4315,23 +3018,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["September Ground Temperature"] = value
 
     @property
     def october_ground_temperature(self):
-        """Get october_ground_temperature.
+        """Get october_ground_temperature
 
         Returns:
             float: the value of `october_ground_temperature` or None if not set
-
         """
         return self["October Ground Temperature"]
 
     @october_ground_temperature.setter
     def october_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `October Ground Temperature`
+        """  Corresponds to IDD field `October Ground Temperature`
 
         Args:
             value (float): value for IDD Field `October Ground Temperature`
@@ -4342,23 +3043,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["October Ground Temperature"] = value
 
     @property
     def november_ground_temperature(self):
-        """Get november_ground_temperature.
+        """Get november_ground_temperature
 
         Returns:
             float: the value of `november_ground_temperature` or None if not set
-
         """
         return self["November Ground Temperature"]
 
     @november_ground_temperature.setter
     def november_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `November Ground Temperature`
+        """  Corresponds to IDD field `November Ground Temperature`
 
         Args:
             value (float): value for IDD Field `November Ground Temperature`
@@ -4369,23 +3068,21 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["November Ground Temperature"] = value
 
     @property
     def december_ground_temperature(self):
-        """Get december_ground_temperature.
+        """Get december_ground_temperature
 
         Returns:
             float: the value of `december_ground_temperature` or None if not set
-
         """
         return self["December Ground Temperature"]
 
     @december_ground_temperature.setter
     def december_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `December Ground Temperature`
+        """  Corresponds to IDD field `December Ground Temperature`
 
         Args:
             value (float): value for IDD Field `December Ground Temperature`
@@ -4396,7 +3093,6 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["December Ground Temperature"] = value
 
@@ -4404,142 +3100,33 @@ class SiteGroundTemperatureFcfactorMethod(DataObject):
 
 
 class SiteGroundTemperatureShallow(DataObject):
-
     """ Corresponds to IDD object `Site:GroundTemperature:Shallow`
         These temperatures are specifically for the Surface Ground Heat Exchanger and
         should probably be close to the average outdoor air temperature for the location.
         They are not used in other models.
     """
-    schema = {'min-fields': 12,
-              'name': u'Site:GroundTemperature:Shallow',
-              'pyname': u'SiteGroundTemperatureShallow',
-              'format': u'singleline',
-              'fields': OrderedDict([(u'january surface ground temperature',
-                                      {'name': u'January Surface Ground Temperature',
-                                       'pyname': u'january_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'february surface ground temperature',
-                                      {'name': u'February Surface Ground Temperature',
-                                       'pyname': u'february_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'march surface ground temperature',
-                                      {'name': u'March Surface Ground Temperature',
-                                       'pyname': u'march_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'april surface ground temperature',
-                                      {'name': u'April Surface Ground Temperature',
-                                       'pyname': u'april_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'may surface ground temperature',
-                                      {'name': u'May Surface Ground Temperature',
-                                       'pyname': u'may_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'june surface ground temperature',
-                                      {'name': u'June Surface Ground Temperature',
-                                       'pyname': u'june_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'july surface ground temperature',
-                                      {'name': u'July Surface Ground Temperature',
-                                       'pyname': u'july_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'august surface ground temperature',
-                                      {'name': u'August Surface Ground Temperature',
-                                       'pyname': u'august_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'september surface ground temperature',
-                                      {'name': u'September Surface Ground Temperature',
-                                       'pyname': u'september_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'october surface ground temperature',
-                                      {'name': u'October Surface Ground Temperature',
-                                       'pyname': u'october_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'november surface ground temperature',
-                                      {'name': u'November Surface Ground Temperature',
-                                       'pyname': u'november_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'december surface ground temperature',
-                                      {'name': u'December Surface Ground Temperature',
-                                       'pyname': u'december_surface_ground_temperature',
-                                       'default': 13.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'january surface ground temperature', {'name': u'January Surface Ground Temperature', 'pyname': u'january_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february surface ground temperature', {'name': u'February Surface Ground Temperature', 'pyname': u'february_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march surface ground temperature', {'name': u'March Surface Ground Temperature', 'pyname': u'march_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april surface ground temperature', {'name': u'April Surface Ground Temperature', 'pyname': u'april_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may surface ground temperature', {'name': u'May Surface Ground Temperature', 'pyname': u'may_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june surface ground temperature', {'name': u'June Surface Ground Temperature', 'pyname': u'june_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july surface ground temperature', {'name': u'July Surface Ground Temperature', 'pyname': u'july_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august surface ground temperature', {'name': u'August Surface Ground Temperature', 'pyname': u'august_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september surface ground temperature', {'name': u'September Surface Ground Temperature', 'pyname': u'september_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october surface ground temperature', {'name': u'October Surface Ground Temperature', 'pyname': u'october_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november surface ground temperature', {'name': u'November Surface Ground Temperature', 'pyname': u'november_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december surface ground temperature', {'name': u'December Surface Ground Temperature', 'pyname': u'december_surface_ground_temperature', 'default': 13.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]),
+ 'format': u'singleline',
+ 'group': u'Location and Climate',
+ 'min-fields': 12,
+ 'name': u'Site:GroundTemperature:Shallow',
+ 'pyname': u'SiteGroundTemperatureShallow',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def january_surface_ground_temperature(self):
-        """Get january_surface_ground_temperature.
+        """Get january_surface_ground_temperature
 
         Returns:
             float: the value of `january_surface_ground_temperature` or None if not set
-
         """
         return self["January Surface Ground Temperature"]
 
     @january_surface_ground_temperature.setter
     def january_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `January Surface Ground Temperature`
+        """  Corresponds to IDD field `January Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `January Surface Ground Temperature`
@@ -4550,23 +3137,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["January Surface Ground Temperature"] = value
 
     @property
     def february_surface_ground_temperature(self):
-        """Get february_surface_ground_temperature.
+        """Get february_surface_ground_temperature
 
         Returns:
             float: the value of `february_surface_ground_temperature` or None if not set
-
         """
         return self["February Surface Ground Temperature"]
 
     @february_surface_ground_temperature.setter
     def february_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `February Surface Ground Temperature`
+        """  Corresponds to IDD field `February Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `February Surface Ground Temperature`
@@ -4577,23 +3162,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["February Surface Ground Temperature"] = value
 
     @property
     def march_surface_ground_temperature(self):
-        """Get march_surface_ground_temperature.
+        """Get march_surface_ground_temperature
 
         Returns:
             float: the value of `march_surface_ground_temperature` or None if not set
-
         """
         return self["March Surface Ground Temperature"]
 
     @march_surface_ground_temperature.setter
     def march_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `March Surface Ground Temperature`
+        """  Corresponds to IDD field `March Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `March Surface Ground Temperature`
@@ -4604,23 +3187,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["March Surface Ground Temperature"] = value
 
     @property
     def april_surface_ground_temperature(self):
-        """Get april_surface_ground_temperature.
+        """Get april_surface_ground_temperature
 
         Returns:
             float: the value of `april_surface_ground_temperature` or None if not set
-
         """
         return self["April Surface Ground Temperature"]
 
     @april_surface_ground_temperature.setter
     def april_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `April Surface Ground Temperature`
+        """  Corresponds to IDD field `April Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `April Surface Ground Temperature`
@@ -4631,23 +3212,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["April Surface Ground Temperature"] = value
 
     @property
     def may_surface_ground_temperature(self):
-        """Get may_surface_ground_temperature.
+        """Get may_surface_ground_temperature
 
         Returns:
             float: the value of `may_surface_ground_temperature` or None if not set
-
         """
         return self["May Surface Ground Temperature"]
 
     @may_surface_ground_temperature.setter
     def may_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `May Surface Ground Temperature`
+        """  Corresponds to IDD field `May Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `May Surface Ground Temperature`
@@ -4658,23 +3237,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["May Surface Ground Temperature"] = value
 
     @property
     def june_surface_ground_temperature(self):
-        """Get june_surface_ground_temperature.
+        """Get june_surface_ground_temperature
 
         Returns:
             float: the value of `june_surface_ground_temperature` or None if not set
-
         """
         return self["June Surface Ground Temperature"]
 
     @june_surface_ground_temperature.setter
     def june_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `June Surface Ground Temperature`
+        """  Corresponds to IDD field `June Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `June Surface Ground Temperature`
@@ -4685,23 +3262,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["June Surface Ground Temperature"] = value
 
     @property
     def july_surface_ground_temperature(self):
-        """Get july_surface_ground_temperature.
+        """Get july_surface_ground_temperature
 
         Returns:
             float: the value of `july_surface_ground_temperature` or None if not set
-
         """
         return self["July Surface Ground Temperature"]
 
     @july_surface_ground_temperature.setter
     def july_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `July Surface Ground Temperature`
+        """  Corresponds to IDD field `July Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `July Surface Ground Temperature`
@@ -4712,23 +3287,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["July Surface Ground Temperature"] = value
 
     @property
     def august_surface_ground_temperature(self):
-        """Get august_surface_ground_temperature.
+        """Get august_surface_ground_temperature
 
         Returns:
             float: the value of `august_surface_ground_temperature` or None if not set
-
         """
         return self["August Surface Ground Temperature"]
 
     @august_surface_ground_temperature.setter
     def august_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `August Surface Ground Temperature`
+        """  Corresponds to IDD field `August Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `August Surface Ground Temperature`
@@ -4739,23 +3312,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["August Surface Ground Temperature"] = value
 
     @property
     def september_surface_ground_temperature(self):
-        """Get september_surface_ground_temperature.
+        """Get september_surface_ground_temperature
 
         Returns:
             float: the value of `september_surface_ground_temperature` or None if not set
-
         """
         return self["September Surface Ground Temperature"]
 
     @september_surface_ground_temperature.setter
     def september_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `September Surface Ground Temperature`
+        """  Corresponds to IDD field `September Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `September Surface Ground Temperature`
@@ -4766,23 +3337,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["September Surface Ground Temperature"] = value
 
     @property
     def october_surface_ground_temperature(self):
-        """Get october_surface_ground_temperature.
+        """Get october_surface_ground_temperature
 
         Returns:
             float: the value of `october_surface_ground_temperature` or None if not set
-
         """
         return self["October Surface Ground Temperature"]
 
     @october_surface_ground_temperature.setter
     def october_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `October Surface Ground Temperature`
+        """  Corresponds to IDD field `October Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `October Surface Ground Temperature`
@@ -4793,23 +3362,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["October Surface Ground Temperature"] = value
 
     @property
     def november_surface_ground_temperature(self):
-        """Get november_surface_ground_temperature.
+        """Get november_surface_ground_temperature
 
         Returns:
             float: the value of `november_surface_ground_temperature` or None if not set
-
         """
         return self["November Surface Ground Temperature"]
 
     @november_surface_ground_temperature.setter
     def november_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `November Surface Ground Temperature`
+        """  Corresponds to IDD field `November Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `November Surface Ground Temperature`
@@ -4820,23 +3387,21 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["November Surface Ground Temperature"] = value
 
     @property
     def december_surface_ground_temperature(self):
-        """Get december_surface_ground_temperature.
+        """Get december_surface_ground_temperature
 
         Returns:
             float: the value of `december_surface_ground_temperature` or None if not set
-
         """
         return self["December Surface Ground Temperature"]
 
     @december_surface_ground_temperature.setter
     def december_surface_ground_temperature(self, value=13.0):
-        """Corresponds to IDD field `December Surface Ground Temperature`
+        """  Corresponds to IDD field `December Surface Ground Temperature`
 
         Args:
             value (float): value for IDD Field `December Surface Ground Temperature`
@@ -4847,7 +3412,6 @@ class SiteGroundTemperatureShallow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["December Surface Ground Temperature"] = value
 
@@ -4855,142 +3419,33 @@ class SiteGroundTemperatureShallow(DataObject):
 
 
 class SiteGroundTemperatureDeep(DataObject):
-
     """ Corresponds to IDD object `Site:GroundTemperature:Deep`
         These temperatures are specifically for the ground heat exchangers that would use
         "deep" (3-4 m depth) ground temperatures for their heat source.
         They are not used in other models.
     """
-    schema = {'min-fields': 12,
-              'name': u'Site:GroundTemperature:Deep',
-              'pyname': u'SiteGroundTemperatureDeep',
-              'format': u'singleline',
-              'fields': OrderedDict([(u'january deep ground temperature',
-                                      {'name': u'January Deep Ground Temperature',
-                                       'pyname': u'january_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'february deep ground temperature',
-                                      {'name': u'February Deep Ground Temperature',
-                                       'pyname': u'february_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'march deep ground temperature',
-                                      {'name': u'March Deep Ground Temperature',
-                                       'pyname': u'march_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'april deep ground temperature',
-                                      {'name': u'April Deep Ground Temperature',
-                                       'pyname': u'april_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'may deep ground temperature',
-                                      {'name': u'May Deep Ground Temperature',
-                                       'pyname': u'may_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'june deep ground temperature',
-                                      {'name': u'June Deep Ground Temperature',
-                                       'pyname': u'june_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'july deep ground temperature',
-                                      {'name': u'July Deep Ground Temperature',
-                                       'pyname': u'july_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'august deep ground temperature',
-                                      {'name': u'August Deep Ground Temperature',
-                                       'pyname': u'august_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'september deep ground temperature',
-                                      {'name': u'September Deep Ground Temperature',
-                                       'pyname': u'september_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'october deep ground temperature',
-                                      {'name': u'October Deep Ground Temperature',
-                                       'pyname': u'october_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'november deep ground temperature',
-                                      {'name': u'November Deep Ground Temperature',
-                                       'pyname': u'november_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'december deep ground temperature',
-                                      {'name': u'December Deep Ground Temperature',
-                                       'pyname': u'december_deep_ground_temperature',
-                                       'default': 16.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'january deep ground temperature', {'name': u'January Deep Ground Temperature', 'pyname': u'january_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'february deep ground temperature', {'name': u'February Deep Ground Temperature', 'pyname': u'february_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'march deep ground temperature', {'name': u'March Deep Ground Temperature', 'pyname': u'march_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'april deep ground temperature', {'name': u'April Deep Ground Temperature', 'pyname': u'april_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'may deep ground temperature', {'name': u'May Deep Ground Temperature', 'pyname': u'may_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'june deep ground temperature', {'name': u'June Deep Ground Temperature', 'pyname': u'june_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'july deep ground temperature', {'name': u'July Deep Ground Temperature', 'pyname': u'july_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'august deep ground temperature', {'name': u'August Deep Ground Temperature', 'pyname': u'august_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'september deep ground temperature', {'name': u'September Deep Ground Temperature', 'pyname': u'september_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'october deep ground temperature', {'name': u'October Deep Ground Temperature', 'pyname': u'october_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'november deep ground temperature', {'name': u'November Deep Ground Temperature', 'pyname': u'november_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'december deep ground temperature', {'name': u'December Deep Ground Temperature', 'pyname': u'december_deep_ground_temperature', 'default': 16.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]),
+ 'format': u'singleline',
+ 'group': u'Location and Climate',
+ 'min-fields': 12,
+ 'name': u'Site:GroundTemperature:Deep',
+ 'pyname': u'SiteGroundTemperatureDeep',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def january_deep_ground_temperature(self):
-        """Get january_deep_ground_temperature.
+        """Get january_deep_ground_temperature
 
         Returns:
             float: the value of `january_deep_ground_temperature` or None if not set
-
         """
         return self["January Deep Ground Temperature"]
 
     @january_deep_ground_temperature.setter
     def january_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `January Deep Ground Temperature`
+        """  Corresponds to IDD field `January Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `January Deep Ground Temperature`
@@ -5001,23 +3456,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["January Deep Ground Temperature"] = value
 
     @property
     def february_deep_ground_temperature(self):
-        """Get february_deep_ground_temperature.
+        """Get february_deep_ground_temperature
 
         Returns:
             float: the value of `february_deep_ground_temperature` or None if not set
-
         """
         return self["February Deep Ground Temperature"]
 
     @february_deep_ground_temperature.setter
     def february_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `February Deep Ground Temperature`
+        """  Corresponds to IDD field `February Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `February Deep Ground Temperature`
@@ -5028,23 +3481,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["February Deep Ground Temperature"] = value
 
     @property
     def march_deep_ground_temperature(self):
-        """Get march_deep_ground_temperature.
+        """Get march_deep_ground_temperature
 
         Returns:
             float: the value of `march_deep_ground_temperature` or None if not set
-
         """
         return self["March Deep Ground Temperature"]
 
     @march_deep_ground_temperature.setter
     def march_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `March Deep Ground Temperature`
+        """  Corresponds to IDD field `March Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `March Deep Ground Temperature`
@@ -5055,23 +3506,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["March Deep Ground Temperature"] = value
 
     @property
     def april_deep_ground_temperature(self):
-        """Get april_deep_ground_temperature.
+        """Get april_deep_ground_temperature
 
         Returns:
             float: the value of `april_deep_ground_temperature` or None if not set
-
         """
         return self["April Deep Ground Temperature"]
 
     @april_deep_ground_temperature.setter
     def april_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `April Deep Ground Temperature`
+        """  Corresponds to IDD field `April Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `April Deep Ground Temperature`
@@ -5082,23 +3531,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["April Deep Ground Temperature"] = value
 
     @property
     def may_deep_ground_temperature(self):
-        """Get may_deep_ground_temperature.
+        """Get may_deep_ground_temperature
 
         Returns:
             float: the value of `may_deep_ground_temperature` or None if not set
-
         """
         return self["May Deep Ground Temperature"]
 
     @may_deep_ground_temperature.setter
     def may_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `May Deep Ground Temperature`
+        """  Corresponds to IDD field `May Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `May Deep Ground Temperature`
@@ -5109,23 +3556,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["May Deep Ground Temperature"] = value
 
     @property
     def june_deep_ground_temperature(self):
-        """Get june_deep_ground_temperature.
+        """Get june_deep_ground_temperature
 
         Returns:
             float: the value of `june_deep_ground_temperature` or None if not set
-
         """
         return self["June Deep Ground Temperature"]
 
     @june_deep_ground_temperature.setter
     def june_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `June Deep Ground Temperature`
+        """  Corresponds to IDD field `June Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `June Deep Ground Temperature`
@@ -5136,23 +3581,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["June Deep Ground Temperature"] = value
 
     @property
     def july_deep_ground_temperature(self):
-        """Get july_deep_ground_temperature.
+        """Get july_deep_ground_temperature
 
         Returns:
             float: the value of `july_deep_ground_temperature` or None if not set
-
         """
         return self["July Deep Ground Temperature"]
 
     @july_deep_ground_temperature.setter
     def july_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `July Deep Ground Temperature`
+        """  Corresponds to IDD field `July Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `July Deep Ground Temperature`
@@ -5163,23 +3606,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["July Deep Ground Temperature"] = value
 
     @property
     def august_deep_ground_temperature(self):
-        """Get august_deep_ground_temperature.
+        """Get august_deep_ground_temperature
 
         Returns:
             float: the value of `august_deep_ground_temperature` or None if not set
-
         """
         return self["August Deep Ground Temperature"]
 
     @august_deep_ground_temperature.setter
     def august_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `August Deep Ground Temperature`
+        """  Corresponds to IDD field `August Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `August Deep Ground Temperature`
@@ -5190,23 +3631,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["August Deep Ground Temperature"] = value
 
     @property
     def september_deep_ground_temperature(self):
-        """Get september_deep_ground_temperature.
+        """Get september_deep_ground_temperature
 
         Returns:
             float: the value of `september_deep_ground_temperature` or None if not set
-
         """
         return self["September Deep Ground Temperature"]
 
     @september_deep_ground_temperature.setter
     def september_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `September Deep Ground Temperature`
+        """  Corresponds to IDD field `September Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `September Deep Ground Temperature`
@@ -5217,23 +3656,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["September Deep Ground Temperature"] = value
 
     @property
     def october_deep_ground_temperature(self):
-        """Get october_deep_ground_temperature.
+        """Get october_deep_ground_temperature
 
         Returns:
             float: the value of `october_deep_ground_temperature` or None if not set
-
         """
         return self["October Deep Ground Temperature"]
 
     @october_deep_ground_temperature.setter
     def october_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `October Deep Ground Temperature`
+        """  Corresponds to IDD field `October Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `October Deep Ground Temperature`
@@ -5244,23 +3681,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["October Deep Ground Temperature"] = value
 
     @property
     def november_deep_ground_temperature(self):
-        """Get november_deep_ground_temperature.
+        """Get november_deep_ground_temperature
 
         Returns:
             float: the value of `november_deep_ground_temperature` or None if not set
-
         """
         return self["November Deep Ground Temperature"]
 
     @november_deep_ground_temperature.setter
     def november_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `November Deep Ground Temperature`
+        """  Corresponds to IDD field `November Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `November Deep Ground Temperature`
@@ -5271,23 +3706,21 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["November Deep Ground Temperature"] = value
 
     @property
     def december_deep_ground_temperature(self):
-        """Get december_deep_ground_temperature.
+        """Get december_deep_ground_temperature
 
         Returns:
             float: the value of `december_deep_ground_temperature` or None if not set
-
         """
         return self["December Deep Ground Temperature"]
 
     @december_deep_ground_temperature.setter
     def december_deep_ground_temperature(self, value=16.0):
-        """Corresponds to IDD field `December Deep Ground Temperature`
+        """  Corresponds to IDD field `December Deep Ground Temperature`
 
         Args:
             value (float): value for IDD Field `December Deep Ground Temperature`
@@ -5298,7 +3731,6 @@ class SiteGroundTemperatureDeep(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["December Deep Ground Temperature"] = value
 
@@ -5306,244 +3738,32 @@ class SiteGroundTemperatureDeep(DataObject):
 
 
 class SiteGroundDomain(DataObject):
-
     """ Corresponds to IDD object `Site:GroundDomain`
         Ground coupled slab model for on-grade and
         in-grade cases with or without insulation.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:GroundDomain',
-              'pyname': u'SiteGroundDomain',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'ground domain depth',
-                                      {'name': u'Ground Domain Depth',
-                                       'pyname': u'ground_domain_depth',
-                                       'minimum>': 0.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'aspect ratio',
-                                      {'name': u'Aspect Ratio',
-                                       'pyname': u'aspect_ratio',
-                                       'default': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'perimeter offset',
-                                      {'name': u'Perimeter Offset',
-                                       'pyname': u'perimeter_offset',
-                                       'minimum>': 0.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'soil thermal conductivity',
-                                      {'name': u'Soil Thermal Conductivity',
-                                       'pyname': u'soil_thermal_conductivity',
-                                       'minimum>': 0.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W/m-K'}),
-                                     (u'soil density',
-                                      {'name': u'Soil Density',
-                                       'pyname': u'soil_density',
-                                       'minimum>': 0.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'kg/m3'}),
-                                     (u'soil specific heat',
-                                      {'name': u'Soil Specific Heat',
-                                       'pyname': u'soil_specific_heat',
-                                       'minimum>': 0.0,
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'J/kg-K'}),
-                                     (u'soil moisture content volume fraction',
-                                      {'name': u'Soil Moisture Content Volume Fraction',
-                                       'pyname': u'soil_moisture_content_volume_fraction',
-                                       'default': 30.0,
-                                       'maximum': 100.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'percent'}),
-                                     (u'soil moisture content volume fraction at saturation',
-                                      {'name': u'Soil Moisture Content Volume Fraction at Saturation',
-                                       'pyname': u'soil_moisture_content_volume_fraction_at_saturation',
-                                       'default': 50.0,
-                                       'maximum': 100.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'percent'}),
-                                     (u'kusuda-achenbach average surface temperature',
-                                      {'name': u'Kusuda-Achenbach Average Surface Temperature',
-                                       'pyname': u'kusudaachenbach_average_surface_temperature',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'kusuda-achenbach average amplitude of surface temperature',
-                                      {'name': u'Kusuda-Achenbach Average Amplitude of Surface Temperature',
-                                       'pyname': u'kusudaachenbach_average_amplitude_of_surface_temperature',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deltaC'}),
-                                     (u'kusuda-achenbach phase shift of minimum surface temperature',
-                                      {'name': u'Kusuda-Achenbach Phase Shift of Minimum Surface Temperature',
-                                       'pyname': u'kusudaachenbach_phase_shift_of_minimum_surface_temperature',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'days'}),
-                                     (u'evapotranspiration ground cover parameter',
-                                      {'name': u'Evapotranspiration Ground Cover Parameter',
-                                       'pyname': u'evapotranspiration_ground_cover_parameter',
-                                       'default': 0.4,
-                                       'maximum': 1.5,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'slab boundary condition model name',
-                                      {'name': u'Slab Boundary Condition Model Name',
-                                       'pyname': u'slab_boundary_condition_model_name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'slab location',
-                                      {'name': u'Slab Location',
-                                       'pyname': u'slab_location',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'InGrade',
-                                                           u'OnGrade'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'slab material name',
-                                      {'name': u'Slab Material Name',
-                                       'pyname': u'slab_material_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'horizontal insulation',
-                                      {'name': u'Horizontal Insulation',
-                                       'pyname': u'horizontal_insulation',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'horizontal insulation material name',
-                                      {'name': u'Horizontal Insulation Material Name',
-                                       'pyname': u'horizontal_insulation_material_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'horizontal insulation extents',
-                                      {'name': u'Horizontal Insulation Extents',
-                                       'pyname': u'horizontal_insulation_extents',
-                                       'default': u'Full',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Full',
-                                                           u'Perimeter'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'perimeter insulation width',
-                                      {'name': u'Perimeter Insulation Width',
-                                       'pyname': u'perimeter_insulation_width',
-                                       'minimum>': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'vertical insulation',
-                                      {'name': u'Vertical Insulation',
-                                       'pyname': u'vertical_insulation',
-                                       'default': u'No',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'vertical insulation material name',
-                                      {'name': u'Vertical Insulation Material Name',
-                                       'pyname': u'vertical_insulation_material_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'vertical insulation depth',
-                                      {'name': u'Vertical Insulation Depth',
-                                       'pyname': u'vertical_insulation_depth',
-                                       'minimum>': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm'}),
-                                     (u'simulation timestep',
-                                      {'name': u'Simulation Timestep',
-                                       'pyname': u'simulation_timestep',
-                                       'default': u'Hourly',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Hourly',
-                                                           u'Timestep'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'ground domain depth', {'name': u'Ground Domain Depth', 'pyname': u'ground_domain_depth', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'aspect ratio', {'name': u'Aspect Ratio', 'pyname': u'aspect_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'perimeter offset', {'name': u'Perimeter Offset', 'pyname': u'perimeter_offset', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil thermal conductivity', {'name': u'Soil Thermal Conductivity', 'pyname': u'soil_thermal_conductivity', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'soil density', {'name': u'Soil Density', 'pyname': u'soil_density', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kg/m3'}), (u'soil specific heat', {'name': u'Soil Specific Heat', 'pyname': u'soil_specific_heat', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg-K'}), (u'soil moisture content volume fraction', {'name': u'Soil Moisture Content Volume Fraction', 'pyname': u'soil_moisture_content_volume_fraction', 'default': 30.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'soil moisture content volume fraction at saturation', {'name': u'Soil Moisture Content Volume Fraction at Saturation', 'pyname': u'soil_moisture_content_volume_fraction_at_saturation', 'default': 50.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'percent'}), (u'kusuda-achenbach average surface temperature', {'name': u'Kusuda-Achenbach Average Surface Temperature', 'pyname': u'kusudaachenbach_average_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'kusuda-achenbach average amplitude of surface temperature', {'name': u'Kusuda-Achenbach Average Amplitude of Surface Temperature', 'pyname': u'kusudaachenbach_average_amplitude_of_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'kusuda-achenbach phase shift of minimum surface temperature', {'name': u'Kusuda-Achenbach Phase Shift of Minimum Surface Temperature', 'pyname': u'kusudaachenbach_phase_shift_of_minimum_surface_temperature', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'evapotranspiration ground cover parameter', {'name': u'Evapotranspiration Ground Cover Parameter', 'pyname': u'evapotranspiration_ground_cover_parameter', 'default': 0.4, 'maximum': 1.5, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'slab boundary condition model name', {'name': u'Slab Boundary Condition Model Name', 'pyname': u'slab_boundary_condition_model_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'slab location', {'name': u'Slab Location', 'pyname': u'slab_location', 'required-field': True, 'autosizable': False, 'accepted-values': [u'InGrade', u'OnGrade'], 'autocalculatable': False, 'type': 'alpha'}), (u'slab material name', {'name': u'Slab Material Name', 'pyname': u'slab_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'horizontal insulation', {'name': u'Horizontal Insulation', 'pyname': u'horizontal_insulation', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'horizontal insulation material name', {'name': u'Horizontal Insulation Material Name', 'pyname': u'horizontal_insulation_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'horizontal insulation extents', {'name': u'Horizontal Insulation Extents', 'pyname': u'horizontal_insulation_extents', 'default': u'Full', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Full', u'Perimeter'], 'autocalculatable': False, 'type': 'alpha'}), (u'perimeter insulation width', {'name': u'Perimeter Insulation Width', 'pyname': u'perimeter_insulation_width', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'vertical insulation', {'name': u'Vertical Insulation', 'pyname': u'vertical_insulation', 'default': u'No', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'vertical insulation material name', {'name': u'Vertical Insulation Material Name', 'pyname': u'vertical_insulation_material_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'vertical insulation depth', {'name': u'Vertical Insulation Depth', 'pyname': u'vertical_insulation_depth', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'simulation timestep', {'name': u'Simulation Timestep', 'pyname': u'simulation_timestep', 'default': u'Hourly', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Hourly', u'Timestep'], 'autocalculatable': False, 'type': 'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:GroundDomain',
+ 'pyname': u'SiteGroundDomain',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5552,23 +3772,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def ground_domain_depth(self):
-        """Get ground_domain_depth.
+        """Get ground_domain_depth
 
         Returns:
             float: the value of `ground_domain_depth` or None if not set
-
         """
         return self["Ground Domain Depth"]
 
     @ground_domain_depth.setter
     def ground_domain_depth(self, value=None):
-        """Corresponds to IDD field `Ground Domain Depth`
+        """  Corresponds to IDD field `Ground Domain Depth`
 
         Args:
             value (float): value for IDD Field `Ground Domain Depth`
@@ -5578,23 +3796,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Ground Domain Depth"] = value
 
     @property
     def aspect_ratio(self):
-        """Get aspect_ratio.
+        """Get aspect_ratio
 
         Returns:
             float: the value of `aspect_ratio` or None if not set
-
         """
         return self["Aspect Ratio"]
 
     @aspect_ratio.setter
     def aspect_ratio(self, value=1.0):
-        """Corresponds to IDD field `Aspect Ratio`
+        """  Corresponds to IDD field `Aspect Ratio`
 
         Args:
             value (float): value for IDD Field `Aspect Ratio`
@@ -5604,23 +3820,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Aspect Ratio"] = value
 
     @property
     def perimeter_offset(self):
-        """Get perimeter_offset.
+        """Get perimeter_offset
 
         Returns:
             float: the value of `perimeter_offset` or None if not set
-
         """
         return self["Perimeter Offset"]
 
     @perimeter_offset.setter
     def perimeter_offset(self, value=None):
-        """Corresponds to IDD field `Perimeter Offset`
+        """  Corresponds to IDD field `Perimeter Offset`
 
         Args:
             value (float): value for IDD Field `Perimeter Offset`
@@ -5630,23 +3844,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Perimeter Offset"] = value
 
     @property
     def soil_thermal_conductivity(self):
-        """Get soil_thermal_conductivity.
+        """Get soil_thermal_conductivity
 
         Returns:
             float: the value of `soil_thermal_conductivity` or None if not set
-
         """
         return self["Soil Thermal Conductivity"]
 
     @soil_thermal_conductivity.setter
     def soil_thermal_conductivity(self, value=None):
-        """Corresponds to IDD field `Soil Thermal Conductivity`
+        """  Corresponds to IDD field `Soil Thermal Conductivity`
 
         Args:
             value (float): value for IDD Field `Soil Thermal Conductivity`
@@ -5656,23 +3868,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Soil Thermal Conductivity"] = value
 
     @property
     def soil_density(self):
-        """Get soil_density.
+        """Get soil_density
 
         Returns:
             float: the value of `soil_density` or None if not set
-
         """
         return self["Soil Density"]
 
     @soil_density.setter
     def soil_density(self, value=None):
-        """Corresponds to IDD field `Soil Density`
+        """  Corresponds to IDD field `Soil Density`
 
         Args:
             value (float): value for IDD Field `Soil Density`
@@ -5682,23 +3892,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Soil Density"] = value
 
     @property
     def soil_specific_heat(self):
-        """Get soil_specific_heat.
+        """Get soil_specific_heat
 
         Returns:
             float: the value of `soil_specific_heat` or None if not set
-
         """
         return self["Soil Specific Heat"]
 
     @soil_specific_heat.setter
     def soil_specific_heat(self, value=None):
-        """Corresponds to IDD field `Soil Specific Heat`
+        """  Corresponds to IDD field `Soil Specific Heat`
 
         Args:
             value (float): value for IDD Field `Soil Specific Heat`
@@ -5708,23 +3916,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Soil Specific Heat"] = value
 
     @property
     def soil_moisture_content_volume_fraction(self):
-        """Get soil_moisture_content_volume_fraction.
+        """Get soil_moisture_content_volume_fraction
 
         Returns:
             float: the value of `soil_moisture_content_volume_fraction` or None if not set
-
         """
         return self["Soil Moisture Content Volume Fraction"]
 
     @soil_moisture_content_volume_fraction.setter
     def soil_moisture_content_volume_fraction(self, value=30.0):
-        """Corresponds to IDD field `Soil Moisture Content Volume Fraction`
+        """  Corresponds to IDD field `Soil Moisture Content Volume Fraction`
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction`
@@ -5736,24 +3942,21 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Soil Moisture Content Volume Fraction"] = value
 
     @property
     def soil_moisture_content_volume_fraction_at_saturation(self):
-        """Get soil_moisture_content_volume_fraction_at_saturation.
+        """Get soil_moisture_content_volume_fraction_at_saturation
 
         Returns:
             float: the value of `soil_moisture_content_volume_fraction_at_saturation` or None if not set
-
         """
         return self["Soil Moisture Content Volume Fraction at Saturation"]
 
     @soil_moisture_content_volume_fraction_at_saturation.setter
     def soil_moisture_content_volume_fraction_at_saturation(self, value=50.0):
-        """Corresponds to IDD field `Soil Moisture Content Volume Fraction at
-        Saturation`
+        """  Corresponds to IDD field `Soil Moisture Content Volume Fraction at Saturation`
 
         Args:
             value (float): value for IDD Field `Soil Moisture Content Volume Fraction at Saturation`
@@ -5765,17 +3968,15 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Soil Moisture Content Volume Fraction at Saturation"] = value
 
     @property
     def kusudaachenbach_average_surface_temperature(self):
-        """Get kusudaachenbach_average_surface_temperature.
+        """Get kusudaachenbach_average_surface_temperature
 
         Returns:
             float: the value of `kusudaachenbach_average_surface_temperature` or None if not set
-
         """
         return self["Kusuda-Achenbach Average Surface Temperature"]
 
@@ -5797,19 +3998,15 @@ class SiteGroundDomain(DataObject):
 
     @property
     def kusudaachenbach_average_amplitude_of_surface_temperature(self):
-        """Get kusudaachenbach_average_amplitude_of_surface_temperature.
+        """Get kusudaachenbach_average_amplitude_of_surface_temperature
 
         Returns:
             float: the value of `kusudaachenbach_average_amplitude_of_surface_temperature` or None if not set
-
         """
-        return self[
-            "Kusuda-Achenbach Average Amplitude of Surface Temperature"]
+        return self["Kusuda-Achenbach Average Amplitude of Surface Temperature"]
 
     @kusudaachenbach_average_amplitude_of_surface_temperature.setter
-    def kusudaachenbach_average_amplitude_of_surface_temperature(
-            self,
-            value=None):
+    def kusudaachenbach_average_amplitude_of_surface_temperature(self, value=None):
         """  Corresponds to IDD field `Kusuda-Achenbach Average Amplitude of Surface Temperature`
         Annual average surface temperature variation from average.
 
@@ -5822,24 +4019,19 @@ class SiteGroundDomain(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self[
-            "Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
+        self["Kusuda-Achenbach Average Amplitude of Surface Temperature"] = value
 
     @property
     def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self):
-        """Get kusudaachenbach_phase_shift_of_minimum_surface_temperature.
+        """Get kusudaachenbach_phase_shift_of_minimum_surface_temperature
 
         Returns:
             float: the value of `kusudaachenbach_phase_shift_of_minimum_surface_temperature` or None if not set
-
         """
-        return self[
-            "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"]
+        return self["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"]
 
     @kusudaachenbach_phase_shift_of_minimum_surface_temperature.setter
-    def kusudaachenbach_phase_shift_of_minimum_surface_temperature(
-            self,
-            value=None):
+    def kusudaachenbach_phase_shift_of_minimum_surface_temperature(self, value=None):
         """  Corresponds to IDD field `Kusuda-Achenbach Phase Shift of Minimum Surface Temperature`
         The phase shift of minimum surface temperature, or the day
         of the year when the minimum surface temperature occurs.
@@ -5853,16 +4045,14 @@ class SiteGroundDomain(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self[
-            "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
+        self["Kusuda-Achenbach Phase Shift of Minimum Surface Temperature"] = value
 
     @property
     def evapotranspiration_ground_cover_parameter(self):
-        """Get evapotranspiration_ground_cover_parameter.
+        """Get evapotranspiration_ground_cover_parameter
 
         Returns:
             float: the value of `evapotranspiration_ground_cover_parameter` or None if not set
-
         """
         return self["Evapotranspiration Ground Cover Parameter"]
 
@@ -5890,17 +4080,16 @@ class SiteGroundDomain(DataObject):
 
     @property
     def slab_boundary_condition_model_name(self):
-        """Get slab_boundary_condition_model_name.
+        """Get slab_boundary_condition_model_name
 
         Returns:
             str: the value of `slab_boundary_condition_model_name` or None if not set
-
         """
         return self["Slab Boundary Condition Model Name"]
 
     @slab_boundary_condition_model_name.setter
     def slab_boundary_condition_model_name(self, value=None):
-        """Corresponds to IDD field `Slab Boundary Condition Model Name`
+        """  Corresponds to IDD field `Slab Boundary Condition Model Name`
 
         Args:
             value (str): value for IDD Field `Slab Boundary Condition Model Name`
@@ -5909,17 +4098,15 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Slab Boundary Condition Model Name"] = value
 
     @property
     def slab_location(self):
-        """Get slab_location.
+        """Get slab_location
 
         Returns:
             str: the value of `slab_location` or None if not set
-
         """
         return self["Slab Location"]
 
@@ -5940,11 +4127,10 @@ class SiteGroundDomain(DataObject):
 
     @property
     def slab_material_name(self):
-        """Get slab_material_name.
+        """Get slab_material_name
 
         Returns:
             str: the value of `slab_material_name` or None if not set
-
         """
         return self["Slab Material Name"]
 
@@ -5965,11 +4151,10 @@ class SiteGroundDomain(DataObject):
 
     @property
     def horizontal_insulation(self):
-        """Get horizontal_insulation.
+        """Get horizontal_insulation
 
         Returns:
             str: the value of `horizontal_insulation` or None if not set
-
         """
         return self["Horizontal Insulation"]
 
@@ -5992,18 +4177,17 @@ class SiteGroundDomain(DataObject):
 
     @property
     def horizontal_insulation_material_name(self):
-        """Get horizontal_insulation_material_name.
+        """Get horizontal_insulation_material_name
 
         Returns:
             str: the value of `horizontal_insulation_material_name` or None if not set
-
         """
         return self["Horizontal Insulation Material Name"]
 
     @horizontal_insulation_material_name.setter
     def horizontal_insulation_material_name(self, value=None):
-        """Corresponds to IDD field `Horizontal Insulation Material Name` This
-        field specifies the horizontal insulation material.
+        """  Corresponds to IDD field `Horizontal Insulation Material Name`
+        This field specifies the horizontal insulation material.
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Material Name`
@@ -6012,25 +4196,23 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Horizontal Insulation Material Name"] = value
 
     @property
     def horizontal_insulation_extents(self):
-        """Get horizontal_insulation_extents.
+        """Get horizontal_insulation_extents
 
         Returns:
             str: the value of `horizontal_insulation_extents` or None if not set
-
         """
         return self["Horizontal Insulation Extents"]
 
     @horizontal_insulation_extents.setter
     def horizontal_insulation_extents(self, value="Full"):
-        """Corresponds to IDD field `Horizontal Insulation Extents` This field
-        specifies whether the horizontal insulation fully insulates the surface
-        or is perimeter only insulation.
+        """  Corresponds to IDD field `Horizontal Insulation Extents`
+        This field specifies whether the horizontal insulation fully insulates
+        the surface or is perimeter only insulation
 
         Args:
             value (str): value for IDD Field `Horizontal Insulation Extents`
@@ -6040,24 +4222,22 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Horizontal Insulation Extents"] = value
 
     @property
     def perimeter_insulation_width(self):
-        """Get perimeter_insulation_width.
+        """Get perimeter_insulation_width
 
         Returns:
             float: the value of `perimeter_insulation_width` or None if not set
-
         """
         return self["Perimeter Insulation Width"]
 
     @perimeter_insulation_width.setter
     def perimeter_insulation_width(self, value=None):
-        """Corresponds to IDD field `Perimeter Insulation Width` This field
-        specifies the width of the underfloor perimeter insulation.
+        """  Corresponds to IDD field `Perimeter Insulation Width`
+        This field specifies the width of the underfloor perimeter insulation
 
         Args:
             value (float): value for IDD Field `Perimeter Insulation Width`
@@ -6067,24 +4247,22 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Perimeter Insulation Width"] = value
 
     @property
     def vertical_insulation(self):
-        """Get vertical_insulation.
+        """Get vertical_insulation
 
         Returns:
             str: the value of `vertical_insulation` or None if not set
-
         """
         return self["Vertical Insulation"]
 
     @vertical_insulation.setter
     def vertical_insulation(self, value="No"):
-        """Corresponds to IDD field `Vertical Insulation` This field specifies
-        the presence of vertical insulation at the slab edge.
+        """  Corresponds to IDD field `Vertical Insulation`
+        This field specifies the presence of vertical insulation at the slab edge.
 
         Args:
             value (str): value for IDD Field `Vertical Insulation`
@@ -6094,24 +4272,22 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Vertical Insulation"] = value
 
     @property
     def vertical_insulation_material_name(self):
-        """Get vertical_insulation_material_name.
+        """Get vertical_insulation_material_name
 
         Returns:
             str: the value of `vertical_insulation_material_name` or None if not set
-
         """
         return self["Vertical Insulation Material Name"]
 
     @vertical_insulation_material_name.setter
     def vertical_insulation_material_name(self, value=None):
-        """Corresponds to IDD field `Vertical Insulation Material Name` This
-        field specifies the vertical insulation material.
+        """  Corresponds to IDD field `Vertical Insulation Material Name`
+        This field specifies the vertical insulation material.
 
         Args:
             value (str): value for IDD Field `Vertical Insulation Material Name`
@@ -6120,25 +4296,23 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Vertical Insulation Material Name"] = value
 
     @property
     def vertical_insulation_depth(self):
-        """Get vertical_insulation_depth.
+        """Get vertical_insulation_depth
 
         Returns:
             float: the value of `vertical_insulation_depth` or None if not set
-
         """
         return self["Vertical Insulation Depth"]
 
     @vertical_insulation_depth.setter
     def vertical_insulation_depth(self, value=None):
-        """Corresponds to IDD field `Vertical Insulation Depth` Only used when
-        including vertical insulation This field specifies the depth of the
-        vertical insulation.
+        """  Corresponds to IDD field `Vertical Insulation Depth`
+        Only used when including vertical insulation
+        This field specifies the depth of the vertical insulation
 
         Args:
             value (float): value for IDD Field `Vertical Insulation Depth`
@@ -6148,24 +4322,22 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Vertical Insulation Depth"] = value
 
     @property
     def simulation_timestep(self):
-        """Get simulation_timestep.
+        """Get simulation_timestep
 
         Returns:
             str: the value of `simulation_timestep` or None if not set
-
         """
         return self["Simulation Timestep"]
 
     @simulation_timestep.setter
     def simulation_timestep(self, value="Hourly"):
-        """Corresponds to IDD field `Simulation Timestep` This field specifies
-        the domain simulation timestep.
+        """  Corresponds to IDD field `Simulation Timestep`
+        This field specifies the domain simulation timestep.
 
         Args:
             value (str): value for IDD Field `Simulation Timestep`
@@ -6175,7 +4347,6 @@ class SiteGroundDomain(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Simulation Timestep"] = value
 
@@ -6183,166 +4354,33 @@ class SiteGroundDomain(DataObject):
 
 
 class SiteGroundReflectance(DataObject):
-
     """ Corresponds to IDD object `Site:GroundReflectance`
         Specifies the ground reflectance values used to calculate ground reflected solar.
         The ground reflectance can be further modified when snow is on the ground
         by Site:GroundReflectance:SnowModifier.
     """
-    schema = {'min-fields': 12,
-              'name': u'Site:GroundReflectance',
-              'pyname': u'SiteGroundReflectance',
-              'format': u'singleline',
-              'fields': OrderedDict([(u'january ground reflectance',
-                                      {'name': u'January Ground Reflectance',
-                                       'pyname': u'january_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'february ground reflectance',
-                                      {'name': u'February Ground Reflectance',
-                                       'pyname': u'february_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'march ground reflectance',
-                                      {'name': u'March Ground Reflectance',
-                                       'pyname': u'march_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'april ground reflectance',
-                                      {'name': u'April Ground Reflectance',
-                                       'pyname': u'april_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'may ground reflectance',
-                                      {'name': u'May Ground Reflectance',
-                                       'pyname': u'may_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'june ground reflectance',
-                                      {'name': u'June Ground Reflectance',
-                                       'pyname': u'june_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'july ground reflectance',
-                                      {'name': u'July Ground Reflectance',
-                                       'pyname': u'july_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'august ground reflectance',
-                                      {'name': u'August Ground Reflectance',
-                                       'pyname': u'august_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'september ground reflectance',
-                                      {'name': u'September Ground Reflectance',
-                                       'pyname': u'september_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'october ground reflectance',
-                                      {'name': u'October Ground Reflectance',
-                                       'pyname': u'october_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'november ground reflectance',
-                                      {'name': u'November Ground Reflectance',
-                                       'pyname': u'november_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'}),
-                                     (u'december ground reflectance',
-                                      {'name': u'December Ground Reflectance',
-                                       'pyname': u'december_ground_reflectance',
-                                       'default': 0.2,
-                                       'maximum': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'dimensionless'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'january ground reflectance', {'name': u'January Ground Reflectance', 'pyname': u'january_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'february ground reflectance', {'name': u'February Ground Reflectance', 'pyname': u'february_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'march ground reflectance', {'name': u'March Ground Reflectance', 'pyname': u'march_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'april ground reflectance', {'name': u'April Ground Reflectance', 'pyname': u'april_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'may ground reflectance', {'name': u'May Ground Reflectance', 'pyname': u'may_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'june ground reflectance', {'name': u'June Ground Reflectance', 'pyname': u'june_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'july ground reflectance', {'name': u'July Ground Reflectance', 'pyname': u'july_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'august ground reflectance', {'name': u'August Ground Reflectance', 'pyname': u'august_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'september ground reflectance', {'name': u'September Ground Reflectance', 'pyname': u'september_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'october ground reflectance', {'name': u'October Ground Reflectance', 'pyname': u'october_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'november ground reflectance', {'name': u'November Ground Reflectance', 'pyname': u'november_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'december ground reflectance', {'name': u'December Ground Reflectance', 'pyname': u'december_ground_reflectance', 'default': 0.2, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'})]),
+ 'format': u'singleline',
+ 'group': u'Location and Climate',
+ 'min-fields': 12,
+ 'name': u'Site:GroundReflectance',
+ 'pyname': u'SiteGroundReflectance',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def january_ground_reflectance(self):
-        """Get january_ground_reflectance.
+        """Get january_ground_reflectance
 
         Returns:
             float: the value of `january_ground_reflectance` or None if not set
-
         """
         return self["January Ground Reflectance"]
 
     @january_ground_reflectance.setter
     def january_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `January Ground Reflectance`
+        """  Corresponds to IDD field `January Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `January Ground Reflectance`
@@ -6354,23 +4392,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["January Ground Reflectance"] = value
 
     @property
     def february_ground_reflectance(self):
-        """Get february_ground_reflectance.
+        """Get february_ground_reflectance
 
         Returns:
             float: the value of `february_ground_reflectance` or None if not set
-
         """
         return self["February Ground Reflectance"]
 
     @february_ground_reflectance.setter
     def february_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `February Ground Reflectance`
+        """  Corresponds to IDD field `February Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `February Ground Reflectance`
@@ -6382,23 +4418,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["February Ground Reflectance"] = value
 
     @property
     def march_ground_reflectance(self):
-        """Get march_ground_reflectance.
+        """Get march_ground_reflectance
 
         Returns:
             float: the value of `march_ground_reflectance` or None if not set
-
         """
         return self["March Ground Reflectance"]
 
     @march_ground_reflectance.setter
     def march_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `March Ground Reflectance`
+        """  Corresponds to IDD field `March Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `March Ground Reflectance`
@@ -6410,23 +4444,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["March Ground Reflectance"] = value
 
     @property
     def april_ground_reflectance(self):
-        """Get april_ground_reflectance.
+        """Get april_ground_reflectance
 
         Returns:
             float: the value of `april_ground_reflectance` or None if not set
-
         """
         return self["April Ground Reflectance"]
 
     @april_ground_reflectance.setter
     def april_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `April Ground Reflectance`
+        """  Corresponds to IDD field `April Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `April Ground Reflectance`
@@ -6438,23 +4470,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["April Ground Reflectance"] = value
 
     @property
     def may_ground_reflectance(self):
-        """Get may_ground_reflectance.
+        """Get may_ground_reflectance
 
         Returns:
             float: the value of `may_ground_reflectance` or None if not set
-
         """
         return self["May Ground Reflectance"]
 
     @may_ground_reflectance.setter
     def may_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `May Ground Reflectance`
+        """  Corresponds to IDD field `May Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `May Ground Reflectance`
@@ -6466,23 +4496,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["May Ground Reflectance"] = value
 
     @property
     def june_ground_reflectance(self):
-        """Get june_ground_reflectance.
+        """Get june_ground_reflectance
 
         Returns:
             float: the value of `june_ground_reflectance` or None if not set
-
         """
         return self["June Ground Reflectance"]
 
     @june_ground_reflectance.setter
     def june_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `June Ground Reflectance`
+        """  Corresponds to IDD field `June Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `June Ground Reflectance`
@@ -6494,23 +4522,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["June Ground Reflectance"] = value
 
     @property
     def july_ground_reflectance(self):
-        """Get july_ground_reflectance.
+        """Get july_ground_reflectance
 
         Returns:
             float: the value of `july_ground_reflectance` or None if not set
-
         """
         return self["July Ground Reflectance"]
 
     @july_ground_reflectance.setter
     def july_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `July Ground Reflectance`
+        """  Corresponds to IDD field `July Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `July Ground Reflectance`
@@ -6522,23 +4548,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["July Ground Reflectance"] = value
 
     @property
     def august_ground_reflectance(self):
-        """Get august_ground_reflectance.
+        """Get august_ground_reflectance
 
         Returns:
             float: the value of `august_ground_reflectance` or None if not set
-
         """
         return self["August Ground Reflectance"]
 
     @august_ground_reflectance.setter
     def august_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `August Ground Reflectance`
+        """  Corresponds to IDD field `August Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `August Ground Reflectance`
@@ -6550,23 +4574,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["August Ground Reflectance"] = value
 
     @property
     def september_ground_reflectance(self):
-        """Get september_ground_reflectance.
+        """Get september_ground_reflectance
 
         Returns:
             float: the value of `september_ground_reflectance` or None if not set
-
         """
         return self["September Ground Reflectance"]
 
     @september_ground_reflectance.setter
     def september_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `September Ground Reflectance`
+        """  Corresponds to IDD field `September Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `September Ground Reflectance`
@@ -6578,23 +4600,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["September Ground Reflectance"] = value
 
     @property
     def october_ground_reflectance(self):
-        """Get october_ground_reflectance.
+        """Get october_ground_reflectance
 
         Returns:
             float: the value of `october_ground_reflectance` or None if not set
-
         """
         return self["October Ground Reflectance"]
 
     @october_ground_reflectance.setter
     def october_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `October Ground Reflectance`
+        """  Corresponds to IDD field `October Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `October Ground Reflectance`
@@ -6606,23 +4626,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["October Ground Reflectance"] = value
 
     @property
     def november_ground_reflectance(self):
-        """Get november_ground_reflectance.
+        """Get november_ground_reflectance
 
         Returns:
             float: the value of `november_ground_reflectance` or None if not set
-
         """
         return self["November Ground Reflectance"]
 
     @november_ground_reflectance.setter
     def november_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `November Ground Reflectance`
+        """  Corresponds to IDD field `November Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `November Ground Reflectance`
@@ -6634,23 +4652,21 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["November Ground Reflectance"] = value
 
     @property
     def december_ground_reflectance(self):
-        """Get december_ground_reflectance.
+        """Get december_ground_reflectance
 
         Returns:
             float: the value of `december_ground_reflectance` or None if not set
-
         """
         return self["December Ground Reflectance"]
 
     @december_ground_reflectance.setter
     def december_ground_reflectance(self, value=0.2):
-        """Corresponds to IDD field `December Ground Reflectance`
+        """  Corresponds to IDD field `December Ground Reflectance`
 
         Args:
             value (float): value for IDD Field `December Ground Reflectance`
@@ -6662,7 +4678,6 @@ class SiteGroundReflectance(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["December Ground Reflectance"] = value
 
@@ -6670,46 +4685,27 @@ class SiteGroundReflectance(DataObject):
 
 
 class SiteGroundReflectanceSnowModifier(DataObject):
-
     """ Corresponds to IDD object `Site:GroundReflectance:SnowModifier`
         Specifies ground reflectance multipliers when snow resident on the ground.
         These multipliers are applied to the "normal" ground reflectances specified
         in Site:GroundReflectance.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:GroundReflectance:SnowModifier',
-              'pyname': u'SiteGroundReflectanceSnowModifier',
-              'format': None,
-              'fields': OrderedDict([(u'ground reflected solar modifier',
-                                      {'name': u'Ground Reflected Solar Modifier',
-                                       'pyname': u'ground_reflected_solar_modifier',
-                                       'default': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real'}),
-                                     (u'daylighting ground reflected solar modifier',
-                                      {'name': u'Daylighting Ground Reflected Solar Modifier',
-                                       'pyname': u'daylighting_ground_reflected_solar_modifier',
-                                       'default': 1.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'ground reflected solar modifier', {'name': u'Ground Reflected Solar Modifier', 'pyname': u'ground_reflected_solar_modifier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'daylighting ground reflected solar modifier', {'name': u'Daylighting Ground Reflected Solar Modifier', 'pyname': u'daylighting_ground_reflected_solar_modifier', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:GroundReflectance:SnowModifier',
+ 'pyname': u'SiteGroundReflectanceSnowModifier',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def ground_reflected_solar_modifier(self):
-        """Get ground_reflected_solar_modifier.
+        """Get ground_reflected_solar_modifier
 
         Returns:
             float: the value of `ground_reflected_solar_modifier` or None if not set
-
         """
         return self["Ground Reflected Solar Modifier"]
 
@@ -6737,11 +4733,10 @@ class SiteGroundReflectanceSnowModifier(DataObject):
 
     @property
     def daylighting_ground_reflected_solar_modifier(self):
-        """Get daylighting_ground_reflected_solar_modifier.
+        """Get daylighting_ground_reflected_solar_modifier
 
         Returns:
             float: the value of `daylighting_ground_reflected_solar_modifier` or None if not set
-
         """
         return self["Daylighting Ground Reflected Solar Modifier"]
 
@@ -6771,67 +4766,33 @@ class SiteGroundReflectanceSnowModifier(DataObject):
 
 
 class SiteWaterMainsTemperature(DataObject):
-
     """ Corresponds to IDD object `Site:WaterMainsTemperature`
         Used to calculate water mains temperatures delivered by underground water main pipes.
         Water mains temperatures are a function of outdoor climate conditions
         and vary with time of year.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:WaterMainsTemperature',
-              'pyname': u'SiteWaterMainsTemperature',
-              'format': None,
-              'fields': OrderedDict([(u'calculation method',
-                                      {'name': u'Calculation Method',
-                                       'pyname': u'calculation_method',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Schedule',
-                                                           u'Correlation'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'temperature schedule name',
-                                      {'name': u'Temperature Schedule Name',
-                                       'pyname': u'temperature_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'annual average outdoor air temperature',
-                                      {'name': u'Annual Average Outdoor Air Temperature',
-                                       'pyname': u'annual_average_outdoor_air_temperature',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'maximum difference in monthly average outdoor air temperatures',
-                                      {'name': u'Maximum Difference In Monthly Average Outdoor Air Temperatures',
-                                       'pyname': u'maximum_difference_in_monthly_average_outdoor_air_temperatures',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'deltaC'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'calculation method', {'name': u'Calculation Method', 'pyname': u'calculation_method', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Schedule', u'Correlation'], 'autocalculatable': False, 'type': 'alpha'}), (u'temperature schedule name', {'name': u'Temperature Schedule Name', 'pyname': u'temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'annual average outdoor air temperature', {'name': u'Annual Average Outdoor Air Temperature', 'pyname': u'annual_average_outdoor_air_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum difference in monthly average outdoor air temperatures', {'name': u'Maximum Difference In Monthly Average Outdoor Air Temperatures', 'pyname': u'maximum_difference_in_monthly_average_outdoor_air_temperatures', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:WaterMainsTemperature',
+ 'pyname': u'SiteWaterMainsTemperature',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def calculation_method(self):
-        """Get calculation_method.
+        """Get calculation_method
 
         Returns:
             str: the value of `calculation_method` or None if not set
-
         """
         return self["Calculation Method"]
 
     @calculation_method.setter
     def calculation_method(self, value=None):
-        """Corresponds to IDD field `Calculation Method`
+        """  Corresponds to IDD field `Calculation Method`
 
         Args:
             value (str): value for IDD Field `Calculation Method`
@@ -6840,23 +4801,21 @@ class SiteWaterMainsTemperature(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Calculation Method"] = value
 
     @property
     def temperature_schedule_name(self):
-        """Get temperature_schedule_name.
+        """Get temperature_schedule_name
 
         Returns:
             str: the value of `temperature_schedule_name` or None if not set
-
         """
         return self["Temperature Schedule Name"]
 
     @temperature_schedule_name.setter
     def temperature_schedule_name(self, value=None):
-        """Corresponds to IDD field `Temperature Schedule Name`
+        """  Corresponds to IDD field `Temperature Schedule Name`
 
         Args:
             value (str): value for IDD Field `Temperature Schedule Name`
@@ -6865,23 +4824,21 @@ class SiteWaterMainsTemperature(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Temperature Schedule Name"] = value
 
     @property
     def annual_average_outdoor_air_temperature(self):
-        """Get annual_average_outdoor_air_temperature.
+        """Get annual_average_outdoor_air_temperature
 
         Returns:
             float: the value of `annual_average_outdoor_air_temperature` or None if not set
-
         """
         return self["Annual Average Outdoor Air Temperature"]
 
     @annual_average_outdoor_air_temperature.setter
     def annual_average_outdoor_air_temperature(self, value=None):
-        """Corresponds to IDD field `Annual Average Outdoor Air Temperature`
+        """  Corresponds to IDD field `Annual Average Outdoor Air Temperature`
 
         Args:
             value (float): value for IDD Field `Annual Average Outdoor Air Temperature`
@@ -6891,27 +4848,21 @@ class SiteWaterMainsTemperature(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Annual Average Outdoor Air Temperature"] = value
 
     @property
     def maximum_difference_in_monthly_average_outdoor_air_temperatures(self):
-        """Get maximum_difference_in_monthly_average_outdoor_air_temperatures.
+        """Get maximum_difference_in_monthly_average_outdoor_air_temperatures
 
         Returns:
             float: the value of `maximum_difference_in_monthly_average_outdoor_air_temperatures` or None if not set
-
         """
-        return self[
-            "Maximum Difference In Monthly Average Outdoor Air Temperatures"]
+        return self["Maximum Difference In Monthly Average Outdoor Air Temperatures"]
 
     @maximum_difference_in_monthly_average_outdoor_air_temperatures.setter
-    def maximum_difference_in_monthly_average_outdoor_air_temperatures(
-            self,
-            value=None):
-        """Corresponds to IDD field `Maximum Difference In Monthly Average
-        Outdoor Air Temperatures`
+    def maximum_difference_in_monthly_average_outdoor_air_temperatures(self, value=None):
+        """  Corresponds to IDD field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
 
         Args:
             value (float): value for IDD Field `Maximum Difference In Monthly Average Outdoor Air Temperatures`
@@ -6921,74 +4872,39 @@ class SiteWaterMainsTemperature(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
-        self[
-            "Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
+        self["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
 
 
 
 
 class SitePrecipitation(DataObject):
-
     """ Corresponds to IDD object `Site:Precipitation`
         Used to describe the amount of water precipitation at the building site.
         Precipitation includes both rain and the equivalent water content of snow.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:Precipitation',
-              'pyname': u'SitePrecipitation',
-              'format': None,
-              'fields': OrderedDict([(u'precipitation model type',
-                                      {'name': u'Precipitation Model Type',
-                                       'pyname': u'precipitation_model_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'ScheduleAndDesignLevel'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'design level for total annual precipitation',
-                                      {'name': u'Design Level for Total Annual Precipitation',
-                                       'pyname': u'design_level_for_total_annual_precipitation',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'm/yr'}),
-                                     (u'precipitation rates schedule name',
-                                      {'name': u'Precipitation Rates Schedule Name',
-                                       'pyname': u'precipitation_rates_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'average total annual precipitation',
-                                      {'name': u'Average Total Annual Precipitation',
-                                       'pyname': u'average_total_annual_precipitation',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'm/yr'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'precipitation model type', {'name': u'Precipitation Model Type', 'pyname': u'precipitation_model_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ScheduleAndDesignLevel'], 'autocalculatable': False, 'type': 'alpha'}), (u'design level for total annual precipitation', {'name': u'Design Level for Total Annual Precipitation', 'pyname': u'design_level_for_total_annual_precipitation', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm/yr'}), (u'precipitation rates schedule name', {'name': u'Precipitation Rates Schedule Name', 'pyname': u'precipitation_rates_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'average total annual precipitation', {'name': u'Average Total Annual Precipitation', 'pyname': u'average_total_annual_precipitation', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm/yr'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:Precipitation',
+ 'pyname': u'SitePrecipitation',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def precipitation_model_type(self):
-        """Get precipitation_model_type.
+        """Get precipitation_model_type
 
         Returns:
             str: the value of `precipitation_model_type` or None if not set
-
         """
         return self["Precipitation Model Type"]
 
     @precipitation_model_type.setter
     def precipitation_model_type(self, value=None):
-        """Corresponds to IDD field `Precipitation Model Type`
+        """  Corresponds to IDD field `Precipitation Model Type`
 
         Args:
             value (str): value for IDD Field `Precipitation Model Type`
@@ -6997,24 +4913,22 @@ class SitePrecipitation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Precipitation Model Type"] = value
 
     @property
     def design_level_for_total_annual_precipitation(self):
-        """Get design_level_for_total_annual_precipitation.
+        """Get design_level_for_total_annual_precipitation
 
         Returns:
             float: the value of `design_level_for_total_annual_precipitation` or None if not set
-
         """
         return self["Design Level for Total Annual Precipitation"]
 
     @design_level_for_total_annual_precipitation.setter
     def design_level_for_total_annual_precipitation(self, value=None):
-        """Corresponds to IDD field `Design Level for Total Annual
-        Precipitation` meters of water per year used for design level.
+        """  Corresponds to IDD field `Design Level for Total Annual Precipitation`
+        meters of water per year used for design level
 
         Args:
             value (float): value for IDD Field `Design Level for Total Annual Precipitation`
@@ -7024,17 +4938,15 @@ class SitePrecipitation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Design Level for Total Annual Precipitation"] = value
 
     @property
     def precipitation_rates_schedule_name(self):
-        """Get precipitation_rates_schedule_name.
+        """Get precipitation_rates_schedule_name
 
         Returns:
             str: the value of `precipitation_rates_schedule_name` or None if not set
-
         """
         return self["Precipitation Rates Schedule Name"]
 
@@ -7056,18 +4968,17 @@ class SitePrecipitation(DataObject):
 
     @property
     def average_total_annual_precipitation(self):
-        """Get average_total_annual_precipitation.
+        """Get average_total_annual_precipitation
 
         Returns:
             float: the value of `average_total_annual_precipitation` or None if not set
-
         """
         return self["Average Total Annual Precipitation"]
 
     @average_total_annual_precipitation.setter
     def average_total_annual_precipitation(self, value=None):
-        """Corresponds to IDD field `Average Total Annual Precipitation` meters
-        of water per year from average weather statistics.
+        """  Corresponds to IDD field `Average Total Annual Precipitation`
+        meters of water per year from average weather statistics
 
         Args:
             value (float): value for IDD Field `Average Total Annual Precipitation`
@@ -7077,7 +4988,6 @@ class SitePrecipitation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Average Total Annual Precipitation"] = value
 
@@ -7085,61 +4995,34 @@ class SitePrecipitation(DataObject):
 
 
 class RoofIrrigation(DataObject):
-
-    """Corresponds to IDD object `RoofIrrigation` Used to describe the amount
-    of irrigation on the ecoroof surface over the course of the simulation
-    runperiod."""
-    schema = {'min-fields': 0,
-              'name': u'RoofIrrigation',
-              'pyname': u'RoofIrrigation',
-              'format': None,
-              'fields': OrderedDict([(u'irrigation model type',
-                                      {'name': u'Irrigation Model Type',
-                                       'pyname': u'irrigation_model_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Schedule',
-                                                           u'SmartSchedule'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'irrigation rate schedule name',
-                                      {'name': u'Irrigation Rate Schedule Name',
-                                       'pyname': u'irrigation_rate_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'irrigation maximum saturation threshold',
-                                      {'name': u'Irrigation Maximum Saturation Threshold',
-                                       'pyname': u'irrigation_maximum_saturation_threshold',
-                                       'default': 40.0,
-                                       'maximum': 100.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': 'real',
-                                       'unit': u'percent'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    """ Corresponds to IDD object `RoofIrrigation`
+        Used to describe the amount of irrigation on the ecoroof surface over the course
+        of the simulation runperiod.
+    """
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'irrigation model type', {'name': u'Irrigation Model Type', 'pyname': u'irrigation_model_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Schedule', u'SmartSchedule'], 'autocalculatable': False, 'type': 'alpha'}), (u'irrigation rate schedule name', {'name': u'Irrigation Rate Schedule Name', 'pyname': u'irrigation_rate_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'irrigation maximum saturation threshold', {'name': u'Irrigation Maximum Saturation Threshold', 'pyname': u'irrigation_maximum_saturation_threshold', 'default': 40.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'percent'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'RoofIrrigation',
+ 'pyname': u'RoofIrrigation',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def irrigation_model_type(self):
-        """Get irrigation_model_type.
+        """Get irrigation_model_type
 
         Returns:
             str: the value of `irrigation_model_type` or None if not set
-
         """
         return self["Irrigation Model Type"]
 
     @irrigation_model_type.setter
     def irrigation_model_type(self, value=None):
-        """Corresponds to IDD field `Irrigation Model Type` SmartSchedule will
-        not allow irrigation when soil is already moist. Current threshold set
-        at 30% of saturation.
+        """  Corresponds to IDD field `Irrigation Model Type`
+        SmartSchedule will not allow irrigation when soil is already moist.
+        Current threshold set at 30% of saturation.
 
         Args:
             value (str): value for IDD Field `Irrigation Model Type`
@@ -7148,17 +5031,15 @@ class RoofIrrigation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Irrigation Model Type"] = value
 
     @property
     def irrigation_rate_schedule_name(self):
-        """Get irrigation_rate_schedule_name.
+        """Get irrigation_rate_schedule_name
 
         Returns:
             str: the value of `irrigation_rate_schedule_name` or None if not set
-
         """
         return self["Irrigation Rate Schedule Name"]
 
@@ -7180,17 +5061,16 @@ class RoofIrrigation(DataObject):
 
     @property
     def irrigation_maximum_saturation_threshold(self):
-        """Get irrigation_maximum_saturation_threshold.
+        """Get irrigation_maximum_saturation_threshold
 
         Returns:
             float: the value of `irrigation_maximum_saturation_threshold` or None if not set
-
         """
         return self["Irrigation Maximum Saturation Threshold"]
 
     @irrigation_maximum_saturation_threshold.setter
     def irrigation_maximum_saturation_threshold(self, value=40.0):
-        """Corresponds to IDD field `Irrigation Maximum Saturation Threshold`
+        """  Corresponds to IDD field `Irrigation Maximum Saturation Threshold`
         Used with SmartSchedule to set the saturation level at which no
         irrigation is allowed.
 
@@ -7204,7 +5084,6 @@ class RoofIrrigation(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Irrigation Maximum Saturation Threshold"] = value
 
@@ -7212,63 +5091,31 @@ class RoofIrrigation(DataObject):
 
 
 class SiteSolarAndVisibleSpectrum(DataObject):
-
     """ Corresponds to IDD object `Site:SolarAndVisibleSpectrum`
         If this object is omitted, the default solar and visible spectrum data will be used.
     """
-    schema = {'min-fields': 0,
-              'name': u'Site:SolarAndVisibleSpectrum',
-              'pyname': u'SiteSolarAndVisibleSpectrum',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'spectrum data method',
-                                      {'name': u'Spectrum Data Method',
-                                       'pyname': u'spectrum_data_method',
-                                       'default': u'Default',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Default',
-                                                           u'UserDefined'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'solar spectrum data object name',
-                                      {'name': u'Solar Spectrum Data Object Name',
-                                       'pyname': u'solar_spectrum_data_object_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'visible spectrum data object name',
-                                      {'name': u'Visible Spectrum Data Object Name',
-                                       'pyname': u'visible_spectrum_data_object_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': True,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spectrum data method', {'name': u'Spectrum Data Method', 'pyname': u'spectrum_data_method', 'default': u'Default', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Default', u'UserDefined'], 'autocalculatable': False, 'type': 'alpha'}), (u'solar spectrum data object name', {'name': u'Solar Spectrum Data Object Name', 'pyname': u'solar_spectrum_data_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'visible spectrum data object name', {'name': u'Visible Spectrum Data Object Name', 'pyname': u'visible_spectrum_data_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 0,
+ 'name': u'Site:SolarAndVisibleSpectrum',
+ 'pyname': u'SiteSolarAndVisibleSpectrum',
+ 'required-object': False,
+ 'unique-object': True}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -7277,26 +5124,22 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def spectrum_data_method(self):
-        """Get spectrum_data_method.
+        """Get spectrum_data_method
 
         Returns:
             str: the value of `spectrum_data_method` or None if not set
-
         """
         return self["Spectrum Data Method"]
 
     @spectrum_data_method.setter
     def spectrum_data_method(self, value="Default"):
-        """Corresponds to IDD field `Spectrum Data Method` The method specifies
-        which of the solar and visible spectrum data to use in the
-        calculations.
-
+        """  Corresponds to IDD field `Spectrum Data Method`
+        The method specifies which of the solar and visible spectrum data to use in the calculations.
         Choices: Default - existing hard-wired spectrum data in EnergyPlus.
         UserDefined - user specified spectrum data referenced by the next two fields
 
@@ -7308,23 +5151,21 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum Data Method"] = value
 
     @property
     def solar_spectrum_data_object_name(self):
-        """Get solar_spectrum_data_object_name.
+        """Get solar_spectrum_data_object_name
 
         Returns:
             str: the value of `solar_spectrum_data_object_name` or None if not set
-
         """
         return self["Solar Spectrum Data Object Name"]
 
     @solar_spectrum_data_object_name.setter
     def solar_spectrum_data_object_name(self, value=None):
-        """Corresponds to IDD field `Solar Spectrum Data Object Name`
+        """  Corresponds to IDD field `Solar Spectrum Data Object Name`
 
         Args:
             value (str): value for IDD Field `Solar Spectrum Data Object Name`
@@ -7333,23 +5174,21 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Solar Spectrum Data Object Name"] = value
 
     @property
     def visible_spectrum_data_object_name(self):
-        """Get visible_spectrum_data_object_name.
+        """Get visible_spectrum_data_object_name
 
         Returns:
             str: the value of `visible_spectrum_data_object_name` or None if not set
-
         """
         return self["Visible Spectrum Data Object Name"]
 
     @visible_spectrum_data_object_name.setter
     def visible_spectrum_data_object_name(self, value=None):
-        """Corresponds to IDD field `Visible Spectrum Data Object Name`
+        """  Corresponds to IDD field `Visible Spectrum Data Object Name`
 
         Args:
             value (str): value for IDD Field `Visible Spectrum Data Object Name`
@@ -7358,7 +5197,6 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Visible Spectrum Data Object Name"] = value
 
@@ -7366,1655 +5204,33 @@ class SiteSolarAndVisibleSpectrum(DataObject):
 
 
 class SiteSpectrumData(DataObject):
-
     """ Corresponds to IDD object `Site:SpectrumData`
         Spectrum Data Type is followed by up to 107 sets of normal-incidence measured values of
         [wavelength, spectrum] for wavelengths covering the solar (0.25 to 2.5 microns) or visible
         spectrum (0.38 to 0.78 microns)
     """
-    schema = {'min-fields': 8,
-              'name': u'Site:SpectrumData',
-              'pyname': u'SiteSpectrumData',
-              'format': None,
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'spectrum data type',
-                                      {'name': u'Spectrum Data Type',
-                                       'pyname': u'spectrum_data_type',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Solar',
-                                                           u'Visible'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'wavelength 1',
-                                      {'name': u'Wavelength 1',
-                                       'pyname': u'wavelength_1',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 1',
-                                      {'name': u'Spectrum 1',
-                                       'pyname': u'spectrum_1',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 2',
-                                      {'name': u'Wavelength 2',
-                                       'pyname': u'wavelength_2',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 2',
-                                      {'name': u'Spectrum 2',
-                                       'pyname': u'spectrum_2',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 3',
-                                      {'name': u'Wavelength 3',
-                                       'pyname': u'wavelength_3',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 3',
-                                      {'name': u'Spectrum 3',
-                                       'pyname': u'spectrum_3',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 4',
-                                      {'name': u'Wavelength 4',
-                                       'pyname': u'wavelength_4',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 4',
-                                      {'name': u'Spectrum 4',
-                                       'pyname': u'spectrum_4',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 5',
-                                      {'name': u'Wavelength 5',
-                                       'pyname': u'wavelength_5',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 5',
-                                      {'name': u'Spectrum 5',
-                                       'pyname': u'spectrum_5',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 6',
-                                      {'name': u'Wavelength 6',
-                                       'pyname': u'wavelength_6',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 6',
-                                      {'name': u'Spectrum 6',
-                                       'pyname': u'spectrum_6',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 7',
-                                      {'name': u'Wavelength 7',
-                                       'pyname': u'wavelength_7',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 7',
-                                      {'name': u'Spectrum 7',
-                                       'pyname': u'spectrum_7',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 8',
-                                      {'name': u'Wavelength 8',
-                                       'pyname': u'wavelength_8',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 8',
-                                      {'name': u'Spectrum 8',
-                                       'pyname': u'spectrum_8',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 9',
-                                      {'name': u'Wavelength 9',
-                                       'pyname': u'wavelength_9',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 9',
-                                      {'name': u'Spectrum 9',
-                                       'pyname': u'spectrum_9',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 10',
-                                      {'name': u'Wavelength 10',
-                                       'pyname': u'wavelength_10',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 10',
-                                      {'name': u'Spectrum 10',
-                                       'pyname': u'spectrum_10',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 11',
-                                      {'name': u'Wavelength 11',
-                                       'pyname': u'wavelength_11',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 11',
-                                      {'name': u'Spectrum 11',
-                                       'pyname': u'spectrum_11',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 12',
-                                      {'name': u'Wavelength 12',
-                                       'pyname': u'wavelength_12',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 12',
-                                      {'name': u'Spectrum 12',
-                                       'pyname': u'spectrum_12',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 13',
-                                      {'name': u'Wavelength 13',
-                                       'pyname': u'wavelength_13',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 13',
-                                      {'name': u'Spectrum 13',
-                                       'pyname': u'spectrum_13',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 14',
-                                      {'name': u'Wavelength 14',
-                                       'pyname': u'wavelength_14',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 14',
-                                      {'name': u'Spectrum 14',
-                                       'pyname': u'spectrum_14',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 15',
-                                      {'name': u'Wavelength 15',
-                                       'pyname': u'wavelength_15',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 15',
-                                      {'name': u'Spectrum 15',
-                                       'pyname': u'spectrum_15',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 16',
-                                      {'name': u'Wavelength 16',
-                                       'pyname': u'wavelength_16',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 16',
-                                      {'name': u'Spectrum 16',
-                                       'pyname': u'spectrum_16',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 17',
-                                      {'name': u'Wavelength 17',
-                                       'pyname': u'wavelength_17',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 17',
-                                      {'name': u'Spectrum 17',
-                                       'pyname': u'spectrum_17',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 18',
-                                      {'name': u'Wavelength 18',
-                                       'pyname': u'wavelength_18',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 18',
-                                      {'name': u'Spectrum 18',
-                                       'pyname': u'spectrum_18',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 19',
-                                      {'name': u'Wavelength 19',
-                                       'pyname': u'wavelength_19',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 19',
-                                      {'name': u'Spectrum 19',
-                                       'pyname': u'spectrum_19',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 20',
-                                      {'name': u'Wavelength 20',
-                                       'pyname': u'wavelength_20',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 20',
-                                      {'name': u'Spectrum 20',
-                                       'pyname': u'spectrum_20',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 21',
-                                      {'name': u'Wavelength 21',
-                                       'pyname': u'wavelength_21',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 21',
-                                      {'name': u'Spectrum 21',
-                                       'pyname': u'spectrum_21',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 22',
-                                      {'name': u'Wavelength 22',
-                                       'pyname': u'wavelength_22',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 22',
-                                      {'name': u'Spectrum 22',
-                                       'pyname': u'spectrum_22',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 23',
-                                      {'name': u'Wavelength 23',
-                                       'pyname': u'wavelength_23',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 23',
-                                      {'name': u'Spectrum 23',
-                                       'pyname': u'spectrum_23',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 24',
-                                      {'name': u'Wavelength 24',
-                                       'pyname': u'wavelength_24',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 24',
-                                      {'name': u'Spectrum 24',
-                                       'pyname': u'spectrum_24',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 25',
-                                      {'name': u'Wavelength 25',
-                                       'pyname': u'wavelength_25',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 25',
-                                      {'name': u'Spectrum 25',
-                                       'pyname': u'spectrum_25',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 26',
-                                      {'name': u'Wavelength 26',
-                                       'pyname': u'wavelength_26',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 26',
-                                      {'name': u'Spectrum 26',
-                                       'pyname': u'spectrum_26',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 27',
-                                      {'name': u'Wavelength 27',
-                                       'pyname': u'wavelength_27',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 27',
-                                      {'name': u'Spectrum 27',
-                                       'pyname': u'spectrum_27',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 28',
-                                      {'name': u'Wavelength 28',
-                                       'pyname': u'wavelength_28',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 28',
-                                      {'name': u'Spectrum 28',
-                                       'pyname': u'spectrum_28',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 29',
-                                      {'name': u'Wavelength 29',
-                                       'pyname': u'wavelength_29',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 29',
-                                      {'name': u'Spectrum 29',
-                                       'pyname': u'spectrum_29',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 30',
-                                      {'name': u'Wavelength 30',
-                                       'pyname': u'wavelength_30',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 30',
-                                      {'name': u'Spectrum 30',
-                                       'pyname': u'spectrum_30',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 31',
-                                      {'name': u'Wavelength 31',
-                                       'pyname': u'wavelength_31',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 31',
-                                      {'name': u'Spectrum 31',
-                                       'pyname': u'spectrum_31',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 32',
-                                      {'name': u'Wavelength 32',
-                                       'pyname': u'wavelength_32',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 32',
-                                      {'name': u'Spectrum 32',
-                                       'pyname': u'spectrum_32',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 33',
-                                      {'name': u'Wavelength 33',
-                                       'pyname': u'wavelength_33',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 33',
-                                      {'name': u'Spectrum 33',
-                                       'pyname': u'spectrum_33',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 34',
-                                      {'name': u'Wavelength 34',
-                                       'pyname': u'wavelength_34',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 34',
-                                      {'name': u'Spectrum 34',
-                                       'pyname': u'spectrum_34',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 35',
-                                      {'name': u'Wavelength 35',
-                                       'pyname': u'wavelength_35',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 35',
-                                      {'name': u'Spectrum 35',
-                                       'pyname': u'spectrum_35',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 36',
-                                      {'name': u'Wavelength 36',
-                                       'pyname': u'wavelength_36',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 36',
-                                      {'name': u'Spectrum 36',
-                                       'pyname': u'spectrum_36',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 37',
-                                      {'name': u'Wavelength 37',
-                                       'pyname': u'wavelength_37',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 37',
-                                      {'name': u'Spectrum 37',
-                                       'pyname': u'spectrum_37',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 38',
-                                      {'name': u'Wavelength 38',
-                                       'pyname': u'wavelength_38',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 38',
-                                      {'name': u'Spectrum 38',
-                                       'pyname': u'spectrum_38',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 39',
-                                      {'name': u'Wavelength 39',
-                                       'pyname': u'wavelength_39',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 39',
-                                      {'name': u'Spectrum 39',
-                                       'pyname': u'spectrum_39',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 40',
-                                      {'name': u'Wavelength 40',
-                                       'pyname': u'wavelength_40',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 40',
-                                      {'name': u'Spectrum 40',
-                                       'pyname': u'spectrum_40',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 41',
-                                      {'name': u'Wavelength 41',
-                                       'pyname': u'wavelength_41',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 41',
-                                      {'name': u'Spectrum 41',
-                                       'pyname': u'spectrum_41',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 42',
-                                      {'name': u'Wavelength 42',
-                                       'pyname': u'wavelength_42',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 42',
-                                      {'name': u'Spectrum 42',
-                                       'pyname': u'spectrum_42',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 43',
-                                      {'name': u'Wavelength 43',
-                                       'pyname': u'wavelength_43',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 43',
-                                      {'name': u'Spectrum 43',
-                                       'pyname': u'spectrum_43',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 44',
-                                      {'name': u'Wavelength 44',
-                                       'pyname': u'wavelength_44',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 44',
-                                      {'name': u'Spectrum 44',
-                                       'pyname': u'spectrum_44',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 45',
-                                      {'name': u'Wavelength 45',
-                                       'pyname': u'wavelength_45',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 45',
-                                      {'name': u'Spectrum 45',
-                                       'pyname': u'spectrum_45',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 46',
-                                      {'name': u'Wavelength 46',
-                                       'pyname': u'wavelength_46',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 46',
-                                      {'name': u'Spectrum 46',
-                                       'pyname': u'spectrum_46',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 47',
-                                      {'name': u'Wavelength 47',
-                                       'pyname': u'wavelength_47',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 47',
-                                      {'name': u'Spectrum 47',
-                                       'pyname': u'spectrum_47',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 48',
-                                      {'name': u'Wavelength 48',
-                                       'pyname': u'wavelength_48',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 48',
-                                      {'name': u'Spectrum 48',
-                                       'pyname': u'spectrum_48',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 49',
-                                      {'name': u'Wavelength 49',
-                                       'pyname': u'wavelength_49',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 49',
-                                      {'name': u'Spectrum 49',
-                                       'pyname': u'spectrum_49',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 50',
-                                      {'name': u'Wavelength 50',
-                                       'pyname': u'wavelength_50',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 50',
-                                      {'name': u'Spectrum 50',
-                                       'pyname': u'spectrum_50',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 51',
-                                      {'name': u'Wavelength 51',
-                                       'pyname': u'wavelength_51',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 51',
-                                      {'name': u'Spectrum 51',
-                                       'pyname': u'spectrum_51',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 52',
-                                      {'name': u'Wavelength 52',
-                                       'pyname': u'wavelength_52',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 52',
-                                      {'name': u'Spectrum 52',
-                                       'pyname': u'spectrum_52',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 53',
-                                      {'name': u'Wavelength 53',
-                                       'pyname': u'wavelength_53',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 53',
-                                      {'name': u'Spectrum 53',
-                                       'pyname': u'spectrum_53',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 54',
-                                      {'name': u'Wavelength 54',
-                                       'pyname': u'wavelength_54',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 54',
-                                      {'name': u'Spectrum 54',
-                                       'pyname': u'spectrum_54',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 55',
-                                      {'name': u'Wavelength 55',
-                                       'pyname': u'wavelength_55',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 55',
-                                      {'name': u'Spectrum 55',
-                                       'pyname': u'spectrum_55',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 56',
-                                      {'name': u'Wavelength 56',
-                                       'pyname': u'wavelength_56',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 56',
-                                      {'name': u'Spectrum 56',
-                                       'pyname': u'spectrum_56',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 57',
-                                      {'name': u'Wavelength 57',
-                                       'pyname': u'wavelength_57',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 57',
-                                      {'name': u'Spectrum 57',
-                                       'pyname': u'spectrum_57',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 58',
-                                      {'name': u'Wavelength 58',
-                                       'pyname': u'wavelength_58',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 58',
-                                      {'name': u'Spectrum 58',
-                                       'pyname': u'spectrum_58',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 59',
-                                      {'name': u'Wavelength 59',
-                                       'pyname': u'wavelength_59',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 59',
-                                      {'name': u'Spectrum 59',
-                                       'pyname': u'spectrum_59',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 60',
-                                      {'name': u'Wavelength 60',
-                                       'pyname': u'wavelength_60',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 60',
-                                      {'name': u'Spectrum 60',
-                                       'pyname': u'spectrum_60',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 61',
-                                      {'name': u'Wavelength 61',
-                                       'pyname': u'wavelength_61',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 61',
-                                      {'name': u'Spectrum 61',
-                                       'pyname': u'spectrum_61',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 62',
-                                      {'name': u'Wavelength 62',
-                                       'pyname': u'wavelength_62',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 62',
-                                      {'name': u'Spectrum 62',
-                                       'pyname': u'spectrum_62',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 63',
-                                      {'name': u'Wavelength 63',
-                                       'pyname': u'wavelength_63',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 63',
-                                      {'name': u'Spectrum 63',
-                                       'pyname': u'spectrum_63',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 64',
-                                      {'name': u'Wavelength 64',
-                                       'pyname': u'wavelength_64',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 64',
-                                      {'name': u'Spectrum 64',
-                                       'pyname': u'spectrum_64',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 65',
-                                      {'name': u'Wavelength 65',
-                                       'pyname': u'wavelength_65',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 65',
-                                      {'name': u'Spectrum 65',
-                                       'pyname': u'spectrum_65',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 66',
-                                      {'name': u'Wavelength 66',
-                                       'pyname': u'wavelength_66',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 66',
-                                      {'name': u'Spectrum 66',
-                                       'pyname': u'spectrum_66',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 67',
-                                      {'name': u'Wavelength 67',
-                                       'pyname': u'wavelength_67',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 67',
-                                      {'name': u'Spectrum 67',
-                                       'pyname': u'spectrum_67',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 68',
-                                      {'name': u'Wavelength 68',
-                                       'pyname': u'wavelength_68',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 68',
-                                      {'name': u'Spectrum 68',
-                                       'pyname': u'spectrum_68',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 69',
-                                      {'name': u'Wavelength 69',
-                                       'pyname': u'wavelength_69',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 69',
-                                      {'name': u'Spectrum 69',
-                                       'pyname': u'spectrum_69',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 70',
-                                      {'name': u'Wavelength 70',
-                                       'pyname': u'wavelength_70',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 70',
-                                      {'name': u'Spectrum 70',
-                                       'pyname': u'spectrum_70',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 71',
-                                      {'name': u'Wavelength 71',
-                                       'pyname': u'wavelength_71',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 71',
-                                      {'name': u'Spectrum 71',
-                                       'pyname': u'spectrum_71',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 72',
-                                      {'name': u'Wavelength 72',
-                                       'pyname': u'wavelength_72',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 72',
-                                      {'name': u'Spectrum 72',
-                                       'pyname': u'spectrum_72',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 73',
-                                      {'name': u'Wavelength 73',
-                                       'pyname': u'wavelength_73',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 73',
-                                      {'name': u'Spectrum 73',
-                                       'pyname': u'spectrum_73',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 74',
-                                      {'name': u'Wavelength 74',
-                                       'pyname': u'wavelength_74',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 74',
-                                      {'name': u'Spectrum 74',
-                                       'pyname': u'spectrum_74',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 75',
-                                      {'name': u'Wavelength 75',
-                                       'pyname': u'wavelength_75',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 75',
-                                      {'name': u'Spectrum 75',
-                                       'pyname': u'spectrum_75',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 76',
-                                      {'name': u'Wavelength 76',
-                                       'pyname': u'wavelength_76',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 76',
-                                      {'name': u'Spectrum 76',
-                                       'pyname': u'spectrum_76',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 77',
-                                      {'name': u'Wavelength 77',
-                                       'pyname': u'wavelength_77',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 77',
-                                      {'name': u'Spectrum 77',
-                                       'pyname': u'spectrum_77',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 78',
-                                      {'name': u'Wavelength 78',
-                                       'pyname': u'wavelength_78',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 78',
-                                      {'name': u'Spectrum 78',
-                                       'pyname': u'spectrum_78',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 79',
-                                      {'name': u'Wavelength 79',
-                                       'pyname': u'wavelength_79',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 79',
-                                      {'name': u'Spectrum 79',
-                                       'pyname': u'spectrum_79',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 80',
-                                      {'name': u'Wavelength 80',
-                                       'pyname': u'wavelength_80',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 80',
-                                      {'name': u'Spectrum 80',
-                                       'pyname': u'spectrum_80',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 81',
-                                      {'name': u'Wavelength 81',
-                                       'pyname': u'wavelength_81',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 81',
-                                      {'name': u'Spectrum 81',
-                                       'pyname': u'spectrum_81',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 82',
-                                      {'name': u'Wavelength 82',
-                                       'pyname': u'wavelength_82',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 82',
-                                      {'name': u'Spectrum 82',
-                                       'pyname': u'spectrum_82',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 83',
-                                      {'name': u'Wavelength 83',
-                                       'pyname': u'wavelength_83',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 83',
-                                      {'name': u'Spectrum 83',
-                                       'pyname': u'spectrum_83',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 84',
-                                      {'name': u'Wavelength 84',
-                                       'pyname': u'wavelength_84',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 84',
-                                      {'name': u'Spectrum 84',
-                                       'pyname': u'spectrum_84',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 85',
-                                      {'name': u'Wavelength 85',
-                                       'pyname': u'wavelength_85',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 85',
-                                      {'name': u'Spectrum 85',
-                                       'pyname': u'spectrum_85',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 86',
-                                      {'name': u'Wavelength 86',
-                                       'pyname': u'wavelength_86',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 86',
-                                      {'name': u'Spectrum 86',
-                                       'pyname': u'spectrum_86',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 87',
-                                      {'name': u'Wavelength 87',
-                                       'pyname': u'wavelength_87',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 87',
-                                      {'name': u'Spectrum 87',
-                                       'pyname': u'spectrum_87',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 88',
-                                      {'name': u'Wavelength 88',
-                                       'pyname': u'wavelength_88',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 88',
-                                      {'name': u'Spectrum 88',
-                                       'pyname': u'spectrum_88',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 89',
-                                      {'name': u'Wavelength 89',
-                                       'pyname': u'wavelength_89',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 89',
-                                      {'name': u'Spectrum 89',
-                                       'pyname': u'spectrum_89',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 90',
-                                      {'name': u'Wavelength 90',
-                                       'pyname': u'wavelength_90',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 90',
-                                      {'name': u'Spectrum 90',
-                                       'pyname': u'spectrum_90',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 91',
-                                      {'name': u'Wavelength 91',
-                                       'pyname': u'wavelength_91',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 91',
-                                      {'name': u'Spectrum 91',
-                                       'pyname': u'spectrum_91',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 92',
-                                      {'name': u'Wavelength 92',
-                                       'pyname': u'wavelength_92',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 92',
-                                      {'name': u'Spectrum 92',
-                                       'pyname': u'spectrum_92',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 93',
-                                      {'name': u'Wavelength 93',
-                                       'pyname': u'wavelength_93',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 93',
-                                      {'name': u'Spectrum 93',
-                                       'pyname': u'spectrum_93',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 94',
-                                      {'name': u'Wavelength 94',
-                                       'pyname': u'wavelength_94',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 94',
-                                      {'name': u'Spectrum 94',
-                                       'pyname': u'spectrum_94',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 95',
-                                      {'name': u'Wavelength 95',
-                                       'pyname': u'wavelength_95',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 95',
-                                      {'name': u'Spectrum 95',
-                                       'pyname': u'spectrum_95',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 96',
-                                      {'name': u'Wavelength 96',
-                                       'pyname': u'wavelength_96',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 96',
-                                      {'name': u'Spectrum 96',
-                                       'pyname': u'spectrum_96',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 97',
-                                      {'name': u'Wavelength 97',
-                                       'pyname': u'wavelength_97',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 97',
-                                      {'name': u'Spectrum 97',
-                                       'pyname': u'spectrum_97',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 98',
-                                      {'name': u'Wavelength 98',
-                                       'pyname': u'wavelength_98',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 98',
-                                      {'name': u'Spectrum 98',
-                                       'pyname': u'spectrum_98',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 99',
-                                      {'name': u'Wavelength 99',
-                                       'pyname': u'wavelength_99',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 99',
-                                      {'name': u'Spectrum 99',
-                                       'pyname': u'spectrum_99',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 100',
-                                      {'name': u'Wavelength 100',
-                                       'pyname': u'wavelength_100',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 100',
-                                      {'name': u'Spectrum 100',
-                                       'pyname': u'spectrum_100',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 101',
-                                      {'name': u'Wavelength 101',
-                                       'pyname': u'wavelength_101',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 101',
-                                      {'name': u'Spectrum 101',
-                                       'pyname': u'spectrum_101',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 102',
-                                      {'name': u'Wavelength 102',
-                                       'pyname': u'wavelength_102',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 102',
-                                      {'name': u'Spectrum 102',
-                                       'pyname': u'spectrum_102',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 103',
-                                      {'name': u'Wavelength 103',
-                                       'pyname': u'wavelength_103',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 103',
-                                      {'name': u'Spectrum 103',
-                                       'pyname': u'spectrum_103',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 104',
-                                      {'name': u'Wavelength 104',
-                                       'pyname': u'wavelength_104',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 104',
-                                      {'name': u'Spectrum 104',
-                                       'pyname': u'spectrum_104',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 105',
-                                      {'name': u'Wavelength 105',
-                                       'pyname': u'wavelength_105',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 105',
-                                      {'name': u'Spectrum 105',
-                                       'pyname': u'spectrum_105',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 106',
-                                      {'name': u'Wavelength 106',
-                                       'pyname': u'wavelength_106',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 106',
-                                      {'name': u'Spectrum 106',
-                                       'pyname': u'spectrum_106',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'}),
-                                     (u'wavelength 107',
-                                      {'name': u'Wavelength 107',
-                                       'pyname': u'wavelength_107',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'micron'}),
-                                     (u'spectrum 107',
-                                      {'name': u'Spectrum 107',
-                                       'pyname': u'spectrum_107',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real'})]),
-              'extensible-fields': OrderedDict(),
-              'unique-object': False,
-              'required-object': False,
-              'group': u'Location and Climate'}
+    schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'spectrum data type', {'name': u'Spectrum Data Type', 'pyname': u'spectrum_data_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Solar', u'Visible'], 'autocalculatable': False, 'type': 'alpha'}), (u'wavelength 1', {'name': u'Wavelength 1', 'pyname': u'wavelength_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 1', {'name': u'Spectrum 1', 'pyname': u'spectrum_1', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 2', {'name': u'Wavelength 2', 'pyname': u'wavelength_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 2', {'name': u'Spectrum 2', 'pyname': u'spectrum_2', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 3', {'name': u'Wavelength 3', 'pyname': u'wavelength_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 3', {'name': u'Spectrum 3', 'pyname': u'spectrum_3', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 4', {'name': u'Wavelength 4', 'pyname': u'wavelength_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 4', {'name': u'Spectrum 4', 'pyname': u'spectrum_4', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 5', {'name': u'Wavelength 5', 'pyname': u'wavelength_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 5', {'name': u'Spectrum 5', 'pyname': u'spectrum_5', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 6', {'name': u'Wavelength 6', 'pyname': u'wavelength_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 6', {'name': u'Spectrum 6', 'pyname': u'spectrum_6', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 7', {'name': u'Wavelength 7', 'pyname': u'wavelength_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 7', {'name': u'Spectrum 7', 'pyname': u'spectrum_7', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 8', {'name': u'Wavelength 8', 'pyname': u'wavelength_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 8', {'name': u'Spectrum 8', 'pyname': u'spectrum_8', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 9', {'name': u'Wavelength 9', 'pyname': u'wavelength_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 9', {'name': u'Spectrum 9', 'pyname': u'spectrum_9', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 10', {'name': u'Wavelength 10', 'pyname': u'wavelength_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 10', {'name': u'Spectrum 10', 'pyname': u'spectrum_10', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 11', {'name': u'Wavelength 11', 'pyname': u'wavelength_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 11', {'name': u'Spectrum 11', 'pyname': u'spectrum_11', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 12', {'name': u'Wavelength 12', 'pyname': u'wavelength_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 12', {'name': u'Spectrum 12', 'pyname': u'spectrum_12', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 13', {'name': u'Wavelength 13', 'pyname': u'wavelength_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 13', {'name': u'Spectrum 13', 'pyname': u'spectrum_13', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 14', {'name': u'Wavelength 14', 'pyname': u'wavelength_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 14', {'name': u'Spectrum 14', 'pyname': u'spectrum_14', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 15', {'name': u'Wavelength 15', 'pyname': u'wavelength_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 15', {'name': u'Spectrum 15', 'pyname': u'spectrum_15', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 16', {'name': u'Wavelength 16', 'pyname': u'wavelength_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 16', {'name': u'Spectrum 16', 'pyname': u'spectrum_16', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 17', {'name': u'Wavelength 17', 'pyname': u'wavelength_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 17', {'name': u'Spectrum 17', 'pyname': u'spectrum_17', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 18', {'name': u'Wavelength 18', 'pyname': u'wavelength_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 18', {'name': u'Spectrum 18', 'pyname': u'spectrum_18', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 19', {'name': u'Wavelength 19', 'pyname': u'wavelength_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 19', {'name': u'Spectrum 19', 'pyname': u'spectrum_19', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 20', {'name': u'Wavelength 20', 'pyname': u'wavelength_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 20', {'name': u'Spectrum 20', 'pyname': u'spectrum_20', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 21', {'name': u'Wavelength 21', 'pyname': u'wavelength_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 21', {'name': u'Spectrum 21', 'pyname': u'spectrum_21', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 22', {'name': u'Wavelength 22', 'pyname': u'wavelength_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 22', {'name': u'Spectrum 22', 'pyname': u'spectrum_22', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 23', {'name': u'Wavelength 23', 'pyname': u'wavelength_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 23', {'name': u'Spectrum 23', 'pyname': u'spectrum_23', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 24', {'name': u'Wavelength 24', 'pyname': u'wavelength_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 24', {'name': u'Spectrum 24', 'pyname': u'spectrum_24', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 25', {'name': u'Wavelength 25', 'pyname': u'wavelength_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 25', {'name': u'Spectrum 25', 'pyname': u'spectrum_25', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 26', {'name': u'Wavelength 26', 'pyname': u'wavelength_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 26', {'name': u'Spectrum 26', 'pyname': u'spectrum_26', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 27', {'name': u'Wavelength 27', 'pyname': u'wavelength_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 27', {'name': u'Spectrum 27', 'pyname': u'spectrum_27', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 28', {'name': u'Wavelength 28', 'pyname': u'wavelength_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 28', {'name': u'Spectrum 28', 'pyname': u'spectrum_28', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 29', {'name': u'Wavelength 29', 'pyname': u'wavelength_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 29', {'name': u'Spectrum 29', 'pyname': u'spectrum_29', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 30', {'name': u'Wavelength 30', 'pyname': u'wavelength_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 30', {'name': u'Spectrum 30', 'pyname': u'spectrum_30', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 31', {'name': u'Wavelength 31', 'pyname': u'wavelength_31', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 31', {'name': u'Spectrum 31', 'pyname': u'spectrum_31', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 32', {'name': u'Wavelength 32', 'pyname': u'wavelength_32', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 32', {'name': u'Spectrum 32', 'pyname': u'spectrum_32', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 33', {'name': u'Wavelength 33', 'pyname': u'wavelength_33', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 33', {'name': u'Spectrum 33', 'pyname': u'spectrum_33', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 34', {'name': u'Wavelength 34', 'pyname': u'wavelength_34', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 34', {'name': u'Spectrum 34', 'pyname': u'spectrum_34', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 35', {'name': u'Wavelength 35', 'pyname': u'wavelength_35', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 35', {'name': u'Spectrum 35', 'pyname': u'spectrum_35', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 36', {'name': u'Wavelength 36', 'pyname': u'wavelength_36', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 36', {'name': u'Spectrum 36', 'pyname': u'spectrum_36', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 37', {'name': u'Wavelength 37', 'pyname': u'wavelength_37', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 37', {'name': u'Spectrum 37', 'pyname': u'spectrum_37', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 38', {'name': u'Wavelength 38', 'pyname': u'wavelength_38', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 38', {'name': u'Spectrum 38', 'pyname': u'spectrum_38', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 39', {'name': u'Wavelength 39', 'pyname': u'wavelength_39', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 39', {'name': u'Spectrum 39', 'pyname': u'spectrum_39', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 40', {'name': u'Wavelength 40', 'pyname': u'wavelength_40', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 40', {'name': u'Spectrum 40', 'pyname': u'spectrum_40', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 41', {'name': u'Wavelength 41', 'pyname': u'wavelength_41', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 41', {'name': u'Spectrum 41', 'pyname': u'spectrum_41', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 42', {'name': u'Wavelength 42', 'pyname': u'wavelength_42', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 42', {'name': u'Spectrum 42', 'pyname': u'spectrum_42', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 43', {'name': u'Wavelength 43', 'pyname': u'wavelength_43', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 43', {'name': u'Spectrum 43', 'pyname': u'spectrum_43', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 44', {'name': u'Wavelength 44', 'pyname': u'wavelength_44', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 44', {'name': u'Spectrum 44', 'pyname': u'spectrum_44', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 45', {'name': u'Wavelength 45', 'pyname': u'wavelength_45', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 45', {'name': u'Spectrum 45', 'pyname': u'spectrum_45', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 46', {'name': u'Wavelength 46', 'pyname': u'wavelength_46', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 46', {'name': u'Spectrum 46', 'pyname': u'spectrum_46', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 47', {'name': u'Wavelength 47', 'pyname': u'wavelength_47', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 47', {'name': u'Spectrum 47', 'pyname': u'spectrum_47', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 48', {'name': u'Wavelength 48', 'pyname': u'wavelength_48', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 48', {'name': u'Spectrum 48', 'pyname': u'spectrum_48', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 49', {'name': u'Wavelength 49', 'pyname': u'wavelength_49', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 49', {'name': u'Spectrum 49', 'pyname': u'spectrum_49', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 50', {'name': u'Wavelength 50', 'pyname': u'wavelength_50', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 50', {'name': u'Spectrum 50', 'pyname': u'spectrum_50', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 51', {'name': u'Wavelength 51', 'pyname': u'wavelength_51', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 51', {'name': u'Spectrum 51', 'pyname': u'spectrum_51', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 52', {'name': u'Wavelength 52', 'pyname': u'wavelength_52', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 52', {'name': u'Spectrum 52', 'pyname': u'spectrum_52', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 53', {'name': u'Wavelength 53', 'pyname': u'wavelength_53', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 53', {'name': u'Spectrum 53', 'pyname': u'spectrum_53', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 54', {'name': u'Wavelength 54', 'pyname': u'wavelength_54', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 54', {'name': u'Spectrum 54', 'pyname': u'spectrum_54', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 55', {'name': u'Wavelength 55', 'pyname': u'wavelength_55', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 55', {'name': u'Spectrum 55', 'pyname': u'spectrum_55', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 56', {'name': u'Wavelength 56', 'pyname': u'wavelength_56', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 56', {'name': u'Spectrum 56', 'pyname': u'spectrum_56', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 57', {'name': u'Wavelength 57', 'pyname': u'wavelength_57', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 57', {'name': u'Spectrum 57', 'pyname': u'spectrum_57', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 58', {'name': u'Wavelength 58', 'pyname': u'wavelength_58', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 58', {'name': u'Spectrum 58', 'pyname': u'spectrum_58', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 59', {'name': u'Wavelength 59', 'pyname': u'wavelength_59', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 59', {'name': u'Spectrum 59', 'pyname': u'spectrum_59', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 60', {'name': u'Wavelength 60', 'pyname': u'wavelength_60', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 60', {'name': u'Spectrum 60', 'pyname': u'spectrum_60', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 61', {'name': u'Wavelength 61', 'pyname': u'wavelength_61', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 61', {'name': u'Spectrum 61', 'pyname': u'spectrum_61', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 62', {'name': u'Wavelength 62', 'pyname': u'wavelength_62', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 62', {'name': u'Spectrum 62', 'pyname': u'spectrum_62', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 63', {'name': u'Wavelength 63', 'pyname': u'wavelength_63', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 63', {'name': u'Spectrum 63', 'pyname': u'spectrum_63', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 64', {'name': u'Wavelength 64', 'pyname': u'wavelength_64', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 64', {'name': u'Spectrum 64', 'pyname': u'spectrum_64', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 65', {'name': u'Wavelength 65', 'pyname': u'wavelength_65', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 65', {'name': u'Spectrum 65', 'pyname': u'spectrum_65', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 66', {'name': u'Wavelength 66', 'pyname': u'wavelength_66', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 66', {'name': u'Spectrum 66', 'pyname': u'spectrum_66', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 67', {'name': u'Wavelength 67', 'pyname': u'wavelength_67', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 67', {'name': u'Spectrum 67', 'pyname': u'spectrum_67', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 68', {'name': u'Wavelength 68', 'pyname': u'wavelength_68', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 68', {'name': u'Spectrum 68', 'pyname': u'spectrum_68', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 69', {'name': u'Wavelength 69', 'pyname': u'wavelength_69', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 69', {'name': u'Spectrum 69', 'pyname': u'spectrum_69', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 70', {'name': u'Wavelength 70', 'pyname': u'wavelength_70', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 70', {'name': u'Spectrum 70', 'pyname': u'spectrum_70', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 71', {'name': u'Wavelength 71', 'pyname': u'wavelength_71', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 71', {'name': u'Spectrum 71', 'pyname': u'spectrum_71', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 72', {'name': u'Wavelength 72', 'pyname': u'wavelength_72', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 72', {'name': u'Spectrum 72', 'pyname': u'spectrum_72', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 73', {'name': u'Wavelength 73', 'pyname': u'wavelength_73', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 73', {'name': u'Spectrum 73', 'pyname': u'spectrum_73', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 74', {'name': u'Wavelength 74', 'pyname': u'wavelength_74', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 74', {'name': u'Spectrum 74', 'pyname': u'spectrum_74', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 75', {'name': u'Wavelength 75', 'pyname': u'wavelength_75', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 75', {'name': u'Spectrum 75', 'pyname': u'spectrum_75', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 76', {'name': u'Wavelength 76', 'pyname': u'wavelength_76', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 76', {'name': u'Spectrum 76', 'pyname': u'spectrum_76', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 77', {'name': u'Wavelength 77', 'pyname': u'wavelength_77', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 77', {'name': u'Spectrum 77', 'pyname': u'spectrum_77', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 78', {'name': u'Wavelength 78', 'pyname': u'wavelength_78', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 78', {'name': u'Spectrum 78', 'pyname': u'spectrum_78', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 79', {'name': u'Wavelength 79', 'pyname': u'wavelength_79', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 79', {'name': u'Spectrum 79', 'pyname': u'spectrum_79', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 80', {'name': u'Wavelength 80', 'pyname': u'wavelength_80', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 80', {'name': u'Spectrum 80', 'pyname': u'spectrum_80', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 81', {'name': u'Wavelength 81', 'pyname': u'wavelength_81', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 81', {'name': u'Spectrum 81', 'pyname': u'spectrum_81', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 82', {'name': u'Wavelength 82', 'pyname': u'wavelength_82', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 82', {'name': u'Spectrum 82', 'pyname': u'spectrum_82', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 83', {'name': u'Wavelength 83', 'pyname': u'wavelength_83', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 83', {'name': u'Spectrum 83', 'pyname': u'spectrum_83', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 84', {'name': u'Wavelength 84', 'pyname': u'wavelength_84', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 84', {'name': u'Spectrum 84', 'pyname': u'spectrum_84', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 85', {'name': u'Wavelength 85', 'pyname': u'wavelength_85', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 85', {'name': u'Spectrum 85', 'pyname': u'spectrum_85', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 86', {'name': u'Wavelength 86', 'pyname': u'wavelength_86', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 86', {'name': u'Spectrum 86', 'pyname': u'spectrum_86', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 87', {'name': u'Wavelength 87', 'pyname': u'wavelength_87', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 87', {'name': u'Spectrum 87', 'pyname': u'spectrum_87', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 88', {'name': u'Wavelength 88', 'pyname': u'wavelength_88', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 88', {'name': u'Spectrum 88', 'pyname': u'spectrum_88', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 89', {'name': u'Wavelength 89', 'pyname': u'wavelength_89', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 89', {'name': u'Spectrum 89', 'pyname': u'spectrum_89', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 90', {'name': u'Wavelength 90', 'pyname': u'wavelength_90', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 90', {'name': u'Spectrum 90', 'pyname': u'spectrum_90', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 91', {'name': u'Wavelength 91', 'pyname': u'wavelength_91', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 91', {'name': u'Spectrum 91', 'pyname': u'spectrum_91', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 92', {'name': u'Wavelength 92', 'pyname': u'wavelength_92', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 92', {'name': u'Spectrum 92', 'pyname': u'spectrum_92', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 93', {'name': u'Wavelength 93', 'pyname': u'wavelength_93', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 93', {'name': u'Spectrum 93', 'pyname': u'spectrum_93', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 94', {'name': u'Wavelength 94', 'pyname': u'wavelength_94', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 94', {'name': u'Spectrum 94', 'pyname': u'spectrum_94', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 95', {'name': u'Wavelength 95', 'pyname': u'wavelength_95', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 95', {'name': u'Spectrum 95', 'pyname': u'spectrum_95', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 96', {'name': u'Wavelength 96', 'pyname': u'wavelength_96', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 96', {'name': u'Spectrum 96', 'pyname': u'spectrum_96', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 97', {'name': u'Wavelength 97', 'pyname': u'wavelength_97', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 97', {'name': u'Spectrum 97', 'pyname': u'spectrum_97', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 98', {'name': u'Wavelength 98', 'pyname': u'wavelength_98', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 98', {'name': u'Spectrum 98', 'pyname': u'spectrum_98', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 99', {'name': u'Wavelength 99', 'pyname': u'wavelength_99', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 99', {'name': u'Spectrum 99', 'pyname': u'spectrum_99', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 100', {'name': u'Wavelength 100', 'pyname': u'wavelength_100', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 100', {'name': u'Spectrum 100', 'pyname': u'spectrum_100', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 101', {'name': u'Wavelength 101', 'pyname': u'wavelength_101', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 101', {'name': u'Spectrum 101', 'pyname': u'spectrum_101', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 102', {'name': u'Wavelength 102', 'pyname': u'wavelength_102', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 102', {'name': u'Spectrum 102', 'pyname': u'spectrum_102', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 103', {'name': u'Wavelength 103', 'pyname': u'wavelength_103', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 103', {'name': u'Spectrum 103', 'pyname': u'spectrum_103', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 104', {'name': u'Wavelength 104', 'pyname': u'wavelength_104', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 104', {'name': u'Spectrum 104', 'pyname': u'spectrum_104', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 105', {'name': u'Wavelength 105', 'pyname': u'wavelength_105', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 105', {'name': u'Spectrum 105', 'pyname': u'spectrum_105', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 106', {'name': u'Wavelength 106', 'pyname': u'wavelength_106', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 106', {'name': u'Spectrum 106', 'pyname': u'spectrum_106', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wavelength 107', {'name': u'Wavelength 107', 'pyname': u'wavelength_107', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'micron'}), (u'spectrum 107', {'name': u'Spectrum 107', 'pyname': u'spectrum_107', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
+ 'format': None,
+ 'group': u'Location and Climate',
+ 'min-fields': 8,
+ 'name': u'Site:SpectrumData',
+ 'pyname': u'SiteSpectrumData',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
+        """Get name
 
         Returns:
             str: the value of `name` or None if not set
-
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """  Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -9023,23 +5239,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Name"] = value
 
     @property
     def spectrum_data_type(self):
-        """Get spectrum_data_type.
+        """Get spectrum_data_type
 
         Returns:
             str: the value of `spectrum_data_type` or None if not set
-
         """
         return self["Spectrum Data Type"]
 
     @spectrum_data_type.setter
     def spectrum_data_type(self, value=None):
-        """Corresponds to IDD field `Spectrum Data Type`
+        """  Corresponds to IDD field `Spectrum Data Type`
 
         Args:
             value (str): value for IDD Field `Spectrum Data Type`
@@ -9048,23 +5262,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum Data Type"] = value
 
     @property
     def wavelength_1(self):
-        """Get wavelength_1.
+        """Get wavelength_1
 
         Returns:
             float: the value of `wavelength_1` or None if not set
-
         """
         return self["Wavelength 1"]
 
     @wavelength_1.setter
     def wavelength_1(self, value=None):
-        """Corresponds to IDD field `Wavelength 1`
+        """  Corresponds to IDD field `Wavelength 1`
 
         Args:
             value (float): value for IDD Field `Wavelength 1`
@@ -9074,23 +5286,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 1"] = value
 
     @property
     def spectrum_1(self):
-        """Get spectrum_1.
+        """Get spectrum_1
 
         Returns:
             float: the value of `spectrum_1` or None if not set
-
         """
         return self["Spectrum 1"]
 
     @spectrum_1.setter
     def spectrum_1(self, value=None):
-        """Corresponds to IDD field `Spectrum 1`
+        """  Corresponds to IDD field `Spectrum 1`
 
         Args:
             value (float): value for IDD Field `Spectrum 1`
@@ -9099,23 +5309,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 1"] = value
 
     @property
     def wavelength_2(self):
-        """Get wavelength_2.
+        """Get wavelength_2
 
         Returns:
             float: the value of `wavelength_2` or None if not set
-
         """
         return self["Wavelength 2"]
 
     @wavelength_2.setter
     def wavelength_2(self, value=None):
-        """Corresponds to IDD field `Wavelength 2`
+        """  Corresponds to IDD field `Wavelength 2`
 
         Args:
             value (float): value for IDD Field `Wavelength 2`
@@ -9125,23 +5333,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 2"] = value
 
     @property
     def spectrum_2(self):
-        """Get spectrum_2.
+        """Get spectrum_2
 
         Returns:
             float: the value of `spectrum_2` or None if not set
-
         """
         return self["Spectrum 2"]
 
     @spectrum_2.setter
     def spectrum_2(self, value=None):
-        """Corresponds to IDD field `Spectrum 2`
+        """  Corresponds to IDD field `Spectrum 2`
 
         Args:
             value (float): value for IDD Field `Spectrum 2`
@@ -9150,23 +5356,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 2"] = value
 
     @property
     def wavelength_3(self):
-        """Get wavelength_3.
+        """Get wavelength_3
 
         Returns:
             float: the value of `wavelength_3` or None if not set
-
         """
         return self["Wavelength 3"]
 
     @wavelength_3.setter
     def wavelength_3(self, value=None):
-        """Corresponds to IDD field `Wavelength 3`
+        """  Corresponds to IDD field `Wavelength 3`
 
         Args:
             value (float): value for IDD Field `Wavelength 3`
@@ -9176,23 +5380,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 3"] = value
 
     @property
     def spectrum_3(self):
-        """Get spectrum_3.
+        """Get spectrum_3
 
         Returns:
             float: the value of `spectrum_3` or None if not set
-
         """
         return self["Spectrum 3"]
 
     @spectrum_3.setter
     def spectrum_3(self, value=None):
-        """Corresponds to IDD field `Spectrum 3`
+        """  Corresponds to IDD field `Spectrum 3`
 
         Args:
             value (float): value for IDD Field `Spectrum 3`
@@ -9201,23 +5403,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 3"] = value
 
     @property
     def wavelength_4(self):
-        """Get wavelength_4.
+        """Get wavelength_4
 
         Returns:
             float: the value of `wavelength_4` or None if not set
-
         """
         return self["Wavelength 4"]
 
     @wavelength_4.setter
     def wavelength_4(self, value=None):
-        """Corresponds to IDD field `Wavelength 4`
+        """  Corresponds to IDD field `Wavelength 4`
 
         Args:
             value (float): value for IDD Field `Wavelength 4`
@@ -9227,23 +5427,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 4"] = value
 
     @property
     def spectrum_4(self):
-        """Get spectrum_4.
+        """Get spectrum_4
 
         Returns:
             float: the value of `spectrum_4` or None if not set
-
         """
         return self["Spectrum 4"]
 
     @spectrum_4.setter
     def spectrum_4(self, value=None):
-        """Corresponds to IDD field `Spectrum 4`
+        """  Corresponds to IDD field `Spectrum 4`
 
         Args:
             value (float): value for IDD Field `Spectrum 4`
@@ -9252,23 +5450,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 4"] = value
 
     @property
     def wavelength_5(self):
-        """Get wavelength_5.
+        """Get wavelength_5
 
         Returns:
             float: the value of `wavelength_5` or None if not set
-
         """
         return self["Wavelength 5"]
 
     @wavelength_5.setter
     def wavelength_5(self, value=None):
-        """Corresponds to IDD field `Wavelength 5`
+        """  Corresponds to IDD field `Wavelength 5`
 
         Args:
             value (float): value for IDD Field `Wavelength 5`
@@ -9278,23 +5474,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 5"] = value
 
     @property
     def spectrum_5(self):
-        """Get spectrum_5.
+        """Get spectrum_5
 
         Returns:
             float: the value of `spectrum_5` or None if not set
-
         """
         return self["Spectrum 5"]
 
     @spectrum_5.setter
     def spectrum_5(self, value=None):
-        """Corresponds to IDD field `Spectrum 5`
+        """  Corresponds to IDD field `Spectrum 5`
 
         Args:
             value (float): value for IDD Field `Spectrum 5`
@@ -9303,23 +5497,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 5"] = value
 
     @property
     def wavelength_6(self):
-        """Get wavelength_6.
+        """Get wavelength_6
 
         Returns:
             float: the value of `wavelength_6` or None if not set
-
         """
         return self["Wavelength 6"]
 
     @wavelength_6.setter
     def wavelength_6(self, value=None):
-        """Corresponds to IDD field `Wavelength 6`
+        """  Corresponds to IDD field `Wavelength 6`
 
         Args:
             value (float): value for IDD Field `Wavelength 6`
@@ -9329,23 +5521,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 6"] = value
 
     @property
     def spectrum_6(self):
-        """Get spectrum_6.
+        """Get spectrum_6
 
         Returns:
             float: the value of `spectrum_6` or None if not set
-
         """
         return self["Spectrum 6"]
 
     @spectrum_6.setter
     def spectrum_6(self, value=None):
-        """Corresponds to IDD field `Spectrum 6`
+        """  Corresponds to IDD field `Spectrum 6`
 
         Args:
             value (float): value for IDD Field `Spectrum 6`
@@ -9354,23 +5544,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 6"] = value
 
     @property
     def wavelength_7(self):
-        """Get wavelength_7.
+        """Get wavelength_7
 
         Returns:
             float: the value of `wavelength_7` or None if not set
-
         """
         return self["Wavelength 7"]
 
     @wavelength_7.setter
     def wavelength_7(self, value=None):
-        """Corresponds to IDD field `Wavelength 7`
+        """  Corresponds to IDD field `Wavelength 7`
 
         Args:
             value (float): value for IDD Field `Wavelength 7`
@@ -9380,23 +5568,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 7"] = value
 
     @property
     def spectrum_7(self):
-        """Get spectrum_7.
+        """Get spectrum_7
 
         Returns:
             float: the value of `spectrum_7` or None if not set
-
         """
         return self["Spectrum 7"]
 
     @spectrum_7.setter
     def spectrum_7(self, value=None):
-        """Corresponds to IDD field `Spectrum 7`
+        """  Corresponds to IDD field `Spectrum 7`
 
         Args:
             value (float): value for IDD Field `Spectrum 7`
@@ -9405,23 +5591,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 7"] = value
 
     @property
     def wavelength_8(self):
-        """Get wavelength_8.
+        """Get wavelength_8
 
         Returns:
             float: the value of `wavelength_8` or None if not set
-
         """
         return self["Wavelength 8"]
 
     @wavelength_8.setter
     def wavelength_8(self, value=None):
-        """Corresponds to IDD field `Wavelength 8`
+        """  Corresponds to IDD field `Wavelength 8`
 
         Args:
             value (float): value for IDD Field `Wavelength 8`
@@ -9431,23 +5615,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 8"] = value
 
     @property
     def spectrum_8(self):
-        """Get spectrum_8.
+        """Get spectrum_8
 
         Returns:
             float: the value of `spectrum_8` or None if not set
-
         """
         return self["Spectrum 8"]
 
     @spectrum_8.setter
     def spectrum_8(self, value=None):
-        """Corresponds to IDD field `Spectrum 8`
+        """  Corresponds to IDD field `Spectrum 8`
 
         Args:
             value (float): value for IDD Field `Spectrum 8`
@@ -9456,23 +5638,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 8"] = value
 
     @property
     def wavelength_9(self):
-        """Get wavelength_9.
+        """Get wavelength_9
 
         Returns:
             float: the value of `wavelength_9` or None if not set
-
         """
         return self["Wavelength 9"]
 
     @wavelength_9.setter
     def wavelength_9(self, value=None):
-        """Corresponds to IDD field `Wavelength 9`
+        """  Corresponds to IDD field `Wavelength 9`
 
         Args:
             value (float): value for IDD Field `Wavelength 9`
@@ -9482,23 +5662,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 9"] = value
 
     @property
     def spectrum_9(self):
-        """Get spectrum_9.
+        """Get spectrum_9
 
         Returns:
             float: the value of `spectrum_9` or None if not set
-
         """
         return self["Spectrum 9"]
 
     @spectrum_9.setter
     def spectrum_9(self, value=None):
-        """Corresponds to IDD field `Spectrum 9`
+        """  Corresponds to IDD field `Spectrum 9`
 
         Args:
             value (float): value for IDD Field `Spectrum 9`
@@ -9507,23 +5685,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 9"] = value
 
     @property
     def wavelength_10(self):
-        """Get wavelength_10.
+        """Get wavelength_10
 
         Returns:
             float: the value of `wavelength_10` or None if not set
-
         """
         return self["Wavelength 10"]
 
     @wavelength_10.setter
     def wavelength_10(self, value=None):
-        """Corresponds to IDD field `Wavelength 10`
+        """  Corresponds to IDD field `Wavelength 10`
 
         Args:
             value (float): value for IDD Field `Wavelength 10`
@@ -9533,23 +5709,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 10"] = value
 
     @property
     def spectrum_10(self):
-        """Get spectrum_10.
+        """Get spectrum_10
 
         Returns:
             float: the value of `spectrum_10` or None if not set
-
         """
         return self["Spectrum 10"]
 
     @spectrum_10.setter
     def spectrum_10(self, value=None):
-        """Corresponds to IDD field `Spectrum 10`
+        """  Corresponds to IDD field `Spectrum 10`
 
         Args:
             value (float): value for IDD Field `Spectrum 10`
@@ -9558,23 +5732,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 10"] = value
 
     @property
     def wavelength_11(self):
-        """Get wavelength_11.
+        """Get wavelength_11
 
         Returns:
             float: the value of `wavelength_11` or None if not set
-
         """
         return self["Wavelength 11"]
 
     @wavelength_11.setter
     def wavelength_11(self, value=None):
-        """Corresponds to IDD field `Wavelength 11`
+        """  Corresponds to IDD field `Wavelength 11`
 
         Args:
             value (float): value for IDD Field `Wavelength 11`
@@ -9584,23 +5756,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 11"] = value
 
     @property
     def spectrum_11(self):
-        """Get spectrum_11.
+        """Get spectrum_11
 
         Returns:
             float: the value of `spectrum_11` or None if not set
-
         """
         return self["Spectrum 11"]
 
     @spectrum_11.setter
     def spectrum_11(self, value=None):
-        """Corresponds to IDD field `Spectrum 11`
+        """  Corresponds to IDD field `Spectrum 11`
 
         Args:
             value (float): value for IDD Field `Spectrum 11`
@@ -9609,23 +5779,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 11"] = value
 
     @property
     def wavelength_12(self):
-        """Get wavelength_12.
+        """Get wavelength_12
 
         Returns:
             float: the value of `wavelength_12` or None if not set
-
         """
         return self["Wavelength 12"]
 
     @wavelength_12.setter
     def wavelength_12(self, value=None):
-        """Corresponds to IDD field `Wavelength 12`
+        """  Corresponds to IDD field `Wavelength 12`
 
         Args:
             value (float): value for IDD Field `Wavelength 12`
@@ -9635,23 +5803,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 12"] = value
 
     @property
     def spectrum_12(self):
-        """Get spectrum_12.
+        """Get spectrum_12
 
         Returns:
             float: the value of `spectrum_12` or None if not set
-
         """
         return self["Spectrum 12"]
 
     @spectrum_12.setter
     def spectrum_12(self, value=None):
-        """Corresponds to IDD field `Spectrum 12`
+        """  Corresponds to IDD field `Spectrum 12`
 
         Args:
             value (float): value for IDD Field `Spectrum 12`
@@ -9660,23 +5826,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 12"] = value
 
     @property
     def wavelength_13(self):
-        """Get wavelength_13.
+        """Get wavelength_13
 
         Returns:
             float: the value of `wavelength_13` or None if not set
-
         """
         return self["Wavelength 13"]
 
     @wavelength_13.setter
     def wavelength_13(self, value=None):
-        """Corresponds to IDD field `Wavelength 13`
+        """  Corresponds to IDD field `Wavelength 13`
 
         Args:
             value (float): value for IDD Field `Wavelength 13`
@@ -9686,23 +5850,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 13"] = value
 
     @property
     def spectrum_13(self):
-        """Get spectrum_13.
+        """Get spectrum_13
 
         Returns:
             float: the value of `spectrum_13` or None if not set
-
         """
         return self["Spectrum 13"]
 
     @spectrum_13.setter
     def spectrum_13(self, value=None):
-        """Corresponds to IDD field `Spectrum 13`
+        """  Corresponds to IDD field `Spectrum 13`
 
         Args:
             value (float): value for IDD Field `Spectrum 13`
@@ -9711,23 +5873,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 13"] = value
 
     @property
     def wavelength_14(self):
-        """Get wavelength_14.
+        """Get wavelength_14
 
         Returns:
             float: the value of `wavelength_14` or None if not set
-
         """
         return self["Wavelength 14"]
 
     @wavelength_14.setter
     def wavelength_14(self, value=None):
-        """Corresponds to IDD field `Wavelength 14`
+        """  Corresponds to IDD field `Wavelength 14`
 
         Args:
             value (float): value for IDD Field `Wavelength 14`
@@ -9737,23 +5897,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 14"] = value
 
     @property
     def spectrum_14(self):
-        """Get spectrum_14.
+        """Get spectrum_14
 
         Returns:
             float: the value of `spectrum_14` or None if not set
-
         """
         return self["Spectrum 14"]
 
     @spectrum_14.setter
     def spectrum_14(self, value=None):
-        """Corresponds to IDD field `Spectrum 14`
+        """  Corresponds to IDD field `Spectrum 14`
 
         Args:
             value (float): value for IDD Field `Spectrum 14`
@@ -9762,23 +5920,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 14"] = value
 
     @property
     def wavelength_15(self):
-        """Get wavelength_15.
+        """Get wavelength_15
 
         Returns:
             float: the value of `wavelength_15` or None if not set
-
         """
         return self["Wavelength 15"]
 
     @wavelength_15.setter
     def wavelength_15(self, value=None):
-        """Corresponds to IDD field `Wavelength 15`
+        """  Corresponds to IDD field `Wavelength 15`
 
         Args:
             value (float): value for IDD Field `Wavelength 15`
@@ -9788,23 +5944,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 15"] = value
 
     @property
     def spectrum_15(self):
-        """Get spectrum_15.
+        """Get spectrum_15
 
         Returns:
             float: the value of `spectrum_15` or None if not set
-
         """
         return self["Spectrum 15"]
 
     @spectrum_15.setter
     def spectrum_15(self, value=None):
-        """Corresponds to IDD field `Spectrum 15`
+        """  Corresponds to IDD field `Spectrum 15`
 
         Args:
             value (float): value for IDD Field `Spectrum 15`
@@ -9813,23 +5967,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 15"] = value
 
     @property
     def wavelength_16(self):
-        """Get wavelength_16.
+        """Get wavelength_16
 
         Returns:
             float: the value of `wavelength_16` or None if not set
-
         """
         return self["Wavelength 16"]
 
     @wavelength_16.setter
     def wavelength_16(self, value=None):
-        """Corresponds to IDD field `Wavelength 16`
+        """  Corresponds to IDD field `Wavelength 16`
 
         Args:
             value (float): value for IDD Field `Wavelength 16`
@@ -9839,23 +5991,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 16"] = value
 
     @property
     def spectrum_16(self):
-        """Get spectrum_16.
+        """Get spectrum_16
 
         Returns:
             float: the value of `spectrum_16` or None if not set
-
         """
         return self["Spectrum 16"]
 
     @spectrum_16.setter
     def spectrum_16(self, value=None):
-        """Corresponds to IDD field `Spectrum 16`
+        """  Corresponds to IDD field `Spectrum 16`
 
         Args:
             value (float): value for IDD Field `Spectrum 16`
@@ -9864,23 +6014,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 16"] = value
 
     @property
     def wavelength_17(self):
-        """Get wavelength_17.
+        """Get wavelength_17
 
         Returns:
             float: the value of `wavelength_17` or None if not set
-
         """
         return self["Wavelength 17"]
 
     @wavelength_17.setter
     def wavelength_17(self, value=None):
-        """Corresponds to IDD field `Wavelength 17`
+        """  Corresponds to IDD field `Wavelength 17`
 
         Args:
             value (float): value for IDD Field `Wavelength 17`
@@ -9890,23 +6038,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 17"] = value
 
     @property
     def spectrum_17(self):
-        """Get spectrum_17.
+        """Get spectrum_17
 
         Returns:
             float: the value of `spectrum_17` or None if not set
-
         """
         return self["Spectrum 17"]
 
     @spectrum_17.setter
     def spectrum_17(self, value=None):
-        """Corresponds to IDD field `Spectrum 17`
+        """  Corresponds to IDD field `Spectrum 17`
 
         Args:
             value (float): value for IDD Field `Spectrum 17`
@@ -9915,23 +6061,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 17"] = value
 
     @property
     def wavelength_18(self):
-        """Get wavelength_18.
+        """Get wavelength_18
 
         Returns:
             float: the value of `wavelength_18` or None if not set
-
         """
         return self["Wavelength 18"]
 
     @wavelength_18.setter
     def wavelength_18(self, value=None):
-        """Corresponds to IDD field `Wavelength 18`
+        """  Corresponds to IDD field `Wavelength 18`
 
         Args:
             value (float): value for IDD Field `Wavelength 18`
@@ -9941,23 +6085,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 18"] = value
 
     @property
     def spectrum_18(self):
-        """Get spectrum_18.
+        """Get spectrum_18
 
         Returns:
             float: the value of `spectrum_18` or None if not set
-
         """
         return self["Spectrum 18"]
 
     @spectrum_18.setter
     def spectrum_18(self, value=None):
-        """Corresponds to IDD field `Spectrum 18`
+        """  Corresponds to IDD field `Spectrum 18`
 
         Args:
             value (float): value for IDD Field `Spectrum 18`
@@ -9966,23 +6108,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 18"] = value
 
     @property
     def wavelength_19(self):
-        """Get wavelength_19.
+        """Get wavelength_19
 
         Returns:
             float: the value of `wavelength_19` or None if not set
-
         """
         return self["Wavelength 19"]
 
     @wavelength_19.setter
     def wavelength_19(self, value=None):
-        """Corresponds to IDD field `Wavelength 19`
+        """  Corresponds to IDD field `Wavelength 19`
 
         Args:
             value (float): value for IDD Field `Wavelength 19`
@@ -9992,23 +6132,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 19"] = value
 
     @property
     def spectrum_19(self):
-        """Get spectrum_19.
+        """Get spectrum_19
 
         Returns:
             float: the value of `spectrum_19` or None if not set
-
         """
         return self["Spectrum 19"]
 
     @spectrum_19.setter
     def spectrum_19(self, value=None):
-        """Corresponds to IDD field `Spectrum 19`
+        """  Corresponds to IDD field `Spectrum 19`
 
         Args:
             value (float): value for IDD Field `Spectrum 19`
@@ -10017,23 +6155,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 19"] = value
 
     @property
     def wavelength_20(self):
-        """Get wavelength_20.
+        """Get wavelength_20
 
         Returns:
             float: the value of `wavelength_20` or None if not set
-
         """
         return self["Wavelength 20"]
 
     @wavelength_20.setter
     def wavelength_20(self, value=None):
-        """Corresponds to IDD field `Wavelength 20`
+        """  Corresponds to IDD field `Wavelength 20`
 
         Args:
             value (float): value for IDD Field `Wavelength 20`
@@ -10043,23 +6179,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 20"] = value
 
     @property
     def spectrum_20(self):
-        """Get spectrum_20.
+        """Get spectrum_20
 
         Returns:
             float: the value of `spectrum_20` or None if not set
-
         """
         return self["Spectrum 20"]
 
     @spectrum_20.setter
     def spectrum_20(self, value=None):
-        """Corresponds to IDD field `Spectrum 20`
+        """  Corresponds to IDD field `Spectrum 20`
 
         Args:
             value (float): value for IDD Field `Spectrum 20`
@@ -10068,23 +6202,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 20"] = value
 
     @property
     def wavelength_21(self):
-        """Get wavelength_21.
+        """Get wavelength_21
 
         Returns:
             float: the value of `wavelength_21` or None if not set
-
         """
         return self["Wavelength 21"]
 
     @wavelength_21.setter
     def wavelength_21(self, value=None):
-        """Corresponds to IDD field `Wavelength 21`
+        """  Corresponds to IDD field `Wavelength 21`
 
         Args:
             value (float): value for IDD Field `Wavelength 21`
@@ -10094,23 +6226,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 21"] = value
 
     @property
     def spectrum_21(self):
-        """Get spectrum_21.
+        """Get spectrum_21
 
         Returns:
             float: the value of `spectrum_21` or None if not set
-
         """
         return self["Spectrum 21"]
 
     @spectrum_21.setter
     def spectrum_21(self, value=None):
-        """Corresponds to IDD field `Spectrum 21`
+        """  Corresponds to IDD field `Spectrum 21`
 
         Args:
             value (float): value for IDD Field `Spectrum 21`
@@ -10119,23 +6249,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 21"] = value
 
     @property
     def wavelength_22(self):
-        """Get wavelength_22.
+        """Get wavelength_22
 
         Returns:
             float: the value of `wavelength_22` or None if not set
-
         """
         return self["Wavelength 22"]
 
     @wavelength_22.setter
     def wavelength_22(self, value=None):
-        """Corresponds to IDD field `Wavelength 22`
+        """  Corresponds to IDD field `Wavelength 22`
 
         Args:
             value (float): value for IDD Field `Wavelength 22`
@@ -10145,23 +6273,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 22"] = value
 
     @property
     def spectrum_22(self):
-        """Get spectrum_22.
+        """Get spectrum_22
 
         Returns:
             float: the value of `spectrum_22` or None if not set
-
         """
         return self["Spectrum 22"]
 
     @spectrum_22.setter
     def spectrum_22(self, value=None):
-        """Corresponds to IDD field `Spectrum 22`
+        """  Corresponds to IDD field `Spectrum 22`
 
         Args:
             value (float): value for IDD Field `Spectrum 22`
@@ -10170,23 +6296,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 22"] = value
 
     @property
     def wavelength_23(self):
-        """Get wavelength_23.
+        """Get wavelength_23
 
         Returns:
             float: the value of `wavelength_23` or None if not set
-
         """
         return self["Wavelength 23"]
 
     @wavelength_23.setter
     def wavelength_23(self, value=None):
-        """Corresponds to IDD field `Wavelength 23`
+        """  Corresponds to IDD field `Wavelength 23`
 
         Args:
             value (float): value for IDD Field `Wavelength 23`
@@ -10196,23 +6320,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 23"] = value
 
     @property
     def spectrum_23(self):
-        """Get spectrum_23.
+        """Get spectrum_23
 
         Returns:
             float: the value of `spectrum_23` or None if not set
-
         """
         return self["Spectrum 23"]
 
     @spectrum_23.setter
     def spectrum_23(self, value=None):
-        """Corresponds to IDD field `Spectrum 23`
+        """  Corresponds to IDD field `Spectrum 23`
 
         Args:
             value (float): value for IDD Field `Spectrum 23`
@@ -10221,23 +6343,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 23"] = value
 
     @property
     def wavelength_24(self):
-        """Get wavelength_24.
+        """Get wavelength_24
 
         Returns:
             float: the value of `wavelength_24` or None if not set
-
         """
         return self["Wavelength 24"]
 
     @wavelength_24.setter
     def wavelength_24(self, value=None):
-        """Corresponds to IDD field `Wavelength 24`
+        """  Corresponds to IDD field `Wavelength 24`
 
         Args:
             value (float): value for IDD Field `Wavelength 24`
@@ -10247,23 +6367,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 24"] = value
 
     @property
     def spectrum_24(self):
-        """Get spectrum_24.
+        """Get spectrum_24
 
         Returns:
             float: the value of `spectrum_24` or None if not set
-
         """
         return self["Spectrum 24"]
 
     @spectrum_24.setter
     def spectrum_24(self, value=None):
-        """Corresponds to IDD field `Spectrum 24`
+        """  Corresponds to IDD field `Spectrum 24`
 
         Args:
             value (float): value for IDD Field `Spectrum 24`
@@ -10272,23 +6390,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 24"] = value
 
     @property
     def wavelength_25(self):
-        """Get wavelength_25.
+        """Get wavelength_25
 
         Returns:
             float: the value of `wavelength_25` or None if not set
-
         """
         return self["Wavelength 25"]
 
     @wavelength_25.setter
     def wavelength_25(self, value=None):
-        """Corresponds to IDD field `Wavelength 25`
+        """  Corresponds to IDD field `Wavelength 25`
 
         Args:
             value (float): value for IDD Field `Wavelength 25`
@@ -10298,23 +6414,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 25"] = value
 
     @property
     def spectrum_25(self):
-        """Get spectrum_25.
+        """Get spectrum_25
 
         Returns:
             float: the value of `spectrum_25` or None if not set
-
         """
         return self["Spectrum 25"]
 
     @spectrum_25.setter
     def spectrum_25(self, value=None):
-        """Corresponds to IDD field `Spectrum 25`
+        """  Corresponds to IDD field `Spectrum 25`
 
         Args:
             value (float): value for IDD Field `Spectrum 25`
@@ -10323,23 +6437,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 25"] = value
 
     @property
     def wavelength_26(self):
-        """Get wavelength_26.
+        """Get wavelength_26
 
         Returns:
             float: the value of `wavelength_26` or None if not set
-
         """
         return self["Wavelength 26"]
 
     @wavelength_26.setter
     def wavelength_26(self, value=None):
-        """Corresponds to IDD field `Wavelength 26`
+        """  Corresponds to IDD field `Wavelength 26`
 
         Args:
             value (float): value for IDD Field `Wavelength 26`
@@ -10349,23 +6461,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 26"] = value
 
     @property
     def spectrum_26(self):
-        """Get spectrum_26.
+        """Get spectrum_26
 
         Returns:
             float: the value of `spectrum_26` or None if not set
-
         """
         return self["Spectrum 26"]
 
     @spectrum_26.setter
     def spectrum_26(self, value=None):
-        """Corresponds to IDD field `Spectrum 26`
+        """  Corresponds to IDD field `Spectrum 26`
 
         Args:
             value (float): value for IDD Field `Spectrum 26`
@@ -10374,23 +6484,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 26"] = value
 
     @property
     def wavelength_27(self):
-        """Get wavelength_27.
+        """Get wavelength_27
 
         Returns:
             float: the value of `wavelength_27` or None if not set
-
         """
         return self["Wavelength 27"]
 
     @wavelength_27.setter
     def wavelength_27(self, value=None):
-        """Corresponds to IDD field `Wavelength 27`
+        """  Corresponds to IDD field `Wavelength 27`
 
         Args:
             value (float): value for IDD Field `Wavelength 27`
@@ -10400,23 +6508,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 27"] = value
 
     @property
     def spectrum_27(self):
-        """Get spectrum_27.
+        """Get spectrum_27
 
         Returns:
             float: the value of `spectrum_27` or None if not set
-
         """
         return self["Spectrum 27"]
 
     @spectrum_27.setter
     def spectrum_27(self, value=None):
-        """Corresponds to IDD field `Spectrum 27`
+        """  Corresponds to IDD field `Spectrum 27`
 
         Args:
             value (float): value for IDD Field `Spectrum 27`
@@ -10425,23 +6531,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 27"] = value
 
     @property
     def wavelength_28(self):
-        """Get wavelength_28.
+        """Get wavelength_28
 
         Returns:
             float: the value of `wavelength_28` or None if not set
-
         """
         return self["Wavelength 28"]
 
     @wavelength_28.setter
     def wavelength_28(self, value=None):
-        """Corresponds to IDD field `Wavelength 28`
+        """  Corresponds to IDD field `Wavelength 28`
 
         Args:
             value (float): value for IDD Field `Wavelength 28`
@@ -10451,23 +6555,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 28"] = value
 
     @property
     def spectrum_28(self):
-        """Get spectrum_28.
+        """Get spectrum_28
 
         Returns:
             float: the value of `spectrum_28` or None if not set
-
         """
         return self["Spectrum 28"]
 
     @spectrum_28.setter
     def spectrum_28(self, value=None):
-        """Corresponds to IDD field `Spectrum 28`
+        """  Corresponds to IDD field `Spectrum 28`
 
         Args:
             value (float): value for IDD Field `Spectrum 28`
@@ -10476,23 +6578,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 28"] = value
 
     @property
     def wavelength_29(self):
-        """Get wavelength_29.
+        """Get wavelength_29
 
         Returns:
             float: the value of `wavelength_29` or None if not set
-
         """
         return self["Wavelength 29"]
 
     @wavelength_29.setter
     def wavelength_29(self, value=None):
-        """Corresponds to IDD field `Wavelength 29`
+        """  Corresponds to IDD field `Wavelength 29`
 
         Args:
             value (float): value for IDD Field `Wavelength 29`
@@ -10502,23 +6602,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 29"] = value
 
     @property
     def spectrum_29(self):
-        """Get spectrum_29.
+        """Get spectrum_29
 
         Returns:
             float: the value of `spectrum_29` or None if not set
-
         """
         return self["Spectrum 29"]
 
     @spectrum_29.setter
     def spectrum_29(self, value=None):
-        """Corresponds to IDD field `Spectrum 29`
+        """  Corresponds to IDD field `Spectrum 29`
 
         Args:
             value (float): value for IDD Field `Spectrum 29`
@@ -10527,23 +6625,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 29"] = value
 
     @property
     def wavelength_30(self):
-        """Get wavelength_30.
+        """Get wavelength_30
 
         Returns:
             float: the value of `wavelength_30` or None if not set
-
         """
         return self["Wavelength 30"]
 
     @wavelength_30.setter
     def wavelength_30(self, value=None):
-        """Corresponds to IDD field `Wavelength 30`
+        """  Corresponds to IDD field `Wavelength 30`
 
         Args:
             value (float): value for IDD Field `Wavelength 30`
@@ -10553,23 +6649,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 30"] = value
 
     @property
     def spectrum_30(self):
-        """Get spectrum_30.
+        """Get spectrum_30
 
         Returns:
             float: the value of `spectrum_30` or None if not set
-
         """
         return self["Spectrum 30"]
 
     @spectrum_30.setter
     def spectrum_30(self, value=None):
-        """Corresponds to IDD field `Spectrum 30`
+        """  Corresponds to IDD field `Spectrum 30`
 
         Args:
             value (float): value for IDD Field `Spectrum 30`
@@ -10578,23 +6672,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 30"] = value
 
     @property
     def wavelength_31(self):
-        """Get wavelength_31.
+        """Get wavelength_31
 
         Returns:
             float: the value of `wavelength_31` or None if not set
-
         """
         return self["Wavelength 31"]
 
     @wavelength_31.setter
     def wavelength_31(self, value=None):
-        """Corresponds to IDD field `Wavelength 31`
+        """  Corresponds to IDD field `Wavelength 31`
 
         Args:
             value (float): value for IDD Field `Wavelength 31`
@@ -10604,23 +6696,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 31"] = value
 
     @property
     def spectrum_31(self):
-        """Get spectrum_31.
+        """Get spectrum_31
 
         Returns:
             float: the value of `spectrum_31` or None if not set
-
         """
         return self["Spectrum 31"]
 
     @spectrum_31.setter
     def spectrum_31(self, value=None):
-        """Corresponds to IDD field `Spectrum 31`
+        """  Corresponds to IDD field `Spectrum 31`
 
         Args:
             value (float): value for IDD Field `Spectrum 31`
@@ -10629,23 +6719,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 31"] = value
 
     @property
     def wavelength_32(self):
-        """Get wavelength_32.
+        """Get wavelength_32
 
         Returns:
             float: the value of `wavelength_32` or None if not set
-
         """
         return self["Wavelength 32"]
 
     @wavelength_32.setter
     def wavelength_32(self, value=None):
-        """Corresponds to IDD field `Wavelength 32`
+        """  Corresponds to IDD field `Wavelength 32`
 
         Args:
             value (float): value for IDD Field `Wavelength 32`
@@ -10655,23 +6743,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 32"] = value
 
     @property
     def spectrum_32(self):
-        """Get spectrum_32.
+        """Get spectrum_32
 
         Returns:
             float: the value of `spectrum_32` or None if not set
-
         """
         return self["Spectrum 32"]
 
     @spectrum_32.setter
     def spectrum_32(self, value=None):
-        """Corresponds to IDD field `Spectrum 32`
+        """  Corresponds to IDD field `Spectrum 32`
 
         Args:
             value (float): value for IDD Field `Spectrum 32`
@@ -10680,23 +6766,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 32"] = value
 
     @property
     def wavelength_33(self):
-        """Get wavelength_33.
+        """Get wavelength_33
 
         Returns:
             float: the value of `wavelength_33` or None if not set
-
         """
         return self["Wavelength 33"]
 
     @wavelength_33.setter
     def wavelength_33(self, value=None):
-        """Corresponds to IDD field `Wavelength 33`
+        """  Corresponds to IDD field `Wavelength 33`
 
         Args:
             value (float): value for IDD Field `Wavelength 33`
@@ -10706,23 +6790,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 33"] = value
 
     @property
     def spectrum_33(self):
-        """Get spectrum_33.
+        """Get spectrum_33
 
         Returns:
             float: the value of `spectrum_33` or None if not set
-
         """
         return self["Spectrum 33"]
 
     @spectrum_33.setter
     def spectrum_33(self, value=None):
-        """Corresponds to IDD field `Spectrum 33`
+        """  Corresponds to IDD field `Spectrum 33`
 
         Args:
             value (float): value for IDD Field `Spectrum 33`
@@ -10731,23 +6813,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 33"] = value
 
     @property
     def wavelength_34(self):
-        """Get wavelength_34.
+        """Get wavelength_34
 
         Returns:
             float: the value of `wavelength_34` or None if not set
-
         """
         return self["Wavelength 34"]
 
     @wavelength_34.setter
     def wavelength_34(self, value=None):
-        """Corresponds to IDD field `Wavelength 34`
+        """  Corresponds to IDD field `Wavelength 34`
 
         Args:
             value (float): value for IDD Field `Wavelength 34`
@@ -10757,23 +6837,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 34"] = value
 
     @property
     def spectrum_34(self):
-        """Get spectrum_34.
+        """Get spectrum_34
 
         Returns:
             float: the value of `spectrum_34` or None if not set
-
         """
         return self["Spectrum 34"]
 
     @spectrum_34.setter
     def spectrum_34(self, value=None):
-        """Corresponds to IDD field `Spectrum 34`
+        """  Corresponds to IDD field `Spectrum 34`
 
         Args:
             value (float): value for IDD Field `Spectrum 34`
@@ -10782,23 +6860,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 34"] = value
 
     @property
     def wavelength_35(self):
-        """Get wavelength_35.
+        """Get wavelength_35
 
         Returns:
             float: the value of `wavelength_35` or None if not set
-
         """
         return self["Wavelength 35"]
 
     @wavelength_35.setter
     def wavelength_35(self, value=None):
-        """Corresponds to IDD field `Wavelength 35`
+        """  Corresponds to IDD field `Wavelength 35`
 
         Args:
             value (float): value for IDD Field `Wavelength 35`
@@ -10808,23 +6884,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 35"] = value
 
     @property
     def spectrum_35(self):
-        """Get spectrum_35.
+        """Get spectrum_35
 
         Returns:
             float: the value of `spectrum_35` or None if not set
-
         """
         return self["Spectrum 35"]
 
     @spectrum_35.setter
     def spectrum_35(self, value=None):
-        """Corresponds to IDD field `Spectrum 35`
+        """  Corresponds to IDD field `Spectrum 35`
 
         Args:
             value (float): value for IDD Field `Spectrum 35`
@@ -10833,23 +6907,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 35"] = value
 
     @property
     def wavelength_36(self):
-        """Get wavelength_36.
+        """Get wavelength_36
 
         Returns:
             float: the value of `wavelength_36` or None if not set
-
         """
         return self["Wavelength 36"]
 
     @wavelength_36.setter
     def wavelength_36(self, value=None):
-        """Corresponds to IDD field `Wavelength 36`
+        """  Corresponds to IDD field `Wavelength 36`
 
         Args:
             value (float): value for IDD Field `Wavelength 36`
@@ -10859,23 +6931,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 36"] = value
 
     @property
     def spectrum_36(self):
-        """Get spectrum_36.
+        """Get spectrum_36
 
         Returns:
             float: the value of `spectrum_36` or None if not set
-
         """
         return self["Spectrum 36"]
 
     @spectrum_36.setter
     def spectrum_36(self, value=None):
-        """Corresponds to IDD field `Spectrum 36`
+        """  Corresponds to IDD field `Spectrum 36`
 
         Args:
             value (float): value for IDD Field `Spectrum 36`
@@ -10884,23 +6954,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 36"] = value
 
     @property
     def wavelength_37(self):
-        """Get wavelength_37.
+        """Get wavelength_37
 
         Returns:
             float: the value of `wavelength_37` or None if not set
-
         """
         return self["Wavelength 37"]
 
     @wavelength_37.setter
     def wavelength_37(self, value=None):
-        """Corresponds to IDD field `Wavelength 37`
+        """  Corresponds to IDD field `Wavelength 37`
 
         Args:
             value (float): value for IDD Field `Wavelength 37`
@@ -10910,23 +6978,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 37"] = value
 
     @property
     def spectrum_37(self):
-        """Get spectrum_37.
+        """Get spectrum_37
 
         Returns:
             float: the value of `spectrum_37` or None if not set
-
         """
         return self["Spectrum 37"]
 
     @spectrum_37.setter
     def spectrum_37(self, value=None):
-        """Corresponds to IDD field `Spectrum 37`
+        """  Corresponds to IDD field `Spectrum 37`
 
         Args:
             value (float): value for IDD Field `Spectrum 37`
@@ -10935,23 +7001,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 37"] = value
 
     @property
     def wavelength_38(self):
-        """Get wavelength_38.
+        """Get wavelength_38
 
         Returns:
             float: the value of `wavelength_38` or None if not set
-
         """
         return self["Wavelength 38"]
 
     @wavelength_38.setter
     def wavelength_38(self, value=None):
-        """Corresponds to IDD field `Wavelength 38`
+        """  Corresponds to IDD field `Wavelength 38`
 
         Args:
             value (float): value for IDD Field `Wavelength 38`
@@ -10961,23 +7025,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 38"] = value
 
     @property
     def spectrum_38(self):
-        """Get spectrum_38.
+        """Get spectrum_38
 
         Returns:
             float: the value of `spectrum_38` or None if not set
-
         """
         return self["Spectrum 38"]
 
     @spectrum_38.setter
     def spectrum_38(self, value=None):
-        """Corresponds to IDD field `Spectrum 38`
+        """  Corresponds to IDD field `Spectrum 38`
 
         Args:
             value (float): value for IDD Field `Spectrum 38`
@@ -10986,23 +7048,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 38"] = value
 
     @property
     def wavelength_39(self):
-        """Get wavelength_39.
+        """Get wavelength_39
 
         Returns:
             float: the value of `wavelength_39` or None if not set
-
         """
         return self["Wavelength 39"]
 
     @wavelength_39.setter
     def wavelength_39(self, value=None):
-        """Corresponds to IDD field `Wavelength 39`
+        """  Corresponds to IDD field `Wavelength 39`
 
         Args:
             value (float): value for IDD Field `Wavelength 39`
@@ -11012,23 +7072,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 39"] = value
 
     @property
     def spectrum_39(self):
-        """Get spectrum_39.
+        """Get spectrum_39
 
         Returns:
             float: the value of `spectrum_39` or None if not set
-
         """
         return self["Spectrum 39"]
 
     @spectrum_39.setter
     def spectrum_39(self, value=None):
-        """Corresponds to IDD field `Spectrum 39`
+        """  Corresponds to IDD field `Spectrum 39`
 
         Args:
             value (float): value for IDD Field `Spectrum 39`
@@ -11037,23 +7095,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 39"] = value
 
     @property
     def wavelength_40(self):
-        """Get wavelength_40.
+        """Get wavelength_40
 
         Returns:
             float: the value of `wavelength_40` or None if not set
-
         """
         return self["Wavelength 40"]
 
     @wavelength_40.setter
     def wavelength_40(self, value=None):
-        """Corresponds to IDD field `Wavelength 40`
+        """  Corresponds to IDD field `Wavelength 40`
 
         Args:
             value (float): value for IDD Field `Wavelength 40`
@@ -11063,23 +7119,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 40"] = value
 
     @property
     def spectrum_40(self):
-        """Get spectrum_40.
+        """Get spectrum_40
 
         Returns:
             float: the value of `spectrum_40` or None if not set
-
         """
         return self["Spectrum 40"]
 
     @spectrum_40.setter
     def spectrum_40(self, value=None):
-        """Corresponds to IDD field `Spectrum 40`
+        """  Corresponds to IDD field `Spectrum 40`
 
         Args:
             value (float): value for IDD Field `Spectrum 40`
@@ -11088,23 +7142,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 40"] = value
 
     @property
     def wavelength_41(self):
-        """Get wavelength_41.
+        """Get wavelength_41
 
         Returns:
             float: the value of `wavelength_41` or None if not set
-
         """
         return self["Wavelength 41"]
 
     @wavelength_41.setter
     def wavelength_41(self, value=None):
-        """Corresponds to IDD field `Wavelength 41`
+        """  Corresponds to IDD field `Wavelength 41`
 
         Args:
             value (float): value for IDD Field `Wavelength 41`
@@ -11114,23 +7166,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 41"] = value
 
     @property
     def spectrum_41(self):
-        """Get spectrum_41.
+        """Get spectrum_41
 
         Returns:
             float: the value of `spectrum_41` or None if not set
-
         """
         return self["Spectrum 41"]
 
     @spectrum_41.setter
     def spectrum_41(self, value=None):
-        """Corresponds to IDD field `Spectrum 41`
+        """  Corresponds to IDD field `Spectrum 41`
 
         Args:
             value (float): value for IDD Field `Spectrum 41`
@@ -11139,23 +7189,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 41"] = value
 
     @property
     def wavelength_42(self):
-        """Get wavelength_42.
+        """Get wavelength_42
 
         Returns:
             float: the value of `wavelength_42` or None if not set
-
         """
         return self["Wavelength 42"]
 
     @wavelength_42.setter
     def wavelength_42(self, value=None):
-        """Corresponds to IDD field `Wavelength 42`
+        """  Corresponds to IDD field `Wavelength 42`
 
         Args:
             value (float): value for IDD Field `Wavelength 42`
@@ -11165,23 +7213,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 42"] = value
 
     @property
     def spectrum_42(self):
-        """Get spectrum_42.
+        """Get spectrum_42
 
         Returns:
             float: the value of `spectrum_42` or None if not set
-
         """
         return self["Spectrum 42"]
 
     @spectrum_42.setter
     def spectrum_42(self, value=None):
-        """Corresponds to IDD field `Spectrum 42`
+        """  Corresponds to IDD field `Spectrum 42`
 
         Args:
             value (float): value for IDD Field `Spectrum 42`
@@ -11190,23 +7236,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 42"] = value
 
     @property
     def wavelength_43(self):
-        """Get wavelength_43.
+        """Get wavelength_43
 
         Returns:
             float: the value of `wavelength_43` or None if not set
-
         """
         return self["Wavelength 43"]
 
     @wavelength_43.setter
     def wavelength_43(self, value=None):
-        """Corresponds to IDD field `Wavelength 43`
+        """  Corresponds to IDD field `Wavelength 43`
 
         Args:
             value (float): value for IDD Field `Wavelength 43`
@@ -11216,23 +7260,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 43"] = value
 
     @property
     def spectrum_43(self):
-        """Get spectrum_43.
+        """Get spectrum_43
 
         Returns:
             float: the value of `spectrum_43` or None if not set
-
         """
         return self["Spectrum 43"]
 
     @spectrum_43.setter
     def spectrum_43(self, value=None):
-        """Corresponds to IDD field `Spectrum 43`
+        """  Corresponds to IDD field `Spectrum 43`
 
         Args:
             value (float): value for IDD Field `Spectrum 43`
@@ -11241,23 +7283,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 43"] = value
 
     @property
     def wavelength_44(self):
-        """Get wavelength_44.
+        """Get wavelength_44
 
         Returns:
             float: the value of `wavelength_44` or None if not set
-
         """
         return self["Wavelength 44"]
 
     @wavelength_44.setter
     def wavelength_44(self, value=None):
-        """Corresponds to IDD field `Wavelength 44`
+        """  Corresponds to IDD field `Wavelength 44`
 
         Args:
             value (float): value for IDD Field `Wavelength 44`
@@ -11267,23 +7307,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 44"] = value
 
     @property
     def spectrum_44(self):
-        """Get spectrum_44.
+        """Get spectrum_44
 
         Returns:
             float: the value of `spectrum_44` or None if not set
-
         """
         return self["Spectrum 44"]
 
     @spectrum_44.setter
     def spectrum_44(self, value=None):
-        """Corresponds to IDD field `Spectrum 44`
+        """  Corresponds to IDD field `Spectrum 44`
 
         Args:
             value (float): value for IDD Field `Spectrum 44`
@@ -11292,23 +7330,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 44"] = value
 
     @property
     def wavelength_45(self):
-        """Get wavelength_45.
+        """Get wavelength_45
 
         Returns:
             float: the value of `wavelength_45` or None if not set
-
         """
         return self["Wavelength 45"]
 
     @wavelength_45.setter
     def wavelength_45(self, value=None):
-        """Corresponds to IDD field `Wavelength 45`
+        """  Corresponds to IDD field `Wavelength 45`
 
         Args:
             value (float): value for IDD Field `Wavelength 45`
@@ -11318,23 +7354,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 45"] = value
 
     @property
     def spectrum_45(self):
-        """Get spectrum_45.
+        """Get spectrum_45
 
         Returns:
             float: the value of `spectrum_45` or None if not set
-
         """
         return self["Spectrum 45"]
 
     @spectrum_45.setter
     def spectrum_45(self, value=None):
-        """Corresponds to IDD field `Spectrum 45`
+        """  Corresponds to IDD field `Spectrum 45`
 
         Args:
             value (float): value for IDD Field `Spectrum 45`
@@ -11343,23 +7377,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 45"] = value
 
     @property
     def wavelength_46(self):
-        """Get wavelength_46.
+        """Get wavelength_46
 
         Returns:
             float: the value of `wavelength_46` or None if not set
-
         """
         return self["Wavelength 46"]
 
     @wavelength_46.setter
     def wavelength_46(self, value=None):
-        """Corresponds to IDD field `Wavelength 46`
+        """  Corresponds to IDD field `Wavelength 46`
 
         Args:
             value (float): value for IDD Field `Wavelength 46`
@@ -11369,23 +7401,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 46"] = value
 
     @property
     def spectrum_46(self):
-        """Get spectrum_46.
+        """Get spectrum_46
 
         Returns:
             float: the value of `spectrum_46` or None if not set
-
         """
         return self["Spectrum 46"]
 
     @spectrum_46.setter
     def spectrum_46(self, value=None):
-        """Corresponds to IDD field `Spectrum 46`
+        """  Corresponds to IDD field `Spectrum 46`
 
         Args:
             value (float): value for IDD Field `Spectrum 46`
@@ -11394,23 +7424,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 46"] = value
 
     @property
     def wavelength_47(self):
-        """Get wavelength_47.
+        """Get wavelength_47
 
         Returns:
             float: the value of `wavelength_47` or None if not set
-
         """
         return self["Wavelength 47"]
 
     @wavelength_47.setter
     def wavelength_47(self, value=None):
-        """Corresponds to IDD field `Wavelength 47`
+        """  Corresponds to IDD field `Wavelength 47`
 
         Args:
             value (float): value for IDD Field `Wavelength 47`
@@ -11420,23 +7448,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 47"] = value
 
     @property
     def spectrum_47(self):
-        """Get spectrum_47.
+        """Get spectrum_47
 
         Returns:
             float: the value of `spectrum_47` or None if not set
-
         """
         return self["Spectrum 47"]
 
     @spectrum_47.setter
     def spectrum_47(self, value=None):
-        """Corresponds to IDD field `Spectrum 47`
+        """  Corresponds to IDD field `Spectrum 47`
 
         Args:
             value (float): value for IDD Field `Spectrum 47`
@@ -11445,23 +7471,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 47"] = value
 
     @property
     def wavelength_48(self):
-        """Get wavelength_48.
+        """Get wavelength_48
 
         Returns:
             float: the value of `wavelength_48` or None if not set
-
         """
         return self["Wavelength 48"]
 
     @wavelength_48.setter
     def wavelength_48(self, value=None):
-        """Corresponds to IDD field `Wavelength 48`
+        """  Corresponds to IDD field `Wavelength 48`
 
         Args:
             value (float): value for IDD Field `Wavelength 48`
@@ -11471,23 +7495,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 48"] = value
 
     @property
     def spectrum_48(self):
-        """Get spectrum_48.
+        """Get spectrum_48
 
         Returns:
             float: the value of `spectrum_48` or None if not set
-
         """
         return self["Spectrum 48"]
 
     @spectrum_48.setter
     def spectrum_48(self, value=None):
-        """Corresponds to IDD field `Spectrum 48`
+        """  Corresponds to IDD field `Spectrum 48`
 
         Args:
             value (float): value for IDD Field `Spectrum 48`
@@ -11496,23 +7518,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 48"] = value
 
     @property
     def wavelength_49(self):
-        """Get wavelength_49.
+        """Get wavelength_49
 
         Returns:
             float: the value of `wavelength_49` or None if not set
-
         """
         return self["Wavelength 49"]
 
     @wavelength_49.setter
     def wavelength_49(self, value=None):
-        """Corresponds to IDD field `Wavelength 49`
+        """  Corresponds to IDD field `Wavelength 49`
 
         Args:
             value (float): value for IDD Field `Wavelength 49`
@@ -11522,23 +7542,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 49"] = value
 
     @property
     def spectrum_49(self):
-        """Get spectrum_49.
+        """Get spectrum_49
 
         Returns:
             float: the value of `spectrum_49` or None if not set
-
         """
         return self["Spectrum 49"]
 
     @spectrum_49.setter
     def spectrum_49(self, value=None):
-        """Corresponds to IDD field `Spectrum 49`
+        """  Corresponds to IDD field `Spectrum 49`
 
         Args:
             value (float): value for IDD Field `Spectrum 49`
@@ -11547,23 +7565,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 49"] = value
 
     @property
     def wavelength_50(self):
-        """Get wavelength_50.
+        """Get wavelength_50
 
         Returns:
             float: the value of `wavelength_50` or None if not set
-
         """
         return self["Wavelength 50"]
 
     @wavelength_50.setter
     def wavelength_50(self, value=None):
-        """Corresponds to IDD field `Wavelength 50`
+        """  Corresponds to IDD field `Wavelength 50`
 
         Args:
             value (float): value for IDD Field `Wavelength 50`
@@ -11573,23 +7589,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 50"] = value
 
     @property
     def spectrum_50(self):
-        """Get spectrum_50.
+        """Get spectrum_50
 
         Returns:
             float: the value of `spectrum_50` or None if not set
-
         """
         return self["Spectrum 50"]
 
     @spectrum_50.setter
     def spectrum_50(self, value=None):
-        """Corresponds to IDD field `Spectrum 50`
+        """  Corresponds to IDD field `Spectrum 50`
 
         Args:
             value (float): value for IDD Field `Spectrum 50`
@@ -11598,23 +7612,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 50"] = value
 
     @property
     def wavelength_51(self):
-        """Get wavelength_51.
+        """Get wavelength_51
 
         Returns:
             float: the value of `wavelength_51` or None if not set
-
         """
         return self["Wavelength 51"]
 
     @wavelength_51.setter
     def wavelength_51(self, value=None):
-        """Corresponds to IDD field `Wavelength 51`
+        """  Corresponds to IDD field `Wavelength 51`
 
         Args:
             value (float): value for IDD Field `Wavelength 51`
@@ -11624,23 +7636,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 51"] = value
 
     @property
     def spectrum_51(self):
-        """Get spectrum_51.
+        """Get spectrum_51
 
         Returns:
             float: the value of `spectrum_51` or None if not set
-
         """
         return self["Spectrum 51"]
 
     @spectrum_51.setter
     def spectrum_51(self, value=None):
-        """Corresponds to IDD field `Spectrum 51`
+        """  Corresponds to IDD field `Spectrum 51`
 
         Args:
             value (float): value for IDD Field `Spectrum 51`
@@ -11649,23 +7659,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 51"] = value
 
     @property
     def wavelength_52(self):
-        """Get wavelength_52.
+        """Get wavelength_52
 
         Returns:
             float: the value of `wavelength_52` or None if not set
-
         """
         return self["Wavelength 52"]
 
     @wavelength_52.setter
     def wavelength_52(self, value=None):
-        """Corresponds to IDD field `Wavelength 52`
+        """  Corresponds to IDD field `Wavelength 52`
 
         Args:
             value (float): value for IDD Field `Wavelength 52`
@@ -11675,23 +7683,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 52"] = value
 
     @property
     def spectrum_52(self):
-        """Get spectrum_52.
+        """Get spectrum_52
 
         Returns:
             float: the value of `spectrum_52` or None if not set
-
         """
         return self["Spectrum 52"]
 
     @spectrum_52.setter
     def spectrum_52(self, value=None):
-        """Corresponds to IDD field `Spectrum 52`
+        """  Corresponds to IDD field `Spectrum 52`
 
         Args:
             value (float): value for IDD Field `Spectrum 52`
@@ -11700,23 +7706,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 52"] = value
 
     @property
     def wavelength_53(self):
-        """Get wavelength_53.
+        """Get wavelength_53
 
         Returns:
             float: the value of `wavelength_53` or None if not set
-
         """
         return self["Wavelength 53"]
 
     @wavelength_53.setter
     def wavelength_53(self, value=None):
-        """Corresponds to IDD field `Wavelength 53`
+        """  Corresponds to IDD field `Wavelength 53`
 
         Args:
             value (float): value for IDD Field `Wavelength 53`
@@ -11726,23 +7730,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 53"] = value
 
     @property
     def spectrum_53(self):
-        """Get spectrum_53.
+        """Get spectrum_53
 
         Returns:
             float: the value of `spectrum_53` or None if not set
-
         """
         return self["Spectrum 53"]
 
     @spectrum_53.setter
     def spectrum_53(self, value=None):
-        """Corresponds to IDD field `Spectrum 53`
+        """  Corresponds to IDD field `Spectrum 53`
 
         Args:
             value (float): value for IDD Field `Spectrum 53`
@@ -11751,23 +7753,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 53"] = value
 
     @property
     def wavelength_54(self):
-        """Get wavelength_54.
+        """Get wavelength_54
 
         Returns:
             float: the value of `wavelength_54` or None if not set
-
         """
         return self["Wavelength 54"]
 
     @wavelength_54.setter
     def wavelength_54(self, value=None):
-        """Corresponds to IDD field `Wavelength 54`
+        """  Corresponds to IDD field `Wavelength 54`
 
         Args:
             value (float): value for IDD Field `Wavelength 54`
@@ -11777,23 +7777,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 54"] = value
 
     @property
     def spectrum_54(self):
-        """Get spectrum_54.
+        """Get spectrum_54
 
         Returns:
             float: the value of `spectrum_54` or None if not set
-
         """
         return self["Spectrum 54"]
 
     @spectrum_54.setter
     def spectrum_54(self, value=None):
-        """Corresponds to IDD field `Spectrum 54`
+        """  Corresponds to IDD field `Spectrum 54`
 
         Args:
             value (float): value for IDD Field `Spectrum 54`
@@ -11802,23 +7800,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 54"] = value
 
     @property
     def wavelength_55(self):
-        """Get wavelength_55.
+        """Get wavelength_55
 
         Returns:
             float: the value of `wavelength_55` or None if not set
-
         """
         return self["Wavelength 55"]
 
     @wavelength_55.setter
     def wavelength_55(self, value=None):
-        """Corresponds to IDD field `Wavelength 55`
+        """  Corresponds to IDD field `Wavelength 55`
 
         Args:
             value (float): value for IDD Field `Wavelength 55`
@@ -11828,23 +7824,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 55"] = value
 
     @property
     def spectrum_55(self):
-        """Get spectrum_55.
+        """Get spectrum_55
 
         Returns:
             float: the value of `spectrum_55` or None if not set
-
         """
         return self["Spectrum 55"]
 
     @spectrum_55.setter
     def spectrum_55(self, value=None):
-        """Corresponds to IDD field `Spectrum 55`
+        """  Corresponds to IDD field `Spectrum 55`
 
         Args:
             value (float): value for IDD Field `Spectrum 55`
@@ -11853,23 +7847,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 55"] = value
 
     @property
     def wavelength_56(self):
-        """Get wavelength_56.
+        """Get wavelength_56
 
         Returns:
             float: the value of `wavelength_56` or None if not set
-
         """
         return self["Wavelength 56"]
 
     @wavelength_56.setter
     def wavelength_56(self, value=None):
-        """Corresponds to IDD field `Wavelength 56`
+        """  Corresponds to IDD field `Wavelength 56`
 
         Args:
             value (float): value for IDD Field `Wavelength 56`
@@ -11879,23 +7871,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 56"] = value
 
     @property
     def spectrum_56(self):
-        """Get spectrum_56.
+        """Get spectrum_56
 
         Returns:
             float: the value of `spectrum_56` or None if not set
-
         """
         return self["Spectrum 56"]
 
     @spectrum_56.setter
     def spectrum_56(self, value=None):
-        """Corresponds to IDD field `Spectrum 56`
+        """  Corresponds to IDD field `Spectrum 56`
 
         Args:
             value (float): value for IDD Field `Spectrum 56`
@@ -11904,23 +7894,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 56"] = value
 
     @property
     def wavelength_57(self):
-        """Get wavelength_57.
+        """Get wavelength_57
 
         Returns:
             float: the value of `wavelength_57` or None if not set
-
         """
         return self["Wavelength 57"]
 
     @wavelength_57.setter
     def wavelength_57(self, value=None):
-        """Corresponds to IDD field `Wavelength 57`
+        """  Corresponds to IDD field `Wavelength 57`
 
         Args:
             value (float): value for IDD Field `Wavelength 57`
@@ -11930,23 +7918,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 57"] = value
 
     @property
     def spectrum_57(self):
-        """Get spectrum_57.
+        """Get spectrum_57
 
         Returns:
             float: the value of `spectrum_57` or None if not set
-
         """
         return self["Spectrum 57"]
 
     @spectrum_57.setter
     def spectrum_57(self, value=None):
-        """Corresponds to IDD field `Spectrum 57`
+        """  Corresponds to IDD field `Spectrum 57`
 
         Args:
             value (float): value for IDD Field `Spectrum 57`
@@ -11955,23 +7941,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 57"] = value
 
     @property
     def wavelength_58(self):
-        """Get wavelength_58.
+        """Get wavelength_58
 
         Returns:
             float: the value of `wavelength_58` or None if not set
-
         """
         return self["Wavelength 58"]
 
     @wavelength_58.setter
     def wavelength_58(self, value=None):
-        """Corresponds to IDD field `Wavelength 58`
+        """  Corresponds to IDD field `Wavelength 58`
 
         Args:
             value (float): value for IDD Field `Wavelength 58`
@@ -11981,23 +7965,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 58"] = value
 
     @property
     def spectrum_58(self):
-        """Get spectrum_58.
+        """Get spectrum_58
 
         Returns:
             float: the value of `spectrum_58` or None if not set
-
         """
         return self["Spectrum 58"]
 
     @spectrum_58.setter
     def spectrum_58(self, value=None):
-        """Corresponds to IDD field `Spectrum 58`
+        """  Corresponds to IDD field `Spectrum 58`
 
         Args:
             value (float): value for IDD Field `Spectrum 58`
@@ -12006,23 +7988,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 58"] = value
 
     @property
     def wavelength_59(self):
-        """Get wavelength_59.
+        """Get wavelength_59
 
         Returns:
             float: the value of `wavelength_59` or None if not set
-
         """
         return self["Wavelength 59"]
 
     @wavelength_59.setter
     def wavelength_59(self, value=None):
-        """Corresponds to IDD field `Wavelength 59`
+        """  Corresponds to IDD field `Wavelength 59`
 
         Args:
             value (float): value for IDD Field `Wavelength 59`
@@ -12032,23 +8012,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 59"] = value
 
     @property
     def spectrum_59(self):
-        """Get spectrum_59.
+        """Get spectrum_59
 
         Returns:
             float: the value of `spectrum_59` or None if not set
-
         """
         return self["Spectrum 59"]
 
     @spectrum_59.setter
     def spectrum_59(self, value=None):
-        """Corresponds to IDD field `Spectrum 59`
+        """  Corresponds to IDD field `Spectrum 59`
 
         Args:
             value (float): value for IDD Field `Spectrum 59`
@@ -12057,23 +8035,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 59"] = value
 
     @property
     def wavelength_60(self):
-        """Get wavelength_60.
+        """Get wavelength_60
 
         Returns:
             float: the value of `wavelength_60` or None if not set
-
         """
         return self["Wavelength 60"]
 
     @wavelength_60.setter
     def wavelength_60(self, value=None):
-        """Corresponds to IDD field `Wavelength 60`
+        """  Corresponds to IDD field `Wavelength 60`
 
         Args:
             value (float): value for IDD Field `Wavelength 60`
@@ -12083,23 +8059,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 60"] = value
 
     @property
     def spectrum_60(self):
-        """Get spectrum_60.
+        """Get spectrum_60
 
         Returns:
             float: the value of `spectrum_60` or None if not set
-
         """
         return self["Spectrum 60"]
 
     @spectrum_60.setter
     def spectrum_60(self, value=None):
-        """Corresponds to IDD field `Spectrum 60`
+        """  Corresponds to IDD field `Spectrum 60`
 
         Args:
             value (float): value for IDD Field `Spectrum 60`
@@ -12108,23 +8082,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 60"] = value
 
     @property
     def wavelength_61(self):
-        """Get wavelength_61.
+        """Get wavelength_61
 
         Returns:
             float: the value of `wavelength_61` or None if not set
-
         """
         return self["Wavelength 61"]
 
     @wavelength_61.setter
     def wavelength_61(self, value=None):
-        """Corresponds to IDD field `Wavelength 61`
+        """  Corresponds to IDD field `Wavelength 61`
 
         Args:
             value (float): value for IDD Field `Wavelength 61`
@@ -12134,23 +8106,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 61"] = value
 
     @property
     def spectrum_61(self):
-        """Get spectrum_61.
+        """Get spectrum_61
 
         Returns:
             float: the value of `spectrum_61` or None if not set
-
         """
         return self["Spectrum 61"]
 
     @spectrum_61.setter
     def spectrum_61(self, value=None):
-        """Corresponds to IDD field `Spectrum 61`
+        """  Corresponds to IDD field `Spectrum 61`
 
         Args:
             value (float): value for IDD Field `Spectrum 61`
@@ -12159,23 +8129,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 61"] = value
 
     @property
     def wavelength_62(self):
-        """Get wavelength_62.
+        """Get wavelength_62
 
         Returns:
             float: the value of `wavelength_62` or None if not set
-
         """
         return self["Wavelength 62"]
 
     @wavelength_62.setter
     def wavelength_62(self, value=None):
-        """Corresponds to IDD field `Wavelength 62`
+        """  Corresponds to IDD field `Wavelength 62`
 
         Args:
             value (float): value for IDD Field `Wavelength 62`
@@ -12185,23 +8153,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 62"] = value
 
     @property
     def spectrum_62(self):
-        """Get spectrum_62.
+        """Get spectrum_62
 
         Returns:
             float: the value of `spectrum_62` or None if not set
-
         """
         return self["Spectrum 62"]
 
     @spectrum_62.setter
     def spectrum_62(self, value=None):
-        """Corresponds to IDD field `Spectrum 62`
+        """  Corresponds to IDD field `Spectrum 62`
 
         Args:
             value (float): value for IDD Field `Spectrum 62`
@@ -12210,23 +8176,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 62"] = value
 
     @property
     def wavelength_63(self):
-        """Get wavelength_63.
+        """Get wavelength_63
 
         Returns:
             float: the value of `wavelength_63` or None if not set
-
         """
         return self["Wavelength 63"]
 
     @wavelength_63.setter
     def wavelength_63(self, value=None):
-        """Corresponds to IDD field `Wavelength 63`
+        """  Corresponds to IDD field `Wavelength 63`
 
         Args:
             value (float): value for IDD Field `Wavelength 63`
@@ -12236,23 +8200,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 63"] = value
 
     @property
     def spectrum_63(self):
-        """Get spectrum_63.
+        """Get spectrum_63
 
         Returns:
             float: the value of `spectrum_63` or None if not set
-
         """
         return self["Spectrum 63"]
 
     @spectrum_63.setter
     def spectrum_63(self, value=None):
-        """Corresponds to IDD field `Spectrum 63`
+        """  Corresponds to IDD field `Spectrum 63`
 
         Args:
             value (float): value for IDD Field `Spectrum 63`
@@ -12261,23 +8223,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 63"] = value
 
     @property
     def wavelength_64(self):
-        """Get wavelength_64.
+        """Get wavelength_64
 
         Returns:
             float: the value of `wavelength_64` or None if not set
-
         """
         return self["Wavelength 64"]
 
     @wavelength_64.setter
     def wavelength_64(self, value=None):
-        """Corresponds to IDD field `Wavelength 64`
+        """  Corresponds to IDD field `Wavelength 64`
 
         Args:
             value (float): value for IDD Field `Wavelength 64`
@@ -12287,23 +8247,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 64"] = value
 
     @property
     def spectrum_64(self):
-        """Get spectrum_64.
+        """Get spectrum_64
 
         Returns:
             float: the value of `spectrum_64` or None if not set
-
         """
         return self["Spectrum 64"]
 
     @spectrum_64.setter
     def spectrum_64(self, value=None):
-        """Corresponds to IDD field `Spectrum 64`
+        """  Corresponds to IDD field `Spectrum 64`
 
         Args:
             value (float): value for IDD Field `Spectrum 64`
@@ -12312,23 +8270,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 64"] = value
 
     @property
     def wavelength_65(self):
-        """Get wavelength_65.
+        """Get wavelength_65
 
         Returns:
             float: the value of `wavelength_65` or None if not set
-
         """
         return self["Wavelength 65"]
 
     @wavelength_65.setter
     def wavelength_65(self, value=None):
-        """Corresponds to IDD field `Wavelength 65`
+        """  Corresponds to IDD field `Wavelength 65`
 
         Args:
             value (float): value for IDD Field `Wavelength 65`
@@ -12338,23 +8294,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 65"] = value
 
     @property
     def spectrum_65(self):
-        """Get spectrum_65.
+        """Get spectrum_65
 
         Returns:
             float: the value of `spectrum_65` or None if not set
-
         """
         return self["Spectrum 65"]
 
     @spectrum_65.setter
     def spectrum_65(self, value=None):
-        """Corresponds to IDD field `Spectrum 65`
+        """  Corresponds to IDD field `Spectrum 65`
 
         Args:
             value (float): value for IDD Field `Spectrum 65`
@@ -12363,23 +8317,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 65"] = value
 
     @property
     def wavelength_66(self):
-        """Get wavelength_66.
+        """Get wavelength_66
 
         Returns:
             float: the value of `wavelength_66` or None if not set
-
         """
         return self["Wavelength 66"]
 
     @wavelength_66.setter
     def wavelength_66(self, value=None):
-        """Corresponds to IDD field `Wavelength 66`
+        """  Corresponds to IDD field `Wavelength 66`
 
         Args:
             value (float): value for IDD Field `Wavelength 66`
@@ -12389,23 +8341,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 66"] = value
 
     @property
     def spectrum_66(self):
-        """Get spectrum_66.
+        """Get spectrum_66
 
         Returns:
             float: the value of `spectrum_66` or None if not set
-
         """
         return self["Spectrum 66"]
 
     @spectrum_66.setter
     def spectrum_66(self, value=None):
-        """Corresponds to IDD field `Spectrum 66`
+        """  Corresponds to IDD field `Spectrum 66`
 
         Args:
             value (float): value for IDD Field `Spectrum 66`
@@ -12414,23 +8364,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 66"] = value
 
     @property
     def wavelength_67(self):
-        """Get wavelength_67.
+        """Get wavelength_67
 
         Returns:
             float: the value of `wavelength_67` or None if not set
-
         """
         return self["Wavelength 67"]
 
     @wavelength_67.setter
     def wavelength_67(self, value=None):
-        """Corresponds to IDD field `Wavelength 67`
+        """  Corresponds to IDD field `Wavelength 67`
 
         Args:
             value (float): value for IDD Field `Wavelength 67`
@@ -12440,23 +8388,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 67"] = value
 
     @property
     def spectrum_67(self):
-        """Get spectrum_67.
+        """Get spectrum_67
 
         Returns:
             float: the value of `spectrum_67` or None if not set
-
         """
         return self["Spectrum 67"]
 
     @spectrum_67.setter
     def spectrum_67(self, value=None):
-        """Corresponds to IDD field `Spectrum 67`
+        """  Corresponds to IDD field `Spectrum 67`
 
         Args:
             value (float): value for IDD Field `Spectrum 67`
@@ -12465,23 +8411,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 67"] = value
 
     @property
     def wavelength_68(self):
-        """Get wavelength_68.
+        """Get wavelength_68
 
         Returns:
             float: the value of `wavelength_68` or None if not set
-
         """
         return self["Wavelength 68"]
 
     @wavelength_68.setter
     def wavelength_68(self, value=None):
-        """Corresponds to IDD field `Wavelength 68`
+        """  Corresponds to IDD field `Wavelength 68`
 
         Args:
             value (float): value for IDD Field `Wavelength 68`
@@ -12491,23 +8435,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 68"] = value
 
     @property
     def spectrum_68(self):
-        """Get spectrum_68.
+        """Get spectrum_68
 
         Returns:
             float: the value of `spectrum_68` or None if not set
-
         """
         return self["Spectrum 68"]
 
     @spectrum_68.setter
     def spectrum_68(self, value=None):
-        """Corresponds to IDD field `Spectrum 68`
+        """  Corresponds to IDD field `Spectrum 68`
 
         Args:
             value (float): value for IDD Field `Spectrum 68`
@@ -12516,23 +8458,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 68"] = value
 
     @property
     def wavelength_69(self):
-        """Get wavelength_69.
+        """Get wavelength_69
 
         Returns:
             float: the value of `wavelength_69` or None if not set
-
         """
         return self["Wavelength 69"]
 
     @wavelength_69.setter
     def wavelength_69(self, value=None):
-        """Corresponds to IDD field `Wavelength 69`
+        """  Corresponds to IDD field `Wavelength 69`
 
         Args:
             value (float): value for IDD Field `Wavelength 69`
@@ -12542,23 +8482,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 69"] = value
 
     @property
     def spectrum_69(self):
-        """Get spectrum_69.
+        """Get spectrum_69
 
         Returns:
             float: the value of `spectrum_69` or None if not set
-
         """
         return self["Spectrum 69"]
 
     @spectrum_69.setter
     def spectrum_69(self, value=None):
-        """Corresponds to IDD field `Spectrum 69`
+        """  Corresponds to IDD field `Spectrum 69`
 
         Args:
             value (float): value for IDD Field `Spectrum 69`
@@ -12567,23 +8505,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 69"] = value
 
     @property
     def wavelength_70(self):
-        """Get wavelength_70.
+        """Get wavelength_70
 
         Returns:
             float: the value of `wavelength_70` or None if not set
-
         """
         return self["Wavelength 70"]
 
     @wavelength_70.setter
     def wavelength_70(self, value=None):
-        """Corresponds to IDD field `Wavelength 70`
+        """  Corresponds to IDD field `Wavelength 70`
 
         Args:
             value (float): value for IDD Field `Wavelength 70`
@@ -12593,23 +8529,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 70"] = value
 
     @property
     def spectrum_70(self):
-        """Get spectrum_70.
+        """Get spectrum_70
 
         Returns:
             float: the value of `spectrum_70` or None if not set
-
         """
         return self["Spectrum 70"]
 
     @spectrum_70.setter
     def spectrum_70(self, value=None):
-        """Corresponds to IDD field `Spectrum 70`
+        """  Corresponds to IDD field `Spectrum 70`
 
         Args:
             value (float): value for IDD Field `Spectrum 70`
@@ -12618,23 +8552,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 70"] = value
 
     @property
     def wavelength_71(self):
-        """Get wavelength_71.
+        """Get wavelength_71
 
         Returns:
             float: the value of `wavelength_71` or None if not set
-
         """
         return self["Wavelength 71"]
 
     @wavelength_71.setter
     def wavelength_71(self, value=None):
-        """Corresponds to IDD field `Wavelength 71`
+        """  Corresponds to IDD field `Wavelength 71`
 
         Args:
             value (float): value for IDD Field `Wavelength 71`
@@ -12644,23 +8576,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 71"] = value
 
     @property
     def spectrum_71(self):
-        """Get spectrum_71.
+        """Get spectrum_71
 
         Returns:
             float: the value of `spectrum_71` or None if not set
-
         """
         return self["Spectrum 71"]
 
     @spectrum_71.setter
     def spectrum_71(self, value=None):
-        """Corresponds to IDD field `Spectrum 71`
+        """  Corresponds to IDD field `Spectrum 71`
 
         Args:
             value (float): value for IDD Field `Spectrum 71`
@@ -12669,23 +8599,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 71"] = value
 
     @property
     def wavelength_72(self):
-        """Get wavelength_72.
+        """Get wavelength_72
 
         Returns:
             float: the value of `wavelength_72` or None if not set
-
         """
         return self["Wavelength 72"]
 
     @wavelength_72.setter
     def wavelength_72(self, value=None):
-        """Corresponds to IDD field `Wavelength 72`
+        """  Corresponds to IDD field `Wavelength 72`
 
         Args:
             value (float): value for IDD Field `Wavelength 72`
@@ -12695,23 +8623,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 72"] = value
 
     @property
     def spectrum_72(self):
-        """Get spectrum_72.
+        """Get spectrum_72
 
         Returns:
             float: the value of `spectrum_72` or None if not set
-
         """
         return self["Spectrum 72"]
 
     @spectrum_72.setter
     def spectrum_72(self, value=None):
-        """Corresponds to IDD field `Spectrum 72`
+        """  Corresponds to IDD field `Spectrum 72`
 
         Args:
             value (float): value for IDD Field `Spectrum 72`
@@ -12720,23 +8646,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 72"] = value
 
     @property
     def wavelength_73(self):
-        """Get wavelength_73.
+        """Get wavelength_73
 
         Returns:
             float: the value of `wavelength_73` or None if not set
-
         """
         return self["Wavelength 73"]
 
     @wavelength_73.setter
     def wavelength_73(self, value=None):
-        """Corresponds to IDD field `Wavelength 73`
+        """  Corresponds to IDD field `Wavelength 73`
 
         Args:
             value (float): value for IDD Field `Wavelength 73`
@@ -12746,23 +8670,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 73"] = value
 
     @property
     def spectrum_73(self):
-        """Get spectrum_73.
+        """Get spectrum_73
 
         Returns:
             float: the value of `spectrum_73` or None if not set
-
         """
         return self["Spectrum 73"]
 
     @spectrum_73.setter
     def spectrum_73(self, value=None):
-        """Corresponds to IDD field `Spectrum 73`
+        """  Corresponds to IDD field `Spectrum 73`
 
         Args:
             value (float): value for IDD Field `Spectrum 73`
@@ -12771,23 +8693,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 73"] = value
 
     @property
     def wavelength_74(self):
-        """Get wavelength_74.
+        """Get wavelength_74
 
         Returns:
             float: the value of `wavelength_74` or None if not set
-
         """
         return self["Wavelength 74"]
 
     @wavelength_74.setter
     def wavelength_74(self, value=None):
-        """Corresponds to IDD field `Wavelength 74`
+        """  Corresponds to IDD field `Wavelength 74`
 
         Args:
             value (float): value for IDD Field `Wavelength 74`
@@ -12797,23 +8717,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 74"] = value
 
     @property
     def spectrum_74(self):
-        """Get spectrum_74.
+        """Get spectrum_74
 
         Returns:
             float: the value of `spectrum_74` or None if not set
-
         """
         return self["Spectrum 74"]
 
     @spectrum_74.setter
     def spectrum_74(self, value=None):
-        """Corresponds to IDD field `Spectrum 74`
+        """  Corresponds to IDD field `Spectrum 74`
 
         Args:
             value (float): value for IDD Field `Spectrum 74`
@@ -12822,23 +8740,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 74"] = value
 
     @property
     def wavelength_75(self):
-        """Get wavelength_75.
+        """Get wavelength_75
 
         Returns:
             float: the value of `wavelength_75` or None if not set
-
         """
         return self["Wavelength 75"]
 
     @wavelength_75.setter
     def wavelength_75(self, value=None):
-        """Corresponds to IDD field `Wavelength 75`
+        """  Corresponds to IDD field `Wavelength 75`
 
         Args:
             value (float): value for IDD Field `Wavelength 75`
@@ -12848,23 +8764,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 75"] = value
 
     @property
     def spectrum_75(self):
-        """Get spectrum_75.
+        """Get spectrum_75
 
         Returns:
             float: the value of `spectrum_75` or None if not set
-
         """
         return self["Spectrum 75"]
 
     @spectrum_75.setter
     def spectrum_75(self, value=None):
-        """Corresponds to IDD field `Spectrum 75`
+        """  Corresponds to IDD field `Spectrum 75`
 
         Args:
             value (float): value for IDD Field `Spectrum 75`
@@ -12873,23 +8787,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 75"] = value
 
     @property
     def wavelength_76(self):
-        """Get wavelength_76.
+        """Get wavelength_76
 
         Returns:
             float: the value of `wavelength_76` or None if not set
-
         """
         return self["Wavelength 76"]
 
     @wavelength_76.setter
     def wavelength_76(self, value=None):
-        """Corresponds to IDD field `Wavelength 76`
+        """  Corresponds to IDD field `Wavelength 76`
 
         Args:
             value (float): value for IDD Field `Wavelength 76`
@@ -12899,23 +8811,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 76"] = value
 
     @property
     def spectrum_76(self):
-        """Get spectrum_76.
+        """Get spectrum_76
 
         Returns:
             float: the value of `spectrum_76` or None if not set
-
         """
         return self["Spectrum 76"]
 
     @spectrum_76.setter
     def spectrum_76(self, value=None):
-        """Corresponds to IDD field `Spectrum 76`
+        """  Corresponds to IDD field `Spectrum 76`
 
         Args:
             value (float): value for IDD Field `Spectrum 76`
@@ -12924,23 +8834,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 76"] = value
 
     @property
     def wavelength_77(self):
-        """Get wavelength_77.
+        """Get wavelength_77
 
         Returns:
             float: the value of `wavelength_77` or None if not set
-
         """
         return self["Wavelength 77"]
 
     @wavelength_77.setter
     def wavelength_77(self, value=None):
-        """Corresponds to IDD field `Wavelength 77`
+        """  Corresponds to IDD field `Wavelength 77`
 
         Args:
             value (float): value for IDD Field `Wavelength 77`
@@ -12950,23 +8858,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 77"] = value
 
     @property
     def spectrum_77(self):
-        """Get spectrum_77.
+        """Get spectrum_77
 
         Returns:
             float: the value of `spectrum_77` or None if not set
-
         """
         return self["Spectrum 77"]
 
     @spectrum_77.setter
     def spectrum_77(self, value=None):
-        """Corresponds to IDD field `Spectrum 77`
+        """  Corresponds to IDD field `Spectrum 77`
 
         Args:
             value (float): value for IDD Field `Spectrum 77`
@@ -12975,23 +8881,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 77"] = value
 
     @property
     def wavelength_78(self):
-        """Get wavelength_78.
+        """Get wavelength_78
 
         Returns:
             float: the value of `wavelength_78` or None if not set
-
         """
         return self["Wavelength 78"]
 
     @wavelength_78.setter
     def wavelength_78(self, value=None):
-        """Corresponds to IDD field `Wavelength 78`
+        """  Corresponds to IDD field `Wavelength 78`
 
         Args:
             value (float): value for IDD Field `Wavelength 78`
@@ -13001,23 +8905,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 78"] = value
 
     @property
     def spectrum_78(self):
-        """Get spectrum_78.
+        """Get spectrum_78
 
         Returns:
             float: the value of `spectrum_78` or None if not set
-
         """
         return self["Spectrum 78"]
 
     @spectrum_78.setter
     def spectrum_78(self, value=None):
-        """Corresponds to IDD field `Spectrum 78`
+        """  Corresponds to IDD field `Spectrum 78`
 
         Args:
             value (float): value for IDD Field `Spectrum 78`
@@ -13026,23 +8928,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 78"] = value
 
     @property
     def wavelength_79(self):
-        """Get wavelength_79.
+        """Get wavelength_79
 
         Returns:
             float: the value of `wavelength_79` or None if not set
-
         """
         return self["Wavelength 79"]
 
     @wavelength_79.setter
     def wavelength_79(self, value=None):
-        """Corresponds to IDD field `Wavelength 79`
+        """  Corresponds to IDD field `Wavelength 79`
 
         Args:
             value (float): value for IDD Field `Wavelength 79`
@@ -13052,23 +8952,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 79"] = value
 
     @property
     def spectrum_79(self):
-        """Get spectrum_79.
+        """Get spectrum_79
 
         Returns:
             float: the value of `spectrum_79` or None if not set
-
         """
         return self["Spectrum 79"]
 
     @spectrum_79.setter
     def spectrum_79(self, value=None):
-        """Corresponds to IDD field `Spectrum 79`
+        """  Corresponds to IDD field `Spectrum 79`
 
         Args:
             value (float): value for IDD Field `Spectrum 79`
@@ -13077,23 +8975,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 79"] = value
 
     @property
     def wavelength_80(self):
-        """Get wavelength_80.
+        """Get wavelength_80
 
         Returns:
             float: the value of `wavelength_80` or None if not set
-
         """
         return self["Wavelength 80"]
 
     @wavelength_80.setter
     def wavelength_80(self, value=None):
-        """Corresponds to IDD field `Wavelength 80`
+        """  Corresponds to IDD field `Wavelength 80`
 
         Args:
             value (float): value for IDD Field `Wavelength 80`
@@ -13103,23 +8999,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 80"] = value
 
     @property
     def spectrum_80(self):
-        """Get spectrum_80.
+        """Get spectrum_80
 
         Returns:
             float: the value of `spectrum_80` or None if not set
-
         """
         return self["Spectrum 80"]
 
     @spectrum_80.setter
     def spectrum_80(self, value=None):
-        """Corresponds to IDD field `Spectrum 80`
+        """  Corresponds to IDD field `Spectrum 80`
 
         Args:
             value (float): value for IDD Field `Spectrum 80`
@@ -13128,23 +9022,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 80"] = value
 
     @property
     def wavelength_81(self):
-        """Get wavelength_81.
+        """Get wavelength_81
 
         Returns:
             float: the value of `wavelength_81` or None if not set
-
         """
         return self["Wavelength 81"]
 
     @wavelength_81.setter
     def wavelength_81(self, value=None):
-        """Corresponds to IDD field `Wavelength 81`
+        """  Corresponds to IDD field `Wavelength 81`
 
         Args:
             value (float): value for IDD Field `Wavelength 81`
@@ -13154,23 +9046,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 81"] = value
 
     @property
     def spectrum_81(self):
-        """Get spectrum_81.
+        """Get spectrum_81
 
         Returns:
             float: the value of `spectrum_81` or None if not set
-
         """
         return self["Spectrum 81"]
 
     @spectrum_81.setter
     def spectrum_81(self, value=None):
-        """Corresponds to IDD field `Spectrum 81`
+        """  Corresponds to IDD field `Spectrum 81`
 
         Args:
             value (float): value for IDD Field `Spectrum 81`
@@ -13179,23 +9069,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 81"] = value
 
     @property
     def wavelength_82(self):
-        """Get wavelength_82.
+        """Get wavelength_82
 
         Returns:
             float: the value of `wavelength_82` or None if not set
-
         """
         return self["Wavelength 82"]
 
     @wavelength_82.setter
     def wavelength_82(self, value=None):
-        """Corresponds to IDD field `Wavelength 82`
+        """  Corresponds to IDD field `Wavelength 82`
 
         Args:
             value (float): value for IDD Field `Wavelength 82`
@@ -13205,23 +9093,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 82"] = value
 
     @property
     def spectrum_82(self):
-        """Get spectrum_82.
+        """Get spectrum_82
 
         Returns:
             float: the value of `spectrum_82` or None if not set
-
         """
         return self["Spectrum 82"]
 
     @spectrum_82.setter
     def spectrum_82(self, value=None):
-        """Corresponds to IDD field `Spectrum 82`
+        """  Corresponds to IDD field `Spectrum 82`
 
         Args:
             value (float): value for IDD Field `Spectrum 82`
@@ -13230,23 +9116,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 82"] = value
 
     @property
     def wavelength_83(self):
-        """Get wavelength_83.
+        """Get wavelength_83
 
         Returns:
             float: the value of `wavelength_83` or None if not set
-
         """
         return self["Wavelength 83"]
 
     @wavelength_83.setter
     def wavelength_83(self, value=None):
-        """Corresponds to IDD field `Wavelength 83`
+        """  Corresponds to IDD field `Wavelength 83`
 
         Args:
             value (float): value for IDD Field `Wavelength 83`
@@ -13256,23 +9140,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 83"] = value
 
     @property
     def spectrum_83(self):
-        """Get spectrum_83.
+        """Get spectrum_83
 
         Returns:
             float: the value of `spectrum_83` or None if not set
-
         """
         return self["Spectrum 83"]
 
     @spectrum_83.setter
     def spectrum_83(self, value=None):
-        """Corresponds to IDD field `Spectrum 83`
+        """  Corresponds to IDD field `Spectrum 83`
 
         Args:
             value (float): value for IDD Field `Spectrum 83`
@@ -13281,23 +9163,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 83"] = value
 
     @property
     def wavelength_84(self):
-        """Get wavelength_84.
+        """Get wavelength_84
 
         Returns:
             float: the value of `wavelength_84` or None if not set
-
         """
         return self["Wavelength 84"]
 
     @wavelength_84.setter
     def wavelength_84(self, value=None):
-        """Corresponds to IDD field `Wavelength 84`
+        """  Corresponds to IDD field `Wavelength 84`
 
         Args:
             value (float): value for IDD Field `Wavelength 84`
@@ -13307,23 +9187,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 84"] = value
 
     @property
     def spectrum_84(self):
-        """Get spectrum_84.
+        """Get spectrum_84
 
         Returns:
             float: the value of `spectrum_84` or None if not set
-
         """
         return self["Spectrum 84"]
 
     @spectrum_84.setter
     def spectrum_84(self, value=None):
-        """Corresponds to IDD field `Spectrum 84`
+        """  Corresponds to IDD field `Spectrum 84`
 
         Args:
             value (float): value for IDD Field `Spectrum 84`
@@ -13332,23 +9210,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 84"] = value
 
     @property
     def wavelength_85(self):
-        """Get wavelength_85.
+        """Get wavelength_85
 
         Returns:
             float: the value of `wavelength_85` or None if not set
-
         """
         return self["Wavelength 85"]
 
     @wavelength_85.setter
     def wavelength_85(self, value=None):
-        """Corresponds to IDD field `Wavelength 85`
+        """  Corresponds to IDD field `Wavelength 85`
 
         Args:
             value (float): value for IDD Field `Wavelength 85`
@@ -13358,23 +9234,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 85"] = value
 
     @property
     def spectrum_85(self):
-        """Get spectrum_85.
+        """Get spectrum_85
 
         Returns:
             float: the value of `spectrum_85` or None if not set
-
         """
         return self["Spectrum 85"]
 
     @spectrum_85.setter
     def spectrum_85(self, value=None):
-        """Corresponds to IDD field `Spectrum 85`
+        """  Corresponds to IDD field `Spectrum 85`
 
         Args:
             value (float): value for IDD Field `Spectrum 85`
@@ -13383,23 +9257,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 85"] = value
 
     @property
     def wavelength_86(self):
-        """Get wavelength_86.
+        """Get wavelength_86
 
         Returns:
             float: the value of `wavelength_86` or None if not set
-
         """
         return self["Wavelength 86"]
 
     @wavelength_86.setter
     def wavelength_86(self, value=None):
-        """Corresponds to IDD field `Wavelength 86`
+        """  Corresponds to IDD field `Wavelength 86`
 
         Args:
             value (float): value for IDD Field `Wavelength 86`
@@ -13409,23 +9281,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 86"] = value
 
     @property
     def spectrum_86(self):
-        """Get spectrum_86.
+        """Get spectrum_86
 
         Returns:
             float: the value of `spectrum_86` or None if not set
-
         """
         return self["Spectrum 86"]
 
     @spectrum_86.setter
     def spectrum_86(self, value=None):
-        """Corresponds to IDD field `Spectrum 86`
+        """  Corresponds to IDD field `Spectrum 86`
 
         Args:
             value (float): value for IDD Field `Spectrum 86`
@@ -13434,23 +9304,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 86"] = value
 
     @property
     def wavelength_87(self):
-        """Get wavelength_87.
+        """Get wavelength_87
 
         Returns:
             float: the value of `wavelength_87` or None if not set
-
         """
         return self["Wavelength 87"]
 
     @wavelength_87.setter
     def wavelength_87(self, value=None):
-        """Corresponds to IDD field `Wavelength 87`
+        """  Corresponds to IDD field `Wavelength 87`
 
         Args:
             value (float): value for IDD Field `Wavelength 87`
@@ -13460,23 +9328,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 87"] = value
 
     @property
     def spectrum_87(self):
-        """Get spectrum_87.
+        """Get spectrum_87
 
         Returns:
             float: the value of `spectrum_87` or None if not set
-
         """
         return self["Spectrum 87"]
 
     @spectrum_87.setter
     def spectrum_87(self, value=None):
-        """Corresponds to IDD field `Spectrum 87`
+        """  Corresponds to IDD field `Spectrum 87`
 
         Args:
             value (float): value for IDD Field `Spectrum 87`
@@ -13485,23 +9351,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 87"] = value
 
     @property
     def wavelength_88(self):
-        """Get wavelength_88.
+        """Get wavelength_88
 
         Returns:
             float: the value of `wavelength_88` or None if not set
-
         """
         return self["Wavelength 88"]
 
     @wavelength_88.setter
     def wavelength_88(self, value=None):
-        """Corresponds to IDD field `Wavelength 88`
+        """  Corresponds to IDD field `Wavelength 88`
 
         Args:
             value (float): value for IDD Field `Wavelength 88`
@@ -13511,23 +9375,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 88"] = value
 
     @property
     def spectrum_88(self):
-        """Get spectrum_88.
+        """Get spectrum_88
 
         Returns:
             float: the value of `spectrum_88` or None if not set
-
         """
         return self["Spectrum 88"]
 
     @spectrum_88.setter
     def spectrum_88(self, value=None):
-        """Corresponds to IDD field `Spectrum 88`
+        """  Corresponds to IDD field `Spectrum 88`
 
         Args:
             value (float): value for IDD Field `Spectrum 88`
@@ -13536,23 +9398,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 88"] = value
 
     @property
     def wavelength_89(self):
-        """Get wavelength_89.
+        """Get wavelength_89
 
         Returns:
             float: the value of `wavelength_89` or None if not set
-
         """
         return self["Wavelength 89"]
 
     @wavelength_89.setter
     def wavelength_89(self, value=None):
-        """Corresponds to IDD field `Wavelength 89`
+        """  Corresponds to IDD field `Wavelength 89`
 
         Args:
             value (float): value for IDD Field `Wavelength 89`
@@ -13562,23 +9422,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 89"] = value
 
     @property
     def spectrum_89(self):
-        """Get spectrum_89.
+        """Get spectrum_89
 
         Returns:
             float: the value of `spectrum_89` or None if not set
-
         """
         return self["Spectrum 89"]
 
     @spectrum_89.setter
     def spectrum_89(self, value=None):
-        """Corresponds to IDD field `Spectrum 89`
+        """  Corresponds to IDD field `Spectrum 89`
 
         Args:
             value (float): value for IDD Field `Spectrum 89`
@@ -13587,23 +9445,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 89"] = value
 
     @property
     def wavelength_90(self):
-        """Get wavelength_90.
+        """Get wavelength_90
 
         Returns:
             float: the value of `wavelength_90` or None if not set
-
         """
         return self["Wavelength 90"]
 
     @wavelength_90.setter
     def wavelength_90(self, value=None):
-        """Corresponds to IDD field `Wavelength 90`
+        """  Corresponds to IDD field `Wavelength 90`
 
         Args:
             value (float): value for IDD Field `Wavelength 90`
@@ -13613,23 +9469,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 90"] = value
 
     @property
     def spectrum_90(self):
-        """Get spectrum_90.
+        """Get spectrum_90
 
         Returns:
             float: the value of `spectrum_90` or None if not set
-
         """
         return self["Spectrum 90"]
 
     @spectrum_90.setter
     def spectrum_90(self, value=None):
-        """Corresponds to IDD field `Spectrum 90`
+        """  Corresponds to IDD field `Spectrum 90`
 
         Args:
             value (float): value for IDD Field `Spectrum 90`
@@ -13638,23 +9492,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 90"] = value
 
     @property
     def wavelength_91(self):
-        """Get wavelength_91.
+        """Get wavelength_91
 
         Returns:
             float: the value of `wavelength_91` or None if not set
-
         """
         return self["Wavelength 91"]
 
     @wavelength_91.setter
     def wavelength_91(self, value=None):
-        """Corresponds to IDD field `Wavelength 91`
+        """  Corresponds to IDD field `Wavelength 91`
 
         Args:
             value (float): value for IDD Field `Wavelength 91`
@@ -13664,23 +9516,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 91"] = value
 
     @property
     def spectrum_91(self):
-        """Get spectrum_91.
+        """Get spectrum_91
 
         Returns:
             float: the value of `spectrum_91` or None if not set
-
         """
         return self["Spectrum 91"]
 
     @spectrum_91.setter
     def spectrum_91(self, value=None):
-        """Corresponds to IDD field `Spectrum 91`
+        """  Corresponds to IDD field `Spectrum 91`
 
         Args:
             value (float): value for IDD Field `Spectrum 91`
@@ -13689,23 +9539,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 91"] = value
 
     @property
     def wavelength_92(self):
-        """Get wavelength_92.
+        """Get wavelength_92
 
         Returns:
             float: the value of `wavelength_92` or None if not set
-
         """
         return self["Wavelength 92"]
 
     @wavelength_92.setter
     def wavelength_92(self, value=None):
-        """Corresponds to IDD field `Wavelength 92`
+        """  Corresponds to IDD field `Wavelength 92`
 
         Args:
             value (float): value for IDD Field `Wavelength 92`
@@ -13715,23 +9563,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 92"] = value
 
     @property
     def spectrum_92(self):
-        """Get spectrum_92.
+        """Get spectrum_92
 
         Returns:
             float: the value of `spectrum_92` or None if not set
-
         """
         return self["Spectrum 92"]
 
     @spectrum_92.setter
     def spectrum_92(self, value=None):
-        """Corresponds to IDD field `Spectrum 92`
+        """  Corresponds to IDD field `Spectrum 92`
 
         Args:
             value (float): value for IDD Field `Spectrum 92`
@@ -13740,23 +9586,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 92"] = value
 
     @property
     def wavelength_93(self):
-        """Get wavelength_93.
+        """Get wavelength_93
 
         Returns:
             float: the value of `wavelength_93` or None if not set
-
         """
         return self["Wavelength 93"]
 
     @wavelength_93.setter
     def wavelength_93(self, value=None):
-        """Corresponds to IDD field `Wavelength 93`
+        """  Corresponds to IDD field `Wavelength 93`
 
         Args:
             value (float): value for IDD Field `Wavelength 93`
@@ -13766,23 +9610,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 93"] = value
 
     @property
     def spectrum_93(self):
-        """Get spectrum_93.
+        """Get spectrum_93
 
         Returns:
             float: the value of `spectrum_93` or None if not set
-
         """
         return self["Spectrum 93"]
 
     @spectrum_93.setter
     def spectrum_93(self, value=None):
-        """Corresponds to IDD field `Spectrum 93`
+        """  Corresponds to IDD field `Spectrum 93`
 
         Args:
             value (float): value for IDD Field `Spectrum 93`
@@ -13791,23 +9633,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 93"] = value
 
     @property
     def wavelength_94(self):
-        """Get wavelength_94.
+        """Get wavelength_94
 
         Returns:
             float: the value of `wavelength_94` or None if not set
-
         """
         return self["Wavelength 94"]
 
     @wavelength_94.setter
     def wavelength_94(self, value=None):
-        """Corresponds to IDD field `Wavelength 94`
+        """  Corresponds to IDD field `Wavelength 94`
 
         Args:
             value (float): value for IDD Field `Wavelength 94`
@@ -13817,23 +9657,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 94"] = value
 
     @property
     def spectrum_94(self):
-        """Get spectrum_94.
+        """Get spectrum_94
 
         Returns:
             float: the value of `spectrum_94` or None if not set
-
         """
         return self["Spectrum 94"]
 
     @spectrum_94.setter
     def spectrum_94(self, value=None):
-        """Corresponds to IDD field `Spectrum 94`
+        """  Corresponds to IDD field `Spectrum 94`
 
         Args:
             value (float): value for IDD Field `Spectrum 94`
@@ -13842,23 +9680,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 94"] = value
 
     @property
     def wavelength_95(self):
-        """Get wavelength_95.
+        """Get wavelength_95
 
         Returns:
             float: the value of `wavelength_95` or None if not set
-
         """
         return self["Wavelength 95"]
 
     @wavelength_95.setter
     def wavelength_95(self, value=None):
-        """Corresponds to IDD field `Wavelength 95`
+        """  Corresponds to IDD field `Wavelength 95`
 
         Args:
             value (float): value for IDD Field `Wavelength 95`
@@ -13868,23 +9704,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 95"] = value
 
     @property
     def spectrum_95(self):
-        """Get spectrum_95.
+        """Get spectrum_95
 
         Returns:
             float: the value of `spectrum_95` or None if not set
-
         """
         return self["Spectrum 95"]
 
     @spectrum_95.setter
     def spectrum_95(self, value=None):
-        """Corresponds to IDD field `Spectrum 95`
+        """  Corresponds to IDD field `Spectrum 95`
 
         Args:
             value (float): value for IDD Field `Spectrum 95`
@@ -13893,23 +9727,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 95"] = value
 
     @property
     def wavelength_96(self):
-        """Get wavelength_96.
+        """Get wavelength_96
 
         Returns:
             float: the value of `wavelength_96` or None if not set
-
         """
         return self["Wavelength 96"]
 
     @wavelength_96.setter
     def wavelength_96(self, value=None):
-        """Corresponds to IDD field `Wavelength 96`
+        """  Corresponds to IDD field `Wavelength 96`
 
         Args:
             value (float): value for IDD Field `Wavelength 96`
@@ -13919,23 +9751,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 96"] = value
 
     @property
     def spectrum_96(self):
-        """Get spectrum_96.
+        """Get spectrum_96
 
         Returns:
             float: the value of `spectrum_96` or None if not set
-
         """
         return self["Spectrum 96"]
 
     @spectrum_96.setter
     def spectrum_96(self, value=None):
-        """Corresponds to IDD field `Spectrum 96`
+        """  Corresponds to IDD field `Spectrum 96`
 
         Args:
             value (float): value for IDD Field `Spectrum 96`
@@ -13944,23 +9774,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 96"] = value
 
     @property
     def wavelength_97(self):
-        """Get wavelength_97.
+        """Get wavelength_97
 
         Returns:
             float: the value of `wavelength_97` or None if not set
-
         """
         return self["Wavelength 97"]
 
     @wavelength_97.setter
     def wavelength_97(self, value=None):
-        """Corresponds to IDD field `Wavelength 97`
+        """  Corresponds to IDD field `Wavelength 97`
 
         Args:
             value (float): value for IDD Field `Wavelength 97`
@@ -13970,23 +9798,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 97"] = value
 
     @property
     def spectrum_97(self):
-        """Get spectrum_97.
+        """Get spectrum_97
 
         Returns:
             float: the value of `spectrum_97` or None if not set
-
         """
         return self["Spectrum 97"]
 
     @spectrum_97.setter
     def spectrum_97(self, value=None):
-        """Corresponds to IDD field `Spectrum 97`
+        """  Corresponds to IDD field `Spectrum 97`
 
         Args:
             value (float): value for IDD Field `Spectrum 97`
@@ -13995,23 +9821,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 97"] = value
 
     @property
     def wavelength_98(self):
-        """Get wavelength_98.
+        """Get wavelength_98
 
         Returns:
             float: the value of `wavelength_98` or None if not set
-
         """
         return self["Wavelength 98"]
 
     @wavelength_98.setter
     def wavelength_98(self, value=None):
-        """Corresponds to IDD field `Wavelength 98`
+        """  Corresponds to IDD field `Wavelength 98`
 
         Args:
             value (float): value for IDD Field `Wavelength 98`
@@ -14021,23 +9845,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 98"] = value
 
     @property
     def spectrum_98(self):
-        """Get spectrum_98.
+        """Get spectrum_98
 
         Returns:
             float: the value of `spectrum_98` or None if not set
-
         """
         return self["Spectrum 98"]
 
     @spectrum_98.setter
     def spectrum_98(self, value=None):
-        """Corresponds to IDD field `Spectrum 98`
+        """  Corresponds to IDD field `Spectrum 98`
 
         Args:
             value (float): value for IDD Field `Spectrum 98`
@@ -14046,23 +9868,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 98"] = value
 
     @property
     def wavelength_99(self):
-        """Get wavelength_99.
+        """Get wavelength_99
 
         Returns:
             float: the value of `wavelength_99` or None if not set
-
         """
         return self["Wavelength 99"]
 
     @wavelength_99.setter
     def wavelength_99(self, value=None):
-        """Corresponds to IDD field `Wavelength 99`
+        """  Corresponds to IDD field `Wavelength 99`
 
         Args:
             value (float): value for IDD Field `Wavelength 99`
@@ -14072,23 +9892,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 99"] = value
 
     @property
     def spectrum_99(self):
-        """Get spectrum_99.
+        """Get spectrum_99
 
         Returns:
             float: the value of `spectrum_99` or None if not set
-
         """
         return self["Spectrum 99"]
 
     @spectrum_99.setter
     def spectrum_99(self, value=None):
-        """Corresponds to IDD field `Spectrum 99`
+        """  Corresponds to IDD field `Spectrum 99`
 
         Args:
             value (float): value for IDD Field `Spectrum 99`
@@ -14097,23 +9915,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 99"] = value
 
     @property
     def wavelength_100(self):
-        """Get wavelength_100.
+        """Get wavelength_100
 
         Returns:
             float: the value of `wavelength_100` or None if not set
-
         """
         return self["Wavelength 100"]
 
     @wavelength_100.setter
     def wavelength_100(self, value=None):
-        """Corresponds to IDD field `Wavelength 100`
+        """  Corresponds to IDD field `Wavelength 100`
 
         Args:
             value (float): value for IDD Field `Wavelength 100`
@@ -14123,23 +9939,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 100"] = value
 
     @property
     def spectrum_100(self):
-        """Get spectrum_100.
+        """Get spectrum_100
 
         Returns:
             float: the value of `spectrum_100` or None if not set
-
         """
         return self["Spectrum 100"]
 
     @spectrum_100.setter
     def spectrum_100(self, value=None):
-        """Corresponds to IDD field `Spectrum 100`
+        """  Corresponds to IDD field `Spectrum 100`
 
         Args:
             value (float): value for IDD Field `Spectrum 100`
@@ -14148,23 +9962,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 100"] = value
 
     @property
     def wavelength_101(self):
-        """Get wavelength_101.
+        """Get wavelength_101
 
         Returns:
             float: the value of `wavelength_101` or None if not set
-
         """
         return self["Wavelength 101"]
 
     @wavelength_101.setter
     def wavelength_101(self, value=None):
-        """Corresponds to IDD field `Wavelength 101`
+        """  Corresponds to IDD field `Wavelength 101`
 
         Args:
             value (float): value for IDD Field `Wavelength 101`
@@ -14174,23 +9986,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 101"] = value
 
     @property
     def spectrum_101(self):
-        """Get spectrum_101.
+        """Get spectrum_101
 
         Returns:
             float: the value of `spectrum_101` or None if not set
-
         """
         return self["Spectrum 101"]
 
     @spectrum_101.setter
     def spectrum_101(self, value=None):
-        """Corresponds to IDD field `Spectrum 101`
+        """  Corresponds to IDD field `Spectrum 101`
 
         Args:
             value (float): value for IDD Field `Spectrum 101`
@@ -14199,23 +10009,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 101"] = value
 
     @property
     def wavelength_102(self):
-        """Get wavelength_102.
+        """Get wavelength_102
 
         Returns:
             float: the value of `wavelength_102` or None if not set
-
         """
         return self["Wavelength 102"]
 
     @wavelength_102.setter
     def wavelength_102(self, value=None):
-        """Corresponds to IDD field `Wavelength 102`
+        """  Corresponds to IDD field `Wavelength 102`
 
         Args:
             value (float): value for IDD Field `Wavelength 102`
@@ -14225,23 +10033,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 102"] = value
 
     @property
     def spectrum_102(self):
-        """Get spectrum_102.
+        """Get spectrum_102
 
         Returns:
             float: the value of `spectrum_102` or None if not set
-
         """
         return self["Spectrum 102"]
 
     @spectrum_102.setter
     def spectrum_102(self, value=None):
-        """Corresponds to IDD field `Spectrum 102`
+        """  Corresponds to IDD field `Spectrum 102`
 
         Args:
             value (float): value for IDD Field `Spectrum 102`
@@ -14250,23 +10056,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 102"] = value
 
     @property
     def wavelength_103(self):
-        """Get wavelength_103.
+        """Get wavelength_103
 
         Returns:
             float: the value of `wavelength_103` or None if not set
-
         """
         return self["Wavelength 103"]
 
     @wavelength_103.setter
     def wavelength_103(self, value=None):
-        """Corresponds to IDD field `Wavelength 103`
+        """  Corresponds to IDD field `Wavelength 103`
 
         Args:
             value (float): value for IDD Field `Wavelength 103`
@@ -14276,23 +10080,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 103"] = value
 
     @property
     def spectrum_103(self):
-        """Get spectrum_103.
+        """Get spectrum_103
 
         Returns:
             float: the value of `spectrum_103` or None if not set
-
         """
         return self["Spectrum 103"]
 
     @spectrum_103.setter
     def spectrum_103(self, value=None):
-        """Corresponds to IDD field `Spectrum 103`
+        """  Corresponds to IDD field `Spectrum 103`
 
         Args:
             value (float): value for IDD Field `Spectrum 103`
@@ -14301,23 +10103,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 103"] = value
 
     @property
     def wavelength_104(self):
-        """Get wavelength_104.
+        """Get wavelength_104
 
         Returns:
             float: the value of `wavelength_104` or None if not set
-
         """
         return self["Wavelength 104"]
 
     @wavelength_104.setter
     def wavelength_104(self, value=None):
-        """Corresponds to IDD field `Wavelength 104`
+        """  Corresponds to IDD field `Wavelength 104`
 
         Args:
             value (float): value for IDD Field `Wavelength 104`
@@ -14327,23 +10127,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 104"] = value
 
     @property
     def spectrum_104(self):
-        """Get spectrum_104.
+        """Get spectrum_104
 
         Returns:
             float: the value of `spectrum_104` or None if not set
-
         """
         return self["Spectrum 104"]
 
     @spectrum_104.setter
     def spectrum_104(self, value=None):
-        """Corresponds to IDD field `Spectrum 104`
+        """  Corresponds to IDD field `Spectrum 104`
 
         Args:
             value (float): value for IDD Field `Spectrum 104`
@@ -14352,23 +10150,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 104"] = value
 
     @property
     def wavelength_105(self):
-        """Get wavelength_105.
+        """Get wavelength_105
 
         Returns:
             float: the value of `wavelength_105` or None if not set
-
         """
         return self["Wavelength 105"]
 
     @wavelength_105.setter
     def wavelength_105(self, value=None):
-        """Corresponds to IDD field `Wavelength 105`
+        """  Corresponds to IDD field `Wavelength 105`
 
         Args:
             value (float): value for IDD Field `Wavelength 105`
@@ -14378,23 +10174,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 105"] = value
 
     @property
     def spectrum_105(self):
-        """Get spectrum_105.
+        """Get spectrum_105
 
         Returns:
             float: the value of `spectrum_105` or None if not set
-
         """
         return self["Spectrum 105"]
 
     @spectrum_105.setter
     def spectrum_105(self, value=None):
-        """Corresponds to IDD field `Spectrum 105`
+        """  Corresponds to IDD field `Spectrum 105`
 
         Args:
             value (float): value for IDD Field `Spectrum 105`
@@ -14403,23 +10197,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 105"] = value
 
     @property
     def wavelength_106(self):
-        """Get wavelength_106.
+        """Get wavelength_106
 
         Returns:
             float: the value of `wavelength_106` or None if not set
-
         """
         return self["Wavelength 106"]
 
     @wavelength_106.setter
     def wavelength_106(self, value=None):
-        """Corresponds to IDD field `Wavelength 106`
+        """  Corresponds to IDD field `Wavelength 106`
 
         Args:
             value (float): value for IDD Field `Wavelength 106`
@@ -14429,23 +10221,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 106"] = value
 
     @property
     def spectrum_106(self):
-        """Get spectrum_106.
+        """Get spectrum_106
 
         Returns:
             float: the value of `spectrum_106` or None if not set
-
         """
         return self["Spectrum 106"]
 
     @spectrum_106.setter
     def spectrum_106(self, value=None):
-        """Corresponds to IDD field `Spectrum 106`
+        """  Corresponds to IDD field `Spectrum 106`
 
         Args:
             value (float): value for IDD Field `Spectrum 106`
@@ -14454,23 +10244,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 106"] = value
 
     @property
     def wavelength_107(self):
-        """Get wavelength_107.
+        """Get wavelength_107
 
         Returns:
             float: the value of `wavelength_107` or None if not set
-
         """
         return self["Wavelength 107"]
 
     @wavelength_107.setter
     def wavelength_107(self, value=None):
-        """Corresponds to IDD field `Wavelength 107`
+        """  Corresponds to IDD field `Wavelength 107`
 
         Args:
             value (float): value for IDD Field `Wavelength 107`
@@ -14480,23 +10268,21 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Wavelength 107"] = value
 
     @property
     def spectrum_107(self):
-        """Get spectrum_107.
+        """Get spectrum_107
 
         Returns:
             float: the value of `spectrum_107` or None if not set
-
         """
         return self["Spectrum 107"]
 
     @spectrum_107.setter
     def spectrum_107(self, value=None):
-        """Corresponds to IDD field `Spectrum 107`
+        """  Corresponds to IDD field `Spectrum 107`
 
         Args:
             value (float): value for IDD Field `Spectrum 107`
@@ -14505,7 +10291,6 @@ class SiteSpectrumData(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
-
         """
         self["Spectrum 107"] = value
 

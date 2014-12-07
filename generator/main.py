@@ -12,10 +12,10 @@ from generator import generate_class, generate_helper, generate_test
 from generator import generate_idf, generate_init, generate_group
 from iddparser import IDDParser
 
-num_worker_threads = 4
+num_worker_threads = 8
 tidy = True
 
-version = "0.1"
+version = "0.1.1"
 
 
 def worker(q, worker):

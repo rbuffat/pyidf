@@ -5,6 +5,7 @@ Created on Nov 29, 2014
 '''
 from datetime import date
 from jinja2 import Environment, PackageLoader
+import pprint
 env = Environment(loader=PackageLoader('generator', 'templates'))
 
 
@@ -16,6 +17,7 @@ def generate_class(obj):
         if "required-field" in field.attributes:
             required_fields.append('"{}"'.format(field.internal_name))
 
+    obj.schema = pprint.pformat(obj.schema)
     context = {}
     context["obj"] = obj
     context["required_fields"] = ", ".join(required_fields)
