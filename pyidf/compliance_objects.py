@@ -11,25 +11,35 @@ logger.addHandler(logging.NullHandler())
 
 
 class ComplianceBuilding(DataObject):
+
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]),
- 'format': None,
- 'group': u'Compliance Objects',
- 'min-fields': 1,
- 'name': u'Compliance:Building',
- 'pyname': u'ComplianceBuilding',
- 'required-object': False,
- 'unique-object': True}
+              'fields': OrderedDict([(u'building rotation for appendix g',
+                                      {'name': u'Building Rotation for Appendix G',
+                                       'pyname': u'building_rotation_for_appendix_g',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'})]),
+              'format': None,
+              'group': u'Compliance Objects',
+              'min-fields': 1,
+              'name': u'Compliance:Building',
+              'pyname': u'ComplianceBuilding',
+              'required-object': False,
+              'unique-object': True}
 
     @property
     def building_rotation_for_appendix_g(self):
-        """Get building_rotation_for_appendix_g
+        """Get building_rotation_for_appendix_g.
 
         Returns:
             float: the value of `building_rotation_for_appendix_g` or None if not set
+
         """
         return self["Building Rotation for Appendix G"]
 

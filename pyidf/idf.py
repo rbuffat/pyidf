@@ -76,27 +76,74 @@ logger.addHandler(logging.NullHandler())
 
 
 class IDF(object):
-    """ Represents an EnergyPlus IDF input file
-    """
+
+    """Represents an EnergyPlus IDF input file."""
 
     required_objects = ["building", "globalgeometryrules"]
-    unique_objects = ["zoneairheatbalancealgorithm", "surfaceconvectionalgorithm:outside:adaptivemodelselections", "outputcontrol:sizing:style", "runperiodcontrol:daylightsavingtime", "building", "zoneairmassflowconservation", "zoneaircontaminantbalance", "site:groundtemperature:shallow", "site:solarandvisiblespectrum", "output:debuggingdata", "outputcontrol:illuminancemap:style", "site:heightvariation", "lifecyclecost:parameters", "timestep", "convergencelimits", "heatbalancesettings:conductionfinitedifference", "version", "airflownetwork:simulationcontrol", "site:weatherstation", "globalgeometryrules", "output:energymanagementsystem", "shadowcalculation", "site:groundreflectance", "site:groundtemperature:buildingsurface", "surfaceconvectionalgorithm:inside", "hvactemplate:plant:chilledwaterloop", "site:location", "parametric:logic", "parametric:runcontrol", "surfaceconvectionalgorithm:inside:adaptivemodelselections", "zonecapacitancemultiplier:researchspecial", "compliance:building", "sizing:parameters", "hvactemplate:plant:hotwaterloop", "site:groundtemperature:deep", "hvactemplate:plant:mixedwaterloop", "outputcontrol:reportingtolerances", "simulationcontrol", "output:sqlite", "site:groundtemperature:fcfactormethod", "heatbalancealgorithm", "parametric:filenamesuffix", "geometrytransform", "outputcontrol:table:style", "surfaceconvectionalgorithm:outside", "output:table:summaryreports", "currencytype"]
+    unique_objects = [
+        "zoneairheatbalancealgorithm",
+        "surfaceconvectionalgorithm:outside:adaptivemodelselections",
+        "outputcontrol:sizing:style",
+        "runperiodcontrol:daylightsavingtime",
+        "building",
+        "zoneairmassflowconservation",
+        "zoneaircontaminantbalance",
+        "site:groundtemperature:shallow",
+        "site:solarandvisiblespectrum",
+        "output:debuggingdata",
+        "outputcontrol:illuminancemap:style",
+        "site:heightvariation",
+        "lifecyclecost:parameters",
+        "timestep",
+        "convergencelimits",
+        "heatbalancesettings:conductionfinitedifference",
+        "version",
+        "airflownetwork:simulationcontrol",
+        "site:weatherstation",
+        "globalgeometryrules",
+        "output:energymanagementsystem",
+        "shadowcalculation",
+        "site:groundreflectance",
+        "site:groundtemperature:buildingsurface",
+        "surfaceconvectionalgorithm:inside",
+        "hvactemplate:plant:chilledwaterloop",
+        "site:location",
+        "parametric:logic",
+        "parametric:runcontrol",
+        "surfaceconvectionalgorithm:inside:adaptivemodelselections",
+        "zonecapacitancemultiplier:researchspecial",
+        "compliance:building",
+        "sizing:parameters",
+        "hvactemplate:plant:hotwaterloop",
+        "site:groundtemperature:deep",
+        "hvactemplate:plant:mixedwaterloop",
+        "outputcontrol:reportingtolerances",
+        "simulationcontrol",
+        "output:sqlite",
+        "site:groundtemperature:fcfactormethod",
+        "heatbalancealgorithm",
+        "parametric:filenamesuffix",
+        "geometrytransform",
+        "outputcontrol:table:style",
+        "surfaceconvectionalgorithm:outside",
+        "output:table:summaryreports",
+        "currencytype"]
 
     def __init__(self, path=None):
-        """ Inits IDF object"""
+        """Inits IDF object."""
         self._data = OrderedDict()
         self.comment_headers = []
 
         if path is not None:
             self.read(path)
 
-
     def add(self, dataobject):
-        """ Adds a data object to the IDF. If data object is unique, it replaces an
-        eventual existing data object
+        """Adds a data object to the IDF. If data object is unique, it replaces
+        an eventual existing data object.
 
         Args:
             dataobject: the data object
+
         """
         group = dataobject.schema['group']
         if group not in self._data:
@@ -110,31 +157,38 @@ class IDF(object):
         else:
             self._data[group][lower_name].append(dataobject)
 
-
     def save(self, path, check=True):
-        """ Save data to path
+        """Save data to path.
 
-            Args:
-                path (str): path where data should be save
+        Args:
+            path (str): path where data should be save
 
-            Raises:
-                ValueError: if required objects are not present or 
-                    unique objects are not unique
+        Raises:
+            ValueError: if required objects are not present or
+                unique objects are not unique
+
         """
         with open(path, 'w') as f:
             if check:
                 for group in self._data:
                     for key in self._data[group]:
-                        if len(self._data[group][key]) == 0 and key in self.required_objects:
+                        if len(
+                                self._data[group][key]) == 0 and key in self.required_objects:
                             raise ValueError('{} is not valid.'.format(key))
-                        if key in self.unique_objects and len(self._data[group][key]) > 1:
-                            raise ValueError('{} is not unique: {}'.format(key,
-                                                                           len(self._data[group][key])))
+                        if key in self.unique_objects and len(
+                                self._data[group][key]) > 1:
+                            raise ValueError(
+                                '{} is not unique: {}'.format(
+                                    key, len(
+                                        self._data[group][key])))
                         for obj in self._data[group][key]:
                             obj.check(strict=True)
 
-            f.write("!- Generated with pyidf version {}, "
-                    "generation date: {}\n".format(pyidf.__version__, str(datetime.datetime.now())))
+            f.write(
+                "!- Generated with pyidf version {}, "
+                "generation date: {}\n".format(
+                    pyidf.__version__, str(
+                        datetime.datetime.now())))
             f.write("!- Validation level: {}\n".format(pyidf.validation_level))
 
             if len(self.comment_headers) > 0:
@@ -143,7 +197,8 @@ class IDF(object):
                     f.write("{}\n".format(comment))
 
             for group in self._data:
-                f.write("\n!-   ===========  ALL OBJECTS OF GROUP: {}  ===========\n".format(group))
+                f.write(
+                    "\n!-   ===========  ALL OBJECTS OF GROUP: {}  ===========\n".format(group))
                 for key in self._data[group]:
                     if len(self._data[group][key]) > 0:
                         for dobj in self._data[group][key]:
@@ -152,18 +207,24 @@ class IDF(object):
                                 vals += [v[1] for v in dobj.export()]
                                 f.write("\n  {};\n".format(",".join(vals)))
                             elif dobj.schema['format'] == "vertices":
-                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                f.write(
+                                    "\n  {},\n".format(
+                                        dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
 
-                                    if ((i + 2) < cval and "x" in vals[i][0].lower() and 
-                                        "y" in vals[i + 1][0].lower() and "z" in vals[i + 2][0].lower()):
-                                        val = ",".join([vals[i][1], vals[i + 1][1], vals[i + 2][1]])
-                                        comment = ",".join([vals[i][0], vals[i + 1][0], vals[i + 2][0]])
+                                    if ((i +
+                                         2) < cval and "x" in vals[i][0].lower() and "y" in vals[i +
+                                                                                                 1][0].lower() and "z" in vals[i +
+                                                                                                                               2][0].lower()):
+                                        val = ",".join(
+                                            [vals[i][1], vals[i + 1][1], vals[i + 2][1]])
+                                        comment = ",".join(
+                                            [vals[i][0], vals[i + 1][0], vals[i + 2][0]])
                                         i += 3
-                                    else: 
+                                    else:
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
@@ -171,14 +232,19 @@ class IDF(object):
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
-                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+                                    blanks = ' ' * \
+                                        max(30 - 4 - len(val) - 2, 2)
 
-                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                       sep=sep,
-                                                                                       blanks=blanks,
-                                                                                       comment=comment))
+                                    f.write(
+                                        "    {val}{sep}{blanks}!- {comment}\n".format(
+                                            val=val,
+                                            sep=sep,
+                                            blanks=blanks,
+                                            comment=comment))
                             elif dobj.schema['format'] == "compactschedule":
-                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                f.write(
+                                    "\n  {},\n".format(
+                                        dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 i = 0
@@ -191,10 +257,15 @@ class IDF(object):
                                             if "for" in jval or "until" in jval:
                                                 break
                                             j += 1
-                                        val = ",".join([vals[i][1]] + [vals[t][1] for t in range(i + 1, j) ])
-                                        comment = "Fields {} - {}".format(i + 1, j + 1)
+                                        val = ",".join(
+                                            [vals[i][1]] + [vals[t][1] for t in range(i + 1, j)])
+                                        comment = "Fields {} - {}".format(
+                                            i +
+                                            1,
+                                            j +
+                                            1)
                                         i += (j - i)
-                                    else: 
+                                    else:
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
@@ -202,31 +273,41 @@ class IDF(object):
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
-                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+                                    blanks = ' ' * \
+                                        max(30 - 4 - len(val) - 2, 2)
 
-                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                       sep=sep,
-                                                                                       blanks=blanks,
-                                                                                       comment=comment))
+                                    f.write(
+                                        "    {val}{sep}{blanks}!- {comment}\n".format(
+                                            val=val,
+                                            sep=sep,
+                                            blanks=blanks,
+                                            comment=comment))
                             elif dobj.schema['format'] == "fluidproperty":
 
-                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                f.write(
+                                    "\n  {},\n".format(
+                                        dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 i = 0
                                 while i < cval:
-    
+
                                     is_fluidprops = True
                                     for j in range(min(7, cval - i)):
 
                                         # Test the next values
-                                        fluidprops_match = re.search(r"([0-9]|value|property)", vals[i + j][0])
+                                        fluidprops_match = re.search(
+                                            r"([0-9]|value|property)",
+                                            vals[
+                                                i +
+                                                j][0])
                                         if fluidprops_match is None:
                                             is_fluidprops = False
                                             break
 
-                                    if  is_fluidprops:                                    
-                                        val = ",".join([vals[i + j][1] for j in range(min(7, cval - i))])
+                                    if is_fluidprops:
+                                        val = ",".join(
+                                            [vals[i + j][1] for j in range(min(7, cval - i))])
                                         comment = ""
                                         i += min(7, cval - i)
                                     else:
@@ -237,14 +318,19 @@ class IDF(object):
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
-                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+                                    blanks = ' ' * \
+                                        max(30 - 4 - len(val) - 2, 2)
 
-                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                       sep=sep,
-                                                                                       blanks=blanks,
-                                                                                       comment=comment))
+                                    f.write(
+                                        "    {val}{sep}{blanks}!- {comment}\n".format(
+                                            val=val,
+                                            sep=sep,
+                                            blanks=blanks,
+                                            comment=comment))
                             elif dobj.schema['format'] == "spectral":
-                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                f.write(
+                                    "\n  {},\n".format(
+                                        dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 i = 0
@@ -253,11 +339,14 @@ class IDF(object):
                                     start = i
                                     end = min(i + 4, cval)
 
-                                    if False not in ["name" not in jval[0].lower() for jval in vals[start:end]]:
-                                        val = ",".join([vals[j][1] for j in range(start, end) ])
+                                    if False not in [
+                                        "name" not in jval[0].lower() for jval in vals[
+                                            start:end]]:
+                                        val = ",".join(
+                                            [vals[j][1] for j in range(start, end)])
                                         i += (end - start)
                                         comment = ""
-                                    else: 
+                                    else:
                                         val = vals[i][1]
                                         comment = vals[i][0]
                                         i += 1
@@ -265,15 +354,20 @@ class IDF(object):
                                     sep = ','
                                     if i >= cval:
                                         sep = ';'
-                                    blanks = ' ' * max(30 - 4 - len(val) - 2, 2)
+                                    blanks = ' ' * \
+                                        max(30 - 4 - len(val) - 2, 2)
 
-                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val,
-                                                                                       sep=sep,
-                                                                                       blanks=blanks,
-                                                                                       comment=comment))
+                                    f.write(
+                                        "    {val}{sep}{blanks}!- {comment}\n".format(
+                                            val=val,
+                                            sep=sep,
+                                            blanks=blanks,
+                                            comment=comment))
 
                             else:
-                                f.write("\n  {},\n".format(dobj.schema['name']))
+                                f.write(
+                                    "\n  {},\n".format(
+                                        dobj.schema['name']))
                                 vals = dobj.export()
                                 cval = len(vals)
                                 for i, val in enumerate(vals):
@@ -281,19 +375,23 @@ class IDF(object):
                                     sep = ','
                                     if i == (cval - 1):
                                         sep = ';'
-                                    blanks = ' ' * max(30 - 4 - len(val[1]) - 2, 2)
+                                    blanks = ' ' * \
+                                        max(30 - 4 - len(val[1]) - 2, 2)
                                     comment = val[0]
 
-                                    f.write("    {val}{sep}{blanks}!- {comment}\n".format(val=val[1],
-                                                                                       sep=sep,
-                                                                                       blanks=blanks,
-                                                                                       comment=comment))
+                                    f.write(
+                                        "    {val}{sep}{blanks}!- {comment}\n".format(
+                                            val=val[1],
+                                            sep=sep,
+                                            blanks=blanks,
+                                            comment=comment))
 
     def read(self, path):
-        """Read IDF data from path
+        """Read IDF data from path.
 
-           Args:
-               path (str): path to read data from
+        Args:
+            path (str): path to read data from
+
         """
         with open(path, "r") as f:
             current_object = None
@@ -331,7 +429,7 @@ class IDF(object):
                         split = split[:-1]
 
                     splitvals = split.split(",")
-                    
+
                     if i > 1 and len(split) == 0:
                         continue
 
@@ -358,5880 +456,7859 @@ class IDF(object):
 
                         current_object = None
                         current_vals = []
+
     @property
     def lead_inputs(self):
-        """ Get list of all `LeadInput` objects
+        """Get list of all `LeadInput` objects.
 
         Raises:
             ValueError: if no objects of type `LeadInput` are present
+
         """
         return self._data["energyplus"]["lead input"]
+
     @property
     def simulation_datas(self):
-        """ Get list of all `SimulationData` objects
+        """Get list of all `SimulationData` objects.
 
         Raises:
             ValueError: if no objects of type `SimulationData` are present
+
         """
         return self._data["energyplus"]["simulation data"]
+
     @property
     def versions(self):
-        """ Get list of all `Version` objects
+        """Get list of all `Version` objects.
 
         Raises:
             ValueError: if no objects of type `Version` are present
+
         """
         return self._data["Simulation Parameters"]["version"]
+
     @property
     def simulationcontrols(self):
-        """ Get list of all `SimulationControl` objects
+        """Get list of all `SimulationControl` objects.
 
         Raises:
             ValueError: if no objects of type `SimulationControl` are present
+
         """
         return self._data["Simulation Parameters"]["simulationcontrol"]
+
     @property
     def buildings(self):
-        """ Get list of all `Building` objects
+        """Get list of all `Building` objects.
 
         Raises:
             ValueError: if no objects of type `Building` are present
+
         """
         return self._data["Simulation Parameters"]["building"]
+
     @property
     def shadowcalculations(self):
-        """ Get list of all `ShadowCalculation` objects
+        """Get list of all `ShadowCalculation` objects.
 
         Raises:
             ValueError: if no objects of type `ShadowCalculation` are present
+
         """
         return self._data["Simulation Parameters"]["shadowcalculation"]
+
     @property
     def surfaceconvectionalgorithminsides(self):
-        """ Get list of all `SurfaceConvectionAlgorithmInside` objects
+        """Get list of all `SurfaceConvectionAlgorithmInside` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmInside` are present
+
         """
-        return self._data["Simulation Parameters"]["surfaceconvectionalgorithm:inside"]
+        return self._data["Simulation Parameters"][
+            "surfaceconvectionalgorithm:inside"]
+
     @property
     def surfaceconvectionalgorithmoutsides(self):
-        """ Get list of all `SurfaceConvectionAlgorithmOutside` objects
+        """Get list of all `SurfaceConvectionAlgorithmOutside` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmOutside` are present
+
         """
-        return self._data["Simulation Parameters"]["surfaceconvectionalgorithm:outside"]
+        return self._data["Simulation Parameters"][
+            "surfaceconvectionalgorithm:outside"]
+
     @property
     def heatbalancealgorithms(self):
-        """ Get list of all `HeatBalanceAlgorithm` objects
+        """Get list of all `HeatBalanceAlgorithm` objects.
 
         Raises:
             ValueError: if no objects of type `HeatBalanceAlgorithm` are present
+
         """
         return self._data["Simulation Parameters"]["heatbalancealgorithm"]
+
     @property
     def heatbalancesettingsconductionfinitedifferences(self):
-        """ Get list of all `HeatBalanceSettingsConductionFiniteDifference` objects
+        """Get list of all `HeatBalanceSettingsConductionFiniteDifference`
+        objects.
 
         Raises:
             ValueError: if no objects of type `HeatBalanceSettingsConductionFiniteDifference` are present
+
         """
-        return self._data["Simulation Parameters"]["heatbalancesettings:conductionfinitedifference"]
+        return self._data["Simulation Parameters"][
+            "heatbalancesettings:conductionfinitedifference"]
+
     @property
     def zoneairheatbalancealgorithms(self):
-        """ Get list of all `ZoneAirHeatBalanceAlgorithm` objects
+        """Get list of all `ZoneAirHeatBalanceAlgorithm` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneAirHeatBalanceAlgorithm` are present
+
         """
-        return self._data["Simulation Parameters"]["zoneairheatbalancealgorithm"]
+        return self._data["Simulation Parameters"][
+            "zoneairheatbalancealgorithm"]
+
     @property
     def zoneaircontaminantbalances(self):
-        """ Get list of all `ZoneAirContaminantBalance` objects
+        """Get list of all `ZoneAirContaminantBalance` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneAirContaminantBalance` are present
+
         """
         return self._data["Simulation Parameters"]["zoneaircontaminantbalance"]
+
     @property
     def zoneairmassflowconservations(self):
-        """ Get list of all `ZoneAirMassFlowConservation` objects
+        """Get list of all `ZoneAirMassFlowConservation` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneAirMassFlowConservation` are present
+
         """
-        return self._data["Simulation Parameters"]["zoneairmassflowconservation"]
+        return self._data["Simulation Parameters"][
+            "zoneairmassflowconservation"]
+
     @property
     def zonecapacitancemultiplierresearchspecials(self):
-        """ Get list of all `ZoneCapacitanceMultiplierResearchSpecial` objects
+        """Get list of all `ZoneCapacitanceMultiplierResearchSpecial` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneCapacitanceMultiplierResearchSpecial` are present
+
         """
-        return self._data["Simulation Parameters"]["zonecapacitancemultiplier:researchspecial"]
+        return self._data["Simulation Parameters"][
+            "zonecapacitancemultiplier:researchspecial"]
+
     @property
     def timesteps(self):
-        """ Get list of all `Timestep` objects
+        """Get list of all `Timestep` objects.
 
         Raises:
             ValueError: if no objects of type `Timestep` are present
+
         """
         return self._data["Simulation Parameters"]["timestep"]
+
     @property
     def convergencelimitss(self):
-        """ Get list of all `ConvergenceLimits` objects
+        """Get list of all `ConvergenceLimits` objects.
 
         Raises:
             ValueError: if no objects of type `ConvergenceLimits` are present
+
         """
         return self._data["Simulation Parameters"]["convergencelimits"]
+
     @property
     def programcontrols(self):
-        """ Get list of all `ProgramControl` objects
+        """Get list of all `ProgramControl` objects.
 
         Raises:
             ValueError: if no objects of type `ProgramControl` are present
+
         """
         return self._data["Simulation Parameters"]["programcontrol"]
+
     @property
     def compliancebuildings(self):
-        """ Get list of all `ComplianceBuilding` objects
+        """Get list of all `ComplianceBuilding` objects.
 
         Raises:
             ValueError: if no objects of type `ComplianceBuilding` are present
+
         """
         return self._data["Compliance Objects"]["compliance:building"]
+
     @property
     def sitelocations(self):
-        """ Get list of all `SiteLocation` objects
+        """Get list of all `SiteLocation` objects.
 
         Raises:
             ValueError: if no objects of type `SiteLocation` are present
+
         """
         return self._data["Location and Climate"]["site:location"]
+
     @property
     def sizingperioddesigndays(self):
-        """ Get list of all `SizingPeriodDesignDay` objects
+        """Get list of all `SizingPeriodDesignDay` objects.
 
         Raises:
             ValueError: if no objects of type `SizingPeriodDesignDay` are present
+
         """
         return self._data["Location and Climate"]["sizingperiod:designday"]
+
     @property
     def sizingperiodweatherfiledayss(self):
-        """ Get list of all `SizingPeriodWeatherFileDays` objects
+        """Get list of all `SizingPeriodWeatherFileDays` objects.
 
         Raises:
             ValueError: if no objects of type `SizingPeriodWeatherFileDays` are present
+
         """
-        return self._data["Location and Climate"]["sizingperiod:weatherfiledays"]
+        return self._data["Location and Climate"][
+            "sizingperiod:weatherfiledays"]
+
     @property
     def sizingperiodweatherfileconditiontypes(self):
-        """ Get list of all `SizingPeriodWeatherFileConditionType` objects
+        """Get list of all `SizingPeriodWeatherFileConditionType` objects.
 
         Raises:
             ValueError: if no objects of type `SizingPeriodWeatherFileConditionType` are present
+
         """
-        return self._data["Location and Climate"]["sizingperiod:weatherfileconditiontype"]
+        return self._data["Location and Climate"][
+            "sizingperiod:weatherfileconditiontype"]
+
     @property
     def runperiods(self):
-        """ Get list of all `RunPeriod` objects
+        """Get list of all `RunPeriod` objects.
 
         Raises:
             ValueError: if no objects of type `RunPeriod` are present
+
         """
         return self._data["Location and Climate"]["runperiod"]
+
     @property
     def runperiodcustomranges(self):
-        """ Get list of all `RunPeriodCustomRange` objects
+        """Get list of all `RunPeriodCustomRange` objects.
 
         Raises:
             ValueError: if no objects of type `RunPeriodCustomRange` are present
+
         """
         return self._data["Location and Climate"]["runperiod:customrange"]
+
     @property
     def runperiodcontrolspecialdayss(self):
-        """ Get list of all `RunPeriodControlSpecialDays` objects
+        """Get list of all `RunPeriodControlSpecialDays` objects.
 
         Raises:
             ValueError: if no objects of type `RunPeriodControlSpecialDays` are present
+
         """
-        return self._data["Location and Climate"]["runperiodcontrol:specialdays"]
+        return self._data["Location and Climate"][
+            "runperiodcontrol:specialdays"]
+
     @property
     def runperiodcontroldaylightsavingtimes(self):
-        """ Get list of all `RunPeriodControlDaylightSavingTime` objects
+        """Get list of all `RunPeriodControlDaylightSavingTime` objects.
 
         Raises:
             ValueError: if no objects of type `RunPeriodControlDaylightSavingTime` are present
+
         """
-        return self._data["Location and Climate"]["runperiodcontrol:daylightsavingtime"]
+        return self._data["Location and Climate"][
+            "runperiodcontrol:daylightsavingtime"]
+
     @property
     def weatherpropertyskytemperatures(self):
-        """ Get list of all `WeatherPropertySkyTemperature` objects
+        """Get list of all `WeatherPropertySkyTemperature` objects.
 
         Raises:
             ValueError: if no objects of type `WeatherPropertySkyTemperature` are present
+
         """
-        return self._data["Location and Climate"]["weatherproperty:skytemperature"]
+        return self._data["Location and Climate"][
+            "weatherproperty:skytemperature"]
+
     @property
     def siteweatherstations(self):
-        """ Get list of all `SiteWeatherStation` objects
+        """Get list of all `SiteWeatherStation` objects.
 
         Raises:
             ValueError: if no objects of type `SiteWeatherStation` are present
+
         """
         return self._data["Location and Climate"]["site:weatherstation"]
+
     @property
     def siteheightvariations(self):
-        """ Get list of all `SiteHeightVariation` objects
+        """Get list of all `SiteHeightVariation` objects.
 
         Raises:
             ValueError: if no objects of type `SiteHeightVariation` are present
+
         """
         return self._data["Location and Climate"]["site:heightvariation"]
+
     @property
     def sitegroundtemperaturebuildingsurfaces(self):
-        """ Get list of all `SiteGroundTemperatureBuildingSurface` objects
+        """Get list of all `SiteGroundTemperatureBuildingSurface` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundTemperatureBuildingSurface` are present
+
         """
-        return self._data["Location and Climate"]["site:groundtemperature:buildingsurface"]
+        return self._data["Location and Climate"][
+            "site:groundtemperature:buildingsurface"]
+
     @property
     def sitegroundtemperaturefcfactormethods(self):
-        """ Get list of all `SiteGroundTemperatureFcfactorMethod` objects
+        """Get list of all `SiteGroundTemperatureFcfactorMethod` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundTemperatureFcfactorMethod` are present
+
         """
-        return self._data["Location and Climate"]["site:groundtemperature:fcfactormethod"]
+        return self._data["Location and Climate"][
+            "site:groundtemperature:fcfactormethod"]
+
     @property
     def sitegroundtemperatureshallows(self):
-        """ Get list of all `SiteGroundTemperatureShallow` objects
+        """Get list of all `SiteGroundTemperatureShallow` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundTemperatureShallow` are present
+
         """
-        return self._data["Location and Climate"]["site:groundtemperature:shallow"]
+        return self._data["Location and Climate"][
+            "site:groundtemperature:shallow"]
+
     @property
     def sitegroundtemperaturedeeps(self):
-        """ Get list of all `SiteGroundTemperatureDeep` objects
+        """Get list of all `SiteGroundTemperatureDeep` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundTemperatureDeep` are present
+
         """
-        return self._data["Location and Climate"]["site:groundtemperature:deep"]
+        return self._data["Location and Climate"][
+            "site:groundtemperature:deep"]
+
     @property
     def sitegrounddomains(self):
-        """ Get list of all `SiteGroundDomain` objects
+        """Get list of all `SiteGroundDomain` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundDomain` are present
+
         """
         return self._data["Location and Climate"]["site:grounddomain"]
+
     @property
     def sitegroundreflectances(self):
-        """ Get list of all `SiteGroundReflectance` objects
+        """Get list of all `SiteGroundReflectance` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundReflectance` are present
+
         """
         return self._data["Location and Climate"]["site:groundreflectance"]
+
     @property
     def sitegroundreflectancesnowmodifiers(self):
-        """ Get list of all `SiteGroundReflectanceSnowModifier` objects
+        """Get list of all `SiteGroundReflectanceSnowModifier` objects.
 
         Raises:
             ValueError: if no objects of type `SiteGroundReflectanceSnowModifier` are present
+
         """
-        return self._data["Location and Climate"]["site:groundreflectance:snowmodifier"]
+        return self._data["Location and Climate"][
+            "site:groundreflectance:snowmodifier"]
+
     @property
     def sitewatermainstemperatures(self):
-        """ Get list of all `SiteWaterMainsTemperature` objects
+        """Get list of all `SiteWaterMainsTemperature` objects.
 
         Raises:
             ValueError: if no objects of type `SiteWaterMainsTemperature` are present
+
         """
         return self._data["Location and Climate"]["site:watermainstemperature"]
+
     @property
     def siteprecipitations(self):
-        """ Get list of all `SitePrecipitation` objects
+        """Get list of all `SitePrecipitation` objects.
 
         Raises:
             ValueError: if no objects of type `SitePrecipitation` are present
+
         """
         return self._data["Location and Climate"]["site:precipitation"]
+
     @property
     def roofirrigations(self):
-        """ Get list of all `RoofIrrigation` objects
+        """Get list of all `RoofIrrigation` objects.
 
         Raises:
             ValueError: if no objects of type `RoofIrrigation` are present
+
         """
         return self._data["Location and Climate"]["roofirrigation"]
+
     @property
     def sitesolarandvisiblespectrums(self):
-        """ Get list of all `SiteSolarAndVisibleSpectrum` objects
+        """Get list of all `SiteSolarAndVisibleSpectrum` objects.
 
         Raises:
             ValueError: if no objects of type `SiteSolarAndVisibleSpectrum` are present
+
         """
-        return self._data["Location and Climate"]["site:solarandvisiblespectrum"]
+        return self._data["Location and Climate"][
+            "site:solarandvisiblespectrum"]
+
     @property
     def sitespectrumdatas(self):
-        """ Get list of all `SiteSpectrumData` objects
+        """Get list of all `SiteSpectrumData` objects.
 
         Raises:
             ValueError: if no objects of type `SiteSpectrumData` are present
+
         """
         return self._data["Location and Climate"]["site:spectrumdata"]
+
     @property
     def scheduletypelimitss(self):
-        """ Get list of all `ScheduleTypeLimits` objects
+        """Get list of all `ScheduleTypeLimits` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleTypeLimits` are present
+
         """
         return self._data["Schedules"]["scheduletypelimits"]
+
     @property
     def scheduledayhourlys(self):
-        """ Get list of all `ScheduleDayHourly` objects
+        """Get list of all `ScheduleDayHourly` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleDayHourly` are present
+
         """
         return self._data["Schedules"]["schedule:day:hourly"]
+
     @property
     def scheduledayintervals(self):
-        """ Get list of all `ScheduleDayInterval` objects
+        """Get list of all `ScheduleDayInterval` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleDayInterval` are present
+
         """
         return self._data["Schedules"]["schedule:day:interval"]
+
     @property
     def scheduledaylists(self):
-        """ Get list of all `ScheduleDayList` objects
+        """Get list of all `ScheduleDayList` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleDayList` are present
+
         """
         return self._data["Schedules"]["schedule:day:list"]
+
     @property
     def scheduleweekdailys(self):
-        """ Get list of all `ScheduleWeekDaily` objects
+        """Get list of all `ScheduleWeekDaily` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleWeekDaily` are present
+
         """
         return self._data["Schedules"]["schedule:week:daily"]
+
     @property
     def scheduleweekcompacts(self):
-        """ Get list of all `ScheduleWeekCompact` objects
+        """Get list of all `ScheduleWeekCompact` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleWeekCompact` are present
+
         """
         return self._data["Schedules"]["schedule:week:compact"]
+
     @property
     def scheduleyears(self):
-        """ Get list of all `ScheduleYear` objects
+        """Get list of all `ScheduleYear` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleYear` are present
+
         """
         return self._data["Schedules"]["schedule:year"]
+
     @property
     def schedulecompacts(self):
-        """ Get list of all `ScheduleCompact` objects
+        """Get list of all `ScheduleCompact` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleCompact` are present
+
         """
         return self._data["Schedules"]["schedule:compact"]
+
     @property
     def scheduleconstants(self):
-        """ Get list of all `ScheduleConstant` objects
+        """Get list of all `ScheduleConstant` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleConstant` are present
+
         """
         return self._data["Schedules"]["schedule:constant"]
+
     @property
     def schedulefiles(self):
-        """ Get list of all `ScheduleFile` objects
+        """Get list of all `ScheduleFile` objects.
 
         Raises:
             ValueError: if no objects of type `ScheduleFile` are present
+
         """
         return self._data["Schedules"]["schedule:file"]
+
     @property
     def materials(self):
-        """ Get list of all `Material` objects
+        """Get list of all `Material` objects.
 
         Raises:
             ValueError: if no objects of type `Material` are present
+
         """
         return self._data["Surface Construction Elements"]["material"]
+
     @property
     def materialnomasss(self):
-        """ Get list of all `MaterialNoMass` objects
+        """Get list of all `MaterialNoMass` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialNoMass` are present
+
         """
         return self._data["Surface Construction Elements"]["material:nomass"]
+
     @property
     def materialinfraredtransparents(self):
-        """ Get list of all `MaterialInfraredTransparent` objects
+        """Get list of all `MaterialInfraredTransparent` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialInfraredTransparent` are present
+
         """
-        return self._data["Surface Construction Elements"]["material:infraredtransparent"]
+        return self._data["Surface Construction Elements"][
+            "material:infraredtransparent"]
+
     @property
     def materialairgaps(self):
-        """ Get list of all `MaterialAirGap` objects
+        """Get list of all `MaterialAirGap` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialAirGap` are present
+
         """
         return self._data["Surface Construction Elements"]["material:airgap"]
+
     @property
     def materialroofvegetations(self):
-        """ Get list of all `MaterialRoofVegetation` objects
+        """Get list of all `MaterialRoofVegetation` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialRoofVegetation` are present
+
         """
-        return self._data["Surface Construction Elements"]["material:roofvegetation"]
+        return self._data["Surface Construction Elements"][
+            "material:roofvegetation"]
+
     @property
     def windowmaterialsimpleglazingsystems(self):
-        """ Get list of all `WindowMaterialSimpleGlazingSystem` objects
+        """Get list of all `WindowMaterialSimpleGlazingSystem` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialSimpleGlazingSystem` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:simpleglazingsystem"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:simpleglazingsystem"]
+
     @property
     def windowmaterialglazings(self):
-        """ Get list of all `WindowMaterialGlazing` objects
+        """Get list of all `WindowMaterialGlazing` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGlazing` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:glazing"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:glazing"]
+
     @property
     def windowmaterialglazinggroupthermochromics(self):
-        """ Get list of all `WindowMaterialGlazingGroupThermochromic` objects
+        """Get list of all `WindowMaterialGlazingGroupThermochromic` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGlazingGroupThermochromic` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:glazinggroup:thermochromic"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:glazinggroup:thermochromic"]
+
     @property
     def windowmaterialglazingrefractionextinctionmethods(self):
-        """ Get list of all `WindowMaterialGlazingRefractionExtinctionMethod` objects
+        """Get list of all `WindowMaterialGlazingRefractionExtinctionMethod`
+        objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGlazingRefractionExtinctionMethod` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:glazing:refractionextinctionmethod"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:glazing:refractionextinctionmethod"]
+
     @property
     def windowmaterialgass(self):
-        """ Get list of all `WindowMaterialGas` objects
+        """Get list of all `WindowMaterialGas` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGas` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:gas"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:gas"]
+
     @property
     def windowgapsupportpillars(self):
-        """ Get list of all `WindowGapSupportPillar` objects
+        """Get list of all `WindowGapSupportPillar` objects.
 
         Raises:
             ValueError: if no objects of type `WindowGapSupportPillar` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowgap:supportpillar"]
+        return self._data["Surface Construction Elements"][
+            "windowgap:supportpillar"]
+
     @property
     def windowgapdeflectionstates(self):
-        """ Get list of all `WindowGapDeflectionState` objects
+        """Get list of all `WindowGapDeflectionState` objects.
 
         Raises:
             ValueError: if no objects of type `WindowGapDeflectionState` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowgap:deflectionstate"]
+        return self._data["Surface Construction Elements"][
+            "windowgap:deflectionstate"]
+
     @property
     def windowmaterialgasmixtures(self):
-        """ Get list of all `WindowMaterialGasMixture` objects
+        """Get list of all `WindowMaterialGasMixture` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGasMixture` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:gasmixture"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:gasmixture"]
+
     @property
     def windowmaterialgaps(self):
-        """ Get list of all `WindowMaterialGap` objects
+        """Get list of all `WindowMaterialGap` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGap` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:gap"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:gap"]
+
     @property
     def windowmaterialshades(self):
-        """ Get list of all `WindowMaterialShade` objects
+        """Get list of all `WindowMaterialShade` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialShade` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:shade"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:shade"]
+
     @property
     def windowmaterialcomplexshades(self):
-        """ Get list of all `WindowMaterialComplexShade` objects
+        """Get list of all `WindowMaterialComplexShade` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialComplexShade` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:complexshade"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:complexshade"]
+
     @property
     def windowmaterialblinds(self):
-        """ Get list of all `WindowMaterialBlind` objects
+        """Get list of all `WindowMaterialBlind` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialBlind` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:blind"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:blind"]
+
     @property
     def windowmaterialscreens(self):
-        """ Get list of all `WindowMaterialScreen` objects
+        """Get list of all `WindowMaterialScreen` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialScreen` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:screen"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:screen"]
+
     @property
     def windowmaterialshadeequivalentlayers(self):
-        """ Get list of all `WindowMaterialShadeEquivalentLayer` objects
+        """Get list of all `WindowMaterialShadeEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialShadeEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:shade:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:shade:equivalentlayer"]
+
     @property
     def windowmaterialdrapeequivalentlayers(self):
-        """ Get list of all `WindowMaterialDrapeEquivalentLayer` objects
+        """Get list of all `WindowMaterialDrapeEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialDrapeEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:drape:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:drape:equivalentlayer"]
+
     @property
     def windowmaterialblindequivalentlayers(self):
-        """ Get list of all `WindowMaterialBlindEquivalentLayer` objects
+        """Get list of all `WindowMaterialBlindEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialBlindEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:blind:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:blind:equivalentlayer"]
+
     @property
     def windowmaterialscreenequivalentlayers(self):
-        """ Get list of all `WindowMaterialScreenEquivalentLayer` objects
+        """Get list of all `WindowMaterialScreenEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialScreenEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:screen:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:screen:equivalentlayer"]
+
     @property
     def windowmaterialglazingequivalentlayers(self):
-        """ Get list of all `WindowMaterialGlazingEquivalentLayer` objects
+        """Get list of all `WindowMaterialGlazingEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGlazingEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:glazing:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:glazing:equivalentlayer"]
+
     @property
     def constructionwindowequivalentlayers(self):
-        """ Get list of all `ConstructionWindowEquivalentLayer` objects
+        """Get list of all `ConstructionWindowEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionWindowEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:windowequivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "construction:windowequivalentlayer"]
+
     @property
     def windowmaterialgapequivalentlayers(self):
-        """ Get list of all `WindowMaterialGapEquivalentLayer` objects
+        """Get list of all `WindowMaterialGapEquivalentLayer` objects.
 
         Raises:
             ValueError: if no objects of type `WindowMaterialGapEquivalentLayer` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowmaterial:gap:equivalentlayer"]
+        return self._data["Surface Construction Elements"][
+            "windowmaterial:gap:equivalentlayer"]
+
     @property
     def materialpropertymoisturepenetrationdepthsettingss(self):
-        """ Get list of all `MaterialPropertyMoisturePenetrationDepthSettings` objects
+        """Get list of all `MaterialPropertyMoisturePenetrationDepthSettings`
+        objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyMoisturePenetrationDepthSettings` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:moisturepenetrationdepth:settings"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:moisturepenetrationdepth:settings"]
+
     @property
     def materialpropertyphasechanges(self):
-        """ Get list of all `MaterialPropertyPhaseChange` objects
+        """Get list of all `MaterialPropertyPhaseChange` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyPhaseChange` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:phasechange"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:phasechange"]
+
     @property
     def materialpropertyvariablethermalconductivitys(self):
-        """ Get list of all `MaterialPropertyVariableThermalConductivity` objects
+        """Get list of all `MaterialPropertyVariableThermalConductivity`
+        objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyVariableThermalConductivity` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:variablethermalconductivity"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:variablethermalconductivity"]
+
     @property
     def materialpropertyheatandmoisturetransfersettingss(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferSettings` objects
+        """Get list of all `MaterialPropertyHeatAndMoistureTransferSettings`
+        objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferSettings` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:settings"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:settings"]
+
     @property
     def materialpropertyheatandmoisturetransfersorptionisotherms(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm` objects
+        """Get list of all
+        `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferSorptionIsotherm` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:sorptionisotherm"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:sorptionisotherm"]
+
     @property
     def materialpropertyheatandmoisturetransfersuctions(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferSuction` objects
+        """Get list of all `MaterialPropertyHeatAndMoistureTransferSuction`
+        objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferSuction` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:suction"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:suction"]
+
     @property
     def materialpropertyheatandmoisturetransferredistributions(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferRedistribution` objects
+        """Get list of all
+        `MaterialPropertyHeatAndMoistureTransferRedistribution` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferRedistribution` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:redistribution"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:redistribution"]
+
     @property
     def materialpropertyheatandmoisturetransferdiffusions(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferDiffusion` objects
+        """Get list of all `MaterialPropertyHeatAndMoistureTransferDiffusion`
+        objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferDiffusion` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:diffusion"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:diffusion"]
+
     @property
     def materialpropertyheatandmoisturetransferthermalconductivitys(self):
-        """ Get list of all `MaterialPropertyHeatAndMoistureTransferThermalConductivity` objects
+        """Get list of all
+        `MaterialPropertyHeatAndMoistureTransferThermalConductivity` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyHeatAndMoistureTransferThermalConductivity` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:heatandmoisturetransfer:thermalconductivity"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:heatandmoisturetransfer:thermalconductivity"]
+
     @property
     def materialpropertyglazingspectraldatas(self):
-        """ Get list of all `MaterialPropertyGlazingSpectralData` objects
+        """Get list of all `MaterialPropertyGlazingSpectralData` objects.
 
         Raises:
             ValueError: if no objects of type `MaterialPropertyGlazingSpectralData` are present
+
         """
-        return self._data["Surface Construction Elements"]["materialproperty:glazingspectraldata"]
+        return self._data["Surface Construction Elements"][
+            "materialproperty:glazingspectraldata"]
+
     @property
     def constructions(self):
-        """ Get list of all `Construction` objects
+        """Get list of all `Construction` objects.
 
         Raises:
             ValueError: if no objects of type `Construction` are present
+
         """
         return self._data["Surface Construction Elements"]["construction"]
+
     @property
     def constructioncfactorundergroundwalls(self):
-        """ Get list of all `ConstructionCfactorUndergroundWall` objects
+        """Get list of all `ConstructionCfactorUndergroundWall` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionCfactorUndergroundWall` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:cfactorundergroundwall"]
+        return self._data["Surface Construction Elements"][
+            "construction:cfactorundergroundwall"]
+
     @property
     def constructionffactorgroundfloors(self):
-        """ Get list of all `ConstructionFfactorGroundFloor` objects
+        """Get list of all `ConstructionFfactorGroundFloor` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionFfactorGroundFloor` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:ffactorgroundfloor"]
+        return self._data["Surface Construction Elements"][
+            "construction:ffactorgroundfloor"]
+
     @property
     def constructioninternalsources(self):
-        """ Get list of all `ConstructionInternalSource` objects
+        """Get list of all `ConstructionInternalSource` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionInternalSource` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:internalsource"]
+        return self._data["Surface Construction Elements"][
+            "construction:internalsource"]
+
     @property
     def windowthermalmodelparamss(self):
-        """ Get list of all `WindowThermalModelParams` objects
+        """Get list of all `WindowThermalModelParams` objects.
 
         Raises:
             ValueError: if no objects of type `WindowThermalModelParams` are present
+
         """
-        return self._data["Surface Construction Elements"]["windowthermalmodel:params"]
+        return self._data["Surface Construction Elements"][
+            "windowthermalmodel:params"]
+
     @property
     def constructioncomplexfenestrationstates(self):
-        """ Get list of all `ConstructionComplexFenestrationState` objects
+        """Get list of all `ConstructionComplexFenestrationState` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionComplexFenestrationState` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:complexfenestrationstate"]
+        return self._data["Surface Construction Elements"][
+            "construction:complexfenestrationstate"]
+
     @property
     def constructionwindowdatafiles(self):
-        """ Get list of all `ConstructionWindowDataFile` objects
+        """Get list of all `ConstructionWindowDataFile` objects.
 
         Raises:
             ValueError: if no objects of type `ConstructionWindowDataFile` are present
+
         """
-        return self._data["Surface Construction Elements"]["construction:windowdatafile"]
+        return self._data["Surface Construction Elements"][
+            "construction:windowdatafile"]
+
     @property
     def globalgeometryruless(self):
-        """ Get list of all `GlobalGeometryRules` objects
+        """Get list of all `GlobalGeometryRules` objects.
 
         Raises:
             ValueError: if no objects of type `GlobalGeometryRules` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["globalgeometryrules"]
+
     @property
     def geometrytransforms(self):
-        """ Get list of all `GeometryTransform` objects
+        """Get list of all `GeometryTransform` objects.
 
         Raises:
             ValueError: if no objects of type `GeometryTransform` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["geometrytransform"]
+
     @property
     def zones(self):
-        """ Get list of all `Zone` objects
+        """Get list of all `Zone` objects.
 
         Raises:
             ValueError: if no objects of type `Zone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["zone"]
+
     @property
     def zonelists(self):
-        """ Get list of all `ZoneList` objects
+        """Get list of all `ZoneList` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneList` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["zonelist"]
+
     @property
     def zonegroups(self):
-        """ Get list of all `ZoneGroup` objects
+        """Get list of all `ZoneGroup` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneGroup` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["zonegroup"]
+
     @property
     def buildingsurfacedetaileds(self):
-        """ Get list of all `BuildingSurfaceDetailed` objects
+        """Get list of all `BuildingSurfaceDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `BuildingSurfaceDetailed` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["buildingsurface:detailed"]
+        return self._data["Thermal Zones and Surfaces"][
+            "buildingsurface:detailed"]
+
     @property
     def walldetaileds(self):
-        """ Get list of all `WallDetailed` objects
+        """Get list of all `WallDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `WallDetailed` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["wall:detailed"]
+
     @property
     def roofceilingdetaileds(self):
-        """ Get list of all `RoofCeilingDetailed` objects
+        """Get list of all `RoofCeilingDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `RoofCeilingDetailed` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["roofceiling:detailed"]
+
     @property
     def floordetaileds(self):
-        """ Get list of all `FloorDetailed` objects
+        """Get list of all `FloorDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `FloorDetailed` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["floor:detailed"]
+
     @property
     def wallexteriors(self):
-        """ Get list of all `WallExterior` objects
+        """Get list of all `WallExterior` objects.
 
         Raises:
             ValueError: if no objects of type `WallExterior` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["wall:exterior"]
+
     @property
     def walladiabatics(self):
-        """ Get list of all `WallAdiabatic` objects
+        """Get list of all `WallAdiabatic` objects.
 
         Raises:
             ValueError: if no objects of type `WallAdiabatic` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["wall:adiabatic"]
+
     @property
     def wallundergrounds(self):
-        """ Get list of all `WallUnderground` objects
+        """Get list of all `WallUnderground` objects.
 
         Raises:
             ValueError: if no objects of type `WallUnderground` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["wall:underground"]
+
     @property
     def wallinterzones(self):
-        """ Get list of all `WallInterzone` objects
+        """Get list of all `WallInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `WallInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["wall:interzone"]
+
     @property
     def roofs(self):
-        """ Get list of all `Roof` objects
+        """Get list of all `Roof` objects.
 
         Raises:
             ValueError: if no objects of type `Roof` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["roof"]
+
     @property
     def ceilingadiabatics(self):
-        """ Get list of all `CeilingAdiabatic` objects
+        """Get list of all `CeilingAdiabatic` objects.
 
         Raises:
             ValueError: if no objects of type `CeilingAdiabatic` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["ceiling:adiabatic"]
+
     @property
     def ceilinginterzones(self):
-        """ Get list of all `CeilingInterzone` objects
+        """Get list of all `CeilingInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `CeilingInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["ceiling:interzone"]
+
     @property
     def floorgroundcontacts(self):
-        """ Get list of all `FloorGroundContact` objects
+        """Get list of all `FloorGroundContact` objects.
 
         Raises:
             ValueError: if no objects of type `FloorGroundContact` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["floor:groundcontact"]
+
     @property
     def flooradiabatics(self):
-        """ Get list of all `FloorAdiabatic` objects
+        """Get list of all `FloorAdiabatic` objects.
 
         Raises:
             ValueError: if no objects of type `FloorAdiabatic` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["floor:adiabatic"]
+
     @property
     def floorinterzones(self):
-        """ Get list of all `FloorInterzone` objects
+        """Get list of all `FloorInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `FloorInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["floor:interzone"]
+
     @property
     def fenestrationsurfacedetaileds(self):
-        """ Get list of all `FenestrationSurfaceDetailed` objects
+        """Get list of all `FenestrationSurfaceDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `FenestrationSurfaceDetailed` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["fenestrationsurface:detailed"]
+        return self._data["Thermal Zones and Surfaces"][
+            "fenestrationsurface:detailed"]
+
     @property
     def windows(self):
-        """ Get list of all `Window` objects
+        """Get list of all `Window` objects.
 
         Raises:
             ValueError: if no objects of type `Window` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["window"]
+
     @property
     def doors(self):
-        """ Get list of all `Door` objects
+        """Get list of all `Door` objects.
 
         Raises:
             ValueError: if no objects of type `Door` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["door"]
+
     @property
     def glazeddoors(self):
-        """ Get list of all `GlazedDoor` objects
+        """Get list of all `GlazedDoor` objects.
 
         Raises:
             ValueError: if no objects of type `GlazedDoor` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["glazeddoor"]
+
     @property
     def windowinterzones(self):
-        """ Get list of all `WindowInterzone` objects
+        """Get list of all `WindowInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `WindowInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["window:interzone"]
+
     @property
     def doorinterzones(self):
-        """ Get list of all `DoorInterzone` objects
+        """Get list of all `DoorInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `DoorInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["door:interzone"]
+
     @property
     def glazeddoorinterzones(self):
-        """ Get list of all `GlazedDoorInterzone` objects
+        """Get list of all `GlazedDoorInterzone` objects.
 
         Raises:
             ValueError: if no objects of type `GlazedDoorInterzone` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["glazeddoor:interzone"]
+
     @property
     def windowpropertyshadingcontrols(self):
-        """ Get list of all `WindowPropertyShadingControl` objects
+        """Get list of all `WindowPropertyShadingControl` objects.
 
         Raises:
             ValueError: if no objects of type `WindowPropertyShadingControl` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["windowproperty:shadingcontrol"]
+        return self._data["Thermal Zones and Surfaces"][
+            "windowproperty:shadingcontrol"]
+
     @property
     def windowpropertyframeanddividers(self):
-        """ Get list of all `WindowPropertyFrameAndDivider` objects
+        """Get list of all `WindowPropertyFrameAndDivider` objects.
 
         Raises:
             ValueError: if no objects of type `WindowPropertyFrameAndDivider` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["windowproperty:frameanddivider"]
+        return self._data["Thermal Zones and Surfaces"][
+            "windowproperty:frameanddivider"]
+
     @property
     def windowpropertyairflowcontrols(self):
-        """ Get list of all `WindowPropertyAirflowControl` objects
+        """Get list of all `WindowPropertyAirflowControl` objects.
 
         Raises:
             ValueError: if no objects of type `WindowPropertyAirflowControl` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["windowproperty:airflowcontrol"]
+        return self._data["Thermal Zones and Surfaces"][
+            "windowproperty:airflowcontrol"]
+
     @property
     def windowpropertystormwindows(self):
-        """ Get list of all `WindowPropertyStormWindow` objects
+        """Get list of all `WindowPropertyStormWindow` objects.
 
         Raises:
             ValueError: if no objects of type `WindowPropertyStormWindow` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["windowproperty:stormwindow"]
+        return self._data["Thermal Zones and Surfaces"][
+            "windowproperty:stormwindow"]
+
     @property
     def internalmasss(self):
-        """ Get list of all `InternalMass` objects
+        """Get list of all `InternalMass` objects.
 
         Raises:
             ValueError: if no objects of type `InternalMass` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["internalmass"]
+
     @property
     def shadingsites(self):
-        """ Get list of all `ShadingSite` objects
+        """Get list of all `ShadingSite` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingSite` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["shading:site"]
+
     @property
     def shadingbuildings(self):
-        """ Get list of all `ShadingBuilding` objects
+        """Get list of all `ShadingBuilding` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingBuilding` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["shading:building"]
+
     @property
     def shadingsitedetaileds(self):
-        """ Get list of all `ShadingSiteDetailed` objects
+        """Get list of all `ShadingSiteDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingSiteDetailed` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shading:site:detailed"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shading:site:detailed"]
+
     @property
     def shadingbuildingdetaileds(self):
-        """ Get list of all `ShadingBuildingDetailed` objects
+        """Get list of all `ShadingBuildingDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingBuildingDetailed` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shading:building:detailed"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shading:building:detailed"]
+
     @property
     def shadingoverhangs(self):
-        """ Get list of all `ShadingOverhang` objects
+        """Get list of all `ShadingOverhang` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingOverhang` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["shading:overhang"]
+
     @property
     def shadingoverhangprojections(self):
-        """ Get list of all `ShadingOverhangProjection` objects
+        """Get list of all `ShadingOverhangProjection` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingOverhangProjection` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shading:overhang:projection"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shading:overhang:projection"]
+
     @property
     def shadingfins(self):
-        """ Get list of all `ShadingFin` objects
+        """Get list of all `ShadingFin` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingFin` are present
+
         """
         return self._data["Thermal Zones and Surfaces"]["shading:fin"]
+
     @property
     def shadingfinprojections(self):
-        """ Get list of all `ShadingFinProjection` objects
+        """Get list of all `ShadingFinProjection` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingFinProjection` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shading:fin:projection"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shading:fin:projection"]
+
     @property
     def shadingzonedetaileds(self):
-        """ Get list of all `ShadingZoneDetailed` objects
+        """Get list of all `ShadingZoneDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingZoneDetailed` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shading:zone:detailed"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shading:zone:detailed"]
+
     @property
     def shadingpropertyreflectances(self):
-        """ Get list of all `ShadingPropertyReflectance` objects
+        """Get list of all `ShadingPropertyReflectance` objects.
 
         Raises:
             ValueError: if no objects of type `ShadingPropertyReflectance` are present
+
         """
-        return self._data["Thermal Zones and Surfaces"]["shadingproperty:reflectance"]
+        return self._data["Thermal Zones and Surfaces"][
+            "shadingproperty:reflectance"]
+
     @property
     def surfacepropertyheattransferalgorithms(self):
-        """ Get list of all `SurfacePropertyHeatTransferAlgorithm` objects
+        """Get list of all `SurfacePropertyHeatTransferAlgorithm` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyHeatTransferAlgorithm` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:heattransferalgorithm"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:heattransferalgorithm"]
+
     @property
     def surfacepropertyheattransferalgorithmmultiplesurfaces(self):
-        """ Get list of all `SurfacePropertyHeatTransferAlgorithmMultipleSurface` objects
+        """Get list of all
+        `SurfacePropertyHeatTransferAlgorithmMultipleSurface` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyHeatTransferAlgorithmMultipleSurface` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:heattransferalgorithm:multiplesurface"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:heattransferalgorithm:multiplesurface"]
+
     @property
     def surfacepropertyheattransferalgorithmsurfacelists(self):
-        """ Get list of all `SurfacePropertyHeatTransferAlgorithmSurfaceList` objects
+        """Get list of all `SurfacePropertyHeatTransferAlgorithmSurfaceList`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyHeatTransferAlgorithmSurfaceList` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:heattransferalgorithm:surfacelist"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:heattransferalgorithm:surfacelist"]
+
     @property
     def surfacepropertyheattransferalgorithmconstructions(self):
-        """ Get list of all `SurfacePropertyHeatTransferAlgorithmConstruction` objects
+        """Get list of all `SurfacePropertyHeatTransferAlgorithmConstruction`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyHeatTransferAlgorithmConstruction` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:heattransferalgorithm:construction"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:heattransferalgorithm:construction"]
+
     @property
     def surfacecontrolmovableinsulations(self):
-        """ Get list of all `SurfaceControlMovableInsulation` objects
+        """Get list of all `SurfaceControlMovableInsulation` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceControlMovableInsulation` are present
+
         """
-        return self._data["Advanced Construction"]["surfacecontrol:movableinsulation"]
+        return self._data["Advanced Construction"][
+            "surfacecontrol:movableinsulation"]
+
     @property
     def surfacepropertyothersidecoefficientss(self):
-        """ Get list of all `SurfacePropertyOtherSideCoefficients` objects
+        """Get list of all `SurfacePropertyOtherSideCoefficients` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyOtherSideCoefficients` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:othersidecoefficients"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:othersidecoefficients"]
+
     @property
     def surfacepropertyothersideconditionsmodels(self):
-        """ Get list of all `SurfacePropertyOtherSideConditionsModel` objects
+        """Get list of all `SurfacePropertyOtherSideConditionsModel` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyOtherSideConditionsModel` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:othersideconditionsmodel"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:othersideconditionsmodel"]
+
     @property
     def surfaceconvectionalgorithminsideadaptivemodelselectionss(self):
-        """ Get list of all `SurfaceConvectionAlgorithmInsideAdaptiveModelSelections` objects
+        """Get list of all
+        `SurfaceConvectionAlgorithmInsideAdaptiveModelSelections` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmInsideAdaptiveModelSelections` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceconvectionalgorithm:inside:adaptivemodelselections"]
+        return self._data["Advanced Construction"][
+            "surfaceconvectionalgorithm:inside:adaptivemodelselections"]
+
     @property
     def surfaceconvectionalgorithmoutsideadaptivemodelselectionss(self):
-        """ Get list of all `SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections` objects
+        """Get list of all
+        `SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceconvectionalgorithm:outside:adaptivemodelselections"]
+        return self._data["Advanced Construction"][
+            "surfaceconvectionalgorithm:outside:adaptivemodelselections"]
+
     @property
     def surfaceconvectionalgorithminsideusercurves(self):
-        """ Get list of all `SurfaceConvectionAlgorithmInsideUserCurve` objects
+        """Get list of all `SurfaceConvectionAlgorithmInsideUserCurve` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmInsideUserCurve` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceconvectionalgorithm:inside:usercurve"]
+        return self._data["Advanced Construction"][
+            "surfaceconvectionalgorithm:inside:usercurve"]
+
     @property
     def surfaceconvectionalgorithmoutsideusercurves(self):
-        """ Get list of all `SurfaceConvectionAlgorithmOutsideUserCurve` objects
+        """Get list of all `SurfaceConvectionAlgorithmOutsideUserCurve`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceConvectionAlgorithmOutsideUserCurve` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceconvectionalgorithm:outside:usercurve"]
+        return self._data["Advanced Construction"][
+            "surfaceconvectionalgorithm:outside:usercurve"]
+
     @property
     def surfacepropertyconvectioncoefficientss(self):
-        """ Get list of all `SurfacePropertyConvectionCoefficients` objects
+        """Get list of all `SurfacePropertyConvectionCoefficients` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyConvectionCoefficients` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:convectioncoefficients"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:convectioncoefficients"]
+
     @property
     def surfacepropertyconvectioncoefficientsmultiplesurfaces(self):
-        """ Get list of all `SurfacePropertyConvectionCoefficientsMultipleSurface` objects
+        """Get list of all
+        `SurfacePropertyConvectionCoefficientsMultipleSurface` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyConvectionCoefficientsMultipleSurface` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:convectioncoefficients:multiplesurface"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:convectioncoefficients:multiplesurface"]
+
     @property
     def surfacepropertiesvaporcoefficientss(self):
-        """ Get list of all `SurfacePropertiesVaporCoefficients` objects
+        """Get list of all `SurfacePropertiesVaporCoefficients` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertiesVaporCoefficients` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperties:vaporcoefficients"]
+        return self._data["Advanced Construction"][
+            "surfaceproperties:vaporcoefficients"]
+
     @property
     def surfacepropertyexteriornaturalventedcavitys(self):
-        """ Get list of all `SurfacePropertyExteriorNaturalVentedCavity` objects
+        """Get list of all `SurfacePropertyExteriorNaturalVentedCavity`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertyExteriorNaturalVentedCavity` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:exteriornaturalventedcavity"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:exteriornaturalventedcavity"]
+
     @property
     def surfacepropertysolarincidentinsides(self):
-        """ Get list of all `SurfacePropertySolarIncidentInside` objects
+        """Get list of all `SurfacePropertySolarIncidentInside` objects.
 
         Raises:
             ValueError: if no objects of type `SurfacePropertySolarIncidentInside` are present
+
         """
-        return self._data["Advanced Construction"]["surfaceproperty:solarincidentinside"]
+        return self._data["Advanced Construction"][
+            "surfaceproperty:solarincidentinside"]
+
     @property
     def complexfenestrationpropertysolarabsorbedlayerss(self):
-        """ Get list of all `ComplexFenestrationPropertySolarAbsorbedLayers` objects
+        """Get list of all `ComplexFenestrationPropertySolarAbsorbedLayers`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ComplexFenestrationPropertySolarAbsorbedLayers` are present
+
         """
-        return self._data["Advanced Construction"]["complexfenestrationproperty:solarabsorbedlayers"]
+        return self._data["Advanced Construction"][
+            "complexfenestrationproperty:solarabsorbedlayers"]
+
     @property
     def zonepropertyuserviewfactorsbysurfacenames(self):
-        """ Get list of all `ZonePropertyUserViewFactorsBySurfaceName` objects
+        """Get list of all `ZonePropertyUserViewFactorsBySurfaceName` objects.
 
         Raises:
             ValueError: if no objects of type `ZonePropertyUserViewFactorsBySurfaceName` are present
+
         """
-        return self._data["Advanced Construction"]["zoneproperty:userviewfactors:bysurfacename"]
+        return self._data["Advanced Construction"][
+            "zoneproperty:userviewfactors:bysurfacename"]
+
     @property
     def groundheattransfercontrols(self):
-        """ Get list of all `GroundHeatTransferControl` objects
+        """Get list of all `GroundHeatTransferControl` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferControl` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:control"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:control"]
+
     @property
     def groundheattransferslabmaterialss(self):
-        """ Get list of all `GroundHeatTransferSlabMaterials` objects
+        """Get list of all `GroundHeatTransferSlabMaterials` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabMaterials` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:materials"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:materials"]
+
     @property
     def groundheattransferslabmatlpropss(self):
-        """ Get list of all `GroundHeatTransferSlabMatlProps` objects
+        """Get list of all `GroundHeatTransferSlabMatlProps` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabMatlProps` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:matlprops"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:matlprops"]
+
     @property
     def groundheattransferslabboundcondss(self):
-        """ Get list of all `GroundHeatTransferSlabBoundConds` objects
+        """Get list of all `GroundHeatTransferSlabBoundConds` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabBoundConds` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:boundconds"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:boundconds"]
+
     @property
     def groundheattransferslabbldgpropss(self):
-        """ Get list of all `GroundHeatTransferSlabBldgProps` objects
+        """Get list of all `GroundHeatTransferSlabBldgProps` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabBldgProps` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:bldgprops"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:bldgprops"]
+
     @property
     def groundheattransferslabinsulations(self):
-        """ Get list of all `GroundHeatTransferSlabInsulation` objects
+        """Get list of all `GroundHeatTransferSlabInsulation` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabInsulation` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:insulation"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:insulation"]
+
     @property
     def groundheattransferslabequivalentslabs(self):
-        """ Get list of all `GroundHeatTransferSlabEquivalentSlab` objects
+        """Get list of all `GroundHeatTransferSlabEquivalentSlab` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabEquivalentSlab` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:equivalentslab"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:equivalentslab"]
+
     @property
     def groundheattransferslabautogrids(self):
-        """ Get list of all `GroundHeatTransferSlabAutoGrid` objects
+        """Get list of all `GroundHeatTransferSlabAutoGrid` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabAutoGrid` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:autogrid"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:autogrid"]
+
     @property
     def groundheattransferslabmanualgrids(self):
-        """ Get list of all `GroundHeatTransferSlabManualGrid` objects
+        """Get list of all `GroundHeatTransferSlabManualGrid` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabManualGrid` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:slab:manualgrid"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:slab:manualgrid"]
+
     @property
     def groundheattransferslabxfaces(self):
-        """ Get list of all `GroundHeatTransferSlabXface` objects
+        """Get list of all `GroundHeatTransferSlabXface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabXface` are present
+
         """
         return self._data["Room Air Models"]["groundheattransfer:slab:xface"]
+
     @property
     def groundheattransferslabyfaces(self):
-        """ Get list of all `GroundHeatTransferSlabYface` objects
+        """Get list of all `GroundHeatTransferSlabYface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabYface` are present
+
         """
         return self._data["Room Air Models"]["groundheattransfer:slab:yface"]
+
     @property
     def groundheattransferslabzfaces(self):
-        """ Get list of all `GroundHeatTransferSlabZface` objects
+        """Get list of all `GroundHeatTransferSlabZface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferSlabZface` are present
+
         """
         return self._data["Room Air Models"]["groundheattransfer:slab:zface"]
+
     @property
     def groundheattransferbasementsimparameterss(self):
-        """ Get list of all `GroundHeatTransferBasementSimParameters` objects
+        """Get list of all `GroundHeatTransferBasementSimParameters` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementSimParameters` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:simparameters"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:simparameters"]
+
     @property
     def groundheattransferbasementmatlpropss(self):
-        """ Get list of all `GroundHeatTransferBasementMatlProps` objects
+        """Get list of all `GroundHeatTransferBasementMatlProps` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementMatlProps` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:matlprops"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:matlprops"]
+
     @property
     def groundheattransferbasementinsulations(self):
-        """ Get list of all `GroundHeatTransferBasementInsulation` objects
+        """Get list of all `GroundHeatTransferBasementInsulation` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementInsulation` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:insulation"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:insulation"]
+
     @property
     def groundheattransferbasementsurfacepropss(self):
-        """ Get list of all `GroundHeatTransferBasementSurfaceProps` objects
+        """Get list of all `GroundHeatTransferBasementSurfaceProps` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementSurfaceProps` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:surfaceprops"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:surfaceprops"]
+
     @property
     def groundheattransferbasementbldgdatas(self):
-        """ Get list of all `GroundHeatTransferBasementBldgData` objects
+        """Get list of all `GroundHeatTransferBasementBldgData` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementBldgData` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:bldgdata"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:bldgdata"]
+
     @property
     def groundheattransferbasementinteriors(self):
-        """ Get list of all `GroundHeatTransferBasementInterior` objects
+        """Get list of all `GroundHeatTransferBasementInterior` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementInterior` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:interior"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:interior"]
+
     @property
     def groundheattransferbasementcombldgs(self):
-        """ Get list of all `GroundHeatTransferBasementComBldg` objects
+        """Get list of all `GroundHeatTransferBasementComBldg` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementComBldg` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:combldg"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:combldg"]
+
     @property
     def groundheattransferbasementequivslabs(self):
-        """ Get list of all `GroundHeatTransferBasementEquivSlab` objects
+        """Get list of all `GroundHeatTransferBasementEquivSlab` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementEquivSlab` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:equivslab"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:equivslab"]
+
     @property
     def groundheattransferbasementequivautogrids(self):
-        """ Get list of all `GroundHeatTransferBasementEquivAutoGrid` objects
+        """Get list of all `GroundHeatTransferBasementEquivAutoGrid` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementEquivAutoGrid` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:equivautogrid"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:equivautogrid"]
+
     @property
     def groundheattransferbasementautogrids(self):
-        """ Get list of all `GroundHeatTransferBasementAutoGrid` objects
+        """Get list of all `GroundHeatTransferBasementAutoGrid` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementAutoGrid` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:autogrid"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:autogrid"]
+
     @property
     def groundheattransferbasementmanualgrids(self):
-        """ Get list of all `GroundHeatTransferBasementManualGrid` objects
+        """Get list of all `GroundHeatTransferBasementManualGrid` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementManualGrid` are present
+
         """
-        return self._data["Detailed Ground Heat Transfer"]["groundheattransfer:basement:manualgrid"]
+        return self._data["Detailed Ground Heat Transfer"][
+            "groundheattransfer:basement:manualgrid"]
+
     @property
     def groundheattransferbasementxfaces(self):
-        """ Get list of all `GroundHeatTransferBasementXface` objects
+        """Get list of all `GroundHeatTransferBasementXface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementXface` are present
+
         """
-        return self._data["Room Air Models"]["groundheattransfer:basement:xface"]
+        return self._data["Room Air Models"][
+            "groundheattransfer:basement:xface"]
+
     @property
     def groundheattransferbasementyfaces(self):
-        """ Get list of all `GroundHeatTransferBasementYface` objects
+        """Get list of all `GroundHeatTransferBasementYface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementYface` are present
+
         """
-        return self._data["Room Air Models"]["groundheattransfer:basement:yface"]
+        return self._data["Room Air Models"][
+            "groundheattransfer:basement:yface"]
+
     @property
     def groundheattransferbasementzfaces(self):
-        """ Get list of all `GroundHeatTransferBasementZface` objects
+        """Get list of all `GroundHeatTransferBasementZface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatTransferBasementZface` are present
+
         """
-        return self._data["Room Air Models"]["groundheattransfer:basement:zface"]
+        return self._data["Room Air Models"][
+            "groundheattransfer:basement:zface"]
+
     @property
     def roomairmodeltypes(self):
-        """ Get list of all `RoomAirModelType` objects
+        """Get list of all `RoomAirModelType` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirModelType` are present
+
         """
         return self._data["Room Air Models"]["roomairmodeltype"]
+
     @property
     def roomairtemperaturepatternuserdefineds(self):
-        """ Get list of all `RoomAirTemperaturePatternUserDefined` objects
+        """Get list of all `RoomAirTemperaturePatternUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirTemperaturePatternUserDefined` are present
+
         """
-        return self._data["Room Air Models"]["roomair:temperaturepattern:userdefined"]
+        return self._data["Room Air Models"][
+            "roomair:temperaturepattern:userdefined"]
+
     @property
     def roomairtemperaturepatternconstantgradients(self):
-        """ Get list of all `RoomAirTemperaturePatternConstantGradient` objects
+        """Get list of all `RoomAirTemperaturePatternConstantGradient` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirTemperaturePatternConstantGradient` are present
+
         """
-        return self._data["Room Air Models"]["roomair:temperaturepattern:constantgradient"]
+        return self._data["Room Air Models"][
+            "roomair:temperaturepattern:constantgradient"]
+
     @property
     def roomairtemperaturepatterntwogradients(self):
-        """ Get list of all `RoomAirTemperaturePatternTwoGradient` objects
+        """Get list of all `RoomAirTemperaturePatternTwoGradient` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirTemperaturePatternTwoGradient` are present
+
         """
-        return self._data["Room Air Models"]["roomair:temperaturepattern:twogradient"]
+        return self._data["Room Air Models"][
+            "roomair:temperaturepattern:twogradient"]
+
     @property
     def roomairtemperaturepatternnondimensionalheights(self):
-        """ Get list of all `RoomAirTemperaturePatternNondimensionalHeight` objects
+        """Get list of all `RoomAirTemperaturePatternNondimensionalHeight`
+        objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirTemperaturePatternNondimensionalHeight` are present
+
         """
-        return self._data["Room Air Models"]["roomair:temperaturepattern:nondimensionalheight"]
+        return self._data["Room Air Models"][
+            "roomair:temperaturepattern:nondimensionalheight"]
+
     @property
     def roomairtemperaturepatternsurfacemappings(self):
-        """ Get list of all `RoomAirTemperaturePatternSurfaceMapping` objects
+        """Get list of all `RoomAirTemperaturePatternSurfaceMapping` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirTemperaturePatternSurfaceMapping` are present
+
         """
-        return self._data["Room Air Models"]["roomair:temperaturepattern:surfacemapping"]
+        return self._data["Room Air Models"][
+            "roomair:temperaturepattern:surfacemapping"]
+
     @property
     def roomairnodes(self):
-        """ Get list of all `RoomAirNode` objects
+        """Get list of all `RoomAirNode` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirNode` are present
+
         """
         return self._data["Room Air Models"]["roomair:node"]
+
     @property
     def roomairsettingsonenodedisplacementventilations(self):
-        """ Get list of all `RoomAirSettingsOneNodeDisplacementVentilation` objects
+        """Get list of all `RoomAirSettingsOneNodeDisplacementVentilation`
+        objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirSettingsOneNodeDisplacementVentilation` are present
+
         """
-        return self._data["Room Air Models"]["roomairsettings:onenodedisplacementventilation"]
+        return self._data["Room Air Models"][
+            "roomairsettings:onenodedisplacementventilation"]
+
     @property
     def roomairsettingsthreenodedisplacementventilations(self):
-        """ Get list of all `RoomAirSettingsThreeNodeDisplacementVentilation` objects
+        """Get list of all `RoomAirSettingsThreeNodeDisplacementVentilation`
+        objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirSettingsThreeNodeDisplacementVentilation` are present
+
         """
-        return self._data["Room Air Models"]["roomairsettings:threenodedisplacementventilation"]
+        return self._data["Room Air Models"][
+            "roomairsettings:threenodedisplacementventilation"]
+
     @property
     def roomairsettingscrossventilations(self):
-        """ Get list of all `RoomAirSettingsCrossVentilation` objects
+        """Get list of all `RoomAirSettingsCrossVentilation` objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirSettingsCrossVentilation` are present
+
         """
-        return self._data["Room Air Models"]["roomairsettings:crossventilation"]
+        return self._data["Room Air Models"][
+            "roomairsettings:crossventilation"]
+
     @property
     def roomairsettingsunderfloorairdistributioninteriors(self):
-        """ Get list of all `RoomAirSettingsUnderFloorAirDistributionInterior` objects
+        """Get list of all `RoomAirSettingsUnderFloorAirDistributionInterior`
+        objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirSettingsUnderFloorAirDistributionInterior` are present
+
         """
-        return self._data["Room Air Models"]["roomairsettings:underfloorairdistributioninterior"]
+        return self._data["Room Air Models"][
+            "roomairsettings:underfloorairdistributioninterior"]
+
     @property
     def roomairsettingsunderfloorairdistributionexteriors(self):
-        """ Get list of all `RoomAirSettingsUnderFloorAirDistributionExterior` objects
+        """Get list of all `RoomAirSettingsUnderFloorAirDistributionExterior`
+        objects.
 
         Raises:
             ValueError: if no objects of type `RoomAirSettingsUnderFloorAirDistributionExterior` are present
+
         """
-        return self._data["Room Air Models"]["roomairsettings:underfloorairdistributionexterior"]
+        return self._data["Room Air Models"][
+            "roomairsettings:underfloorairdistributionexterior"]
+
     @property
     def peoples(self):
-        """ Get list of all `People` objects
+        """Get list of all `People` objects.
 
         Raises:
             ValueError: if no objects of type `People` are present
+
         """
         return self._data["Internal Gains"]["people"]
+
     @property
     def comfortviewfactorangless(self):
-        """ Get list of all `ComfortViewFactorAngles` objects
+        """Get list of all `ComfortViewFactorAngles` objects.
 
         Raises:
             ValueError: if no objects of type `ComfortViewFactorAngles` are present
+
         """
         return self._data["Internal Gains"]["comfortviewfactorangles"]
+
     @property
     def lightss(self):
-        """ Get list of all `Lights` objects
+        """Get list of all `Lights` objects.
 
         Raises:
             ValueError: if no objects of type `Lights` are present
+
         """
         return self._data["Internal Gains"]["lights"]
+
     @property
     def electricequipments(self):
-        """ Get list of all `ElectricEquipment` objects
+        """Get list of all `ElectricEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricEquipment` are present
+
         """
         return self._data["Internal Gains"]["electricequipment"]
+
     @property
     def gasequipments(self):
-        """ Get list of all `GasEquipment` objects
+        """Get list of all `GasEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `GasEquipment` are present
+
         """
         return self._data["Internal Gains"]["gasequipment"]
+
     @property
     def hotwaterequipments(self):
-        """ Get list of all `HotWaterEquipment` objects
+        """Get list of all `HotWaterEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `HotWaterEquipment` are present
+
         """
         return self._data["Internal Gains"]["hotwaterequipment"]
+
     @property
     def steamequipments(self):
-        """ Get list of all `SteamEquipment` objects
+        """Get list of all `SteamEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `SteamEquipment` are present
+
         """
         return self._data["Internal Gains"]["steamequipment"]
+
     @property
     def otherequipments(self):
-        """ Get list of all `OtherEquipment` objects
+        """Get list of all `OtherEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `OtherEquipment` are present
+
         """
         return self._data["Internal Gains"]["otherequipment"]
+
     @property
     def zonebaseboardoutdoortemperaturecontrolleds(self):
-        """ Get list of all `ZoneBaseboardOutdoorTemperatureControlled` objects
+        """Get list of all `ZoneBaseboardOutdoorTemperatureControlled` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneBaseboardOutdoorTemperatureControlled` are present
+
         """
-        return self._data["Internal Gains"]["zonebaseboard:outdoortemperaturecontrolled"]
+        return self._data["Internal Gains"][
+            "zonebaseboard:outdoortemperaturecontrolled"]
+
     @property
     def zonecontaminantsourceandsinkcarbondioxides(self):
-        """ Get list of all `ZoneContaminantSourceAndSinkCarbonDioxide` objects
+        """Get list of all `ZoneContaminantSourceAndSinkCarbonDioxide` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneContaminantSourceAndSinkCarbonDioxide` are present
+
         """
-        return self._data["Internal Gains"]["zonecontaminantsourceandsink:carbondioxide"]
+        return self._data["Internal Gains"][
+            "zonecontaminantsourceandsink:carbondioxide"]
+
     @property
     def zonecontaminantsourceandsinkgenericconstants(self):
-        """ Get list of all `ZoneContaminantSourceAndSinkGenericConstant` objects
+        """Get list of all `ZoneContaminantSourceAndSinkGenericConstant`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneContaminantSourceAndSinkGenericConstant` are present
+
         """
-        return self._data["Internal Gains"]["zonecontaminantsourceandsink:generic:constant"]
+        return self._data["Internal Gains"][
+            "zonecontaminantsourceandsink:generic:constant"]
+
     @property
     def surfacecontaminantsourceandsinkgenericpressuredrivens(self):
-        """ Get list of all `SurfaceContaminantSourceAndSinkGenericPressureDriven` objects
+        """Get list of all
+        `SurfaceContaminantSourceAndSinkGenericPressureDriven` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceContaminantSourceAndSinkGenericPressureDriven` are present
+
         """
-        return self._data["Internal Gains"]["surfacecontaminantsourceandsink:generic:pressuredriven"]
+        return self._data["Internal Gains"][
+            "surfacecontaminantsourceandsink:generic:pressuredriven"]
+
     @property
     def zonecontaminantsourceandsinkgenericcutoffmodels(self):
-        """ Get list of all `ZoneContaminantSourceAndSinkGenericCutoffModel` objects
+        """Get list of all `ZoneContaminantSourceAndSinkGenericCutoffModel`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneContaminantSourceAndSinkGenericCutoffModel` are present
+
         """
-        return self._data["Internal Gains"]["zonecontaminantsourceandsink:generic:cutoffmodel"]
+        return self._data["Internal Gains"][
+            "zonecontaminantsourceandsink:generic:cutoffmodel"]
+
     @property
     def zonecontaminantsourceandsinkgenericdecaysources(self):
-        """ Get list of all `ZoneContaminantSourceAndSinkGenericDecaySource` objects
+        """Get list of all `ZoneContaminantSourceAndSinkGenericDecaySource`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneContaminantSourceAndSinkGenericDecaySource` are present
+
         """
-        return self._data["Internal Gains"]["zonecontaminantsourceandsink:generic:decaysource"]
+        return self._data["Internal Gains"][
+            "zonecontaminantsourceandsink:generic:decaysource"]
+
     @property
     def surfacecontaminantsourceandsinkgenericboundarylayerdiffusions(self):
-        """ Get list of all `SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion` objects
+        """Get list of all
+        `SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion` are present
+
         """
-        return self._data["Internal Gains"]["surfacecontaminantsourceandsink:generic:boundarylayerdiffusion"]
+        return self._data["Internal Gains"][
+            "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion"]
+
     @property
     def surfacecontaminantsourceandsinkgenericdepositionvelocitysinks(self):
-        """ Get list of all `SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink` objects
+        """Get list of all
+        `SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink` objects.
 
         Raises:
             ValueError: if no objects of type `SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink` are present
+
         """
-        return self._data["Internal Gains"]["surfacecontaminantsourceandsink:generic:depositionvelocitysink"]
+        return self._data["Internal Gains"][
+            "surfacecontaminantsourceandsink:generic:depositionvelocitysink"]
+
     @property
     def zonecontaminantsourceandsinkgenericdepositionratesinks(self):
-        """ Get list of all `ZoneContaminantSourceAndSinkGenericDepositionRateSink` objects
+        """Get list of all
+        `ZoneContaminantSourceAndSinkGenericDepositionRateSink` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneContaminantSourceAndSinkGenericDepositionRateSink` are present
+
         """
-        return self._data["Internal Gains"]["zonecontaminantsourceandsink:generic:depositionratesink"]
+        return self._data["Internal Gains"][
+            "zonecontaminantsourceandsink:generic:depositionratesink"]
+
     @property
     def daylightingcontrolss(self):
-        """ Get list of all `DaylightingControls` objects
+        """Get list of all `DaylightingControls` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingControls` are present
+
         """
         return self._data["Daylighting"]["daylighting:controls"]
+
     @property
     def daylightingdelightcontrolss(self):
-        """ Get list of all `DaylightingDelightControls` objects
+        """Get list of all `DaylightingDelightControls` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDelightControls` are present
+
         """
         return self._data["Daylighting"]["daylighting:delight:controls"]
+
     @property
     def daylightingdelightreferencepoints(self):
-        """ Get list of all `DaylightingDelightReferencePoint` objects
+        """Get list of all `DaylightingDelightReferencePoint` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDelightReferencePoint` are present
+
         """
         return self._data["Daylighting"]["daylighting:delight:referencepoint"]
+
     @property
     def daylightingdelightcomplexfenestrations(self):
-        """ Get list of all `DaylightingDelightComplexFenestration` objects
+        """Get list of all `DaylightingDelightComplexFenestration` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDelightComplexFenestration` are present
+
         """
-        return self._data["Daylighting"]["daylighting:delight:complexfenestration"]
+        return self._data["Daylighting"][
+            "daylighting:delight:complexfenestration"]
+
     @property
     def daylightingdevicetubulars(self):
-        """ Get list of all `DaylightingDeviceTubular` objects
+        """Get list of all `DaylightingDeviceTubular` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDeviceTubular` are present
+
         """
         return self._data["Daylighting"]["daylightingdevice:tubular"]
+
     @property
     def daylightingdeviceshelfs(self):
-        """ Get list of all `DaylightingDeviceShelf` objects
+        """Get list of all `DaylightingDeviceShelf` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDeviceShelf` are present
+
         """
         return self._data["Daylighting"]["daylightingdevice:shelf"]
+
     @property
     def daylightingdevicelightwells(self):
-        """ Get list of all `DaylightingDeviceLightWell` objects
+        """Get list of all `DaylightingDeviceLightWell` objects.
 
         Raises:
             ValueError: if no objects of type `DaylightingDeviceLightWell` are present
+
         """
         return self._data["Daylighting"]["daylightingdevice:lightwell"]
+
     @property
     def outputdaylightfactorss(self):
-        """ Get list of all `OutputDaylightFactors` objects
+        """Get list of all `OutputDaylightFactors` objects.
 
         Raises:
             ValueError: if no objects of type `OutputDaylightFactors` are present
+
         """
         return self._data["Daylighting"]["output:daylightfactors"]
+
     @property
     def outputilluminancemaps(self):
-        """ Get list of all `OutputIlluminanceMap` objects
+        """Get list of all `OutputIlluminanceMap` objects.
 
         Raises:
             ValueError: if no objects of type `OutputIlluminanceMap` are present
+
         """
         return self._data["Daylighting"]["output:illuminancemap"]
+
     @property
     def outputcontrolilluminancemapstyles(self):
-        """ Get list of all `OutputControlIlluminanceMapStyle` objects
+        """Get list of all `OutputControlIlluminanceMapStyle` objects.
 
         Raises:
             ValueError: if no objects of type `OutputControlIlluminanceMapStyle` are present
+
         """
         return self._data["Daylighting"]["outputcontrol:illuminancemap:style"]
+
     @property
     def zoneinfiltrationdesignflowrates(self):
-        """ Get list of all `ZoneInfiltrationDesignFlowRate` objects
+        """Get list of all `ZoneInfiltrationDesignFlowRate` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneInfiltrationDesignFlowRate` are present
+
         """
         return self._data["Zone Airflow"]["zoneinfiltration:designflowrate"]
+
     @property
     def zoneinfiltrationeffectiveleakageareas(self):
-        """ Get list of all `ZoneInfiltrationEffectiveLeakageArea` objects
+        """Get list of all `ZoneInfiltrationEffectiveLeakageArea` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneInfiltrationEffectiveLeakageArea` are present
+
         """
-        return self._data["Zone Airflow"]["zoneinfiltration:effectiveleakagearea"]
+        return self._data["Zone Airflow"][
+            "zoneinfiltration:effectiveleakagearea"]
+
     @property
     def zoneinfiltrationflowcoefficients(self):
-        """ Get list of all `ZoneInfiltrationFlowCoefficient` objects
+        """Get list of all `ZoneInfiltrationFlowCoefficient` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneInfiltrationFlowCoefficient` are present
+
         """
         return self._data["Zone Airflow"]["zoneinfiltration:flowcoefficient"]
+
     @property
     def zoneventilationdesignflowrates(self):
-        """ Get list of all `ZoneVentilationDesignFlowRate` objects
+        """Get list of all `ZoneVentilationDesignFlowRate` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneVentilationDesignFlowRate` are present
+
         """
         return self._data["Zone Airflow"]["zoneventilation:designflowrate"]
+
     @property
     def zoneventilationwindandstackopenareas(self):
-        """ Get list of all `ZoneVentilationWindandStackOpenArea` objects
+        """Get list of all `ZoneVentilationWindandStackOpenArea` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneVentilationWindandStackOpenArea` are present
+
         """
-        return self._data["Zone Airflow"]["zoneventilation:windandstackopenarea"]
+        return self._data["Zone Airflow"][
+            "zoneventilation:windandstackopenarea"]
+
     @property
     def zoneairbalanceoutdoorairs(self):
-        """ Get list of all `ZoneAirBalanceOutdoorAir` objects
+        """Get list of all `ZoneAirBalanceOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneAirBalanceOutdoorAir` are present
+
         """
         return self._data["Zone Airflow"]["zoneairbalance:outdoorair"]
+
     @property
     def zonemixings(self):
-        """ Get list of all `ZoneMixing` objects
+        """Get list of all `ZoneMixing` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneMixing` are present
+
         """
         return self._data["Zone Airflow"]["zonemixing"]
+
     @property
     def zonecrossmixings(self):
-        """ Get list of all `ZoneCrossMixing` objects
+        """Get list of all `ZoneCrossMixing` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneCrossMixing` are present
+
         """
         return self._data["Zone Airflow"]["zonecrossmixing"]
+
     @property
     def zonerefrigerationdoormixings(self):
-        """ Get list of all `ZoneRefrigerationDoorMixing` objects
+        """Get list of all `ZoneRefrigerationDoorMixing` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneRefrigerationDoorMixing` are present
+
         """
         return self._data["Zone Airflow"]["zonerefrigerationdoormixing"]
+
     @property
     def zoneearthtubes(self):
-        """ Get list of all `ZoneEarthtube` objects
+        """Get list of all `ZoneEarthtube` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneEarthtube` are present
+
         """
         return self._data["Zone Airflow"]["zoneearthtube"]
+
     @property
     def zonecooltowershowers(self):
-        """ Get list of all `ZoneCoolTowerShower` objects
+        """Get list of all `ZoneCoolTowerShower` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneCoolTowerShower` are present
+
         """
         return self._data["Zone Airflow"]["zonecooltower:shower"]
+
     @property
     def zonethermalchimneys(self):
-        """ Get list of all `ZoneThermalChimney` objects
+        """Get list of all `ZoneThermalChimney` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneThermalChimney` are present
+
         """
         return self._data["Zone Airflow"]["zonethermalchimney"]
+
     @property
     def airflownetworksimulationcontrols(self):
-        """ Get list of all `AirflowNetworkSimulationControl` objects
+        """Get list of all `AirflowNetworkSimulationControl` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkSimulationControl` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:simulationcontrol"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:simulationcontrol"]
+
     @property
     def airflownetworkmultizonezones(self):
-        """ Get list of all `AirflowNetworkMultiZoneZone` objects
+        """Get list of all `AirflowNetworkMultiZoneZone` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneZone` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:zone"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:zone"]
+
     @property
     def airflownetworkmultizonesurfaces(self):
-        """ Get list of all `AirflowNetworkMultiZoneSurface` objects
+        """Get list of all `AirflowNetworkMultiZoneSurface` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneSurface` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:surface"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:surface"]
+
     @property
     def airflownetworkmultizonereferencecrackconditionss(self):
-        """ Get list of all `AirflowNetworkMultiZoneReferenceCrackConditions` objects
+        """Get list of all `AirflowNetworkMultiZoneReferenceCrackConditions`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneReferenceCrackConditions` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:referencecrackconditions"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:referencecrackconditions"]
+
     @property
     def airflownetworkmultizonesurfacecracks(self):
-        """ Get list of all `AirflowNetworkMultiZoneSurfaceCrack` objects
+        """Get list of all `AirflowNetworkMultiZoneSurfaceCrack` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneSurfaceCrack` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:surface:crack"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:surface:crack"]
+
     @property
     def airflownetworkmultizonesurfaceeffectiveleakageareas(self):
-        """ Get list of all `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea` objects
+        """Get list of all `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:surface:effectiveleakagearea"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:surface:effectiveleakagearea"]
+
     @property
     def airflownetworkmultizonecomponentdetailedopenings(self):
-        """ Get list of all `AirflowNetworkMultiZoneComponentDetailedOpening` objects
+        """Get list of all `AirflowNetworkMultiZoneComponentDetailedOpening`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneComponentDetailedOpening` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:component:detailedopening"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:component:detailedopening"]
+
     @property
     def airflownetworkmultizonecomponentsimpleopenings(self):
-        """ Get list of all `AirflowNetworkMultiZoneComponentSimpleOpening` objects
+        """Get list of all `AirflowNetworkMultiZoneComponentSimpleOpening`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneComponentSimpleOpening` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:component:simpleopening"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:component:simpleopening"]
+
     @property
     def airflownetworkmultizonecomponenthorizontalopenings(self):
-        """ Get list of all `AirflowNetworkMultiZoneComponentHorizontalOpening` objects
+        """Get list of all `AirflowNetworkMultiZoneComponentHorizontalOpening`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneComponentHorizontalOpening` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:component:horizontalopening"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:component:horizontalopening"]
+
     @property
     def airflownetworkmultizonecomponentzoneexhaustfans(self):
-        """ Get list of all `AirflowNetworkMultiZoneComponentZoneExhaustFan` objects
+        """Get list of all `AirflowNetworkMultiZoneComponentZoneExhaustFan`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneComponentZoneExhaustFan` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:component:zoneexhaustfan"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:component:zoneexhaustfan"]
+
     @property
     def airflownetworkmultizoneexternalnodes(self):
-        """ Get list of all `AirflowNetworkMultiZoneExternalNode` objects
+        """Get list of all `AirflowNetworkMultiZoneExternalNode` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneExternalNode` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:externalnode"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:externalnode"]
+
     @property
     def airflownetworkmultizonewindpressurecoefficientarrays(self):
-        """ Get list of all `AirflowNetworkMultiZoneWindPressureCoefficientArray` objects
+        """Get list of all
+        `AirflowNetworkMultiZoneWindPressureCoefficientArray` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneWindPressureCoefficientArray` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:windpressurecoefficientarray"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:windpressurecoefficientarray"]
+
     @property
     def airflownetworkmultizonewindpressurecoefficientvaluess(self):
-        """ Get list of all `AirflowNetworkMultiZoneWindPressureCoefficientValues` objects
+        """Get list of all
+        `AirflowNetworkMultiZoneWindPressureCoefficientValues` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkMultiZoneWindPressureCoefficientValues` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:multizone:windpressurecoefficientvalues"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:multizone:windpressurecoefficientvalues"]
+
     @property
     def airflownetworkdistributionnodes(self):
-        """ Get list of all `AirflowNetworkDistributionNode` objects
+        """Get list of all `AirflowNetworkDistributionNode` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionNode` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:node"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:node"]
+
     @property
     def airflownetworkdistributioncomponentleaks(self):
-        """ Get list of all `AirflowNetworkDistributionComponentLeak` objects
+        """Get list of all `AirflowNetworkDistributionComponentLeak` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentLeak` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:leak"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:leak"]
+
     @property
     def airflownetworkdistributioncomponentleakageratios(self):
-        """ Get list of all `AirflowNetworkDistributionComponentLeakageRatio` objects
+        """Get list of all `AirflowNetworkDistributionComponentLeakageRatio`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentLeakageRatio` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:leakageratio"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:leakageratio"]
+
     @property
     def airflownetworkdistributioncomponentducts(self):
-        """ Get list of all `AirflowNetworkDistributionComponentDuct` objects
+        """Get list of all `AirflowNetworkDistributionComponentDuct` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentDuct` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:duct"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:duct"]
+
     @property
     def airflownetworkdistributioncomponentfans(self):
-        """ Get list of all `AirflowNetworkDistributionComponentFan` objects
+        """Get list of all `AirflowNetworkDistributionComponentFan` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentFan` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:fan"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:fan"]
+
     @property
     def airflownetworkdistributioncomponentcoils(self):
-        """ Get list of all `AirflowNetworkDistributionComponentCoil` objects
+        """Get list of all `AirflowNetworkDistributionComponentCoil` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentCoil` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:coil"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:coil"]
+
     @property
     def airflownetworkdistributioncomponentheatexchangers(self):
-        """ Get list of all `AirflowNetworkDistributionComponentHeatExchanger` objects
+        """Get list of all `AirflowNetworkDistributionComponentHeatExchanger`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentHeatExchanger` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:heatexchanger"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:heatexchanger"]
+
     @property
     def airflownetworkdistributioncomponentterminalunits(self):
-        """ Get list of all `AirflowNetworkDistributionComponentTerminalUnit` objects
+        """Get list of all `AirflowNetworkDistributionComponentTerminalUnit`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentTerminalUnit` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:terminalunit"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:terminalunit"]
+
     @property
     def airflownetworkdistributioncomponentconstantpressuredrops(self):
-        """ Get list of all `AirflowNetworkDistributionComponentConstantPressureDrop` objects
+        """Get list of all
+        `AirflowNetworkDistributionComponentConstantPressureDrop` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionComponentConstantPressureDrop` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:component:constantpressuredrop"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:component:constantpressuredrop"]
+
     @property
     def airflownetworkdistributionlinkages(self):
-        """ Get list of all `AirflowNetworkDistributionLinkage` objects
+        """Get list of all `AirflowNetworkDistributionLinkage` objects.
 
         Raises:
             ValueError: if no objects of type `AirflowNetworkDistributionLinkage` are present
+
         """
-        return self._data["Natural Ventilation and Duct Leakage"]["airflownetwork:distribution:linkage"]
+        return self._data["Natural Ventilation and Duct Leakage"][
+            "airflownetwork:distribution:linkage"]
+
     @property
     def exteriorlightss(self):
-        """ Get list of all `ExteriorLights` objects
+        """Get list of all `ExteriorLights` objects.
 
         Raises:
             ValueError: if no objects of type `ExteriorLights` are present
+
         """
         return self._data["Exterior Equipment"]["exterior:lights"]
+
     @property
     def exteriorfuelequipments(self):
-        """ Get list of all `ExteriorFuelEquipment` objects
+        """Get list of all `ExteriorFuelEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `ExteriorFuelEquipment` are present
+
         """
         return self._data["Exterior Equipment"]["exterior:fuelequipment"]
+
     @property
     def exteriorwaterequipments(self):
-        """ Get list of all `ExteriorWaterEquipment` objects
+        """Get list of all `ExteriorWaterEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `ExteriorWaterEquipment` are present
+
         """
         return self._data["Exterior Equipment"]["exterior:waterequipment"]
+
     @property
     def hvactemplatethermostats(self):
-        """ Get list of all `HvactemplateThermostat` objects
+        """Get list of all `HvactemplateThermostat` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateThermostat` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:thermostat"]
+
     @property
     def hvactemplatezoneidealloadsairsystems(self):
-        """ Get list of all `HvactemplateZoneIdealLoadsAirSystem` objects
+        """Get list of all `HvactemplateZoneIdealLoadsAirSystem` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneIdealLoadsAirSystem` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:zone:idealloadsairsystem"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:zone:idealloadsairsystem"]
+
     @property
     def hvactemplatezonebaseboardheats(self):
-        """ Get list of all `HvactemplateZoneBaseboardHeat` objects
+        """Get list of all `HvactemplateZoneBaseboardHeat` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneBaseboardHeat` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:baseboardheat"]
+
     @property
     def hvactemplatezonefancoils(self):
-        """ Get list of all `HvactemplateZoneFanCoil` objects
+        """Get list of all `HvactemplateZoneFanCoil` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneFanCoil` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:fancoil"]
+
     @property
     def hvactemplatezoneptacs(self):
-        """ Get list of all `HvactemplateZonePtac` objects
+        """Get list of all `HvactemplateZonePtac` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZonePtac` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:ptac"]
+
     @property
     def hvactemplatezonepthps(self):
-        """ Get list of all `HvactemplateZonePthp` objects
+        """Get list of all `HvactemplateZonePthp` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZonePthp` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:pthp"]
+
     @property
     def hvactemplatezonewatertoairheatpumps(self):
-        """ Get list of all `HvactemplateZoneWaterToAirHeatPump` objects
+        """Get list of all `HvactemplateZoneWaterToAirHeatPump` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneWaterToAirHeatPump` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:zone:watertoairheatpump"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:zone:watertoairheatpump"]
+
     @property
     def hvactemplatezonevrfs(self):
-        """ Get list of all `HvactemplateZoneVrf` objects
+        """Get list of all `HvactemplateZoneVrf` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneVrf` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:vrf"]
+
     @property
     def hvactemplatezoneunitarys(self):
-        """ Get list of all `HvactemplateZoneUnitary` objects
+        """Get list of all `HvactemplateZoneUnitary` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneUnitary` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:unitary"]
+
     @property
     def hvactemplatezonevavs(self):
-        """ Get list of all `HvactemplateZoneVav` objects
+        """Get list of all `HvactemplateZoneVav` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneVav` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:vav"]
+
     @property
     def hvactemplatezonevavfanpowereds(self):
-        """ Get list of all `HvactemplateZoneVavFanPowered` objects
+        """Get list of all `HvactemplateZoneVavFanPowered` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneVavFanPowered` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:vav:fanpowered"]
+
     @property
     def hvactemplatezonevavheatandcools(self):
-        """ Get list of all `HvactemplateZoneVavHeatAndCool` objects
+        """Get list of all `HvactemplateZoneVavHeatAndCool` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneVavHeatAndCool` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:zone:vav:heatandcool"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:zone:vav:heatandcool"]
+
     @property
     def hvactemplatezoneconstantvolumes(self):
-        """ Get list of all `HvactemplateZoneConstantVolume` objects
+        """Get list of all `HvactemplateZoneConstantVolume` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneConstantVolume` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:constantvolume"]
+
     @property
     def hvactemplatezonedualducts(self):
-        """ Get list of all `HvactemplateZoneDualDuct` objects
+        """Get list of all `HvactemplateZoneDualDuct` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateZoneDualDuct` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:zone:dualduct"]
+
     @property
     def hvactemplatesystemvrfs(self):
-        """ Get list of all `HvactemplateSystemVrf` objects
+        """Get list of all `HvactemplateSystemVrf` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemVrf` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:system:vrf"]
+
     @property
     def hvactemplatesystemunitarys(self):
-        """ Get list of all `HvactemplateSystemUnitary` objects
+        """Get list of all `HvactemplateSystemUnitary` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemUnitary` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:system:unitary"]
+
     @property
     def hvactemplatesystemunitaryheatpumpairtoairs(self):
-        """ Get list of all `HvactemplateSystemUnitaryHeatPumpAirToAir` objects
+        """Get list of all `HvactemplateSystemUnitaryHeatPumpAirToAir` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemUnitaryHeatPumpAirToAir` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:system:unitaryheatpump:airtoair"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:system:unitaryheatpump:airtoair"]
+
     @property
     def hvactemplatesystemunitarysystems(self):
-        """ Get list of all `HvactemplateSystemUnitarySystem` objects
+        """Get list of all `HvactemplateSystemUnitarySystem` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemUnitarySystem` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:system:unitarysystem"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:system:unitarysystem"]
+
     @property
     def hvactemplatesystemvavs(self):
-        """ Get list of all `HvactemplateSystemVav` objects
+        """Get list of all `HvactemplateSystemVav` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemVav` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:system:vav"]
+
     @property
     def hvactemplatesystempackagedvavs(self):
-        """ Get list of all `HvactemplateSystemPackagedVav` objects
+        """Get list of all `HvactemplateSystemPackagedVav` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemPackagedVav` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:system:packagedvav"]
+
     @property
     def hvactemplatesystemconstantvolumes(self):
-        """ Get list of all `HvactemplateSystemConstantVolume` objects
+        """Get list of all `HvactemplateSystemConstantVolume` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemConstantVolume` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:system:constantvolume"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:system:constantvolume"]
+
     @property
     def hvactemplatesystemdualducts(self):
-        """ Get list of all `HvactemplateSystemDualDuct` objects
+        """Get list of all `HvactemplateSystemDualDuct` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemDualDuct` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:system:dualduct"]
+
     @property
     def hvactemplatesystemdedicatedoutdoorairs(self):
-        """ Get list of all `HvactemplateSystemDedicatedOutdoorAir` objects
+        """Get list of all `HvactemplateSystemDedicatedOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplateSystemDedicatedOutdoorAir` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:system:dedicatedoutdoorair"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:system:dedicatedoutdoorair"]
+
     @property
     def hvactemplateplantchilledwaterloops(self):
-        """ Get list of all `HvactemplatePlantChilledWaterLoop` objects
+        """Get list of all `HvactemplatePlantChilledWaterLoop` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantChilledWaterLoop` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:plant:chilledwaterloop"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:plant:chilledwaterloop"]
+
     @property
     def hvactemplateplantchillers(self):
-        """ Get list of all `HvactemplatePlantChiller` objects
+        """Get list of all `HvactemplatePlantChiller` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantChiller` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:plant:chiller"]
+
     @property
     def hvactemplateplantchillerobjectreferences(self):
-        """ Get list of all `HvactemplatePlantChillerObjectReference` objects
+        """Get list of all `HvactemplatePlantChillerObjectReference` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantChillerObjectReference` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:plant:chiller:objectreference"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:plant:chiller:objectreference"]
+
     @property
     def hvactemplateplanttowers(self):
-        """ Get list of all `HvactemplatePlantTower` objects
+        """Get list of all `HvactemplatePlantTower` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantTower` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:plant:tower"]
+
     @property
     def hvactemplateplanttowerobjectreferences(self):
-        """ Get list of all `HvactemplatePlantTowerObjectReference` objects
+        """Get list of all `HvactemplatePlantTowerObjectReference` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantTowerObjectReference` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:plant:tower:objectreference"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:plant:tower:objectreference"]
+
     @property
     def hvactemplateplanthotwaterloops(self):
-        """ Get list of all `HvactemplatePlantHotWaterLoop` objects
+        """Get list of all `HvactemplatePlantHotWaterLoop` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantHotWaterLoop` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:plant:hotwaterloop"]
+
     @property
     def hvactemplateplantboilers(self):
-        """ Get list of all `HvactemplatePlantBoiler` objects
+        """Get list of all `HvactemplatePlantBoiler` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantBoiler` are present
+
         """
         return self._data["HVAC Templates"]["hvactemplate:plant:boiler"]
+
     @property
     def hvactemplateplantboilerobjectreferences(self):
-        """ Get list of all `HvactemplatePlantBoilerObjectReference` objects
+        """Get list of all `HvactemplatePlantBoilerObjectReference` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantBoilerObjectReference` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:plant:boiler:objectreference"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:plant:boiler:objectreference"]
+
     @property
     def hvactemplateplantmixedwaterloops(self):
-        """ Get list of all `HvactemplatePlantMixedWaterLoop` objects
+        """Get list of all `HvactemplatePlantMixedWaterLoop` objects.
 
         Raises:
             ValueError: if no objects of type `HvactemplatePlantMixedWaterLoop` are present
+
         """
-        return self._data["HVAC Templates"]["hvactemplate:plant:mixedwaterloop"]
+        return self._data["HVAC Templates"][
+            "hvactemplate:plant:mixedwaterloop"]
+
     @property
     def designspecificationoutdoorairs(self):
-        """ Get list of all `DesignSpecificationOutdoorAir` objects
+        """Get list of all `DesignSpecificationOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `DesignSpecificationOutdoorAir` are present
+
         """
-        return self._data["HVAC Design Objects"]["designspecification:outdoorair"]
+        return self._data["HVAC Design Objects"][
+            "designspecification:outdoorair"]
+
     @property
     def designspecificationzoneairdistributions(self):
-        """ Get list of all `DesignSpecificationZoneAirDistribution` objects
+        """Get list of all `DesignSpecificationZoneAirDistribution` objects.
 
         Raises:
             ValueError: if no objects of type `DesignSpecificationZoneAirDistribution` are present
+
         """
-        return self._data["HVAC Design Objects"]["designspecification:zoneairdistribution"]
+        return self._data["HVAC Design Objects"][
+            "designspecification:zoneairdistribution"]
+
     @property
     def sizingparameterss(self):
-        """ Get list of all `SizingParameters` objects
+        """Get list of all `SizingParameters` objects.
 
         Raises:
             ValueError: if no objects of type `SizingParameters` are present
+
         """
         return self._data["HVAC Design Objects"]["sizing:parameters"]
+
     @property
     def sizingzones(self):
-        """ Get list of all `SizingZone` objects
+        """Get list of all `SizingZone` objects.
 
         Raises:
             ValueError: if no objects of type `SizingZone` are present
+
         """
         return self._data["HVAC Design Objects"]["sizing:zone"]
+
     @property
     def designspecificationzonehvacsizings(self):
-        """ Get list of all `DesignSpecificationZoneHvacSizing` objects
+        """Get list of all `DesignSpecificationZoneHvacSizing` objects.
 
         Raises:
             ValueError: if no objects of type `DesignSpecificationZoneHvacSizing` are present
+
         """
-        return self._data["HVAC Design Objects"]["designspecification:zonehvac:sizing"]
+        return self._data["HVAC Design Objects"][
+            "designspecification:zonehvac:sizing"]
+
     @property
     def sizingsystems(self):
-        """ Get list of all `SizingSystem` objects
+        """Get list of all `SizingSystem` objects.
 
         Raises:
             ValueError: if no objects of type `SizingSystem` are present
+
         """
         return self._data["HVAC Design Objects"]["sizing:system"]
+
     @property
     def sizingplants(self):
-        """ Get list of all `SizingPlant` objects
+        """Get list of all `SizingPlant` objects.
 
         Raises:
             ValueError: if no objects of type `SizingPlant` are present
+
         """
         return self._data["HVAC Design Objects"]["sizing:plant"]
+
     @property
     def outputcontrolsizingstyles(self):
-        """ Get list of all `OutputControlSizingStyle` objects
+        """Get list of all `OutputControlSizingStyle` objects.
 
         Raises:
             ValueError: if no objects of type `OutputControlSizingStyle` are present
+
         """
         return self._data["HVAC Design Objects"]["outputcontrol:sizing:style"]
+
     @property
     def zonecontrolhumidistats(self):
-        """ Get list of all `ZoneControlHumidistat` objects
+        """Get list of all `ZoneControlHumidistat` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlHumidistat` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:humidistat"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:humidistat"]
+
     @property
     def zonecontrolthermostats(self):
-        """ Get list of all `ZoneControlThermostat` objects
+        """Get list of all `ZoneControlThermostat` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlThermostat` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:thermostat"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:thermostat"]
+
     @property
     def zonecontrolthermostatoperativetemperatures(self):
-        """ Get list of all `ZoneControlThermostatOperativeTemperature` objects
+        """Get list of all `ZoneControlThermostatOperativeTemperature` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlThermostatOperativeTemperature` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:thermostat:operativetemperature"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:thermostat:operativetemperature"]
+
     @property
     def zonecontrolthermostatthermalcomforts(self):
-        """ Get list of all `ZoneControlThermostatThermalComfort` objects
+        """Get list of all `ZoneControlThermostatThermalComfort` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlThermostatThermalComfort` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:thermostat:thermalcomfort"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:thermostat:thermalcomfort"]
+
     @property
     def zonecontrolthermostattemperatureandhumiditys(self):
-        """ Get list of all `ZoneControlThermostatTemperatureAndHumidity` objects
+        """Get list of all `ZoneControlThermostatTemperatureAndHumidity`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlThermostatTemperatureAndHumidity` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:thermostat:temperatureandhumidity"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:thermostat:temperatureandhumidity"]
+
     @property
     def thermostatsetpointsingleheatings(self):
-        """ Get list of all `ThermostatSetpointSingleHeating` objects
+        """Get list of all `ThermostatSetpointSingleHeating` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointSingleHeating` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:singleheating"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:singleheating"]
+
     @property
     def thermostatsetpointsinglecoolings(self):
-        """ Get list of all `ThermostatSetpointSingleCooling` objects
+        """Get list of all `ThermostatSetpointSingleCooling` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointSingleCooling` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:singlecooling"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:singlecooling"]
+
     @property
     def thermostatsetpointsingleheatingorcoolings(self):
-        """ Get list of all `ThermostatSetpointSingleHeatingOrCooling` objects
+        """Get list of all `ThermostatSetpointSingleHeatingOrCooling` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointSingleHeatingOrCooling` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:singleheatingorcooling"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:singleheatingorcooling"]
+
     @property
     def thermostatsetpointdualsetpoints(self):
-        """ Get list of all `ThermostatSetpointDualSetpoint` objects
+        """Get list of all `ThermostatSetpointDualSetpoint` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointDualSetpoint` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:dualsetpoint"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:dualsetpoint"]
+
     @property
     def thermostatsetpointthermalcomfortfangersingleheatings(self):
-        """ Get list of all `ThermostatSetpointThermalComfortFangerSingleHeating` objects
+        """Get list of all
+        `ThermostatSetpointThermalComfortFangerSingleHeating` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointThermalComfortFangerSingleHeating` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:thermalcomfort:fanger:singleheating"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:thermalcomfort:fanger:singleheating"]
+
     @property
     def thermostatsetpointthermalcomfortfangersinglecoolings(self):
-        """ Get list of all `ThermostatSetpointThermalComfortFangerSingleCooling` objects
+        """Get list of all
+        `ThermostatSetpointThermalComfortFangerSingleCooling` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointThermalComfortFangerSingleCooling` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:thermalcomfort:fanger:singlecooling"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:thermalcomfort:fanger:singlecooling"]
+
     @property
     def thermostatsetpointthermalcomfortfangersingleheatingorcoolings(self):
-        """ Get list of all `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling` objects
+        """Get list of all
+        `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling` objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling"]
+
     @property
     def thermostatsetpointthermalcomfortfangerdualsetpoints(self):
-        """ Get list of all `ThermostatSetpointThermalComfortFangerDualSetpoint` objects
+        """Get list of all `ThermostatSetpointThermalComfortFangerDualSetpoint`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ThermostatSetpointThermalComfortFangerDualSetpoint` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["thermostatsetpoint:thermalcomfort:fanger:dualsetpoint"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint"]
+
     @property
     def zonecontrolthermostatstageddualsetpoints(self):
-        """ Get list of all `ZoneControlThermostatStagedDualSetpoint` objects
+        """Get list of all `ZoneControlThermostatStagedDualSetpoint` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlThermostatStagedDualSetpoint` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:thermostat:stageddualsetpoint"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:thermostat:stageddualsetpoint"]
+
     @property
     def zonecontrolcontaminantcontrollers(self):
-        """ Get list of all `ZoneControlContaminantController` objects
+        """Get list of all `ZoneControlContaminantController` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneControlContaminantController` are present
+
         """
-        return self._data["Zone HVAC Controls and Thermostats"]["zonecontrol:contaminantcontroller"]
+        return self._data["Zone HVAC Controls and Thermostats"][
+            "zonecontrol:contaminantcontroller"]
+
     @property
     def zonehvacidealloadsairsystems(self):
-        """ Get list of all `ZoneHvacIdealLoadsAirSystem` objects
+        """Get list of all `ZoneHvacIdealLoadsAirSystem` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacIdealLoadsAirSystem` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:idealloadsairsystem"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:idealloadsairsystem"]
+
     @property
     def zonehvacfourpipefancoils(self):
-        """ Get list of all `ZoneHvacFourPipeFanCoil` objects
+        """Get list of all `ZoneHvacFourPipeFanCoil` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacFourPipeFanCoil` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:fourpipefancoil"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:fourpipefancoil"]
+
     @property
     def zonehvacwindowairconditioners(self):
-        """ Get list of all `ZoneHvacWindowAirConditioner` objects
+        """Get list of all `ZoneHvacWindowAirConditioner` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacWindowAirConditioner` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:windowairconditioner"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:windowairconditioner"]
+
     @property
     def zonehvacpackagedterminalairconditioners(self):
-        """ Get list of all `ZoneHvacPackagedTerminalAirConditioner` objects
+        """Get list of all `ZoneHvacPackagedTerminalAirConditioner` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacPackagedTerminalAirConditioner` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:packagedterminalairconditioner"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:packagedterminalairconditioner"]
+
     @property
     def zonehvacpackagedterminalheatpumps(self):
-        """ Get list of all `ZoneHvacPackagedTerminalHeatPump` objects
+        """Get list of all `ZoneHvacPackagedTerminalHeatPump` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacPackagedTerminalHeatPump` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:packagedterminalheatpump"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:packagedterminalheatpump"]
+
     @property
     def zonehvacwatertoairheatpumps(self):
-        """ Get list of all `ZoneHvacWaterToAirHeatPump` objects
+        """Get list of all `ZoneHvacWaterToAirHeatPump` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacWaterToAirHeatPump` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:watertoairheatpump"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:watertoairheatpump"]
+
     @property
     def zonehvacdehumidifierdxs(self):
-        """ Get list of all `ZoneHvacDehumidifierDx` objects
+        """Get list of all `ZoneHvacDehumidifierDx` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacDehumidifierDx` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:dehumidifier:dx"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:dehumidifier:dx"]
+
     @property
     def zonehvacenergyrecoveryventilators(self):
-        """ Get list of all `ZoneHvacEnergyRecoveryVentilator` objects
+        """Get list of all `ZoneHvacEnergyRecoveryVentilator` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacEnergyRecoveryVentilator` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:energyrecoveryventilator"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:energyrecoveryventilator"]
+
     @property
     def zonehvacenergyrecoveryventilatorcontrollers(self):
-        """ Get list of all `ZoneHvacEnergyRecoveryVentilatorController` objects
+        """Get list of all `ZoneHvacEnergyRecoveryVentilatorController`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacEnergyRecoveryVentilatorController` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:energyrecoveryventilator:controller"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:energyrecoveryventilator:controller"]
+
     @property
     def zonehvacunitventilators(self):
-        """ Get list of all `ZoneHvacUnitVentilator` objects
+        """Get list of all `ZoneHvacUnitVentilator` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacUnitVentilator` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:unitventilator"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:unitventilator"]
+
     @property
     def zonehvacunitheaters(self):
-        """ Get list of all `ZoneHvacUnitHeater` objects
+        """Get list of all `ZoneHvacUnitHeater` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacUnitHeater` are present
+
         """
         return self._data["Zone HVAC Forced Air Units"]["zonehvac:unitheater"]
+
     @property
     def zonehvacevaporativecoolerunits(self):
-        """ Get list of all `ZoneHvacEvaporativeCoolerUnit` objects
+        """Get list of all `ZoneHvacEvaporativeCoolerUnit` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacEvaporativeCoolerUnit` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:evaporativecoolerunit"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:evaporativecoolerunit"]
+
     @property
     def zonehvacoutdoorairunits(self):
-        """ Get list of all `ZoneHvacOutdoorAirUnit` objects
+        """Get list of all `ZoneHvacOutdoorAirUnit` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacOutdoorAirUnit` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:outdoorairunit"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:outdoorairunit"]
+
     @property
     def zonehvacoutdoorairunitequipmentlists(self):
-        """ Get list of all `ZoneHvacOutdoorAirUnitEquipmentList` objects
+        """Get list of all `ZoneHvacOutdoorAirUnitEquipmentList` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacOutdoorAirUnitEquipmentList` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:outdoorairunit:equipmentlist"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:outdoorairunit:equipmentlist"]
+
     @property
     def zonehvacterminalunitvariablerefrigerantflows(self):
-        """ Get list of all `ZoneHvacTerminalUnitVariableRefrigerantFlow` objects
+        """Get list of all `ZoneHvacTerminalUnitVariableRefrigerantFlow`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacTerminalUnitVariableRefrigerantFlow` are present
+
         """
-        return self._data["Zone HVAC Forced Air Units"]["zonehvac:terminalunit:variablerefrigerantflow"]
+        return self._data["Zone HVAC Forced Air Units"][
+            "zonehvac:terminalunit:variablerefrigerantflow"]
+
     @property
     def zonehvacbaseboardradiantconvectivewaters(self):
-        """ Get list of all `ZoneHvacBaseboardRadiantConvectiveWater` objects
+        """Get list of all `ZoneHvacBaseboardRadiantConvectiveWater` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacBaseboardRadiantConvectiveWater` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:baseboard:radiantconvective:water"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:baseboard:radiantconvective:water"]
+
     @property
     def zonehvacbaseboardradiantconvectivesteams(self):
-        """ Get list of all `ZoneHvacBaseboardRadiantConvectiveSteam` objects
+        """Get list of all `ZoneHvacBaseboardRadiantConvectiveSteam` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacBaseboardRadiantConvectiveSteam` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:baseboard:radiantconvective:steam"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:baseboard:radiantconvective:steam"]
+
     @property
     def zonehvacbaseboardradiantconvectiveelectrics(self):
-        """ Get list of all `ZoneHvacBaseboardRadiantConvectiveElectric` objects
+        """Get list of all `ZoneHvacBaseboardRadiantConvectiveElectric`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacBaseboardRadiantConvectiveElectric` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:baseboard:radiantconvective:electric"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:baseboard:radiantconvective:electric"]
+
     @property
     def zonehvacbaseboardconvectivewaters(self):
-        """ Get list of all `ZoneHvacBaseboardConvectiveWater` objects
+        """Get list of all `ZoneHvacBaseboardConvectiveWater` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacBaseboardConvectiveWater` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:baseboard:convective:water"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:baseboard:convective:water"]
+
     @property
     def zonehvacbaseboardconvectiveelectrics(self):
-        """ Get list of all `ZoneHvacBaseboardConvectiveElectric` objects
+        """Get list of all `ZoneHvacBaseboardConvectiveElectric` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacBaseboardConvectiveElectric` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:baseboard:convective:electric"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:baseboard:convective:electric"]
+
     @property
     def zonehvaclowtemperatureradiantvariableflows(self):
-        """ Get list of all `ZoneHvacLowTemperatureRadiantVariableFlow` objects
+        """Get list of all `ZoneHvacLowTemperatureRadiantVariableFlow` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacLowTemperatureRadiantVariableFlow` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:lowtemperatureradiant:variableflow"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:lowtemperatureradiant:variableflow"]
+
     @property
     def zonehvaclowtemperatureradiantconstantflows(self):
-        """ Get list of all `ZoneHvacLowTemperatureRadiantConstantFlow` objects
+        """Get list of all `ZoneHvacLowTemperatureRadiantConstantFlow` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacLowTemperatureRadiantConstantFlow` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:lowtemperatureradiant:constantflow"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:lowtemperatureradiant:constantflow"]
+
     @property
     def zonehvaclowtemperatureradiantelectrics(self):
-        """ Get list of all `ZoneHvacLowTemperatureRadiantElectric` objects
+        """Get list of all `ZoneHvacLowTemperatureRadiantElectric` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacLowTemperatureRadiantElectric` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:lowtemperatureradiant:electric"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:lowtemperatureradiant:electric"]
+
     @property
     def zonehvaclowtemperatureradiantsurfacegroups(self):
-        """ Get list of all `ZoneHvacLowTemperatureRadiantSurfaceGroup` objects
+        """Get list of all `ZoneHvacLowTemperatureRadiantSurfaceGroup` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacLowTemperatureRadiantSurfaceGroup` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:lowtemperatureradiant:surfacegroup"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:lowtemperatureradiant:surfacegroup"]
+
     @property
     def zonehvachightemperatureradiants(self):
-        """ Get list of all `ZoneHvacHighTemperatureRadiant` objects
+        """Get list of all `ZoneHvacHighTemperatureRadiant` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacHighTemperatureRadiant` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:hightemperatureradiant"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:hightemperatureradiant"]
+
     @property
     def zonehvacventilatedslabs(self):
-        """ Get list of all `ZoneHvacVentilatedSlab` objects
+        """Get list of all `ZoneHvacVentilatedSlab` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacVentilatedSlab` are present
+
         """
         return self._data["Zone HVAC Radiative"]["zonehvac:ventilatedslab"]
+
     @property
     def zonehvacventilatedslabslabgroups(self):
-        """ Get list of all `ZoneHvacVentilatedSlabSlabGroup` objects
+        """Get list of all `ZoneHvacVentilatedSlabSlabGroup` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacVentilatedSlabSlabGroup` are present
+
         """
-        return self._data["Zone HVAC Radiative"]["zonehvac:ventilatedslab:slabgroup"]
+        return self._data["Zone HVAC Radiative"][
+            "zonehvac:ventilatedslab:slabgroup"]
+
     @property
     def airterminalsingleductuncontrolleds(self):
-        """ Get list of all `AirTerminalSingleDuctUncontrolled` objects
+        """Get list of all `AirTerminalSingleDuctUncontrolled` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctUncontrolled` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:uncontrolled"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:uncontrolled"]
+
     @property
     def airterminalsingleductconstantvolumereheats(self):
-        """ Get list of all `AirTerminalSingleDuctConstantVolumeReheat` objects
+        """Get list of all `AirTerminalSingleDuctConstantVolumeReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctConstantVolumeReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:constantvolume:reheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:constantvolume:reheat"]
+
     @property
     def airterminalsingleductvavnoreheats(self):
-        """ Get list of all `AirTerminalSingleDuctVavNoReheat` objects
+        """Get list of all `AirTerminalSingleDuctVavNoReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctVavNoReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:vav:noreheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:vav:noreheat"]
+
     @property
     def airterminalsingleductvavreheats(self):
-        """ Get list of all `AirTerminalSingleDuctVavReheat` objects
+        """Get list of all `AirTerminalSingleDuctVavReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctVavReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:vav:reheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:vav:reheat"]
+
     @property
     def airterminalsingleductvavreheatvariablespeedfans(self):
-        """ Get list of all `AirTerminalSingleDuctVavReheatVariableSpeedFan` objects
+        """Get list of all `AirTerminalSingleDuctVavReheatVariableSpeedFan`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctVavReheatVariableSpeedFan` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:vav:reheat:variablespeedfan"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:vav:reheat:variablespeedfan"]
+
     @property
     def airterminalsingleductvavheatandcoolnoreheats(self):
-        """ Get list of all `AirTerminalSingleDuctVavHeatAndCoolNoReheat` objects
+        """Get list of all `AirTerminalSingleDuctVavHeatAndCoolNoReheat`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctVavHeatAndCoolNoReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:vav:heatandcool:noreheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:vav:heatandcool:noreheat"]
+
     @property
     def airterminalsingleductvavheatandcoolreheats(self):
-        """ Get list of all `AirTerminalSingleDuctVavHeatAndCoolReheat` objects
+        """Get list of all `AirTerminalSingleDuctVavHeatAndCoolReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctVavHeatAndCoolReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:vav:heatandcool:reheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:vav:heatandcool:reheat"]
+
     @property
     def airterminalsingleductseriespiureheats(self):
-        """ Get list of all `AirTerminalSingleDuctSeriesPiuReheat` objects
+        """Get list of all `AirTerminalSingleDuctSeriesPiuReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctSeriesPiuReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:seriespiu:reheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:seriespiu:reheat"]
+
     @property
     def airterminalsingleductparallelpiureheats(self):
-        """ Get list of all `AirTerminalSingleDuctParallelPiuReheat` objects
+        """Get list of all `AirTerminalSingleDuctParallelPiuReheat` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctParallelPiuReheat` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:parallelpiu:reheat"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:parallelpiu:reheat"]
+
     @property
     def airterminalsingleductconstantvolumefourpipeinductions(self):
-        """ Get list of all `AirTerminalSingleDuctConstantVolumeFourPipeInduction` objects
+        """Get list of all
+        `AirTerminalSingleDuctConstantVolumeFourPipeInduction` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctConstantVolumeFourPipeInduction` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:constantvolume:fourpipeinduction"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:constantvolume:fourpipeinduction"]
+
     @property
     def airterminalsingleductconstantvolumecooledbeams(self):
-        """ Get list of all `AirTerminalSingleDuctConstantVolumeCooledBeam` objects
+        """Get list of all `AirTerminalSingleDuctConstantVolumeCooledBeam`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctConstantVolumeCooledBeam` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:constantvolume:cooledbeam"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:constantvolume:cooledbeam"]
+
     @property
     def airterminalsingleductinletsidemixers(self):
-        """ Get list of all `AirTerminalSingleDuctInletSideMixer` objects
+        """Get list of all `AirTerminalSingleDuctInletSideMixer` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctInletSideMixer` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:inletsidemixer"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:inletsidemixer"]
+
     @property
     def airterminalsingleductsupplysidemixers(self):
-        """ Get list of all `AirTerminalSingleDuctSupplySideMixer` objects
+        """Get list of all `AirTerminalSingleDuctSupplySideMixer` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctSupplySideMixer` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:singleduct:supplysidemixer"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:singleduct:supplysidemixer"]
+
     @property
     def airterminaldualductconstantvolumes(self):
-        """ Get list of all `AirTerminalDualDuctConstantVolume` objects
+        """Get list of all `AirTerminalDualDuctConstantVolume` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalDualDuctConstantVolume` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:dualduct:constantvolume"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:dualduct:constantvolume"]
+
     @property
     def airterminaldualductvavs(self):
-        """ Get list of all `AirTerminalDualDuctVav` objects
+        """Get list of all `AirTerminalDualDuctVav` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalDualDuctVav` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:dualduct:vav"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:dualduct:vav"]
+
     @property
     def airterminaldualductvavoutdoorairs(self):
-        """ Get list of all `AirTerminalDualDuctVavOutdoorAir` objects
+        """Get list of all `AirTerminalDualDuctVavOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalDualDuctVavOutdoorAir` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["airterminal:dualduct:vav:outdoorair"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "airterminal:dualduct:vav:outdoorair"]
+
     @property
     def zonehvacairdistributionunits(self):
-        """ Get list of all `ZoneHvacAirDistributionUnit` objects
+        """Get list of all `ZoneHvacAirDistributionUnit` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacAirDistributionUnit` are present
+
         """
-        return self._data["Zone HVAC Air Loop Terminal Units"]["zonehvac:airdistributionunit"]
+        return self._data["Zone HVAC Air Loop Terminal Units"][
+            "zonehvac:airdistributionunit"]
+
     @property
     def zonehvacequipmentlists(self):
-        """ Get list of all `ZoneHvacEquipmentList` objects
+        """Get list of all `ZoneHvacEquipmentList` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacEquipmentList` are present
+
         """
-        return self._data["Zone HVAC Equipment Connections"]["zonehvac:equipmentlist"]
+        return self._data["Zone HVAC Equipment Connections"][
+            "zonehvac:equipmentlist"]
+
     @property
     def zonehvacequipmentconnectionss(self):
-        """ Get list of all `ZoneHvacEquipmentConnections` objects
+        """Get list of all `ZoneHvacEquipmentConnections` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacEquipmentConnections` are present
+
         """
-        return self._data["Zone HVAC Equipment Connections"]["zonehvac:equipmentconnections"]
+        return self._data["Zone HVAC Equipment Connections"][
+            "zonehvac:equipmentconnections"]
+
     @property
     def fanconstantvolumes(self):
-        """ Get list of all `FanConstantVolume` objects
+        """Get list of all `FanConstantVolume` objects.
 
         Raises:
             ValueError: if no objects of type `FanConstantVolume` are present
+
         """
         return self._data["Fans"]["fan:constantvolume"]
+
     @property
     def fanvariablevolumes(self):
-        """ Get list of all `FanVariableVolume` objects
+        """Get list of all `FanVariableVolume` objects.
 
         Raises:
             ValueError: if no objects of type `FanVariableVolume` are present
+
         """
         return self._data["Fans"]["fan:variablevolume"]
+
     @property
     def fanonoffs(self):
-        """ Get list of all `FanOnOff` objects
+        """Get list of all `FanOnOff` objects.
 
         Raises:
             ValueError: if no objects of type `FanOnOff` are present
+
         """
         return self._data["Fans"]["fan:onoff"]
+
     @property
     def fanzoneexhausts(self):
-        """ Get list of all `FanZoneExhaust` objects
+        """Get list of all `FanZoneExhaust` objects.
 
         Raises:
             ValueError: if no objects of type `FanZoneExhaust` are present
+
         """
         return self._data["Fans"]["fan:zoneexhaust"]
+
     @property
     def fanperformancenightventilations(self):
-        """ Get list of all `FanPerformanceNightVentilation` objects
+        """Get list of all `FanPerformanceNightVentilation` objects.
 
         Raises:
             ValueError: if no objects of type `FanPerformanceNightVentilation` are present
+
         """
         return self._data["Fans"]["fanperformance:nightventilation"]
+
     @property
     def fancomponentmodels(self):
-        """ Get list of all `FanComponentModel` objects
+        """Get list of all `FanComponentModel` objects.
 
         Raises:
             ValueError: if no objects of type `FanComponentModel` are present
+
         """
         return self._data["Fans"]["fan:componentmodel"]
+
     @property
     def coilcoolingwaters(self):
-        """ Get list of all `CoilCoolingWater` objects
+        """Get list of all `CoilCoolingWater` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingWater` are present
+
         """
         return self._data["Coils"]["coil:cooling:water"]
+
     @property
     def coilcoolingwaterdetailedgeometrys(self):
-        """ Get list of all `CoilCoolingWaterDetailedGeometry` objects
+        """Get list of all `CoilCoolingWaterDetailedGeometry` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingWaterDetailedGeometry` are present
+
         """
         return self._data["Coils"]["coil:cooling:water:detailedgeometry"]
+
     @property
     def coilcoolingdxsinglespeeds(self):
-        """ Get list of all `CoilCoolingDxSingleSpeed` objects
+        """Get list of all `CoilCoolingDxSingleSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxSingleSpeed` are present
+
         """
         return self._data["Coils"]["coil:cooling:dx:singlespeed"]
+
     @property
     def coilcoolingdxtwospeeds(self):
-        """ Get list of all `CoilCoolingDxTwoSpeed` objects
+        """Get list of all `CoilCoolingDxTwoSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxTwoSpeed` are present
+
         """
         return self._data["Coils"]["coil:cooling:dx:twospeed"]
+
     @property
     def coilcoolingdxmultispeeds(self):
-        """ Get list of all `CoilCoolingDxMultiSpeed` objects
+        """Get list of all `CoilCoolingDxMultiSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxMultiSpeed` are present
+
         """
         return self._data["Coils"]["coil:cooling:dx:multispeed"]
+
     @property
     def coilcoolingdxvariablespeeds(self):
-        """ Get list of all `CoilCoolingDxVariableSpeed` objects
+        """Get list of all `CoilCoolingDxVariableSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxVariableSpeed` are present
+
         """
         return self._data["Coils"]["coil:cooling:dx:variablespeed"]
+
     @property
     def coilcoolingdxtwostagewithhumiditycontrolmodes(self):
-        """ Get list of all `CoilCoolingDxTwoStageWithHumidityControlMode` objects
+        """Get list of all `CoilCoolingDxTwoStageWithHumidityControlMode`
+        objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxTwoStageWithHumidityControlMode` are present
+
         """
-        return self._data["Coils"]["coil:cooling:dx:twostagewithhumiditycontrolmode"]
+        return self._data["Coils"][
+            "coil:cooling:dx:twostagewithhumiditycontrolmode"]
+
     @property
     def coilperformancedxcoolings(self):
-        """ Get list of all `CoilPerformanceDxCooling` objects
+        """Get list of all `CoilPerformanceDxCooling` objects.
 
         Raises:
             ValueError: if no objects of type `CoilPerformanceDxCooling` are present
+
         """
         return self._data["Coils"]["coilperformance:dx:cooling"]
+
     @property
     def coilcoolingdxvariablerefrigerantflows(self):
-        """ Get list of all `CoilCoolingDxVariableRefrigerantFlow` objects
+        """Get list of all `CoilCoolingDxVariableRefrigerantFlow` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxVariableRefrigerantFlow` are present
+
         """
         return self._data["Coils"]["coil:cooling:dx:variablerefrigerantflow"]
+
     @property
     def coilheatingdxvariablerefrigerantflows(self):
-        """ Get list of all `CoilHeatingDxVariableRefrigerantFlow` objects
+        """Get list of all `CoilHeatingDxVariableRefrigerantFlow` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingDxVariableRefrigerantFlow` are present
+
         """
         return self._data["Coils"]["coil:heating:dx:variablerefrigerantflow"]
+
     @property
     def coilheatingwaters(self):
-        """ Get list of all `CoilHeatingWater` objects
+        """Get list of all `CoilHeatingWater` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingWater` are present
+
         """
         return self._data["Coils"]["coil:heating:water"]
+
     @property
     def coilheatingsteams(self):
-        """ Get list of all `CoilHeatingSteam` objects
+        """Get list of all `CoilHeatingSteam` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingSteam` are present
+
         """
         return self._data["Coils"]["coil:heating:steam"]
+
     @property
     def coilheatingelectrics(self):
-        """ Get list of all `CoilHeatingElectric` objects
+        """Get list of all `CoilHeatingElectric` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingElectric` are present
+
         """
         return self._data["Coils"]["coil:heating:electric"]
+
     @property
     def coilheatingelectricmultistages(self):
-        """ Get list of all `CoilHeatingElectricMultiStage` objects
+        """Get list of all `CoilHeatingElectricMultiStage` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingElectricMultiStage` are present
+
         """
         return self._data["Coils"]["coil:heating:electric:multistage"]
+
     @property
     def coilheatinggass(self):
-        """ Get list of all `CoilHeatingGas` objects
+        """Get list of all `CoilHeatingGas` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingGas` are present
+
         """
         return self._data["Coils"]["coil:heating:gas"]
+
     @property
     def coilheatinggasmultistages(self):
-        """ Get list of all `CoilHeatingGasMultiStage` objects
+        """Get list of all `CoilHeatingGasMultiStage` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingGasMultiStage` are present
+
         """
         return self._data["Coils"]["coil:heating:gas:multistage"]
+
     @property
     def coilheatingdesuperheaters(self):
-        """ Get list of all `CoilHeatingDesuperheater` objects
+        """Get list of all `CoilHeatingDesuperheater` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingDesuperheater` are present
+
         """
         return self._data["Coils"]["coil:heating:desuperheater"]
+
     @property
     def coilheatingdxsinglespeeds(self):
-        """ Get list of all `CoilHeatingDxSingleSpeed` objects
+        """Get list of all `CoilHeatingDxSingleSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingDxSingleSpeed` are present
+
         """
         return self._data["Coils"]["coil:heating:dx:singlespeed"]
+
     @property
     def coilheatingdxmultispeeds(self):
-        """ Get list of all `CoilHeatingDxMultiSpeed` objects
+        """Get list of all `CoilHeatingDxMultiSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingDxMultiSpeed` are present
+
         """
         return self._data["Coils"]["coil:heating:dx:multispeed"]
+
     @property
     def coilheatingdxvariablespeeds(self):
-        """ Get list of all `CoilHeatingDxVariableSpeed` objects
+        """Get list of all `CoilHeatingDxVariableSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingDxVariableSpeed` are present
+
         """
         return self._data["Coils"]["coil:heating:dx:variablespeed"]
+
     @property
     def coilcoolingwatertoairheatpumpparameterestimations(self):
-        """ Get list of all `CoilCoolingWaterToAirHeatPumpParameterEstimation` objects
+        """Get list of all `CoilCoolingWaterToAirHeatPumpParameterEstimation`
+        objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingWaterToAirHeatPumpParameterEstimation` are present
+
         """
-        return self._data["Coils"]["coil:cooling:watertoairheatpump:parameterestimation"]
+        return self._data["Coils"][
+            "coil:cooling:watertoairheatpump:parameterestimation"]
+
     @property
     def coilheatingwatertoairheatpumpparameterestimations(self):
-        """ Get list of all `CoilHeatingWaterToAirHeatPumpParameterEstimation` objects
+        """Get list of all `CoilHeatingWaterToAirHeatPumpParameterEstimation`
+        objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingWaterToAirHeatPumpParameterEstimation` are present
+
         """
-        return self._data["Coils"]["coil:heating:watertoairheatpump:parameterestimation"]
+        return self._data["Coils"][
+            "coil:heating:watertoairheatpump:parameterestimation"]
+
     @property
     def coilcoolingwatertoairheatpumpequationfits(self):
-        """ Get list of all `CoilCoolingWaterToAirHeatPumpEquationFit` objects
+        """Get list of all `CoilCoolingWaterToAirHeatPumpEquationFit` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingWaterToAirHeatPumpEquationFit` are present
+
         """
-        return self._data["Coils"]["coil:cooling:watertoairheatpump:equationfit"]
+        return self._data["Coils"][
+            "coil:cooling:watertoairheatpump:equationfit"]
+
     @property
     def coilcoolingwatertoairheatpumpvariablespeedequationfits(self):
-        """ Get list of all `CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit` objects
+        """Get list of all
+        `CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit` are present
+
         """
-        return self._data["Coils"]["coil:cooling:watertoairheatpump:variablespeedequationfit"]
+        return self._data["Coils"][
+            "coil:cooling:watertoairheatpump:variablespeedequationfit"]
+
     @property
     def coilheatingwatertoairheatpumpequationfits(self):
-        """ Get list of all `CoilHeatingWaterToAirHeatPumpEquationFit` objects
+        """Get list of all `CoilHeatingWaterToAirHeatPumpEquationFit` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingWaterToAirHeatPumpEquationFit` are present
+
         """
-        return self._data["Coils"]["coil:heating:watertoairheatpump:equationfit"]
+        return self._data["Coils"][
+            "coil:heating:watertoairheatpump:equationfit"]
+
     @property
     def coilheatingwatertoairheatpumpvariablespeedequationfits(self):
-        """ Get list of all `CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit` objects
+        """Get list of all
+        `CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit` objects.
 
         Raises:
             ValueError: if no objects of type `CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit` are present
+
         """
-        return self._data["Coils"]["coil:heating:watertoairheatpump:variablespeedequationfit"]
+        return self._data["Coils"][
+            "coil:heating:watertoairheatpump:variablespeedequationfit"]
+
     @property
     def coilwaterheatingairtowaterheatpumps(self):
-        """ Get list of all `CoilWaterHeatingAirToWaterHeatPump` objects
+        """Get list of all `CoilWaterHeatingAirToWaterHeatPump` objects.
 
         Raises:
             ValueError: if no objects of type `CoilWaterHeatingAirToWaterHeatPump` are present
+
         """
         return self._data["Coils"]["coil:waterheating:airtowaterheatpump"]
+
     @property
     def coilwaterheatingdesuperheaters(self):
-        """ Get list of all `CoilWaterHeatingDesuperheater` objects
+        """Get list of all `CoilWaterHeatingDesuperheater` objects.
 
         Raises:
             ValueError: if no objects of type `CoilWaterHeatingDesuperheater` are present
+
         """
         return self._data["Coils"]["coil:waterheating:desuperheater"]
+
     @property
     def coilsystemcoolingdxs(self):
-        """ Get list of all `CoilSystemCoolingDx` objects
+        """Get list of all `CoilSystemCoolingDx` objects.
 
         Raises:
             ValueError: if no objects of type `CoilSystemCoolingDx` are present
+
         """
         return self._data["Coils"]["coilsystem:cooling:dx"]
+
     @property
     def coilsystemheatingdxs(self):
-        """ Get list of all `CoilSystemHeatingDx` objects
+        """Get list of all `CoilSystemHeatingDx` objects.
 
         Raises:
             ValueError: if no objects of type `CoilSystemHeatingDx` are present
+
         """
         return self._data["Coils"]["coilsystem:heating:dx"]
+
     @property
     def coilsystemcoolingwaterheatexchangerassisteds(self):
-        """ Get list of all `CoilSystemCoolingWaterHeatExchangerAssisted` objects
+        """Get list of all `CoilSystemCoolingWaterHeatExchangerAssisted`
+        objects.
 
         Raises:
             ValueError: if no objects of type `CoilSystemCoolingWaterHeatExchangerAssisted` are present
+
         """
-        return self._data["Coils"]["coilsystem:cooling:water:heatexchangerassisted"]
+        return self._data["Coils"][
+            "coilsystem:cooling:water:heatexchangerassisted"]
+
     @property
     def coilsystemcoolingdxheatexchangerassisteds(self):
-        """ Get list of all `CoilSystemCoolingDxHeatExchangerAssisted` objects
+        """Get list of all `CoilSystemCoolingDxHeatExchangerAssisted` objects.
 
         Raises:
             ValueError: if no objects of type `CoilSystemCoolingDxHeatExchangerAssisted` are present
+
         """
-        return self._data["Coils"]["coilsystem:cooling:dx:heatexchangerassisted"]
+        return self._data["Coils"][
+            "coilsystem:cooling:dx:heatexchangerassisted"]
+
     @property
     def coilcoolingdxsinglespeedthermalstorages(self):
-        """ Get list of all `CoilCoolingDxSingleSpeedThermalStorage` objects
+        """Get list of all `CoilCoolingDxSingleSpeedThermalStorage` objects.
 
         Raises:
             ValueError: if no objects of type `CoilCoolingDxSingleSpeedThermalStorage` are present
+
         """
-        return self._data["Coils"]["coil:cooling:dx:singlespeed:thermalstorage"]
+        return self._data["Coils"][
+            "coil:cooling:dx:singlespeed:thermalstorage"]
+
     @property
     def evaporativecoolerdirectceldekpads(self):
-        """ Get list of all `EvaporativeCoolerDirectCelDekPad` objects
+        """Get list of all `EvaporativeCoolerDirectCelDekPad` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeCoolerDirectCelDekPad` are present
+
         """
-        return self._data["Evaporative Coolers"]["evaporativecooler:direct:celdekpad"]
+        return self._data["Evaporative Coolers"][
+            "evaporativecooler:direct:celdekpad"]
+
     @property
     def evaporativecoolerindirectceldekpads(self):
-        """ Get list of all `EvaporativeCoolerIndirectCelDekPad` objects
+        """Get list of all `EvaporativeCoolerIndirectCelDekPad` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeCoolerIndirectCelDekPad` are present
+
         """
-        return self._data["Evaporative Coolers"]["evaporativecooler:indirect:celdekpad"]
+        return self._data["Evaporative Coolers"][
+            "evaporativecooler:indirect:celdekpad"]
+
     @property
     def evaporativecoolerindirectwetcoils(self):
-        """ Get list of all `EvaporativeCoolerIndirectWetCoil` objects
+        """Get list of all `EvaporativeCoolerIndirectWetCoil` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeCoolerIndirectWetCoil` are present
+
         """
-        return self._data["Evaporative Coolers"]["evaporativecooler:indirect:wetcoil"]
+        return self._data["Evaporative Coolers"][
+            "evaporativecooler:indirect:wetcoil"]
+
     @property
     def evaporativecoolerindirectresearchspecials(self):
-        """ Get list of all `EvaporativeCoolerIndirectResearchSpecial` objects
+        """Get list of all `EvaporativeCoolerIndirectResearchSpecial` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeCoolerIndirectResearchSpecial` are present
+
         """
-        return self._data["Evaporative Coolers"]["evaporativecooler:indirect:researchspecial"]
+        return self._data["Evaporative Coolers"][
+            "evaporativecooler:indirect:researchspecial"]
+
     @property
     def evaporativecoolerdirectresearchspecials(self):
-        """ Get list of all `EvaporativeCoolerDirectResearchSpecial` objects
+        """Get list of all `EvaporativeCoolerDirectResearchSpecial` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeCoolerDirectResearchSpecial` are present
+
         """
-        return self._data["Evaporative Coolers"]["evaporativecooler:direct:researchspecial"]
+        return self._data["Evaporative Coolers"][
+            "evaporativecooler:direct:researchspecial"]
+
     @property
     def humidifiersteamelectrics(self):
-        """ Get list of all `HumidifierSteamElectric` objects
+        """Get list of all `HumidifierSteamElectric` objects.
 
         Raises:
             ValueError: if no objects of type `HumidifierSteamElectric` are present
+
         """
-        return self._data["Humidifiers and Dehumidifiers"]["humidifier:steam:electric"]
+        return self._data["Humidifiers and Dehumidifiers"][
+            "humidifier:steam:electric"]
+
     @property
     def dehumidifierdesiccantnofanss(self):
-        """ Get list of all `DehumidifierDesiccantNoFans` objects
+        """Get list of all `DehumidifierDesiccantNoFans` objects.
 
         Raises:
             ValueError: if no objects of type `DehumidifierDesiccantNoFans` are present
+
         """
-        return self._data["Humidifiers and Dehumidifiers"]["dehumidifier:desiccant:nofans"]
+        return self._data["Humidifiers and Dehumidifiers"][
+            "dehumidifier:desiccant:nofans"]
+
     @property
     def dehumidifierdesiccantsystems(self):
-        """ Get list of all `DehumidifierDesiccantSystem` objects
+        """Get list of all `DehumidifierDesiccantSystem` objects.
 
         Raises:
             ValueError: if no objects of type `DehumidifierDesiccantSystem` are present
+
         """
-        return self._data["Humidifiers and Dehumidifiers"]["dehumidifier:desiccant:system"]
+        return self._data["Humidifiers and Dehumidifiers"][
+            "dehumidifier:desiccant:system"]
+
     @property
     def heatexchangerairtoairflatplates(self):
-        """ Get list of all `HeatExchangerAirToAirFlatPlate` objects
+        """Get list of all `HeatExchangerAirToAirFlatPlate` objects.
 
         Raises:
             ValueError: if no objects of type `HeatExchangerAirToAirFlatPlate` are present
+
         """
         return self._data["Heat Recovery"]["heatexchanger:airtoair:flatplate"]
+
     @property
     def heatexchangerairtoairsensibleandlatents(self):
-        """ Get list of all `HeatExchangerAirToAirSensibleAndLatent` objects
+        """Get list of all `HeatExchangerAirToAirSensibleAndLatent` objects.
 
         Raises:
             ValueError: if no objects of type `HeatExchangerAirToAirSensibleAndLatent` are present
+
         """
-        return self._data["Heat Recovery"]["heatexchanger:airtoair:sensibleandlatent"]
+        return self._data["Heat Recovery"][
+            "heatexchanger:airtoair:sensibleandlatent"]
+
     @property
     def heatexchangerdesiccantbalancedflows(self):
-        """ Get list of all `HeatExchangerDesiccantBalancedFlow` objects
+        """Get list of all `HeatExchangerDesiccantBalancedFlow` objects.
 
         Raises:
             ValueError: if no objects of type `HeatExchangerDesiccantBalancedFlow` are present
+
         """
-        return self._data["Heat Recovery"]["heatexchanger:desiccant:balancedflow"]
+        return self._data["Heat Recovery"][
+            "heatexchanger:desiccant:balancedflow"]
+
     @property
     def heatexchangerdesiccantbalancedflowperformancedatatype1s(self):
-        """ Get list of all `HeatExchangerDesiccantBalancedFlowPerformanceDataType1` objects
+        """Get list of all
+        `HeatExchangerDesiccantBalancedFlowPerformanceDataType1` objects.
 
         Raises:
             ValueError: if no objects of type `HeatExchangerDesiccantBalancedFlowPerformanceDataType1` are present
+
         """
-        return self._data["Heat Recovery"]["heatexchanger:desiccant:balancedflow:performancedatatype1"]
+        return self._data["Heat Recovery"][
+            "heatexchanger:desiccant:balancedflow:performancedatatype1"]
+
     @property
     def airloophvacunitarysystems(self):
-        """ Get list of all `AirLoopHvacUnitarySystem` objects
+        """Get list of all `AirLoopHvacUnitarySystem` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitarySystem` are present
+
         """
         return self._data["Unitary Equipment"]["airloophvac:unitarysystem"]
+
     @property
     def unitarysystemperformanceheatpumpmultispeeds(self):
-        """ Get list of all `UnitarySystemPerformanceHeatPumpMultispeed` objects
+        """Get list of all `UnitarySystemPerformanceHeatPumpMultispeed`
+        objects.
 
         Raises:
             ValueError: if no objects of type `UnitarySystemPerformanceHeatPumpMultispeed` are present
+
         """
-        return self._data["Unitary Equipment"]["unitarysystemperformance:heatpump:multispeed"]
+        return self._data["Unitary Equipment"][
+            "unitarysystemperformance:heatpump:multispeed"]
+
     @property
     def airloophvacunitaryfurnaceheatonlys(self):
-        """ Get list of all `AirLoopHvacUnitaryFurnaceHeatOnly` objects
+        """Get list of all `AirLoopHvacUnitaryFurnaceHeatOnly` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryFurnaceHeatOnly` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitary:furnace:heatonly"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitary:furnace:heatonly"]
+
     @property
     def airloophvacunitaryfurnaceheatcools(self):
-        """ Get list of all `AirLoopHvacUnitaryFurnaceHeatCool` objects
+        """Get list of all `AirLoopHvacUnitaryFurnaceHeatCool` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryFurnaceHeatCool` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitary:furnace:heatcool"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitary:furnace:heatcool"]
+
     @property
     def airloophvacunitaryheatonlys(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatOnly` objects
+        """Get list of all `AirLoopHvacUnitaryHeatOnly` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatOnly` are present
+
         """
         return self._data["Unitary Equipment"]["airloophvac:unitaryheatonly"]
+
     @property
     def airloophvacunitaryheatcools(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatCool` objects
+        """Get list of all `AirLoopHvacUnitaryHeatCool` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatCool` are present
+
         """
         return self._data["Unitary Equipment"]["airloophvac:unitaryheatcool"]
+
     @property
     def airloophvacunitaryheatpumpairtoairs(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatPumpAirToAir` objects
+        """Get list of all `AirLoopHvacUnitaryHeatPumpAirToAir` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatPumpAirToAir` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitaryheatpump:airtoair"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitaryheatpump:airtoair"]
+
     @property
     def airloophvacunitaryheatpumpwatertoairs(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatPumpWaterToAir` objects
+        """Get list of all `AirLoopHvacUnitaryHeatPumpWaterToAir` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatPumpWaterToAir` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitaryheatpump:watertoair"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitaryheatpump:watertoair"]
+
     @property
     def airloophvacunitaryheatcoolvavchangeoverbypasss(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatCoolVavchangeoverBypass` objects
+        """Get list of all `AirLoopHvacUnitaryHeatCoolVavchangeoverBypass`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatCoolVavchangeoverBypass` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitaryheatcool:vavchangeoverbypass"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitaryheatcool:vavchangeoverbypass"]
+
     @property
     def airloophvacunitaryheatpumpairtoairmultispeeds(self):
-        """ Get list of all `AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed` objects
+        """Get list of all `AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed`
+        objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed` are present
+
         """
-        return self._data["Unitary Equipment"]["airloophvac:unitaryheatpump:airtoair:multispeed"]
+        return self._data["Unitary Equipment"][
+            "airloophvac:unitaryheatpump:airtoair:multispeed"]
+
     @property
     def airconditionervariablerefrigerantflows(self):
-        """ Get list of all `AirConditionerVariableRefrigerantFlow` objects
+        """Get list of all `AirConditionerVariableRefrigerantFlow` objects.
 
         Raises:
             ValueError: if no objects of type `AirConditionerVariableRefrigerantFlow` are present
+
         """
-        return self._data["Variable Refrigerant Flow Equipment"]["airconditioner:variablerefrigerantflow"]
+        return self._data["Variable Refrigerant Flow Equipment"][
+            "airconditioner:variablerefrigerantflow"]
+
     @property
     def zoneterminalunitlists(self):
-        """ Get list of all `ZoneTerminalUnitList` objects
+        """Get list of all `ZoneTerminalUnitList` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneTerminalUnitList` are present
+
         """
-        return self._data["Variable Refrigerant Flow Equipment"]["zoneterminalunitlist"]
+        return self._data["Variable Refrigerant Flow Equipment"][
+            "zoneterminalunitlist"]
+
     @property
     def controllerwatercoils(self):
-        """ Get list of all `ControllerWaterCoil` objects
+        """Get list of all `ControllerWaterCoil` objects.
 
         Raises:
             ValueError: if no objects of type `ControllerWaterCoil` are present
+
         """
         return self._data["Controllers"]["controller:watercoil"]
+
     @property
     def controlleroutdoorairs(self):
-        """ Get list of all `ControllerOutdoorAir` objects
+        """Get list of all `ControllerOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `ControllerOutdoorAir` are present
+
         """
         return self._data["Controllers"]["controller:outdoorair"]
+
     @property
     def controllermechanicalventilations(self):
-        """ Get list of all `ControllerMechanicalVentilation` objects
+        """Get list of all `ControllerMechanicalVentilation` objects.
 
         Raises:
             ValueError: if no objects of type `ControllerMechanicalVentilation` are present
+
         """
         return self._data["Controllers"]["controller:mechanicalventilation"]
+
     @property
     def airloophvaccontrollerlists(self):
-        """ Get list of all `AirLoopHvacControllerList` objects
+        """Get list of all `AirLoopHvacControllerList` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacControllerList` are present
+
         """
         return self._data["Controllers"]["airloophvac:controllerlist"]
+
     @property
     def airloophvacs(self):
-        """ Get list of all `AirLoopHvac` objects
+        """Get list of all `AirLoopHvac` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvac` are present
+
         """
         return self._data["Air Distribution"]["airloophvac"]
+
     @property
     def airloophvacoutdoorairsystemequipmentlists(self):
-        """ Get list of all `AirLoopHvacOutdoorAirSystemEquipmentList` objects
+        """Get list of all `AirLoopHvacOutdoorAirSystemEquipmentList` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacOutdoorAirSystemEquipmentList` are present
+
         """
-        return self._data["Air Distribution"]["airloophvac:outdoorairsystem:equipmentlist"]
+        return self._data["Air Distribution"][
+            "airloophvac:outdoorairsystem:equipmentlist"]
+
     @property
     def airloophvacoutdoorairsystems(self):
-        """ Get list of all `AirLoopHvacOutdoorAirSystem` objects
+        """Get list of all `AirLoopHvacOutdoorAirSystem` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacOutdoorAirSystem` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:outdoorairsystem"]
+
     @property
     def outdoorairmixers(self):
-        """ Get list of all `OutdoorAirMixer` objects
+        """Get list of all `OutdoorAirMixer` objects.
 
         Raises:
             ValueError: if no objects of type `OutdoorAirMixer` are present
+
         """
         return self._data["Air Distribution"]["outdoorair:mixer"]
+
     @property
     def airloophvaczonesplitters(self):
-        """ Get list of all `AirLoopHvacZoneSplitter` objects
+        """Get list of all `AirLoopHvacZoneSplitter` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacZoneSplitter` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:zonesplitter"]
+
     @property
     def airloophvacsupplyplenums(self):
-        """ Get list of all `AirLoopHvacSupplyPlenum` objects
+        """Get list of all `AirLoopHvacSupplyPlenum` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacSupplyPlenum` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:supplyplenum"]
+
     @property
     def airloophvacsupplypaths(self):
-        """ Get list of all `AirLoopHvacSupplyPath` objects
+        """Get list of all `AirLoopHvacSupplyPath` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacSupplyPath` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:supplypath"]
+
     @property
     def airloophvaczonemixers(self):
-        """ Get list of all `AirLoopHvacZoneMixer` objects
+        """Get list of all `AirLoopHvacZoneMixer` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacZoneMixer` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:zonemixer"]
+
     @property
     def airloophvacreturnplenums(self):
-        """ Get list of all `AirLoopHvacReturnPlenum` objects
+        """Get list of all `AirLoopHvacReturnPlenum` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacReturnPlenum` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:returnplenum"]
+
     @property
     def airloophvacreturnpaths(self):
-        """ Get list of all `AirLoopHvacReturnPath` objects
+        """Get list of all `AirLoopHvacReturnPath` objects.
 
         Raises:
             ValueError: if no objects of type `AirLoopHvacReturnPath` are present
+
         """
         return self._data["Air Distribution"]["airloophvac:returnpath"]
+
     @property
     def branchs(self):
-        """ Get list of all `Branch` objects
+        """Get list of all `Branch` objects.
 
         Raises:
             ValueError: if no objects of type `Branch` are present
+
         """
         return self._data["Node"]["branch"]
+
     @property
     def branchlists(self):
-        """ Get list of all `BranchList` objects
+        """Get list of all `BranchList` objects.
 
         Raises:
             ValueError: if no objects of type `BranchList` are present
+
         """
         return self._data["Pumps"]["branchlist"]
+
     @property
     def connectorsplitters(self):
-        """ Get list of all `ConnectorSplitter` objects
+        """Get list of all `ConnectorSplitter` objects.
 
         Raises:
             ValueError: if no objects of type `ConnectorSplitter` are present
+
         """
         return self._data["Node"]["connector:splitter"]
+
     @property
     def connectormixers(self):
-        """ Get list of all `ConnectorMixer` objects
+        """Get list of all `ConnectorMixer` objects.
 
         Raises:
             ValueError: if no objects of type `ConnectorMixer` are present
+
         """
         return self._data["Node"]["connector:mixer"]
+
     @property
     def connectorlists(self):
-        """ Get list of all `ConnectorList` objects
+        """Get list of all `ConnectorList` objects.
 
         Raises:
             ValueError: if no objects of type `ConnectorList` are present
+
         """
         return self._data["Node"]["connectorlist"]
+
     @property
     def nodelists(self):
-        """ Get list of all `NodeList` objects
+        """Get list of all `NodeList` objects.
 
         Raises:
             ValueError: if no objects of type `NodeList` are present
+
         """
         return self._data["Node"]["nodelist"]
+
     @property
     def outdoorairnodes(self):
-        """ Get list of all `OutdoorAirNode` objects
+        """Get list of all `OutdoorAirNode` objects.
 
         Raises:
             ValueError: if no objects of type `OutdoorAirNode` are present
+
         """
         return self._data["Node"]["outdoorair:node"]
+
     @property
     def outdoorairnodelists(self):
-        """ Get list of all `OutdoorAirNodeList` objects
+        """Get list of all `OutdoorAirNodeList` objects.
 
         Raises:
             ValueError: if no objects of type `OutdoorAirNodeList` are present
+
         """
         return self._data["Node"]["outdoorair:nodelist"]
+
     @property
     def pipeadiabatics(self):
-        """ Get list of all `PipeAdiabatic` objects
+        """Get list of all `PipeAdiabatic` objects.
 
         Raises:
             ValueError: if no objects of type `PipeAdiabatic` are present
+
         """
         return self._data["Node"]["pipe:adiabatic"]
+
     @property
     def pipeadiabaticsteams(self):
-        """ Get list of all `PipeAdiabaticSteam` objects
+        """Get list of all `PipeAdiabaticSteam` objects.
 
         Raises:
             ValueError: if no objects of type `PipeAdiabaticSteam` are present
+
         """
         return self._data["Node"]["pipe:adiabatic:steam"]
+
     @property
     def pipeindoors(self):
-        """ Get list of all `PipeIndoor` objects
+        """Get list of all `PipeIndoor` objects.
 
         Raises:
             ValueError: if no objects of type `PipeIndoor` are present
+
         """
         return self._data["Node"]["pipe:indoor"]
+
     @property
     def pipeoutdoors(self):
-        """ Get list of all `PipeOutdoor` objects
+        """Get list of all `PipeOutdoor` objects.
 
         Raises:
             ValueError: if no objects of type `PipeOutdoor` are present
+
         """
         return self._data["Node"]["pipe:outdoor"]
+
     @property
     def pipeundergrounds(self):
-        """ Get list of all `PipeUnderground` objects
+        """Get list of all `PipeUnderground` objects.
 
         Raises:
             ValueError: if no objects of type `PipeUnderground` are present
+
         """
         return self._data["Node"]["pipe:underground"]
+
     @property
     def pipingsystemundergrounddomains(self):
-        """ Get list of all `PipingSystemUndergroundDomain` objects
+        """Get list of all `PipingSystemUndergroundDomain` objects.
 
         Raises:
             ValueError: if no objects of type `PipingSystemUndergroundDomain` are present
+
         """
         return self._data["Node"]["pipingsystem:underground:domain"]
+
     @property
     def pipingsystemundergroundpipecircuits(self):
-        """ Get list of all `PipingSystemUndergroundPipeCircuit` objects
+        """Get list of all `PipingSystemUndergroundPipeCircuit` objects.
 
         Raises:
             ValueError: if no objects of type `PipingSystemUndergroundPipeCircuit` are present
+
         """
         return self._data["Node"]["pipingsystem:underground:pipecircuit"]
+
     @property
     def pipingsystemundergroundpipesegments(self):
-        """ Get list of all `PipingSystemUndergroundPipeSegment` objects
+        """Get list of all `PipingSystemUndergroundPipeSegment` objects.
 
         Raises:
             ValueError: if no objects of type `PipingSystemUndergroundPipeSegment` are present
+
         """
         return self._data["Node"]["pipingsystem:underground:pipesegment"]
+
     @property
     def ducts(self):
-        """ Get list of all `Duct` objects
+        """Get list of all `Duct` objects.
 
         Raises:
             ValueError: if no objects of type `Duct` are present
+
         """
         return self._data["Node"]["duct"]
+
     @property
     def pumpvariablespeeds(self):
-        """ Get list of all `PumpVariableSpeed` objects
+        """Get list of all `PumpVariableSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `PumpVariableSpeed` are present
+
         """
         return self._data["Pumps"]["pump:variablespeed"]
+
     @property
     def pumpconstantspeeds(self):
-        """ Get list of all `PumpConstantSpeed` objects
+        """Get list of all `PumpConstantSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `PumpConstantSpeed` are present
+
         """
         return self._data["Pumps"]["pump:constantspeed"]
+
     @property
     def pumpvariablespeedcondensates(self):
-        """ Get list of all `PumpVariableSpeedCondensate` objects
+        """Get list of all `PumpVariableSpeedCondensate` objects.
 
         Raises:
             ValueError: if no objects of type `PumpVariableSpeedCondensate` are present
+
         """
         return self._data["Pumps"]["pump:variablespeed:condensate"]
+
     @property
     def headeredpumpsconstantspeeds(self):
-        """ Get list of all `HeaderedPumpsConstantSpeed` objects
+        """Get list of all `HeaderedPumpsConstantSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `HeaderedPumpsConstantSpeed` are present
+
         """
         return self._data["Pumps"]["headeredpumps:constantspeed"]
+
     @property
     def headeredpumpsvariablespeeds(self):
-        """ Get list of all `HeaderedPumpsVariableSpeed` objects
+        """Get list of all `HeaderedPumpsVariableSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `HeaderedPumpsVariableSpeed` are present
+
         """
         return self._data["Pumps"]["headeredpumps:variablespeed"]
+
     @property
     def temperingvalves(self):
-        """ Get list of all `TemperingValve` objects
+        """Get list of all `TemperingValve` objects.
 
         Raises:
             ValueError: if no objects of type `TemperingValve` are present
+
         """
         return self._data["Plant"]["temperingvalve"]
+
     @property
     def loadprofileplants(self):
-        """ Get list of all `LoadProfilePlant` objects
+        """Get list of all `LoadProfilePlant` objects.
 
         Raises:
             ValueError: if no objects of type `LoadProfilePlant` are present
+
         """
         return self._data["Non"]["loadprofile:plant"]
+
     @property
     def solarcollectorperformanceflatplates(self):
-        """ Get list of all `SolarCollectorPerformanceFlatPlate` objects
+        """Get list of all `SolarCollectorPerformanceFlatPlate` objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorPerformanceFlatPlate` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollectorperformance:flatplate"]
+        return self._data["Solar Collectors"][
+            "solarcollectorperformance:flatplate"]
+
     @property
     def solarcollectorflatplatewaters(self):
-        """ Get list of all `SolarCollectorFlatPlateWater` objects
+        """Get list of all `SolarCollectorFlatPlateWater` objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorFlatPlateWater` are present
+
         """
         return self._data["Solar Collectors"]["solarcollector:flatplate:water"]
+
     @property
     def solarcollectorflatplatephotovoltaicthermals(self):
-        """ Get list of all `SolarCollectorFlatPlatePhotovoltaicThermal` objects
+        """Get list of all `SolarCollectorFlatPlatePhotovoltaicThermal`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorFlatPlatePhotovoltaicThermal` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollector:flatplate:photovoltaicthermal"]
+        return self._data["Solar Collectors"][
+            "solarcollector:flatplate:photovoltaicthermal"]
+
     @property
     def solarcollectorperformancephotovoltaicthermalsimples(self):
-        """ Get list of all `SolarCollectorPerformancePhotovoltaicThermalSimple` objects
+        """Get list of all `SolarCollectorPerformancePhotovoltaicThermalSimple`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorPerformancePhotovoltaicThermalSimple` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollectorperformance:photovoltaicthermal:simple"]
+        return self._data["Solar Collectors"][
+            "solarcollectorperformance:photovoltaicthermal:simple"]
+
     @property
     def solarcollectorintegralcollectorstorages(self):
-        """ Get list of all `SolarCollectorIntegralCollectorStorage` objects
+        """Get list of all `SolarCollectorIntegralCollectorStorage` objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorIntegralCollectorStorage` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollector:integralcollectorstorage"]
+        return self._data["Solar Collectors"][
+            "solarcollector:integralcollectorstorage"]
+
     @property
     def solarcollectorperformanceintegralcollectorstorages(self):
-        """ Get list of all `SolarCollectorPerformanceIntegralCollectorStorage` objects
+        """Get list of all `SolarCollectorPerformanceIntegralCollectorStorage`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorPerformanceIntegralCollectorStorage` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollectorperformance:integralcollectorstorage"]
+        return self._data["Solar Collectors"][
+            "solarcollectorperformance:integralcollectorstorage"]
+
     @property
     def solarcollectorunglazedtranspireds(self):
-        """ Get list of all `SolarCollectorUnglazedTranspired` objects
+        """Get list of all `SolarCollectorUnglazedTranspired` objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorUnglazedTranspired` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollector:unglazedtranspired"]
+        return self._data["Solar Collectors"][
+            "solarcollector:unglazedtranspired"]
+
     @property
     def solarcollectorunglazedtranspiredmultisystems(self):
-        """ Get list of all `SolarCollectorUnglazedTranspiredMultisystem` objects
+        """Get list of all `SolarCollectorUnglazedTranspiredMultisystem`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SolarCollectorUnglazedTranspiredMultisystem` are present
+
         """
-        return self._data["Solar Collectors"]["solarcollector:unglazedtranspired:multisystem"]
+        return self._data["Solar Collectors"][
+            "solarcollector:unglazedtranspired:multisystem"]
+
     @property
     def boilerhotwaters(self):
-        """ Get list of all `BoilerHotWater` objects
+        """Get list of all `BoilerHotWater` objects.
 
         Raises:
             ValueError: if no objects of type `BoilerHotWater` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["boiler:hotwater"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "boiler:hotwater"]
+
     @property
     def boilersteams(self):
-        """ Get list of all `BoilerSteam` objects
+        """Get list of all `BoilerSteam` objects.
 
         Raises:
             ValueError: if no objects of type `BoilerSteam` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["boiler:steam"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "boiler:steam"]
+
     @property
     def chillerelectriceirs(self):
-        """ Get list of all `ChillerElectricEir` objects
+        """Get list of all `ChillerElectricEir` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerElectricEir` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:electric:eir"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:electric:eir"]
+
     @property
     def chillerelectricreformulatedeirs(self):
-        """ Get list of all `ChillerElectricReformulatedEir` objects
+        """Get list of all `ChillerElectricReformulatedEir` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerElectricReformulatedEir` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:electric:reformulatedeir"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:electric:reformulatedeir"]
+
     @property
     def chillerelectrics(self):
-        """ Get list of all `ChillerElectric` objects
+        """Get list of all `ChillerElectric` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerElectric` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:electric"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:electric"]
+
     @property
     def chillerabsorptionindirects(self):
-        """ Get list of all `ChillerAbsorptionIndirect` objects
+        """Get list of all `ChillerAbsorptionIndirect` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerAbsorptionIndirect` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:absorption:indirect"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:absorption:indirect"]
+
     @property
     def chillerabsorptions(self):
-        """ Get list of all `ChillerAbsorption` objects
+        """Get list of all `ChillerAbsorption` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerAbsorption` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:absorption"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:absorption"]
+
     @property
     def chillerconstantcops(self):
-        """ Get list of all `ChillerConstantCop` objects
+        """Get list of all `ChillerConstantCop` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerConstantCop` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:constantcop"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:constantcop"]
+
     @property
     def chillerenginedrivens(self):
-        """ Get list of all `ChillerEngineDriven` objects
+        """Get list of all `ChillerEngineDriven` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerEngineDriven` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:enginedriven"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:enginedriven"]
+
     @property
     def chillercombustionturbines(self):
-        """ Get list of all `ChillerCombustionTurbine` objects
+        """Get list of all `ChillerCombustionTurbine` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerCombustionTurbine` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chiller:combustionturbine"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chiller:combustionturbine"]
+
     @property
     def chillerheaterabsorptiondirectfireds(self):
-        """ Get list of all `ChillerHeaterAbsorptionDirectFired` objects
+        """Get list of all `ChillerHeaterAbsorptionDirectFired` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerHeaterAbsorptionDirectFired` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chillerheater:absorption:directfired"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chillerheater:absorption:directfired"]
+
     @property
     def chillerheaterabsorptiondoubleeffects(self):
-        """ Get list of all `ChillerHeaterAbsorptionDoubleEffect` objects
+        """Get list of all `ChillerHeaterAbsorptionDoubleEffect` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerHeaterAbsorptionDoubleEffect` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chillerheater:absorption:doubleeffect"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chillerheater:absorption:doubleeffect"]
+
     @property
     def heatpumpwatertowaterequationfitheatings(self):
-        """ Get list of all `HeatPumpWaterToWaterEquationFitHeating` objects
+        """Get list of all `HeatPumpWaterToWaterEquationFitHeating` objects.
 
         Raises:
             ValueError: if no objects of type `HeatPumpWaterToWaterEquationFitHeating` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["heatpump:watertowater:equationfit:heating"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "heatpump:watertowater:equationfit:heating"]
+
     @property
     def heatpumpwatertowaterequationfitcoolings(self):
-        """ Get list of all `HeatPumpWaterToWaterEquationFitCooling` objects
+        """Get list of all `HeatPumpWaterToWaterEquationFitCooling` objects.
 
         Raises:
             ValueError: if no objects of type `HeatPumpWaterToWaterEquationFitCooling` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["heatpump:watertowater:equationfit:cooling"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "heatpump:watertowater:equationfit:cooling"]
+
     @property
     def heatpumpwatertowaterparameterestimationcoolings(self):
-        """ Get list of all `HeatPumpWaterToWaterParameterEstimationCooling` objects
+        """Get list of all `HeatPumpWaterToWaterParameterEstimationCooling`
+        objects.
 
         Raises:
             ValueError: if no objects of type `HeatPumpWaterToWaterParameterEstimationCooling` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["heatpump:watertowater:parameterestimation:cooling"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "heatpump:watertowater:parameterestimation:cooling"]
+
     @property
     def heatpumpwatertowaterparameterestimationheatings(self):
-        """ Get list of all `HeatPumpWaterToWaterParameterEstimationHeating` objects
+        """Get list of all `HeatPumpWaterToWaterParameterEstimationHeating`
+        objects.
 
         Raises:
             ValueError: if no objects of type `HeatPumpWaterToWaterParameterEstimationHeating` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["heatpump:watertowater:parameterestimation:heating"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "heatpump:watertowater:parameterestimation:heating"]
+
     @property
     def districtcoolings(self):
-        """ Get list of all `DistrictCooling` objects
+        """Get list of all `DistrictCooling` objects.
 
         Raises:
             ValueError: if no objects of type `DistrictCooling` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["districtcooling"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "districtcooling"]
+
     @property
     def districtheatings(self):
-        """ Get list of all `DistrictHeating` objects
+        """Get list of all `DistrictHeating` objects.
 
         Raises:
             ValueError: if no objects of type `DistrictHeating` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["districtheating"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "districtheating"]
+
     @property
     def plantcomponenttemperaturesources(self):
-        """ Get list of all `PlantComponentTemperatureSource` objects
+        """Get list of all `PlantComponentTemperatureSource` objects.
 
         Raises:
             ValueError: if no objects of type `PlantComponentTemperatureSource` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["plantcomponent:temperaturesource"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "plantcomponent:temperaturesource"]
+
     @property
     def centralheatpumpsystems(self):
-        """ Get list of all `CentralHeatPumpSystem` objects
+        """Get list of all `CentralHeatPumpSystem` objects.
 
         Raises:
             ValueError: if no objects of type `CentralHeatPumpSystem` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["centralheatpumpsystem"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "centralheatpumpsystem"]
+
     @property
     def chillerheaterperformanceelectriceirs(self):
-        """ Get list of all `ChillerHeaterPerformanceElectricEir` objects
+        """Get list of all `ChillerHeaterPerformanceElectricEir` objects.
 
         Raises:
             ValueError: if no objects of type `ChillerHeaterPerformanceElectricEir` are present
+
         """
-        return self._data["Plant Heating and Cooling Equipment"]["chillerheaterperformance:electric:eir"]
+        return self._data["Plant Heating and Cooling Equipment"][
+            "chillerheaterperformance:electric:eir"]
+
     @property
     def coolingtowersinglespeeds(self):
-        """ Get list of all `CoolingTowerSingleSpeed` objects
+        """Get list of all `CoolingTowerSingleSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerSingleSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtower:singlespeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtower:singlespeed"]
+
     @property
     def coolingtowertwospeeds(self):
-        """ Get list of all `CoolingTowerTwoSpeed` objects
+        """Get list of all `CoolingTowerTwoSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerTwoSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtower:twospeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtower:twospeed"]
+
     @property
     def coolingtowervariablespeedmerkels(self):
-        """ Get list of all `CoolingTowerVariableSpeedMerkel` objects
+        """Get list of all `CoolingTowerVariableSpeedMerkel` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerVariableSpeedMerkel` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtower:variablespeed:merkel"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtower:variablespeed:merkel"]
+
     @property
     def coolingtowervariablespeeds(self):
-        """ Get list of all `CoolingTowerVariableSpeed` objects
+        """Get list of all `CoolingTowerVariableSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerVariableSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtower:variablespeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtower:variablespeed"]
+
     @property
     def coolingtowerperformancecooltoolss(self):
-        """ Get list of all `CoolingTowerPerformanceCoolTools` objects
+        """Get list of all `CoolingTowerPerformanceCoolTools` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerPerformanceCoolTools` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtowerperformance:cooltools"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtowerperformance:cooltools"]
+
     @property
     def coolingtowerperformanceyorkcalcs(self):
-        """ Get list of all `CoolingTowerPerformanceYorkCalc` objects
+        """Get list of all `CoolingTowerPerformanceYorkCalc` objects.
 
         Raises:
             ValueError: if no objects of type `CoolingTowerPerformanceYorkCalc` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["coolingtowerperformance:yorkcalc"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "coolingtowerperformance:yorkcalc"]
+
     @property
     def evaporativefluidcoolersinglespeeds(self):
-        """ Get list of all `EvaporativeFluidCoolerSingleSpeed` objects
+        """Get list of all `EvaporativeFluidCoolerSingleSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeFluidCoolerSingleSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["evaporativefluidcooler:singlespeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "evaporativefluidcooler:singlespeed"]
+
     @property
     def evaporativefluidcoolertwospeeds(self):
-        """ Get list of all `EvaporativeFluidCoolerTwoSpeed` objects
+        """Get list of all `EvaporativeFluidCoolerTwoSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `EvaporativeFluidCoolerTwoSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["evaporativefluidcooler:twospeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "evaporativefluidcooler:twospeed"]
+
     @property
     def fluidcoolersinglespeeds(self):
-        """ Get list of all `FluidCoolerSingleSpeed` objects
+        """Get list of all `FluidCoolerSingleSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `FluidCoolerSingleSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["fluidcooler:singlespeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "fluidcooler:singlespeed"]
+
     @property
     def fluidcoolertwospeeds(self):
-        """ Get list of all `FluidCoolerTwoSpeed` objects
+        """Get list of all `FluidCoolerTwoSpeed` objects.
 
         Raises:
             ValueError: if no objects of type `FluidCoolerTwoSpeed` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["fluidcooler:twospeed"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "fluidcooler:twospeed"]
+
     @property
     def groundheatexchangerverticals(self):
-        """ Get list of all `GroundHeatExchangerVertical` objects
+        """Get list of all `GroundHeatExchangerVertical` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatExchangerVertical` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["groundheatexchanger:vertical"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "groundheatexchanger:vertical"]
+
     @property
     def groundheatexchangerponds(self):
-        """ Get list of all `GroundHeatExchangerPond` objects
+        """Get list of all `GroundHeatExchangerPond` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatExchangerPond` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["groundheatexchanger:pond"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "groundheatexchanger:pond"]
+
     @property
     def groundheatexchangersurfaces(self):
-        """ Get list of all `GroundHeatExchangerSurface` objects
+        """Get list of all `GroundHeatExchangerSurface` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatExchangerSurface` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["groundheatexchanger:surface"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "groundheatexchanger:surface"]
+
     @property
     def groundheatexchangerhorizontaltrenchs(self):
-        """ Get list of all `GroundHeatExchangerHorizontalTrench` objects
+        """Get list of all `GroundHeatExchangerHorizontalTrench` objects.
 
         Raises:
             ValueError: if no objects of type `GroundHeatExchangerHorizontalTrench` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["groundheatexchanger:horizontaltrench"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "groundheatexchanger:horizontaltrench"]
+
     @property
     def heatexchangerfluidtofluids(self):
-        """ Get list of all `HeatExchangerFluidToFluid` objects
+        """Get list of all `HeatExchangerFluidToFluid` objects.
 
         Raises:
             ValueError: if no objects of type `HeatExchangerFluidToFluid` are present
+
         """
-        return self._data["Condenser Equipment and Heat Exchangers"]["heatexchanger:fluidtofluid"]
+        return self._data["Condenser Equipment and Heat Exchangers"][
+            "heatexchanger:fluidtofluid"]
+
     @property
     def waterheatermixeds(self):
-        """ Get list of all `WaterHeaterMixed` objects
+        """Get list of all `WaterHeaterMixed` objects.
 
         Raises:
             ValueError: if no objects of type `WaterHeaterMixed` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["waterheater:mixed"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "waterheater:mixed"]
+
     @property
     def waterheaterstratifieds(self):
-        """ Get list of all `WaterHeaterStratified` objects
+        """Get list of all `WaterHeaterStratified` objects.
 
         Raises:
             ValueError: if no objects of type `WaterHeaterStratified` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["waterheater:stratified"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "waterheater:stratified"]
+
     @property
     def waterheatersizings(self):
-        """ Get list of all `WaterHeaterSizing` objects
+        """Get list of all `WaterHeaterSizing` objects.
 
         Raises:
             ValueError: if no objects of type `WaterHeaterSizing` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["waterheater:sizing"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "waterheater:sizing"]
+
     @property
     def waterheaterheatpumps(self):
-        """ Get list of all `WaterHeaterHeatPump` objects
+        """Get list of all `WaterHeaterHeatPump` objects.
 
         Raises:
             ValueError: if no objects of type `WaterHeaterHeatPump` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["waterheater:heatpump"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "waterheater:heatpump"]
+
     @property
     def thermalstorageicesimples(self):
-        """ Get list of all `ThermalStorageIceSimple` objects
+        """Get list of all `ThermalStorageIceSimple` objects.
 
         Raises:
             ValueError: if no objects of type `ThermalStorageIceSimple` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["thermalstorage:ice:simple"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "thermalstorage:ice:simple"]
+
     @property
     def thermalstorageicedetaileds(self):
-        """ Get list of all `ThermalStorageIceDetailed` objects
+        """Get list of all `ThermalStorageIceDetailed` objects.
 
         Raises:
             ValueError: if no objects of type `ThermalStorageIceDetailed` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["thermalstorage:ice:detailed"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "thermalstorage:ice:detailed"]
+
     @property
     def thermalstoragechilledwatermixeds(self):
-        """ Get list of all `ThermalStorageChilledWaterMixed` objects
+        """Get list of all `ThermalStorageChilledWaterMixed` objects.
 
         Raises:
             ValueError: if no objects of type `ThermalStorageChilledWaterMixed` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["thermalstorage:chilledwater:mixed"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "thermalstorage:chilledwater:mixed"]
+
     @property
     def thermalstoragechilledwaterstratifieds(self):
-        """ Get list of all `ThermalStorageChilledWaterStratified` objects
+        """Get list of all `ThermalStorageChilledWaterStratified` objects.
 
         Raises:
             ValueError: if no objects of type `ThermalStorageChilledWaterStratified` are present
+
         """
-        return self._data["Water Heaters and Thermal Storage"]["thermalstorage:chilledwater:stratified"]
+        return self._data["Water Heaters and Thermal Storage"][
+            "thermalstorage:chilledwater:stratified"]
+
     @property
     def plantloops(self):
-        """ Get list of all `PlantLoop` objects
+        """Get list of all `PlantLoop` objects.
 
         Raises:
             ValueError: if no objects of type `PlantLoop` are present
+
         """
         return self._data["Plant"]["plantloop"]
+
     @property
     def condenserloops(self):
-        """ Get list of all `CondenserLoop` objects
+        """Get list of all `CondenserLoop` objects.
 
         Raises:
             ValueError: if no objects of type `CondenserLoop` are present
+
         """
         return self._data["Plant"]["condenserloop"]
+
     @property
     def plantequipmentlists(self):
-        """ Get list of all `PlantEquipmentList` objects
+        """Get list of all `PlantEquipmentList` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentList` are present
+
         """
         return self._data["Plant"]["plantequipmentlist"]
+
     @property
     def condenserequipmentlists(self):
-        """ Get list of all `CondenserEquipmentList` objects
+        """Get list of all `CondenserEquipmentList` objects.
 
         Raises:
             ValueError: if no objects of type `CondenserEquipmentList` are present
+
         """
         return self._data["Plant"]["condenserequipmentlist"]
+
     @property
     def plantequipmentoperationuncontrolleds(self):
-        """ Get list of all `PlantEquipmentOperationUncontrolled` objects
+        """Get list of all `PlantEquipmentOperationUncontrolled` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationUncontrolled` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:uncontrolled"]
+
     @property
     def plantequipmentoperationcoolingloads(self):
-        """ Get list of all `PlantEquipmentOperationCoolingLoad` objects
+        """Get list of all `PlantEquipmentOperationCoolingLoad` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationCoolingLoad` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:coolingload"]
+
     @property
     def plantequipmentoperationheatingloads(self):
-        """ Get list of all `PlantEquipmentOperationHeatingLoad` objects
+        """Get list of all `PlantEquipmentOperationHeatingLoad` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationHeatingLoad` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:heatingload"]
+
     @property
     def plantequipmentoperationoutdoordrybulbs(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorDryBulb` objects
+        """Get list of all `PlantEquipmentOperationOutdoorDryBulb` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorDryBulb` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:outdoordrybulb"]
+
     @property
     def plantequipmentoperationoutdoorwetbulbs(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorWetBulb` objects
+        """Get list of all `PlantEquipmentOperationOutdoorWetBulb` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorWetBulb` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:outdoorwetbulb"]
+
     @property
     def plantequipmentoperationoutdoorrelativehumiditys(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorRelativeHumidity` objects
+        """Get list of all `PlantEquipmentOperationOutdoorRelativeHumidity`
+        objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorRelativeHumidity` are present
+
         """
-        return self._data["Plant"]["plantequipmentoperation:outdoorrelativehumidity"]
+        return self._data["Plant"][
+            "plantequipmentoperation:outdoorrelativehumidity"]
+
     @property
     def plantequipmentoperationoutdoordewpoints(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorDewpoint` objects
+        """Get list of all `PlantEquipmentOperationOutdoorDewpoint` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorDewpoint` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:outdoordewpoint"]
+
     @property
     def plantequipmentoperationcomponentsetpoints(self):
-        """ Get list of all `PlantEquipmentOperationComponentSetpoint` objects
+        """Get list of all `PlantEquipmentOperationComponentSetpoint` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationComponentSetpoint` are present
+
         """
         return self._data["Plant"]["plantequipmentoperation:componentsetpoint"]
+
     @property
     def plantequipmentoperationoutdoordrybulbdifferences(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorDryBulbDifference` objects
+        """Get list of all `PlantEquipmentOperationOutdoorDryBulbDifference`
+        objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorDryBulbDifference` are present
+
         """
-        return self._data["Plant"]["plantequipmentoperation:outdoordrybulbdifference"]
+        return self._data["Plant"][
+            "plantequipmentoperation:outdoordrybulbdifference"]
+
     @property
     def plantequipmentoperationoutdoorwetbulbdifferences(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorWetBulbDifference` objects
+        """Get list of all `PlantEquipmentOperationOutdoorWetBulbDifference`
+        objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorWetBulbDifference` are present
+
         """
-        return self._data["Plant"]["plantequipmentoperation:outdoorwetbulbdifference"]
+        return self._data["Plant"][
+            "plantequipmentoperation:outdoorwetbulbdifference"]
+
     @property
     def plantequipmentoperationoutdoordewpointdifferences(self):
-        """ Get list of all `PlantEquipmentOperationOutdoorDewpointDifference` objects
+        """Get list of all `PlantEquipmentOperationOutdoorDewpointDifference`
+        objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationOutdoorDewpointDifference` are present
+
         """
-        return self._data["Plant"]["plantequipmentoperation:outdoordewpointdifference"]
+        return self._data["Plant"][
+            "plantequipmentoperation:outdoordewpointdifference"]
+
     @property
     def plantequipmentoperationschemess(self):
-        """ Get list of all `PlantEquipmentOperationSchemes` objects
+        """Get list of all `PlantEquipmentOperationSchemes` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationSchemes` are present
+
         """
         return self._data["Plant"]["plantequipmentoperationschemes"]
+
     @property
     def condenserequipmentoperationschemess(self):
-        """ Get list of all `CondenserEquipmentOperationSchemes` objects
+        """Get list of all `CondenserEquipmentOperationSchemes` objects.
 
         Raises:
             ValueError: if no objects of type `CondenserEquipmentOperationSchemes` are present
+
         """
         return self._data["Plant"]["condenserequipmentoperationschemes"]
+
     @property
     def energymanagementsystemsensors(self):
-        """ Get list of all `EnergyManagementSystemSensor` objects
+        """Get list of all `EnergyManagementSystemSensor` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemSensor` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:sensor"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:sensor"]
+
     @property
     def energymanagementsystemactuators(self):
-        """ Get list of all `EnergyManagementSystemActuator` objects
+        """Get list of all `EnergyManagementSystemActuator` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemActuator` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:actuator"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:actuator"]
+
     @property
     def energymanagementsystemprogramcallingmanagers(self):
-        """ Get list of all `EnergyManagementSystemProgramCallingManager` objects
+        """Get list of all `EnergyManagementSystemProgramCallingManager`
+        objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemProgramCallingManager` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:programcallingmanager"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:programcallingmanager"]
+
     @property
     def energymanagementsystemprograms(self):
-        """ Get list of all `EnergyManagementSystemProgram` objects
+        """Get list of all `EnergyManagementSystemProgram` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemProgram` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:program"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:program"]
+
     @property
     def energymanagementsystemsubroutines(self):
-        """ Get list of all `EnergyManagementSystemSubroutine` objects
+        """Get list of all `EnergyManagementSystemSubroutine` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemSubroutine` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:subroutine"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:subroutine"]
+
     @property
     def energymanagementsystemglobalvariables(self):
-        """ Get list of all `EnergyManagementSystemGlobalVariable` objects
+        """Get list of all `EnergyManagementSystemGlobalVariable` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemGlobalVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:globalvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:globalvariable"]
+
     @property
     def energymanagementsystemoutputvariables(self):
-        """ Get list of all `EnergyManagementSystemOutputVariable` objects
+        """Get list of all `EnergyManagementSystemOutputVariable` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemOutputVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:outputvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:outputvariable"]
+
     @property
     def energymanagementsystemmeteredoutputvariables(self):
-        """ Get list of all `EnergyManagementSystemMeteredOutputVariable` objects
+        """Get list of all `EnergyManagementSystemMeteredOutputVariable`
+        objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemMeteredOutputVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:meteredoutputvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:meteredoutputvariable"]
+
     @property
     def energymanagementsystemtrendvariables(self):
-        """ Get list of all `EnergyManagementSystemTrendVariable` objects
+        """Get list of all `EnergyManagementSystemTrendVariable` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemTrendVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:trendvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:trendvariable"]
+
     @property
     def energymanagementsysteminternalvariables(self):
-        """ Get list of all `EnergyManagementSystemInternalVariable` objects
+        """Get list of all `EnergyManagementSystemInternalVariable` objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemInternalVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:internalvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:internalvariable"]
+
     @property
     def energymanagementsystemcurveortableindexvariables(self):
-        """ Get list of all `EnergyManagementSystemCurveOrTableIndexVariable` objects
+        """Get list of all `EnergyManagementSystemCurveOrTableIndexVariable`
+        objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemCurveOrTableIndexVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:curveortableindexvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:curveortableindexvariable"]
+
     @property
     def energymanagementsystemconstructionindexvariables(self):
-        """ Get list of all `EnergyManagementSystemConstructionIndexVariable` objects
+        """Get list of all `EnergyManagementSystemConstructionIndexVariable`
+        objects.
 
         Raises:
             ValueError: if no objects of type `EnergyManagementSystemConstructionIndexVariable` are present
+
         """
-        return self._data["Energy Management System"]["energymanagementsystem:constructionindexvariable"]
+        return self._data["Energy Management System"][
+            "energymanagementsystem:constructionindexvariable"]
+
     @property
     def externalinterfaces(self):
-        """ Get list of all `ExternalInterface` objects
+        """Get list of all `ExternalInterface` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterface` are present
+
         """
         return self._data["External Interface"]["externalinterface"]
+
     @property
     def externalinterfaceschedules(self):
-        """ Get list of all `ExternalInterfaceSchedule` objects
+        """Get list of all `ExternalInterfaceSchedule` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceSchedule` are present
+
         """
         return self._data["External Interface"]["externalinterface:schedule"]
+
     @property
     def externalinterfacevariables(self):
-        """ Get list of all `ExternalInterfaceVariable` objects
+        """Get list of all `ExternalInterfaceVariable` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceVariable` are present
+
         """
         return self._data["External Interface"]["externalinterface:variable"]
+
     @property
     def externalinterfaceactuators(self):
-        """ Get list of all `ExternalInterfaceActuator` objects
+        """Get list of all `ExternalInterfaceActuator` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceActuator` are present
+
         """
         return self._data["External Interface"]["externalinterface:actuator"]
+
     @property
     def externalinterfacefunctionalmockupunitimports(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitImport` objects
+        """Get list of all `ExternalInterfaceFunctionalMockupUnitImport`
+        objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitImport` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitimport"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitimport"]
+
     @property
     def externalinterfacefunctionalmockupunitimportfromvariables(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitImportFromVariable` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitImportFromVariable` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitImportFromVariable` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitimport:from:variable"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitimport:from:variable"]
+
     @property
     def externalinterfacefunctionalmockupunitimporttoschedules(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitImportToSchedule` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitImportToSchedule` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitImportToSchedule` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitimport:to:schedule"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitimport:to:schedule"]
+
     @property
     def externalinterfacefunctionalmockupunitimporttoactuators(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitImportToActuator` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitImportToActuator` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitImportToActuator` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitimport:to:actuator"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitimport:to:actuator"]
+
     @property
     def externalinterfacefunctionalmockupunitimporttovariables(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitImportToVariable` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitImportToVariable` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitImportToVariable` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitimport:to:variable"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitimport:to:variable"]
+
     @property
     def externalinterfacefunctionalmockupunitexportfromvariables(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitExportFromVariable` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitExportFromVariable` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitExportFromVariable` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitexport:from:variable"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitexport:from:variable"]
+
     @property
     def externalinterfacefunctionalmockupunitexporttoschedules(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitExportToSchedule` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitExportToSchedule` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitExportToSchedule` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitexport:to:schedule"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitexport:to:schedule"]
+
     @property
     def externalinterfacefunctionalmockupunitexporttoactuators(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitExportToActuator` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitExportToActuator` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitExportToActuator` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitexport:to:actuator"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitexport:to:actuator"]
+
     @property
     def externalinterfacefunctionalmockupunitexporttovariables(self):
-        """ Get list of all `ExternalInterfaceFunctionalMockupUnitExportToVariable` objects
+        """Get list of all
+        `ExternalInterfaceFunctionalMockupUnitExportToVariable` objects.
 
         Raises:
             ValueError: if no objects of type `ExternalInterfaceFunctionalMockupUnitExportToVariable` are present
+
         """
-        return self._data["External Interface"]["externalinterface:functionalmockupunitexport:to:variable"]
+        return self._data["External Interface"][
+            "externalinterface:functionalmockupunitexport:to:variable"]
+
     @property
     def zonehvacforcedairuserdefineds(self):
-        """ Get list of all `ZoneHvacForcedAirUserDefined` objects
+        """Get list of all `ZoneHvacForcedAirUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacForcedAirUserDefined` are present
+
         """
-        return self._data["User Defined HVAC and Plant Component Models"]["zonehvac:forcedair:userdefined"]
+        return self._data["User Defined HVAC and Plant Component Models"][
+            "zonehvac:forcedair:userdefined"]
+
     @property
     def airterminalsingleductuserdefineds(self):
-        """ Get list of all `AirTerminalSingleDuctUserDefined` objects
+        """Get list of all `AirTerminalSingleDuctUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `AirTerminalSingleDuctUserDefined` are present
+
         """
-        return self._data["User Defined HVAC and Plant Component Models"]["airterminal:singleduct:userdefined"]
+        return self._data["User Defined HVAC and Plant Component Models"][
+            "airterminal:singleduct:userdefined"]
+
     @property
     def coiluserdefineds(self):
-        """ Get list of all `CoilUserDefined` objects
+        """Get list of all `CoilUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `CoilUserDefined` are present
+
         """
-        return self._data["User Defined HVAC and Plant Component Models"]["coil:userdefined"]
+        return self._data["User Defined HVAC and Plant Component Models"][
+            "coil:userdefined"]
+
     @property
     def plantcomponentuserdefineds(self):
-        """ Get list of all `PlantComponentUserDefined` objects
+        """Get list of all `PlantComponentUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `PlantComponentUserDefined` are present
+
         """
-        return self._data["User Defined HVAC and Plant Component Models"]["plantcomponent:userdefined"]
+        return self._data["User Defined HVAC and Plant Component Models"][
+            "plantcomponent:userdefined"]
+
     @property
     def plantequipmentoperationuserdefineds(self):
-        """ Get list of all `PlantEquipmentOperationUserDefined` objects
+        """Get list of all `PlantEquipmentOperationUserDefined` objects.
 
         Raises:
             ValueError: if no objects of type `PlantEquipmentOperationUserDefined` are present
+
         """
-        return self._data["User Defined HVAC and Plant Component Models"]["plantequipmentoperation:userdefined"]
+        return self._data["User Defined HVAC and Plant Component Models"][
+            "plantequipmentoperation:userdefined"]
+
     @property
     def availabilitymanagerscheduleds(self):
-        """ Get list of all `AvailabilityManagerScheduled` objects
+        """Get list of all `AvailabilityManagerScheduled` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerScheduled` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:scheduled"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:scheduled"]
+
     @property
     def availabilitymanagerscheduledons(self):
-        """ Get list of all `AvailabilityManagerScheduledOn` objects
+        """Get list of all `AvailabilityManagerScheduledOn` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerScheduledOn` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:scheduledon"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:scheduledon"]
+
     @property
     def availabilitymanagerscheduledoffs(self):
-        """ Get list of all `AvailabilityManagerScheduledOff` objects
+        """Get list of all `AvailabilityManagerScheduledOff` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerScheduledOff` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:scheduledoff"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:scheduledoff"]
+
     @property
     def availabilitymanageroptimumstarts(self):
-        """ Get list of all `AvailabilityManagerOptimumStart` objects
+        """Get list of all `AvailabilityManagerOptimumStart` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerOptimumStart` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:optimumstart"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:optimumstart"]
+
     @property
     def availabilitymanagernightcycles(self):
-        """ Get list of all `AvailabilityManagerNightCycle` objects
+        """Get list of all `AvailabilityManagerNightCycle` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerNightCycle` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:nightcycle"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:nightcycle"]
+
     @property
     def availabilitymanagerdifferentialthermostats(self):
-        """ Get list of all `AvailabilityManagerDifferentialThermostat` objects
+        """Get list of all `AvailabilityManagerDifferentialThermostat` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerDifferentialThermostat` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:differentialthermostat"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:differentialthermostat"]
+
     @property
     def availabilitymanagerhightemperatureturnoffs(self):
-        """ Get list of all `AvailabilityManagerHighTemperatureTurnOff` objects
+        """Get list of all `AvailabilityManagerHighTemperatureTurnOff` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerHighTemperatureTurnOff` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:hightemperatureturnoff"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:hightemperatureturnoff"]
+
     @property
     def availabilitymanagerhightemperatureturnons(self):
-        """ Get list of all `AvailabilityManagerHighTemperatureTurnOn` objects
+        """Get list of all `AvailabilityManagerHighTemperatureTurnOn` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerHighTemperatureTurnOn` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:hightemperatureturnon"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:hightemperatureturnon"]
+
     @property
     def availabilitymanagerlowtemperatureturnoffs(self):
-        """ Get list of all `AvailabilityManagerLowTemperatureTurnOff` objects
+        """Get list of all `AvailabilityManagerLowTemperatureTurnOff` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerLowTemperatureTurnOff` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:lowtemperatureturnoff"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:lowtemperatureturnoff"]
+
     @property
     def availabilitymanagerlowtemperatureturnons(self):
-        """ Get list of all `AvailabilityManagerLowTemperatureTurnOn` objects
+        """Get list of all `AvailabilityManagerLowTemperatureTurnOn` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerLowTemperatureTurnOn` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:lowtemperatureturnon"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:lowtemperatureturnon"]
+
     @property
     def availabilitymanagernightventilations(self):
-        """ Get list of all `AvailabilityManagerNightVentilation` objects
+        """Get list of all `AvailabilityManagerNightVentilation` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerNightVentilation` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:nightventilation"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:nightventilation"]
+
     @property
     def availabilitymanagerhybridventilations(self):
-        """ Get list of all `AvailabilityManagerHybridVentilation` objects
+        """Get list of all `AvailabilityManagerHybridVentilation` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerHybridVentilation` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanager:hybridventilation"]
+        return self._data["System Availability Managers"][
+            "availabilitymanager:hybridventilation"]
+
     @property
     def availabilitymanagerassignmentlists(self):
-        """ Get list of all `AvailabilityManagerAssignmentList` objects
+        """Get list of all `AvailabilityManagerAssignmentList` objects.
 
         Raises:
             ValueError: if no objects of type `AvailabilityManagerAssignmentList` are present
+
         """
-        return self._data["System Availability Managers"]["availabilitymanagerassignmentlist"]
+        return self._data["System Availability Managers"][
+            "availabilitymanagerassignmentlist"]
+
     @property
     def setpointmanagerscheduleds(self):
-        """ Get list of all `SetpointManagerScheduled` objects
+        """Get list of all `SetpointManagerScheduled` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerScheduled` are present
+
         """
         return self._data["Setpoint Managers"]["setpointmanager:scheduled"]
+
     @property
     def setpointmanagerscheduleddualsetpoints(self):
-        """ Get list of all `SetpointManagerScheduledDualSetpoint` objects
+        """Get list of all `SetpointManagerScheduledDualSetpoint` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerScheduledDualSetpoint` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:scheduled:dualsetpoint"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:scheduled:dualsetpoint"]
+
     @property
     def setpointmanageroutdoorairresets(self):
-        """ Get list of all `SetpointManagerOutdoorAirReset` objects
+        """Get list of all `SetpointManagerOutdoorAirReset` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerOutdoorAirReset` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:outdoorairreset"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:outdoorairreset"]
+
     @property
     def setpointmanagersinglezonereheats(self):
-        """ Get list of all `SetpointManagerSingleZoneReheat` objects
+        """Get list of all `SetpointManagerSingleZoneReheat` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneReheat` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:reheat"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:reheat"]
+
     @property
     def setpointmanagersinglezoneheatings(self):
-        """ Get list of all `SetpointManagerSingleZoneHeating` objects
+        """Get list of all `SetpointManagerSingleZoneHeating` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneHeating` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:heating"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:heating"]
+
     @property
     def setpointmanagersinglezonecoolings(self):
-        """ Get list of all `SetpointManagerSingleZoneCooling` objects
+        """Get list of all `SetpointManagerSingleZoneCooling` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneCooling` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:cooling"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:cooling"]
+
     @property
     def setpointmanagersinglezonehumidityminimums(self):
-        """ Get list of all `SetpointManagerSingleZoneHumidityMinimum` objects
+        """Get list of all `SetpointManagerSingleZoneHumidityMinimum` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneHumidityMinimum` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:humidity:minimum"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:humidity:minimum"]
+
     @property
     def setpointmanagersinglezonehumiditymaximums(self):
-        """ Get list of all `SetpointManagerSingleZoneHumidityMaximum` objects
+        """Get list of all `SetpointManagerSingleZoneHumidityMaximum` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneHumidityMaximum` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:humidity:maximum"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:humidity:maximum"]
+
     @property
     def setpointmanagermixedairs(self):
-        """ Get list of all `SetpointManagerMixedAir` objects
+        """Get list of all `SetpointManagerMixedAir` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMixedAir` are present
+
         """
         return self._data["Setpoint Managers"]["setpointmanager:mixedair"]
+
     @property
     def setpointmanageroutdoorairpretreats(self):
-        """ Get list of all `SetpointManagerOutdoorAirPretreat` objects
+        """Get list of all `SetpointManagerOutdoorAirPretreat` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerOutdoorAirPretreat` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:outdoorairpretreat"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:outdoorairpretreat"]
+
     @property
     def setpointmanagerwarmests(self):
-        """ Get list of all `SetpointManagerWarmest` objects
+        """Get list of all `SetpointManagerWarmest` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerWarmest` are present
+
         """
         return self._data["Setpoint Managers"]["setpointmanager:warmest"]
+
     @property
     def setpointmanagercoldests(self):
-        """ Get list of all `SetpointManagerColdest` objects
+        """Get list of all `SetpointManagerColdest` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerColdest` are present
+
         """
         return self._data["Setpoint Managers"]["setpointmanager:coldest"]
+
     @property
     def setpointmanagerreturnairbypassflows(self):
-        """ Get list of all `SetpointManagerReturnAirBypassFlow` objects
+        """Get list of all `SetpointManagerReturnAirBypassFlow` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerReturnAirBypassFlow` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:returnairbypassflow"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:returnairbypassflow"]
+
     @property
     def setpointmanagerwarmesttemperatureflows(self):
-        """ Get list of all `SetpointManagerWarmestTemperatureFlow` objects
+        """Get list of all `SetpointManagerWarmestTemperatureFlow` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerWarmestTemperatureFlow` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:warmesttemperatureflow"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:warmesttemperatureflow"]
+
     @property
     def setpointmanagermultizoneheatingaverages(self):
-        """ Get list of all `SetpointManagerMultiZoneHeatingAverage` objects
+        """Get list of all `SetpointManagerMultiZoneHeatingAverage` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneHeatingAverage` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:heating:average"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:heating:average"]
+
     @property
     def setpointmanagermultizonecoolingaverages(self):
-        """ Get list of all `SetpointManagerMultiZoneCoolingAverage` objects
+        """Get list of all `SetpointManagerMultiZoneCoolingAverage` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneCoolingAverage` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:cooling:average"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:cooling:average"]
+
     @property
     def setpointmanagermultizoneminimumhumidityaverages(self):
-        """ Get list of all `SetpointManagerMultiZoneMinimumHumidityAverage` objects
+        """Get list of all `SetpointManagerMultiZoneMinimumHumidityAverage`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneMinimumHumidityAverage` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:minimumhumidity:average"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:minimumhumidity:average"]
+
     @property
     def setpointmanagermultizonemaximumhumidityaverages(self):
-        """ Get list of all `SetpointManagerMultiZoneMaximumHumidityAverage` objects
+        """Get list of all `SetpointManagerMultiZoneMaximumHumidityAverage`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneMaximumHumidityAverage` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:maximumhumidity:average"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:maximumhumidity:average"]
+
     @property
     def setpointmanagermultizonehumidityminimums(self):
-        """ Get list of all `SetpointManagerMultiZoneHumidityMinimum` objects
+        """Get list of all `SetpointManagerMultiZoneHumidityMinimum` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneHumidityMinimum` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:humidity:minimum"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:humidity:minimum"]
+
     @property
     def setpointmanagermultizonehumiditymaximums(self):
-        """ Get list of all `SetpointManagerMultiZoneHumidityMaximum` objects
+        """Get list of all `SetpointManagerMultiZoneHumidityMaximum` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerMultiZoneHumidityMaximum` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:multizone:humidity:maximum"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:multizone:humidity:maximum"]
+
     @property
     def setpointmanagerfollowoutdoorairtemperatures(self):
-        """ Get list of all `SetpointManagerFollowOutdoorAirTemperature` objects
+        """Get list of all `SetpointManagerFollowOutdoorAirTemperature`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerFollowOutdoorAirTemperature` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:followoutdoorairtemperature"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:followoutdoorairtemperature"]
+
     @property
     def setpointmanagerfollowsystemnodetemperatures(self):
-        """ Get list of all `SetpointManagerFollowSystemNodeTemperature` objects
+        """Get list of all `SetpointManagerFollowSystemNodeTemperature`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerFollowSystemNodeTemperature` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:followsystemnodetemperature"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:followsystemnodetemperature"]
+
     @property
     def setpointmanagerfollowgroundtemperatures(self):
-        """ Get list of all `SetpointManagerFollowGroundTemperature` objects
+        """Get list of all `SetpointManagerFollowGroundTemperature` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerFollowGroundTemperature` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:followgroundtemperature"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:followgroundtemperature"]
+
     @property
     def setpointmanagercondenserenteringresets(self):
-        """ Get list of all `SetpointManagerCondenserEnteringReset` objects
+        """Get list of all `SetpointManagerCondenserEnteringReset` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerCondenserEnteringReset` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:condenserenteringreset"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:condenserenteringreset"]
+
     @property
     def setpointmanagercondenserenteringresetideals(self):
-        """ Get list of all `SetpointManagerCondenserEnteringResetIdeal` objects
+        """Get list of all `SetpointManagerCondenserEnteringResetIdeal`
+        objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerCondenserEnteringResetIdeal` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:condenserenteringreset:ideal"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:condenserenteringreset:ideal"]
+
     @property
     def setpointmanagersinglezoneonestagecoolings(self):
-        """ Get list of all `SetpointManagerSingleZoneOneStageCooling` objects
+        """Get list of all `SetpointManagerSingleZoneOneStageCooling` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneOneStageCooling` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:onestagecooling"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:onestagecooling"]
+
     @property
     def setpointmanagersinglezoneonestageheatings(self):
-        """ Get list of all `SetpointManagerSingleZoneOneStageHeating` objects
+        """Get list of all `SetpointManagerSingleZoneOneStageHeating` objects.
 
         Raises:
             ValueError: if no objects of type `SetpointManagerSingleZoneOneStageHeating` are present
+
         """
-        return self._data["Setpoint Managers"]["setpointmanager:singlezone:onestageheating"]
+        return self._data["Setpoint Managers"][
+            "setpointmanager:singlezone:onestageheating"]
+
     @property
     def refrigerationcases(self):
-        """ Get list of all `RefrigerationCase` objects
+        """Get list of all `RefrigerationCase` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCase` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:case"]
+
     @property
     def refrigerationcompressorracks(self):
-        """ Get list of all `RefrigerationCompressorRack` objects
+        """Get list of all `RefrigerationCompressorRack` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCompressorRack` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:compressorrack"]
+
     @property
     def refrigerationcaseandwalkinlists(self):
-        """ Get list of all `RefrigerationCaseAndWalkInList` objects
+        """Get list of all `RefrigerationCaseAndWalkInList` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCaseAndWalkInList` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:caseandwalkinlist"]
+
     @property
     def refrigerationcondenseraircooleds(self):
-        """ Get list of all `RefrigerationCondenserAirCooled` objects
+        """Get list of all `RefrigerationCondenserAirCooled` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCondenserAirCooled` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:condenser:aircooled"]
+
     @property
     def refrigerationcondenserevaporativecooleds(self):
-        """ Get list of all `RefrigerationCondenserEvaporativeCooled` objects
+        """Get list of all `RefrigerationCondenserEvaporativeCooled` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCondenserEvaporativeCooled` are present
+
         """
-        return self._data["Refrigeration"]["refrigeration:condenser:evaporativecooled"]
+        return self._data["Refrigeration"][
+            "refrigeration:condenser:evaporativecooled"]
+
     @property
     def refrigerationcondenserwatercooleds(self):
-        """ Get list of all `RefrigerationCondenserWaterCooled` objects
+        """Get list of all `RefrigerationCondenserWaterCooled` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCondenserWaterCooled` are present
+
         """
-        return self._data["Refrigeration"]["refrigeration:condenser:watercooled"]
+        return self._data["Refrigeration"][
+            "refrigeration:condenser:watercooled"]
+
     @property
     def refrigerationcondensercascades(self):
-        """ Get list of all `RefrigerationCondenserCascade` objects
+        """Get list of all `RefrigerationCondenserCascade` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCondenserCascade` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:condenser:cascade"]
+
     @property
     def refrigerationgascooleraircooleds(self):
-        """ Get list of all `RefrigerationGasCoolerAirCooled` objects
+        """Get list of all `RefrigerationGasCoolerAirCooled` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationGasCoolerAirCooled` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:gascooler:aircooled"]
+
     @property
     def refrigerationtransferloadlists(self):
-        """ Get list of all `RefrigerationTransferLoadList` objects
+        """Get list of all `RefrigerationTransferLoadList` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationTransferLoadList` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:transferloadlist"]
+
     @property
     def refrigerationsubcoolers(self):
-        """ Get list of all `RefrigerationSubcooler` objects
+        """Get list of all `RefrigerationSubcooler` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationSubcooler` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:subcooler"]
+
     @property
     def refrigerationcompressors(self):
-        """ Get list of all `RefrigerationCompressor` objects
+        """Get list of all `RefrigerationCompressor` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCompressor` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:compressor"]
+
     @property
     def refrigerationcompressorlists(self):
-        """ Get list of all `RefrigerationCompressorList` objects
+        """Get list of all `RefrigerationCompressorList` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationCompressorList` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:compressorlist"]
+
     @property
     def refrigerationsystems(self):
-        """ Get list of all `RefrigerationSystem` objects
+        """Get list of all `RefrigerationSystem` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationSystem` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:system"]
+
     @property
     def refrigerationtranscriticalsystems(self):
-        """ Get list of all `RefrigerationTranscriticalSystem` objects
+        """Get list of all `RefrigerationTranscriticalSystem` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationTranscriticalSystem` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:transcriticalsystem"]
+
     @property
     def refrigerationsecondarysystems(self):
-        """ Get list of all `RefrigerationSecondarySystem` objects
+        """Get list of all `RefrigerationSecondarySystem` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationSecondarySystem` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:secondarysystem"]
+
     @property
     def refrigerationwalkins(self):
-        """ Get list of all `RefrigerationWalkIn` objects
+        """Get list of all `RefrigerationWalkIn` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationWalkIn` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:walkin"]
+
     @property
     def refrigerationairchillers(self):
-        """ Get list of all `RefrigerationAirChiller` objects
+        """Get list of all `RefrigerationAirChiller` objects.
 
         Raises:
             ValueError: if no objects of type `RefrigerationAirChiller` are present
+
         """
         return self._data["Refrigeration"]["refrigeration:airchiller"]
+
     @property
     def zonehvacrefrigerationchillersets(self):
-        """ Get list of all `ZoneHvacRefrigerationChillerSet` objects
+        """Get list of all `ZoneHvacRefrigerationChillerSet` objects.
 
         Raises:
             ValueError: if no objects of type `ZoneHvacRefrigerationChillerSet` are present
+
         """
         return self._data["Refrigeration"]["zonehvac:refrigerationchillerset"]
+
     @property
     def demandmanagerassignmentlists(self):
-        """ Get list of all `DemandManagerAssignmentList` objects
+        """Get list of all `DemandManagerAssignmentList` objects.
 
         Raises:
             ValueError: if no objects of type `DemandManagerAssignmentList` are present
+
         """
-        return self._data["Demand Limiting Controls"]["demandmanagerassignmentlist"]
+        return self._data["Demand Limiting Controls"][
+            "demandmanagerassignmentlist"]
+
     @property
     def demandmanagerexteriorlightss(self):
-        """ Get list of all `DemandManagerExteriorLights` objects
+        """Get list of all `DemandManagerExteriorLights` objects.
 
         Raises:
             ValueError: if no objects of type `DemandManagerExteriorLights` are present
+
         """
-        return self._data["Demand Limiting Controls"]["demandmanager:exteriorlights"]
+        return self._data["Demand Limiting Controls"][
+            "demandmanager:exteriorlights"]
+
     @property
     def demandmanagerlightss(self):
-        """ Get list of all `DemandManagerLights` objects
+        """Get list of all `DemandManagerLights` objects.
 
         Raises:
             ValueError: if no objects of type `DemandManagerLights` are present
+
         """
         return self._data["Demand Limiting Controls"]["demandmanager:lights"]
+
     @property
     def demandmanagerelectricequipments(self):
-        """ Get list of all `DemandManagerElectricEquipment` objects
+        """Get list of all `DemandManagerElectricEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `DemandManagerElectricEquipment` are present
+
         """
-        return self._data["Demand Limiting Controls"]["demandmanager:electricequipment"]
+        return self._data["Demand Limiting Controls"][
+            "demandmanager:electricequipment"]
+
     @property
     def demandmanagerthermostatss(self):
-        """ Get list of all `DemandManagerThermostats` objects
+        """Get list of all `DemandManagerThermostats` objects.
 
         Raises:
             ValueError: if no objects of type `DemandManagerThermostats` are present
+
         """
-        return self._data["Demand Limiting Controls"]["demandmanager:thermostats"]
+        return self._data["Demand Limiting Controls"][
+            "demandmanager:thermostats"]
+
     @property
     def generatorinternalcombustionengines(self):
-        """ Get list of all `GeneratorInternalCombustionEngine` objects
+        """Get list of all `GeneratorInternalCombustionEngine` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorInternalCombustionEngine` are present
+
         """
-        return self._data["Electric Load Center"]["generator:internalcombustionengine"]
+        return self._data["Electric Load Center"][
+            "generator:internalcombustionengine"]
+
     @property
     def generatorcombustionturbines(self):
-        """ Get list of all `GeneratorCombustionTurbine` objects
+        """Get list of all `GeneratorCombustionTurbine` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorCombustionTurbine` are present
+
         """
-        return self._data["Electric Load Center"]["generator:combustionturbine"]
+        return self._data["Electric Load Center"][
+            "generator:combustionturbine"]
+
     @property
     def generatormicroturbines(self):
-        """ Get list of all `GeneratorMicroTurbine` objects
+        """Get list of all `GeneratorMicroTurbine` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorMicroTurbine` are present
+
         """
         return self._data["Electric Load Center"]["generator:microturbine"]
+
     @property
     def generatorphotovoltaics(self):
-        """ Get list of all `GeneratorPhotovoltaic` objects
+        """Get list of all `GeneratorPhotovoltaic` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorPhotovoltaic` are present
+
         """
         return self._data["Electric Load Center"]["generator:photovoltaic"]
+
     @property
     def photovoltaicperformancesimples(self):
-        """ Get list of all `PhotovoltaicPerformanceSimple` objects
+        """Get list of all `PhotovoltaicPerformanceSimple` objects.
 
         Raises:
             ValueError: if no objects of type `PhotovoltaicPerformanceSimple` are present
+
         """
-        return self._data["Electric Load Center"]["photovoltaicperformance:simple"]
+        return self._data["Electric Load Center"][
+            "photovoltaicperformance:simple"]
+
     @property
     def photovoltaicperformanceequivalentonediodes(self):
-        """ Get list of all `PhotovoltaicPerformanceEquivalentOneDiode` objects
+        """Get list of all `PhotovoltaicPerformanceEquivalentOneDiode` objects.
 
         Raises:
             ValueError: if no objects of type `PhotovoltaicPerformanceEquivalentOneDiode` are present
+
         """
-        return self._data["Electric Load Center"]["photovoltaicperformance:equivalentone-diode"]
+        return self._data["Electric Load Center"][
+            "photovoltaicperformance:equivalentone-diode"]
+
     @property
     def photovoltaicperformancesandias(self):
-        """ Get list of all `PhotovoltaicPerformanceSandia` objects
+        """Get list of all `PhotovoltaicPerformanceSandia` objects.
 
         Raises:
             ValueError: if no objects of type `PhotovoltaicPerformanceSandia` are present
+
         """
-        return self._data["Electric Load Center"]["photovoltaicperformance:sandia"]
+        return self._data["Electric Load Center"][
+            "photovoltaicperformance:sandia"]
+
     @property
     def generatorfuelcells(self):
-        """ Get list of all `GeneratorFuelCell` objects
+        """Get list of all `GeneratorFuelCell` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCell` are present
+
         """
         return self._data["Electric Load Center"]["generator:fuelcell"]
+
     @property
     def generatorfuelcellpowermodules(self):
-        """ Get list of all `GeneratorFuelCellPowerModule` objects
+        """Get list of all `GeneratorFuelCellPowerModule` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellPowerModule` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:powermodule"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:powermodule"]
+
     @property
     def generatorfuelcellairsupplys(self):
-        """ Get list of all `GeneratorFuelCellAirSupply` objects
+        """Get list of all `GeneratorFuelCellAirSupply` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellAirSupply` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:airsupply"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:airsupply"]
+
     @property
     def generatorfuelcellwatersupplys(self):
-        """ Get list of all `GeneratorFuelCellWaterSupply` objects
+        """Get list of all `GeneratorFuelCellWaterSupply` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellWaterSupply` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:watersupply"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:watersupply"]
+
     @property
     def generatorfuelcellauxiliaryheaters(self):
-        """ Get list of all `GeneratorFuelCellAuxiliaryHeater` objects
+        """Get list of all `GeneratorFuelCellAuxiliaryHeater` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellAuxiliaryHeater` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:auxiliaryheater"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:auxiliaryheater"]
+
     @property
     def generatorfuelcellexhaustgastowaterheatexchangers(self):
-        """ Get list of all `GeneratorFuelCellExhaustGasToWaterHeatExchanger` objects
+        """Get list of all `GeneratorFuelCellExhaustGasToWaterHeatExchanger`
+        objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellExhaustGasToWaterHeatExchanger` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:exhaustgastowaterheatexchanger"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:exhaustgastowaterheatexchanger"]
+
     @property
     def generatorfuelcellelectricalstorages(self):
-        """ Get list of all `GeneratorFuelCellElectricalStorage` objects
+        """Get list of all `GeneratorFuelCellElectricalStorage` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellElectricalStorage` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:electricalstorage"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:electricalstorage"]
+
     @property
     def generatorfuelcellinverters(self):
-        """ Get list of all `GeneratorFuelCellInverter` objects
+        """Get list of all `GeneratorFuelCellInverter` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellInverter` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:inverter"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:inverter"]
+
     @property
     def generatorfuelcellstackcoolers(self):
-        """ Get list of all `GeneratorFuelCellStackCooler` objects
+        """Get list of all `GeneratorFuelCellStackCooler` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelCellStackCooler` are present
+
         """
-        return self._data["Electric Load Center"]["generator:fuelcell:stackcooler"]
+        return self._data["Electric Load Center"][
+            "generator:fuelcell:stackcooler"]
+
     @property
     def generatormicrochps(self):
-        """ Get list of all `GeneratorMicroChp` objects
+        """Get list of all `GeneratorMicroChp` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorMicroChp` are present
+
         """
         return self._data["Electric Load Center"]["generator:microchp"]
+
     @property
     def generatormicrochpnonnormalizedparameterss(self):
-        """ Get list of all `GeneratorMicroChpNonNormalizedParameters` objects
+        """Get list of all `GeneratorMicroChpNonNormalizedParameters` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorMicroChpNonNormalizedParameters` are present
+
         """
-        return self._data["Electric Load Center"]["generator:microchp:nonnormalizedparameters"]
+        return self._data["Electric Load Center"][
+            "generator:microchp:nonnormalizedparameters"]
+
     @property
     def generatorfuelsupplys(self):
-        """ Get list of all `GeneratorFuelSupply` objects
+        """Get list of all `GeneratorFuelSupply` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorFuelSupply` are present
+
         """
         return self._data["Electric Load Center"]["generator:fuelsupply"]
+
     @property
     def generatorwindturbines(self):
-        """ Get list of all `GeneratorWindTurbine` objects
+        """Get list of all `GeneratorWindTurbine` objects.
 
         Raises:
             ValueError: if no objects of type `GeneratorWindTurbine` are present
+
         """
         return self._data["Electric Load Center"]["generator:windturbine"]
+
     @property
     def electricloadcentergeneratorss(self):
-        """ Get list of all `ElectricLoadCenterGenerators` objects
+        """Get list of all `ElectricLoadCenterGenerators` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterGenerators` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:generators"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:generators"]
+
     @property
     def electricloadcenterinvertersimples(self):
-        """ Get list of all `ElectricLoadCenterInverterSimple` objects
+        """Get list of all `ElectricLoadCenterInverterSimple` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterInverterSimple` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:inverter:simple"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:inverter:simple"]
+
     @property
     def electricloadcenterinverterfunctionofpowers(self):
-        """ Get list of all `ElectricLoadCenterInverterFunctionOfPower` objects
+        """Get list of all `ElectricLoadCenterInverterFunctionOfPower` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterInverterFunctionOfPower` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:inverter:functionofpower"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:inverter:functionofpower"]
+
     @property
     def electricloadcenterinverterlookuptables(self):
-        """ Get list of all `ElectricLoadCenterInverterLookUpTable` objects
+        """Get list of all `ElectricLoadCenterInverterLookUpTable` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterInverterLookUpTable` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:inverter:lookuptable"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:inverter:lookuptable"]
+
     @property
     def electricloadcenterstoragesimples(self):
-        """ Get list of all `ElectricLoadCenterStorageSimple` objects
+        """Get list of all `ElectricLoadCenterStorageSimple` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterStorageSimple` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:storage:simple"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:storage:simple"]
+
     @property
     def electricloadcenterstoragebatterys(self):
-        """ Get list of all `ElectricLoadCenterStorageBattery` objects
+        """Get list of all `ElectricLoadCenterStorageBattery` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterStorageBattery` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:storage:battery"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:storage:battery"]
+
     @property
     def electricloadcentertransformers(self):
-        """ Get list of all `ElectricLoadCenterTransformer` objects
+        """Get list of all `ElectricLoadCenterTransformer` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterTransformer` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:transformer"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:transformer"]
+
     @property
     def electricloadcenterdistributions(self):
-        """ Get list of all `ElectricLoadCenterDistribution` objects
+        """Get list of all `ElectricLoadCenterDistribution` objects.
 
         Raises:
             ValueError: if no objects of type `ElectricLoadCenterDistribution` are present
+
         """
-        return self._data["Electric Load Center"]["electricloadcenter:distribution"]
+        return self._data["Electric Load Center"][
+            "electricloadcenter:distribution"]
+
     @property
     def wateruseequipments(self):
-        """ Get list of all `WaterUseEquipment` objects
+        """Get list of all `WaterUseEquipment` objects.
 
         Raises:
             ValueError: if no objects of type `WaterUseEquipment` are present
+
         """
         return self._data["Water Systems"]["wateruse:equipment"]
+
     @property
     def wateruseconnectionss(self):
-        """ Get list of all `WaterUseConnections` objects
+        """Get list of all `WaterUseConnections` objects.
 
         Raises:
             ValueError: if no objects of type `WaterUseConnections` are present
+
         """
         return self._data["Water Systems"]["wateruse:connections"]
+
     @property
     def waterusestorages(self):
-        """ Get list of all `WaterUseStorage` objects
+        """Get list of all `WaterUseStorage` objects.
 
         Raises:
             ValueError: if no objects of type `WaterUseStorage` are present
+
         """
         return self._data["Water Systems"]["wateruse:storage"]
+
     @property
     def waterusewells(self):
-        """ Get list of all `WaterUseWell` objects
+        """Get list of all `WaterUseWell` objects.
 
         Raises:
             ValueError: if no objects of type `WaterUseWell` are present
+
         """
         return self._data["Water Systems"]["wateruse:well"]
+
     @property
     def wateruseraincollectors(self):
-        """ Get list of all `WaterUseRainCollector` objects
+        """Get list of all `WaterUseRainCollector` objects.
 
         Raises:
             ValueError: if no objects of type `WaterUseRainCollector` are present
+
         """
         return self._data["Water Systems"]["wateruse:raincollector"]
+
     @property
     def faultmodeltemperaturesensoroffsetoutdoorairs(self):
-        """ Get list of all `FaultModelTemperatureSensorOffsetOutdoorAir` objects
+        """Get list of all `FaultModelTemperatureSensorOffsetOutdoorAir`
+        objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelTemperatureSensorOffsetOutdoorAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:temperaturesensoroffset:outdoorair"]
+        return self._data["Operational Faults"][
+            "faultmodel:temperaturesensoroffset:outdoorair"]
+
     @property
     def faultmodelhumiditysensoroffsetoutdoorairs(self):
-        """ Get list of all `FaultModelHumiditySensorOffsetOutdoorAir` objects
+        """Get list of all `FaultModelHumiditySensorOffsetOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelHumiditySensorOffsetOutdoorAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:humiditysensoroffset:outdoorair"]
+        return self._data["Operational Faults"][
+            "faultmodel:humiditysensoroffset:outdoorair"]
+
     @property
     def faultmodelenthalpysensoroffsetoutdoorairs(self):
-        """ Get list of all `FaultModelEnthalpySensorOffsetOutdoorAir` objects
+        """Get list of all `FaultModelEnthalpySensorOffsetOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelEnthalpySensorOffsetOutdoorAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:enthalpysensoroffset:outdoorair"]
+        return self._data["Operational Faults"][
+            "faultmodel:enthalpysensoroffset:outdoorair"]
+
     @property
     def faultmodelpressuresensoroffsetoutdoorairs(self):
-        """ Get list of all `FaultModelPressureSensorOffsetOutdoorAir` objects
+        """Get list of all `FaultModelPressureSensorOffsetOutdoorAir` objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelPressureSensorOffsetOutdoorAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:pressuresensoroffset:outdoorair"]
+        return self._data["Operational Faults"][
+            "faultmodel:pressuresensoroffset:outdoorair"]
+
     @property
     def faultmodeltemperaturesensoroffsetreturnairs(self):
-        """ Get list of all `FaultModelTemperatureSensorOffsetReturnAir` objects
+        """Get list of all `FaultModelTemperatureSensorOffsetReturnAir`
+        objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelTemperatureSensorOffsetReturnAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:temperaturesensoroffset:returnair"]
+        return self._data["Operational Faults"][
+            "faultmodel:temperaturesensoroffset:returnair"]
+
     @property
     def faultmodelenthalpysensoroffsetreturnairs(self):
-        """ Get list of all `FaultModelEnthalpySensorOffsetReturnAir` objects
+        """Get list of all `FaultModelEnthalpySensorOffsetReturnAir` objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelEnthalpySensorOffsetReturnAir` are present
+
         """
-        return self._data["Operational Faults"]["faultmodel:enthalpysensoroffset:returnair"]
+        return self._data["Operational Faults"][
+            "faultmodel:enthalpysensoroffset:returnair"]
+
     @property
     def faultmodelfoulingcoils(self):
-        """ Get list of all `FaultModelFoulingCoil` objects
+        """Get list of all `FaultModelFoulingCoil` objects.
 
         Raises:
             ValueError: if no objects of type `FaultModelFoulingCoil` are present
+
         """
         return self._data["Operational Faults"]["faultmodel:fouling:coil"]
+
     @property
     def matrixtwodimensions(self):
-        """ Get list of all `MatrixTwoDimension` objects
+        """Get list of all `MatrixTwoDimension` objects.
 
         Raises:
             ValueError: if no objects of type `MatrixTwoDimension` are present
+
         """
         return self._data["Refrigeration"]["matrix:twodimension"]
+
     @property
     def curvelinears(self):
-        """ Get list of all `CurveLinear` objects
+        """Get list of all `CurveLinear` objects.
 
         Raises:
             ValueError: if no objects of type `CurveLinear` are present
+
         """
         return self._data["Performance Curves"]["curve:linear"]
+
     @property
     def curvequadlinears(self):
-        """ Get list of all `CurveQuadLinear` objects
+        """Get list of all `CurveQuadLinear` objects.
 
         Raises:
             ValueError: if no objects of type `CurveQuadLinear` are present
+
         """
         return self._data["Performance Curves"]["curve:quadlinear"]
+
     @property
     def curvequadratics(self):
-        """ Get list of all `CurveQuadratic` objects
+        """Get list of all `CurveQuadratic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveQuadratic` are present
+
         """
         return self._data["Performance Curves"]["curve:quadratic"]
+
     @property
     def curvecubics(self):
-        """ Get list of all `CurveCubic` objects
+        """Get list of all `CurveCubic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveCubic` are present
+
         """
         return self._data["Performance Curves"]["curve:cubic"]
+
     @property
     def curvequartics(self):
-        """ Get list of all `CurveQuartic` objects
+        """Get list of all `CurveQuartic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveQuartic` are present
+
         """
         return self._data["Performance Curves"]["curve:quartic"]
+
     @property
     def curveexponents(self):
-        """ Get list of all `CurveExponent` objects
+        """Get list of all `CurveExponent` objects.
 
         Raises:
             ValueError: if no objects of type `CurveExponent` are present
+
         """
         return self._data["Performance Curves"]["curve:exponent"]
+
     @property
     def curvebicubics(self):
-        """ Get list of all `CurveBicubic` objects
+        """Get list of all `CurveBicubic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveBicubic` are present
+
         """
         return self._data["Performance Curves"]["curve:bicubic"]
+
     @property
     def curvebiquadratics(self):
-        """ Get list of all `CurveBiquadratic` objects
+        """Get list of all `CurveBiquadratic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveBiquadratic` are present
+
         """
         return self._data["Performance Curves"]["curve:biquadratic"]
+
     @property
     def curvequadraticlinears(self):
-        """ Get list of all `CurveQuadraticLinear` objects
+        """Get list of all `CurveQuadraticLinear` objects.
 
         Raises:
             ValueError: if no objects of type `CurveQuadraticLinear` are present
+
         """
         return self._data["Performance Curves"]["curve:quadraticlinear"]
+
     @property
     def curvetriquadratics(self):
-        """ Get list of all `CurveTriquadratic` objects
+        """Get list of all `CurveTriquadratic` objects.
 
         Raises:
             ValueError: if no objects of type `CurveTriquadratic` are present
+
         """
         return self._data["Performance Curves"]["curve:triquadratic"]
+
     @property
     def curvefunctionalpressuredrops(self):
-        """ Get list of all `CurveFunctionalPressureDrop` objects
+        """Get list of all `CurveFunctionalPressureDrop` objects.
 
         Raises:
             ValueError: if no objects of type `CurveFunctionalPressureDrop` are present
+
         """
-        return self._data["Performance Curves"]["curve:functional:pressuredrop"]
+        return self._data["Performance Curves"][
+            "curve:functional:pressuredrop"]
+
     @property
     def curvefanpressurerises(self):
-        """ Get list of all `CurveFanPressureRise` objects
+        """Get list of all `CurveFanPressureRise` objects.
 
         Raises:
             ValueError: if no objects of type `CurveFanPressureRise` are present
+
         """
         return self._data["Performance Curves"]["curve:fanpressurerise"]
+
     @property
     def curveexponentialskewnormals(self):
-        """ Get list of all `CurveExponentialSkewNormal` objects
+        """Get list of all `CurveExponentialSkewNormal` objects.
 
         Raises:
             ValueError: if no objects of type `CurveExponentialSkewNormal` are present
+
         """
         return self._data["Performance Curves"]["curve:exponentialskewnormal"]
+
     @property
     def curvesigmoids(self):
-        """ Get list of all `CurveSigmoid` objects
+        """Get list of all `CurveSigmoid` objects.
 
         Raises:
             ValueError: if no objects of type `CurveSigmoid` are present
+
         """
         return self._data["Performance Curves"]["curve:sigmoid"]
+
     @property
     def curverectangularhyperbola1s(self):
-        """ Get list of all `CurveRectangularHyperbola1` objects
+        """Get list of all `CurveRectangularHyperbola1` objects.
 
         Raises:
             ValueError: if no objects of type `CurveRectangularHyperbola1` are present
+
         """
         return self._data["Performance Curves"]["curve:rectangularhyperbola1"]
+
     @property
     def curverectangularhyperbola2s(self):
-        """ Get list of all `CurveRectangularHyperbola2` objects
+        """Get list of all `CurveRectangularHyperbola2` objects.
 
         Raises:
             ValueError: if no objects of type `CurveRectangularHyperbola2` are present
+
         """
         return self._data["Performance Curves"]["curve:rectangularhyperbola2"]
+
     @property
     def curveexponentialdecays(self):
-        """ Get list of all `CurveExponentialDecay` objects
+        """Get list of all `CurveExponentialDecay` objects.
 
         Raises:
             ValueError: if no objects of type `CurveExponentialDecay` are present
+
         """
         return self._data["Performance Curves"]["curve:exponentialdecay"]
+
     @property
     def curvedoubleexponentialdecays(self):
-        """ Get list of all `CurveDoubleExponentialDecay` objects
+        """Get list of all `CurveDoubleExponentialDecay` objects.
 
         Raises:
             ValueError: if no objects of type `CurveDoubleExponentialDecay` are present
+
         """
         return self._data["Performance Curves"]["curve:doubleexponentialdecay"]
+
     @property
     def tableoneindependentvariables(self):
-        """ Get list of all `TableOneIndependentVariable` objects
+        """Get list of all `TableOneIndependentVariable` objects.
 
         Raises:
             ValueError: if no objects of type `TableOneIndependentVariable` are present
+
         """
         return self._data["Performance Tables"]["table:oneindependentvariable"]
+
     @property
     def tabletwoindependentvariabless(self):
-        """ Get list of all `TableTwoIndependentVariables` objects
+        """Get list of all `TableTwoIndependentVariables` objects.
 
         Raises:
             ValueError: if no objects of type `TableTwoIndependentVariables` are present
+
         """
-        return self._data["Performance Tables"]["table:twoindependentvariables"]
+        return self._data["Performance Tables"][
+            "table:twoindependentvariables"]
+
     @property
     def tablemultivariablelookups(self):
-        """ Get list of all `TableMultiVariableLookup` objects
+        """Get list of all `TableMultiVariableLookup` objects.
 
         Raises:
             ValueError: if no objects of type `TableMultiVariableLookup` are present
+
         """
         return self._data["Performance Tables"]["table:multivariablelookup"]
+
     @property
     def fluidpropertiesnames(self):
-        """ Get list of all `FluidPropertiesName` objects
+        """Get list of all `FluidPropertiesName` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesName` are present
+
         """
         return self._data["Fluid Properties"]["fluidproperties:name"]
+
     @property
     def fluidpropertiesglycolconcentrations(self):
-        """ Get list of all `FluidPropertiesGlycolConcentration` objects
+        """Get list of all `FluidPropertiesGlycolConcentration` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesGlycolConcentration` are present
+
         """
-        return self._data["Fluid Properties"]["fluidproperties:glycolconcentration"]
+        return self._data["Fluid Properties"][
+            "fluidproperties:glycolconcentration"]
+
     @property
     def fluidpropertiestemperaturess(self):
-        """ Get list of all `FluidPropertiesTemperatures` objects
+        """Get list of all `FluidPropertiesTemperatures` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesTemperatures` are present
+
         """
         return self._data["Fluid Properties"]["fluidproperties:temperatures"]
+
     @property
     def fluidpropertiessaturateds(self):
-        """ Get list of all `FluidPropertiesSaturated` objects
+        """Get list of all `FluidPropertiesSaturated` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesSaturated` are present
+
         """
         return self._data["Fluid Properties"]["fluidproperties:saturated"]
+
     @property
     def fluidpropertiessuperheateds(self):
-        """ Get list of all `FluidPropertiesSuperheated` objects
+        """Get list of all `FluidPropertiesSuperheated` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesSuperheated` are present
+
         """
         return self._data["Fluid Properties"]["fluidproperties:superheated"]
+
     @property
     def fluidpropertiesconcentrations(self):
-        """ Get list of all `FluidPropertiesConcentration` objects
+        """Get list of all `FluidPropertiesConcentration` objects.
 
         Raises:
             ValueError: if no objects of type `FluidPropertiesConcentration` are present
+
         """
         return self._data["Fluid Properties"]["fluidproperties:concentration"]
+
     @property
     def currencytypes(self):
-        """ Get list of all `CurrencyType` objects
+        """Get list of all `CurrencyType` objects.
 
         Raises:
             ValueError: if no objects of type `CurrencyType` are present
+
         """
         return self._data["Economics"]["currencytype"]
+
     @property
     def componentcostadjustmentss(self):
-        """ Get list of all `ComponentCostAdjustments` objects
+        """Get list of all `ComponentCostAdjustments` objects.
 
         Raises:
             ValueError: if no objects of type `ComponentCostAdjustments` are present
+
         """
         return self._data["Economics"]["componentcost:adjustments"]
+
     @property
     def componentcostreferences(self):
-        """ Get list of all `ComponentCostReference` objects
+        """Get list of all `ComponentCostReference` objects.
 
         Raises:
             ValueError: if no objects of type `ComponentCostReference` are present
+
         """
         return self._data["Economics"]["componentcost:reference"]
+
     @property
     def componentcostlineitems(self):
-        """ Get list of all `ComponentCostLineItem` objects
+        """Get list of all `ComponentCostLineItem` objects.
 
         Raises:
             ValueError: if no objects of type `ComponentCostLineItem` are present
+
         """
         return self._data["Economics"]["componentcost:lineitem"]
+
     @property
     def utilitycosttariffs(self):
-        """ Get list of all `UtilityCostTariff` objects
+        """Get list of all `UtilityCostTariff` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostTariff` are present
+
         """
         return self._data["Economics"]["utilitycost:tariff"]
+
     @property
     def utilitycostqualifys(self):
-        """ Get list of all `UtilityCostQualify` objects
+        """Get list of all `UtilityCostQualify` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostQualify` are present
+
         """
         return self._data["Economics"]["utilitycost:qualify"]
+
     @property
     def utilitycostchargesimples(self):
-        """ Get list of all `UtilityCostChargeSimple` objects
+        """Get list of all `UtilityCostChargeSimple` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostChargeSimple` are present
+
         """
         return self._data["Economics"]["utilitycost:charge:simple"]
+
     @property
     def utilitycostchargeblocks(self):
-        """ Get list of all `UtilityCostChargeBlock` objects
+        """Get list of all `UtilityCostChargeBlock` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostChargeBlock` are present
+
         """
         return self._data["Economics"]["utilitycost:charge:block"]
+
     @property
     def utilitycostratchets(self):
-        """ Get list of all `UtilityCostRatchet` objects
+        """Get list of all `UtilityCostRatchet` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostRatchet` are present
+
         """
         return self._data["Economics"]["utilitycost:ratchet"]
+
     @property
     def utilitycostvariables(self):
-        """ Get list of all `UtilityCostVariable` objects
+        """Get list of all `UtilityCostVariable` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostVariable` are present
+
         """
         return self._data["Economics"]["utilitycost:variable"]
+
     @property
     def utilitycostcomputations(self):
-        """ Get list of all `UtilityCostComputation` objects
+        """Get list of all `UtilityCostComputation` objects.
 
         Raises:
             ValueError: if no objects of type `UtilityCostComputation` are present
+
         """
         return self._data["Economics"]["utilitycost:computation"]
+
     @property
     def lifecyclecostparameterss(self):
-        """ Get list of all `LifeCycleCostParameters` objects
+        """Get list of all `LifeCycleCostParameters` objects.
 
         Raises:
             ValueError: if no objects of type `LifeCycleCostParameters` are present
+
         """
         return self._data["Economics"]["lifecyclecost:parameters"]
+
     @property
     def lifecyclecostrecurringcostss(self):
-        """ Get list of all `LifeCycleCostRecurringCosts` objects
+        """Get list of all `LifeCycleCostRecurringCosts` objects.
 
         Raises:
             ValueError: if no objects of type `LifeCycleCostRecurringCosts` are present
+
         """
         return self._data["Economics"]["lifecyclecost:recurringcosts"]
+
     @property
     def lifecyclecostnonrecurringcosts(self):
-        """ Get list of all `LifeCycleCostNonrecurringCost` objects
+        """Get list of all `LifeCycleCostNonrecurringCost` objects.
 
         Raises:
             ValueError: if no objects of type `LifeCycleCostNonrecurringCost` are present
+
         """
         return self._data["Economics"]["lifecyclecost:nonrecurringcost"]
+
     @property
     def lifecyclecostusepriceescalations(self):
-        """ Get list of all `LifeCycleCostUsePriceEscalation` objects
+        """Get list of all `LifeCycleCostUsePriceEscalation` objects.
 
         Raises:
             ValueError: if no objects of type `LifeCycleCostUsePriceEscalation` are present
+
         """
         return self._data["Economics"]["lifecyclecost:usepriceescalation"]
+
     @property
     def lifecyclecostuseadjustments(self):
-        """ Get list of all `LifeCycleCostUseAdjustment` objects
+        """Get list of all `LifeCycleCostUseAdjustment` objects.
 
         Raises:
             ValueError: if no objects of type `LifeCycleCostUseAdjustment` are present
+
         """
         return self._data["Economics"]["lifecyclecost:useadjustment"]
+
     @property
     def parametricsetvalueforruns(self):
-        """ Get list of all `ParametricSetValueForRun` objects
+        """Get list of all `ParametricSetValueForRun` objects.
 
         Raises:
             ValueError: if no objects of type `ParametricSetValueForRun` are present
+
         """
         return self._data["Parametrics"]["parametric:setvalueforrun"]
+
     @property
     def parametriclogics(self):
-        """ Get list of all `ParametricLogic` objects
+        """Get list of all `ParametricLogic` objects.
 
         Raises:
             ValueError: if no objects of type `ParametricLogic` are present
+
         """
         return self._data["Parametrics"]["parametric:logic"]
+
     @property
     def parametricruncontrols(self):
-        """ Get list of all `ParametricRunControl` objects
+        """Get list of all `ParametricRunControl` objects.
 
         Raises:
             ValueError: if no objects of type `ParametricRunControl` are present
+
         """
         return self._data["Parametrics"]["parametric:runcontrol"]
+
     @property
     def parametricfilenamesuffixs(self):
-        """ Get list of all `ParametricFileNameSuffix` objects
+        """Get list of all `ParametricFileNameSuffix` objects.
 
         Raises:
             ValueError: if no objects of type `ParametricFileNameSuffix` are present
+
         """
         return self._data["Parametrics"]["parametric:filenamesuffix"]
+
     @property
     def outputvariabledictionarys(self):
-        """ Get list of all `OutputVariableDictionary` objects
+        """Get list of all `OutputVariableDictionary` objects.
 
         Raises:
             ValueError: if no objects of type `OutputVariableDictionary` are present
+
         """
         return self._data["Output Reporting"]["output:variabledictionary"]
+
     @property
     def outputsurfaceslists(self):
-        """ Get list of all `OutputSurfacesList` objects
+        """Get list of all `OutputSurfacesList` objects.
 
         Raises:
             ValueError: if no objects of type `OutputSurfacesList` are present
+
         """
         return self._data["Output Reporting"]["output:surfaces:list"]
+
     @property
     def outputsurfacesdrawings(self):
-        """ Get list of all `OutputSurfacesDrawing` objects
+        """Get list of all `OutputSurfacesDrawing` objects.
 
         Raises:
             ValueError: if no objects of type `OutputSurfacesDrawing` are present
+
         """
         return self._data["Output Reporting"]["output:surfaces:drawing"]
+
     @property
     def outputscheduless(self):
-        """ Get list of all `OutputSchedules` objects
+        """Get list of all `OutputSchedules` objects.
 
         Raises:
             ValueError: if no objects of type `OutputSchedules` are present
+
         """
         return self._data["Output Reporting"]["output:schedules"]
+
     @property
     def outputconstructionss(self):
-        """ Get list of all `OutputConstructions` objects
+        """Get list of all `OutputConstructions` objects.
 
         Raises:
             ValueError: if no objects of type `OutputConstructions` are present
+
         """
         return self._data["Output Reporting"]["output:constructions"]
+
     @property
     def outputenergymanagementsystems(self):
-        """ Get list of all `OutputEnergyManagementSystem` objects
+        """Get list of all `OutputEnergyManagementSystem` objects.
 
         Raises:
             ValueError: if no objects of type `OutputEnergyManagementSystem` are present
+
         """
         return self._data["Output Reporting"]["output:energymanagementsystem"]
+
     @property
     def outputcontrolsurfacecolorschemes(self):
-        """ Get list of all `OutputControlSurfaceColorScheme` objects
+        """Get list of all `OutputControlSurfaceColorScheme` objects.
 
         Raises:
             ValueError: if no objects of type `OutputControlSurfaceColorScheme` are present
+
         """
-        return self._data["Output Reporting"]["outputcontrol:surfacecolorscheme"]
+        return self._data["Output Reporting"][
+            "outputcontrol:surfacecolorscheme"]
+
     @property
     def outputtablesummaryreportss(self):
-        """ Get list of all `OutputTableSummaryReports` objects
+        """Get list of all `OutputTableSummaryReports` objects.
 
         Raises:
             ValueError: if no objects of type `OutputTableSummaryReports` are present
+
         """
         return self._data["Output Reporting"]["output:table:summaryreports"]
+
     @property
     def outputtabletimebinss(self):
-        """ Get list of all `OutputTableTimeBins` objects
+        """Get list of all `OutputTableTimeBins` objects.
 
         Raises:
             ValueError: if no objects of type `OutputTableTimeBins` are present
+
         """
         return self._data["Output Reporting"]["output:table:timebins"]
+
     @property
     def outputtablemonthlys(self):
-        """ Get list of all `OutputTableMonthly` objects
+        """Get list of all `OutputTableMonthly` objects.
 
         Raises:
             ValueError: if no objects of type `OutputTableMonthly` are present
+
         """
         return self._data["Output Reporting"]["output:table:monthly"]
+
     @property
     def outputcontroltablestyles(self):
-        """ Get list of all `OutputControlTableStyle` objects
+        """Get list of all `OutputControlTableStyle` objects.
 
         Raises:
             ValueError: if no objects of type `OutputControlTableStyle` are present
+
         """
         return self._data["Output Reporting"]["outputcontrol:table:style"]
+
     @property
     def outputcontrolreportingtolerancess(self):
-        """ Get list of all `OutputControlReportingTolerances` objects
+        """Get list of all `OutputControlReportingTolerances` objects.
 
         Raises:
             ValueError: if no objects of type `OutputControlReportingTolerances` are present
+
         """
-        return self._data["Output Reporting"]["outputcontrol:reportingtolerances"]
+        return self._data["Output Reporting"][
+            "outputcontrol:reportingtolerances"]
+
     @property
     def outputvariables(self):
-        """ Get list of all `OutputVariable` objects
+        """Get list of all `OutputVariable` objects.
 
         Raises:
             ValueError: if no objects of type `OutputVariable` are present
+
         """
         return self._data["Output Reporting"]["output:variable"]
+
     @property
     def outputmeters(self):
-        """ Get list of all `OutputMeter` objects
+        """Get list of all `OutputMeter` objects.
 
         Raises:
             ValueError: if no objects of type `OutputMeter` are present
+
         """
         return self._data["Output Reporting"]["output:meter"]
+
     @property
     def outputmetermeterfileonlys(self):
-        """ Get list of all `OutputMeterMeterFileOnly` objects
+        """Get list of all `OutputMeterMeterFileOnly` objects.
 
         Raises:
             ValueError: if no objects of type `OutputMeterMeterFileOnly` are present
+
         """
         return self._data["Output Reporting"]["output:meter:meterfileonly"]
+
     @property
     def outputmetercumulatives(self):
-        """ Get list of all `OutputMeterCumulative` objects
+        """Get list of all `OutputMeterCumulative` objects.
 
         Raises:
             ValueError: if no objects of type `OutputMeterCumulative` are present
+
         """
         return self._data["Output Reporting"]["output:meter:cumulative"]
+
     @property
     def outputmetercumulativemeterfileonlys(self):
-        """ Get list of all `OutputMeterCumulativeMeterFileOnly` objects
+        """Get list of all `OutputMeterCumulativeMeterFileOnly` objects.
 
         Raises:
             ValueError: if no objects of type `OutputMeterCumulativeMeterFileOnly` are present
+
         """
-        return self._data["Output Reporting"]["output:meter:cumulative:meterfileonly"]
+        return self._data["Output Reporting"][
+            "output:meter:cumulative:meterfileonly"]
+
     @property
     def metercustoms(self):
-        """ Get list of all `MeterCustom` objects
+        """Get list of all `MeterCustom` objects.
 
         Raises:
             ValueError: if no objects of type `MeterCustom` are present
+
         """
         return self._data["Output Reporting"]["meter:custom"]
+
     @property
     def metercustomdecrements(self):
-        """ Get list of all `MeterCustomDecrement` objects
+        """Get list of all `MeterCustomDecrement` objects.
 
         Raises:
             ValueError: if no objects of type `MeterCustomDecrement` are present
+
         """
         return self._data["Output Reporting"]["meter:customdecrement"]
+
     @property
     def outputsqlites(self):
-        """ Get list of all `OutputSqlite` objects
+        """Get list of all `OutputSqlite` objects.
 
         Raises:
             ValueError: if no objects of type `OutputSqlite` are present
+
         """
         return self._data["Output Reporting"]["output:sqlite"]
+
     @property
     def outputenvironmentalimpactfactorss(self):
-        """ Get list of all `OutputEnvironmentalImpactFactors` objects
+        """Get list of all `OutputEnvironmentalImpactFactors` objects.
 
         Raises:
             ValueError: if no objects of type `OutputEnvironmentalImpactFactors` are present
+
         """
-        return self._data["Output Reporting"]["output:environmentalimpactfactors"]
+        return self._data["Output Reporting"][
+            "output:environmentalimpactfactors"]
+
     @property
     def environmentalimpactfactorss(self):
-        """ Get list of all `EnvironmentalImpactFactors` objects
+        """Get list of all `EnvironmentalImpactFactors` objects.
 
         Raises:
             ValueError: if no objects of type `EnvironmentalImpactFactors` are present
+
         """
         return self._data["Output Reporting"]["environmentalimpactfactors"]
+
     @property
     def fuelfactorss(self):
-        """ Get list of all `FuelFactors` objects
+        """Get list of all `FuelFactors` objects.
 
         Raises:
             ValueError: if no objects of type `FuelFactors` are present
+
         """
         return self._data["Output Reporting"]["fuelfactors"]
+
     @property
     def outputdiagnosticss(self):
-        """ Get list of all `OutputDiagnostics` objects
+        """Get list of all `OutputDiagnostics` objects.
 
         Raises:
             ValueError: if no objects of type `OutputDiagnostics` are present
+
         """
         return self._data["Output Reporting"]["output:diagnostics"]
+
     @property
     def outputdebuggingdatas(self):
-        """ Get list of all `OutputDebuggingData` objects
+        """Get list of all `OutputDebuggingData` objects.
 
         Raises:
             ValueError: if no objects of type `OutputDebuggingData` are present
+
         """
         return self._data["Output Reporting"]["output:debuggingdata"]
+
     @property
     def outputpreprocessormessages(self):
-        """ Get list of all `OutputPreprocessorMessage` objects
+        """Get list of all `OutputPreprocessorMessage` objects.
 
         Raises:
             ValueError: if no objects of type `OutputPreprocessorMessage` are present
+
         """
         return self._data["Output Reporting"]["output:preprocessormessage"]
 
     @classmethod
     def _create_datadict(cls, internal_name):
-        """ Creates an object depending on `internal_name`
+        """Creates an object depending on `internal_name`
 
-            Args:
-                internal_name (str): IDD name
+        Args:
+            internal_name (str): IDD name
 
-            Raises:
-                ValueError: if `internal_name` cannot be matched to a data dictionary object
+        Raises:
+            ValueError: if `internal_name` cannot be matched to a data dictionary object
+
         """
         if internal_name.lower() == "lead input":
             return LeadInput()
@@ -6251,7 +8328,8 @@ class IDF(object):
             return SurfaceConvectionAlgorithmOutside()
         if internal_name.lower() == "heatbalancealgorithm":
             return HeatBalanceAlgorithm()
-        if internal_name.lower() == "heatbalancesettings:conductionfinitedifference":
+        if internal_name.lower(
+        ) == "heatbalancesettings:conductionfinitedifference":
             return HeatBalanceSettingsConductionFiniteDifference()
         if internal_name.lower() == "zoneairheatbalancealgorithm":
             return ZoneAirHeatBalanceAlgorithm()
@@ -6259,7 +8337,8 @@ class IDF(object):
             return ZoneAirContaminantBalance()
         if internal_name.lower() == "zoneairmassflowconservation":
             return ZoneAirMassFlowConservation()
-        if internal_name.lower() == "zonecapacitancemultiplier:researchspecial":
+        if internal_name.lower(
+        ) == "zonecapacitancemultiplier:researchspecial":
             return ZoneCapacitanceMultiplierResearchSpecial()
         if internal_name.lower() == "timestep":
             return Timestep()
@@ -6349,9 +8428,11 @@ class IDF(object):
             return WindowMaterialSimpleGlazingSystem()
         if internal_name.lower() == "windowmaterial:glazing":
             return WindowMaterialGlazing()
-        if internal_name.lower() == "windowmaterial:glazinggroup:thermochromic":
+        if internal_name.lower(
+        ) == "windowmaterial:glazinggroup:thermochromic":
             return WindowMaterialGlazingGroupThermochromic()
-        if internal_name.lower() == "windowmaterial:glazing:refractionextinctionmethod":
+        if internal_name.lower(
+        ) == "windowmaterial:glazing:refractionextinctionmethod":
             return WindowMaterialGlazingRefractionExtinctionMethod()
         if internal_name.lower() == "windowmaterial:gas":
             return WindowMaterialGas()
@@ -6385,23 +8466,31 @@ class IDF(object):
             return ConstructionWindowEquivalentLayer()
         if internal_name.lower() == "windowmaterial:gap:equivalentlayer":
             return WindowMaterialGapEquivalentLayer()
-        if internal_name.lower() == "materialproperty:moisturepenetrationdepth:settings":
+        if internal_name.lower(
+        ) == "materialproperty:moisturepenetrationdepth:settings":
             return MaterialPropertyMoisturePenetrationDepthSettings()
         if internal_name.lower() == "materialproperty:phasechange":
             return MaterialPropertyPhaseChange()
-        if internal_name.lower() == "materialproperty:variablethermalconductivity":
+        if internal_name.lower(
+        ) == "materialproperty:variablethermalconductivity":
             return MaterialPropertyVariableThermalConductivity()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:settings":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:settings":
             return MaterialPropertyHeatAndMoistureTransferSettings()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:sorptionisotherm":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:sorptionisotherm":
             return MaterialPropertyHeatAndMoistureTransferSorptionIsotherm()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:suction":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:suction":
             return MaterialPropertyHeatAndMoistureTransferSuction()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:redistribution":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:redistribution":
             return MaterialPropertyHeatAndMoistureTransferRedistribution()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:diffusion":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:diffusion":
             return MaterialPropertyHeatAndMoistureTransferDiffusion()
-        if internal_name.lower() == "materialproperty:heatandmoisturetransfer:thermalconductivity":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:thermalconductivity":
             return MaterialPropertyHeatAndMoistureTransferThermalConductivity()
         if internal_name.lower() == "materialproperty:glazingspectraldata":
             return MaterialPropertyGlazingSpectralData()
@@ -6503,11 +8592,14 @@ class IDF(object):
             return ShadingPropertyReflectance()
         if internal_name.lower() == "surfaceproperty:heattransferalgorithm":
             return SurfacePropertyHeatTransferAlgorithm()
-        if internal_name.lower() == "surfaceproperty:heattransferalgorithm:multiplesurface":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:multiplesurface":
             return SurfacePropertyHeatTransferAlgorithmMultipleSurface()
-        if internal_name.lower() == "surfaceproperty:heattransferalgorithm:surfacelist":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:surfacelist":
             return SurfacePropertyHeatTransferAlgorithmSurfaceList()
-        if internal_name.lower() == "surfaceproperty:heattransferalgorithm:construction":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:construction":
             return SurfacePropertyHeatTransferAlgorithmConstruction()
         if internal_name.lower() == "surfacecontrol:movableinsulation":
             return SurfaceControlMovableInsulation()
@@ -6515,27 +8607,35 @@ class IDF(object):
             return SurfacePropertyOtherSideCoefficients()
         if internal_name.lower() == "surfaceproperty:othersideconditionsmodel":
             return SurfacePropertyOtherSideConditionsModel()
-        if internal_name.lower() == "surfaceconvectionalgorithm:inside:adaptivemodelselections":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:inside:adaptivemodelselections":
             return SurfaceConvectionAlgorithmInsideAdaptiveModelSelections()
-        if internal_name.lower() == "surfaceconvectionalgorithm:outside:adaptivemodelselections":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:outside:adaptivemodelselections":
             return SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections()
-        if internal_name.lower() == "surfaceconvectionalgorithm:inside:usercurve":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:inside:usercurve":
             return SurfaceConvectionAlgorithmInsideUserCurve()
-        if internal_name.lower() == "surfaceconvectionalgorithm:outside:usercurve":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:outside:usercurve":
             return SurfaceConvectionAlgorithmOutsideUserCurve()
         if internal_name.lower() == "surfaceproperty:convectioncoefficients":
             return SurfacePropertyConvectionCoefficients()
-        if internal_name.lower() == "surfaceproperty:convectioncoefficients:multiplesurface":
+        if internal_name.lower(
+        ) == "surfaceproperty:convectioncoefficients:multiplesurface":
             return SurfacePropertyConvectionCoefficientsMultipleSurface()
         if internal_name.lower() == "surfaceproperties:vaporcoefficients":
             return SurfacePropertiesVaporCoefficients()
-        if internal_name.lower() == "surfaceproperty:exteriornaturalventedcavity":
+        if internal_name.lower(
+        ) == "surfaceproperty:exteriornaturalventedcavity":
             return SurfacePropertyExteriorNaturalVentedCavity()
         if internal_name.lower() == "surfaceproperty:solarincidentinside":
             return SurfacePropertySolarIncidentInside()
-        if internal_name.lower() == "complexfenestrationproperty:solarabsorbedlayers":
+        if internal_name.lower(
+        ) == "complexfenestrationproperty:solarabsorbedlayers":
             return ComplexFenestrationPropertySolarAbsorbedLayers()
-        if internal_name.lower() == "zoneproperty:userviewfactors:bysurfacename":
+        if internal_name.lower(
+        ) == "zoneproperty:userviewfactors:bysurfacename":
             return ZonePropertyUserViewFactorsBySurfaceName()
         if internal_name.lower() == "groundheattransfer:control":
             return GroundHeatTransferControl()
@@ -6561,7 +8661,8 @@ class IDF(object):
             return GroundHeatTransferSlabYface()
         if internal_name.lower() == "groundheattransfer:slab:zface":
             return GroundHeatTransferSlabZface()
-        if internal_name.lower() == "groundheattransfer:basement:simparameters":
+        if internal_name.lower(
+        ) == "groundheattransfer:basement:simparameters":
             return GroundHeatTransferBasementSimParameters()
         if internal_name.lower() == "groundheattransfer:basement:matlprops":
             return GroundHeatTransferBasementMatlProps()
@@ -6577,7 +8678,8 @@ class IDF(object):
             return GroundHeatTransferBasementComBldg()
         if internal_name.lower() == "groundheattransfer:basement:equivslab":
             return GroundHeatTransferBasementEquivSlab()
-        if internal_name.lower() == "groundheattransfer:basement:equivautogrid":
+        if internal_name.lower(
+        ) == "groundheattransfer:basement:equivautogrid":
             return GroundHeatTransferBasementEquivAutoGrid()
         if internal_name.lower() == "groundheattransfer:basement:autogrid":
             return GroundHeatTransferBasementAutoGrid()
@@ -6593,25 +8695,32 @@ class IDF(object):
             return RoomAirModelType()
         if internal_name.lower() == "roomair:temperaturepattern:userdefined":
             return RoomAirTemperaturePatternUserDefined()
-        if internal_name.lower() == "roomair:temperaturepattern:constantgradient":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:constantgradient":
             return RoomAirTemperaturePatternConstantGradient()
         if internal_name.lower() == "roomair:temperaturepattern:twogradient":
             return RoomAirTemperaturePatternTwoGradient()
-        if internal_name.lower() == "roomair:temperaturepattern:nondimensionalheight":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:nondimensionalheight":
             return RoomAirTemperaturePatternNondimensionalHeight()
-        if internal_name.lower() == "roomair:temperaturepattern:surfacemapping":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:surfacemapping":
             return RoomAirTemperaturePatternSurfaceMapping()
         if internal_name.lower() == "roomair:node":
             return RoomAirNode()
-        if internal_name.lower() == "roomairsettings:onenodedisplacementventilation":
+        if internal_name.lower(
+        ) == "roomairsettings:onenodedisplacementventilation":
             return RoomAirSettingsOneNodeDisplacementVentilation()
-        if internal_name.lower() == "roomairsettings:threenodedisplacementventilation":
+        if internal_name.lower(
+        ) == "roomairsettings:threenodedisplacementventilation":
             return RoomAirSettingsThreeNodeDisplacementVentilation()
         if internal_name.lower() == "roomairsettings:crossventilation":
             return RoomAirSettingsCrossVentilation()
-        if internal_name.lower() == "roomairsettings:underfloorairdistributioninterior":
+        if internal_name.lower(
+        ) == "roomairsettings:underfloorairdistributioninterior":
             return RoomAirSettingsUnderFloorAirDistributionInterior()
-        if internal_name.lower() == "roomairsettings:underfloorairdistributionexterior":
+        if internal_name.lower(
+        ) == "roomairsettings:underfloorairdistributionexterior":
             return RoomAirSettingsUnderFloorAirDistributionExterior()
         if internal_name.lower() == "people":
             return People()
@@ -6629,23 +8738,32 @@ class IDF(object):
             return SteamEquipment()
         if internal_name.lower() == "otherequipment":
             return OtherEquipment()
-        if internal_name.lower() == "zonebaseboard:outdoortemperaturecontrolled":
+        if internal_name.lower(
+        ) == "zonebaseboard:outdoortemperaturecontrolled":
             return ZoneBaseboardOutdoorTemperatureControlled()
-        if internal_name.lower() == "zonecontaminantsourceandsink:carbondioxide":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:carbondioxide":
             return ZoneContaminantSourceAndSinkCarbonDioxide()
-        if internal_name.lower() == "zonecontaminantsourceandsink:generic:constant":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:constant":
             return ZoneContaminantSourceAndSinkGenericConstant()
-        if internal_name.lower() == "surfacecontaminantsourceandsink:generic:pressuredriven":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:pressuredriven":
             return SurfaceContaminantSourceAndSinkGenericPressureDriven()
-        if internal_name.lower() == "zonecontaminantsourceandsink:generic:cutoffmodel":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:cutoffmodel":
             return ZoneContaminantSourceAndSinkGenericCutoffModel()
-        if internal_name.lower() == "zonecontaminantsourceandsink:generic:decaysource":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:decaysource":
             return ZoneContaminantSourceAndSinkGenericDecaySource()
-        if internal_name.lower() == "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion":
             return SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion()
-        if internal_name.lower() == "surfacecontaminantsourceandsink:generic:depositionvelocitysink":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:depositionvelocitysink":
             return SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink()
-        if internal_name.lower() == "zonecontaminantsourceandsink:generic:depositionratesink":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:depositionratesink":
             return ZoneContaminantSourceAndSinkGenericDepositionRateSink()
         if internal_name.lower() == "daylighting:controls":
             return DaylightingControls()
@@ -6697,43 +8815,59 @@ class IDF(object):
             return AirflowNetworkMultiZoneZone()
         if internal_name.lower() == "airflownetwork:multizone:surface":
             return AirflowNetworkMultiZoneSurface()
-        if internal_name.lower() == "airflownetwork:multizone:referencecrackconditions":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:referencecrackconditions":
             return AirflowNetworkMultiZoneReferenceCrackConditions()
         if internal_name.lower() == "airflownetwork:multizone:surface:crack":
             return AirflowNetworkMultiZoneSurfaceCrack()
-        if internal_name.lower() == "airflownetwork:multizone:surface:effectiveleakagearea":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:surface:effectiveleakagearea":
             return AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea()
-        if internal_name.lower() == "airflownetwork:multizone:component:detailedopening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:detailedopening":
             return AirflowNetworkMultiZoneComponentDetailedOpening()
-        if internal_name.lower() == "airflownetwork:multizone:component:simpleopening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:simpleopening":
             return AirflowNetworkMultiZoneComponentSimpleOpening()
-        if internal_name.lower() == "airflownetwork:multizone:component:horizontalopening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:horizontalopening":
             return AirflowNetworkMultiZoneComponentHorizontalOpening()
-        if internal_name.lower() == "airflownetwork:multizone:component:zoneexhaustfan":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:zoneexhaustfan":
             return AirflowNetworkMultiZoneComponentZoneExhaustFan()
         if internal_name.lower() == "airflownetwork:multizone:externalnode":
             return AirflowNetworkMultiZoneExternalNode()
-        if internal_name.lower() == "airflownetwork:multizone:windpressurecoefficientarray":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:windpressurecoefficientarray":
             return AirflowNetworkMultiZoneWindPressureCoefficientArray()
-        if internal_name.lower() == "airflownetwork:multizone:windpressurecoefficientvalues":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:windpressurecoefficientvalues":
             return AirflowNetworkMultiZoneWindPressureCoefficientValues()
         if internal_name.lower() == "airflownetwork:distribution:node":
             return AirflowNetworkDistributionNode()
-        if internal_name.lower() == "airflownetwork:distribution:component:leak":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:leak":
             return AirflowNetworkDistributionComponentLeak()
-        if internal_name.lower() == "airflownetwork:distribution:component:leakageratio":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:leakageratio":
             return AirflowNetworkDistributionComponentLeakageRatio()
-        if internal_name.lower() == "airflownetwork:distribution:component:duct":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:duct":
             return AirflowNetworkDistributionComponentDuct()
-        if internal_name.lower() == "airflownetwork:distribution:component:fan":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:fan":
             return AirflowNetworkDistributionComponentFan()
-        if internal_name.lower() == "airflownetwork:distribution:component:coil":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:coil":
             return AirflowNetworkDistributionComponentCoil()
-        if internal_name.lower() == "airflownetwork:distribution:component:heatexchanger":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:heatexchanger":
             return AirflowNetworkDistributionComponentHeatExchanger()
-        if internal_name.lower() == "airflownetwork:distribution:component:terminalunit":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:terminalunit":
             return AirflowNetworkDistributionComponentTerminalUnit()
-        if internal_name.lower() == "airflownetwork:distribution:component:constantpressuredrop":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:constantpressuredrop":
             return AirflowNetworkDistributionComponentConstantPressureDrop()
         if internal_name.lower() == "airflownetwork:distribution:linkage":
             return AirflowNetworkDistributionLinkage()
@@ -6775,7 +8909,8 @@ class IDF(object):
             return HvactemplateSystemVrf()
         if internal_name.lower() == "hvactemplate:system:unitary":
             return HvactemplateSystemUnitary()
-        if internal_name.lower() == "hvactemplate:system:unitaryheatpump:airtoair":
+        if internal_name.lower(
+        ) == "hvactemplate:system:unitaryheatpump:airtoair":
             return HvactemplateSystemUnitaryHeatPumpAirToAir()
         if internal_name.lower() == "hvactemplate:system:unitarysystem":
             return HvactemplateSystemUnitarySystem()
@@ -6793,7 +8928,8 @@ class IDF(object):
             return HvactemplatePlantChilledWaterLoop()
         if internal_name.lower() == "hvactemplate:plant:chiller":
             return HvactemplatePlantChiller()
-        if internal_name.lower() == "hvactemplate:plant:chiller:objectreference":
+        if internal_name.lower(
+        ) == "hvactemplate:plant:chiller:objectreference":
             return HvactemplatePlantChillerObjectReference()
         if internal_name.lower() == "hvactemplate:plant:tower":
             return HvactemplatePlantTower()
@@ -6803,7 +8939,8 @@ class IDF(object):
             return HvactemplatePlantHotWaterLoop()
         if internal_name.lower() == "hvactemplate:plant:boiler":
             return HvactemplatePlantBoiler()
-        if internal_name.lower() == "hvactemplate:plant:boiler:objectreference":
+        if internal_name.lower(
+        ) == "hvactemplate:plant:boiler:objectreference":
             return HvactemplatePlantBoilerObjectReference()
         if internal_name.lower() == "hvactemplate:plant:mixedwaterloop":
             return HvactemplatePlantMixedWaterLoop()
@@ -6827,29 +8964,37 @@ class IDF(object):
             return ZoneControlHumidistat()
         if internal_name.lower() == "zonecontrol:thermostat":
             return ZoneControlThermostat()
-        if internal_name.lower() == "zonecontrol:thermostat:operativetemperature":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:operativetemperature":
             return ZoneControlThermostatOperativeTemperature()
         if internal_name.lower() == "zonecontrol:thermostat:thermalcomfort":
             return ZoneControlThermostatThermalComfort()
-        if internal_name.lower() == "zonecontrol:thermostat:temperatureandhumidity":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:temperatureandhumidity":
             return ZoneControlThermostatTemperatureAndHumidity()
         if internal_name.lower() == "thermostatsetpoint:singleheating":
             return ThermostatSetpointSingleHeating()
         if internal_name.lower() == "thermostatsetpoint:singlecooling":
             return ThermostatSetpointSingleCooling()
-        if internal_name.lower() == "thermostatsetpoint:singleheatingorcooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:singleheatingorcooling":
             return ThermostatSetpointSingleHeatingOrCooling()
         if internal_name.lower() == "thermostatsetpoint:dualsetpoint":
             return ThermostatSetpointDualSetpoint()
-        if internal_name.lower() == "thermostatsetpoint:thermalcomfort:fanger:singleheating":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singleheating":
             return ThermostatSetpointThermalComfortFangerSingleHeating()
-        if internal_name.lower() == "thermostatsetpoint:thermalcomfort:fanger:singlecooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singlecooling":
             return ThermostatSetpointThermalComfortFangerSingleCooling()
-        if internal_name.lower() == "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling":
             return ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling()
-        if internal_name.lower() == "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint":
             return ThermostatSetpointThermalComfortFangerDualSetpoint()
-        if internal_name.lower() == "zonecontrol:thermostat:stageddualsetpoint":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:stageddualsetpoint":
             return ZoneControlThermostatStagedDualSetpoint()
         if internal_name.lower() == "zonecontrol:contaminantcontroller":
             return ZoneControlContaminantController()
@@ -6869,7 +9014,8 @@ class IDF(object):
             return ZoneHvacDehumidifierDx()
         if internal_name.lower() == "zonehvac:energyrecoveryventilator":
             return ZoneHvacEnergyRecoveryVentilator()
-        if internal_name.lower() == "zonehvac:energyrecoveryventilator:controller":
+        if internal_name.lower(
+        ) == "zonehvac:energyrecoveryventilator:controller":
             return ZoneHvacEnergyRecoveryVentilatorController()
         if internal_name.lower() == "zonehvac:unitventilator":
             return ZoneHvacUnitVentilator()
@@ -6881,25 +9027,32 @@ class IDF(object):
             return ZoneHvacOutdoorAirUnit()
         if internal_name.lower() == "zonehvac:outdoorairunit:equipmentlist":
             return ZoneHvacOutdoorAirUnitEquipmentList()
-        if internal_name.lower() == "zonehvac:terminalunit:variablerefrigerantflow":
+        if internal_name.lower(
+        ) == "zonehvac:terminalunit:variablerefrigerantflow":
             return ZoneHvacTerminalUnitVariableRefrigerantFlow()
-        if internal_name.lower() == "zonehvac:baseboard:radiantconvective:water":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:water":
             return ZoneHvacBaseboardRadiantConvectiveWater()
-        if internal_name.lower() == "zonehvac:baseboard:radiantconvective:steam":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:steam":
             return ZoneHvacBaseboardRadiantConvectiveSteam()
-        if internal_name.lower() == "zonehvac:baseboard:radiantconvective:electric":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:electric":
             return ZoneHvacBaseboardRadiantConvectiveElectric()
         if internal_name.lower() == "zonehvac:baseboard:convective:water":
             return ZoneHvacBaseboardConvectiveWater()
         if internal_name.lower() == "zonehvac:baseboard:convective:electric":
             return ZoneHvacBaseboardConvectiveElectric()
-        if internal_name.lower() == "zonehvac:lowtemperatureradiant:variableflow":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:variableflow":
             return ZoneHvacLowTemperatureRadiantVariableFlow()
-        if internal_name.lower() == "zonehvac:lowtemperatureradiant:constantflow":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:constantflow":
             return ZoneHvacLowTemperatureRadiantConstantFlow()
         if internal_name.lower() == "zonehvac:lowtemperatureradiant:electric":
             return ZoneHvacLowTemperatureRadiantElectric()
-        if internal_name.lower() == "zonehvac:lowtemperatureradiant:surfacegroup":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:surfacegroup":
             return ZoneHvacLowTemperatureRadiantSurfaceGroup()
         if internal_name.lower() == "zonehvac:hightemperatureradiant":
             return ZoneHvacHighTemperatureRadiant()
@@ -6909,25 +9062,32 @@ class IDF(object):
             return ZoneHvacVentilatedSlabSlabGroup()
         if internal_name.lower() == "airterminal:singleduct:uncontrolled":
             return AirTerminalSingleDuctUncontrolled()
-        if internal_name.lower() == "airterminal:singleduct:constantvolume:reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:reheat":
             return AirTerminalSingleDuctConstantVolumeReheat()
         if internal_name.lower() == "airterminal:singleduct:vav:noreheat":
             return AirTerminalSingleDuctVavNoReheat()
         if internal_name.lower() == "airterminal:singleduct:vav:reheat":
             return AirTerminalSingleDuctVavReheat()
-        if internal_name.lower() == "airterminal:singleduct:vav:reheat:variablespeedfan":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:reheat:variablespeedfan":
             return AirTerminalSingleDuctVavReheatVariableSpeedFan()
-        if internal_name.lower() == "airterminal:singleduct:vav:heatandcool:noreheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:heatandcool:noreheat":
             return AirTerminalSingleDuctVavHeatAndCoolNoReheat()
-        if internal_name.lower() == "airterminal:singleduct:vav:heatandcool:reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:heatandcool:reheat":
             return AirTerminalSingleDuctVavHeatAndCoolReheat()
         if internal_name.lower() == "airterminal:singleduct:seriespiu:reheat":
             return AirTerminalSingleDuctSeriesPiuReheat()
-        if internal_name.lower() == "airterminal:singleduct:parallelpiu:reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:parallelpiu:reheat":
             return AirTerminalSingleDuctParallelPiuReheat()
-        if internal_name.lower() == "airterminal:singleduct:constantvolume:fourpipeinduction":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:fourpipeinduction":
             return AirTerminalSingleDuctConstantVolumeFourPipeInduction()
-        if internal_name.lower() == "airterminal:singleduct:constantvolume:cooledbeam":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:cooledbeam":
             return AirTerminalSingleDuctConstantVolumeCooledBeam()
         if internal_name.lower() == "airterminal:singleduct:inletsidemixer":
             return AirTerminalSingleDuctInletSideMixer()
@@ -6969,7 +9129,8 @@ class IDF(object):
             return CoilCoolingDxMultiSpeed()
         if internal_name.lower() == "coil:cooling:dx:variablespeed":
             return CoilCoolingDxVariableSpeed()
-        if internal_name.lower() == "coil:cooling:dx:twostagewithhumiditycontrolmode":
+        if internal_name.lower(
+        ) == "coil:cooling:dx:twostagewithhumiditycontrolmode":
             return CoilCoolingDxTwoStageWithHumidityControlMode()
         if internal_name.lower() == "coilperformance:dx:cooling":
             return CoilPerformanceDxCooling()
@@ -6997,17 +9158,23 @@ class IDF(object):
             return CoilHeatingDxMultiSpeed()
         if internal_name.lower() == "coil:heating:dx:variablespeed":
             return CoilHeatingDxVariableSpeed()
-        if internal_name.lower() == "coil:cooling:watertoairheatpump:parameterestimation":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:parameterestimation":
             return CoilCoolingWaterToAirHeatPumpParameterEstimation()
-        if internal_name.lower() == "coil:heating:watertoairheatpump:parameterestimation":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:parameterestimation":
             return CoilHeatingWaterToAirHeatPumpParameterEstimation()
-        if internal_name.lower() == "coil:cooling:watertoairheatpump:equationfit":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:equationfit":
             return CoilCoolingWaterToAirHeatPumpEquationFit()
-        if internal_name.lower() == "coil:cooling:watertoairheatpump:variablespeedequationfit":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:variablespeedequationfit":
             return CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit()
-        if internal_name.lower() == "coil:heating:watertoairheatpump:equationfit":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:equationfit":
             return CoilHeatingWaterToAirHeatPumpEquationFit()
-        if internal_name.lower() == "coil:heating:watertoairheatpump:variablespeedequationfit":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:variablespeedequationfit":
             return CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit()
         if internal_name.lower() == "coil:waterheating:airtowaterheatpump":
             return CoilWaterHeatingAirToWaterHeatPump()
@@ -7017,11 +9184,14 @@ class IDF(object):
             return CoilSystemCoolingDx()
         if internal_name.lower() == "coilsystem:heating:dx":
             return CoilSystemHeatingDx()
-        if internal_name.lower() == "coilsystem:cooling:water:heatexchangerassisted":
+        if internal_name.lower(
+        ) == "coilsystem:cooling:water:heatexchangerassisted":
             return CoilSystemCoolingWaterHeatExchangerAssisted()
-        if internal_name.lower() == "coilsystem:cooling:dx:heatexchangerassisted":
+        if internal_name.lower(
+        ) == "coilsystem:cooling:dx:heatexchangerassisted":
             return CoilSystemCoolingDxHeatExchangerAssisted()
-        if internal_name.lower() == "coil:cooling:dx:singlespeed:thermalstorage":
+        if internal_name.lower(
+        ) == "coil:cooling:dx:singlespeed:thermalstorage":
             return CoilCoolingDxSingleSpeedThermalStorage()
         if internal_name.lower() == "evaporativecooler:direct:celdekpad":
             return EvaporativeCoolerDirectCelDekPad()
@@ -7029,7 +9199,8 @@ class IDF(object):
             return EvaporativeCoolerIndirectCelDekPad()
         if internal_name.lower() == "evaporativecooler:indirect:wetcoil":
             return EvaporativeCoolerIndirectWetCoil()
-        if internal_name.lower() == "evaporativecooler:indirect:researchspecial":
+        if internal_name.lower(
+        ) == "evaporativecooler:indirect:researchspecial":
             return EvaporativeCoolerIndirectResearchSpecial()
         if internal_name.lower() == "evaporativecooler:direct:researchspecial":
             return EvaporativeCoolerDirectResearchSpecial()
@@ -7045,11 +9216,13 @@ class IDF(object):
             return HeatExchangerAirToAirSensibleAndLatent()
         if internal_name.lower() == "heatexchanger:desiccant:balancedflow":
             return HeatExchangerDesiccantBalancedFlow()
-        if internal_name.lower() == "heatexchanger:desiccant:balancedflow:performancedatatype1":
+        if internal_name.lower(
+        ) == "heatexchanger:desiccant:balancedflow:performancedatatype1":
             return HeatExchangerDesiccantBalancedFlowPerformanceDataType1()
         if internal_name.lower() == "airloophvac:unitarysystem":
             return AirLoopHvacUnitarySystem()
-        if internal_name.lower() == "unitarysystemperformance:heatpump:multispeed":
+        if internal_name.lower(
+        ) == "unitarysystemperformance:heatpump:multispeed":
             return UnitarySystemPerformanceHeatPumpMultispeed()
         if internal_name.lower() == "airloophvac:unitary:furnace:heatonly":
             return AirLoopHvacUnitaryFurnaceHeatOnly()
@@ -7063,9 +9236,11 @@ class IDF(object):
             return AirLoopHvacUnitaryHeatPumpAirToAir()
         if internal_name.lower() == "airloophvac:unitaryheatpump:watertoair":
             return AirLoopHvacUnitaryHeatPumpWaterToAir()
-        if internal_name.lower() == "airloophvac:unitaryheatcool:vavchangeoverbypass":
+        if internal_name.lower(
+        ) == "airloophvac:unitaryheatcool:vavchangeoverbypass":
             return AirLoopHvacUnitaryHeatCoolVavchangeoverBypass()
-        if internal_name.lower() == "airloophvac:unitaryheatpump:airtoair:multispeed":
+        if internal_name.lower(
+        ) == "airloophvac:unitaryheatpump:airtoair:multispeed":
             return AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed()
         if internal_name.lower() == "airconditioner:variablerefrigerantflow":
             return AirConditionerVariableRefrigerantFlow()
@@ -7081,7 +9256,8 @@ class IDF(object):
             return AirLoopHvacControllerList()
         if internal_name.lower() == "airloophvac":
             return AirLoopHvac()
-        if internal_name.lower() == "airloophvac:outdoorairsystem:equipmentlist":
+        if internal_name.lower(
+        ) == "airloophvac:outdoorairsystem:equipmentlist":
             return AirLoopHvacOutdoorAirSystemEquipmentList()
         if internal_name.lower() == "airloophvac:outdoorairsystem":
             return AirLoopHvacOutdoorAirSystem()
@@ -7151,17 +9327,21 @@ class IDF(object):
             return SolarCollectorPerformanceFlatPlate()
         if internal_name.lower() == "solarcollector:flatplate:water":
             return SolarCollectorFlatPlateWater()
-        if internal_name.lower() == "solarcollector:flatplate:photovoltaicthermal":
+        if internal_name.lower(
+        ) == "solarcollector:flatplate:photovoltaicthermal":
             return SolarCollectorFlatPlatePhotovoltaicThermal()
-        if internal_name.lower() == "solarcollectorperformance:photovoltaicthermal:simple":
+        if internal_name.lower(
+        ) == "solarcollectorperformance:photovoltaicthermal:simple":
             return SolarCollectorPerformancePhotovoltaicThermalSimple()
         if internal_name.lower() == "solarcollector:integralcollectorstorage":
             return SolarCollectorIntegralCollectorStorage()
-        if internal_name.lower() == "solarcollectorperformance:integralcollectorstorage":
+        if internal_name.lower(
+        ) == "solarcollectorperformance:integralcollectorstorage":
             return SolarCollectorPerformanceIntegralCollectorStorage()
         if internal_name.lower() == "solarcollector:unglazedtranspired":
             return SolarCollectorUnglazedTranspired()
-        if internal_name.lower() == "solarcollector:unglazedtranspired:multisystem":
+        if internal_name.lower(
+        ) == "solarcollector:unglazedtranspired:multisystem":
             return SolarCollectorUnglazedTranspiredMultisystem()
         if internal_name.lower() == "boiler:hotwater":
             return BoilerHotWater()
@@ -7187,13 +9367,17 @@ class IDF(object):
             return ChillerHeaterAbsorptionDirectFired()
         if internal_name.lower() == "chillerheater:absorption:doubleeffect":
             return ChillerHeaterAbsorptionDoubleEffect()
-        if internal_name.lower() == "heatpump:watertowater:equationfit:heating":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:equationfit:heating":
             return HeatPumpWaterToWaterEquationFitHeating()
-        if internal_name.lower() == "heatpump:watertowater:equationfit:cooling":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:equationfit:cooling":
             return HeatPumpWaterToWaterEquationFitCooling()
-        if internal_name.lower() == "heatpump:watertowater:parameterestimation:cooling":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:parameterestimation:cooling":
             return HeatPumpWaterToWaterParameterEstimationCooling()
-        if internal_name.lower() == "heatpump:watertowater:parameterestimation:heating":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:parameterestimation:heating":
             return HeatPumpWaterToWaterParameterEstimationHeating()
         if internal_name.lower() == "districtcooling":
             return DistrictCooling()
@@ -7269,17 +9453,22 @@ class IDF(object):
             return PlantEquipmentOperationOutdoorDryBulb()
         if internal_name.lower() == "plantequipmentoperation:outdoorwetbulb":
             return PlantEquipmentOperationOutdoorWetBulb()
-        if internal_name.lower() == "plantequipmentoperation:outdoorrelativehumidity":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoorrelativehumidity":
             return PlantEquipmentOperationOutdoorRelativeHumidity()
         if internal_name.lower() == "plantequipmentoperation:outdoordewpoint":
             return PlantEquipmentOperationOutdoorDewpoint()
-        if internal_name.lower() == "plantequipmentoperation:componentsetpoint":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:componentsetpoint":
             return PlantEquipmentOperationComponentSetpoint()
-        if internal_name.lower() == "plantequipmentoperation:outdoordrybulbdifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoordrybulbdifference":
             return PlantEquipmentOperationOutdoorDryBulbDifference()
-        if internal_name.lower() == "plantequipmentoperation:outdoorwetbulbdifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoorwetbulbdifference":
             return PlantEquipmentOperationOutdoorWetBulbDifference()
-        if internal_name.lower() == "plantequipmentoperation:outdoordewpointdifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoordewpointdifference":
             return PlantEquipmentOperationOutdoorDewpointDifference()
         if internal_name.lower() == "plantequipmentoperationschemes":
             return PlantEquipmentOperationSchemes()
@@ -7289,7 +9478,8 @@ class IDF(object):
             return EnergyManagementSystemSensor()
         if internal_name.lower() == "energymanagementsystem:actuator":
             return EnergyManagementSystemActuator()
-        if internal_name.lower() == "energymanagementsystem:programcallingmanager":
+        if internal_name.lower(
+        ) == "energymanagementsystem:programcallingmanager":
             return EnergyManagementSystemProgramCallingManager()
         if internal_name.lower() == "energymanagementsystem:program":
             return EnergyManagementSystemProgram()
@@ -7299,15 +9489,18 @@ class IDF(object):
             return EnergyManagementSystemGlobalVariable()
         if internal_name.lower() == "energymanagementsystem:outputvariable":
             return EnergyManagementSystemOutputVariable()
-        if internal_name.lower() == "energymanagementsystem:meteredoutputvariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:meteredoutputvariable":
             return EnergyManagementSystemMeteredOutputVariable()
         if internal_name.lower() == "energymanagementsystem:trendvariable":
             return EnergyManagementSystemTrendVariable()
         if internal_name.lower() == "energymanagementsystem:internalvariable":
             return EnergyManagementSystemInternalVariable()
-        if internal_name.lower() == "energymanagementsystem:curveortableindexvariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:curveortableindexvariable":
             return EnergyManagementSystemCurveOrTableIndexVariable()
-        if internal_name.lower() == "energymanagementsystem:constructionindexvariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:constructionindexvariable":
             return EnergyManagementSystemConstructionIndexVariable()
         if internal_name.lower() == "externalinterface":
             return ExternalInterface()
@@ -7317,23 +9510,32 @@ class IDF(object):
             return ExternalInterfaceVariable()
         if internal_name.lower() == "externalinterface:actuator":
             return ExternalInterfaceActuator()
-        if internal_name.lower() == "externalinterface:functionalmockupunitimport":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport":
             return ExternalInterfaceFunctionalMockupUnitImport()
-        if internal_name.lower() == "externalinterface:functionalmockupunitimport:from:variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:from:variable":
             return ExternalInterfaceFunctionalMockupUnitImportFromVariable()
-        if internal_name.lower() == "externalinterface:functionalmockupunitimport:to:schedule":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:schedule":
             return ExternalInterfaceFunctionalMockupUnitImportToSchedule()
-        if internal_name.lower() == "externalinterface:functionalmockupunitimport:to:actuator":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:actuator":
             return ExternalInterfaceFunctionalMockupUnitImportToActuator()
-        if internal_name.lower() == "externalinterface:functionalmockupunitimport:to:variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:variable":
             return ExternalInterfaceFunctionalMockupUnitImportToVariable()
-        if internal_name.lower() == "externalinterface:functionalmockupunitexport:from:variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:from:variable":
             return ExternalInterfaceFunctionalMockupUnitExportFromVariable()
-        if internal_name.lower() == "externalinterface:functionalmockupunitexport:to:schedule":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:schedule":
             return ExternalInterfaceFunctionalMockupUnitExportToSchedule()
-        if internal_name.lower() == "externalinterface:functionalmockupunitexport:to:actuator":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:actuator":
             return ExternalInterfaceFunctionalMockupUnitExportToActuator()
-        if internal_name.lower() == "externalinterface:functionalmockupunitexport:to:variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:variable":
             return ExternalInterfaceFunctionalMockupUnitExportToVariable()
         if internal_name.lower() == "zonehvac:forcedair:userdefined":
             return ZoneHvacForcedAirUserDefined()
@@ -7355,13 +9557,17 @@ class IDF(object):
             return AvailabilityManagerOptimumStart()
         if internal_name.lower() == "availabilitymanager:nightcycle":
             return AvailabilityManagerNightCycle()
-        if internal_name.lower() == "availabilitymanager:differentialthermostat":
+        if internal_name.lower(
+        ) == "availabilitymanager:differentialthermostat":
             return AvailabilityManagerDifferentialThermostat()
-        if internal_name.lower() == "availabilitymanager:hightemperatureturnoff":
+        if internal_name.lower(
+        ) == "availabilitymanager:hightemperatureturnoff":
             return AvailabilityManagerHighTemperatureTurnOff()
-        if internal_name.lower() == "availabilitymanager:hightemperatureturnon":
+        if internal_name.lower(
+        ) == "availabilitymanager:hightemperatureturnon":
             return AvailabilityManagerHighTemperatureTurnOn()
-        if internal_name.lower() == "availabilitymanager:lowtemperatureturnoff":
+        if internal_name.lower(
+        ) == "availabilitymanager:lowtemperatureturnoff":
             return AvailabilityManagerLowTemperatureTurnOff()
         if internal_name.lower() == "availabilitymanager:lowtemperatureturnon":
             return AvailabilityManagerLowTemperatureTurnOn()
@@ -7383,9 +9589,11 @@ class IDF(object):
             return SetpointManagerSingleZoneHeating()
         if internal_name.lower() == "setpointmanager:singlezone:cooling":
             return SetpointManagerSingleZoneCooling()
-        if internal_name.lower() == "setpointmanager:singlezone:humidity:minimum":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:humidity:minimum":
             return SetpointManagerSingleZoneHumidityMinimum()
-        if internal_name.lower() == "setpointmanager:singlezone:humidity:maximum":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:humidity:maximum":
             return SetpointManagerSingleZoneHumidityMaximum()
         if internal_name.lower() == "setpointmanager:mixedair":
             return SetpointManagerMixedAir()
@@ -7399,31 +9607,42 @@ class IDF(object):
             return SetpointManagerReturnAirBypassFlow()
         if internal_name.lower() == "setpointmanager:warmesttemperatureflow":
             return SetpointManagerWarmestTemperatureFlow()
-        if internal_name.lower() == "setpointmanager:multizone:heating:average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:heating:average":
             return SetpointManagerMultiZoneHeatingAverage()
-        if internal_name.lower() == "setpointmanager:multizone:cooling:average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:cooling:average":
             return SetpointManagerMultiZoneCoolingAverage()
-        if internal_name.lower() == "setpointmanager:multizone:minimumhumidity:average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:minimumhumidity:average":
             return SetpointManagerMultiZoneMinimumHumidityAverage()
-        if internal_name.lower() == "setpointmanager:multizone:maximumhumidity:average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:maximumhumidity:average":
             return SetpointManagerMultiZoneMaximumHumidityAverage()
-        if internal_name.lower() == "setpointmanager:multizone:humidity:minimum":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:humidity:minimum":
             return SetpointManagerMultiZoneHumidityMinimum()
-        if internal_name.lower() == "setpointmanager:multizone:humidity:maximum":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:humidity:maximum":
             return SetpointManagerMultiZoneHumidityMaximum()
-        if internal_name.lower() == "setpointmanager:followoutdoorairtemperature":
+        if internal_name.lower(
+        ) == "setpointmanager:followoutdoorairtemperature":
             return SetpointManagerFollowOutdoorAirTemperature()
-        if internal_name.lower() == "setpointmanager:followsystemnodetemperature":
+        if internal_name.lower(
+        ) == "setpointmanager:followsystemnodetemperature":
             return SetpointManagerFollowSystemNodeTemperature()
         if internal_name.lower() == "setpointmanager:followgroundtemperature":
             return SetpointManagerFollowGroundTemperature()
         if internal_name.lower() == "setpointmanager:condenserenteringreset":
             return SetpointManagerCondenserEnteringReset()
-        if internal_name.lower() == "setpointmanager:condenserenteringreset:ideal":
+        if internal_name.lower(
+        ) == "setpointmanager:condenserenteringreset:ideal":
             return SetpointManagerCondenserEnteringResetIdeal()
-        if internal_name.lower() == "setpointmanager:singlezone:onestagecooling":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:onestagecooling":
             return SetpointManagerSingleZoneOneStageCooling()
-        if internal_name.lower() == "setpointmanager:singlezone:onestageheating":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:onestageheating":
             return SetpointManagerSingleZoneOneStageHeating()
         if internal_name.lower() == "refrigeration:case":
             return RefrigerationCase()
@@ -7433,7 +9652,8 @@ class IDF(object):
             return RefrigerationCaseAndWalkInList()
         if internal_name.lower() == "refrigeration:condenser:aircooled":
             return RefrigerationCondenserAirCooled()
-        if internal_name.lower() == "refrigeration:condenser:evaporativecooled":
+        if internal_name.lower(
+        ) == "refrigeration:condenser:evaporativecooled":
             return RefrigerationCondenserEvaporativeCooled()
         if internal_name.lower() == "refrigeration:condenser:watercooled":
             return RefrigerationCondenserWaterCooled()
@@ -7481,7 +9701,8 @@ class IDF(object):
             return GeneratorPhotovoltaic()
         if internal_name.lower() == "photovoltaicperformance:simple":
             return PhotovoltaicPerformanceSimple()
-        if internal_name.lower() == "photovoltaicperformance:equivalentone-diode":
+        if internal_name.lower(
+        ) == "photovoltaicperformance:equivalentone-diode":
             return PhotovoltaicPerformanceEquivalentOneDiode()
         if internal_name.lower() == "photovoltaicperformance:sandia":
             return PhotovoltaicPerformanceSandia()
@@ -7495,7 +9716,8 @@ class IDF(object):
             return GeneratorFuelCellWaterSupply()
         if internal_name.lower() == "generator:fuelcell:auxiliaryheater":
             return GeneratorFuelCellAuxiliaryHeater()
-        if internal_name.lower() == "generator:fuelcell:exhaustgastowaterheatexchanger":
+        if internal_name.lower(
+        ) == "generator:fuelcell:exhaustgastowaterheatexchanger":
             return GeneratorFuelCellExhaustGasToWaterHeatExchanger()
         if internal_name.lower() == "generator:fuelcell:electricalstorage":
             return GeneratorFuelCellElectricalStorage()
@@ -7505,7 +9727,8 @@ class IDF(object):
             return GeneratorFuelCellStackCooler()
         if internal_name.lower() == "generator:microchp":
             return GeneratorMicroChp()
-        if internal_name.lower() == "generator:microchp:nonnormalizedparameters":
+        if internal_name.lower(
+        ) == "generator:microchp:nonnormalizedparameters":
             return GeneratorMicroChpNonNormalizedParameters()
         if internal_name.lower() == "generator:fuelsupply":
             return GeneratorFuelSupply()
@@ -7515,7 +9738,8 @@ class IDF(object):
             return ElectricLoadCenterGenerators()
         if internal_name.lower() == "electricloadcenter:inverter:simple":
             return ElectricLoadCenterInverterSimple()
-        if internal_name.lower() == "electricloadcenter:inverter:functionofpower":
+        if internal_name.lower(
+        ) == "electricloadcenter:inverter:functionofpower":
             return ElectricLoadCenterInverterFunctionOfPower()
         if internal_name.lower() == "electricloadcenter:inverter:lookuptable":
             return ElectricLoadCenterInverterLookUpTable()
@@ -7537,17 +9761,23 @@ class IDF(object):
             return WaterUseWell()
         if internal_name.lower() == "wateruse:raincollector":
             return WaterUseRainCollector()
-        if internal_name.lower() == "faultmodel:temperaturesensoroffset:outdoorair":
+        if internal_name.lower(
+        ) == "faultmodel:temperaturesensoroffset:outdoorair":
             return FaultModelTemperatureSensorOffsetOutdoorAir()
-        if internal_name.lower() == "faultmodel:humiditysensoroffset:outdoorair":
+        if internal_name.lower(
+        ) == "faultmodel:humiditysensoroffset:outdoorair":
             return FaultModelHumiditySensorOffsetOutdoorAir()
-        if internal_name.lower() == "faultmodel:enthalpysensoroffset:outdoorair":
+        if internal_name.lower(
+        ) == "faultmodel:enthalpysensoroffset:outdoorair":
             return FaultModelEnthalpySensorOffsetOutdoorAir()
-        if internal_name.lower() == "faultmodel:pressuresensoroffset:outdoorair":
+        if internal_name.lower(
+        ) == "faultmodel:pressuresensoroffset:outdoorair":
             return FaultModelPressureSensorOffsetOutdoorAir()
-        if internal_name.lower() == "faultmodel:temperaturesensoroffset:returnair":
+        if internal_name.lower(
+        ) == "faultmodel:temperaturesensoroffset:returnair":
             return FaultModelTemperatureSensorOffsetReturnAir()
-        if internal_name.lower() == "faultmodel:enthalpysensoroffset:returnair":
+        if internal_name.lower(
+        ) == "faultmodel:enthalpysensoroffset:returnair":
             return FaultModelEnthalpySensorOffsetReturnAir()
         if internal_name.lower() == "faultmodel:fouling:coil":
             return FaultModelFoulingCoil()
@@ -7699,14 +9929,15 @@ class IDF(object):
             return OutputDebuggingData()
         if internal_name.lower() == "output:preprocessormessage":
             return OutputPreprocessorMessage()
-        raise ValueError("No DataDictionary known for {}".format(internal_name))
+        raise ValueError(
+            "No DataDictionary known for {}".format(internal_name))
 
     def __getitem__(self, val):
         if isinstance(val, six.string_types):
             group = self._create_datadict(val).schema['group']
             if group not in self._data:
                 self._data[group] = OrderedDict()
-    
+
             lower_name = val.lower()
             if lower_name not in self._data[group]:
                 self._data[group][lower_name] = []
@@ -7723,7 +9954,7 @@ class IDF(object):
                         i += 1
         else:
             raise TypeError("Wrong type {} for IDF".format(type(val)))
-    
+
     def __len__(self):
         count = 0
         for group in self._data:
@@ -7745,4 +9976,3 @@ class IDF(object):
                     return True
                 break
         return False
-        

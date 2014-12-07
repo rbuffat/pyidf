@@ -11,6 +11,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class ZoneHvacIdealLoadsAirSystem(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:IdealLoadsAirSystem`
         Ideal system used to calculate loads without modeling a full HVAC system. All that is
         required for the ideal system are zone controls, zone equipment configurations, and
@@ -20,27 +21,281 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
         use is reported as DistrictHeating and DistrictCooling.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone supply air node name', {'name': u'Zone Supply Air Node Name', 'pyname': u'zone_supply_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone exhaust air node name', {'name': u'Zone Exhaust Air Node Name', 'pyname': u'zone_exhaust_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'maximum heating supply air temperature', {'name': u'Maximum Heating Supply Air Temperature', 'pyname': u'maximum_heating_supply_air_temperature', 'default': 50.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 100.0, 'unit': u'C'}), (u'minimum cooling supply air temperature', {'name': u'Minimum Cooling Supply Air Temperature', 'pyname': u'minimum_cooling_supply_air_temperature', 'default': 13.0, 'minimum>': -100.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'maximum<': 50.0, 'unit': u'C'}), (u'maximum heating supply air humidity ratio', {'name': u'Maximum Heating Supply Air Humidity Ratio', 'pyname': u'maximum_heating_supply_air_humidity_ratio', 'default': 0.0156, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'minimum cooling supply air humidity ratio', {'name': u'Minimum Cooling Supply Air Humidity Ratio', 'pyname': u'minimum_cooling_supply_air_humidity_ratio', 'default': 0.0077, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'kgWater/kgDryAir'}), (u'heating limit', {'name': u'Heating Limit', 'pyname': u'heating_limit', 'default': u'NoLimit', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoLimit', u'LimitFlowRate', u'LimitCapacity', u'LimitFlowRateAndCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum heating air flow rate', {'name': u'Maximum Heating Air Flow Rate', 'pyname': u'maximum_heating_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum sensible heating capacity', {'name': u'Maximum Sensible Heating Capacity', 'pyname': u'maximum_sensible_heating_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'cooling limit', {'name': u'Cooling Limit', 'pyname': u'cooling_limit', 'default': u'NoLimit', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoLimit', u'LimitFlowRate', u'LimitCapacity', u'LimitFlowRateAndCapacity'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum cooling air flow rate', {'name': u'Maximum Cooling Air Flow Rate', 'pyname': u'maximum_cooling_air_flow_rate', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum total cooling capacity', {'name': u'Maximum Total Cooling Capacity', 'pyname': u'maximum_total_cooling_capacity', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'W'}), (u'heating availability schedule name', {'name': u'Heating Availability Schedule Name', 'pyname': u'heating_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling availability schedule name', {'name': u'Cooling Availability Schedule Name', 'pyname': u'cooling_availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'dehumidification control type', {'name': u'Dehumidification Control Type', 'pyname': u'dehumidification_control_type', 'default': u'ConstantSensibleHeatRatio', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ConstantSensibleHeatRatio', u'Humidistat', u'None', u'ConstantSupplyHumidityRatio'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling sensible heat ratio', {'name': u'Cooling Sensible Heat Ratio', 'pyname': u'cooling_sensible_heat_ratio', 'default': 0.7, 'minimum>': 0.0, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'humidification control type', {'name': u'Humidification Control Type', 'pyname': u'humidification_control_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Humidistat', u'ConstantSupplyHumidityRatio'], 'autocalculatable': False, 'type': 'alpha'}), (u'design specification outdoor air object name', {'name': u'Design Specification Outdoor Air Object Name', 'pyname': u'design_specification_outdoor_air_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'demand controlled ventilation type', {'name': u'Demand Controlled Ventilation Type', 'pyname': u'demand_controlled_ventilation_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'OccupancySchedule', u'CO2Setpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air economizer type', {'name': u'Outdoor Air Economizer Type', 'pyname': u'outdoor_air_economizer_type', 'default': u'NoEconomizer', 'required-field': False, 'autosizable': False, 'accepted-values': [u'NoEconomizer', u'DifferentialDryBulb', u'DifferentialEnthalpy'], 'autocalculatable': False, 'type': 'alpha'}), (u'heat recovery type', {'name': u'Heat Recovery Type', 'pyname': u'heat_recovery_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'Sensible', u'Enthalpy'], 'autocalculatable': False, 'type': 'alpha'}), (u'sensible heat recovery effectiveness', {'name': u'Sensible Heat Recovery Effectiveness', 'pyname': u'sensible_heat_recovery_effectiveness', 'default': 0.7, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'latent heat recovery effectiveness', {'name': u'Latent Heat Recovery Effectiveness', 'pyname': u'latent_heat_recovery_effectiveness', 'default': 0.65, 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'dimensionless'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 26,
- 'name': u'ZoneHVAC:IdealLoadsAirSystem',
- 'pyname': u'ZoneHvacIdealLoadsAirSystem',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone supply air node name',
+                                      {'name': u'Zone Supply Air Node Name',
+                                       'pyname': u'zone_supply_air_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'zone exhaust air node name',
+                                      {'name': u'Zone Exhaust Air Node Name',
+                                       'pyname': u'zone_exhaust_air_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'maximum heating supply air temperature',
+                                      {'name': u'Maximum Heating Supply Air Temperature',
+                                       'pyname': u'maximum_heating_supply_air_temperature',
+                                       'default': 50.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'maximum<': 100.0,
+                                       'unit': u'C'}),
+                                     (u'minimum cooling supply air temperature',
+                                      {'name': u'Minimum Cooling Supply Air Temperature',
+                                       'pyname': u'minimum_cooling_supply_air_temperature',
+                                       'default': 13.0,
+                                       'minimum>': -100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'maximum<': 50.0,
+                                       'unit': u'C'}),
+                                     (u'maximum heating supply air humidity ratio',
+                                      {'name': u'Maximum Heating Supply Air Humidity Ratio',
+                                       'pyname': u'maximum_heating_supply_air_humidity_ratio',
+                                       'default': 0.0156,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'minimum cooling supply air humidity ratio',
+                                      {'name': u'Minimum Cooling Supply Air Humidity Ratio',
+                                       'pyname': u'minimum_cooling_supply_air_humidity_ratio',
+                                       'default': 0.0077,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'kgWater/kgDryAir'}),
+                                     (u'heating limit',
+                                      {'name': u'Heating Limit',
+                                       'pyname': u'heating_limit',
+                                       'default': u'NoLimit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'NoLimit',
+                                                           u'LimitFlowRate',
+                                                           u'LimitCapacity',
+                                                           u'LimitFlowRateAndCapacity'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum heating air flow rate',
+                                      {'name': u'Maximum Heating Air Flow Rate',
+                                       'pyname': u'maximum_heating_air_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'maximum sensible heating capacity',
+                                      {'name': u'Maximum Sensible Heating Capacity',
+                                       'pyname': u'maximum_sensible_heating_capacity',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'cooling limit',
+                                      {'name': u'Cooling Limit',
+                                       'pyname': u'cooling_limit',
+                                       'default': u'NoLimit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'NoLimit',
+                                                           u'LimitFlowRate',
+                                                           u'LimitCapacity',
+                                                           u'LimitFlowRateAndCapacity'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum cooling air flow rate',
+                                      {'name': u'Maximum Cooling Air Flow Rate',
+                                       'pyname': u'maximum_cooling_air_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'maximum total cooling capacity',
+                                      {'name': u'Maximum Total Cooling Capacity',
+                                       'pyname': u'maximum_total_cooling_capacity',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'W'}),
+                                     (u'heating availability schedule name',
+                                      {'name': u'Heating Availability Schedule Name',
+                                       'pyname': u'heating_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling availability schedule name',
+                                      {'name': u'Cooling Availability Schedule Name',
+                                       'pyname': u'cooling_availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'dehumidification control type',
+                                      {'name': u'Dehumidification Control Type',
+                                       'pyname': u'dehumidification_control_type',
+                                       'default': u'ConstantSensibleHeatRatio',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ConstantSensibleHeatRatio',
+                                                           u'Humidistat',
+                                                           u'None',
+                                                           u'ConstantSupplyHumidityRatio'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling sensible heat ratio',
+                                      {'name': u'Cooling Sensible Heat Ratio',
+                                       'pyname': u'cooling_sensible_heat_ratio',
+                                       'default': 0.7,
+                                       'minimum>': 0.0,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'humidification control type',
+                                      {'name': u'Humidification Control Type',
+                                       'pyname': u'humidification_control_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'None',
+                                                           u'Humidistat',
+                                                           u'ConstantSupplyHumidityRatio'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design specification outdoor air object name',
+                                      {'name': u'Design Specification Outdoor Air Object Name',
+                                       'pyname': u'design_specification_outdoor_air_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outdoor air inlet node name',
+                                      {'name': u'Outdoor Air Inlet Node Name',
+                                       'pyname': u'outdoor_air_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'demand controlled ventilation type',
+                                      {'name': u'Demand Controlled Ventilation Type',
+                                       'pyname': u'demand_controlled_ventilation_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'None',
+                                                           u'OccupancySchedule',
+                                                           u'CO2Setpoint'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air economizer type',
+                                      {'name': u'Outdoor Air Economizer Type',
+                                       'pyname': u'outdoor_air_economizer_type',
+                                       'default': u'NoEconomizer',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'NoEconomizer',
+                                                           u'DifferentialDryBulb',
+                                                           u'DifferentialEnthalpy'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heat recovery type',
+                                      {'name': u'Heat Recovery Type',
+                                       'pyname': u'heat_recovery_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'None',
+                                                           u'Sensible',
+                                                           u'Enthalpy'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'sensible heat recovery effectiveness',
+                                      {'name': u'Sensible Heat Recovery Effectiveness',
+                                       'pyname': u'sensible_heat_recovery_effectiveness',
+                                       'default': 0.7,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'latent heat recovery effectiveness',
+                                      {'name': u'Latent Heat Recovery Effectiveness',
+                                       'pyname': u'latent_heat_recovery_effectiveness',
+                                       'default': 0.65,
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 26,
+              'name': u'ZoneHVAC:IdealLoadsAirSystem',
+              'pyname': u'ZoneHvacIdealLoadsAirSystem',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -49,23 +304,25 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -74,22 +331,24 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def zone_supply_air_node_name(self):
-        """Get zone_supply_air_node_name
+        """Get zone_supply_air_node_name.
 
         Returns:
             str: the value of `zone_supply_air_node_name` or None if not set
+
         """
         return self["Zone Supply Air Node Name"]
 
     @zone_supply_air_node_name.setter
     def zone_supply_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Zone Supply Air Node Name`
-        Must match a zone air inlet node name.
+        """Corresponds to IDD field `Zone Supply Air Node Name` Must match a
+        zone air inlet node name.
 
         Args:
             value (str): value for IDD Field `Zone Supply Air Node Name`
@@ -98,24 +357,25 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Supply Air Node Name"] = value
 
     @property
     def zone_exhaust_air_node_name(self):
-        """Get zone_exhaust_air_node_name
+        """Get zone_exhaust_air_node_name.
 
         Returns:
             str: the value of `zone_exhaust_air_node_name` or None if not set
+
         """
         return self["Zone Exhaust Air Node Name"]
 
     @zone_exhaust_air_node_name.setter
     def zone_exhaust_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Zone Exhaust Air Node Name`
-        Should match a zone air exhaust node name.
-        This field is optional, but is required if this
-        this object is used with other forced air equipment.
+        """Corresponds to IDD field `Zone Exhaust Air Node Name` Should match a
+        zone air exhaust node name. This field is optional, but is required if
+        this this object is used with other forced air equipment.
 
         Args:
             value (str): value for IDD Field `Zone Exhaust Air Node Name`
@@ -124,21 +384,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Exhaust Air Node Name"] = value
 
     @property
     def maximum_heating_supply_air_temperature(self):
-        """Get maximum_heating_supply_air_temperature
+        """Get maximum_heating_supply_air_temperature.
 
         Returns:
             float: the value of `maximum_heating_supply_air_temperature` or None if not set
+
         """
         return self["Maximum Heating Supply Air Temperature"]
 
     @maximum_heating_supply_air_temperature.setter
     def maximum_heating_supply_air_temperature(self, value=50.0):
-        """  Corresponds to IDD field `Maximum Heating Supply Air Temperature`
+        """Corresponds to IDD field `Maximum Heating Supply Air Temperature`
 
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Temperature`
@@ -150,21 +412,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Heating Supply Air Temperature"] = value
 
     @property
     def minimum_cooling_supply_air_temperature(self):
-        """Get minimum_cooling_supply_air_temperature
+        """Get minimum_cooling_supply_air_temperature.
 
         Returns:
             float: the value of `minimum_cooling_supply_air_temperature` or None if not set
+
         """
         return self["Minimum Cooling Supply Air Temperature"]
 
     @minimum_cooling_supply_air_temperature.setter
     def minimum_cooling_supply_air_temperature(self, value=13.0):
-        """  Corresponds to IDD field `Minimum Cooling Supply Air Temperature`
+        """Corresponds to IDD field `Minimum Cooling Supply Air Temperature`
 
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Temperature`
@@ -177,21 +441,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Cooling Supply Air Temperature"] = value
 
     @property
     def maximum_heating_supply_air_humidity_ratio(self):
-        """Get maximum_heating_supply_air_humidity_ratio
+        """Get maximum_heating_supply_air_humidity_ratio.
 
         Returns:
             float: the value of `maximum_heating_supply_air_humidity_ratio` or None if not set
+
         """
         return self["Maximum Heating Supply Air Humidity Ratio"]
 
     @maximum_heating_supply_air_humidity_ratio.setter
     def maximum_heating_supply_air_humidity_ratio(self, value=0.0156):
-        """  Corresponds to IDD field `Maximum Heating Supply Air Humidity Ratio`
+        """Corresponds to IDD field `Maximum Heating Supply Air Humidity Ratio`
 
         Args:
             value (float): value for IDD Field `Maximum Heating Supply Air Humidity Ratio`
@@ -202,21 +468,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Heating Supply Air Humidity Ratio"] = value
 
     @property
     def minimum_cooling_supply_air_humidity_ratio(self):
-        """Get minimum_cooling_supply_air_humidity_ratio
+        """Get minimum_cooling_supply_air_humidity_ratio.
 
         Returns:
             float: the value of `minimum_cooling_supply_air_humidity_ratio` or None if not set
+
         """
         return self["Minimum Cooling Supply Air Humidity Ratio"]
 
     @minimum_cooling_supply_air_humidity_ratio.setter
     def minimum_cooling_supply_air_humidity_ratio(self, value=0.0077):
-        """  Corresponds to IDD field `Minimum Cooling Supply Air Humidity Ratio`
+        """Corresponds to IDD field `Minimum Cooling Supply Air Humidity Ratio`
 
         Args:
             value (float): value for IDD Field `Minimum Cooling Supply Air Humidity Ratio`
@@ -227,21 +495,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Cooling Supply Air Humidity Ratio"] = value
 
     @property
     def heating_limit(self):
-        """Get heating_limit
+        """Get heating_limit.
 
         Returns:
             str: the value of `heating_limit` or None if not set
+
         """
         return self["Heating Limit"]
 
     @heating_limit.setter
     def heating_limit(self, value="NoLimit"):
-        """  Corresponds to IDD field `Heating Limit`
+        """Corresponds to IDD field `Heating Limit`
 
         Args:
             value (str): value for IDD Field `Heating Limit`
@@ -251,15 +521,17 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Limit"] = value
 
     @property
     def maximum_heating_air_flow_rate(self):
-        """Get maximum_heating_air_flow_rate
+        """Get maximum_heating_air_flow_rate.
 
         Returns:
             float: the value of `maximum_heating_air_flow_rate` or None if not set
+
         """
         return self["Maximum Heating Air Flow Rate"]
 
@@ -282,10 +554,11 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def maximum_sensible_heating_capacity(self):
-        """Get maximum_sensible_heating_capacity
+        """Get maximum_sensible_heating_capacity.
 
         Returns:
             float: the value of `maximum_sensible_heating_capacity` or None if not set
+
         """
         return self["Maximum Sensible Heating Capacity"]
 
@@ -308,16 +581,17 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def cooling_limit(self):
-        """Get cooling_limit
+        """Get cooling_limit.
 
         Returns:
             str: the value of `cooling_limit` or None if not set
+
         """
         return self["Cooling Limit"]
 
     @cooling_limit.setter
     def cooling_limit(self, value="NoLimit"):
-        """  Corresponds to IDD field `Cooling Limit`
+        """Corresponds to IDD field `Cooling Limit`
 
         Args:
             value (str): value for IDD Field `Cooling Limit`
@@ -327,15 +601,17 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Limit"] = value
 
     @property
     def maximum_cooling_air_flow_rate(self):
-        """Get maximum_cooling_air_flow_rate
+        """Get maximum_cooling_air_flow_rate.
 
         Returns:
             float: the value of `maximum_cooling_air_flow_rate` or None if not set
+
         """
         return self["Maximum Cooling Air Flow Rate"]
 
@@ -358,10 +634,11 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def maximum_total_cooling_capacity(self):
-        """Get maximum_total_cooling_capacity
+        """Get maximum_total_cooling_capacity.
 
         Returns:
             float: the value of `maximum_total_cooling_capacity` or None if not set
+
         """
         return self["Maximum Total Cooling Capacity"]
 
@@ -383,17 +660,18 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def heating_availability_schedule_name(self):
-        """Get heating_availability_schedule_name
+        """Get heating_availability_schedule_name.
 
         Returns:
             str: the value of `heating_availability_schedule_name` or None if not set
+
         """
         return self["Heating Availability Schedule Name"]
 
     @heating_availability_schedule_name.setter
     def heating_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Heating Availability Schedule Name`
-        If blank, heating is always available.
+        """Corresponds to IDD field `Heating Availability Schedule Name` If
+        blank, heating is always available.
 
         Args:
             value (str): value for IDD Field `Heating Availability Schedule Name`
@@ -402,22 +680,24 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Availability Schedule Name"] = value
 
     @property
     def cooling_availability_schedule_name(self):
-        """Get cooling_availability_schedule_name
+        """Get cooling_availability_schedule_name.
 
         Returns:
             str: the value of `cooling_availability_schedule_name` or None if not set
+
         """
         return self["Cooling Availability Schedule Name"]
 
     @cooling_availability_schedule_name.setter
     def cooling_availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Availability Schedule Name`
-        If blank, cooling is always available.
+        """Corresponds to IDD field `Cooling Availability Schedule Name` If
+        blank, cooling is always available.
 
         Args:
             value (str): value for IDD Field `Cooling Availability Schedule Name`
@@ -426,15 +706,17 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Availability Schedule Name"] = value
 
     @property
     def dehumidification_control_type(self):
-        """Get dehumidification_control_type
+        """Get dehumidification_control_type.
 
         Returns:
             str: the value of `dehumidification_control_type` or None if not set
+
         """
         return self["Dehumidification Control Type"]
 
@@ -464,17 +746,19 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def cooling_sensible_heat_ratio(self):
-        """Get cooling_sensible_heat_ratio
+        """Get cooling_sensible_heat_ratio.
 
         Returns:
             float: the value of `cooling_sensible_heat_ratio` or None if not set
+
         """
         return self["Cooling Sensible Heat Ratio"]
 
     @cooling_sensible_heat_ratio.setter
     def cooling_sensible_heat_ratio(self, value=0.7):
-        """  Corresponds to IDD field `Cooling Sensible Heat Ratio`
-        This field is applicable only when Dehumidification Control Type is ConstantSensibleHeatRatio
+        """Corresponds to IDD field `Cooling Sensible Heat Ratio` This field is
+        applicable only when Dehumidification Control Type is
+        ConstantSensibleHeatRatio.
 
         Args:
             value (float): value for IDD Field `Cooling Sensible Heat Ratio`
@@ -486,15 +770,17 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Sensible Heat Ratio"] = value
 
     @property
     def humidification_control_type(self):
-        """Get humidification_control_type
+        """Get humidification_control_type.
 
         Returns:
             str: the value of `humidification_control_type` or None if not set
+
         """
         return self["Humidification Control Type"]
 
@@ -520,10 +806,11 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def design_specification_outdoor_air_object_name(self):
-        """Get design_specification_outdoor_air_object_name
+        """Get design_specification_outdoor_air_object_name.
 
         Returns:
             str: the value of `design_specification_outdoor_air_object_name` or None if not set
+
         """
         return self["Design Specification Outdoor Air Object Name"]
 
@@ -548,10 +835,11 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """Get outdoor_air_inlet_node_name
+        """Get outdoor_air_inlet_node_name.
 
         Returns:
             str: the value of `outdoor_air_inlet_node_name` or None if not set
+
         """
         return self["Outdoor Air Inlet Node Name"]
 
@@ -574,10 +862,11 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def demand_controlled_ventilation_type(self):
-        """Get demand_controlled_ventilation_type
+        """Get demand_controlled_ventilation_type.
 
         Returns:
             str: the value of `demand_controlled_ventilation_type` or None if not set
+
         """
         return self["Demand Controlled Ventilation Type"]
 
@@ -604,19 +893,21 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
     @property
     def outdoor_air_economizer_type(self):
-        """Get outdoor_air_economizer_type
+        """Get outdoor_air_economizer_type.
 
         Returns:
             str: the value of `outdoor_air_economizer_type` or None if not set
+
         """
         return self["Outdoor Air Economizer Type"]
 
     @outdoor_air_economizer_type.setter
     def outdoor_air_economizer_type(self, value="NoEconomizer"):
-        """  Corresponds to IDD field `Outdoor Air Economizer Type`
-        DifferentialDryBulb and DifferentialEnthalpy will increase the outdoor air flow rate
-        when there is a cooling load and the outdoor air temperature or enthalpy
-        is below the zone exhaust air temperature or enthalpy.
+        """Corresponds to IDD field `Outdoor Air Economizer Type`
+        DifferentialDryBulb and DifferentialEnthalpy will increase the outdoor
+        air flow rate when there is a cooling load and the outdoor air
+        temperature or enthalpy is below the zone exhaust air temperature or
+        enthalpy.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Economizer Type`
@@ -626,21 +917,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Economizer Type"] = value
 
     @property
     def heat_recovery_type(self):
-        """Get heat_recovery_type
+        """Get heat_recovery_type.
 
         Returns:
             str: the value of `heat_recovery_type` or None if not set
+
         """
         return self["Heat Recovery Type"]
 
     @heat_recovery_type.setter
     def heat_recovery_type(self, value="None"):
-        """  Corresponds to IDD field `Heat Recovery Type`
+        """Corresponds to IDD field `Heat Recovery Type`
 
         Args:
             value (str): value for IDD Field `Heat Recovery Type`
@@ -650,21 +943,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heat Recovery Type"] = value
 
     @property
     def sensible_heat_recovery_effectiveness(self):
-        """Get sensible_heat_recovery_effectiveness
+        """Get sensible_heat_recovery_effectiveness.
 
         Returns:
             float: the value of `sensible_heat_recovery_effectiveness` or None if not set
+
         """
         return self["Sensible Heat Recovery Effectiveness"]
 
     @sensible_heat_recovery_effectiveness.setter
     def sensible_heat_recovery_effectiveness(self, value=0.7):
-        """  Corresponds to IDD field `Sensible Heat Recovery Effectiveness`
+        """Corresponds to IDD field `Sensible Heat Recovery Effectiveness`
 
         Args:
             value (float): value for IDD Field `Sensible Heat Recovery Effectiveness`
@@ -676,21 +971,23 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Sensible Heat Recovery Effectiveness"] = value
 
     @property
     def latent_heat_recovery_effectiveness(self):
-        """Get latent_heat_recovery_effectiveness
+        """Get latent_heat_recovery_effectiveness.
 
         Returns:
             float: the value of `latent_heat_recovery_effectiveness` or None if not set
+
         """
         return self["Latent Heat Recovery Effectiveness"]
 
     @latent_heat_recovery_effectiveness.setter
     def latent_heat_recovery_effectiveness(self, value=0.65):
-        """  Corresponds to IDD field `Latent Heat Recovery Effectiveness`
+        """Corresponds to IDD field `Latent Heat Recovery Effectiveness`
         Applicable only if Heat Recovery Type is Enthalpy.
 
         Args:
@@ -703,22 +1000,25 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Latent Heat Recovery Effectiveness"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -727,6 +1027,7 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -734,33 +1035,244 @@ class ZoneHvacIdealLoadsAirSystem(DataObject):
 
 
 class ZoneHvacFourPipeFanCoil(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:FourPipeFanCoil`
         Four pipe fan coil system. Forced-convection hydronic heating-cooling unit with
         supply fan, hot water heating coil, chilled water cooling coil, and fixed-position
         outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'capacity control method', {'name': u'Capacity Control Method', 'pyname': u'capacity_control_method', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ConstantFanVariableFlow', u'CyclingFan', u'VariableFanVariableFlow', u'VariableFanConstantFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'low speed supply air flow ratio', {'name': u'Low Speed Supply Air Flow Ratio', 'pyname': u'low_speed_supply_air_flow_ratio', 'default': 0.33, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'medium speed supply air flow ratio', {'name': u'Medium Speed Supply Air Flow Ratio', 'pyname': u'medium_speed_supply_air_flow_ratio', 'default': 0.66, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air schedule name', {'name': u'Outdoor Air Schedule Name', 'pyname': u'outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cold water flow rate', {'name': u'Maximum Cold Water Flow Rate', 'pyname': u'maximum_cold_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum cold water flow rate', {'name': u'Minimum Cold Water Flow Rate', 'pyname': u'minimum_cold_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum hot water flow rate', {'name': u'Maximum Hot Water Flow Rate', 'pyname': u'maximum_hot_water_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water flow rate', {'name': u'Minimum Hot Water Flow Rate', 'pyname': u'minimum_hot_water_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 24,
- 'name': u'ZoneHVAC:FourPipeFanCoil',
- 'pyname': u'ZoneHvacFourPipeFanCoil',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'capacity control method',
+                                      {'name': u'Capacity Control Method',
+                                       'pyname': u'capacity_control_method',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ConstantFanVariableFlow',
+                                                           u'CyclingFan',
+                                                           u'VariableFanVariableFlow',
+                                                           u'VariableFanConstantFlow'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum supply air flow rate',
+                                      {'name': u'Maximum Supply Air Flow Rate',
+                                       'pyname': u'maximum_supply_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'low speed supply air flow ratio',
+                                      {'name': u'Low Speed Supply Air Flow Ratio',
+                                       'pyname': u'low_speed_supply_air_flow_ratio',
+                                       'default': 0.33,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'medium speed supply air flow ratio',
+                                      {'name': u'Medium Speed Supply Air Flow Ratio',
+                                       'pyname': u'medium_speed_supply_air_flow_ratio',
+                                       'default': 0.66,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'maximum outdoor air flow rate',
+                                      {'name': u'Maximum Outdoor Air Flow Rate',
+                                       'pyname': u'maximum_outdoor_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air schedule name',
+                                      {'name': u'Outdoor Air Schedule Name',
+                                       'pyname': u'outdoor_air_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air mixer object type',
+                                      {'name': u'Outdoor Air Mixer Object Type',
+                                       'pyname': u'outdoor_air_mixer_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air mixer name',
+                                      {'name': u'Outdoor Air Mixer Name',
+                                       'pyname': u'outdoor_air_mixer_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume',
+                                                           u'Fan:VariableVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatExchangerAssisted'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil name',
+                                      {'name': u'Cooling Coil Name',
+                                       'pyname': u'cooling_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum cold water flow rate',
+                                      {'name': u'Maximum Cold Water Flow Rate',
+                                       'pyname': u'maximum_cold_water_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum cold water flow rate',
+                                      {'name': u'Minimum Cold Water Flow Rate',
+                                       'pyname': u'minimum_cold_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'cooling convergence tolerance',
+                                      {'name': u'Cooling Convergence Tolerance',
+                                       'pyname': u'cooling_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Water'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum hot water flow rate',
+                                      {'name': u'Maximum Hot Water Flow Rate',
+                                       'pyname': u'maximum_hot_water_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum hot water flow rate',
+                                      {'name': u'Minimum Hot Water Flow Rate',
+                                       'pyname': u'minimum_hot_water_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heating convergence tolerance',
+                                      {'name': u'Heating Convergence Tolerance',
+                                       'pyname': u'heating_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 24,
+              'name': u'ZoneHVAC:FourPipeFanCoil',
+              'pyname': u'ZoneHvacFourPipeFanCoil',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -769,23 +1281,25 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -794,21 +1308,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def capacity_control_method(self):
-        """Get capacity_control_method
+        """Get capacity_control_method.
 
         Returns:
             str: the value of `capacity_control_method` or None if not set
+
         """
         return self["Capacity Control Method"]
 
     @capacity_control_method.setter
     def capacity_control_method(self, value=None):
-        """  Corresponds to IDD field `Capacity Control Method`
+        """Corresponds to IDD field `Capacity Control Method`
 
         Args:
             value (str): value for IDD Field `Capacity Control Method`
@@ -817,21 +1333,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Capacity Control Method"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
-        """Get maximum_supply_air_flow_rate
+        """Get maximum_supply_air_flow_rate.
 
         Returns:
             float: the value of `maximum_supply_air_flow_rate` or None if not set
+
         """
         return self["Maximum Supply Air Flow Rate"]
 
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Flow Rate`
+        """Corresponds to IDD field `Maximum Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
@@ -841,21 +1359,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def low_speed_supply_air_flow_ratio(self):
-        """Get low_speed_supply_air_flow_ratio
+        """Get low_speed_supply_air_flow_ratio.
 
         Returns:
             float: the value of `low_speed_supply_air_flow_ratio` or None if not set
+
         """
         return self["Low Speed Supply Air Flow Ratio"]
 
     @low_speed_supply_air_flow_ratio.setter
     def low_speed_supply_air_flow_ratio(self, value=0.33):
-        """  Corresponds to IDD field `Low Speed Supply Air Flow Ratio`
+        """Corresponds to IDD field `Low Speed Supply Air Flow Ratio`
 
         Args:
             value (float): value for IDD Field `Low Speed Supply Air Flow Ratio`
@@ -865,23 +1385,25 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Low Speed Supply Air Flow Ratio"] = value
 
     @property
     def medium_speed_supply_air_flow_ratio(self):
-        """Get medium_speed_supply_air_flow_ratio
+        """Get medium_speed_supply_air_flow_ratio.
 
         Returns:
             float: the value of `medium_speed_supply_air_flow_ratio` or None if not set
+
         """
         return self["Medium Speed Supply Air Flow Ratio"]
 
     @medium_speed_supply_air_flow_ratio.setter
     def medium_speed_supply_air_flow_ratio(self, value=0.66):
-        """  Corresponds to IDD field `Medium Speed Supply Air Flow Ratio`
-        Medium Speed Supply Air Flow Ratio should be greater
-        than Low Speed Supply Air Flow Ratio
+        """Corresponds to IDD field `Medium Speed Supply Air Flow Ratio` Medium
+        Speed Supply Air Flow Ratio should be greater than Low Speed Supply Air
+        Flow Ratio.
 
         Args:
             value (float): value for IDD Field `Medium Speed Supply Air Flow Ratio`
@@ -891,21 +1413,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Medium Speed Supply Air Flow Ratio"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
-        """Get maximum_outdoor_air_flow_rate
+        """Get maximum_outdoor_air_flow_rate.
 
         Returns:
             float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+
         """
         return self["Maximum Outdoor Air Flow Rate"]
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
+        """Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
@@ -915,22 +1439,24 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def outdoor_air_schedule_name(self):
-        """Get outdoor_air_schedule_name
+        """Get outdoor_air_schedule_name.
 
         Returns:
             str: the value of `outdoor_air_schedule_name` or None if not set
+
         """
         return self["Outdoor Air Schedule Name"]
 
     @outdoor_air_schedule_name.setter
     def outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Schedule Name`
-        Value of schedule multiplies maximum outdoor air flow rate
+        """Corresponds to IDD field `Outdoor Air Schedule Name` Value of
+        schedule multiplies maximum outdoor air flow rate.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Schedule Name`
@@ -939,21 +1465,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
+        """Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -962,21 +1490,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
+        """Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -985,15 +1515,17 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
-        """Get outdoor_air_mixer_object_type
+        """Get outdoor_air_mixer_object_type.
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -1014,16 +1546,17 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """Get outdoor_air_mixer_name
+        """Get outdoor_air_mixer_name.
 
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
+
         """
         return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Mixer Name`
+        """Corresponds to IDD field `Outdoor Air Mixer Name`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -1032,15 +1565,17 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -1065,16 +1600,17 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
+        """Corresponds to IDD field `Supply Air Fan Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -1083,21 +1619,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Object Type`
+        """Corresponds to IDD field `Cooling Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -1106,21 +1644,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
-        """Get cooling_coil_name
+        """Get cooling_coil_name.
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Name`
+        """Corresponds to IDD field `Cooling Coil Name`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -1129,21 +1669,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Name"] = value
 
     @property
     def maximum_cold_water_flow_rate(self):
-        """Get maximum_cold_water_flow_rate
+        """Get maximum_cold_water_flow_rate.
 
         Returns:
             float: the value of `maximum_cold_water_flow_rate` or None if not set
+
         """
         return self["Maximum Cold Water Flow Rate"]
 
     @maximum_cold_water_flow_rate.setter
     def maximum_cold_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Cold Water Flow Rate`
+        """Corresponds to IDD field `Maximum Cold Water Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Cold Water Flow Rate`
@@ -1154,21 +1696,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Cold Water Flow Rate"] = value
 
     @property
     def minimum_cold_water_flow_rate(self):
-        """Get minimum_cold_water_flow_rate
+        """Get minimum_cold_water_flow_rate.
 
         Returns:
             float: the value of `minimum_cold_water_flow_rate` or None if not set
+
         """
         return self["Minimum Cold Water Flow Rate"]
 
     @minimum_cold_water_flow_rate.setter
     def minimum_cold_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Cold Water Flow Rate`
+        """Corresponds to IDD field `Minimum Cold Water Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Cold Water Flow Rate`
@@ -1179,21 +1723,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Cold Water Flow Rate"] = value
 
     @property
     def cooling_convergence_tolerance(self):
-        """Get cooling_convergence_tolerance
+        """Get cooling_convergence_tolerance.
 
         Returns:
             float: the value of `cooling_convergence_tolerance` or None if not set
+
         """
         return self["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Cooling Convergence Tolerance`
+        """Corresponds to IDD field `Cooling Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -1203,21 +1749,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Convergence Tolerance"] = value
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Object Type`
+        """Corresponds to IDD field `Heating Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -1226,21 +1774,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Name`
+        """Corresponds to IDD field `Heating Coil Name`
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -1249,21 +1799,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Name"] = value
 
     @property
     def maximum_hot_water_flow_rate(self):
-        """Get maximum_hot_water_flow_rate
+        """Get maximum_hot_water_flow_rate.
 
         Returns:
             float: the value of `maximum_hot_water_flow_rate` or None if not set
+
         """
         return self["Maximum Hot Water Flow Rate"]
 
     @maximum_hot_water_flow_rate.setter
     def maximum_hot_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Hot Water Flow Rate`
+        """Corresponds to IDD field `Maximum Hot Water Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water Flow Rate`
@@ -1274,21 +1826,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Hot Water Flow Rate"] = value
 
     @property
     def minimum_hot_water_flow_rate(self):
-        """Get minimum_hot_water_flow_rate
+        """Get minimum_hot_water_flow_rate.
 
         Returns:
             float: the value of `minimum_hot_water_flow_rate` or None if not set
+
         """
         return self["Minimum Hot Water Flow Rate"]
 
     @minimum_hot_water_flow_rate.setter
     def minimum_hot_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Hot Water Flow Rate`
+        """Corresponds to IDD field `Minimum Hot Water Flow Rate`
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water Flow Rate`
@@ -1299,21 +1853,23 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Hot Water Flow Rate"] = value
 
     @property
     def heating_convergence_tolerance(self):
-        """Get heating_convergence_tolerance
+        """Get heating_convergence_tolerance.
 
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
+
         """
         return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Heating Convergence Tolerance`
+        """Corresponds to IDD field `Heating Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -1323,22 +1879,24 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -1347,22 +1905,25 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -1371,6 +1932,7 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -1378,32 +1940,163 @@ class ZoneHvacFourPipeFanCoil(DataObject):
 
 
 class ZoneHvacWindowAirConditioner(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:WindowAirConditioner`
         Window air conditioner. Forced-convection cooling-only unit with supply fan, direct
         expansion (DX) cooling coil, and fixed-position outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'dx cooling coil name', {'name': u'DX Cooling Coil Name', 'pyname': u'dx_cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 15,
- 'name': u'ZoneHVAC:WindowAirConditioner',
- 'pyname': u'ZoneHvacWindowAirConditioner',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum supply air flow rate',
+                                      {'name': u'Maximum Supply Air Flow Rate',
+                                       'pyname': u'maximum_supply_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'maximum outdoor air flow rate',
+                                      {'name': u'Maximum Outdoor Air Flow Rate',
+                                       'pyname': u'maximum_outdoor_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air mixer object type',
+                                      {'name': u'Outdoor Air Mixer Object Type',
+                                       'pyname': u'outdoor_air_mixer_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air mixer name',
+                                      {'name': u'Outdoor Air Mixer Name',
+                                       'pyname': u'outdoor_air_mixer_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:DX:SingleSpeed',
+                                                           u'CoilSystem:Cooling:DX:HeatExchangerAssisted'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'dx cooling coil name',
+                                      {'name': u'DX Cooling Coil Name',
+                                       'pyname': u'dx_cooling_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fan placement',
+                                      {'name': u'Fan Placement',
+                                       'pyname': u'fan_placement',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling convergence tolerance',
+                                      {'name': u'Cooling Convergence Tolerance',
+                                       'pyname': u'cooling_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 15,
+              'name': u'ZoneHVAC:WindowAirConditioner',
+              'pyname': u'ZoneHvacWindowAirConditioner',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1412,23 +2105,25 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1437,21 +2132,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
-        """Get maximum_supply_air_flow_rate
+        """Get maximum_supply_air_flow_rate.
 
         Returns:
             float: the value of `maximum_supply_air_flow_rate` or None if not set
+
         """
         return self["Maximum Supply Air Flow Rate"]
 
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Flow Rate`
+        """Corresponds to IDD field `Maximum Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
@@ -1461,21 +2158,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
-        """Get maximum_outdoor_air_flow_rate
+        """Get maximum_outdoor_air_flow_rate.
 
         Returns:
             float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+
         """
         return self["Maximum Outdoor Air Flow Rate"]
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
+        """Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
@@ -1485,21 +2184,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
+        """Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1508,21 +2209,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
+        """Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1531,15 +2234,17 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
-        """Get outdoor_air_mixer_object_type
+        """Get outdoor_air_mixer_object_type.
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -1560,16 +2265,17 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """Get outdoor_air_mixer_name
+        """Get outdoor_air_mixer_name.
 
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
+
         """
         return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Mixer Name`
+        """Corresponds to IDD field `Outdoor Air Mixer Name`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -1578,15 +2284,17 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -1609,10 +2317,11 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
@@ -1634,16 +2343,17 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Object Type`
+        """Corresponds to IDD field `Cooling Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -1652,21 +2362,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Object Type"] = value
 
     @property
     def dx_cooling_coil_name(self):
-        """Get dx_cooling_coil_name
+        """Get dx_cooling_coil_name.
 
         Returns:
             str: the value of `dx_cooling_coil_name` or None if not set
+
         """
         return self["DX Cooling Coil Name"]
 
     @dx_cooling_coil_name.setter
     def dx_cooling_coil_name(self, value=None):
-        """  Corresponds to IDD field `DX Cooling Coil Name`
+        """Corresponds to IDD field `DX Cooling Coil Name`
 
         Args:
             value (str): value for IDD Field `DX Cooling Coil Name`
@@ -1675,25 +2387,29 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["DX Cooling Coil Name"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule Name values of 0 denote
-        cycling fan operation (fan cycles with cooling coil). Schedule values greater
-        than 0 denote constant fan operation (fan runs continually regardless of coil operation).
-        The fan operating mode defaults to cycling fan operation if this field is left blank.
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule Name values of 0 denote cycling fan operation (fan cycles with
+        cooling coil). Schedule values greater than 0 denote constant fan
+        operation (fan runs continually regardless of coil operation). The fan
+        operating mode defaults to cycling fan operation if this field is left
+        blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -1702,21 +2418,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def fan_placement(self):
-        """Get fan_placement
+        """Get fan_placement.
 
         Returns:
             str: the value of `fan_placement` or None if not set
+
         """
         return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value=None):
-        """  Corresponds to IDD field `Fan Placement`
+        """Corresponds to IDD field `Fan Placement`
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -1725,21 +2443,23 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Placement"] = value
 
     @property
     def cooling_convergence_tolerance(self):
-        """Get cooling_convergence_tolerance
+        """Get cooling_convergence_tolerance.
 
         Returns:
             float: the value of `cooling_convergence_tolerance` or None if not set
+
         """
         return self["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Cooling Convergence Tolerance`
+        """Corresponds to IDD field `Cooling Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -1749,22 +2469,24 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -1773,22 +2495,25 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -1797,6 +2522,7 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -1804,34 +2530,214 @@ class ZoneHvacWindowAirConditioner(DataObject):
 
 
 class ZoneHvacPackagedTerminalAirConditioner(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:PackagedTerminalAirConditioner`
         Packaged terminal air conditioner (PTAC).  Forced-convection heating-cooling unit
         with supply fan, direct expansion (DX) cooling coil, heating coil (gas, electric, hot
         water, or steam) and fixed-position outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 18,
- 'name': u'ZoneHVAC:PackagedTerminalAirConditioner',
- 'pyname': u'ZoneHvacPackagedTerminalAirConditioner',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air mixer object type',
+                                      {'name': u'Outdoor Air Mixer Object Type',
+                                       'pyname': u'outdoor_air_mixer_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air mixer name',
+                                      {'name': u'Outdoor Air Mixer Name',
+                                       'pyname': u'outdoor_air_mixer_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air flow rate during cooling operation',
+                                      {'name': u'Supply Air Flow Rate During Cooling Operation',
+                                       'pyname': u'supply_air_flow_rate_during_cooling_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate during heating operation',
+                                      {'name': u'Supply Air Flow Rate During Heating Operation',
+                                       'pyname': u'supply_air_flow_rate_during_heating_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate when no cooling or heating is needed',
+                                      {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during cooling operation',
+                                      {'name': u'Outdoor Air Flow Rate During Cooling Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_cooling_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during heating operation',
+                                      {'name': u'Outdoor Air Flow Rate During Heating Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_heating_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate when no cooling or heating is needed',
+                                      {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Heating:Steam'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:DX:SingleSpeed',
+                                                           u'Coil:Cooling:DX:VariableSpeed',
+                                                           u'CoilSystem:Cooling:DX:HeatExchangerAssisted'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil name',
+                                      {'name': u'Cooling Coil Name',
+                                       'pyname': u'cooling_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'fan placement',
+                                      {'name': u'Fan Placement',
+                                       'pyname': u'fan_placement',
+                                       'default': u'DrawThrough',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 18,
+              'name': u'ZoneHVAC:PackagedTerminalAirConditioner',
+              'pyname': u'ZoneHvacPackagedTerminalAirConditioner',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-        Unique name for this packaged terminal air conditioner object.
+        """Corresponds to IDD field `Name` Unique name for this packaged
+        terminal air conditioner object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1840,22 +2746,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Schedule values of 0 denote the unit is off.
+        """Corresponds to IDD field `Availability Schedule Name` Schedule
+        values of 0 denote the unit is off.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -1864,22 +2772,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
-        Air inlet node for the PTAC must be a zone air exhaust Node.
+        """Corresponds to IDD field `Air Inlet Node Name` Air inlet node for
+        the PTAC must be a zone air exhaust Node.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -1888,22 +2798,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
-        Air outlet node for the PTAC must be a zone air inlet node.
+        """Corresponds to IDD field `Air Outlet Node Name` Air outlet node for
+        the PTAC must be a zone air inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -1912,15 +2824,17 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
-        """Get outdoor_air_mixer_object_type
+        """Get outdoor_air_mixer_object_type.
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -1941,17 +2855,18 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """Get outdoor_air_mixer_name
+        """Get outdoor_air_mixer_name.
 
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
+
         """
         return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Mixer Name`
-        Needs to match the name of the PTAC outdoor air mixer object.
+        """Corresponds to IDD field `Outdoor Air Mixer Name` Needs to match the
+        name of the PTAC outdoor air mixer object.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -1960,22 +2875,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """Get supply_air_flow_rate_during_cooling_operation
+        """Get supply_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Cooling Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Cooling
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
@@ -1985,22 +2902,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """Get supply_air_flow_rate_during_heating_operation
+        """Get supply_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Heating Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Heating
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
@@ -2010,27 +2929,33 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to fan size.
-        Only used when supply air fan operating mode schedule values specify continuous fan
-        (schedule values greater than 0 specify continuous fan operation).
-        This air flow rate is used when no heating or cooling is required and the cooling or
-        heating coil is off. If this field is left blank or zero, the supply air flow rate
-        from the previous on cycle (either cooling or heating) is used.
+    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Supply Air Flow Rate When No Cooling or
+        Heating is Needed` Must be less than or equal to fan size. Only used
+        when supply air fan operating mode schedule values specify continuous
+        fan (schedule values greater than 0 specify continuous fan operation).
+        This air flow rate is used when no heating or cooling is required and
+        the cooling or heating coil is off. If this field is left blank or
+        zero, the supply air flow rate from the previous on cycle (either
+        cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
@@ -2040,22 +2965,26 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """Get outdoor_air_flow_rate_during_cooling_operation
+        """Get outdoor_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Cooling Operation`
-        Must be less than or equal to supply air flow rate during cooling operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Cooling
+        Operation` Must be less than or equal to supply air flow rate during
+        cooling operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
@@ -2065,22 +2994,25 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """Get outdoor_air_flow_rate_during_heating_operation
+        """Get outdoor_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Heating Operation`
-        Must be less than or equal to supply air flow rate during heating operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Heating
+        Operation` Must be less than or equal to supply air flow rate during
+        heating operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
@@ -2090,26 +3022,32 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when supply air fan operating mode schedule values specify continuous fan
-        (schedule values greater than 0 specify continuous fan operation).
-        This air flow rate is used when no heating or cooling is required and the cooling or
-        heating coil is off. If this field is left blank or zero, the outdoor air flow rate
-        from the previous on cycle (either cooling or heating) is used.
+    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or
+        Heating is Needed` Only used when supply air fan operating mode
+        schedule values specify continuous fan (schedule values greater than 0
+        specify continuous fan operation). This air flow rate is used when no
+        heating or cooling is required and the cooling or heating coil is off.
+        If this field is left blank or zero, the outdoor air flow rate from the
+        previous on cycle (either cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
@@ -2119,15 +3057,18 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -2150,17 +3091,18 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
-        Needs to match in the fan object.
+        """Corresponds to IDD field `Supply Air Fan Name` Needs to match in the
+        fan object.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -2169,22 +3111,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Object Type`
-        Select the type of heating coil.
+        """Corresponds to IDD field `Heating Coil Object Type` Select the type
+        of heating coil.
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -2193,22 +3137,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Name`
-        Needs to match in the heating coil object.
+        """Corresponds to IDD field `Heating Coil Name` Needs to match in the
+        heating coil object.
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -2217,15 +3163,17 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Name"] = value
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -2249,17 +3197,18 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """Get cooling_coil_name
+        """Get cooling_coil_name.
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Name`
-        Needs to match a DX cooling coil object.
+        """Corresponds to IDD field `Cooling Coil Name` Needs to match a DX
+        cooling coil object.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -2268,22 +3217,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Name"] = value
 
     @property
     def fan_placement(self):
-        """Get fan_placement
+        """Get fan_placement.
 
         Returns:
             str: the value of `fan_placement` or None if not set
+
         """
         return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="DrawThrough"):
-        """  Corresponds to IDD field `Fan Placement`
-        Select fan placement as either blow through or draw through.
+        """Corresponds to IDD field `Fan Placement` Select fan placement as
+        either blow through or draw through.
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -2293,24 +3244,28 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule Name values of 0 denote
-        cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater
-        than 0 denote constant fan operation (fan runs continually regardless of coil operation).
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule Name values of 0 denote cycling fan operation (fan cycles with
+        cooling or heating coil). Schedule Name values greater than 0 denote
+        constant fan operation (fan runs continually regardless of coil
+        operation).
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -2319,22 +3274,24 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -2343,22 +3300,25 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -2367,6 +3327,7 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -2374,6 +3335,7 @@ class ZoneHvacPackagedTerminalAirConditioner(DataObject):
 
 
 class ZoneHvacPackagedTerminalHeatPump(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:PackagedTerminalHeatPump`
         Packaged terminal heat pump (PTHP). Forced-convection heating-cooling unit with
         supply fan, direct expansion (DX) cooling coil, DX heating coil (air-to-air heat
@@ -2381,28 +3343,271 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
         fixed-position outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:SingleSpeed', u'Coil:Heating:DX:VariableSpeed'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'minimum outdoor dry-bulb temperature for compressor operation', {'name': u'Minimum Outdoor Dry-Bulb Temperature for Compressor Operation', 'pyname': u'minimum_outdoor_drybulb_temperature_for_compressor_operation', 'default': -8.0, 'required-field': False, 'autosizable': False, 'minimum': -20.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:VariableSpeed', u'CoilSystem:Cooling:DX:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'dimensionless'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 27,
- 'name': u'ZoneHVAC:PackagedTerminalHeatPump',
- 'pyname': u'ZoneHvacPackagedTerminalHeatPump',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air mixer object type',
+                                      {'name': u'Outdoor Air Mixer Object Type',
+                                       'pyname': u'outdoor_air_mixer_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air mixer name',
+                                      {'name': u'Outdoor Air Mixer Name',
+                                       'pyname': u'outdoor_air_mixer_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air flow rate during cooling operation',
+                                      {'name': u'Supply Air Flow Rate During Cooling Operation',
+                                       'pyname': u'supply_air_flow_rate_during_cooling_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate during heating operation',
+                                      {'name': u'Supply Air Flow Rate During Heating Operation',
+                                       'pyname': u'supply_air_flow_rate_during_heating_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate when no cooling or heating is needed',
+                                      {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during cooling operation',
+                                      {'name': u'Outdoor Air Flow Rate During Cooling Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_cooling_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during heating operation',
+                                      {'name': u'Outdoor Air Flow Rate During Heating Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_heating_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate when no cooling or heating is needed',
+                                      {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:DX:SingleSpeed',
+                                                           u'Coil:Heating:DX:VariableSpeed'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating convergence tolerance',
+                                      {'name': u'Heating Convergence Tolerance',
+                                       'pyname': u'heating_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'minimum outdoor dry-bulb temperature for compressor operation',
+                                      {'name': u'Minimum Outdoor Dry-Bulb Temperature for Compressor Operation',
+                                       'pyname': u'minimum_outdoor_drybulb_temperature_for_compressor_operation',
+                                       'default': -8.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -20.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:DX:SingleSpeed',
+                                                           u'Coil:Cooling:DX:VariableSpeed',
+                                                           u'CoilSystem:Cooling:DX:HeatExchangerAssisted'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil name',
+                                      {'name': u'Cooling Coil Name',
+                                       'pyname': u'cooling_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling convergence tolerance',
+                                      {'name': u'Cooling Convergence Tolerance',
+                                       'pyname': u'cooling_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'supplemental heating coil object type',
+                                      {'name': u'Supplemental Heating Coil Object Type',
+                                       'pyname': u'supplemental_heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Heating:Steam'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supplemental heating coil name',
+                                      {'name': u'Supplemental Heating Coil Name',
+                                       'pyname': u'supplemental_heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum supply air temperature from supplemental heater',
+                                      {'name': u'Maximum Supply Air Temperature from Supplemental Heater',
+                                       'pyname': u'maximum_supply_air_temperature_from_supplemental_heater',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor dry-bulb temperature for supplemental heater operation',
+                                      {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation',
+                                       'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation',
+                                       'default': 21.0,
+                                       'maximum': 21.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'fan placement',
+                                      {'name': u'Fan Placement',
+                                       'pyname': u'fan_placement',
+                                       'default': u'DrawThrough',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 27,
+              'name': u'ZoneHVAC:PackagedTerminalHeatPump',
+              'pyname': u'ZoneHvacPackagedTerminalHeatPump',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-        Unique name for this packaged terminal heat pump object.
+        """Corresponds to IDD field `Name` Unique name for this packaged
+        terminal heat pump object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2411,23 +3616,25 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
         Schedule values of 0 denote the unit is off.
 
         Args:
@@ -2437,22 +3644,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
-        Air inlet node for the PTHP must be a zone air exhaust node.
+        """Corresponds to IDD field `Air Inlet Node Name` Air inlet node for
+        the PTHP must be a zone air exhaust node.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -2461,22 +3670,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
-        Air outlet node for the PTHP must be a zone air inlet node.
+        """Corresponds to IDD field `Air Outlet Node Name` Air outlet node for
+        the PTHP must be a zone air inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -2485,15 +3696,17 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
-        """Get outdoor_air_mixer_object_type
+        """Get outdoor_air_mixer_object_type.
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -2514,17 +3727,18 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """Get outdoor_air_mixer_name
+        """Get outdoor_air_mixer_name.
 
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
+
         """
         return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Mixer Name`
-        Needs to match name of outdoor air mixer object.
+        """Corresponds to IDD field `Outdoor Air Mixer Name` Needs to match
+        name of outdoor air mixer object.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -2533,22 +3747,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """Get supply_air_flow_rate_during_cooling_operation
+        """Get supply_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Cooling Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Cooling
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
@@ -2558,22 +3774,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """Get supply_air_flow_rate_during_heating_operation
+        """Get supply_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Heating Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Heating
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
@@ -2583,26 +3801,31 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to fan size.
-        Only used when heat pump fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
+    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Supply Air Flow Rate When No Cooling or
+        Heating is Needed` Must be less than or equal to fan size. Only used
+        when heat pump fan operating mode is continuous. This air flow rate is
+        used when no heating or cooling is required and the DX coil compressor
+        is off. If this field is left blank or zero, the supply air flow rate
+        from the previous on cycle (either cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
@@ -2612,22 +3835,26 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """Get outdoor_air_flow_rate_during_cooling_operation
+        """Get outdoor_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Cooling Operation`
-        Must be less than or equal to supply air flow rate during cooling operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Cooling
+        Operation` Must be less than or equal to supply air flow rate during
+        cooling operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
@@ -2637,22 +3864,25 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """Get outdoor_air_flow_rate_during_heating_operation
+        """Get outdoor_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Heating Operation`
-        Must be less than or equal to supply air flow rate during heating operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Heating
+        Operation` Must be less than or equal to supply air flow rate during
+        heating operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
@@ -2662,25 +3892,31 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when heat pump Fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
-        (either cooling or heating) is used.
+    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or
+        Heating is Needed` Only used when heat pump Fan operating mode is
+        continuous. This air flow rate is used when no heating or cooling is
+        required and the DX coil compressor is off. If this field is left blank
+        or zero, the outdoor air flow rate from the previous on cycle (either
+        cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
@@ -2690,15 +3926,18 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -2719,17 +3958,18 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
-        Needs to match a fan object.
+        """Corresponds to IDD field `Supply Air Fan Name` Needs to match a fan
+        object.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -2738,15 +3978,17 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
@@ -2768,17 +4010,18 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Name`
-        Needs to match in the DX Heating Coil object.
+        """Corresponds to IDD field `Heating Coil Name` Needs to match in the
+        DX Heating Coil object.
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -2787,22 +4030,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Name"] = value
 
     @property
     def heating_convergence_tolerance(self):
-        """Get heating_convergence_tolerance
+        """Get heating_convergence_tolerance.
 
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
+
         """
         return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Heating Convergence Tolerance`
-        Defines Heating convergence tolerence as a fraction of Heating load to be met.
+        """Corresponds to IDD field `Heating Convergence Tolerance` Defines
+        Heating convergence tolerence as a fraction of Heating load to be met.
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -2813,20 +4058,26 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Convergence Tolerance"] = value
 
     @property
     def minimum_outdoor_drybulb_temperature_for_compressor_operation(self):
-        """Get minimum_outdoor_drybulb_temperature_for_compressor_operation
+        """Get minimum_outdoor_drybulb_temperature_for_compressor_operation.
 
         Returns:
             float: the value of `minimum_outdoor_drybulb_temperature_for_compressor_operation` or None if not set
+
         """
-        return self["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"]
+        return self[
+            "Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"]
 
     @minimum_outdoor_drybulb_temperature_for_compressor_operation.setter
-    def minimum_outdoor_drybulb_temperature_for_compressor_operation(self, value=-8.0):
+    def minimum_outdoor_drybulb_temperature_for_compressor_operation(
+            self,
+            value=-
+            8.0):
         """  Corresponds to IDD field `Minimum Outdoor Dry-Bulb Temperature for Compressor Operation`
         Needs to match the corresponding minimum outdoor temperature defined
         in the DX Heating Coil object.
@@ -2842,14 +4093,16 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
+        self[
+            "Minimum Outdoor Dry-Bulb Temperature for Compressor Operation"] = value
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -2872,17 +4125,18 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
     @property
     def cooling_coil_name(self):
-        """Get cooling_coil_name
+        """Get cooling_coil_name.
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Name`
-        Needs to match in the DX Cooling Coil object.
+        """Corresponds to IDD field `Cooling Coil Name` Needs to match in the
+        DX Cooling Coil object.
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -2891,22 +4145,25 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Name"] = value
 
     @property
     def cooling_convergence_tolerance(self):
-        """Get cooling_convergence_tolerance
+        """Get cooling_convergence_tolerance.
 
         Returns:
             float: the value of `cooling_convergence_tolerance` or None if not set
+
         """
         return self["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Cooling Convergence Tolerance`
-        Defines Cooling convergence tolerence as a fraction of the Cooling load to be met.
+        """Corresponds to IDD field `Cooling Convergence Tolerance` Defines
+        Cooling convergence tolerence as a fraction of the Cooling load to be
+        met.
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -2917,21 +4174,23 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Convergence Tolerance"] = value
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """Get supplemental_heating_coil_object_type
+        """Get supplemental_heating_coil_object_type.
 
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
+
         """
         return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Supplemental Heating Coil Object Type`
+        """Corresponds to IDD field `Supplemental Heating Coil Object Type`
         works with gas, electric, hot water and steam heating coil.
 
         Args:
@@ -2941,22 +4200,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supplemental Heating Coil Object Type"] = value
 
     @property
     def supplemental_heating_coil_name(self):
-        """Get supplemental_heating_coil_name
+        """Get supplemental_heating_coil_name.
 
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
+
         """
         return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Supplemental Heating Coil Name`
-        Needs to match in the supplemental heating coil object.
+        """Corresponds to IDD field `Supplemental Heating Coil Name` Needs to
+        match in the supplemental heating coil object.
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -2965,22 +4226,27 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supplemental Heating Coil Name"] = value
 
     @property
     def maximum_supply_air_temperature_from_supplemental_heater(self):
-        """Get maximum_supply_air_temperature_from_supplemental_heater
+        """Get maximum_supply_air_temperature_from_supplemental_heater.
 
         Returns:
             float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
+
         """
         return self["Maximum Supply Air Temperature from Supplemental Heater"]
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
-    def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Temperature from Supplemental Heater`
-        Supply air temperature from the supplemental heater will not exceed this value.
+    def maximum_supply_air_temperature_from_supplemental_heater(
+            self,
+            value=None):
+        """Corresponds to IDD field `Maximum Supply Air Temperature from
+        Supplemental Heater` Supply air temperature from the supplemental
+        heater will not exceed this value.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
@@ -2990,20 +4256,27 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self):
-        """Get maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(
+            self):
+        """Get maximum_outdoor_drybulb_temperature_for_supplemental_heater_oper
+        ation.
 
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
+
         """
-        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self[
+            "Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(
+            self,
+            value=21.0):
         """  Corresponds to IDD field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
         Supplemental heater will not operate when outdoor temperature exceeds this value.
 
@@ -3018,21 +4291,23 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
+        self[
+            "Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
     def fan_placement(self):
-        """Get fan_placement
+        """Get fan_placement.
 
         Returns:
             str: the value of `fan_placement` or None if not set
+
         """
         return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="DrawThrough"):
-        """  Corresponds to IDD field `Fan Placement`
-        Select fan placement as either blow through or draw through.
+        """Corresponds to IDD field `Fan Placement` Select fan placement as
+        either blow through or draw through.
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -3042,25 +4317,29 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule values of 0 denote
-        cycling fan operation (fan cycles with cooling or heating coil). Schedule Name values greater
-        than 0 denote constant fan operation (fan runs continually regardless of coil operation).
-        The fan operating mode defaults to cycling fan operation if this field is left blank.
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule values of 0 denote cycling fan operation (fan cycles with
+        cooling or heating coil). Schedule Name values greater than 0 denote
+        constant fan operation (fan runs continually regardless of coil
+        operation). The fan operating mode defaults to cycling fan operation if
+        this field is left blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -3069,22 +4348,24 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -3093,22 +4374,25 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -3117,6 +4401,7 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -3124,33 +4409,305 @@ class ZoneHvacPackagedTerminalHeatPump(DataObject):
 
 
 class ZoneHvacWaterToAirHeatPump(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:WaterToAirHeatPump`
         Water-to-air heat pump. Forced-convection heating-cooling unit with supply fan,
         water-to-air cooling and heating coils, supplemental heating coil (gas, electric, hot
         water, or steam), and fixed-position outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air mixer object type', {'name': u'Outdoor Air Mixer Object Type', 'pyname': u'outdoor_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outdoor air mixer name', {'name': u'Outdoor Air Mixer Name', 'pyname': u'outdoor_air_mixer_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling or heating is needed', {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:WaterToAirHeatPump:EquationFit', u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:WaterToAirHeatPump:EquationFit', u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum cycling rate', {'name': u'Maximum Cycling Rate', 'pyname': u'maximum_cycling_rate', 'default': 2.5, 'maximum': 5.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'cycles/hr'}), (u'heat pump time constant', {'name': u'Heat Pump Time Constant', 'pyname': u'heat_pump_time_constant', 'default': 60.0, 'maximum': 500.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u's'}), (u'fraction of on-cycle power use', {'name': u'Fraction of On-Cycle Power Use', 'pyname': u'fraction_of_oncycle_power_use', 'default': 0.01, 'maximum': 0.05, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'heat pump fan delay time', {'name': u'Heat Pump Fan Delay Time', 'pyname': u'heat_pump_fan_delay_time', 'default': 60.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u's'}), (u'supplemental heating coil object type', {'name': u'Supplemental Heating Coil Object Type', 'pyname': u'supplemental_heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Gas', u'Coil:Heating:Electric', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'supplemental heating coil name', {'name': u'Supplemental Heating Coil Name', 'pyname': u'supplemental_heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air temperature from supplemental heater', {'name': u'Maximum Supply Air Temperature from Supplemental Heater', 'pyname': u'maximum_supply_air_temperature_from_supplemental_heater', 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor dry-bulb temperature for supplemental heater operation', {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation', 'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation', 'default': 21.0, 'maximum': 21.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'outdoor dry-bulb temperature sensor node name', {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name', 'pyname': u'outdoor_drybulb_temperature_sensor_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat pump coil water flow mode', {'name': u'Heat Pump Coil Water Flow Mode', 'pyname': u'heat_pump_coil_water_flow_mode', 'default': u'Cycling', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Constant', u'Cycling', u'ConstantOnDemand'], 'autocalculatable': False, 'type': 'alpha'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 25,
- 'name': u'ZoneHVAC:WaterToAirHeatPump',
- 'pyname': u'ZoneHvacWaterToAirHeatPump',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air mixer object type',
+                                      {'name': u'Outdoor Air Mixer Object Type',
+                                       'pyname': u'outdoor_air_mixer_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outdoor air mixer name',
+                                      {'name': u'Outdoor Air Mixer Name',
+                                       'pyname': u'outdoor_air_mixer_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air flow rate during cooling operation',
+                                      {'name': u'Supply Air Flow Rate During Cooling Operation',
+                                       'pyname': u'supply_air_flow_rate_during_cooling_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate during heating operation',
+                                      {'name': u'Supply Air Flow Rate During Heating Operation',
+                                       'pyname': u'supply_air_flow_rate_during_heating_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate when no cooling or heating is needed',
+                                      {'name': u'Supply Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'supply_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during cooling operation',
+                                      {'name': u'Outdoor Air Flow Rate During Cooling Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_cooling_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during heating operation',
+                                      {'name': u'Outdoor Air Flow Rate During Heating Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_heating_operation',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate when no cooling or heating is needed',
+                                      {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:WaterToAirHeatPump:EquationFit',
+                                                           u'Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:WaterToAirHeatPump:EquationFit',
+                                                           u'Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil name',
+                                      {'name': u'Cooling Coil Name',
+                                       'pyname': u'cooling_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum cycling rate',
+                                      {'name': u'Maximum Cycling Rate',
+                                       'pyname': u'maximum_cycling_rate',
+                                       'default': 2.5,
+                                       'maximum': 5.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'cycles/hr'}),
+                                     (u'heat pump time constant',
+                                      {'name': u'Heat Pump Time Constant',
+                                       'pyname': u'heat_pump_time_constant',
+                                       'default': 60.0,
+                                       'maximum': 500.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u's'}),
+                                     (u'fraction of on-cycle power use',
+                                      {'name': u'Fraction of On-Cycle Power Use',
+                                       'pyname': u'fraction_of_oncycle_power_use',
+                                       'default': 0.01,
+                                       'maximum': 0.05,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'heat pump fan delay time',
+                                      {'name': u'Heat Pump Fan Delay Time',
+                                       'pyname': u'heat_pump_fan_delay_time',
+                                       'default': 60.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u's'}),
+                                     (u'supplemental heating coil object type',
+                                      {'name': u'Supplemental Heating Coil Object Type',
+                                       'pyname': u'supplemental_heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Heating:Steam'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supplemental heating coil name',
+                                      {'name': u'Supplemental Heating Coil Name',
+                                       'pyname': u'supplemental_heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum supply air temperature from supplemental heater',
+                                      {'name': u'Maximum Supply Air Temperature from Supplemental Heater',
+                                       'pyname': u'maximum_supply_air_temperature_from_supplemental_heater',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor dry-bulb temperature for supplemental heater operation',
+                                      {'name': u'Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation',
+                                       'pyname': u'maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation',
+                                       'default': 21.0,
+                                       'maximum': 21.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'outdoor dry-bulb temperature sensor node name',
+                                      {'name': u'Outdoor Dry-Bulb Temperature Sensor Node Name',
+                                       'pyname': u'outdoor_drybulb_temperature_sensor_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'fan placement',
+                                      {'name': u'Fan Placement',
+                                       'pyname': u'fan_placement',
+                                       'default': u'BlowThrough',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat pump coil water flow mode',
+                                      {'name': u'Heat Pump Coil Water Flow Mode',
+                                       'pyname': u'heat_pump_coil_water_flow_mode',
+                                       'default': u'Cycling',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Constant',
+                                                           u'Cycling',
+                                                           u'ConstantOnDemand'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 25,
+              'name': u'ZoneHVAC:WaterToAirHeatPump',
+              'pyname': u'ZoneHvacWaterToAirHeatPump',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3159,23 +4716,25 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3184,21 +4743,23 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
+        """Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -3207,21 +4768,23 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
+        """Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -3230,15 +4793,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_mixer_object_type(self):
-        """Get outdoor_air_mixer_object_type
+        """Get outdoor_air_mixer_object_type.
 
         Returns:
             str: the value of `outdoor_air_mixer_object_type` or None if not set
+
         """
         return self["Outdoor Air Mixer Object Type"]
 
@@ -3259,18 +4824,19 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def outdoor_air_mixer_name(self):
-        """Get outdoor_air_mixer_name
+        """Get outdoor_air_mixer_name.
 
         Returns:
             str: the value of `outdoor_air_mixer_name` or None if not set
+
         """
         return self["Outdoor Air Mixer Name"]
 
     @outdoor_air_mixer_name.setter
     def outdoor_air_mixer_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Mixer Name`
-        This optional field specifies the name of the outdoor air mixer object.
-        When used, this name needs to match name of outdoor air mixer object.
+        """Corresponds to IDD field `Outdoor Air Mixer Name` This optional
+        field specifies the name of the outdoor air mixer object. When used,
+        this name needs to match name of outdoor air mixer object.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Mixer Name`
@@ -3279,22 +4845,24 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Mixer Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """Get supply_air_flow_rate_during_cooling_operation
+        """Get supply_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Cooling Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Cooling
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
@@ -3304,22 +4872,24 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """Get supply_air_flow_rate_during_heating_operation
+        """Get supply_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Heating Operation`
-        Must be less than or equal to fan size.
+        """Corresponds to IDD field `Supply Air Flow Rate During Heating
+        Operation` Must be less than or equal to fan size.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
@@ -3329,26 +4899,31 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get supply_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Supply Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate When No Cooling or Heating is Needed`
-        Must be less than or equal to fan size.
-        Only used when heat pump fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the supply air flow rate from the previous on cycle
-        (either cooling or heating) is used.
+    def supply_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Supply Air Flow Rate When No Cooling or
+        Heating is Needed` Must be less than or equal to fan size. Only used
+        when heat pump fan operating mode is continuous. This air flow rate is
+        used when no heating or cooling is required and the DX coil compressor
+        is off. If this field is left blank or zero, the supply air flow rate
+        from the previous on cycle (either cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling or Heating is Needed`
@@ -3358,22 +4933,26 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Supply Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """Get outdoor_air_flow_rate_during_cooling_operation
+        """Get outdoor_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Cooling Operation`
-        Must be less than or equal to supply air flow rate during cooling operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Cooling
+        Operation` Must be less than or equal to supply air flow rate during
+        cooling operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
@@ -3383,22 +4962,25 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """Get outdoor_air_flow_rate_during_heating_operation
+        """Get outdoor_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Heating Operation`
-        Must be less than or equal to supply air flow rate during heating operation.
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Heating
+        Operation` Must be less than or equal to supply air flow rate during
+        heating operation.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
@@ -3408,25 +4990,31 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
-        Only used when heat pump Fan operating mode is continuous. This air flow rate
-        is used when no heating or cooling is required and the DX coil compressor is off.
-        If this field is left blank or zero, the outdoor air flow rate from the previous on cycle
-        (either cooling or heating) is used.
+    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or
+        Heating is Needed` Only used when heat pump Fan operating mode is
+        continuous. This air flow rate is used when no heating or cooling is
+        required and the DX coil compressor is off. If this field is left blank
+        or zero, the outdoor air flow rate from the previous on cycle (either
+        cooling or heating) is used.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
@@ -3436,22 +5024,25 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Object Type`
-        Only works with On/Off Fan
+        """Corresponds to IDD field `Supply Air Fan Object Type` Only works
+        with On/Off Fan.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -3460,15 +5051,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
@@ -3489,16 +5082,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Object Type`
+        """Corresponds to IDD field `Heating Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -3507,15 +5101,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
@@ -3536,16 +5132,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Object Type`
+        """Corresponds to IDD field `Cooling Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -3554,15 +5151,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
-        """Get cooling_coil_name
+        """Get cooling_coil_name.
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
@@ -3583,10 +5182,11 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def maximum_cycling_rate(self):
-        """Get maximum_cycling_rate
+        """Get maximum_cycling_rate.
 
         Returns:
             float: the value of `maximum_cycling_rate` or None if not set
+
         """
         return self["Maximum Cycling Rate"]
 
@@ -3611,18 +5211,19 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_time_constant(self):
-        """Get heat_pump_time_constant
+        """Get heat_pump_time_constant.
 
         Returns:
             float: the value of `heat_pump_time_constant` or None if not set
+
         """
         return self["Heat Pump Time Constant"]
 
     @heat_pump_time_constant.setter
     def heat_pump_time_constant(self, value=60.0):
-        """  Corresponds to IDD field `Heat Pump Time Constant`
-        Time constant for the cooling coil's capacity to reach steady state after startup
-        Suggested value is 60 for a typical heat pump
+        """Corresponds to IDD field `Heat Pump Time Constant` Time constant for
+        the cooling coil's capacity to reach steady state after startup
+        Suggested value is 60 for a typical heat pump.
 
         Args:
             value (float): value for IDD Field `Heat Pump Time Constant`
@@ -3634,15 +5235,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heat Pump Time Constant"] = value
 
     @property
     def fraction_of_oncycle_power_use(self):
-        """Get fraction_of_oncycle_power_use
+        """Get fraction_of_oncycle_power_use.
 
         Returns:
             float: the value of `fraction_of_oncycle_power_use` or None if not set
+
         """
         return self["Fraction of On-Cycle Power Use"]
 
@@ -3667,19 +5270,20 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def heat_pump_fan_delay_time(self):
-        """Get heat_pump_fan_delay_time
+        """Get heat_pump_fan_delay_time.
 
         Returns:
             float: the value of `heat_pump_fan_delay_time` or None if not set
+
         """
         return self["Heat Pump Fan Delay Time"]
 
     @heat_pump_fan_delay_time.setter
     def heat_pump_fan_delay_time(self, value=60.0):
-        """  Corresponds to IDD field `Heat Pump Fan Delay Time`
-        Programmed time delay for heat pump fan to shut off after compressor cycle off.
-        Only required when fan operating mode is cycling
-        Enter 0 when fan operating mode is continuous
+        """Corresponds to IDD field `Heat Pump Fan Delay Time` Programmed time
+        delay for heat pump fan to shut off after compressor cycle off. Only
+        required when fan operating mode is cycling Enter 0 when fan operating
+        mode is continuous.
 
         Args:
             value (float): value for IDD Field `Heat Pump Fan Delay Time`
@@ -3690,22 +5294,24 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heat Pump Fan Delay Time"] = value
 
     @property
     def supplemental_heating_coil_object_type(self):
-        """Get supplemental_heating_coil_object_type
+        """Get supplemental_heating_coil_object_type.
 
         Returns:
             str: the value of `supplemental_heating_coil_object_type` or None if not set
+
         """
         return self["Supplemental Heating Coil Object Type"]
 
     @supplemental_heating_coil_object_type.setter
     def supplemental_heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Supplemental Heating Coil Object Type`
-        works with gas, electric, hot water and steam heating coils
+        """Corresponds to IDD field `Supplemental Heating Coil Object Type`
+        works with gas, electric, hot water and steam heating coils.
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Object Type`
@@ -3714,22 +5320,24 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supplemental Heating Coil Object Type"] = value
 
     @property
     def supplemental_heating_coil_name(self):
-        """Get supplemental_heating_coil_name
+        """Get supplemental_heating_coil_name.
 
         Returns:
             str: the value of `supplemental_heating_coil_name` or None if not set
+
         """
         return self["Supplemental Heating Coil Name"]
 
     @supplemental_heating_coil_name.setter
     def supplemental_heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Supplemental Heating Coil Name`
-        Needs to match in the supplemental heating coil object
+        """Corresponds to IDD field `Supplemental Heating Coil Name` Needs to
+        match in the supplemental heating coil object.
 
         Args:
             value (str): value for IDD Field `Supplemental Heating Coil Name`
@@ -3738,21 +5346,26 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supplemental Heating Coil Name"] = value
 
     @property
     def maximum_supply_air_temperature_from_supplemental_heater(self):
-        """Get maximum_supply_air_temperature_from_supplemental_heater
+        """Get maximum_supply_air_temperature_from_supplemental_heater.
 
         Returns:
             float: the value of `maximum_supply_air_temperature_from_supplemental_heater` or None if not set
+
         """
         return self["Maximum Supply Air Temperature from Supplemental Heater"]
 
     @maximum_supply_air_temperature_from_supplemental_heater.setter
-    def maximum_supply_air_temperature_from_supplemental_heater(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Temperature from Supplemental Heater`
+    def maximum_supply_air_temperature_from_supplemental_heater(
+            self,
+            value=None):
+        """Corresponds to IDD field `Maximum Supply Air Temperature from
+        Supplemental Heater`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Temperature from Supplemental Heater`
@@ -3762,20 +5375,27 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Temperature from Supplemental Heater"] = value
 
     @property
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self):
-        """Get maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(
+            self):
+        """Get maximum_outdoor_drybulb_temperature_for_supplemental_heater_oper
+        ation.
 
         Returns:
             float: the value of `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation` or None if not set
+
         """
-        return self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
+        return self[
+            "Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"]
 
     @maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation.setter
-    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(self, value=21.0):
+    def maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation(
+            self,
+            value=21.0):
         """  Corresponds to IDD field `Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation`
 
         Args:
@@ -3789,14 +5409,16 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
         Raises:
             ValueError: if `value` is not a valid value
         """
-        self["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
+        self[
+            "Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = value
 
     @property
     def outdoor_drybulb_temperature_sensor_node_name(self):
-        """Get outdoor_drybulb_temperature_sensor_node_name
+        """Get outdoor_drybulb_temperature_sensor_node_name.
 
         Returns:
             str: the value of `outdoor_drybulb_temperature_sensor_node_name` or None if not set
+
         """
         return self["Outdoor Dry-Bulb Temperature Sensor Node Name"]
 
@@ -3816,16 +5438,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def fan_placement(self):
-        """Get fan_placement
+        """Get fan_placement.
 
         Returns:
             str: the value of `fan_placement` or None if not set
+
         """
         return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD field `Fan Placement`
+        """Corresponds to IDD field `Fan Placement`
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -3835,25 +5458,29 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Placement"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule values of 0 denote
-        cycling fan operation (fan cycles with cooling or heating coil). Schedule values greater
-        than 0 denote constant fan operation (fan runs continually regardless of coil operation).
-        The fan operating mode defaults to cycling fan operation if this field is left blank.
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule values of 0 denote cycling fan operation (fan cycles with
+        cooling or heating coil). Schedule values greater than 0 denote
+        constant fan operation (fan runs continually regardless of coil
+        operation). The fan operating mode defaults to cycling fan operation if
+        this field is left blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -3862,22 +5489,24 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -3886,15 +5515,17 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def heat_pump_coil_water_flow_mode(self):
-        """Get heat_pump_coil_water_flow_mode
+        """Get heat_pump_coil_water_flow_mode.
 
         Returns:
             str: the value of `heat_pump_coil_water_flow_mode` or None if not set
+
         """
         return self["Heat Pump Coil Water Flow Mode"]
 
@@ -3919,17 +5550,19 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -3938,6 +5571,7 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -3945,6 +5579,7 @@ class ZoneHvacWaterToAirHeatPump(DataObject):
 
 
 class ZoneHvacDehumidifierDx(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:Dehumidifier:DX`
         This object calculates the performance of zone (room) air dehumidifiers.
         Meant to model conventional direct expansion (DX) cooling-based room air
@@ -3952,28 +5587,139 @@ class ZoneHvacDehumidifierDx(DataObject):
         object might be able to be used to model other room air dehumidifier types.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'rated water removal', {'name': u'Rated Water Removal', 'pyname': u'rated_water_removal', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'L/day'}), (u'rated energy factor', {'name': u'Rated Energy Factor', 'pyname': u'rated_energy_factor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'L/kWh'}), (u'rated air flow rate', {'name': u'Rated Air Flow Rate', 'pyname': u'rated_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'water removal curve name', {'name': u'Water Removal Curve Name', 'pyname': u'water_removal_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'energy factor curve name', {'name': u'Energy Factor Curve Name', 'pyname': u'energy_factor_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'part load fraction correlation curve name', {'name': u'Part Load Fraction Correlation Curve Name', 'pyname': u'part_load_fraction_correlation_curve_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum dry-bulb temperature for dehumidifier operation', {'name': u'Minimum Dry-Bulb Temperature for Dehumidifier Operation', 'pyname': u'minimum_drybulb_temperature_for_dehumidifier_operation', 'default': 10.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum dry-bulb temperature for dehumidifier operation', {'name': u'Maximum Dry-Bulb Temperature for Dehumidifier Operation', 'pyname': u'maximum_drybulb_temperature_for_dehumidifier_operation', 'default': 35.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'off-cycle parasitic electric load', {'name': u'Off-Cycle Parasitic Electric Load', 'pyname': u'offcycle_parasitic_electric_load', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'condensate collection water storage tank name', {'name': u'Condensate Collection Water Storage Tank Name', 'pyname': u'condensate_collection_water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 13,
- 'name': u'ZoneHVAC:Dehumidifier:DX',
- 'pyname': u'ZoneHvacDehumidifierDx',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'rated water removal',
+                                      {'name': u'Rated Water Removal',
+                                       'pyname': u'rated_water_removal',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'L/day'}),
+                                     (u'rated energy factor',
+                                      {'name': u'Rated Energy Factor',
+                                       'pyname': u'rated_energy_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'L/kWh'}),
+                                     (u'rated air flow rate',
+                                      {'name': u'Rated Air Flow Rate',
+                                       'pyname': u'rated_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'water removal curve name',
+                                      {'name': u'Water Removal Curve Name',
+                                       'pyname': u'water_removal_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'energy factor curve name',
+                                      {'name': u'Energy Factor Curve Name',
+                                       'pyname': u'energy_factor_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'part load fraction correlation curve name',
+                                      {'name': u'Part Load Fraction Correlation Curve Name',
+                                       'pyname': u'part_load_fraction_correlation_curve_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum dry-bulb temperature for dehumidifier operation',
+                                      {'name': u'Minimum Dry-Bulb Temperature for Dehumidifier Operation',
+                                       'pyname': u'minimum_drybulb_temperature_for_dehumidifier_operation',
+                                       'default': 10.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum dry-bulb temperature for dehumidifier operation',
+                                      {'name': u'Maximum Dry-Bulb Temperature for Dehumidifier Operation',
+                                       'pyname': u'maximum_drybulb_temperature_for_dehumidifier_operation',
+                                       'default': 35.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'off-cycle parasitic electric load',
+                                      {'name': u'Off-Cycle Parasitic Electric Load',
+                                       'pyname': u'offcycle_parasitic_electric_load',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'condensate collection water storage tank name',
+                                      {'name': u'Condensate Collection Water Storage Tank Name',
+                                       'pyname': u'condensate_collection_water_storage_tank_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 13,
+              'name': u'ZoneHVAC:Dehumidifier:DX',
+              'pyname': u'ZoneHvacDehumidifierDx',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
-        Unique name for this direct expansion (DX) zone dehumidifier object.
+        """Corresponds to IDD field `Name` Unique name for this direct
+        expansion (DX) zone dehumidifier object.
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3982,15 +5728,17 @@ class ZoneHvacDehumidifierDx(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
@@ -4014,17 +5762,18 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
-        Air inlet node for the dehumidifier must be a zone air exhaust node.
+        """Corresponds to IDD field `Air Inlet Node Name` Air inlet node for
+        the dehumidifier must be a zone air exhaust node.
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -4033,22 +5782,24 @@ class ZoneHvacDehumidifierDx(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
-        Air outlet node for the dehumidifier must be a zone air inlet node.
+        """Corresponds to IDD field `Air Outlet Node Name` Air outlet node for
+        the dehumidifier must be a zone air inlet node.
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -4057,15 +5808,17 @@ class ZoneHvacDehumidifierDx(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def rated_water_removal(self):
-        """Get rated_water_removal
+        """Get rated_water_removal.
 
         Returns:
             float: the value of `rated_water_removal` or None if not set
+
         """
         return self["Rated Water Removal"]
 
@@ -4087,10 +5840,11 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def rated_energy_factor(self):
-        """Get rated_energy_factor
+        """Get rated_energy_factor.
 
         Returns:
             float: the value of `rated_energy_factor` or None if not set
+
         """
         return self["Rated Energy Factor"]
 
@@ -4112,16 +5866,17 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def rated_air_flow_rate(self):
-        """Get rated_air_flow_rate
+        """Get rated_air_flow_rate.
 
         Returns:
             float: the value of `rated_air_flow_rate` or None if not set
+
         """
         return self["Rated Air Flow Rate"]
 
     @rated_air_flow_rate.setter
     def rated_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Rated Air Flow Rate`
+        """Corresponds to IDD field `Rated Air Flow Rate`
 
         Args:
             value (float): value for IDD Field `Rated Air Flow Rate`
@@ -4131,15 +5886,17 @@ class ZoneHvacDehumidifierDx(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Rated Air Flow Rate"] = value
 
     @property
     def water_removal_curve_name(self):
-        """Get water_removal_curve_name
+        """Get water_removal_curve_name.
 
         Returns:
             str: the value of `water_removal_curve_name` or None if not set
+
         """
         return self["Water Removal Curve Name"]
 
@@ -4167,10 +5924,11 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def energy_factor_curve_name(self):
-        """Get energy_factor_curve_name
+        """Get energy_factor_curve_name.
 
         Returns:
             str: the value of `energy_factor_curve_name` or None if not set
+
         """
         return self["Energy Factor Curve Name"]
 
@@ -4198,10 +5956,11 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def part_load_fraction_correlation_curve_name(self):
-        """Get part_load_fraction_correlation_curve_name
+        """Get part_load_fraction_correlation_curve_name.
 
         Returns:
             str: the value of `part_load_fraction_correlation_curve_name` or None if not set
+
         """
         return self["Part Load Fraction Correlation Curve Name"]
 
@@ -4228,15 +5987,18 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def minimum_drybulb_temperature_for_dehumidifier_operation(self):
-        """Get minimum_drybulb_temperature_for_dehumidifier_operation
+        """Get minimum_drybulb_temperature_for_dehumidifier_operation.
 
         Returns:
             float: the value of `minimum_drybulb_temperature_for_dehumidifier_operation` or None if not set
+
         """
         return self["Minimum Dry-Bulb Temperature for Dehumidifier Operation"]
 
     @minimum_drybulb_temperature_for_dehumidifier_operation.setter
-    def minimum_drybulb_temperature_for_dehumidifier_operation(self, value=10.0):
+    def minimum_drybulb_temperature_for_dehumidifier_operation(
+            self,
+            value=10.0):
         """  Corresponds to IDD field `Minimum Dry-Bulb Temperature for Dehumidifier Operation`
         Dehumidifier shut off if inlet air (zone) temperature is below this value.
         This value must be less than the Maximum Dry-Bulb Temperature for Dehumidifier Operation.
@@ -4255,15 +6017,18 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def maximum_drybulb_temperature_for_dehumidifier_operation(self):
-        """Get maximum_drybulb_temperature_for_dehumidifier_operation
+        """Get maximum_drybulb_temperature_for_dehumidifier_operation.
 
         Returns:
             float: the value of `maximum_drybulb_temperature_for_dehumidifier_operation` or None if not set
+
         """
         return self["Maximum Dry-Bulb Temperature for Dehumidifier Operation"]
 
     @maximum_drybulb_temperature_for_dehumidifier_operation.setter
-    def maximum_drybulb_temperature_for_dehumidifier_operation(self, value=35.0):
+    def maximum_drybulb_temperature_for_dehumidifier_operation(
+            self,
+            value=35.0):
         """  Corresponds to IDD field `Maximum Dry-Bulb Temperature for Dehumidifier Operation`
         Dehumidifier shut off if inlet air (zone) temperature is above this value.
         This value must be greater than the Minimum Dry-Bulb Temperature for Dehumidifier Operation.
@@ -4282,10 +6047,11 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def offcycle_parasitic_electric_load(self):
-        """Get offcycle_parasitic_electric_load
+        """Get offcycle_parasitic_electric_load.
 
         Returns:
             float: the value of `offcycle_parasitic_electric_load` or None if not set
+
         """
         return self["Off-Cycle Parasitic Electric Load"]
 
@@ -4310,17 +6076,19 @@ class ZoneHvacDehumidifierDx(DataObject):
 
     @property
     def condensate_collection_water_storage_tank_name(self):
-        """Get condensate_collection_water_storage_tank_name
+        """Get condensate_collection_water_storage_tank_name.
 
         Returns:
             str: the value of `condensate_collection_water_storage_tank_name` or None if not set
+
         """
         return self["Condensate Collection Water Storage Tank Name"]
 
     @condensate_collection_water_storage_tank_name.setter
     def condensate_collection_water_storage_tank_name(self, value=None):
-        """  Corresponds to IDD field `Condensate Collection Water Storage Tank Name`
-        Name of storage tank used to collect water removed by the dehumidifier.
+        """Corresponds to IDD field `Condensate Collection Water Storage Tank
+        Name` Name of storage tank used to collect water removed by the
+        dehumidifier.
 
         Args:
             value (str): value for IDD Field `Condensate Collection Water Storage Tank Name`
@@ -4329,6 +6097,7 @@ class ZoneHvacDehumidifierDx(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Condensate Collection Water Storage Tank Name"] = value
 
@@ -4336,6 +6105,7 @@ class ZoneHvacDehumidifierDx(DataObject):
 
 
 class ZoneHvacEnergyRecoveryVentilator(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator`
         This compound component models a stand-alone energy recovery ventilator (ERV)
         that conditions outdoor ventilation air and supplies that air directly to a zone.
@@ -4344,27 +6114,112 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
         of the supply air (economizer or free cooling operation).
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heat exchanger name', {'name': u'Heat Exchanger Name', 'pyname': u'heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air flow rate', {'name': u'Supply Air Flow Rate', 'pyname': u'supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust air flow rate', {'name': u'Exhaust Air Flow Rate', 'pyname': u'exhaust_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air fan name', {'name': u'Exhaust Air Fan Name', 'pyname': u'exhaust_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'controller name', {'name': u'Controller Name', 'pyname': u'controller_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'ventilation rate per unit floor area', {'name': u'Ventilation Rate per Unit Floor Area', 'pyname': u'ventilation_rate_per_unit_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'ventilation rate per occupant', {'name': u'Ventilation Rate per Occupant', 'pyname': u'ventilation_rate_per_occupant', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 7,
- 'name': u'ZoneHVAC:EnergyRecoveryVentilator',
- 'pyname': u'ZoneHvacEnergyRecoveryVentilator',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heat exchanger name',
+                                      {'name': u'Heat Exchanger Name',
+                                       'pyname': u'heat_exchanger_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air flow rate',
+                                      {'name': u'Supply Air Flow Rate',
+                                       'pyname': u'supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'exhaust air flow rate',
+                                      {'name': u'Exhaust Air Flow Rate',
+                                       'pyname': u'exhaust_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'exhaust air fan name',
+                                      {'name': u'Exhaust Air Fan Name',
+                                       'pyname': u'exhaust_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'controller name',
+                                      {'name': u'Controller Name',
+                                       'pyname': u'controller_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'ventilation rate per unit floor area',
+                                      {'name': u'Ventilation Rate per Unit Floor Area',
+                                       'pyname': u'ventilation_rate_per_unit_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'ventilation rate per occupant',
+                                      {'name': u'Ventilation Rate per Occupant',
+                                       'pyname': u'ventilation_rate_per_occupant',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 7,
+              'name': u'ZoneHVAC:EnergyRecoveryVentilator',
+              'pyname': u'ZoneHvacEnergyRecoveryVentilator',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4373,23 +6228,25 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4398,15 +6255,17 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def heat_exchanger_name(self):
-        """Get heat_exchanger_name
+        """Get heat_exchanger_name.
 
         Returns:
             str: the value of `heat_exchanger_name` or None if not set
+
         """
         return self["Heat Exchanger Name"]
 
@@ -4427,17 +6286,18 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def supply_air_flow_rate(self):
-        """Get supply_air_flow_rate
+        """Get supply_air_flow_rate.
 
         Returns:
             float: the value of `supply_air_flow_rate` or None if not set
+
         """
         return self["Supply Air Flow Rate"]
 
     @supply_air_flow_rate.setter
     def supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate`
-        This flow rate must match the supply fan's air flow rate.
+        """Corresponds to IDD field `Supply Air Flow Rate` This flow rate must
+        match the supply fan's air flow rate.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate`
@@ -4447,22 +6307,24 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate"] = value
 
     @property
     def exhaust_air_flow_rate(self):
-        """Get exhaust_air_flow_rate
+        """Get exhaust_air_flow_rate.
 
         Returns:
             float: the value of `exhaust_air_flow_rate` or None if not set
+
         """
         return self["Exhaust Air Flow Rate"]
 
     @exhaust_air_flow_rate.setter
     def exhaust_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Flow Rate`
-        This flow rate must match the supply fan air flow rate.
+        """Corresponds to IDD field `Exhaust Air Flow Rate` This flow rate must
+        match the supply fan air flow rate.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Exhaust Air Flow Rate`
@@ -4472,15 +6334,17 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Flow Rate"] = value
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
@@ -4501,10 +6365,11 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def exhaust_air_fan_name(self):
-        """Get exhaust_air_fan_name
+        """Get exhaust_air_fan_name.
 
         Returns:
             str: the value of `exhaust_air_fan_name` or None if not set
+
         """
         return self["Exhaust Air Fan Name"]
 
@@ -4525,10 +6390,11 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def controller_name(self):
-        """Get controller_name
+        """Get controller_name.
 
         Returns:
             str: the value of `controller_name` or None if not set
+
         """
         return self["Controller Name"]
 
@@ -4549,10 +6415,11 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def ventilation_rate_per_unit_floor_area(self):
-        """Get ventilation_rate_per_unit_floor_area
+        """Get ventilation_rate_per_unit_floor_area.
 
         Returns:
             float: the value of `ventilation_rate_per_unit_floor_area` or None if not set
+
         """
         return self["Ventilation Rate per Unit Floor Area"]
 
@@ -4575,10 +6442,11 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def ventilation_rate_per_occupant(self):
-        """Get ventilation_rate_per_occupant
+        """Get ventilation_rate_per_occupant.
 
         Returns:
             float: the value of `ventilation_rate_per_occupant` or None if not set
+
         """
         return self["Ventilation Rate per Occupant"]
 
@@ -4601,17 +6469,18 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -4620,6 +6489,7 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
@@ -4627,32 +6497,142 @@ class ZoneHvacEnergyRecoveryVentilator(DataObject):
 
 
 class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator:Controller`
         This controller is used exclusively by the ZoneHVAC:EnergyRecoveryVentilator object
         to allow economizer (free cooling) operation when possible.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'temperature high limit', {'name': u'Temperature High Limit', 'pyname': u'temperature_high_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'temperature low limit', {'name': u'Temperature Low Limit', 'pyname': u'temperature_low_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'enthalpy high limit', {'name': u'Enthalpy High Limit', 'pyname': u'enthalpy_high_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'J/kg'}), (u'dewpoint temperature limit', {'name': u'Dewpoint Temperature Limit', 'pyname': u'dewpoint_temperature_limit', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'electronic enthalpy limit curve name', {'name': u'Electronic Enthalpy Limit Curve Name', 'pyname': u'electronic_enthalpy_limit_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air temperature limit', {'name': u'Exhaust Air Temperature Limit', 'pyname': u'exhaust_air_temperature_limit', 'default': u'NoExhaustAirTemperatureLimit', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ExhaustAirTemperatureLimit', u'NoExhaustAirTemperatureLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust air enthalpy limit', {'name': u'Exhaust Air Enthalpy Limit', 'pyname': u'exhaust_air_enthalpy_limit', 'default': u'NoExhaustAirEnthalpyLimit', 'required-field': False, 'autosizable': False, 'accepted-values': [u'ExhaustAirEnthalpyLimit', u'NoExhaustAirEnthalpyLimit'], 'autocalculatable': False, 'type': 'alpha'}), (u'time of day economizer flow control schedule name', {'name': u'Time of Day Economizer Flow Control Schedule Name', 'pyname': u'time_of_day_economizer_flow_control_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity control flag', {'name': u'High Humidity Control Flag', 'pyname': u'high_humidity_control_flag', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'humidistat control zone name', {'name': u'Humidistat Control Zone Name', 'pyname': u'humidistat_control_zone_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'high humidity outdoor air flow ratio', {'name': u'High Humidity Outdoor Air Flow Ratio', 'pyname': u'high_humidity_outdoor_air_flow_ratio', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'control high indoor humidity based on outdoor humidity ratio', {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio', 'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio', 'default': u'Yes', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 3,
- 'name': u'ZoneHVAC:EnergyRecoveryVentilator:Controller',
- 'pyname': u'ZoneHvacEnergyRecoveryVentilatorController',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'temperature high limit',
+                                      {'name': u'Temperature High Limit',
+                                       'pyname': u'temperature_high_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'temperature low limit',
+                                      {'name': u'Temperature Low Limit',
+                                       'pyname': u'temperature_low_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'enthalpy high limit',
+                                      {'name': u'Enthalpy High Limit',
+                                       'pyname': u'enthalpy_high_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'J/kg'}),
+                                     (u'dewpoint temperature limit',
+                                      {'name': u'Dewpoint Temperature Limit',
+                                       'pyname': u'dewpoint_temperature_limit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'electronic enthalpy limit curve name',
+                                      {'name': u'Electronic Enthalpy Limit Curve Name',
+                                       'pyname': u'electronic_enthalpy_limit_curve_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'exhaust air temperature limit',
+                                      {'name': u'Exhaust Air Temperature Limit',
+                                       'pyname': u'exhaust_air_temperature_limit',
+                                       'default': u'NoExhaustAirTemperatureLimit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ExhaustAirTemperatureLimit',
+                                                           u'NoExhaustAirTemperatureLimit'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'exhaust air enthalpy limit',
+                                      {'name': u'Exhaust Air Enthalpy Limit',
+                                       'pyname': u'exhaust_air_enthalpy_limit',
+                                       'default': u'NoExhaustAirEnthalpyLimit',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ExhaustAirEnthalpyLimit',
+                                                           u'NoExhaustAirEnthalpyLimit'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'time of day economizer flow control schedule name',
+                                      {'name': u'Time of Day Economizer Flow Control Schedule Name',
+                                       'pyname': u'time_of_day_economizer_flow_control_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'high humidity control flag',
+                                      {'name': u'High Humidity Control Flag',
+                                       'pyname': u'high_humidity_control_flag',
+                                       'default': u'No',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Yes',
+                                                           u'No'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'humidistat control zone name',
+                                      {'name': u'Humidistat Control Zone Name',
+                                       'pyname': u'humidistat_control_zone_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'high humidity outdoor air flow ratio',
+                                      {'name': u'High Humidity Outdoor Air Flow Ratio',
+                                       'pyname': u'high_humidity_outdoor_air_flow_ratio',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'control high indoor humidity based on outdoor humidity ratio',
+                                      {'name': u'Control High Indoor Humidity Based on Outdoor Humidity Ratio',
+                                       'pyname': u'control_high_indoor_humidity_based_on_outdoor_humidity_ratio',
+                                       'default': u'Yes',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Yes',
+                                                           u'No'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 3,
+              'name': u'ZoneHVAC:EnergyRecoveryVentilator:Controller',
+              'pyname': u'ZoneHvacEnergyRecoveryVentilatorController',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4661,15 +6641,17 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def temperature_high_limit(self):
-        """Get temperature_high_limit
+        """Get temperature_high_limit.
 
         Returns:
             float: the value of `temperature_high_limit` or None if not set
+
         """
         return self["Temperature High Limit"]
 
@@ -4692,10 +6674,11 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
     @property
     def temperature_low_limit(self):
-        """Get temperature_low_limit
+        """Get temperature_low_limit.
 
         Returns:
             float: the value of `temperature_low_limit` or None if not set
+
         """
         return self["Temperature Low Limit"]
 
@@ -4718,18 +6701,19 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
     @property
     def enthalpy_high_limit(self):
-        """Get enthalpy_high_limit
+        """Get enthalpy_high_limit.
 
         Returns:
             float: the value of `enthalpy_high_limit` or None if not set
+
         """
         return self["Enthalpy High Limit"]
 
     @enthalpy_high_limit.setter
     def enthalpy_high_limit(self, value=None):
-        """  Corresponds to IDD field `Enthalpy High Limit`
-        Enter the maximum outdoor enthalpy limit for economizer operation.
-        No input or blank input means this limit is not operative
+        """Corresponds to IDD field `Enthalpy High Limit` Enter the maximum
+        outdoor enthalpy limit for economizer operation. No input or blank
+        input means this limit is not operative.
 
         Args:
             value (float): value for IDD Field `Enthalpy High Limit`
@@ -4739,23 +6723,25 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Enthalpy High Limit"] = value
 
     @property
     def dewpoint_temperature_limit(self):
-        """Get dewpoint_temperature_limit
+        """Get dewpoint_temperature_limit.
 
         Returns:
             float: the value of `dewpoint_temperature_limit` or None if not set
+
         """
         return self["Dewpoint Temperature Limit"]
 
     @dewpoint_temperature_limit.setter
     def dewpoint_temperature_limit(self, value=None):
-        """  Corresponds to IDD field `Dewpoint Temperature Limit`
-        Enter the maximum outdoor dewpoint temperature limit for economizer operation.
-        No input or blank input means this limit is not operative
+        """Corresponds to IDD field `Dewpoint Temperature Limit` Enter the
+        maximum outdoor dewpoint temperature limit for economizer operation. No
+        input or blank input means this limit is not operative.
 
         Args:
             value (float): value for IDD Field `Dewpoint Temperature Limit`
@@ -4765,15 +6751,17 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Dewpoint Temperature Limit"] = value
 
     @property
     def electronic_enthalpy_limit_curve_name(self):
-        """Get electronic_enthalpy_limit_curve_name
+        """Get electronic_enthalpy_limit_curve_name.
 
         Returns:
             str: the value of `electronic_enthalpy_limit_curve_name` or None if not set
+
         """
         return self["Electronic Enthalpy Limit Curve Name"]
 
@@ -4797,16 +6785,19 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
     @property
     def exhaust_air_temperature_limit(self):
-        """Get exhaust_air_temperature_limit
+        """Get exhaust_air_temperature_limit.
 
         Returns:
             str: the value of `exhaust_air_temperature_limit` or None if not set
+
         """
         return self["Exhaust Air Temperature Limit"]
 
     @exhaust_air_temperature_limit.setter
-    def exhaust_air_temperature_limit(self, value="NoExhaustAirTemperatureLimit"):
-        """  Corresponds to IDD field `Exhaust Air Temperature Limit`
+    def exhaust_air_temperature_limit(
+            self,
+            value="NoExhaustAirTemperatureLimit"):
+        """Corresponds to IDD field `Exhaust Air Temperature Limit`
 
         Args:
             value (str): value for IDD Field `Exhaust Air Temperature Limit`
@@ -4816,21 +6807,23 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Temperature Limit"] = value
 
     @property
     def exhaust_air_enthalpy_limit(self):
-        """Get exhaust_air_enthalpy_limit
+        """Get exhaust_air_enthalpy_limit.
 
         Returns:
             str: the value of `exhaust_air_enthalpy_limit` or None if not set
+
         """
         return self["Exhaust Air Enthalpy Limit"]
 
     @exhaust_air_enthalpy_limit.setter
     def exhaust_air_enthalpy_limit(self, value="NoExhaustAirEnthalpyLimit"):
-        """  Corresponds to IDD field `Exhaust Air Enthalpy Limit`
+        """Corresponds to IDD field `Exhaust Air Enthalpy Limit`
 
         Args:
             value (str): value for IDD Field `Exhaust Air Enthalpy Limit`
@@ -4840,24 +6833,27 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Enthalpy Limit"] = value
 
     @property
     def time_of_day_economizer_flow_control_schedule_name(self):
-        """Get time_of_day_economizer_flow_control_schedule_name
+        """Get time_of_day_economizer_flow_control_schedule_name.
 
         Returns:
             str: the value of `time_of_day_economizer_flow_control_schedule_name` or None if not set
+
         """
         return self["Time of Day Economizer Flow Control Schedule Name"]
 
     @time_of_day_economizer_flow_control_schedule_name.setter
     def time_of_day_economizer_flow_control_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Time of Day Economizer Flow Control Schedule Name`
-        Schedule values greater than 0 indicate economizer operation is active. This
-        schedule may be used with or without the High Humidity Control option.
-        When used together, high humidity control has priority over economizer control.
+        """Corresponds to IDD field `Time of Day Economizer Flow Control
+        Schedule Name` Schedule values greater than 0 indicate economizer
+        operation is active. This schedule may be used with or without the High
+        Humidity Control option. When used together, high humidity control has
+        priority over economizer control.
 
         Args:
             value (str): value for IDD Field `Time of Day Economizer Flow Control Schedule Name`
@@ -4866,23 +6862,25 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Time of Day Economizer Flow Control Schedule Name"] = value
 
     @property
     def high_humidity_control_flag(self):
-        """Get high_humidity_control_flag
+        """Get high_humidity_control_flag.
 
         Returns:
             str: the value of `high_humidity_control_flag` or None if not set
+
         """
         return self["High Humidity Control Flag"]
 
     @high_humidity_control_flag.setter
     def high_humidity_control_flag(self, value="No"):
-        """  Corresponds to IDD field `High Humidity Control Flag`
-        Select Yes to modify air flow rates based on a zone humidistat.
-        Select No to disable this feature.
+        """Corresponds to IDD field `High Humidity Control Flag` Select Yes to
+        modify air flow rates based on a zone humidistat. Select No to disable
+        this feature.
 
         Args:
             value (str): value for IDD Field `High Humidity Control Flag`
@@ -4892,22 +6890,24 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["High Humidity Control Flag"] = value
 
     @property
     def humidistat_control_zone_name(self):
-        """Get humidistat_control_zone_name
+        """Get humidistat_control_zone_name.
 
         Returns:
             str: the value of `humidistat_control_zone_name` or None if not set
+
         """
         return self["Humidistat Control Zone Name"]
 
     @humidistat_control_zone_name.setter
     def humidistat_control_zone_name(self, value=None):
-        """  Corresponds to IDD field `Humidistat Control Zone Name`
-        Enter the name of the zone where the humidistat is located.
+        """Corresponds to IDD field `Humidistat Control Zone Name` Enter the
+        name of the zone where the humidistat is located.
 
         Args:
             value (str): value for IDD Field `Humidistat Control Zone Name`
@@ -4916,23 +6916,26 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Humidistat Control Zone Name"] = value
 
     @property
     def high_humidity_outdoor_air_flow_ratio(self):
-        """Get high_humidity_outdoor_air_flow_ratio
+        """Get high_humidity_outdoor_air_flow_ratio.
 
         Returns:
             float: the value of `high_humidity_outdoor_air_flow_ratio` or None if not set
+
         """
         return self["High Humidity Outdoor Air Flow Ratio"]
 
     @high_humidity_outdoor_air_flow_ratio.setter
     def high_humidity_outdoor_air_flow_ratio(self, value=1.0):
-        """  Corresponds to IDD field `High Humidity Outdoor Air Flow Ratio`
-        Enter the ratio of supply (outdoor) air to the maximum supply air flow rate when modified
-        air flow rates are active based on high indoor humidity.
+        """Corresponds to IDD field `High Humidity Outdoor Air Flow Ratio`
+        Enter the ratio of supply (outdoor) air to the maximum supply air flow
+        rate when modified air flow rates are active based on high indoor
+        humidity.
 
         Args:
             value (float): value for IDD Field `High Humidity Outdoor Air Flow Ratio`
@@ -4942,25 +6945,31 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["High Humidity Outdoor Air Flow Ratio"] = value
 
     @property
     def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self):
-        """Get control_high_indoor_humidity_based_on_outdoor_humidity_ratio
+        """Get control_high_indoor_humidity_based_on_outdoor_humidity_ratio.
 
         Returns:
             str: the value of `control_high_indoor_humidity_based_on_outdoor_humidity_ratio` or None if not set
+
         """
-        return self["Control High Indoor Humidity Based on Outdoor Humidity Ratio"]
+        return self[
+            "Control High Indoor Humidity Based on Outdoor Humidity Ratio"]
 
     @control_high_indoor_humidity_based_on_outdoor_humidity_ratio.setter
-    def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(self, value="Yes"):
-        """  Corresponds to IDD field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
-        If NO is selected, the air flow rate is modified any time indoor relative
-        humidity is above humidistat setpoint. If YES is selected, outdoor air flow
-        rate is modified any time indoor relative humidity is above the humidistat
-        setpoint AND the outdoor humidity ratio is less than the indoor humidity ratio.
+    def control_high_indoor_humidity_based_on_outdoor_humidity_ratio(
+            self,
+            value="Yes"):
+        """Corresponds to IDD field `Control High Indoor Humidity Based on
+        Outdoor Humidity Ratio` If NO is selected, the air flow rate is
+        modified any time indoor relative humidity is above humidistat
+        setpoint. If YES is selected, outdoor air flow rate is modified any
+        time indoor relative humidity is above the humidistat setpoint AND the
+        outdoor humidity ratio is less than the indoor humidity ratio.
 
         Args:
             value (str): value for IDD Field `Control High Indoor Humidity Based on Outdoor Humidity Ratio`
@@ -4970,40 +6979,245 @@ class ZoneHvacEnergyRecoveryVentilatorController(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
+        self[
+            "Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
 
 
 
 class ZoneHvacUnitVentilator(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:UnitVentilator`
         Unit ventilator. Forced-convection ventilation unit with supply fan (constant-volume
         or variable-volume), optional chilled water cooling coil, optional heating coil
         (gas, electric, hot water, or steam) and controllable outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air control type', {'name': u'Outdoor Air Control Type', 'pyname': u'outdoor_air_control_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'FixedAmount', u'VariablePercent', u'FixedTemperature'], 'autocalculatable': False, 'type': 'alpha'}), (u'minimum outdoor air flow rate', {'name': u'Minimum Outdoor Air Flow Rate', 'pyname': u'minimum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum outdoor air schedule name', {'name': u'Minimum Outdoor Air Schedule Name', 'pyname': u'minimum_outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor air flow rate', {'name': u'Maximum Outdoor Air Flow Rate', 'pyname': u'maximum_outdoor_air_flow_rate', 'required-field': True, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'maximum outdoor air fraction or temperature schedule name', {'name': u'Maximum Outdoor Air Fraction or Temperature Schedule Name', 'pyname': u'maximum_outdoor_air_fraction_or_temperature_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'exhaust air node name', {'name': u'Exhaust Air Node Name', 'pyname': u'exhaust_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'mixed air node name', {'name': u'Mixed Air Node Name', 'pyname': u'mixed_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'coil option', {'name': u'Coil Option', 'pyname': u'coil_option', 'required-field': True, 'autosizable': False, 'accepted-values': [u'None', u'Heating', u'Cooling', u'HeatingAndCooling'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatExchangerAssisted'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil name', {'name': u'Cooling Coil Name', 'pyname': u'cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling convergence tolerance', {'name': u'Cooling Convergence Tolerance', 'pyname': u'cooling_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 16,
- 'name': u'ZoneHVAC:UnitVentilator',
- 'pyname': u'ZoneHvacUnitVentilator',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum supply air flow rate',
+                                      {'name': u'Maximum Supply Air Flow Rate',
+                                       'pyname': u'maximum_supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air control type',
+                                      {'name': u'Outdoor Air Control Type',
+                                       'pyname': u'outdoor_air_control_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'FixedAmount',
+                                                           u'VariablePercent',
+                                                           u'FixedTemperature'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'minimum outdoor air flow rate',
+                                      {'name': u'Minimum Outdoor Air Flow Rate',
+                                       'pyname': u'minimum_outdoor_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum outdoor air schedule name',
+                                      {'name': u'Minimum Outdoor Air Schedule Name',
+                                       'pyname': u'minimum_outdoor_air_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor air flow rate',
+                                      {'name': u'Maximum Outdoor Air Flow Rate',
+                                       'pyname': u'maximum_outdoor_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'maximum outdoor air fraction or temperature schedule name',
+                                      {'name': u'Maximum Outdoor Air Fraction or Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_air_fraction_or_temperature_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air node name',
+                                      {'name': u'Outdoor Air Node Name',
+                                       'pyname': u'outdoor_air_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'exhaust air node name',
+                                      {'name': u'Exhaust Air Node Name',
+                                       'pyname': u'exhaust_air_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'mixed air node name',
+                                      {'name': u'Mixed Air Node Name',
+                                       'pyname': u'mixed_air_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume',
+                                                           u'Fan:VariableVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'coil option',
+                                      {'name': u'Coil Option',
+                                       'pyname': u'coil_option',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'None',
+                                                           u'Heating',
+                                                           u'Cooling',
+                                                           u'HeatingAndCooling'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Water',
+                                                           u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating convergence tolerance',
+                                      {'name': u'Heating Convergence Tolerance',
+                                       'pyname': u'heating_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatExchangerAssisted'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil name',
+                                      {'name': u'Cooling Coil Name',
+                                       'pyname': u'cooling_coil_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling convergence tolerance',
+                                      {'name': u'Cooling Convergence Tolerance',
+                                       'pyname': u'cooling_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 16,
+              'name': u'ZoneHVAC:UnitVentilator',
+              'pyname': u'ZoneHvacUnitVentilator',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5012,23 +7226,25 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5037,21 +7253,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
-        """Get maximum_supply_air_flow_rate
+        """Get maximum_supply_air_flow_rate.
 
         Returns:
             float: the value of `maximum_supply_air_flow_rate` or None if not set
+
         """
         return self["Maximum Supply Air Flow Rate"]
 
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Flow Rate`
+        """Corresponds to IDD field `Maximum Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
@@ -5061,21 +7279,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def outdoor_air_control_type(self):
-        """Get outdoor_air_control_type
+        """Get outdoor_air_control_type.
 
         Returns:
             str: the value of `outdoor_air_control_type` or None if not set
+
         """
         return self["Outdoor Air Control Type"]
 
     @outdoor_air_control_type.setter
     def outdoor_air_control_type(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Control Type`
+        """Corresponds to IDD field `Outdoor Air Control Type`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Control Type`
@@ -5084,21 +7304,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Control Type"] = value
 
     @property
     def minimum_outdoor_air_flow_rate(self):
-        """Get minimum_outdoor_air_flow_rate
+        """Get minimum_outdoor_air_flow_rate.
 
         Returns:
             float: the value of `minimum_outdoor_air_flow_rate` or None if not set
+
         """
         return self["Minimum Outdoor Air Flow Rate"]
 
     @minimum_outdoor_air_flow_rate.setter
     def minimum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Air Flow Rate`
+        """Corresponds to IDD field `Minimum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Minimum Outdoor Air Flow Rate`
@@ -5108,22 +7330,24 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Air Flow Rate"] = value
 
     @property
     def minimum_outdoor_air_schedule_name(self):
-        """Get minimum_outdoor_air_schedule_name
+        """Get minimum_outdoor_air_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_air_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Air Schedule Name"]
 
     @minimum_outdoor_air_schedule_name.setter
     def minimum_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Air Schedule Name`
-        schedule values multiply the minimum outdoor air flow rate
+        """Corresponds to IDD field `Minimum Outdoor Air Schedule Name`
+        schedule values multiply the minimum outdoor air flow rate.
 
         Args:
             value (str): value for IDD Field `Minimum Outdoor Air Schedule Name`
@@ -5132,21 +7356,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Air Schedule Name"] = value
 
     @property
     def maximum_outdoor_air_flow_rate(self):
-        """Get maximum_outdoor_air_flow_rate
+        """Get maximum_outdoor_air_flow_rate.
 
         Returns:
             float: the value of `maximum_outdoor_air_flow_rate` or None if not set
+
         """
         return self["Maximum Outdoor Air Flow Rate"]
 
     @maximum_outdoor_air_flow_rate.setter
     def maximum_outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
+        """Corresponds to IDD field `Maximum Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Outdoor Air Flow Rate`
@@ -5156,22 +7382,28 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Air Flow Rate"] = value
 
     @property
     def maximum_outdoor_air_fraction_or_temperature_schedule_name(self):
-        """Get maximum_outdoor_air_fraction_or_temperature_schedule_name
+        """Get maximum_outdoor_air_fraction_or_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_outdoor_air_fraction_or_temperature_schedule_name` or None if not set
+
         """
-        return self["Maximum Outdoor Air Fraction or Temperature Schedule Name"]
+        return self[
+            "Maximum Outdoor Air Fraction or Temperature Schedule Name"]
 
     @maximum_outdoor_air_fraction_or_temperature_schedule_name.setter
-    def maximum_outdoor_air_fraction_or_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
-        that this depends on the control type as to whether it is a fraction or temperature
+    def maximum_outdoor_air_fraction_or_temperature_schedule_name(
+            self,
+            value=None):
+        """Corresponds to IDD field `Maximum Outdoor Air Fraction or
+        Temperature Schedule Name` that this depends on the control type as to
+        whether it is a fraction or temperature.
 
         Args:
             value (str): value for IDD Field `Maximum Outdoor Air Fraction or Temperature Schedule Name`
@@ -5180,21 +7412,24 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Maximum Outdoor Air Fraction or Temperature Schedule Name"] = value
+        self[
+            "Maximum Outdoor Air Fraction or Temperature Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
+        """Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -5203,21 +7438,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
+        """Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -5226,21 +7463,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def outdoor_air_node_name(self):
-        """Get outdoor_air_node_name
+        """Get outdoor_air_node_name.
 
         Returns:
             str: the value of `outdoor_air_node_name` or None if not set
+
         """
         return self["Outdoor Air Node Name"]
 
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Node Name`
+        """Corresponds to IDD field `Outdoor Air Node Name`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -5249,21 +7488,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Node Name"] = value
 
     @property
     def exhaust_air_node_name(self):
-        """Get exhaust_air_node_name
+        """Get exhaust_air_node_name.
 
         Returns:
             str: the value of `exhaust_air_node_name` or None if not set
+
         """
         return self["Exhaust Air Node Name"]
 
     @exhaust_air_node_name.setter
     def exhaust_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Node Name`
+        """Corresponds to IDD field `Exhaust Air Node Name`
 
         Args:
             value (str): value for IDD Field `Exhaust Air Node Name`
@@ -5272,22 +7513,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Node Name"] = value
 
     @property
     def mixed_air_node_name(self):
-        """Get mixed_air_node_name
+        """Get mixed_air_node_name.
 
         Returns:
             str: the value of `mixed_air_node_name` or None if not set
+
         """
         return self["Mixed Air Node Name"]
 
     @mixed_air_node_name.setter
     def mixed_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Mixed Air Node Name`
-        inlet to coils
+        """Corresponds to IDD field `Mixed Air Node Name` inlet to coils.
 
         Args:
             value (str): value for IDD Field `Mixed Air Node Name`
@@ -5296,15 +7538,17 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Mixed Air Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -5326,16 +7570,17 @@ class ZoneHvacUnitVentilator(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
+        """Corresponds to IDD field `Supply Air Fan Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -5344,21 +7589,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def coil_option(self):
-        """Get coil_option
+        """Get coil_option.
 
         Returns:
             str: the value of `coil_option` or None if not set
+
         """
         return self["Coil Option"]
 
     @coil_option.setter
     def coil_option(self, value=None):
-        """  Corresponds to IDD field `Coil Option`
+        """Corresponds to IDD field `Coil Option`
 
         Args:
             value (str): value for IDD Field `Coil Option`
@@ -5367,27 +7614,29 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Coil Option"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule
-        name values of 0 denote cycling fan operation (fan cycles with
-        cooling/heating coil). Schedule values greater than 0 denote
-        constant fan operation (fan runs continually regardless of coil
-        operation). The fan operating mode defaults to cycling fan operation
-        if this input field is left blank.
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule name values of 0 denote cycling fan operation (fan cycles with
+        cooling/heating coil). Schedule values greater than 0 denote constant
+        fan operation (fan runs continually regardless of coil operation). The
+        fan operating mode defaults to cycling fan operation if this input
+        field is left blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -5396,21 +7645,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Object Type`
+        """Corresponds to IDD field `Heating Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -5419,21 +7670,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Name`
+        """Corresponds to IDD field `Heating Coil Name`
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -5442,21 +7695,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Name"] = value
 
     @property
     def heating_convergence_tolerance(self):
-        """Get heating_convergence_tolerance
+        """Get heating_convergence_tolerance.
 
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
+
         """
         return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Heating Convergence Tolerance`
+        """Corresponds to IDD field `Heating Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -5466,21 +7721,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Convergence Tolerance"] = value
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
     @cooling_coil_object_type.setter
     def cooling_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Object Type`
+        """Corresponds to IDD field `Cooling Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Object Type`
@@ -5489,21 +7746,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Object Type"] = value
 
     @property
     def cooling_coil_name(self):
-        """Get cooling_coil_name
+        """Get cooling_coil_name.
 
         Returns:
             str: the value of `cooling_coil_name` or None if not set
+
         """
         return self["Cooling Coil Name"]
 
     @cooling_coil_name.setter
     def cooling_coil_name(self, value=None):
-        """  Corresponds to IDD field `Cooling Coil Name`
+        """Corresponds to IDD field `Cooling Coil Name`
 
         Args:
             value (str): value for IDD Field `Cooling Coil Name`
@@ -5512,21 +7771,23 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Coil Name"] = value
 
     @property
     def cooling_convergence_tolerance(self):
-        """Get cooling_convergence_tolerance
+        """Get cooling_convergence_tolerance.
 
         Returns:
             float: the value of `cooling_convergence_tolerance` or None if not set
+
         """
         return self["Cooling Convergence Tolerance"]
 
     @cooling_convergence_tolerance.setter
     def cooling_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Cooling Convergence Tolerance`
+        """Corresponds to IDD field `Cooling Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Cooling Convergence Tolerance`
@@ -5536,22 +7797,24 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -5560,22 +7823,25 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -5584,6 +7850,7 @@ class ZoneHvacUnitVentilator(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -5591,32 +7858,163 @@ class ZoneHvacUnitVentilator(DataObject):
 
 
 class ZoneHvacUnitHeater(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:UnitHeater`
         Unit heater. Forced-convection heating-only unit with supply fan, heating coil
         (gas, electric, hot water, or steam) and fixed-position outdoor air mixer.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume', u'Fan:VariableVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum supply air flow rate', {'name': u'Maximum Supply Air Flow Rate', 'pyname': u'maximum_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Water', u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil name', {'name': u'Heating Coil Name', 'pyname': u'heating_coil_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan operation during no heating', {'name': u'Supply Air Fan Operation During No Heating', 'pyname': u'supply_air_fan_operation_during_no_heating', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'maximum hot water or steam flow rate', {'name': u'Maximum Hot Water or Steam Flow Rate', 'pyname': u'maximum_hot_water_or_steam_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'minimum hot water or steam flow rate', {'name': u'Minimum Hot Water or Steam Flow Rate', 'pyname': u'minimum_hot_water_or_steam_flow_rate', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'heating convergence tolerance', {'name': u'Heating Convergence Tolerance', 'pyname': u'heating_convergence_tolerance', 'default': 0.001, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 11,
- 'name': u'ZoneHVAC:UnitHeater',
- 'pyname': u'ZoneHvacUnitHeater',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air inlet node name',
+                                      {'name': u'Air Inlet Node Name',
+                                       'pyname': u'air_inlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'air outlet node name',
+                                      {'name': u'Air Outlet Node Name',
+                                       'pyname': u'air_outlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume',
+                                                           u'Fan:VariableVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum supply air flow rate',
+                                      {'name': u'Maximum Supply Air Flow Rate',
+                                       'pyname': u'maximum_supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Water',
+                                                           u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil name',
+                                      {'name': u'Heating Coil Name',
+                                       'pyname': u'heating_coil_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan operation during no heating',
+                                      {'name': u'Supply Air Fan Operation During No Heating',
+                                       'pyname': u'supply_air_fan_operation_during_no_heating',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Yes',
+                                                           u'No'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'maximum hot water or steam flow rate',
+                                      {'name': u'Maximum Hot Water or Steam Flow Rate',
+                                       'pyname': u'maximum_hot_water_or_steam_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum hot water or steam flow rate',
+                                      {'name': u'Minimum Hot Water or Steam Flow Rate',
+                                       'pyname': u'minimum_hot_water_or_steam_flow_rate',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'heating convergence tolerance',
+                                      {'name': u'Heating Convergence Tolerance',
+                                       'pyname': u'heating_convergence_tolerance',
+                                       'default': 0.001,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 11,
+              'name': u'ZoneHVAC:UnitHeater',
+              'pyname': u'ZoneHvacUnitHeater',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -5625,21 +8023,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
+        """Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -5648,21 +8048,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name
+        """Get air_inlet_node_name.
 
         Returns:
             str: the value of `air_inlet_node_name` or None if not set
+
         """
         return self["Air Inlet Node Name"]
 
     @air_inlet_node_name.setter
     def air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Inlet Node Name`
+        """Corresponds to IDD field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
@@ -5671,21 +8073,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name
+        """Get air_outlet_node_name.
 
         Returns:
             str: the value of `air_outlet_node_name` or None if not set
+
         """
         return self["Air Outlet Node Name"]
 
     @air_outlet_node_name.setter
     def air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Air Outlet Node Name`
+        """Corresponds to IDD field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
@@ -5694,15 +8098,17 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
@@ -5724,16 +8130,17 @@ class ZoneHvacUnitHeater(DataObject):
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
+        """Corresponds to IDD field `Supply Air Fan Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -5742,21 +8149,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def maximum_supply_air_flow_rate(self):
-        """Get maximum_supply_air_flow_rate
+        """Get maximum_supply_air_flow_rate.
 
         Returns:
             float: the value of `maximum_supply_air_flow_rate` or None if not set
+
         """
         return self["Maximum Supply Air Flow Rate"]
 
     @maximum_supply_air_flow_rate.setter
     def maximum_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Supply Air Flow Rate`
+        """Corresponds to IDD field `Maximum Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Supply Air Flow Rate`
@@ -5766,21 +8175,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Supply Air Flow Rate"] = value
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
     @heating_coil_object_type.setter
     def heating_coil_object_type(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Object Type`
+        """Corresponds to IDD field `Heating Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Heating Coil Object Type`
@@ -5789,21 +8200,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Object Type"] = value
 
     @property
     def heating_coil_name(self):
-        """Get heating_coil_name
+        """Get heating_coil_name.
 
         Returns:
             str: the value of `heating_coil_name` or None if not set
+
         """
         return self["Heating Coil Name"]
 
     @heating_coil_name.setter
     def heating_coil_name(self, value=None):
-        """  Corresponds to IDD field `Heating Coil Name`
+        """Corresponds to IDD field `Heating Coil Name`
 
         Args:
             value (str): value for IDD Field `Heating Coil Name`
@@ -5812,27 +8225,29 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Coil Name"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
-        Enter the name of a schedule that controls fan operation. Schedule
-        name values of 0 denote cycling fan operation (fan cycles with the
-        heating coil). Schedule values greater than 0 denote constant fan
-        operation (fan runs continually regardless of coil operation).
-        The fan operating mode defaults to cycling fan operation if this
-        input field is left blank.
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name` Enter the name of a schedule that controls fan operation.
+        Schedule name values of 0 denote cycling fan operation (fan cycles with
+        the heating coil). Schedule values greater than 0 denote constant fan
+        operation (fan runs continually regardless of coil operation). The fan
+        operating mode defaults to cycling fan operation if this input field is
+        left blank.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -5841,28 +8256,31 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def supply_air_fan_operation_during_no_heating(self):
-        """Get supply_air_fan_operation_during_no_heating
+        """Get supply_air_fan_operation_during_no_heating.
 
         Returns:
             str: the value of `supply_air_fan_operation_during_no_heating` or None if not set
+
         """
         return self["Supply Air Fan Operation During No Heating"]
 
     @supply_air_fan_operation_during_no_heating.setter
     def supply_air_fan_operation_during_no_heating(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operation During No Heating`
-        This choice field allows the user to define how the unit heater will operate
-        under no heating load or cooling conditions. If the No is selected, then
-        the fan will not run unless there is a heating load. If the fan does not run,
-        this effectively shuts the unit heater system off when there is no heating load.
-        If the Yes is selected, the unit heater is available and has a ConstantVolume
-        fan, or has an OnOff fan with Supply Air Fan Operating Mode Schedule value
-        greater than zero, then the fan will always run regardless of the zone load.
+        """Corresponds to IDD field `Supply Air Fan Operation During No
+        Heating` This choice field allows the user to define how the unit
+        heater will operate under no heating load or cooling conditions. If the
+        No is selected, then the fan will not run unless there is a heating
+        load. If the fan does not run, this effectively shuts the unit heater
+        system off when there is no heating load. If the Yes is selected, the
+        unit heater is available and has a ConstantVolume fan, or has an OnOff
+        fan with Supply Air Fan Operating Mode Schedule value greater than
+        zero, then the fan will always run regardless of the zone load.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operation During No Heating`
@@ -5871,22 +8289,24 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operation During No Heating"] = value
 
     @property
     def maximum_hot_water_or_steam_flow_rate(self):
-        """Get maximum_hot_water_or_steam_flow_rate
+        """Get maximum_hot_water_or_steam_flow_rate.
 
         Returns:
             float: the value of `maximum_hot_water_or_steam_flow_rate` or None if not set
+
         """
         return self["Maximum Hot Water or Steam Flow Rate"]
 
     @maximum_hot_water_or_steam_flow_rate.setter
     def maximum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Hot Water or Steam Flow Rate`
-        Not used when heating coil is gas or electric
+        """Corresponds to IDD field `Maximum Hot Water or Steam Flow Rate` Not
+        used when heating coil is gas or electric.
 
         Args:
             value (float or "Autosize"): value for IDD Field `Maximum Hot Water or Steam Flow Rate`
@@ -5897,22 +8317,24 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Hot Water or Steam Flow Rate"] = value
 
     @property
     def minimum_hot_water_or_steam_flow_rate(self):
-        """Get minimum_hot_water_or_steam_flow_rate
+        """Get minimum_hot_water_or_steam_flow_rate.
 
         Returns:
             float: the value of `minimum_hot_water_or_steam_flow_rate` or None if not set
+
         """
         return self["Minimum Hot Water or Steam Flow Rate"]
 
     @minimum_hot_water_or_steam_flow_rate.setter
     def minimum_hot_water_or_steam_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Minimum Hot Water or Steam Flow Rate`
-        Not used when heating coil is gas or electric
+        """Corresponds to IDD field `Minimum Hot Water or Steam Flow Rate` Not
+        used when heating coil is gas or electric.
 
         Args:
             value (float): value for IDD Field `Minimum Hot Water or Steam Flow Rate`
@@ -5923,21 +8345,23 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Hot Water or Steam Flow Rate"] = value
 
     @property
     def heating_convergence_tolerance(self):
-        """Get heating_convergence_tolerance
+        """Get heating_convergence_tolerance.
 
         Returns:
             float: the value of `heating_convergence_tolerance` or None if not set
+
         """
         return self["Heating Convergence Tolerance"]
 
     @heating_convergence_tolerance.setter
     def heating_convergence_tolerance(self, value=0.001):
-        """  Corresponds to IDD field `Heating Convergence Tolerance`
+        """Corresponds to IDD field `Heating Convergence Tolerance`
 
         Args:
             value (float): value for IDD Field `Heating Convergence Tolerance`
@@ -5947,22 +8371,24 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Heating Convergence Tolerance"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -5971,22 +8397,25 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -5995,6 +8424,7 @@ class ZoneHvacUnitHeater(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -6002,32 +8432,186 @@ class ZoneHvacUnitHeater(DataObject):
 
 
 class ZoneHvacEvaporativeCoolerUnit(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:EvaporativeCoolerUnit`
         Zone evaporative cooler. Forced-convection cooling-only unit with supply fan,
         100% outdoor air supply.  Optional relief exaust node
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air inlet node name', {'name': u'Outdoor Air Inlet Node Name', 'pyname': u'outdoor_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'cooler outlet node name', {'name': u'Cooler Outlet Node Name', 'pyname': u'cooler_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'zone relief air node name', {'name': u'Zone Relief Air Node Name', 'pyname': u'zone_relief_air_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:ConstantVolume', u'Fan:OnOff', u'Fan:VariableVolume', u'Fan:ComponentModel'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan name', {'name': u'Supply Air Fan Name', 'pyname': u'supply_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design supply air flow rate', {'name': u'Design Supply Air Flow Rate', 'pyname': u'design_supply_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'fan placement', {'name': u'Fan Placement', 'pyname': u'fan_placement', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooler unit control method', {'name': u'Cooler Unit Control Method', 'pyname': u'cooler_unit_control_method', 'required-field': True, 'autosizable': False, 'accepted-values': [u'ZoneTemperatureDeadbandOnOffCycling', u'ZoneCoolingLoadOnOffCycling', u'ZoneCoolingLoadVariableSpeedFan'], 'autocalculatable': False, 'type': 'alpha'}), (u'throttling range temperature difference', {'name': u'Throttling Range Temperature Difference', 'pyname': u'throttling_range_temperature_difference', 'default': 1.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'cooling load control threshold heat transfer rate', {'name': u'Cooling Load Control Threshold Heat Transfer Rate', 'pyname': u'cooling_load_control_threshold_heat_transfer_rate', 'default': 100.0, 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'first evaporative cooler object type', {'name': u'First Evaporative Cooler Object Type', 'pyname': u'first_evaporative_cooler_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'EvaporativeCooler:Direct:CelDekPad', u'EvaporativeCooler:Direct:ResearchSpecial', u'EvaporativeCooler:Indirect:CelDekPad', u'EvaporativeCooler:Indirect:WetCoil', u'EvaporativeCooler:Indirect:ResearchSpecial'], 'autocalculatable': False, 'type': 'alpha'}), (u'first evaporative cooler object name', {'name': u'First Evaporative Cooler Object Name', 'pyname': u'first_evaporative_cooler_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'second evaporative cooler object type', {'name': u'Second Evaporative Cooler Object Type', 'pyname': u'second_evaporative_cooler_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'EvaporativeCooler:Direct:CelDekPad', u'EvaporativeCooler:Direct:ResearchSpecial', u'EvaporativeCooler:Indirect:CelDekPad', u'EvaporativeCooler:Indirect:WetCoil', u'EvaporativeCooler:Indirect:ResearchSpecial'], 'autocalculatable': False, 'type': 'alpha'}), (u'second evaporative cooler name', {'name': u'Second Evaporative Cooler Name', 'pyname': u'second_evaporative_cooler_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 15,
- 'name': u'ZoneHVAC:EvaporativeCoolerUnit',
- 'pyname': u'ZoneHvacEvaporativeCoolerUnit',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outdoor air inlet node name',
+                                      {'name': u'Outdoor Air Inlet Node Name',
+                                       'pyname': u'outdoor_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'cooler outlet node name',
+                                      {'name': u'Cooler Outlet Node Name',
+                                       'pyname': u'cooler_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'zone relief air node name',
+                                      {'name': u'Zone Relief Air Node Name',
+                                       'pyname': u'zone_relief_air_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:ConstantVolume',
+                                                           u'Fan:OnOff',
+                                                           u'Fan:VariableVolume',
+                                                           u'Fan:ComponentModel'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan name',
+                                      {'name': u'Supply Air Fan Name',
+                                       'pyname': u'supply_air_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design supply air flow rate',
+                                      {'name': u'Design Supply Air Flow Rate',
+                                       'pyname': u'design_supply_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'fan placement',
+                                      {'name': u'Fan Placement',
+                                       'pyname': u'fan_placement',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooler unit control method',
+                                      {'name': u'Cooler Unit Control Method',
+                                       'pyname': u'cooler_unit_control_method',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'ZoneTemperatureDeadbandOnOffCycling',
+                                                           u'ZoneCoolingLoadOnOffCycling',
+                                                           u'ZoneCoolingLoadVariableSpeedFan'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'throttling range temperature difference',
+                                      {'name': u'Throttling Range Temperature Difference',
+                                       'pyname': u'throttling_range_temperature_difference',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'cooling load control threshold heat transfer rate',
+                                      {'name': u'Cooling Load Control Threshold Heat Transfer Rate',
+                                       'pyname': u'cooling_load_control_threshold_heat_transfer_rate',
+                                       'default': 100.0,
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'first evaporative cooler object type',
+                                      {'name': u'First Evaporative Cooler Object Type',
+                                       'pyname': u'first_evaporative_cooler_object_type',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'EvaporativeCooler:Direct:CelDekPad',
+                                                           u'EvaporativeCooler:Direct:ResearchSpecial',
+                                                           u'EvaporativeCooler:Indirect:CelDekPad',
+                                                           u'EvaporativeCooler:Indirect:WetCoil',
+                                                           u'EvaporativeCooler:Indirect:ResearchSpecial'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'first evaporative cooler object name',
+                                      {'name': u'First Evaporative Cooler Object Name',
+                                       'pyname': u'first_evaporative_cooler_object_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'second evaporative cooler object type',
+                                      {'name': u'Second Evaporative Cooler Object Type',
+                                       'pyname': u'second_evaporative_cooler_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'EvaporativeCooler:Direct:CelDekPad',
+                                                           u'EvaporativeCooler:Direct:ResearchSpecial',
+                                                           u'EvaporativeCooler:Indirect:CelDekPad',
+                                                           u'EvaporativeCooler:Indirect:WetCoil',
+                                                           u'EvaporativeCooler:Indirect:ResearchSpecial'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'second evaporative cooler name',
+                                      {'name': u'Second Evaporative Cooler Name',
+                                       'pyname': u'second_evaporative_cooler_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 15,
+              'name': u'ZoneHVAC:EvaporativeCoolerUnit',
+              'pyname': u'ZoneHvacEvaporativeCoolerUnit',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6036,21 +8620,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
+        """Corresponds to IDD field `Availability Schedule Name`
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6059,22 +8645,24 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -6083,22 +8671,24 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def outdoor_air_inlet_node_name(self):
-        """Get outdoor_air_inlet_node_name
+        """Get outdoor_air_inlet_node_name.
 
         Returns:
             str: the value of `outdoor_air_inlet_node_name` or None if not set
+
         """
         return self["Outdoor Air Inlet Node Name"]
 
     @outdoor_air_inlet_node_name.setter
     def outdoor_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Inlet Node Name`
-        this is an outdoor air node
+        """Corresponds to IDD field `Outdoor Air Inlet Node Name` this is an
+        outdoor air node.
 
         Args:
             value (str): value for IDD Field `Outdoor Air Inlet Node Name`
@@ -6107,22 +8697,24 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Inlet Node Name"] = value
 
     @property
     def cooler_outlet_node_name(self):
-        """Get cooler_outlet_node_name
+        """Get cooler_outlet_node_name.
 
         Returns:
             str: the value of `cooler_outlet_node_name` or None if not set
+
         """
         return self["Cooler Outlet Node Name"]
 
     @cooler_outlet_node_name.setter
     def cooler_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Cooler Outlet Node Name`
-        this is a zone inlet node
+        """Corresponds to IDD field `Cooler Outlet Node Name` this is a zone
+        inlet node.
 
         Args:
             value (str): value for IDD Field `Cooler Outlet Node Name`
@@ -6131,22 +8723,24 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooler Outlet Node Name"] = value
 
     @property
     def zone_relief_air_node_name(self):
-        """Get zone_relief_air_node_name
+        """Get zone_relief_air_node_name.
 
         Returns:
             str: the value of `zone_relief_air_node_name` or None if not set
+
         """
         return self["Zone Relief Air Node Name"]
 
     @zone_relief_air_node_name.setter
     def zone_relief_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Zone Relief Air Node Name`
-        this is a zone exhaust node, optional if flow is being balanced elsewhere
+        """Corresponds to IDD field `Zone Relief Air Node Name` this is a zone
+        exhaust node, optional if flow is being balanced elsewhere.
 
         Args:
             value (str): value for IDD Field `Zone Relief Air Node Name`
@@ -6155,21 +8749,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Relief Air Node Name"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Object Type`
+        """Corresponds to IDD field `Supply Air Fan Object Type`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -6178,21 +8774,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_name(self):
-        """Get supply_air_fan_name
+        """Get supply_air_fan_name.
 
         Returns:
             str: the value of `supply_air_fan_name` or None if not set
+
         """
         return self["Supply Air Fan Name"]
 
     @supply_air_fan_name.setter
     def supply_air_fan_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Name`
+        """Corresponds to IDD field `Supply Air Fan Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Name`
@@ -6201,21 +8799,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Name"] = value
 
     @property
     def design_supply_air_flow_rate(self):
-        """Get design_supply_air_flow_rate
+        """Get design_supply_air_flow_rate.
 
         Returns:
             float: the value of `design_supply_air_flow_rate` or None if not set
+
         """
         return self["Design Supply Air Flow Rate"]
 
     @design_supply_air_flow_rate.setter
     def design_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Supply Air Flow Rate`
+        """Corresponds to IDD field `Design Supply Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Design Supply Air Flow Rate`
@@ -6225,21 +8825,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Supply Air Flow Rate"] = value
 
     @property
     def fan_placement(self):
-        """Get fan_placement
+        """Get fan_placement.
 
         Returns:
             str: the value of `fan_placement` or None if not set
+
         """
         return self["Fan Placement"]
 
     @fan_placement.setter
     def fan_placement(self, value=None):
-        """  Corresponds to IDD field `Fan Placement`
+        """Corresponds to IDD field `Fan Placement`
 
         Args:
             value (str): value for IDD Field `Fan Placement`
@@ -6248,21 +8850,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Placement"] = value
 
     @property
     def cooler_unit_control_method(self):
-        """Get cooler_unit_control_method
+        """Get cooler_unit_control_method.
 
         Returns:
             str: the value of `cooler_unit_control_method` or None if not set
+
         """
         return self["Cooler Unit Control Method"]
 
     @cooler_unit_control_method.setter
     def cooler_unit_control_method(self, value=None):
-        """  Corresponds to IDD field `Cooler Unit Control Method`
+        """Corresponds to IDD field `Cooler Unit Control Method`
 
         Args:
             value (str): value for IDD Field `Cooler Unit Control Method`
@@ -6271,22 +8875,25 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooler Unit Control Method"] = value
 
     @property
     def throttling_range_temperature_difference(self):
-        """Get throttling_range_temperature_difference
+        """Get throttling_range_temperature_difference.
 
         Returns:
             float: the value of `throttling_range_temperature_difference` or None if not set
+
         """
         return self["Throttling Range Temperature Difference"]
 
     @throttling_range_temperature_difference.setter
     def throttling_range_temperature_difference(self, value=1.0):
-        """  Corresponds to IDD field `Throttling Range Temperature Difference`
-        used for ZoneTemperatureDeadbandOnOffCycling hystersis range for thermostatic control
+        """Corresponds to IDD field `Throttling Range Temperature Difference`
+        used for ZoneTemperatureDeadbandOnOffCycling hystersis range for
+        thermostatic control.
 
         Args:
             value (float): value for IDD Field `Throttling Range Temperature Difference`
@@ -6297,22 +8904,25 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Throttling Range Temperature Difference"] = value
 
     @property
     def cooling_load_control_threshold_heat_transfer_rate(self):
-        """Get cooling_load_control_threshold_heat_transfer_rate
+        """Get cooling_load_control_threshold_heat_transfer_rate.
 
         Returns:
             float: the value of `cooling_load_control_threshold_heat_transfer_rate` or None if not set
+
         """
         return self["Cooling Load Control Threshold Heat Transfer Rate"]
 
     @cooling_load_control_threshold_heat_transfer_rate.setter
     def cooling_load_control_threshold_heat_transfer_rate(self, value=100.0):
-        """  Corresponds to IDD field `Cooling Load Control Threshold Heat Transfer Rate`
-        Sign convention is that positive values indicate a cooling load
+        """Corresponds to IDD field `Cooling Load Control Threshold Heat
+        Transfer Rate` Sign convention is that positive values indicate a
+        cooling load.
 
         Args:
             value (float): value for IDD Field `Cooling Load Control Threshold Heat Transfer Rate`
@@ -6323,21 +8933,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cooling Load Control Threshold Heat Transfer Rate"] = value
 
     @property
     def first_evaporative_cooler_object_type(self):
-        """Get first_evaporative_cooler_object_type
+        """Get first_evaporative_cooler_object_type.
 
         Returns:
             str: the value of `first_evaporative_cooler_object_type` or None if not set
+
         """
         return self["First Evaporative Cooler Object Type"]
 
     @first_evaporative_cooler_object_type.setter
     def first_evaporative_cooler_object_type(self, value=None):
-        """  Corresponds to IDD field `First Evaporative Cooler Object Type`
+        """Corresponds to IDD field `First Evaporative Cooler Object Type`
 
         Args:
             value (str): value for IDD Field `First Evaporative Cooler Object Type`
@@ -6346,21 +8958,23 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["First Evaporative Cooler Object Type"] = value
 
     @property
     def first_evaporative_cooler_object_name(self):
-        """Get first_evaporative_cooler_object_name
+        """Get first_evaporative_cooler_object_name.
 
         Returns:
             str: the value of `first_evaporative_cooler_object_name` or None if not set
+
         """
         return self["First Evaporative Cooler Object Name"]
 
     @first_evaporative_cooler_object_name.setter
     def first_evaporative_cooler_object_name(self, value=None):
-        """  Corresponds to IDD field `First Evaporative Cooler Object Name`
+        """Corresponds to IDD field `First Evaporative Cooler Object Name`
 
         Args:
             value (str): value for IDD Field `First Evaporative Cooler Object Name`
@@ -6369,23 +8983,25 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["First Evaporative Cooler Object Name"] = value
 
     @property
     def second_evaporative_cooler_object_type(self):
-        """Get second_evaporative_cooler_object_type
+        """Get second_evaporative_cooler_object_type.
 
         Returns:
             str: the value of `second_evaporative_cooler_object_type` or None if not set
+
         """
         return self["Second Evaporative Cooler Object Type"]
 
     @second_evaporative_cooler_object_type.setter
     def second_evaporative_cooler_object_type(self, value=None):
-        """  Corresponds to IDD field `Second Evaporative Cooler Object Type`
-        optional, used for direct/indirect configurations
-        second cooler must be immediately downstream of first cooler, if present
+        """Corresponds to IDD field `Second Evaporative Cooler Object Type`
+        optional, used for direct/indirect configurations second cooler must be
+        immediately downstream of first cooler, if present.
 
         Args:
             value (str): value for IDD Field `Second Evaporative Cooler Object Type`
@@ -6394,22 +9010,24 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Second Evaporative Cooler Object Type"] = value
 
     @property
     def second_evaporative_cooler_name(self):
-        """Get second_evaporative_cooler_name
+        """Get second_evaporative_cooler_name.
 
         Returns:
             str: the value of `second_evaporative_cooler_name` or None if not set
+
         """
         return self["Second Evaporative Cooler Name"]
 
     @second_evaporative_cooler_name.setter
     def second_evaporative_cooler_name(self, value=None):
-        """  Corresponds to IDD field `Second Evaporative Cooler Name`
-        optional, used for direct/indirect configurations
+        """Corresponds to IDD field `Second Evaporative Cooler Name` optional,
+        used for direct/indirect configurations.
 
         Args:
             value (str): value for IDD Field `Second Evaporative Cooler Name`
@@ -6418,22 +9036,25 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Second Evaporative Cooler Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -6442,6 +9063,7 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -6449,33 +9071,176 @@ class ZoneHvacEvaporativeCoolerUnit(DataObject):
 
 
 class ZoneHvacOutdoorAirUnit(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit`
         The zone outdoor air unit models a single-zone dedicated outdoor air system (DOAS).
         Forced-convection 100% outdoor air unit with supply fan and optional equipment
         including exhaust fan, heating coil, cooling coil, and heat recovery.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air flow rate', {'name': u'Outdoor Air Flow Rate', 'pyname': u'outdoor_air_flow_rate', 'minimum>': 0.0, 'required-field': True, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'outdoor air schedule name', {'name': u'Outdoor Air Schedule Name', 'pyname': u'outdoor_air_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan name', {'name': u'Supply Fan Name', 'pyname': u'supply_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply fan placement', {'name': u'Supply Fan Placement', 'pyname': u'supply_fan_placement', 'default': u'DrawThrough', 'required-field': True, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan name', {'name': u'Exhaust Fan Name', 'pyname': u'exhaust_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'exhaust air flow rate', {'name': u'Exhaust Air Flow Rate', 'pyname': u'exhaust_air_flow_rate', 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': 'real', 'unit': u'm3/s'}), (u'exhaust air schedule name', {'name': u'Exhaust Air Schedule Name', 'pyname': u'exhaust_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'unit control type', {'name': u'Unit Control Type', 'pyname': u'unit_control_type', 'default': u'NeutralControl', 'required-field': True, 'autosizable': False, 'accepted-values': [u'NeutralControl', u'TemperatureControl'], 'autocalculatable': False, 'type': 'alpha'}), (u'high air control temperature schedule name', {'name': u'High Air Control Temperature Schedule Name', 'pyname': u'high_air_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'low air control temperature schedule name', {'name': u'Low Air Control Temperature Schedule Name', 'pyname': u'low_air_control_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outdoor air node name', {'name': u'Outdoor Air Node Name', 'pyname': u'outdoor_air_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'airoutlet node name', {'name': u'AirOutlet Node Name', 'pyname': u'airoutlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'airinlet node name', {'name': u'AirInlet Node Name', 'pyname': u'airinlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply fanoutlet node name', {'name': u'Supply FanOutlet Node Name', 'pyname': u'supply_fanoutlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'outdoor air unit list name', {'name': u'Outdoor Air Unit List Name', 'pyname': u'outdoor_air_unit_list_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 18,
- 'name': u'ZoneHVAC:OutdoorAirUnit',
- 'pyname': u'ZoneHvacOutdoorAirUnit',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outdoor air flow rate',
+                                      {'name': u'Outdoor Air Flow Rate',
+                                       'pyname': u'outdoor_air_flow_rate',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air schedule name',
+                                      {'name': u'Outdoor Air Schedule Name',
+                                       'pyname': u'outdoor_air_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply fan name',
+                                      {'name': u'Supply Fan Name',
+                                       'pyname': u'supply_fan_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply fan placement',
+                                      {'name': u'Supply Fan Placement',
+                                       'pyname': u'supply_fan_placement',
+                                       'default': u'DrawThrough',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'exhaust fan name',
+                                      {'name': u'Exhaust Fan Name',
+                                       'pyname': u'exhaust_fan_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'exhaust air flow rate',
+                                      {'name': u'Exhaust Air Flow Rate',
+                                       'pyname': u'exhaust_air_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': 'real',
+                                       'unit': u'm3/s'}),
+                                     (u'exhaust air schedule name',
+                                      {'name': u'Exhaust Air Schedule Name',
+                                       'pyname': u'exhaust_air_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'unit control type',
+                                      {'name': u'Unit Control Type',
+                                       'pyname': u'unit_control_type',
+                                       'default': u'NeutralControl',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'NeutralControl',
+                                                           u'TemperatureControl'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'high air control temperature schedule name',
+                                      {'name': u'High Air Control Temperature Schedule Name',
+                                       'pyname': u'high_air_control_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'low air control temperature schedule name',
+                                      {'name': u'Low Air Control Temperature Schedule Name',
+                                       'pyname': u'low_air_control_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outdoor air node name',
+                                      {'name': u'Outdoor Air Node Name',
+                                       'pyname': u'outdoor_air_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'airoutlet node name',
+                                      {'name': u'AirOutlet Node Name',
+                                       'pyname': u'airoutlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'airinlet node name',
+                                      {'name': u'AirInlet Node Name',
+                                       'pyname': u'airinlet_node_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply fanoutlet node name',
+                                      {'name': u'Supply FanOutlet Node Name',
+                                       'pyname': u'supply_fanoutlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'outdoor air unit list name',
+                                      {'name': u'Outdoor Air Unit List Name',
+                                       'pyname': u'outdoor_air_unit_list_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 18,
+              'name': u'ZoneHVAC:OutdoorAirUnit',
+              'pyname': u'ZoneHvacOutdoorAirUnit',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6484,23 +9249,25 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -6509,22 +9276,24 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-        (name of zone system is serving)
+        """Corresponds to IDD field `Zone Name` (name of zone system is
+        serving)
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -6533,21 +9302,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def outdoor_air_flow_rate(self):
-        """Get outdoor_air_flow_rate
+        """Get outdoor_air_flow_rate.
 
         Returns:
             float: the value of `outdoor_air_flow_rate` or None if not set
+
         """
         return self["Outdoor Air Flow Rate"]
 
     @outdoor_air_flow_rate.setter
     def outdoor_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate`
+        """Corresponds to IDD field `Outdoor Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate`
@@ -6557,21 +9328,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate"] = value
 
     @property
     def outdoor_air_schedule_name(self):
-        """Get outdoor_air_schedule_name
+        """Get outdoor_air_schedule_name.
 
         Returns:
             str: the value of `outdoor_air_schedule_name` or None if not set
+
         """
         return self["Outdoor Air Schedule Name"]
 
     @outdoor_air_schedule_name.setter
     def outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Schedule Name`
+        """Corresponds to IDD field `Outdoor Air Schedule Name`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Schedule Name`
@@ -6580,15 +9353,17 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Schedule Name"] = value
 
     @property
     def supply_fan_name(self):
-        """Get supply_fan_name
+        """Get supply_fan_name.
 
         Returns:
             str: the value of `supply_fan_name` or None if not set
+
         """
         return self["Supply Fan Name"]
 
@@ -6610,16 +9385,17 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
     @property
     def supply_fan_placement(self):
-        """Get supply_fan_placement
+        """Get supply_fan_placement.
 
         Returns:
             str: the value of `supply_fan_placement` or None if not set
+
         """
         return self["Supply Fan Placement"]
 
     @supply_fan_placement.setter
     def supply_fan_placement(self, value="DrawThrough"):
-        """  Corresponds to IDD field `Supply Fan Placement`
+        """Corresponds to IDD field `Supply Fan Placement`
 
         Args:
             value (str): value for IDD Field `Supply Fan Placement`
@@ -6629,15 +9405,17 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Fan Placement"] = value
 
     @property
     def exhaust_fan_name(self):
-        """Get exhaust_fan_name
+        """Get exhaust_fan_name.
 
         Returns:
             str: the value of `exhaust_fan_name` or None if not set
+
         """
         return self["Exhaust Fan Name"]
 
@@ -6659,16 +9437,17 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
     @property
     def exhaust_air_flow_rate(self):
-        """Get exhaust_air_flow_rate
+        """Get exhaust_air_flow_rate.
 
         Returns:
             float: the value of `exhaust_air_flow_rate` or None if not set
+
         """
         return self["Exhaust Air Flow Rate"]
 
     @exhaust_air_flow_rate.setter
     def exhaust_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Flow Rate`
+        """Corresponds to IDD field `Exhaust Air Flow Rate`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Exhaust Air Flow Rate`
@@ -6678,21 +9457,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Flow Rate"] = value
 
     @property
     def exhaust_air_schedule_name(self):
-        """Get exhaust_air_schedule_name
+        """Get exhaust_air_schedule_name.
 
         Returns:
             str: the value of `exhaust_air_schedule_name` or None if not set
+
         """
         return self["Exhaust Air Schedule Name"]
 
     @exhaust_air_schedule_name.setter
     def exhaust_air_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Air Schedule Name`
+        """Corresponds to IDD field `Exhaust Air Schedule Name`
 
         Args:
             value (str): value for IDD Field `Exhaust Air Schedule Name`
@@ -6701,21 +9482,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Exhaust Air Schedule Name"] = value
 
     @property
     def unit_control_type(self):
-        """Get unit_control_type
+        """Get unit_control_type.
 
         Returns:
             str: the value of `unit_control_type` or None if not set
+
         """
         return self["Unit Control Type"]
 
     @unit_control_type.setter
     def unit_control_type(self, value="NeutralControl"):
-        """  Corresponds to IDD field `Unit Control Type`
+        """Corresponds to IDD field `Unit Control Type`
 
         Args:
             value (str): value for IDD Field `Unit Control Type`
@@ -6725,25 +9508,28 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Unit Control Type"] = value
 
     @property
     def high_air_control_temperature_schedule_name(self):
-        """Get high_air_control_temperature_schedule_name
+        """Get high_air_control_temperature_schedule_name.
 
         Returns:
             str: the value of `high_air_control_temperature_schedule_name` or None if not set
+
         """
         return self["High Air Control Temperature Schedule Name"]
 
     @high_air_control_temperature_schedule_name.setter
     def high_air_control_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `High Air Control Temperature Schedule Name`
-        Air and control temperatures for cooling. If outdoor air temperature
-        is above the high air control temperature, then the zone inlet air temperature
-        is set to the high air control temperature. If the outdoor air is between high and low
-        air control temperature, then there is no cooling/heating requirements.
+        """Corresponds to IDD field `High Air Control Temperature Schedule
+        Name` Air and control temperatures for cooling. If outdoor air
+        temperature is above the high air control temperature, then the zone
+        inlet air temperature is set to the high air control temperature. If
+        the outdoor air is between high and low air control temperature, then
+        there is no cooling/heating requirements.
 
         Args:
             value (str): value for IDD Field `High Air Control Temperature Schedule Name`
@@ -6752,25 +9538,28 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["High Air Control Temperature Schedule Name"] = value
 
     @property
     def low_air_control_temperature_schedule_name(self):
-        """Get low_air_control_temperature_schedule_name
+        """Get low_air_control_temperature_schedule_name.
 
         Returns:
             str: the value of `low_air_control_temperature_schedule_name` or None if not set
+
         """
         return self["Low Air Control Temperature Schedule Name"]
 
     @low_air_control_temperature_schedule_name.setter
     def low_air_control_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Low Air Control Temperature Schedule Name`
-        Air and control temperatures for Heating. If outdoor air temperature
-        is below the low air control temperature, then the zone inlet air temperature
-        is set to the low air control temperature. If the outdoor air is between high and low
-        air control temperature, then there is no cooling/heating requirements.
+        """Corresponds to IDD field `Low Air Control Temperature Schedule Name`
+        Air and control temperatures for Heating. If outdoor air temperature is
+        below the low air control temperature, then the zone inlet air
+        temperature is set to the low air control temperature. If the outdoor
+        air is between high and low air control temperature, then there is no
+        cooling/heating requirements.
 
         Args:
             value (str): value for IDD Field `Low Air Control Temperature Schedule Name`
@@ -6779,21 +9568,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Low Air Control Temperature Schedule Name"] = value
 
     @property
     def outdoor_air_node_name(self):
-        """Get outdoor_air_node_name
+        """Get outdoor_air_node_name.
 
         Returns:
             str: the value of `outdoor_air_node_name` or None if not set
+
         """
         return self["Outdoor Air Node Name"]
 
     @outdoor_air_node_name.setter
     def outdoor_air_node_name(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Node Name`
+        """Corresponds to IDD field `Outdoor Air Node Name`
 
         Args:
             value (str): value for IDD Field `Outdoor Air Node Name`
@@ -6802,21 +9593,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Node Name"] = value
 
     @property
     def airoutlet_node_name(self):
-        """Get airoutlet_node_name
+        """Get airoutlet_node_name.
 
         Returns:
             str: the value of `airoutlet_node_name` or None if not set
+
         """
         return self["AirOutlet Node Name"]
 
     @airoutlet_node_name.setter
     def airoutlet_node_name(self, value=None):
-        """  Corresponds to IDD field `AirOutlet Node Name`
+        """Corresponds to IDD field `AirOutlet Node Name`
 
         Args:
             value (str): value for IDD Field `AirOutlet Node Name`
@@ -6825,22 +9618,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["AirOutlet Node Name"] = value
 
     @property
     def airinlet_node_name(self):
-        """Get airinlet_node_name
+        """Get airinlet_node_name.
 
         Returns:
             str: the value of `airinlet_node_name` or None if not set
+
         """
         return self["AirInlet Node Name"]
 
     @airinlet_node_name.setter
     def airinlet_node_name(self, value=None):
-        """  Corresponds to IDD field `AirInlet Node Name`
-        air leaves zone
+        """Corresponds to IDD field `AirInlet Node Name` air leaves zone.
 
         Args:
             value (str): value for IDD Field `AirInlet Node Name`
@@ -6849,21 +9643,23 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["AirInlet Node Name"] = value
 
     @property
     def supply_fanoutlet_node_name(self):
-        """Get supply_fanoutlet_node_name
+        """Get supply_fanoutlet_node_name.
 
         Returns:
             str: the value of `supply_fanoutlet_node_name` or None if not set
+
         """
         return self["Supply FanOutlet Node Name"]
 
     @supply_fanoutlet_node_name.setter
     def supply_fanoutlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Supply FanOutlet Node Name`
+        """Corresponds to IDD field `Supply FanOutlet Node Name`
 
         Args:
             value (str): value for IDD Field `Supply FanOutlet Node Name`
@@ -6872,15 +9668,17 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply FanOutlet Node Name"] = value
 
     @property
     def outdoor_air_unit_list_name(self):
-        """Get outdoor_air_unit_list_name
+        """Get outdoor_air_unit_list_name.
 
         Returns:
             str: the value of `outdoor_air_unit_list_name` or None if not set
+
         """
         return self["Outdoor Air Unit List Name"]
 
@@ -6901,17 +9699,18 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -6920,6 +9719,7 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
@@ -6927,32 +9727,248 @@ class ZoneHvacOutdoorAirUnit(DataObject):
 
 
 class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit:EquipmentList`
         Equipment list for components in a ZoneHVAC:OutdoorAirUnit. Components are simulated
         sequentially in the order given in the equipment list.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'component 1 object type', {'name': u'Component 1 Object Type', 'pyname': u'component_1_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 1 name', {'name': u'Component 1 Name', 'pyname': u'component_1_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 object type', {'name': u'Component 2 Object Type', 'pyname': u'component_2_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 2 name', {'name': u'Component 2 Name', 'pyname': u'component_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 object type', {'name': u'Component 3 Object Type', 'pyname': u'component_3_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 3 name', {'name': u'Component 3 Name', 'pyname': u'component_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 object type', {'name': u'Component 4 Object Type', 'pyname': u'component_4_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 4 name', {'name': u'Component 4 Name', 'pyname': u'component_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 object type', {'name': u'Component 5 Object Type', 'pyname': u'component_5_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 5 name', {'name': u'Component 5 Name', 'pyname': u'component_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 object type', {'name': u'Component 6 Object Type', 'pyname': u'component_6_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 6 name', {'name': u'Component 6 Name', 'pyname': u'component_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 object type', {'name': u'Component 7 Object Type', 'pyname': u'component_7_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 7 name', {'name': u'Component 7 Name', 'pyname': u'component_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 object type', {'name': u'Component 8 Object Type', 'pyname': u'component_8_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Steam', u'Coil:Heating:Water', u'Coil:Cooling:Water', u'Coil:Cooling:Water:DetailedGeometry', u'CoilSystem:Cooling:Water:HeatexchangerAssisted', u'CoilSystem:Cooling:DX', u'CoilSystem:Heating:DX', u'HeatExchanger:AirToAir:FlatPlate', u'HeatExchanger:AirToAir:SensibleAndLatent', u'Dehumidifier:Desiccant:NoFans'], 'autocalculatable': False, 'type': 'alpha'}), (u'component 8 name', {'name': u'Component 8 Name', 'pyname': u'component_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 0,
- 'name': u'ZoneHVAC:OutdoorAirUnit:EquipmentList',
- 'pyname': u'ZoneHvacOutdoorAirUnitEquipmentList',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'component 1 object type',
+                                      {'name': u'Component 1 Object Type',
+                                       'pyname': u'component_1_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 1 name',
+                                      {'name': u'Component 1 Name',
+                                       'pyname': u'component_1_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 2 object type',
+                                      {'name': u'Component 2 Object Type',
+                                       'pyname': u'component_2_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 2 name',
+                                      {'name': u'Component 2 Name',
+                                       'pyname': u'component_2_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 3 object type',
+                                      {'name': u'Component 3 Object Type',
+                                       'pyname': u'component_3_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 3 name',
+                                      {'name': u'Component 3 Name',
+                                       'pyname': u'component_3_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 4 object type',
+                                      {'name': u'Component 4 Object Type',
+                                       'pyname': u'component_4_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 4 name',
+                                      {'name': u'Component 4 Name',
+                                       'pyname': u'component_4_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 5 object type',
+                                      {'name': u'Component 5 Object Type',
+                                       'pyname': u'component_5_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 5 name',
+                                      {'name': u'Component 5 Name',
+                                       'pyname': u'component_5_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 6 object type',
+                                      {'name': u'Component 6 Object Type',
+                                       'pyname': u'component_6_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 6 name',
+                                      {'name': u'Component 6 Name',
+                                       'pyname': u'component_6_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 7 object type',
+                                      {'name': u'Component 7 Object Type',
+                                       'pyname': u'component_7_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 7 name',
+                                      {'name': u'Component 7 Name',
+                                       'pyname': u'component_7_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 8 object type',
+                                      {'name': u'Component 8 Object Type',
+                                       'pyname': u'component_8_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:Electric',
+                                                           u'Coil:Heating:Gas',
+                                                           u'Coil:Heating:Steam',
+                                                           u'Coil:Heating:Water',
+                                                           u'Coil:Cooling:Water',
+                                                           u'Coil:Cooling:Water:DetailedGeometry',
+                                                           u'CoilSystem:Cooling:Water:HeatexchangerAssisted',
+                                                           u'CoilSystem:Cooling:DX',
+                                                           u'CoilSystem:Heating:DX',
+                                                           u'HeatExchanger:AirToAir:FlatPlate',
+                                                           u'HeatExchanger:AirToAir:SensibleAndLatent',
+                                                           u'Dehumidifier:Desiccant:NoFans'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'component 8 name',
+                                      {'name': u'Component 8 Name',
+                                       'pyname': u'component_8_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 0,
+              'name': u'ZoneHVAC:OutdoorAirUnit:EquipmentList',
+              'pyname': u'ZoneHvacOutdoorAirUnitEquipmentList',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -6961,21 +9977,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def component_1_object_type(self):
-        """Get component_1_object_type
+        """Get component_1_object_type.
 
         Returns:
             str: the value of `component_1_object_type` or None if not set
+
         """
         return self["Component 1 Object Type"]
 
     @component_1_object_type.setter
     def component_1_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 1 Object Type`
+        """Corresponds to IDD field `Component 1 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 1 Object Type`
@@ -6984,21 +10002,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 1 Object Type"] = value
 
     @property
     def component_1_name(self):
-        """Get component_1_name
+        """Get component_1_name.
 
         Returns:
             str: the value of `component_1_name` or None if not set
+
         """
         return self["Component 1 Name"]
 
     @component_1_name.setter
     def component_1_name(self, value=None):
-        """  Corresponds to IDD field `Component 1 Name`
+        """Corresponds to IDD field `Component 1 Name`
 
         Args:
             value (str): value for IDD Field `Component 1 Name`
@@ -7007,21 +10027,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 1 Name"] = value
 
     @property
     def component_2_object_type(self):
-        """Get component_2_object_type
+        """Get component_2_object_type.
 
         Returns:
             str: the value of `component_2_object_type` or None if not set
+
         """
         return self["Component 2 Object Type"]
 
     @component_2_object_type.setter
     def component_2_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 2 Object Type`
+        """Corresponds to IDD field `Component 2 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 2 Object Type`
@@ -7030,21 +10052,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 2 Object Type"] = value
 
     @property
     def component_2_name(self):
-        """Get component_2_name
+        """Get component_2_name.
 
         Returns:
             str: the value of `component_2_name` or None if not set
+
         """
         return self["Component 2 Name"]
 
     @component_2_name.setter
     def component_2_name(self, value=None):
-        """  Corresponds to IDD field `Component 2 Name`
+        """Corresponds to IDD field `Component 2 Name`
 
         Args:
             value (str): value for IDD Field `Component 2 Name`
@@ -7053,21 +10077,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 2 Name"] = value
 
     @property
     def component_3_object_type(self):
-        """Get component_3_object_type
+        """Get component_3_object_type.
 
         Returns:
             str: the value of `component_3_object_type` or None if not set
+
         """
         return self["Component 3 Object Type"]
 
     @component_3_object_type.setter
     def component_3_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 3 Object Type`
+        """Corresponds to IDD field `Component 3 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 3 Object Type`
@@ -7076,21 +10102,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 3 Object Type"] = value
 
     @property
     def component_3_name(self):
-        """Get component_3_name
+        """Get component_3_name.
 
         Returns:
             str: the value of `component_3_name` or None if not set
+
         """
         return self["Component 3 Name"]
 
     @component_3_name.setter
     def component_3_name(self, value=None):
-        """  Corresponds to IDD field `Component 3 Name`
+        """Corresponds to IDD field `Component 3 Name`
 
         Args:
             value (str): value for IDD Field `Component 3 Name`
@@ -7099,21 +10127,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 3 Name"] = value
 
     @property
     def component_4_object_type(self):
-        """Get component_4_object_type
+        """Get component_4_object_type.
 
         Returns:
             str: the value of `component_4_object_type` or None if not set
+
         """
         return self["Component 4 Object Type"]
 
     @component_4_object_type.setter
     def component_4_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 4 Object Type`
+        """Corresponds to IDD field `Component 4 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 4 Object Type`
@@ -7122,21 +10152,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 4 Object Type"] = value
 
     @property
     def component_4_name(self):
-        """Get component_4_name
+        """Get component_4_name.
 
         Returns:
             str: the value of `component_4_name` or None if not set
+
         """
         return self["Component 4 Name"]
 
     @component_4_name.setter
     def component_4_name(self, value=None):
-        """  Corresponds to IDD field `Component 4 Name`
+        """Corresponds to IDD field `Component 4 Name`
 
         Args:
             value (str): value for IDD Field `Component 4 Name`
@@ -7145,21 +10177,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 4 Name"] = value
 
     @property
     def component_5_object_type(self):
-        """Get component_5_object_type
+        """Get component_5_object_type.
 
         Returns:
             str: the value of `component_5_object_type` or None if not set
+
         """
         return self["Component 5 Object Type"]
 
     @component_5_object_type.setter
     def component_5_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 5 Object Type`
+        """Corresponds to IDD field `Component 5 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 5 Object Type`
@@ -7168,21 +10202,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 5 Object Type"] = value
 
     @property
     def component_5_name(self):
-        """Get component_5_name
+        """Get component_5_name.
 
         Returns:
             str: the value of `component_5_name` or None if not set
+
         """
         return self["Component 5 Name"]
 
     @component_5_name.setter
     def component_5_name(self, value=None):
-        """  Corresponds to IDD field `Component 5 Name`
+        """Corresponds to IDD field `Component 5 Name`
 
         Args:
             value (str): value for IDD Field `Component 5 Name`
@@ -7191,21 +10227,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 5 Name"] = value
 
     @property
     def component_6_object_type(self):
-        """Get component_6_object_type
+        """Get component_6_object_type.
 
         Returns:
             str: the value of `component_6_object_type` or None if not set
+
         """
         return self["Component 6 Object Type"]
 
     @component_6_object_type.setter
     def component_6_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 6 Object Type`
+        """Corresponds to IDD field `Component 6 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 6 Object Type`
@@ -7214,21 +10252,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 6 Object Type"] = value
 
     @property
     def component_6_name(self):
-        """Get component_6_name
+        """Get component_6_name.
 
         Returns:
             str: the value of `component_6_name` or None if not set
+
         """
         return self["Component 6 Name"]
 
     @component_6_name.setter
     def component_6_name(self, value=None):
-        """  Corresponds to IDD field `Component 6 Name`
+        """Corresponds to IDD field `Component 6 Name`
 
         Args:
             value (str): value for IDD Field `Component 6 Name`
@@ -7237,21 +10277,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 6 Name"] = value
 
     @property
     def component_7_object_type(self):
-        """Get component_7_object_type
+        """Get component_7_object_type.
 
         Returns:
             str: the value of `component_7_object_type` or None if not set
+
         """
         return self["Component 7 Object Type"]
 
     @component_7_object_type.setter
     def component_7_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 7 Object Type`
+        """Corresponds to IDD field `Component 7 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 7 Object Type`
@@ -7260,21 +10302,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 7 Object Type"] = value
 
     @property
     def component_7_name(self):
-        """Get component_7_name
+        """Get component_7_name.
 
         Returns:
             str: the value of `component_7_name` or None if not set
+
         """
         return self["Component 7 Name"]
 
     @component_7_name.setter
     def component_7_name(self, value=None):
-        """  Corresponds to IDD field `Component 7 Name`
+        """Corresponds to IDD field `Component 7 Name`
 
         Args:
             value (str): value for IDD Field `Component 7 Name`
@@ -7283,21 +10327,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 7 Name"] = value
 
     @property
     def component_8_object_type(self):
-        """Get component_8_object_type
+        """Get component_8_object_type.
 
         Returns:
             str: the value of `component_8_object_type` or None if not set
+
         """
         return self["Component 8 Object Type"]
 
     @component_8_object_type.setter
     def component_8_object_type(self, value=None):
-        """  Corresponds to IDD field `Component 8 Object Type`
+        """Corresponds to IDD field `Component 8 Object Type`
 
         Args:
             value (str): value for IDD Field `Component 8 Object Type`
@@ -7306,21 +10352,23 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 8 Object Type"] = value
 
     @property
     def component_8_name(self):
-        """Get component_8_name
+        """Get component_8_name.
 
         Returns:
             str: the value of `component_8_name` or None if not set
+
         """
         return self["Component 8 Name"]
 
     @component_8_name.setter
     def component_8_name(self, value=None):
-        """  Corresponds to IDD field `Component 8 Name`
+        """Corresponds to IDD field `Component 8 Name`
 
         Args:
             value (str): value for IDD Field `Component 8 Name`
@@ -7329,6 +10377,7 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Component 8 Name"] = value
 
@@ -7336,33 +10385,248 @@ class ZoneHvacOutdoorAirUnitEquipmentList(DataObject):
 
 
 class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
+
     """ Corresponds to IDD object `ZoneHVAC:TerminalUnit:VariableRefrigerantFlow`
         Zone terminal unit with variable refrigerant flow (VRF) DX cooling and heating coils
         (air-to-air heat pump). The VRF terminal units are served by an
         AirConditioner:VariableRefrigerantFlow system.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'zone terminal unit name', {'name': u'Zone Terminal Unit Name', 'pyname': u'zone_terminal_unit_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'terminal unit availability schedule', {'name': u'Terminal Unit Availability Schedule', 'pyname': u'terminal_unit_availability_schedule', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'terminal unit air inlet node name', {'name': u'Terminal Unit Air Inlet Node Name', 'pyname': u'terminal_unit_air_inlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'terminal unit air outlet node name', {'name': u'Terminal Unit Air Outlet Node Name', 'pyname': u'terminal_unit_air_outlet_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'supply air flow rate during cooling operation', {'name': u'Supply Air Flow Rate During Cooling Operation', 'pyname': u'supply_air_flow_rate_during_cooling_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no cooling is needed', {'name': u'Supply Air Flow Rate When No Cooling is Needed', 'pyname': u'supply_air_flow_rate_when_no_cooling_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate during heating operation', {'name': u'Supply Air Flow Rate During Heating Operation', 'pyname': u'supply_air_flow_rate_during_heating_operation', 'minimum>': 0.0, 'required-field': False, 'autosizable': True, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air flow rate when no heating is needed', {'name': u'Supply Air Flow Rate When No Heating is Needed', 'pyname': u'supply_air_flow_rate_when_no_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during cooling operation', {'name': u'Outdoor Air Flow Rate During Cooling Operation', 'pyname': u'outdoor_air_flow_rate_during_cooling_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate during heating operation', {'name': u'Outdoor Air Flow Rate During Heating Operation', 'pyname': u'outdoor_air_flow_rate_during_heating_operation', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'outdoor air flow rate when no cooling or heating is needed', {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed', 'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'supply air fan operating mode schedule name', {'name': u'Supply Air Fan Operating Mode Schedule Name', 'pyname': u'supply_air_fan_operating_mode_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'supply air fan placement', {'name': u'Supply Air Fan Placement', 'pyname': u'supply_air_fan_placement', 'default': u'BlowThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan object type', {'name': u'Supply Air Fan Object Type', 'pyname': u'supply_air_fan_object_type', 'default': u'Fan:ConstantVolume', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'supply air fan object name', {'name': u'Supply Air Fan Object Name', 'pyname': u'supply_air_fan_object_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'outside air mixer object type', {'name': u'Outside Air Mixer Object Type', 'pyname': u'outside_air_mixer_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'OutdoorAir:Mixer'], 'autocalculatable': False, 'type': 'alpha'}), (u'outside air mixer object name', {'name': u'Outside Air Mixer Object Name', 'pyname': u'outside_air_mixer_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'cooling coil object type', {'name': u'Cooling Coil Object Type', 'pyname': u'cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:VariableRefrigerantFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'cooling coil object name', {'name': u'Cooling Coil Object Name', 'pyname': u'cooling_coil_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'heating coil object type', {'name': u'Heating Coil Object Type', 'pyname': u'heating_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:DX:VariableRefrigerantFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'heating coil object name', {'name': u'Heating Coil Object Name', 'pyname': u'heating_coil_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone terminal unit on parasitic electric energy use', {'name': u'Zone Terminal Unit On Parasitic Electric Energy Use', 'pyname': u'zone_terminal_unit_on_parasitic_electric_energy_use', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'zone terminal unit off parasitic electric energy use', {'name': u'Zone Terminal Unit Off Parasitic Electric Energy Use', 'pyname': u'zone_terminal_unit_off_parasitic_electric_energy_use', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated heating capacity sizing ratio', {'name': u'Rated Heating Capacity Sizing Ratio', 'pyname': u'rated_heating_capacity_sizing_ratio', 'default': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 1.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W/W'}), (u'availability manager list name', {'name': u'Availability Manager List Name', 'pyname': u'availability_manager_list_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design specification zonehvac sizing object name', {'name': u'Design Specification ZoneHVAC Sizing Object Name', 'pyname': u'design_specification_zonehvac_sizing_object_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone HVAC Forced Air Units',
- 'min-fields': 19,
- 'name': u'ZoneHVAC:TerminalUnit:VariableRefrigerantFlow',
- 'pyname': u'ZoneHvacTerminalUnitVariableRefrigerantFlow',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'zone terminal unit name',
+                                      {'name': u'Zone Terminal Unit Name',
+                                       'pyname': u'zone_terminal_unit_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'terminal unit availability schedule',
+                                      {'name': u'Terminal Unit Availability Schedule',
+                                       'pyname': u'terminal_unit_availability_schedule',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'terminal unit air inlet node name',
+                                      {'name': u'Terminal Unit Air Inlet Node Name',
+                                       'pyname': u'terminal_unit_air_inlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'terminal unit air outlet node name',
+                                      {'name': u'Terminal Unit Air Outlet Node Name',
+                                       'pyname': u'terminal_unit_air_outlet_node_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'node'}),
+                                     (u'supply air flow rate during cooling operation',
+                                      {'name': u'Supply Air Flow Rate During Cooling Operation',
+                                       'pyname': u'supply_air_flow_rate_during_cooling_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate when no cooling is needed',
+                                      {'name': u'Supply Air Flow Rate When No Cooling is Needed',
+                                       'pyname': u'supply_air_flow_rate_when_no_cooling_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate during heating operation',
+                                      {'name': u'Supply Air Flow Rate During Heating Operation',
+                                       'pyname': u'supply_air_flow_rate_during_heating_operation',
+                                       'minimum>': 0.0,
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air flow rate when no heating is needed',
+                                      {'name': u'Supply Air Flow Rate When No Heating is Needed',
+                                       'pyname': u'supply_air_flow_rate_when_no_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during cooling operation',
+                                      {'name': u'Outdoor Air Flow Rate During Cooling Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_cooling_operation',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate during heating operation',
+                                      {'name': u'Outdoor Air Flow Rate During Heating Operation',
+                                       'pyname': u'outdoor_air_flow_rate_during_heating_operation',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'outdoor air flow rate when no cooling or heating is needed',
+                                      {'name': u'Outdoor Air Flow Rate When No Cooling or Heating is Needed',
+                                       'pyname': u'outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed',
+                                       'required-field': False,
+                                       'autosizable': True,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'supply air fan operating mode schedule name',
+                                      {'name': u'Supply Air Fan Operating Mode Schedule Name',
+                                       'pyname': u'supply_air_fan_operating_mode_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'supply air fan placement',
+                                      {'name': u'Supply Air Fan Placement',
+                                       'pyname': u'supply_air_fan_placement',
+                                       'default': u'BlowThrough',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'BlowThrough',
+                                                           u'DrawThrough'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan object type',
+                                      {'name': u'Supply Air Fan Object Type',
+                                       'pyname': u'supply_air_fan_object_type',
+                                       'default': u'Fan:ConstantVolume',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Fan:OnOff',
+                                                           u'Fan:ConstantVolume'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'supply air fan object name',
+                                      {'name': u'Supply Air Fan Object Name',
+                                       'pyname': u'supply_air_fan_object_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'outside air mixer object type',
+                                      {'name': u'Outside Air Mixer Object Type',
+                                       'pyname': u'outside_air_mixer_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'OutdoorAir:Mixer'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'outside air mixer object name',
+                                      {'name': u'Outside Air Mixer Object Name',
+                                       'pyname': u'outside_air_mixer_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'cooling coil object type',
+                                      {'name': u'Cooling Coil Object Type',
+                                       'pyname': u'cooling_coil_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Cooling:DX:VariableRefrigerantFlow'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'cooling coil object name',
+                                      {'name': u'Cooling Coil Object Name',
+                                       'pyname': u'cooling_coil_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'heating coil object type',
+                                      {'name': u'Heating Coil Object Type',
+                                       'pyname': u'heating_coil_object_type',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Coil:Heating:DX:VariableRefrigerantFlow'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'heating coil object name',
+                                      {'name': u'Heating Coil Object Name',
+                                       'pyname': u'heating_coil_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone terminal unit on parasitic electric energy use',
+                                      {'name': u'Zone Terminal Unit On Parasitic Electric Energy Use',
+                                       'pyname': u'zone_terminal_unit_on_parasitic_electric_energy_use',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'zone terminal unit off parasitic electric energy use',
+                                      {'name': u'Zone Terminal Unit Off Parasitic Electric Energy Use',
+                                       'pyname': u'zone_terminal_unit_off_parasitic_electric_energy_use',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'}),
+                                     (u'rated heating capacity sizing ratio',
+                                      {'name': u'Rated Heating Capacity Sizing Ratio',
+                                       'pyname': u'rated_heating_capacity_sizing_ratio',
+                                       'default': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 1.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/W'}),
+                                     (u'availability manager list name',
+                                      {'name': u'Availability Manager List Name',
+                                       'pyname': u'availability_manager_list_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design specification zonehvac sizing object name',
+                                      {'name': u'Design Specification ZoneHVAC Sizing Object Name',
+                                       'pyname': u'design_specification_zonehvac_sizing_object_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone HVAC Forced Air Units',
+              'min-fields': 19,
+              'name': u'ZoneHVAC:TerminalUnit:VariableRefrigerantFlow',
+              'pyname': u'ZoneHvacTerminalUnitVariableRefrigerantFlow',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def zone_terminal_unit_name(self):
-        """Get zone_terminal_unit_name
+        """Get zone_terminal_unit_name.
 
         Returns:
             str: the value of `zone_terminal_unit_name` or None if not set
+
         """
         return self["Zone Terminal Unit Name"]
 
     @zone_terminal_unit_name.setter
     def zone_terminal_unit_name(self, value=None):
-        """  Corresponds to IDD field `Zone Terminal Unit Name`
+        """Corresponds to IDD field `Zone Terminal Unit Name`
 
         Args:
             value (str): value for IDD Field `Zone Terminal Unit Name`
@@ -7371,22 +10635,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Terminal Unit Name"] = value
 
     @property
     def terminal_unit_availability_schedule(self):
-        """Get terminal_unit_availability_schedule
+        """Get terminal_unit_availability_schedule.
 
         Returns:
             str: the value of `terminal_unit_availability_schedule` or None if not set
+
         """
         return self["Terminal Unit Availability Schedule"]
 
     @terminal_unit_availability_schedule.setter
     def terminal_unit_availability_schedule(self, value=None):
-        """  Corresponds to IDD field `Terminal Unit Availability Schedule`
-        The unit is available the entire simulation if this field is left blank
+        """Corresponds to IDD field `Terminal Unit Availability Schedule` The
+        unit is available the entire simulation if this field is left blank
         Schedule values of 0 denote the unit is off.
 
         Args:
@@ -7396,22 +10662,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Terminal Unit Availability Schedule"] = value
 
     @property
     def terminal_unit_air_inlet_node_name(self):
-        """Get terminal_unit_air_inlet_node_name
+        """Get terminal_unit_air_inlet_node_name.
 
         Returns:
             str: the value of `terminal_unit_air_inlet_node_name` or None if not set
+
         """
         return self["Terminal Unit Air Inlet Node Name"]
 
     @terminal_unit_air_inlet_node_name.setter
     def terminal_unit_air_inlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Terminal Unit Air Inlet Node Name`
-        the inlet node to the terminal unit
+        """Corresponds to IDD field `Terminal Unit Air Inlet Node Name` the
+        inlet node to the terminal unit.
 
         Args:
             value (str): value for IDD Field `Terminal Unit Air Inlet Node Name`
@@ -7420,22 +10688,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Terminal Unit Air Inlet Node Name"] = value
 
     @property
     def terminal_unit_air_outlet_node_name(self):
-        """Get terminal_unit_air_outlet_node_name
+        """Get terminal_unit_air_outlet_node_name.
 
         Returns:
             str: the value of `terminal_unit_air_outlet_node_name` or None if not set
+
         """
         return self["Terminal Unit Air Outlet Node Name"]
 
     @terminal_unit_air_outlet_node_name.setter
     def terminal_unit_air_outlet_node_name(self, value=None):
-        """  Corresponds to IDD field `Terminal Unit Air Outlet Node Name`
-        the outlet node of the terminal unit
+        """Corresponds to IDD field `Terminal Unit Air Outlet Node Name` the
+        outlet node of the terminal unit.
 
         Args:
             value (str): value for IDD Field `Terminal Unit Air Outlet Node Name`
@@ -7444,21 +10714,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Terminal Unit Air Outlet Node Name"] = value
 
     @property
     def supply_air_flow_rate_during_cooling_operation(self):
-        """Get supply_air_flow_rate_during_cooling_operation
+        """Get supply_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Cooling Operation"]
 
     @supply_air_flow_rate_during_cooling_operation.setter
     def supply_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Cooling Operation`
+        """Corresponds to IDD field `Supply Air Flow Rate During Cooling
+        Operation`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Cooling Operation`
@@ -7468,21 +10741,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Cooling Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_cooling_is_needed(self):
-        """Get supply_air_flow_rate_when_no_cooling_is_needed
+        """Get supply_air_flow_rate_when_no_cooling_is_needed.
 
         Returns:
             float: the value of `supply_air_flow_rate_when_no_cooling_is_needed` or None if not set
+
         """
         return self["Supply Air Flow Rate When No Cooling is Needed"]
 
     @supply_air_flow_rate_when_no_cooling_is_needed.setter
     def supply_air_flow_rate_when_no_cooling_is_needed(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate When No Cooling is Needed`
+        """Corresponds to IDD field `Supply Air Flow Rate When No Cooling is
+        Needed`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Cooling is Needed`
@@ -7492,21 +10768,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate When No Cooling is Needed"] = value
 
     @property
     def supply_air_flow_rate_during_heating_operation(self):
-        """Get supply_air_flow_rate_during_heating_operation
+        """Get supply_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `supply_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Supply Air Flow Rate During Heating Operation"]
 
     @supply_air_flow_rate_during_heating_operation.setter
     def supply_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate During Heating Operation`
+        """Corresponds to IDD field `Supply Air Flow Rate During Heating
+        Operation`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate During Heating Operation`
@@ -7516,21 +10795,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate During Heating Operation"] = value
 
     @property
     def supply_air_flow_rate_when_no_heating_is_needed(self):
-        """Get supply_air_flow_rate_when_no_heating_is_needed
+        """Get supply_air_flow_rate_when_no_heating_is_needed.
 
         Returns:
             float: the value of `supply_air_flow_rate_when_no_heating_is_needed` or None if not set
+
         """
         return self["Supply Air Flow Rate When No Heating is Needed"]
 
     @supply_air_flow_rate_when_no_heating_is_needed.setter
     def supply_air_flow_rate_when_no_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Supply Air Flow Rate When No Heating is Needed`
+        """Corresponds to IDD field `Supply Air Flow Rate When No Heating is
+        Needed`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Supply Air Flow Rate When No Heating is Needed`
@@ -7540,21 +10822,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Flow Rate When No Heating is Needed"] = value
 
     @property
     def outdoor_air_flow_rate_during_cooling_operation(self):
-        """Get outdoor_air_flow_rate_during_cooling_operation
+        """Get outdoor_air_flow_rate_during_cooling_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_cooling_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Cooling Operation"]
 
     @outdoor_air_flow_rate_during_cooling_operation.setter
     def outdoor_air_flow_rate_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Cooling Operation`
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Cooling
+        Operation`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Cooling Operation`
@@ -7564,21 +10849,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Cooling Operation"] = value
 
     @property
     def outdoor_air_flow_rate_during_heating_operation(self):
-        """Get outdoor_air_flow_rate_during_heating_operation
+        """Get outdoor_air_flow_rate_during_heating_operation.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_during_heating_operation` or None if not set
+
         """
         return self["Outdoor Air Flow Rate During Heating Operation"]
 
     @outdoor_air_flow_rate_during_heating_operation.setter
     def outdoor_air_flow_rate_during_heating_operation(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate During Heating Operation`
+        """Corresponds to IDD field `Outdoor Air Flow Rate During Heating
+        Operation`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate During Heating Operation`
@@ -7588,21 +10876,27 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outdoor Air Flow Rate During Heating Operation"] = value
 
     @property
     def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self):
-        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed
+        """Get outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.
 
         Returns:
             float: the value of `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed` or None if not set
+
         """
-        return self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
+        return self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"]
 
     @outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed.setter
-    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(self, value=None):
-        """  Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
+    def outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed(
+            self,
+            value=None):
+        """Corresponds to IDD field `Outdoor Air Flow Rate When No Cooling or
+        Heating is Needed`
 
         Args:
             value (float or "Autosize"): value for IDD Field `Outdoor Air Flow Rate When No Cooling or Heating is Needed`
@@ -7612,21 +10906,25 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
+        self[
+            "Outdoor Air Flow Rate When No Cooling or Heating is Needed"] = value
 
     @property
     def supply_air_fan_operating_mode_schedule_name(self):
-        """Get supply_air_fan_operating_mode_schedule_name
+        """Get supply_air_fan_operating_mode_schedule_name.
 
         Returns:
             str: the value of `supply_air_fan_operating_mode_schedule_name` or None if not set
+
         """
         return self["Supply Air Fan Operating Mode Schedule Name"]
 
     @supply_air_fan_operating_mode_schedule_name.setter
     def supply_air_fan_operating_mode_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Operating Mode Schedule Name`
+        """Corresponds to IDD field `Supply Air Fan Operating Mode Schedule
+        Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Operating Mode Schedule Name`
@@ -7635,22 +10933,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Operating Mode Schedule Name"] = value
 
     @property
     def supply_air_fan_placement(self):
-        """Get supply_air_fan_placement
+        """Get supply_air_fan_placement.
 
         Returns:
             str: the value of `supply_air_fan_placement` or None if not set
+
         """
         return self["Supply Air Fan Placement"]
 
     @supply_air_fan_placement.setter
     def supply_air_fan_placement(self, value="BlowThrough"):
-        """  Corresponds to IDD field `Supply Air Fan Placement`
-        Select fan placement as either blow through or draw through.
+        """Corresponds to IDD field `Supply Air Fan Placement` Select fan
+        placement as either blow through or draw through.
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Placement`
@@ -7660,21 +10960,23 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Placement"] = value
 
     @property
     def supply_air_fan_object_type(self):
-        """Get supply_air_fan_object_type
+        """Get supply_air_fan_object_type.
 
         Returns:
             str: the value of `supply_air_fan_object_type` or None if not set
+
         """
         return self["Supply Air Fan Object Type"]
 
     @supply_air_fan_object_type.setter
     def supply_air_fan_object_type(self, value="Fan:ConstantVolume"):
-        """  Corresponds to IDD field `Supply Air Fan Object Type`
+        """Corresponds to IDD field `Supply Air Fan Object Type`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Type`
@@ -7684,21 +10986,23 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Object Type"] = value
 
     @property
     def supply_air_fan_object_name(self):
-        """Get supply_air_fan_object_name
+        """Get supply_air_fan_object_name.
 
         Returns:
             str: the value of `supply_air_fan_object_name` or None if not set
+
         """
         return self["Supply Air Fan Object Name"]
 
     @supply_air_fan_object_name.setter
     def supply_air_fan_object_name(self, value=None):
-        """  Corresponds to IDD field `Supply Air Fan Object Name`
+        """Corresponds to IDD field `Supply Air Fan Object Name`
 
         Args:
             value (str): value for IDD Field `Supply Air Fan Object Name`
@@ -7707,22 +11011,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Supply Air Fan Object Name"] = value
 
     @property
     def outside_air_mixer_object_type(self):
-        """Get outside_air_mixer_object_type
+        """Get outside_air_mixer_object_type.
 
         Returns:
             str: the value of `outside_air_mixer_object_type` or None if not set
+
         """
         return self["Outside Air Mixer Object Type"]
 
     @outside_air_mixer_object_type.setter
     def outside_air_mixer_object_type(self, value=None):
-        """  Corresponds to IDD field `Outside Air Mixer Object Type`
-        If this field is blank, and outside air mixer is not used.
+        """Corresponds to IDD field `Outside Air Mixer Object Type` If this
+        field is blank, and outside air mixer is not used.
 
         Args:
             value (str): value for IDD Field `Outside Air Mixer Object Type`
@@ -7731,22 +11037,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outside Air Mixer Object Type"] = value
 
     @property
     def outside_air_mixer_object_name(self):
-        """Get outside_air_mixer_object_name
+        """Get outside_air_mixer_object_name.
 
         Returns:
             str: the value of `outside_air_mixer_object_name` or None if not set
+
         """
         return self["Outside Air Mixer Object Name"]
 
     @outside_air_mixer_object_name.setter
     def outside_air_mixer_object_name(self, value=None):
-        """  Corresponds to IDD field `Outside Air Mixer Object Name`
-        If this field is blank, and outside air mixer is not used.
+        """Corresponds to IDD field `Outside Air Mixer Object Name` If this
+        field is blank, and outside air mixer is not used.
 
         Args:
             value (str): value for IDD Field `Outside Air Mixer Object Name`
@@ -7755,15 +11063,17 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Outside Air Mixer Object Name"] = value
 
     @property
     def cooling_coil_object_type(self):
-        """Get cooling_coil_object_type
+        """Get cooling_coil_object_type.
 
         Returns:
             str: the value of `cooling_coil_object_type` or None if not set
+
         """
         return self["Cooling Coil Object Type"]
 
@@ -7785,10 +11095,11 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
     @property
     def cooling_coil_object_name(self):
-        """Get cooling_coil_object_name
+        """Get cooling_coil_object_name.
 
         Returns:
             str: the value of `cooling_coil_object_name` or None if not set
+
         """
         return self["Cooling Coil Object Name"]
 
@@ -7810,10 +11121,11 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
     @property
     def heating_coil_object_type(self):
-        """Get heating_coil_object_type
+        """Get heating_coil_object_type.
 
         Returns:
             str: the value of `heating_coil_object_type` or None if not set
+
         """
         return self["Heating Coil Object Type"]
 
@@ -7835,10 +11147,11 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
     @property
     def heating_coil_object_name(self):
-        """Get heating_coil_object_name
+        """Get heating_coil_object_name.
 
         Returns:
             str: the value of `heating_coil_object_name` or None if not set
+
         """
         return self["Heating Coil Object Name"]
 
@@ -7860,16 +11173,18 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
     @property
     def zone_terminal_unit_on_parasitic_electric_energy_use(self):
-        """Get zone_terminal_unit_on_parasitic_electric_energy_use
+        """Get zone_terminal_unit_on_parasitic_electric_energy_use.
 
         Returns:
             float: the value of `zone_terminal_unit_on_parasitic_electric_energy_use` or None if not set
+
         """
         return self["Zone Terminal Unit On Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_on_parasitic_electric_energy_use.setter
     def zone_terminal_unit_on_parasitic_electric_energy_use(self, value=None):
-        """  Corresponds to IDD field `Zone Terminal Unit On Parasitic Electric Energy Use`
+        """Corresponds to IDD field `Zone Terminal Unit On Parasitic Electric
+        Energy Use`
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit On Parasitic Electric Energy Use`
@@ -7879,21 +11194,24 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Terminal Unit On Parasitic Electric Energy Use"] = value
 
     @property
     def zone_terminal_unit_off_parasitic_electric_energy_use(self):
-        """Get zone_terminal_unit_off_parasitic_electric_energy_use
+        """Get zone_terminal_unit_off_parasitic_electric_energy_use.
 
         Returns:
             float: the value of `zone_terminal_unit_off_parasitic_electric_energy_use` or None if not set
+
         """
         return self["Zone Terminal Unit Off Parasitic Electric Energy Use"]
 
     @zone_terminal_unit_off_parasitic_electric_energy_use.setter
     def zone_terminal_unit_off_parasitic_electric_energy_use(self, value=None):
-        """  Corresponds to IDD field `Zone Terminal Unit Off Parasitic Electric Energy Use`
+        """Corresponds to IDD field `Zone Terminal Unit Off Parasitic Electric
+        Energy Use`
 
         Args:
             value (float): value for IDD Field `Zone Terminal Unit Off Parasitic Electric Energy Use`
@@ -7903,15 +11221,17 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Terminal Unit Off Parasitic Electric Energy Use"] = value
 
     @property
     def rated_heating_capacity_sizing_ratio(self):
-        """Get rated_heating_capacity_sizing_ratio
+        """Get rated_heating_capacity_sizing_ratio.
 
         Returns:
             float: the value of `rated_heating_capacity_sizing_ratio` or None if not set
+
         """
         return self["Rated Heating Capacity Sizing Ratio"]
 
@@ -7938,17 +11258,18 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
     @property
     def availability_manager_list_name(self):
-        """Get availability_manager_list_name
+        """Get availability_manager_list_name.
 
         Returns:
             str: the value of `availability_manager_list_name` or None if not set
+
         """
         return self["Availability Manager List Name"]
 
     @availability_manager_list_name.setter
     def availability_manager_list_name(self, value=None):
-        """  Corresponds to IDD field `Availability Manager List Name`
-        Enter the name of an AvailabilityManagerAssignmentList object.
+        """Corresponds to IDD field `Availability Manager List Name` Enter the
+        name of an AvailabilityManagerAssignmentList object.
 
         Args:
             value (str): value for IDD Field `Availability Manager List Name`
@@ -7957,22 +11278,25 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Manager List Name"] = value
 
     @property
     def design_specification_zonehvac_sizing_object_name(self):
-        """Get design_specification_zonehvac_sizing_object_name
+        """Get design_specification_zonehvac_sizing_object_name.
 
         Returns:
             str: the value of `design_specification_zonehvac_sizing_object_name` or None if not set
+
         """
         return self["Design Specification ZoneHVAC Sizing Object Name"]
 
     @design_specification_zonehvac_sizing_object_name.setter
     def design_specification_zonehvac_sizing_object_name(self, value=None):
-        """  Corresponds to IDD field `Design Specification ZoneHVAC Sizing Object Name`
-        Enter the name of a DesignSpecificationZoneHVACSizing object.
+        """Corresponds to IDD field `Design Specification ZoneHVAC Sizing
+        Object Name` Enter the name of a DesignSpecificationZoneHVACSizing
+        object.
 
         Args:
             value (str): value for IDD Field `Design Specification ZoneHVAC Sizing Object Name`
@@ -7981,6 +11305,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Specification ZoneHVAC Sizing Object Name"] = value
 

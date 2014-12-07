@@ -11,6 +11,7 @@ logger.addHandler(logging.NullHandler())
 
 
 class ZoneInfiltrationDesignFlowRate(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:DesignFlowRate`
         Infiltration is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Infiltration=Idesign * FSchedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
@@ -18,27 +19,129 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
         to all the zones in the ZoneList.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'Flow/Area', u'Flow/ExteriorArea', u'Flow/ExteriorWallArea', u'AirChanges/Hour'], 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow per zone floor area', {'name': u'Flow per Zone Floor Area', 'pyname': u'flow_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow per exterior surface area', {'name': u'Flow per Exterior Surface Area', 'pyname': u'flow_per_exterior_surface_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 12,
- 'name': u'ZoneInfiltration:DesignFlowRate',
- 'pyname': u'ZoneInfiltrationDesignFlowRate',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Flow/Zone',
+                                                           u'Flow/Area',
+                                                           u'Flow/ExteriorArea',
+                                                           u'Flow/ExteriorWallArea',
+                                                           u'AirChanges/Hour'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow per zone floor area',
+                                      {'name': u'Flow per Zone Floor Area',
+                                       'pyname': u'flow_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow per exterior surface area',
+                                      {'name': u'Flow per Exterior Surface Area',
+                                       'pyname': u'flow_per_exterior_surface_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'constant term coefficient',
+                                      {'name': u'Constant Term Coefficient',
+                                       'pyname': u'constant_term_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term coefficient',
+                                      {'name': u'Temperature Term Coefficient',
+                                       'pyname': u'temperature_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term coefficient',
+                                      {'name': u'Velocity Term Coefficient',
+                                       'pyname': u'velocity_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term coefficient',
+                                      {'name': u'Velocity Squared Term Coefficient',
+                                       'pyname': u'velocity_squared_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 12,
+              'name': u'ZoneInfiltration:DesignFlowRate',
+              'pyname': u'ZoneInfiltrationDesignFlowRate',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -47,21 +150,23 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_or_zonelist_name(self):
-        """Get zone_or_zonelist_name
+        """Get zone_or_zonelist_name.
 
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
+
         """
         return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD field `Zone or ZoneList Name`
+        """Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -70,21 +175,23 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone or ZoneList Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -93,15 +200,17 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
-        """Get design_flow_rate_calculation_method
+        """Get design_flow_rate_calculation_method.
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -130,16 +239,17 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
     @property
     def design_flow_rate(self):
-        """Get design_flow_rate
+        """Get design_flow_rate.
 
         Returns:
             float: the value of `design_flow_rate` or None if not set
+
         """
         return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Flow Rate`
+        """Corresponds to IDD field `Design Flow Rate`
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -150,21 +260,23 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Flow Rate"] = value
 
     @property
     def flow_per_zone_floor_area(self):
-        """Get flow_per_zone_floor_area
+        """Get flow_per_zone_floor_area.
 
         Returns:
             float: the value of `flow_per_zone_floor_area` or None if not set
+
         """
         return self["Flow per Zone Floor Area"]
 
     @flow_per_zone_floor_area.setter
     def flow_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD field `Flow per Zone Floor Area`
+        """Corresponds to IDD field `Flow per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Flow per Zone Floor Area`
@@ -174,23 +286,25 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow per Zone Floor Area"] = value
 
     @property
     def flow_per_exterior_surface_area(self):
-        """Get flow_per_exterior_surface_area
+        """Get flow_per_exterior_surface_area.
 
         Returns:
             float: the value of `flow_per_exterior_surface_area` or None if not set
+
         """
         return self["Flow per Exterior Surface Area"]
 
     @flow_per_exterior_surface_area.setter
     def flow_per_exterior_surface_area(self, value=None):
-        """  Corresponds to IDD field `Flow per Exterior Surface Area`
-        use key Flow/ExteriorArea for all exterior surface area
-        use key Flow/ExteriorWallArea to include only exterior wall area
+        """Corresponds to IDD field `Flow per Exterior Surface Area` use key
+        Flow/ExteriorArea for all exterior surface area use key
+        Flow/ExteriorWallArea to include only exterior wall area.
 
         Args:
             value (float): value for IDD Field `Flow per Exterior Surface Area`
@@ -200,21 +314,23 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow per Exterior Surface Area"] = value
 
     @property
     def air_changes_per_hour(self):
-        """Get air_changes_per_hour
+        """Get air_changes_per_hour.
 
         Returns:
             float: the value of `air_changes_per_hour` or None if not set
+
         """
         return self["Air Changes per Hour"]
 
     @air_changes_per_hour.setter
     def air_changes_per_hour(self, value=None):
-        """  Corresponds to IDD field `Air Changes per Hour`
+        """Corresponds to IDD field `Air Changes per Hour`
 
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
@@ -224,22 +340,24 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Changes per Hour"] = value
 
     @property
     def constant_term_coefficient(self):
-        """Get constant_term_coefficient
+        """Get constant_term_coefficient.
 
         Returns:
             float: the value of `constant_term_coefficient` or None if not set
+
         """
         return self["Constant Term Coefficient"]
 
     @constant_term_coefficient.setter
     def constant_term_coefficient(self, value=1.0):
-        """  Corresponds to IDD field `Constant Term Coefficient`
-        "A" in Equation
+        """Corresponds to IDD field `Constant Term Coefficient` "A" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Constant Term Coefficient`
@@ -249,22 +367,24 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Term Coefficient"] = value
 
     @property
     def temperature_term_coefficient(self):
-        """Get temperature_term_coefficient
+        """Get temperature_term_coefficient.
 
         Returns:
             float: the value of `temperature_term_coefficient` or None if not set
+
         """
         return self["Temperature Term Coefficient"]
 
     @temperature_term_coefficient.setter
     def temperature_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Temperature Term Coefficient`
-        "B" in Equation
+        """Corresponds to IDD field `Temperature Term Coefficient` "B" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
@@ -273,22 +393,24 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature Term Coefficient"] = value
 
     @property
     def velocity_term_coefficient(self):
-        """Get velocity_term_coefficient
+        """Get velocity_term_coefficient.
 
         Returns:
             float: the value of `velocity_term_coefficient` or None if not set
+
         """
         return self["Velocity Term Coefficient"]
 
     @velocity_term_coefficient.setter
     def velocity_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Term Coefficient`
-        "C" in Equation
+        """Corresponds to IDD field `Velocity Term Coefficient` "C" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
@@ -297,22 +419,24 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Term Coefficient"] = value
 
     @property
     def velocity_squared_term_coefficient(self):
-        """Get velocity_squared_term_coefficient
+        """Get velocity_squared_term_coefficient.
 
         Returns:
             float: the value of `velocity_squared_term_coefficient` or None if not set
+
         """
         return self["Velocity Squared Term Coefficient"]
 
     @velocity_squared_term_coefficient.setter
     def velocity_squared_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Squared Term Coefficient`
-        "D" in Equation
+        """Corresponds to IDD field `Velocity Squared Term Coefficient` "D" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
@@ -321,6 +445,7 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Squared Term Coefficient"] = value
 
@@ -328,33 +453,80 @@ class ZoneInfiltrationDesignFlowRate(DataObject):
 
 
 class ZoneInfiltrationEffectiveLeakageArea(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:EffectiveLeakageArea`
         Infiltration is specified as effective leakage area at 4 Pa, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * (AL /1000) SQRT(Cs*|(Tzone-Todb)| +  Cw*WindSpd**2 )
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'effective air leakage area', {'name': u'Effective Air Leakage Area', 'pyname': u'effective_air_leakage_area', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'cm2'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 6,
- 'name': u'ZoneInfiltration:EffectiveLeakageArea',
- 'pyname': u'ZoneInfiltrationEffectiveLeakageArea',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'effective air leakage area',
+                                      {'name': u'Effective Air Leakage Area',
+                                       'pyname': u'effective_air_leakage_area',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'cm2'}),
+                                     (u'stack coefficient',
+                                      {'name': u'Stack Coefficient',
+                                       'pyname': u'stack_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'wind coefficient',
+                                      {'name': u'Wind Coefficient',
+                                       'pyname': u'wind_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 6,
+              'name': u'ZoneInfiltration:EffectiveLeakageArea',
+              'pyname': u'ZoneInfiltrationEffectiveLeakageArea',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -363,21 +535,23 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -386,21 +560,23 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -409,23 +585,24 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def effective_air_leakage_area(self):
-        """Get effective_air_leakage_area
+        """Get effective_air_leakage_area.
 
         Returns:
             float: the value of `effective_air_leakage_area` or None if not set
+
         """
         return self["Effective Air Leakage Area"]
 
     @effective_air_leakage_area.setter
     def effective_air_leakage_area(self, value=None):
-        """  Corresponds to IDD field `Effective Air Leakage Area`
-        "AL" in Equation
-        units are cm2 (square centimeters)
+        """Corresponds to IDD field `Effective Air Leakage Area` "AL" in
+        Equation units are cm2 (square centimeters)
 
         Args:
             value (float): value for IDD Field `Effective Air Leakage Area`
@@ -435,22 +612,23 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Effective Air Leakage Area"] = value
 
     @property
     def stack_coefficient(self):
-        """Get stack_coefficient
+        """Get stack_coefficient.
 
         Returns:
             float: the value of `stack_coefficient` or None if not set
+
         """
         return self["Stack Coefficient"]
 
     @stack_coefficient.setter
     def stack_coefficient(self, value=None):
-        """  Corresponds to IDD field `Stack Coefficient`
-        "Cs" in Equation
+        """Corresponds to IDD field `Stack Coefficient` "Cs" in Equation.
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
@@ -459,22 +637,23 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Stack Coefficient"] = value
 
     @property
     def wind_coefficient(self):
-        """Get wind_coefficient
+        """Get wind_coefficient.
 
         Returns:
             float: the value of `wind_coefficient` or None if not set
+
         """
         return self["Wind Coefficient"]
 
     @wind_coefficient.setter
     def wind_coefficient(self, value=None):
-        """  Corresponds to IDD field `Wind Coefficient`
-        "Cw" in Equation
+        """Corresponds to IDD field `Wind Coefficient` "Cw" in Equation.
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
@@ -483,6 +662,7 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Wind Coefficient"] = value
 
@@ -490,33 +670,96 @@ class ZoneInfiltrationEffectiveLeakageArea(DataObject):
 
 
 class ZoneInfiltrationFlowCoefficient(DataObject):
+
     """ Corresponds to IDD object `ZoneInfiltration:FlowCoefficient`
         Infiltration is specified as flow coefficient, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * SQRT( (c * Cs*|(Tzone-Todb)|**n)**2 + (c* Cw*(s * WindSpd)**2n)**2 )
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow coefficient', {'name': u'Flow Coefficient', 'pyname': u'flow_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'stack coefficient', {'name': u'Stack Coefficient', 'pyname': u'stack_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pressure exponent', {'name': u'Pressure Exponent', 'pyname': u'pressure_exponent', 'default': 0.67, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'wind coefficient', {'name': u'Wind Coefficient', 'pyname': u'wind_coefficient', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'shelter factor', {'name': u'Shelter Factor', 'pyname': u'shelter_factor', 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 8,
- 'name': u'ZoneInfiltration:FlowCoefficient',
- 'pyname': u'ZoneInfiltrationFlowCoefficient',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'flow coefficient',
+                                      {'name': u'Flow Coefficient',
+                                       'pyname': u'flow_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'stack coefficient',
+                                      {'name': u'Stack Coefficient',
+                                       'pyname': u'stack_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'pressure exponent',
+                                      {'name': u'Pressure Exponent',
+                                       'pyname': u'pressure_exponent',
+                                       'default': 0.67,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'wind coefficient',
+                                      {'name': u'Wind Coefficient',
+                                       'pyname': u'wind_coefficient',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'shelter factor',
+                                      {'name': u'Shelter Factor',
+                                       'pyname': u'shelter_factor',
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 8,
+              'name': u'ZoneInfiltration:FlowCoefficient',
+              'pyname': u'ZoneInfiltrationFlowCoefficient',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -525,21 +768,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -548,21 +793,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -571,22 +818,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def flow_coefficient(self):
-        """Get flow_coefficient
+        """Get flow_coefficient.
 
         Returns:
             float: the value of `flow_coefficient` or None if not set
+
         """
         return self["Flow Coefficient"]
 
     @flow_coefficient.setter
     def flow_coefficient(self, value=None):
-        """  Corresponds to IDD field `Flow Coefficient`
-        "c" in Equation
+        """Corresponds to IDD field `Flow Coefficient` "c" in Equation.
 
         Args:
             value (float): value for IDD Field `Flow Coefficient`
@@ -595,22 +843,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Coefficient"] = value
 
     @property
     def stack_coefficient(self):
-        """Get stack_coefficient
+        """Get stack_coefficient.
 
         Returns:
             float: the value of `stack_coefficient` or None if not set
+
         """
         return self["Stack Coefficient"]
 
     @stack_coefficient.setter
     def stack_coefficient(self, value=None):
-        """  Corresponds to IDD field `Stack Coefficient`
-        "Cs" in Equation
+        """Corresponds to IDD field `Stack Coefficient` "Cs" in Equation.
 
         Args:
             value (float): value for IDD Field `Stack Coefficient`
@@ -619,22 +868,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Stack Coefficient"] = value
 
     @property
     def pressure_exponent(self):
-        """Get pressure_exponent
+        """Get pressure_exponent.
 
         Returns:
             float: the value of `pressure_exponent` or None if not set
+
         """
         return self["Pressure Exponent"]
 
     @pressure_exponent.setter
     def pressure_exponent(self, value=0.67):
-        """  Corresponds to IDD field `Pressure Exponent`
-        "n" in Equation
+        """Corresponds to IDD field `Pressure Exponent` "n" in Equation.
 
         Args:
             value (float): value for IDD Field `Pressure Exponent`
@@ -644,22 +894,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pressure Exponent"] = value
 
     @property
     def wind_coefficient(self):
-        """Get wind_coefficient
+        """Get wind_coefficient.
 
         Returns:
             float: the value of `wind_coefficient` or None if not set
+
         """
         return self["Wind Coefficient"]
 
     @wind_coefficient.setter
     def wind_coefficient(self, value=None):
-        """  Corresponds to IDD field `Wind Coefficient`
-        "Cw" in Equation
+        """Corresponds to IDD field `Wind Coefficient` "Cw" in Equation.
 
         Args:
             value (float): value for IDD Field `Wind Coefficient`
@@ -668,22 +919,23 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Wind Coefficient"] = value
 
     @property
     def shelter_factor(self):
-        """Get shelter_factor
+        """Get shelter_factor.
 
         Returns:
             float: the value of `shelter_factor` or None if not set
+
         """
         return self["Shelter Factor"]
 
     @shelter_factor.setter
     def shelter_factor(self, value=None):
-        """  Corresponds to IDD field `Shelter Factor`
-        "s" in Equation
+        """Corresponds to IDD field `Shelter Factor` "s" in Equation.
 
         Args:
             value (float): value for IDD Field `Shelter Factor`
@@ -692,6 +944,7 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Shelter Factor"] = value
 
@@ -699,6 +952,7 @@ class ZoneInfiltrationFlowCoefficient(DataObject):
 
 
 class ZoneVentilationDesignFlowRate(DataObject):
+
     """ Corresponds to IDD object `ZoneVentilation:DesignFlowRate`
         Ventilation is specified as a design level which is modified by a schedule fraction, temperature difference and wind speed:
         Ventilation=Vdesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
@@ -706,27 +960,259 @@ class ZoneVentilationDesignFlowRate(DataObject):
         to all the zones in the ZoneList.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone or zonelist name', {'name': u'Zone or ZoneList Name', 'pyname': u'zone_or_zonelist_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'Flow/Area', u'Flow/Person', u'AirChanges/Hour'], 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'ventilation type', {'name': u'Ventilation Type', 'pyname': u'ventilation_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Natural', u'Intake', u'Exhaust', u'Balanced'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'constant term coefficient', {'name': u'Constant Term Coefficient', 'pyname': u'constant_term_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term coefficient', {'name': u'Temperature Term Coefficient', 'pyname': u'temperature_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term coefficient', {'name': u'Velocity Term Coefficient', 'pyname': u'velocity_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term coefficient', {'name': u'Velocity Squared Term Coefficient', 'pyname': u'velocity_squared_term_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 15,
- 'name': u'ZoneVentilation:DesignFlowRate',
- 'pyname': u'ZoneVentilationDesignFlowRate',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone or zonelist name',
+                                      {'name': u'Zone or ZoneList Name',
+                                       'pyname': u'zone_or_zonelist_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Flow/Zone',
+                                                           u'Flow/Area',
+                                                           u'Flow/Person',
+                                                           u'AirChanges/Hour'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'ventilation type',
+                                      {'name': u'Ventilation Type',
+                                       'pyname': u'ventilation_type',
+                                       'default': u'Natural',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Natural',
+                                                           u'Intake',
+                                                           u'Exhaust',
+                                                           u'Balanced'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fan pressure rise',
+                                      {'name': u'Fan Pressure Rise',
+                                       'pyname': u'fan_pressure_rise',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'fan total efficiency',
+                                      {'name': u'Fan Total Efficiency',
+                                       'pyname': u'fan_total_efficiency',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'constant term coefficient',
+                                      {'name': u'Constant Term Coefficient',
+                                       'pyname': u'constant_term_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term coefficient',
+                                      {'name': u'Temperature Term Coefficient',
+                                       'pyname': u'temperature_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term coefficient',
+                                      {'name': u'Velocity Term Coefficient',
+                                       'pyname': u'velocity_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term coefficient',
+                                      {'name': u'Velocity Squared Term Coefficient',
+                                       'pyname': u'velocity_squared_term_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum indoor temperature schedule name',
+                                      {'name': u'Minimum Indoor Temperature Schedule Name',
+                                       'pyname': u'minimum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum indoor temperature',
+                                      {'name': u'Maximum Indoor Temperature',
+                                       'pyname': u'maximum_indoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum indoor temperature schedule name',
+                                      {'name': u'Maximum Indoor Temperature Schedule Name',
+                                       'pyname': u'maximum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': -100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature',
+                                      {'name': u'Minimum Outdoor Temperature',
+                                       'pyname': u'minimum_outdoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature',
+                                      {'name': u'Maximum Outdoor Temperature',
+                                       'pyname': u'maximum_outdoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum wind speed',
+                                      {'name': u'Maximum Wind Speed',
+                                       'pyname': u'maximum_wind_speed',
+                                       'default': 40.0,
+                                       'maximum': 40.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 15,
+              'name': u'ZoneVentilation:DesignFlowRate',
+              'pyname': u'ZoneVentilationDesignFlowRate',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -735,21 +1221,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_or_zonelist_name(self):
-        """Get zone_or_zonelist_name
+        """Get zone_or_zonelist_name.
 
         Returns:
             str: the value of `zone_or_zonelist_name` or None if not set
+
         """
         return self["Zone or ZoneList Name"]
 
     @zone_or_zonelist_name.setter
     def zone_or_zonelist_name(self, value=None):
-        """  Corresponds to IDD field `Zone or ZoneList Name`
+        """Corresponds to IDD field `Zone or ZoneList Name`
 
         Args:
             value (str): value for IDD Field `Zone or ZoneList Name`
@@ -758,21 +1246,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone or ZoneList Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -781,15 +1271,17 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
-        """Get design_flow_rate_calculation_method
+        """Get design_flow_rate_calculation_method.
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -817,16 +1309,17 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
     @property
     def design_flow_rate(self):
-        """Get design_flow_rate
+        """Get design_flow_rate.
 
         Returns:
             float: the value of `design_flow_rate` or None if not set
+
         """
         return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Flow Rate`
+        """Corresponds to IDD field `Design Flow Rate`
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -836,21 +1329,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
-        """Get flow_rate_per_zone_floor_area
+        """Get flow_rate_per_zone_floor_area.
 
         Returns:
             float: the value of `flow_rate_per_zone_floor_area` or None if not set
+
         """
         return self["Flow Rate per Zone Floor Area"]
 
     @flow_rate_per_zone_floor_area.setter
     def flow_rate_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Zone Floor Area`
+        """Corresponds to IDD field `Flow Rate per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
@@ -860,21 +1355,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
-        """Get flow_rate_per_person
+        """Get flow_rate_per_person.
 
         Returns:
             float: the value of `flow_rate_per_person` or None if not set
+
         """
         return self["Flow Rate per Person"]
 
     @flow_rate_per_person.setter
     def flow_rate_per_person(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Person`
+        """Corresponds to IDD field `Flow Rate per Person`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
@@ -884,21 +1381,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
-        """Get air_changes_per_hour
+        """Get air_changes_per_hour.
 
         Returns:
             float: the value of `air_changes_per_hour` or None if not set
+
         """
         return self["Air Changes per Hour"]
 
     @air_changes_per_hour.setter
     def air_changes_per_hour(self, value=None):
-        """  Corresponds to IDD field `Air Changes per Hour`
+        """Corresponds to IDD field `Air Changes per Hour`
 
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
@@ -908,21 +1407,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Changes per Hour"] = value
 
     @property
     def ventilation_type(self):
-        """Get ventilation_type
+        """Get ventilation_type.
 
         Returns:
             str: the value of `ventilation_type` or None if not set
+
         """
         return self["Ventilation Type"]
 
     @ventilation_type.setter
     def ventilation_type(self, value="Natural"):
-        """  Corresponds to IDD field `Ventilation Type`
+        """Corresponds to IDD field `Ventilation Type`
 
         Args:
             value (str): value for IDD Field `Ventilation Type`
@@ -932,22 +1433,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Ventilation Type"] = value
 
     @property
     def fan_pressure_rise(self):
-        """Get fan_pressure_rise
+        """Get fan_pressure_rise.
 
         Returns:
             float: the value of `fan_pressure_rise` or None if not set
+
         """
         return self["Fan Pressure Rise"]
 
     @fan_pressure_rise.setter
     def fan_pressure_rise(self, value=None):
-        """  Corresponds to IDD field `Fan Pressure Rise`
-        pressure rise across the fan
+        """Corresponds to IDD field `Fan Pressure Rise` pressure rise across
+        the fan.
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
@@ -957,21 +1460,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Pressure Rise"] = value
 
     @property
     def fan_total_efficiency(self):
-        """Get fan_total_efficiency
+        """Get fan_total_efficiency.
 
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
+
         """
         return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=1.0):
-        """  Corresponds to IDD field `Fan Total Efficiency`
+        """Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -981,22 +1486,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Total Efficiency"] = value
 
     @property
     def constant_term_coefficient(self):
-        """Get constant_term_coefficient
+        """Get constant_term_coefficient.
 
         Returns:
             float: the value of `constant_term_coefficient` or None if not set
+
         """
         return self["Constant Term Coefficient"]
 
     @constant_term_coefficient.setter
     def constant_term_coefficient(self, value=1.0):
-        """  Corresponds to IDD field `Constant Term Coefficient`
-        "A" in Equation
+        """Corresponds to IDD field `Constant Term Coefficient` "A" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Constant Term Coefficient`
@@ -1006,22 +1513,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Term Coefficient"] = value
 
     @property
     def temperature_term_coefficient(self):
-        """Get temperature_term_coefficient
+        """Get temperature_term_coefficient.
 
         Returns:
             float: the value of `temperature_term_coefficient` or None if not set
+
         """
         return self["Temperature Term Coefficient"]
 
     @temperature_term_coefficient.setter
     def temperature_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Temperature Term Coefficient`
-        "B" in Equation
+        """Corresponds to IDD field `Temperature Term Coefficient` "B" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Temperature Term Coefficient`
@@ -1030,22 +1539,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature Term Coefficient"] = value
 
     @property
     def velocity_term_coefficient(self):
-        """Get velocity_term_coefficient
+        """Get velocity_term_coefficient.
 
         Returns:
             float: the value of `velocity_term_coefficient` or None if not set
+
         """
         return self["Velocity Term Coefficient"]
 
     @velocity_term_coefficient.setter
     def velocity_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Term Coefficient`
-        "C" in Equation
+        """Corresponds to IDD field `Velocity Term Coefficient` "C" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Term Coefficient`
@@ -1054,22 +1565,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Term Coefficient"] = value
 
     @property
     def velocity_squared_term_coefficient(self):
-        """Get velocity_squared_term_coefficient
+        """Get velocity_squared_term_coefficient.
 
         Returns:
             float: the value of `velocity_squared_term_coefficient` or None if not set
+
         """
         return self["Velocity Squared Term Coefficient"]
 
     @velocity_squared_term_coefficient.setter
     def velocity_squared_term_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Squared Term Coefficient`
-        "D" in Equation
+        """Corresponds to IDD field `Velocity Squared Term Coefficient` "D" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Coefficient`
@@ -1078,22 +1591,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Squared Term Coefficient"] = value
 
     @property
     def minimum_indoor_temperature(self):
-        """Get minimum_indoor_temperature
+        """Get minimum_indoor_temperature.
 
         Returns:
             float: the value of `minimum_indoor_temperature` or None if not set
+
         """
         return self["Minimum Indoor Temperature"]
 
     @minimum_indoor_temperature.setter
     def minimum_indoor_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Minimum Indoor Temperature`
-        this is the indoor temperature below which ventilation is shutoff
+        """Corresponds to IDD field `Minimum Indoor Temperature` this is the
+        indoor temperature below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
@@ -1106,21 +1621,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Indoor Temperature"] = value
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
-        """Get minimum_indoor_temperature_schedule_name
+        """Get minimum_indoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_indoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Indoor Temperature Schedule Name"]
 
     @minimum_indoor_temperature_schedule_name.setter
     def minimum_indoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Indoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Indoor Temperature Schedule Name`
         This schedule contains the indoor temperature versus time below which
         ventilation is shutoff.
 
@@ -1131,22 +1648,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
     def maximum_indoor_temperature(self):
-        """Get maximum_indoor_temperature
+        """Get maximum_indoor_temperature.
 
         Returns:
             float: the value of `maximum_indoor_temperature` or None if not set
+
         """
         return self["Maximum Indoor Temperature"]
 
     @maximum_indoor_temperature.setter
     def maximum_indoor_temperature(self, value=100.0):
-        """  Corresponds to IDD field `Maximum Indoor Temperature`
-        this is the indoor temperature above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Indoor Temperature` this is the
+        indoor temperature above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Indoor Temperature`
@@ -1159,21 +1678,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Indoor Temperature"] = value
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
-        """Get maximum_indoor_temperature_schedule_name
+        """Get maximum_indoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_indoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Indoor Temperature Schedule Name"]
 
     @maximum_indoor_temperature_schedule_name.setter
     def maximum_indoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Indoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Indoor Temperature Schedule Name`
         This schedule contains the indoor temperature versus time above which
         ventilation is shutoff.
 
@@ -1184,22 +1705,26 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
     def delta_temperature(self):
-        """Get delta_temperature
+        """Get delta_temperature.
 
         Returns:
             float: the value of `delta_temperature` or None if not set
+
         """
         return self["Delta Temperature"]
 
     @delta_temperature.setter
     def delta_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Delta Temperature`
-        This is the temperature differential between indoor and outdoor below which ventilation is shutoff.
+        """Corresponds to IDD field `Delta Temperature` This is the temperature
+        differential between indoor and outdoor below which ventilation is
+        shutoff.
+
         If ((IndoorTemp - OutdoorTemp) < DeltaTemperature) then ventilation is not allowed.
         For example, if delta temperature is 2C, ventilation is assumed to be available if the outside air temperature
         is at least 2C cooler than the zone air temperature. The values for this field can include negative numbers.
@@ -1215,23 +1740,25 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
-        """Get delta_temperature_schedule_name
+        """Get delta_temperature_schedule_name.
 
         Returns:
             str: the value of `delta_temperature_schedule_name` or None if not set
+
         """
         return self["Delta Temperature Schedule Name"]
 
     @delta_temperature_schedule_name.setter
     def delta_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature Schedule Name`
-        This schedule contains the temperature differential between indoor and outdoor
-        versus time below which ventilation is shutoff.
+        """Corresponds to IDD field `Delta Temperature Schedule Name` This
+        schedule contains the temperature differential between indoor and
+        outdoor versus time below which ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -1240,22 +1767,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature(self):
-        """Get minimum_outdoor_temperature
+        """Get minimum_outdoor_temperature.
 
         Returns:
             float: the value of `minimum_outdoor_temperature` or None if not set
+
         """
         return self["Minimum Outdoor Temperature"]
 
     @minimum_outdoor_temperature.setter
     def minimum_outdoor_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature`
-        this is the outdoor temperature below which ventilation is shutoff
+        """Corresponds to IDD field `Minimum Outdoor Temperature` this is the
+        outdoor temperature below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
@@ -1268,21 +1797,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """Get minimum_outdoor_temperature_schedule_name
+        """Get minimum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Temperature Schedule Name"]
 
     @minimum_outdoor_temperature_schedule_name.setter
     def minimum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time below which
         ventilation is shutoff.
 
@@ -1293,22 +1824,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature(self):
-        """Get maximum_outdoor_temperature
+        """Get maximum_outdoor_temperature.
 
         Returns:
             float: the value of `maximum_outdoor_temperature` or None if not set
+
         """
         return self["Maximum Outdoor Temperature"]
 
     @maximum_outdoor_temperature.setter
     def maximum_outdoor_temperature(self, value=100.0):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature`
-        this is the outdoor temperature above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Outdoor Temperature` this is the
+        outdoor temperature above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
@@ -1321,21 +1854,23 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """Get maximum_outdoor_temperature_schedule_name
+        """Get maximum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Outdoor Temperature Schedule Name"]
 
     @maximum_outdoor_temperature_schedule_name.setter
     def maximum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time above which
         ventilation is shutoff.
 
@@ -1346,22 +1881,24 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_wind_speed(self):
-        """Get maximum_wind_speed
+        """Get maximum_wind_speed.
 
         Returns:
             float: the value of `maximum_wind_speed` or None if not set
+
         """
         return self["Maximum Wind Speed"]
 
     @maximum_wind_speed.setter
     def maximum_wind_speed(self, value=40.0):
-        """  Corresponds to IDD field `Maximum Wind Speed`
-        this is the outdoor wind speed above which ventilation is shutoff
+        """Corresponds to IDD field `Maximum Wind Speed` this is the outdoor
+        wind speed above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
@@ -1373,6 +1910,7 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Wind Speed"] = value
 
@@ -1380,6 +1918,7 @@ class ZoneVentilationDesignFlowRate(DataObject):
 
 
 class ZoneVentilationWindandStackOpenArea(DataObject):
+
     """ Corresponds to IDD object `ZoneVentilation:WindandStackOpenArea`
         This object is specified as natural ventilation driven by wind and stack effect only:
         Ventilation Wind = Cw * Opening Area * Schedule * WindSpd
@@ -1387,27 +1926,200 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
         Total Ventilation = SQRT((Ventilation Wind)^2 + (Ventilation Stack)^2)
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening area', {'name': u'Opening Area', 'pyname': u'opening_area', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'opening area fraction schedule name', {'name': u'Opening Area Fraction Schedule Name', 'pyname': u'opening_area_fraction_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'opening effectiveness', {'name': u'Opening Effectiveness', 'pyname': u'opening_effectiveness', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': u'real', 'unit': u'dimensionless'}), (u'effective angle', {'name': u'Effective Angle', 'pyname': u'effective_angle', 'default': 0.0, 'maximum<': 360.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'}), (u'height difference', {'name': u'Height Difference', 'pyname': u'height_difference', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'discharge coefficient for opening', {'name': u'Discharge Coefficient for Opening', 'pyname': u'discharge_coefficient_for_opening', 'default': 'Autocalculate', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': True, 'type': 'real'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum indoor temperature schedule name', {'name': u'Minimum Indoor Temperature Schedule Name', 'pyname': u'minimum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum indoor temperature', {'name': u'Maximum Indoor Temperature', 'pyname': u'maximum_indoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum indoor temperature schedule name', {'name': u'Maximum Indoor Temperature Schedule Name', 'pyname': u'maximum_indoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': -100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature', {'name': u'Minimum Outdoor Temperature', 'pyname': u'minimum_outdoor_temperature', 'default': -100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature', {'name': u'Maximum Outdoor Temperature', 'pyname': u'maximum_outdoor_temperature', 'default': 100.0, 'maximum': 100.0, 'required-field': False, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum wind speed', {'name': u'Maximum Wind Speed', 'pyname': u'maximum_wind_speed', 'default': 40.0, 'maximum': 40.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 8,
- 'name': u'ZoneVentilation:WindandStackOpenArea',
- 'pyname': u'ZoneVentilationWindandStackOpenArea',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'opening area',
+                                      {'name': u'Opening Area',
+                                       'pyname': u'opening_area',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'opening area fraction schedule name',
+                                      {'name': u'Opening Area Fraction Schedule Name',
+                                       'pyname': u'opening_area_fraction_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'opening effectiveness',
+                                      {'name': u'Opening Effectiveness',
+                                       'pyname': u'opening_effectiveness',
+                                       'default': 'Autocalculate',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': True,
+                                       'type': u'real',
+                                       'unit': u'dimensionless'}),
+                                     (u'effective angle',
+                                      {'name': u'Effective Angle',
+                                       'pyname': u'effective_angle',
+                                       'default': 0.0,
+                                       'maximum<': 360.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deg'}),
+                                     (u'height difference',
+                                      {'name': u'Height Difference',
+                                       'pyname': u'height_difference',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'discharge coefficient for opening',
+                                      {'name': u'Discharge Coefficient for Opening',
+                                       'pyname': u'discharge_coefficient_for_opening',
+                                       'default': 'Autocalculate',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': True,
+                                       'type': 'real'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum indoor temperature schedule name',
+                                      {'name': u'Minimum Indoor Temperature Schedule Name',
+                                       'pyname': u'minimum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum indoor temperature',
+                                      {'name': u'Maximum Indoor Temperature',
+                                       'pyname': u'maximum_indoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum indoor temperature schedule name',
+                                      {'name': u'Maximum Indoor Temperature Schedule Name',
+                                       'pyname': u'maximum_indoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': -100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature',
+                                      {'name': u'Minimum Outdoor Temperature',
+                                       'pyname': u'minimum_outdoor_temperature',
+                                       'default': -100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature',
+                                      {'name': u'Maximum Outdoor Temperature',
+                                       'pyname': u'maximum_outdoor_temperature',
+                                       'default': 100.0,
+                                       'maximum': 100.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum wind speed',
+                                      {'name': u'Maximum Wind Speed',
+                                       'pyname': u'maximum_wind_speed',
+                                       'default': 40.0,
+                                       'maximum': 40.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm/s'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 8,
+              'name': u'ZoneVentilation:WindandStackOpenArea',
+              'pyname': u'ZoneVentilationWindandStackOpenArea',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1416,21 +2128,23 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1439,22 +2153,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def opening_area(self):
-        """Get opening_area
+        """Get opening_area.
 
         Returns:
             float: the value of `opening_area` or None if not set
+
         """
         return self["Opening Area"]
 
     @opening_area.setter
     def opening_area(self, value=None):
-        """  Corresponds to IDD field `Opening Area`
-        This is the opening area used to calculate stack effect and wind driven ventilation.
+        """Corresponds to IDD field `Opening Area` This is the opening area
+        used to calculate stack effect and wind driven ventilation.
 
         Args:
             value (float): value for IDD Field `Opening Area`
@@ -1464,22 +2180,26 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Opening Area"] = value
 
     @property
     def opening_area_fraction_schedule_name(self):
-        """Get opening_area_fraction_schedule_name
+        """Get opening_area_fraction_schedule_name.
 
         Returns:
             str: the value of `opening_area_fraction_schedule_name` or None if not set
+
         """
         return self["Opening Area Fraction Schedule Name"]
 
     @opening_area_fraction_schedule_name.setter
     def opening_area_fraction_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Opening Area Fraction Schedule Name`
-        This schedule contains the fraction values applied to the opening area given in the previous
+        """Corresponds to IDD field `Opening Area Fraction Schedule Name` This
+        schedule contains the fraction values applied to the opening area given
+        in the previous.
+
         input field (0.0 - 1.0).
 
         Args:
@@ -1489,15 +2209,17 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Opening Area Fraction Schedule Name"] = value
 
     @property
     def opening_effectiveness(self):
-        """Get opening_effectiveness
+        """Get opening_effectiveness.
 
         Returns:
             float: the value of `opening_effectiveness` or None if not set
+
         """
         return self["Opening Effectiveness"]
 
@@ -1526,10 +2248,11 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def effective_angle(self):
-        """Get effective_angle
+        """Get effective_angle.
 
         Returns:
             float: the value of `effective_angle` or None if not set
+
         """
         return self["Effective Angle"]
 
@@ -1553,19 +2276,19 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def height_difference(self):
-        """Get height_difference
+        """Get height_difference.
 
         Returns:
             float: the value of `height_difference` or None if not set
+
         """
         return self["Height Difference"]
 
     @height_difference.setter
     def height_difference(self, value=None):
-        """  Corresponds to IDD field `Height Difference`
-        This is the height difference between the midpoint of an opening and
-        the neutral pressure level.
-        "DH" in the stack equation.
+        """Corresponds to IDD field `Height Difference` This is the height
+        difference between the midpoint of an opening and the neutral pressure
+        level. "DH" in the stack equation.
 
         Args:
             value (float): value for IDD Field `Height Difference`
@@ -1575,15 +2298,17 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Height Difference"] = value
 
     @property
     def discharge_coefficient_for_opening(self):
-        """Get discharge_coefficient_for_opening
+        """Get discharge_coefficient_for_opening.
 
         Returns:
             float: the value of `discharge_coefficient_for_opening` or None if not set
+
         """
         return self["Discharge Coefficient for Opening"]
 
@@ -1610,17 +2335,18 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
     @property
     def minimum_indoor_temperature(self):
-        """Get minimum_indoor_temperature
+        """Get minimum_indoor_temperature.
 
         Returns:
             float: the value of `minimum_indoor_temperature` or None if not set
+
         """
         return self["Minimum Indoor Temperature"]
 
     @minimum_indoor_temperature.setter
     def minimum_indoor_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Minimum Indoor Temperature`
-        This is the indoor temperature below which ventilation is shutoff.
+        """Corresponds to IDD field `Minimum Indoor Temperature` This is the
+        indoor temperature below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
@@ -1633,21 +2359,23 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Indoor Temperature"] = value
 
     @property
     def minimum_indoor_temperature_schedule_name(self):
-        """Get minimum_indoor_temperature_schedule_name
+        """Get minimum_indoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_indoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Indoor Temperature Schedule Name"]
 
     @minimum_indoor_temperature_schedule_name.setter
     def minimum_indoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Indoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Indoor Temperature Schedule Name`
         This schedule contains the indoor temperature versus time below which
         ventilation is shutoff.
 
@@ -1658,22 +2386,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Indoor Temperature Schedule Name"] = value
 
     @property
     def maximum_indoor_temperature(self):
-        """Get maximum_indoor_temperature
+        """Get maximum_indoor_temperature.
 
         Returns:
             float: the value of `maximum_indoor_temperature` or None if not set
+
         """
         return self["Maximum Indoor Temperature"]
 
     @maximum_indoor_temperature.setter
     def maximum_indoor_temperature(self, value=100.0):
-        """  Corresponds to IDD field `Maximum Indoor Temperature`
-        This is the indoor temperature above which ventilation is shutoff.
+        """Corresponds to IDD field `Maximum Indoor Temperature` This is the
+        indoor temperature above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Indoor Temperature`
@@ -1686,21 +2416,23 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Indoor Temperature"] = value
 
     @property
     def maximum_indoor_temperature_schedule_name(self):
-        """Get maximum_indoor_temperature_schedule_name
+        """Get maximum_indoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_indoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Indoor Temperature Schedule Name"]
 
     @maximum_indoor_temperature_schedule_name.setter
     def maximum_indoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Indoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Indoor Temperature Schedule Name`
         This schedule contains the indoor temperature versus time above which
         ventilation is shutoff.
 
@@ -1711,23 +2443,25 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Indoor Temperature Schedule Name"] = value
 
     @property
     def delta_temperature(self):
-        """Get delta_temperature
+        """Get delta_temperature.
 
         Returns:
             float: the value of `delta_temperature` or None if not set
+
         """
         return self["Delta Temperature"]
 
     @delta_temperature.setter
     def delta_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Delta Temperature`
-        This is the temperature differential between indoor and outdoor below
-        which ventilation is shutoff.
+        """Corresponds to IDD field `Delta Temperature` This is the temperature
+        differential between indoor and outdoor below which ventilation is
+        shutoff.
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
@@ -1739,23 +2473,25 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
-        """Get delta_temperature_schedule_name
+        """Get delta_temperature_schedule_name.
 
         Returns:
             str: the value of `delta_temperature_schedule_name` or None if not set
+
         """
         return self["Delta Temperature Schedule Name"]
 
     @delta_temperature_schedule_name.setter
     def delta_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature Schedule Name`
-        This schedule contains the temperature differential between indoor and outdoor
-        versus time below which ventilation is shutoff.
+        """Corresponds to IDD field `Delta Temperature Schedule Name` This
+        schedule contains the temperature differential between indoor and
+        outdoor versus time below which ventilation is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -1764,22 +2500,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_outdoor_temperature(self):
-        """Get minimum_outdoor_temperature
+        """Get minimum_outdoor_temperature.
 
         Returns:
             float: the value of `minimum_outdoor_temperature` or None if not set
+
         """
         return self["Minimum Outdoor Temperature"]
 
     @minimum_outdoor_temperature.setter
     def minimum_outdoor_temperature(self, value=-100.0):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature`
-        This is the outdoor temperature below which ventilation is shutoff.
+        """Corresponds to IDD field `Minimum Outdoor Temperature` This is the
+        outdoor temperature below which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Outdoor Temperature`
@@ -1792,21 +2530,23 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature"] = value
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """Get minimum_outdoor_temperature_schedule_name
+        """Get minimum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Temperature Schedule Name"]
 
     @minimum_outdoor_temperature_schedule_name.setter
     def minimum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time below which
         ventilation is shutoff.
 
@@ -1817,22 +2557,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature(self):
-        """Get maximum_outdoor_temperature
+        """Get maximum_outdoor_temperature.
 
         Returns:
             float: the value of `maximum_outdoor_temperature` or None if not set
+
         """
         return self["Maximum Outdoor Temperature"]
 
     @maximum_outdoor_temperature.setter
     def maximum_outdoor_temperature(self, value=100.0):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature`
-        This is the outdoor temperature above which ventilation is shutoff.
+        """Corresponds to IDD field `Maximum Outdoor Temperature` This is the
+        outdoor temperature above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Outdoor Temperature`
@@ -1845,21 +2587,23 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """Get maximum_outdoor_temperature_schedule_name
+        """Get maximum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Outdoor Temperature Schedule Name"]
 
     @maximum_outdoor_temperature_schedule_name.setter
     def maximum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time above which
         ventilation is shutoff.
 
@@ -1870,22 +2614,24 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_wind_speed(self):
-        """Get maximum_wind_speed
+        """Get maximum_wind_speed.
 
         Returns:
             float: the value of `maximum_wind_speed` or None if not set
+
         """
         return self["Maximum Wind Speed"]
 
     @maximum_wind_speed.setter
     def maximum_wind_speed(self, value=40.0):
-        """  Corresponds to IDD field `Maximum Wind Speed`
-        This is the outdoor wind speed above which ventilation is shutoff.
+        """Corresponds to IDD field `Maximum Wind Speed` This is the outdoor
+        wind speed above which ventilation is shutoff.
 
         Args:
             value (float): value for IDD Field `Maximum Wind Speed`
@@ -1897,6 +2643,7 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Wind Speed"] = value
 
@@ -1904,6 +2651,7 @@ class ZoneVentilationWindandStackOpenArea(DataObject):
 
 
 class ZoneAirBalanceOutdoorAir(DataObject):
+
     """ Corresponds to IDD object `ZoneAirBalance:OutdoorAir`
         Provide a combined zone outdoor air flow by including interactions between
         mechanical ventilation, infiltration and duct leakage.
@@ -1912,27 +2660,68 @@ class ZoneAirBalanceOutdoorAir(DataObject):
         unbalanced flows will be added in quadrature.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'air balance method', {'name': u'Air Balance Method', 'pyname': u'air_balance_method', 'default': u'Quadrature', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Quadrature', u'None'], 'autocalculatable': False, 'type': 'alpha'}), (u'induced outdoor air due to unbalanced duct leakage', {'name': u'Induced Outdoor Air Due to Unbalanced Duct Leakage', 'pyname': u'induced_outdoor_air_due_to_unbalanced_duct_leakage', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'induced outdoor air schedule name', {'name': u'Induced Outdoor Air Schedule Name', 'pyname': u'induced_outdoor_air_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 0,
- 'name': u'ZoneAirBalance:OutdoorAir',
- 'pyname': u'ZoneAirBalanceOutdoorAir',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'air balance method',
+                                      {'name': u'Air Balance Method',
+                                       'pyname': u'air_balance_method',
+                                       'default': u'Quadrature',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Quadrature',
+                                                           u'None'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'induced outdoor air due to unbalanced duct leakage',
+                                      {'name': u'Induced Outdoor Air Due to Unbalanced Duct Leakage',
+                                       'pyname': u'induced_outdoor_air_due_to_unbalanced_duct_leakage',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'induced outdoor air schedule name',
+                                      {'name': u'Induced Outdoor Air Schedule Name',
+                                       'pyname': u'induced_outdoor_air_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 0,
+              'name': u'ZoneAirBalance:OutdoorAir',
+              'pyname': u'ZoneAirBalanceOutdoorAir',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -1941,21 +2730,23 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -1964,15 +2755,17 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def air_balance_method(self):
-        """Get air_balance_method
+        """Get air_balance_method.
 
         Returns:
             str: the value of `air_balance_method` or None if not set
+
         """
         return self["Air Balance Method"]
 
@@ -1995,16 +2788,18 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
     @property
     def induced_outdoor_air_due_to_unbalanced_duct_leakage(self):
-        """Get induced_outdoor_air_due_to_unbalanced_duct_leakage
+        """Get induced_outdoor_air_due_to_unbalanced_duct_leakage.
 
         Returns:
             float: the value of `induced_outdoor_air_due_to_unbalanced_duct_leakage` or None if not set
+
         """
         return self["Induced Outdoor Air Due to Unbalanced Duct Leakage"]
 
     @induced_outdoor_air_due_to_unbalanced_duct_leakage.setter
     def induced_outdoor_air_due_to_unbalanced_duct_leakage(self, value=None):
-        """  Corresponds to IDD field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
+        """Corresponds to IDD field `Induced Outdoor Air Due to Unbalanced Duct
+        Leakage`
 
         Args:
             value (float): value for IDD Field `Induced Outdoor Air Due to Unbalanced Duct Leakage`
@@ -2014,22 +2809,26 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = value
 
     @property
     def induced_outdoor_air_schedule_name(self):
-        """Get induced_outdoor_air_schedule_name
+        """Get induced_outdoor_air_schedule_name.
 
         Returns:
             str: the value of `induced_outdoor_air_schedule_name` or None if not set
+
         """
         return self["Induced Outdoor Air Schedule Name"]
 
     @induced_outdoor_air_schedule_name.setter
     def induced_outdoor_air_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Induced Outdoor Air Schedule Name`
-        This schedule contains the fraction values applied to the Induced Outdoor Air given in the
+        """Corresponds to IDD field `Induced Outdoor Air Schedule Name` This
+        schedule contains the fraction values applied to the Induced Outdoor
+        Air given in the.
+
         previous input field (0.0 - 1.0).
 
         Args:
@@ -2039,6 +2838,7 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Induced Outdoor Air Schedule Name"] = value
 
@@ -2046,35 +2846,173 @@ class ZoneAirBalanceOutdoorAir(DataObject):
 
 
 class ZoneMixing(DataObject):
-    """ Corresponds to IDD object `ZoneMixing`
-        ZoneMixing is a simple air exchange from one zone to another. Note that this statement
-        only affects the energy balance of the "receiving" zone and will not produce
-        any effect on the "source" zone. Mixing statements can be complementary and include
-        multiple zones, but the balancing of flows between zones is left to the user's
-        discretion.
+
+    """Corresponds to IDD object `ZoneMixing` ZoneMixing is a simple air
+    exchange from one zone to another.
+
+    Note that this statement only affects the energy balance of the
+    "receiving" zone and will not produce any effect on the "source"
+    zone. Mixing statements can be complementary and include multiple
+    zones, but the balancing of flows between zones is left to the
+    user's discretion.
+
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'Flow/Area', u'Flow/Person', u'AirChanges/Hour'], 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 9,
- 'name': u'ZoneMixing',
- 'pyname': u'ZoneMixing',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Flow/Zone',
+                                                           u'Flow/Area',
+                                                           u'Flow/Person',
+                                                           u'AirChanges/Hour'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'source zone name',
+                                      {'name': u'Source Zone Name',
+                                       'pyname': u'source_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum zone temperature schedule name',
+                                      {'name': u'Minimum Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum zone temperature schedule name',
+                                      {'name': u'Maximum Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum source zone temperature schedule name',
+                                      {'name': u'Minimum Source Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum source zone temperature schedule name',
+                                      {'name': u'Maximum Source Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 9,
+              'name': u'ZoneMixing',
+              'pyname': u'ZoneMixing',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2083,21 +3021,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2106,21 +3046,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2129,15 +3071,17 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
-        """Get design_flow_rate_calculation_method
+        """Get design_flow_rate_calculation_method.
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -2165,16 +3109,17 @@ class ZoneMixing(DataObject):
 
     @property
     def design_flow_rate(self):
-        """Get design_flow_rate
+        """Get design_flow_rate.
 
         Returns:
             float: the value of `design_flow_rate` or None if not set
+
         """
         return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Flow Rate`
+        """Corresponds to IDD field `Design Flow Rate`
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -2184,21 +3129,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
-        """Get flow_rate_per_zone_floor_area
+        """Get flow_rate_per_zone_floor_area.
 
         Returns:
             float: the value of `flow_rate_per_zone_floor_area` or None if not set
+
         """
         return self["Flow Rate per Zone Floor Area"]
 
     @flow_rate_per_zone_floor_area.setter
     def flow_rate_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Zone Floor Area`
+        """Corresponds to IDD field `Flow Rate per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
@@ -2208,21 +3155,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
-        """Get flow_rate_per_person
+        """Get flow_rate_per_person.
 
         Returns:
             float: the value of `flow_rate_per_person` or None if not set
+
         """
         return self["Flow Rate per Person"]
 
     @flow_rate_per_person.setter
     def flow_rate_per_person(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Person`
+        """Corresponds to IDD field `Flow Rate per Person`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
@@ -2232,21 +3181,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
-        """Get air_changes_per_hour
+        """Get air_changes_per_hour.
 
         Returns:
             float: the value of `air_changes_per_hour` or None if not set
+
         """
         return self["Air Changes per Hour"]
 
     @air_changes_per_hour.setter
     def air_changes_per_hour(self, value=None):
-        """  Corresponds to IDD field `Air Changes per Hour`
+        """Corresponds to IDD field `Air Changes per Hour`
 
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
@@ -2256,21 +3207,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Changes per Hour"] = value
 
     @property
     def source_zone_name(self):
-        """Get source_zone_name
+        """Get source_zone_name.
 
         Returns:
             str: the value of `source_zone_name` or None if not set
+
         """
         return self["Source Zone Name"]
 
     @source_zone_name.setter
     def source_zone_name(self, value=None):
-        """  Corresponds to IDD field `Source Zone Name`
+        """Corresponds to IDD field `Source Zone Name`
 
         Args:
             value (str): value for IDD Field `Source Zone Name`
@@ -2279,23 +3232,25 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Source Zone Name"] = value
 
     @property
     def delta_temperature(self):
-        """Get delta_temperature
+        """Get delta_temperature.
 
         Returns:
             float: the value of `delta_temperature` or None if not set
+
         """
         return self["Delta Temperature"]
 
     @delta_temperature.setter
     def delta_temperature(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature`
-        This field contains the constant temperature differential between source and
-        receiving zones below which mixing is shutoff.
+        """Corresponds to IDD field `Delta Temperature` This field contains the
+        constant temperature differential between source and receiving zones
+        below which mixing is shutoff.
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
@@ -2305,23 +3260,25 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
-        """Get delta_temperature_schedule_name
+        """Get delta_temperature_schedule_name.
 
         Returns:
             str: the value of `delta_temperature_schedule_name` or None if not set
+
         """
         return self["Delta Temperature Schedule Name"]
 
     @delta_temperature_schedule_name.setter
     def delta_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature Schedule Name`
-        This schedule contains the temperature differential between source and receiving
-        zones versus time below which mixing is shutoff.
+        """Corresponds to IDD field `Delta Temperature Schedule Name` This
+        schedule contains the temperature differential between source and
+        receiving zones versus time below which mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -2330,15 +3287,17 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_zone_temperature_schedule_name(self):
-        """Get minimum_zone_temperature_schedule_name
+        """Get minimum_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Zone Temperature Schedule Name"]
 
@@ -2360,10 +3319,11 @@ class ZoneMixing(DataObject):
 
     @property
     def maximum_zone_temperature_schedule_name(self):
-        """Get maximum_zone_temperature_schedule_name
+        """Get maximum_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Zone Temperature Schedule Name"]
 
@@ -2385,10 +3345,11 @@ class ZoneMixing(DataObject):
 
     @property
     def minimum_source_zone_temperature_schedule_name(self):
-        """Get minimum_source_zone_temperature_schedule_name
+        """Get minimum_source_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Source Zone Temperature Schedule Name"]
 
@@ -2410,10 +3371,11 @@ class ZoneMixing(DataObject):
 
     @property
     def maximum_source_zone_temperature_schedule_name(self):
-        """Get maximum_source_zone_temperature_schedule_name
+        """Get maximum_source_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Source Zone Temperature Schedule Name"]
 
@@ -2435,16 +3397,17 @@ class ZoneMixing(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """Get minimum_outdoor_temperature_schedule_name
+        """Get minimum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Temperature Schedule Name"]
 
     @minimum_outdoor_temperature_schedule_name.setter
     def minimum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time below which
         mixing is shutoff.
 
@@ -2455,21 +3418,23 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """Get maximum_outdoor_temperature_schedule_name
+        """Get maximum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Outdoor Temperature Schedule Name"]
 
     @maximum_outdoor_temperature_schedule_name.setter
     def maximum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time above which
         mixing is shutoff.
 
@@ -2480,6 +3445,7 @@ class ZoneMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -2487,32 +3453,170 @@ class ZoneMixing(DataObject):
 
 
 class ZoneCrossMixing(DataObject):
-    """ Corresponds to IDD object `ZoneCrossMixing`
-        ZoneCrossMixing exchanges an equal amount of air between two zones. Note that this
-        statement affects the energy balance of both zones.
+
+    """Corresponds to IDD object `ZoneCrossMixing` ZoneCrossMixing exchanges an
+    equal amount of air between two zones.
+
+    Note that this statement affects the energy balance of both zones.
+
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate calculation method', {'name': u'Design Flow Rate Calculation Method', 'pyname': u'design_flow_rate_calculation_method', 'default': u'Flow/Zone', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Flow/Zone', u'Flow/Person', u'Flow/Area', u'AirChanges/Hour'], 'autocalculatable': False, 'type': 'alpha'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'flow rate per zone floor area', {'name': u'Flow Rate per Zone Floor Area', 'pyname': u'flow_rate_per_zone_floor_area', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-m2'}), (u'flow rate per person', {'name': u'Flow Rate per Person', 'pyname': u'flow_rate_per_person', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s-person'}), (u'air changes per hour', {'name': u'Air Changes per Hour', 'pyname': u'air_changes_per_hour', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'1/hr'}), (u'source zone name', {'name': u'Source Zone Name', 'pyname': u'source_zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'default': 0.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'delta temperature schedule name', {'name': u'Delta Temperature Schedule Name', 'pyname': u'delta_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum zone temperature schedule name', {'name': u'Minimum Zone Temperature Schedule Name', 'pyname': u'minimum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum zone temperature schedule name', {'name': u'Maximum Zone Temperature Schedule Name', 'pyname': u'maximum_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum source zone temperature schedule name', {'name': u'Minimum Source Zone Temperature Schedule Name', 'pyname': u'minimum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum source zone temperature schedule name', {'name': u'Maximum Source Zone Temperature Schedule Name', 'pyname': u'maximum_source_zone_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'minimum outdoor temperature schedule name', {'name': u'Minimum Outdoor Temperature Schedule Name', 'pyname': u'minimum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum outdoor temperature schedule name', {'name': u'Maximum Outdoor Temperature Schedule Name', 'pyname': u'maximum_outdoor_temperature_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 9,
- 'name': u'ZoneCrossMixing',
- 'pyname': u'ZoneCrossMixing',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate calculation method',
+                                      {'name': u'Design Flow Rate Calculation Method',
+                                       'pyname': u'design_flow_rate_calculation_method',
+                                       'default': u'Flow/Zone',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Flow/Zone',
+                                                           u'Flow/Person',
+                                                           u'Flow/Area',
+                                                           u'AirChanges/Hour'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'flow rate per zone floor area',
+                                      {'name': u'Flow Rate per Zone Floor Area',
+                                       'pyname': u'flow_rate_per_zone_floor_area',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-m2'}),
+                                     (u'flow rate per person',
+                                      {'name': u'Flow Rate per Person',
+                                       'pyname': u'flow_rate_per_person',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s-person'}),
+                                     (u'air changes per hour',
+                                      {'name': u'Air Changes per Hour',
+                                       'pyname': u'air_changes_per_hour',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'1/hr'}),
+                                     (u'source zone name',
+                                      {'name': u'Source Zone Name',
+                                       'pyname': u'source_zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'default': 0.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'delta temperature schedule name',
+                                      {'name': u'Delta Temperature Schedule Name',
+                                       'pyname': u'delta_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum zone temperature schedule name',
+                                      {'name': u'Minimum Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum zone temperature schedule name',
+                                      {'name': u'Maximum Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum source zone temperature schedule name',
+                                      {'name': u'Minimum Source Zone Temperature Schedule Name',
+                                       'pyname': u'minimum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum source zone temperature schedule name',
+                                      {'name': u'Maximum Source Zone Temperature Schedule Name',
+                                       'pyname': u'maximum_source_zone_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'minimum outdoor temperature schedule name',
+                                      {'name': u'Minimum Outdoor Temperature Schedule Name',
+                                       'pyname': u'minimum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum outdoor temperature schedule name',
+                                      {'name': u'Maximum Outdoor Temperature Schedule Name',
+                                       'pyname': u'maximum_outdoor_temperature_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 9,
+              'name': u'ZoneCrossMixing',
+              'pyname': u'ZoneCrossMixing',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2521,21 +3625,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -2544,21 +3650,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -2567,15 +3675,17 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def design_flow_rate_calculation_method(self):
-        """Get design_flow_rate_calculation_method
+        """Get design_flow_rate_calculation_method.
 
         Returns:
             str: the value of `design_flow_rate_calculation_method` or None if not set
+
         """
         return self["Design Flow Rate Calculation Method"]
 
@@ -2603,16 +3713,17 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def design_flow_rate(self):
-        """Get design_flow_rate
+        """Get design_flow_rate.
 
         Returns:
             float: the value of `design_flow_rate` or None if not set
+
         """
         return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Flow Rate`
+        """Corresponds to IDD field `Design Flow Rate`
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -2622,21 +3733,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Flow Rate"] = value
 
     @property
     def flow_rate_per_zone_floor_area(self):
-        """Get flow_rate_per_zone_floor_area
+        """Get flow_rate_per_zone_floor_area.
 
         Returns:
             float: the value of `flow_rate_per_zone_floor_area` or None if not set
+
         """
         return self["Flow Rate per Zone Floor Area"]
 
     @flow_rate_per_zone_floor_area.setter
     def flow_rate_per_zone_floor_area(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Zone Floor Area`
+        """Corresponds to IDD field `Flow Rate per Zone Floor Area`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Zone Floor Area`
@@ -2646,21 +3759,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Zone Floor Area"] = value
 
     @property
     def flow_rate_per_person(self):
-        """Get flow_rate_per_person
+        """Get flow_rate_per_person.
 
         Returns:
             float: the value of `flow_rate_per_person` or None if not set
+
         """
         return self["Flow Rate per Person"]
 
     @flow_rate_per_person.setter
     def flow_rate_per_person(self, value=None):
-        """  Corresponds to IDD field `Flow Rate per Person`
+        """Corresponds to IDD field `Flow Rate per Person`
 
         Args:
             value (float): value for IDD Field `Flow Rate per Person`
@@ -2670,21 +3785,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Flow Rate per Person"] = value
 
     @property
     def air_changes_per_hour(self):
-        """Get air_changes_per_hour
+        """Get air_changes_per_hour.
 
         Returns:
             float: the value of `air_changes_per_hour` or None if not set
+
         """
         return self["Air Changes per Hour"]
 
     @air_changes_per_hour.setter
     def air_changes_per_hour(self, value=None):
-        """  Corresponds to IDD field `Air Changes per Hour`
+        """Corresponds to IDD field `Air Changes per Hour`
 
         Args:
             value (float): value for IDD Field `Air Changes per Hour`
@@ -2694,21 +3811,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Air Changes per Hour"] = value
 
     @property
     def source_zone_name(self):
-        """Get source_zone_name
+        """Get source_zone_name.
 
         Returns:
             str: the value of `source_zone_name` or None if not set
+
         """
         return self["Source Zone Name"]
 
     @source_zone_name.setter
     def source_zone_name(self, value=None):
-        """  Corresponds to IDD field `Source Zone Name`
+        """Corresponds to IDD field `Source Zone Name`
 
         Args:
             value (str): value for IDD Field `Source Zone Name`
@@ -2717,24 +3836,26 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Source Zone Name"] = value
 
     @property
     def delta_temperature(self):
-        """Get delta_temperature
+        """Get delta_temperature.
 
         Returns:
             float: the value of `delta_temperature` or None if not set
+
         """
         return self["Delta Temperature"]
 
     @delta_temperature.setter
     def delta_temperature(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature`
-        This field contains the constant temperature differential between source and
-        receiving zones below which cross mixing is shutoff. This value must be greater
-        than or equal to zero.
+        """Corresponds to IDD field `Delta Temperature` This field contains the
+        constant temperature differential between source and receiving zones
+        below which cross mixing is shutoff. This value must be greater than or
+        equal to zero.
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
@@ -2744,23 +3865,25 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature"] = value
 
     @property
     def delta_temperature_schedule_name(self):
-        """Get delta_temperature_schedule_name
+        """Get delta_temperature_schedule_name.
 
         Returns:
             str: the value of `delta_temperature_schedule_name` or None if not set
+
         """
         return self["Delta Temperature Schedule Name"]
 
     @delta_temperature_schedule_name.setter
     def delta_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature Schedule Name`
-        This schedule contains the temperature differential between source and receiving
-        zones versus time below which cross mixing is shutoff.
+        """Corresponds to IDD field `Delta Temperature Schedule Name` This
+        schedule contains the temperature differential between source and
+        receiving zones versus time below which cross mixing is shutoff.
 
         Args:
             value (str): value for IDD Field `Delta Temperature Schedule Name`
@@ -2769,21 +3892,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature Schedule Name"] = value
 
     @property
     def minimum_zone_temperature_schedule_name(self):
-        """Get minimum_zone_temperature_schedule_name
+        """Get minimum_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Zone Temperature Schedule Name"]
 
     @minimum_zone_temperature_schedule_name.setter
     def minimum_zone_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Zone Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Zone Temperature Schedule Name`
         This schedule contains the indoor temperature versus time below which
         cross mixing is shutoff.
 
@@ -2794,21 +3919,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Zone Temperature Schedule Name"] = value
 
     @property
     def maximum_zone_temperature_schedule_name(self):
-        """Get maximum_zone_temperature_schedule_name
+        """Get maximum_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Zone Temperature Schedule Name"]
 
     @maximum_zone_temperature_schedule_name.setter
     def maximum_zone_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Zone Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Zone Temperature Schedule Name`
         This schedule contains the indoor temperature versus time above which
         cross mixing is shutoff.
 
@@ -2819,15 +3946,17 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Zone Temperature Schedule Name"] = value
 
     @property
     def minimum_source_zone_temperature_schedule_name(self):
-        """Get minimum_source_zone_temperature_schedule_name
+        """Get minimum_source_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Source Zone Temperature Schedule Name"]
 
@@ -2849,10 +3978,11 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def maximum_source_zone_temperature_schedule_name(self):
-        """Get maximum_source_zone_temperature_schedule_name
+        """Get maximum_source_zone_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_source_zone_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Source Zone Temperature Schedule Name"]
 
@@ -2874,16 +4004,17 @@ class ZoneCrossMixing(DataObject):
 
     @property
     def minimum_outdoor_temperature_schedule_name(self):
-        """Get minimum_outdoor_temperature_schedule_name
+        """Get minimum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `minimum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Minimum Outdoor Temperature Schedule Name"]
 
     @minimum_outdoor_temperature_schedule_name.setter
     def minimum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Minimum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time below which
         cross mixing is shutoff.
 
@@ -2894,21 +4025,23 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Outdoor Temperature Schedule Name"] = value
 
     @property
     def maximum_outdoor_temperature_schedule_name(self):
-        """Get maximum_outdoor_temperature_schedule_name
+        """Get maximum_outdoor_temperature_schedule_name.
 
         Returns:
             str: the value of `maximum_outdoor_temperature_schedule_name` or None if not set
+
         """
         return self["Maximum Outdoor Temperature Schedule Name"]
 
     @maximum_outdoor_temperature_schedule_name.setter
     def maximum_outdoor_temperature_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
+        """Corresponds to IDD field `Maximum Outdoor Temperature Schedule Name`
         This schedule contains the outdoor temperature versus time above which
         cross mixing is shutoff.
 
@@ -2919,6 +4052,7 @@ class ZoneCrossMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -2926,36 +4060,101 @@ class ZoneCrossMixing(DataObject):
 
 
 class ZoneRefrigerationDoorMixing(DataObject):
-    """ Corresponds to IDD object `ZoneRefrigerationDoorMixing`
-        Refrigeration Door Mixing is used for an opening between two zones that are at the
-        same elevation but have different air temperatures.  In this case, the mixing air flow
-        between the two zones is determined by the density difference between the two zones.
-        This would typically be used between two zones in a refrigerated warehouse that are
-        controlled at different temperatures.  It could also be used to model a door to a walk-in
-        refrigerated space if that space were modeled as a zone instead of using the object Refrigeration:WalkIn.
+
+    """Corresponds to IDD object `ZoneRefrigerationDoorMixing` Refrigeration
+    Door Mixing is used for an opening between two zones that are at the same
+    elevation but have different air temperatures.
+
+    In this case, the mixing air flow
+    between the two zones is determined by the density difference between the two zones.
+    This would typically be used between two zones in a refrigerated warehouse that are
+    controlled at different temperatures.  It could also be used to model a door to a walk-in
+    refrigerated space if that space were modeled as a zone instead of using the object Refrigeration:WalkIn.
+
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'door height', {'name': u'Door Height', 'pyname': u'door_height', 'default': 3.0, 'maximum': 50.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'door area', {'name': u'Door Area', 'pyname': u'door_area', 'default': 9.0, 'maximum': 400.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'door protection type', {'name': u'Door Protection Type', 'pyname': u'door_protection_type', 'default': u'None', 'required-field': False, 'autosizable': False, 'accepted-values': [u'None', u'AirCurtain', u'StripCurtain'], 'autocalculatable': False, 'type': 'alpha'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 4,
- 'name': u'ZoneRefrigerationDoorMixing',
- 'pyname': u'ZoneRefrigerationDoorMixing',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'alpha'}),
+                                     (u'zone 1 name',
+                                      {'name': u'Zone 1 Name',
+                                       'pyname': u'zone_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone 2 name',
+                                      {'name': u'Zone 2 Name',
+                                       'pyname': u'zone_2_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'door height',
+                                      {'name': u'Door Height',
+                                       'pyname': u'door_height',
+                                       'default': 3.0,
+                                       'maximum': 50.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'door area',
+                                      {'name': u'Door Area',
+                                       'pyname': u'door_area',
+                                       'default': 9.0,
+                                       'maximum': 400.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'door protection type',
+                                      {'name': u'Door Protection Type',
+                                       'pyname': u'door_protection_type',
+                                       'default': u'None',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'None',
+                                                           u'AirCurtain',
+                                                           u'StripCurtain'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 4,
+              'name': u'ZoneRefrigerationDoorMixing',
+              'pyname': u'ZoneRefrigerationDoorMixing',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -2964,21 +4163,23 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_1_name(self):
-        """Get zone_1_name
+        """Get zone_1_name.
 
         Returns:
             str: the value of `zone_1_name` or None if not set
+
         """
         return self["Zone 1 Name"]
 
     @zone_1_name.setter
     def zone_1_name(self, value=None):
-        """  Corresponds to IDD field `Zone 1 Name`
+        """Corresponds to IDD field `Zone 1 Name`
 
         Args:
             value (str): value for IDD Field `Zone 1 Name`
@@ -2987,21 +4188,23 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 1 Name"] = value
 
     @property
     def zone_2_name(self):
-        """Get zone_2_name
+        """Get zone_2_name.
 
         Returns:
             str: the value of `zone_2_name` or None if not set
+
         """
         return self["Zone 2 Name"]
 
     @zone_2_name.setter
     def zone_2_name(self, value=None):
-        """  Corresponds to IDD field `Zone 2 Name`
+        """Corresponds to IDD field `Zone 2 Name`
 
         Args:
             value (str): value for IDD Field `Zone 2 Name`
@@ -3010,15 +4213,17 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 2 Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
@@ -3044,16 +4249,17 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
     @property
     def door_height(self):
-        """Get door_height
+        """Get door_height.
 
         Returns:
             float: the value of `door_height` or None if not set
+
         """
         return self["Door Height"]
 
     @door_height.setter
     def door_height(self, value=3.0):
-        """  Corresponds to IDD field `Door Height`
+        """Corresponds to IDD field `Door Height`
 
         Args:
             value (float): value for IDD Field `Door Height`
@@ -3065,21 +4271,23 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Door Height"] = value
 
     @property
     def door_area(self):
-        """Get door_area
+        """Get door_area.
 
         Returns:
             float: the value of `door_area` or None if not set
+
         """
         return self["Door Area"]
 
     @door_area.setter
     def door_area(self, value=9.0):
-        """  Corresponds to IDD field `Door Area`
+        """Corresponds to IDD field `Door Area`
 
         Args:
             value (float): value for IDD Field `Door Area`
@@ -3091,15 +4299,17 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Door Area"] = value
 
     @property
     def door_protection_type(self):
-        """Get door_protection_type
+        """Get door_protection_type.
 
         Returns:
             str: the value of `door_protection_type` or None if not set
+
         """
         return self["Door Protection Type"]
 
@@ -3126,32 +4336,238 @@ class ZoneRefrigerationDoorMixing(DataObject):
 
 
 class ZoneEarthtube(DataObject):
+
     """ Corresponds to IDD object `ZoneEarthtube`
         Earth Tube is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Earthtube=Edesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'schedule name', {'name': u'Schedule Name', 'pyname': u'schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'design flow rate', {'name': u'Design Flow Rate', 'pyname': u'design_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum zone temperature when cooling', {'name': u'Minimum Zone Temperature when Cooling', 'pyname': u'minimum_zone_temperature_when_cooling', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'maximum zone temperature when heating', {'name': u'Maximum Zone Temperature when Heating', 'pyname': u'maximum_zone_temperature_when_heating', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'delta temperature', {'name': u'Delta Temperature', 'pyname': u'delta_temperature', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'deltaC'}), (u'earthtube type', {'name': u'Earthtube Type', 'pyname': u'earthtube_type', 'default': u'Natural', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Natural', u'Intake', u'Exhaust'], 'autocalculatable': False, 'type': 'alpha'}), (u'fan pressure rise', {'name': u'Fan Pressure Rise', 'pyname': u'fan_pressure_rise', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'Pa'}), (u'fan total efficiency', {'name': u'Fan Total Efficiency', 'pyname': u'fan_total_efficiency', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'pipe radius', {'name': u'Pipe Radius', 'pyname': u'pipe_radius', 'default': 1.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thickness', {'name': u'Pipe Thickness', 'pyname': u'pipe_thickness', 'default': 0.2, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe length', {'name': u'Pipe Length', 'pyname': u'pipe_length', 'default': 15.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'pipe thermal conductivity', {'name': u'Pipe Thermal Conductivity', 'pyname': u'pipe_thermal_conductivity', 'default': 200.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W/m-K'}), (u'pipe depth under ground surface', {'name': u'Pipe Depth Under Ground Surface', 'pyname': u'pipe_depth_under_ground_surface', 'default': 3.0, 'minimum>': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'soil condition', {'name': u'Soil Condition', 'pyname': u'soil_condition', 'default': u'HeavyAndDamp', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeavyAndSaturated', u'HeavyAndDamp', u'HeavyAndDry', u'LightAndDry'], 'autocalculatable': False, 'type': 'alpha'}), (u'average soil surface temperature', {'name': u'Average Soil Surface Temperature', 'pyname': u'average_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'amplitude of soil surface temperature', {'name': u'Amplitude of Soil Surface Temperature', 'pyname': u'amplitude_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'phase constant of soil surface temperature', {'name': u'Phase Constant of Soil Surface Temperature', 'pyname': u'phase_constant_of_soil_surface_temperature', 'default': 0.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'days'}), (u'constant term flow coefficient', {'name': u'Constant Term Flow Coefficient', 'pyname': u'constant_term_flow_coefficient', 'default': 1.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'temperature term flow coefficient', {'name': u'Temperature Term Flow Coefficient', 'pyname': u'temperature_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity term flow coefficient', {'name': u'Velocity Term Flow Coefficient', 'pyname': u'velocity_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'}), (u'velocity squared term flow coefficient', {'name': u'Velocity Squared Term Flow Coefficient', 'pyname': u'velocity_squared_term_flow_coefficient', 'default': 0.0, 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 22,
- 'name': u'ZoneEarthtube',
- 'pyname': u'ZoneEarthtube',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'schedule name',
+                                      {'name': u'Schedule Name',
+                                       'pyname': u'schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'design flow rate',
+                                      {'name': u'Design Flow Rate',
+                                       'pyname': u'design_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum zone temperature when cooling',
+                                      {'name': u'Minimum Zone Temperature when Cooling',
+                                       'pyname': u'minimum_zone_temperature_when_cooling',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'maximum zone temperature when heating',
+                                      {'name': u'Maximum Zone Temperature when Heating',
+                                       'pyname': u'maximum_zone_temperature_when_heating',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'delta temperature',
+                                      {'name': u'Delta Temperature',
+                                       'pyname': u'delta_temperature',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'deltaC'}),
+                                     (u'earthtube type',
+                                      {'name': u'Earthtube Type',
+                                       'pyname': u'earthtube_type',
+                                       'default': u'Natural',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'Natural',
+                                                           u'Intake',
+                                                           u'Exhaust'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'fan pressure rise',
+                                      {'name': u'Fan Pressure Rise',
+                                       'pyname': u'fan_pressure_rise',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'Pa'}),
+                                     (u'fan total efficiency',
+                                      {'name': u'Fan Total Efficiency',
+                                       'pyname': u'fan_total_efficiency',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'pipe radius',
+                                      {'name': u'Pipe Radius',
+                                       'pyname': u'pipe_radius',
+                                       'default': 1.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe thickness',
+                                      {'name': u'Pipe Thickness',
+                                       'pyname': u'pipe_thickness',
+                                       'default': 0.2,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe length',
+                                      {'name': u'Pipe Length',
+                                       'pyname': u'pipe_length',
+                                       'default': 15.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'pipe thermal conductivity',
+                                      {'name': u'Pipe Thermal Conductivity',
+                                       'pyname': u'pipe_thermal_conductivity',
+                                       'default': 200.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W/m-K'}),
+                                     (u'pipe depth under ground surface',
+                                      {'name': u'Pipe Depth Under Ground Surface',
+                                       'pyname': u'pipe_depth_under_ground_surface',
+                                       'default': 3.0,
+                                       'minimum>': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'soil condition',
+                                      {'name': u'Soil Condition',
+                                       'pyname': u'soil_condition',
+                                       'default': u'HeavyAndDamp',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'accepted-values': [u'HeavyAndSaturated',
+                                                           u'HeavyAndDamp',
+                                                           u'HeavyAndDry',
+                                                           u'LightAndDry'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'average soil surface temperature',
+                                      {'name': u'Average Soil Surface Temperature',
+                                       'pyname': u'average_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'amplitude of soil surface temperature',
+                                      {'name': u'Amplitude of Soil Surface Temperature',
+                                       'pyname': u'amplitude_of_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'phase constant of soil surface temperature',
+                                      {'name': u'Phase Constant of Soil Surface Temperature',
+                                       'pyname': u'phase_constant_of_soil_surface_temperature',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'days'}),
+                                     (u'constant term flow coefficient',
+                                      {'name': u'Constant Term Flow Coefficient',
+                                       'pyname': u'constant_term_flow_coefficient',
+                                       'default': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'temperature term flow coefficient',
+                                      {'name': u'Temperature Term Flow Coefficient',
+                                       'pyname': u'temperature_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity term flow coefficient',
+                                      {'name': u'Velocity Term Flow Coefficient',
+                                       'pyname': u'velocity_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'velocity squared term flow coefficient',
+                                      {'name': u'Velocity Squared Term Flow Coefficient',
+                                       'pyname': u'velocity_squared_term_flow_coefficient',
+                                       'default': 0.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 22,
+              'name': u'ZoneEarthtube',
+              'pyname': u'ZoneEarthtube',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3160,21 +4576,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def schedule_name(self):
-        """Get schedule_name
+        """Get schedule_name.
 
         Returns:
             str: the value of `schedule_name` or None if not set
+
         """
         return self["Schedule Name"]
 
     @schedule_name.setter
     def schedule_name(self, value=None):
-        """  Corresponds to IDD field `Schedule Name`
+        """Corresponds to IDD field `Schedule Name`
 
         Args:
             value (str): value for IDD Field `Schedule Name`
@@ -3183,22 +4601,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Schedule Name"] = value
 
     @property
     def design_flow_rate(self):
-        """Get design_flow_rate
+        """Get design_flow_rate.
 
         Returns:
             float: the value of `design_flow_rate` or None if not set
+
         """
         return self["Design Flow Rate"]
 
     @design_flow_rate.setter
     def design_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Design Flow Rate`
-        "Edesign" in Equation
+        """Corresponds to IDD field `Design Flow Rate` "Edesign" in Equation.
 
         Args:
             value (float): value for IDD Field `Design Flow Rate`
@@ -3208,22 +4627,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Design Flow Rate"] = value
 
     @property
     def minimum_zone_temperature_when_cooling(self):
-        """Get minimum_zone_temperature_when_cooling
+        """Get minimum_zone_temperature_when_cooling.
 
         Returns:
             float: the value of `minimum_zone_temperature_when_cooling` or None if not set
+
         """
         return self["Minimum Zone Temperature when Cooling"]
 
     @minimum_zone_temperature_when_cooling.setter
     def minimum_zone_temperature_when_cooling(self, value=None):
-        """  Corresponds to IDD field `Minimum Zone Temperature when Cooling`
-        this is the indoor temperature below which the earth tube is shut off
+        """Corresponds to IDD field `Minimum Zone Temperature when Cooling`
+        this is the indoor temperature below which the earth tube is shut off.
 
         Args:
             value (float): value for IDD Field `Minimum Zone Temperature when Cooling`
@@ -3235,22 +4656,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Zone Temperature when Cooling"] = value
 
     @property
     def maximum_zone_temperature_when_heating(self):
-        """Get maximum_zone_temperature_when_heating
+        """Get maximum_zone_temperature_when_heating.
 
         Returns:
             float: the value of `maximum_zone_temperature_when_heating` or None if not set
+
         """
         return self["Maximum Zone Temperature when Heating"]
 
     @maximum_zone_temperature_when_heating.setter
     def maximum_zone_temperature_when_heating(self, value=None):
-        """  Corresponds to IDD field `Maximum Zone Temperature when Heating`
-        this is the indoor temperature above which the earth tube is shut off
+        """Corresponds to IDD field `Maximum Zone Temperature when Heating`
+        this is the indoor temperature above which the earth tube is shut off.
 
         Args:
             value (float): value for IDD Field `Maximum Zone Temperature when Heating`
@@ -3262,22 +4685,25 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Zone Temperature when Heating"] = value
 
     @property
     def delta_temperature(self):
-        """Get delta_temperature
+        """Get delta_temperature.
 
         Returns:
             float: the value of `delta_temperature` or None if not set
+
         """
         return self["Delta Temperature"]
 
     @delta_temperature.setter
     def delta_temperature(self, value=None):
-        """  Corresponds to IDD field `Delta Temperature`
-        This is the temperature difference between indoor and outdoor below which the earth tube is shut off
+        """Corresponds to IDD field `Delta Temperature` This is the temperature
+        difference between indoor and outdoor below which the earth tube is
+        shut off.
 
         Args:
             value (float): value for IDD Field `Delta Temperature`
@@ -3287,21 +4713,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Delta Temperature"] = value
 
     @property
     def earthtube_type(self):
-        """Get earthtube_type
+        """Get earthtube_type.
 
         Returns:
             str: the value of `earthtube_type` or None if not set
+
         """
         return self["Earthtube Type"]
 
     @earthtube_type.setter
     def earthtube_type(self, value="Natural"):
-        """  Corresponds to IDD field `Earthtube Type`
+        """Corresponds to IDD field `Earthtube Type`
 
         Args:
             value (str): value for IDD Field `Earthtube Type`
@@ -3311,22 +4739,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Earthtube Type"] = value
 
     @property
     def fan_pressure_rise(self):
-        """Get fan_pressure_rise
+        """Get fan_pressure_rise.
 
         Returns:
             float: the value of `fan_pressure_rise` or None if not set
+
         """
         return self["Fan Pressure Rise"]
 
     @fan_pressure_rise.setter
     def fan_pressure_rise(self, value=None):
-        """  Corresponds to IDD field `Fan Pressure Rise`
-        pressure rise across the fan
+        """Corresponds to IDD field `Fan Pressure Rise` pressure rise across
+        the fan.
 
         Args:
             value (float): value for IDD Field `Fan Pressure Rise`
@@ -3336,21 +4766,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Pressure Rise"] = value
 
     @property
     def fan_total_efficiency(self):
-        """Get fan_total_efficiency
+        """Get fan_total_efficiency.
 
         Returns:
             float: the value of `fan_total_efficiency` or None if not set
+
         """
         return self["Fan Total Efficiency"]
 
     @fan_total_efficiency.setter
     def fan_total_efficiency(self, value=1.0):
-        """  Corresponds to IDD field `Fan Total Efficiency`
+        """Corresponds to IDD field `Fan Total Efficiency`
 
         Args:
             value (float): value for IDD Field `Fan Total Efficiency`
@@ -3360,21 +4792,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fan Total Efficiency"] = value
 
     @property
     def pipe_radius(self):
-        """Get pipe_radius
+        """Get pipe_radius.
 
         Returns:
             float: the value of `pipe_radius` or None if not set
+
         """
         return self["Pipe Radius"]
 
     @pipe_radius.setter
     def pipe_radius(self, value=1.0):
-        """  Corresponds to IDD field `Pipe Radius`
+        """Corresponds to IDD field `Pipe Radius`
 
         Args:
             value (float): value for IDD Field `Pipe Radius`
@@ -3385,21 +4819,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pipe Radius"] = value
 
     @property
     def pipe_thickness(self):
-        """Get pipe_thickness
+        """Get pipe_thickness.
 
         Returns:
             float: the value of `pipe_thickness` or None if not set
+
         """
         return self["Pipe Thickness"]
 
     @pipe_thickness.setter
     def pipe_thickness(self, value=0.2):
-        """  Corresponds to IDD field `Pipe Thickness`
+        """Corresponds to IDD field `Pipe Thickness`
 
         Args:
             value (float): value for IDD Field `Pipe Thickness`
@@ -3410,21 +4846,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pipe Thickness"] = value
 
     @property
     def pipe_length(self):
-        """Get pipe_length
+        """Get pipe_length.
 
         Returns:
             float: the value of `pipe_length` or None if not set
+
         """
         return self["Pipe Length"]
 
     @pipe_length.setter
     def pipe_length(self, value=15.0):
-        """  Corresponds to IDD field `Pipe Length`
+        """Corresponds to IDD field `Pipe Length`
 
         Args:
             value (float): value for IDD Field `Pipe Length`
@@ -3435,21 +4873,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pipe Length"] = value
 
     @property
     def pipe_thermal_conductivity(self):
-        """Get pipe_thermal_conductivity
+        """Get pipe_thermal_conductivity.
 
         Returns:
             float: the value of `pipe_thermal_conductivity` or None if not set
+
         """
         return self["Pipe Thermal Conductivity"]
 
     @pipe_thermal_conductivity.setter
     def pipe_thermal_conductivity(self, value=200.0):
-        """  Corresponds to IDD field `Pipe Thermal Conductivity`
+        """Corresponds to IDD field `Pipe Thermal Conductivity`
 
         Args:
             value (float): value for IDD Field `Pipe Thermal Conductivity`
@@ -3460,21 +4900,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pipe Thermal Conductivity"] = value
 
     @property
     def pipe_depth_under_ground_surface(self):
-        """Get pipe_depth_under_ground_surface
+        """Get pipe_depth_under_ground_surface.
 
         Returns:
             float: the value of `pipe_depth_under_ground_surface` or None if not set
+
         """
         return self["Pipe Depth Under Ground Surface"]
 
     @pipe_depth_under_ground_surface.setter
     def pipe_depth_under_ground_surface(self, value=3.0):
-        """  Corresponds to IDD field `Pipe Depth Under Ground Surface`
+        """Corresponds to IDD field `Pipe Depth Under Ground Surface`
 
         Args:
             value (float): value for IDD Field `Pipe Depth Under Ground Surface`
@@ -3485,21 +4927,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pipe Depth Under Ground Surface"] = value
 
     @property
     def soil_condition(self):
-        """Get soil_condition
+        """Get soil_condition.
 
         Returns:
             str: the value of `soil_condition` or None if not set
+
         """
         return self["Soil Condition"]
 
     @soil_condition.setter
     def soil_condition(self, value="HeavyAndDamp"):
-        """  Corresponds to IDD field `Soil Condition`
+        """Corresponds to IDD field `Soil Condition`
 
         Args:
             value (str): value for IDD Field `Soil Condition`
@@ -3509,21 +4953,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Soil Condition"] = value
 
     @property
     def average_soil_surface_temperature(self):
-        """Get average_soil_surface_temperature
+        """Get average_soil_surface_temperature.
 
         Returns:
             float: the value of `average_soil_surface_temperature` or None if not set
+
         """
         return self["Average Soil Surface Temperature"]
 
     @average_soil_surface_temperature.setter
     def average_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD field `Average Soil Surface Temperature`
+        """Corresponds to IDD field `Average Soil Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Average Soil Surface Temperature`
@@ -3533,21 +4979,23 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Average Soil Surface Temperature"] = value
 
     @property
     def amplitude_of_soil_surface_temperature(self):
-        """Get amplitude_of_soil_surface_temperature
+        """Get amplitude_of_soil_surface_temperature.
 
         Returns:
             float: the value of `amplitude_of_soil_surface_temperature` or None if not set
+
         """
         return self["Amplitude of Soil Surface Temperature"]
 
     @amplitude_of_soil_surface_temperature.setter
     def amplitude_of_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD field `Amplitude of Soil Surface Temperature`
+        """Corresponds to IDD field `Amplitude of Soil Surface Temperature`
 
         Args:
             value (float): value for IDD Field `Amplitude of Soil Surface Temperature`
@@ -3557,21 +5005,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Amplitude of Soil Surface Temperature"] = value
 
     @property
     def phase_constant_of_soil_surface_temperature(self):
-        """Get phase_constant_of_soil_surface_temperature
+        """Get phase_constant_of_soil_surface_temperature.
 
         Returns:
             float: the value of `phase_constant_of_soil_surface_temperature` or None if not set
+
         """
         return self["Phase Constant of Soil Surface Temperature"]
 
     @phase_constant_of_soil_surface_temperature.setter
     def phase_constant_of_soil_surface_temperature(self, value=None):
-        """  Corresponds to IDD field `Phase Constant of Soil Surface Temperature`
+        """Corresponds to IDD field `Phase Constant of Soil Surface
+        Temperature`
 
         Args:
             value (float): value for IDD Field `Phase Constant of Soil Surface Temperature`
@@ -3581,22 +5032,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Phase Constant of Soil Surface Temperature"] = value
 
     @property
     def constant_term_flow_coefficient(self):
-        """Get constant_term_flow_coefficient
+        """Get constant_term_flow_coefficient.
 
         Returns:
             float: the value of `constant_term_flow_coefficient` or None if not set
+
         """
         return self["Constant Term Flow Coefficient"]
 
     @constant_term_flow_coefficient.setter
     def constant_term_flow_coefficient(self, value=1.0):
-        """  Corresponds to IDD field `Constant Term Flow Coefficient`
-        "A" in Equation
+        """Corresponds to IDD field `Constant Term Flow Coefficient` "A" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Constant Term Flow Coefficient`
@@ -3606,22 +5059,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Constant Term Flow Coefficient"] = value
 
     @property
     def temperature_term_flow_coefficient(self):
-        """Get temperature_term_flow_coefficient
+        """Get temperature_term_flow_coefficient.
 
         Returns:
             float: the value of `temperature_term_flow_coefficient` or None if not set
+
         """
         return self["Temperature Term Flow Coefficient"]
 
     @temperature_term_flow_coefficient.setter
     def temperature_term_flow_coefficient(self, value=None):
-        """  Corresponds to IDD field `Temperature Term Flow Coefficient`
-        "B" in Equation
+        """Corresponds to IDD field `Temperature Term Flow Coefficient` "B" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Temperature Term Flow Coefficient`
@@ -3630,22 +5085,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Temperature Term Flow Coefficient"] = value
 
     @property
     def velocity_term_flow_coefficient(self):
-        """Get velocity_term_flow_coefficient
+        """Get velocity_term_flow_coefficient.
 
         Returns:
             float: the value of `velocity_term_flow_coefficient` or None if not set
+
         """
         return self["Velocity Term Flow Coefficient"]
 
     @velocity_term_flow_coefficient.setter
     def velocity_term_flow_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Term Flow Coefficient`
-        "C" in Equation
+        """Corresponds to IDD field `Velocity Term Flow Coefficient` "C" in
+        Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Term Flow Coefficient`
@@ -3654,22 +5111,24 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Term Flow Coefficient"] = value
 
     @property
     def velocity_squared_term_flow_coefficient(self):
-        """Get velocity_squared_term_flow_coefficient
+        """Get velocity_squared_term_flow_coefficient.
 
         Returns:
             float: the value of `velocity_squared_term_flow_coefficient` or None if not set
+
         """
         return self["Velocity Squared Term Flow Coefficient"]
 
     @velocity_squared_term_flow_coefficient.setter
     def velocity_squared_term_flow_coefficient(self, value=None):
-        """  Corresponds to IDD field `Velocity Squared Term Flow Coefficient`
-        "D" in Equation
+        """Corresponds to IDD field `Velocity Squared Term Flow Coefficient`
+        "D" in Equation.
 
         Args:
             value (float): value for IDD Field `Velocity Squared Term Flow Coefficient`
@@ -3678,6 +5137,7 @@ class ZoneEarthtube(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Velocity Squared Term Flow Coefficient"] = value
 
@@ -3685,6 +5145,7 @@ class ZoneEarthtube(DataObject):
 
 
 class ZoneCoolTowerShower(DataObject):
+
     """ Corresponds to IDD object `ZoneCoolTower:Shower`
         A cooltower (sometimes referred to as a wind tower or a shower cooling tower)
         models passive downdraught evaporative cooling (PDEC) that is designed to capture the
@@ -3692,27 +5153,141 @@ class ZoneCoolTowerShower(DataObject):
         delivering it to a space.
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'water supply storage tank name', {'name': u'Water Supply Storage Tank Name', 'pyname': u'water_supply_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'flow control type', {'name': u'Flow Control Type', 'pyname': u'flow_control_type', 'default': u'WindDrivenFlow', 'required-field': False, 'autosizable': False, 'accepted-values': [u'WaterFlowSchedule', u'WindDrivenFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'pump flow rate schedule name', {'name': u'Pump Flow Rate Schedule Name', 'pyname': u'pump_flow_rate_schedule_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'maximum water flow rate', {'name': u'Maximum Water Flow Rate', 'pyname': u'maximum_water_flow_rate', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'effective tower height', {'name': u'Effective Tower Height', 'pyname': u'effective_tower_height', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'airflow outlet area', {'name': u'Airflow Outlet Area', 'pyname': u'airflow_outlet_area', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'maximum air flow rate', {'name': u'Maximum Air Flow Rate', 'pyname': u'maximum_air_flow_rate', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'minimum indoor temperature', {'name': u'Minimum Indoor Temperature', 'pyname': u'minimum_indoor_temperature', 'maximum': 100.0, 'required-field': True, 'autosizable': False, 'minimum': -100.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'fraction of water loss', {'name': u'Fraction of Water Loss', 'pyname': u'fraction_of_water_loss', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'fraction of flow schedule', {'name': u'Fraction of Flow Schedule', 'pyname': u'fraction_of_flow_schedule', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': 'real'}), (u'rated power consumption', {'name': u'Rated Power Consumption', 'pyname': u'rated_power_consumption', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 0,
- 'name': u'ZoneCoolTower:Shower',
- 'pyname': u'ZoneCoolTowerShower',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'water supply storage tank name',
+                                      {'name': u'Water Supply Storage Tank Name',
+                                       'pyname': u'water_supply_storage_tank_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'flow control type',
+                                      {'name': u'Flow Control Type',
+                                       'pyname': u'flow_control_type',
+                                       'default': u'WindDrivenFlow',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'accepted-values': [u'WaterFlowSchedule',
+                                                           u'WindDrivenFlow'],
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'pump flow rate schedule name',
+                                      {'name': u'Pump Flow Rate Schedule Name',
+                                       'pyname': u'pump_flow_rate_schedule_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'maximum water flow rate',
+                                      {'name': u'Maximum Water Flow Rate',
+                                       'pyname': u'maximum_water_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'effective tower height',
+                                      {'name': u'Effective Tower Height',
+                                       'pyname': u'effective_tower_height',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'airflow outlet area',
+                                      {'name': u'Airflow Outlet Area',
+                                       'pyname': u'airflow_outlet_area',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'maximum air flow rate',
+                                      {'name': u'Maximum Air Flow Rate',
+                                       'pyname': u'maximum_air_flow_rate',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm3/s'}),
+                                     (u'minimum indoor temperature',
+                                      {'name': u'Minimum Indoor Temperature',
+                                       'pyname': u'minimum_indoor_temperature',
+                                       'maximum': 100.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': -100.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'C'}),
+                                     (u'fraction of water loss',
+                                      {'name': u'Fraction of Water Loss',
+                                       'pyname': u'fraction_of_water_loss',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'fraction of flow schedule',
+                                      {'name': u'Fraction of Flow Schedule',
+                                       'pyname': u'fraction_of_flow_schedule',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': 'real'}),
+                                     (u'rated power consumption',
+                                      {'name': u'Rated Power Consumption',
+                                       'pyname': u'rated_power_consumption',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'W'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 0,
+              'name': u'ZoneCoolTower:Shower',
+              'pyname': u'ZoneCoolTowerShower',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -3721,23 +5296,25 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -3746,21 +5323,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
+        """Corresponds to IDD field `Zone Name`
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -3769,22 +5348,24 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def water_supply_storage_tank_name(self):
-        """Get water_supply_storage_tank_name
+        """Get water_supply_storage_tank_name.
 
         Returns:
             str: the value of `water_supply_storage_tank_name` or None if not set
+
         """
         return self["Water Supply Storage Tank Name"]
 
     @water_supply_storage_tank_name.setter
     def water_supply_storage_tank_name(self, value=None):
-        """  Corresponds to IDD field `Water Supply Storage Tank Name`
-        In case of stand alone tank or underground water, leave this input blank
+        """Corresponds to IDD field `Water Supply Storage Tank Name` In case of
+        stand alone tank or underground water, leave this input blank.
 
         Args:
             value (str): value for IDD Field `Water Supply Storage Tank Name`
@@ -3793,15 +5374,17 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Water Supply Storage Tank Name"] = value
 
     @property
     def flow_control_type(self):
-        """Get flow_control_type
+        """Get flow_control_type.
 
         Returns:
             str: the value of `flow_control_type` or None if not set
+
         """
         return self["Flow Control Type"]
 
@@ -3824,16 +5407,17 @@ class ZoneCoolTowerShower(DataObject):
 
     @property
     def pump_flow_rate_schedule_name(self):
-        """Get pump_flow_rate_schedule_name
+        """Get pump_flow_rate_schedule_name.
 
         Returns:
             str: the value of `pump_flow_rate_schedule_name` or None if not set
+
         """
         return self["Pump Flow Rate Schedule Name"]
 
     @pump_flow_rate_schedule_name.setter
     def pump_flow_rate_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Pump Flow Rate Schedule Name`
+        """Corresponds to IDD field `Pump Flow Rate Schedule Name`
 
         Args:
             value (str): value for IDD Field `Pump Flow Rate Schedule Name`
@@ -3842,21 +5426,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Pump Flow Rate Schedule Name"] = value
 
     @property
     def maximum_water_flow_rate(self):
-        """Get maximum_water_flow_rate
+        """Get maximum_water_flow_rate.
 
         Returns:
             float: the value of `maximum_water_flow_rate` or None if not set
+
         """
         return self["Maximum Water Flow Rate"]
 
     @maximum_water_flow_rate.setter
     def maximum_water_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Water Flow Rate`
+        """Corresponds to IDD field `Maximum Water Flow Rate`
 
         Args:
             value (float): value for IDD Field `Maximum Water Flow Rate`
@@ -3866,22 +5452,24 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Water Flow Rate"] = value
 
     @property
     def effective_tower_height(self):
-        """Get effective_tower_height
+        """Get effective_tower_height.
 
         Returns:
             float: the value of `effective_tower_height` or None if not set
+
         """
         return self["Effective Tower Height"]
 
     @effective_tower_height.setter
     def effective_tower_height(self, value=None):
-        """  Corresponds to IDD field `Effective Tower Height`
-        This field is from either the spray or the wet pad to the top of the outlet.
+        """Corresponds to IDD field `Effective Tower Height` This field is from
+        either the spray or the wet pad to the top of the outlet.
 
         Args:
             value (float): value for IDD Field `Effective Tower Height`
@@ -3891,23 +5479,26 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Effective Tower Height"] = value
 
     @property
     def airflow_outlet_area(self):
-        """Get airflow_outlet_area
+        """Get airflow_outlet_area.
 
         Returns:
             float: the value of `airflow_outlet_area` or None if not set
+
         """
         return self["Airflow Outlet Area"]
 
     @airflow_outlet_area.setter
     def airflow_outlet_area(self, value=None):
-        """  Corresponds to IDD field `Airflow Outlet Area`
-        User have to specify effective area when outlet area is relatively bigger than the cross sectional area
-        of cooltower. If the number of outlet is more than one, assume the air passes through only one.
+        """Corresponds to IDD field `Airflow Outlet Area` User have to specify
+        effective area when outlet area is relatively bigger than the cross
+        sectional area of cooltower. If the number of outlet is more than one,
+        assume the air passes through only one.
 
         Args:
             value (float): value for IDD Field `Airflow Outlet Area`
@@ -3917,21 +5508,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Airflow Outlet Area"] = value
 
     @property
     def maximum_air_flow_rate(self):
-        """Get maximum_air_flow_rate
+        """Get maximum_air_flow_rate.
 
         Returns:
             float: the value of `maximum_air_flow_rate` or None if not set
+
         """
         return self["Maximum Air Flow Rate"]
 
     @maximum_air_flow_rate.setter
     def maximum_air_flow_rate(self, value=None):
-        """  Corresponds to IDD field `Maximum Air Flow Rate`
+        """Corresponds to IDD field `Maximum Air Flow Rate`
 
         Args:
             value (float): value for IDD Field `Maximum Air Flow Rate`
@@ -3941,22 +5534,24 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Maximum Air Flow Rate"] = value
 
     @property
     def minimum_indoor_temperature(self):
-        """Get minimum_indoor_temperature
+        """Get minimum_indoor_temperature.
 
         Returns:
             float: the value of `minimum_indoor_temperature` or None if not set
+
         """
         return self["Minimum Indoor Temperature"]
 
     @minimum_indoor_temperature.setter
     def minimum_indoor_temperature(self, value=None):
-        """  Corresponds to IDD field `Minimum Indoor Temperature`
-        This field is to specify the indoor temperature below which cooltower is shutoff.
+        """Corresponds to IDD field `Minimum Indoor Temperature` This field is
+        to specify the indoor temperature below which cooltower is shutoff.
 
         Args:
             value (float): value for IDD Field `Minimum Indoor Temperature`
@@ -3968,21 +5563,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Minimum Indoor Temperature"] = value
 
     @property
     def fraction_of_water_loss(self):
-        """Get fraction_of_water_loss
+        """Get fraction_of_water_loss.
 
         Returns:
             float: the value of `fraction_of_water_loss` or None if not set
+
         """
         return self["Fraction of Water Loss"]
 
     @fraction_of_water_loss.setter
     def fraction_of_water_loss(self, value=None):
-        """  Corresponds to IDD field `Fraction of Water Loss`
+        """Corresponds to IDD field `Fraction of Water Loss`
 
         Args:
             value (float): value for IDD Field `Fraction of Water Loss`
@@ -3992,21 +5589,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fraction of Water Loss"] = value
 
     @property
     def fraction_of_flow_schedule(self):
-        """Get fraction_of_flow_schedule
+        """Get fraction_of_flow_schedule.
 
         Returns:
             float: the value of `fraction_of_flow_schedule` or None if not set
+
         """
         return self["Fraction of Flow Schedule"]
 
     @fraction_of_flow_schedule.setter
     def fraction_of_flow_schedule(self, value=None):
-        """  Corresponds to IDD field `Fraction of Flow Schedule`
+        """Corresponds to IDD field `Fraction of Flow Schedule`
 
         Args:
             value (float): value for IDD Field `Fraction of Flow Schedule`
@@ -4016,21 +5615,23 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Fraction of Flow Schedule"] = value
 
     @property
     def rated_power_consumption(self):
-        """Get rated_power_consumption
+        """Get rated_power_consumption.
 
         Returns:
             float: the value of `rated_power_consumption` or None if not set
+
         """
         return self["Rated Power Consumption"]
 
     @rated_power_consumption.setter
     def rated_power_consumption(self, value=None):
-        """  Corresponds to IDD field `Rated Power Consumption`
+        """Corresponds to IDD field `Rated Power Consumption`
 
         Args:
             value (float): value for IDD Field `Rated Power Consumption`
@@ -4040,6 +5641,7 @@ class ZoneCoolTowerShower(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Rated Power Consumption"] = value
 
@@ -4047,33 +5649,766 @@ class ZoneCoolTowerShower(DataObject):
 
 
 class ZoneThermalChimney(DataObject):
-    """ Corresponds to IDD object `ZoneThermalChimney`
-        A thermal chimney is a vertical shaft utilizing solar radiation to enhance natural
-        ventilation. It consists of an absorber wall, air gap and glass cover with high solar
-        transmissivity.
+
+    """Corresponds to IDD object `ZoneThermalChimney` A thermal chimney is a
+    vertical shaft utilizing solar radiation to enhance natural ventilation.
+
+    It consists of an absorber wall, air gap and glass cover with high
+    solar transmissivity.
+
     """
     schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'zone name', {'name': u'Zone Name', 'pyname': u'zone_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'width of the absorber wall', {'name': u'Width of the Absorber Wall', 'pyname': u'width_of_the_absorber_wall', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'cross sectional area of air channel outlet', {'name': u'Cross Sectional Area of Air Channel Outlet', 'pyname': u'cross_sectional_area_of_air_channel_outlet', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'discharge coefficient', {'name': u'Discharge Coefficient', 'pyname': u'discharge_coefficient', 'default': 0.8, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'zone 1 name', {'name': u'Zone 1 Name', 'pyname': u'zone_1_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 1', {'name': u'Distance from Top of Thermal Chimney to Inlet 1', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 1', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 1', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_1', 'default': 1.0, 'maximum': 1.0, 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 1', {'name': u'Cross Sectional Areas of Air Channel Inlet 1', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_1', 'required-field': True, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 2 name', {'name': u'Zone 2 Name', 'pyname': u'zone_2_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 2', {'name': u'Distance from Top of Thermal Chimney to Inlet 2', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 2', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 2', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_2', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 2', {'name': u'Cross Sectional Areas of Air Channel Inlet 2', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_2', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 3 name', {'name': u'Zone 3 Name', 'pyname': u'zone_3_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 3', {'name': u'Distance from Top of Thermal Chimney to Inlet 3', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 3', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 3', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_3', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 3', {'name': u'Cross Sectional Areas of Air Channel Inlet 3', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_3', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 4 name', {'name': u'Zone 4 Name', 'pyname': u'zone_4_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 4', {'name': u'Distance from Top of Thermal Chimney to Inlet 4', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 4', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 4', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_4', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 4', {'name': u'Cross Sectional Areas of Air Channel Inlet 4', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_4', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 5 name', {'name': u'Zone 5 Name', 'pyname': u'zone_5_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 5', {'name': u'Distance from Top of Thermal Chimney to Inlet 5', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 5', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 5', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_5', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 5', {'name': u'Cross Sectional Areas of Air Channel Inlet 5', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_5', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 6 name', {'name': u'Zone 6 Name', 'pyname': u'zone_6_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 6', {'name': u'Distance from Top of Thermal Chimney to Inlet 6', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 6', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 6', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_6', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 6', {'name': u'Cross Sectional Areas of Air Channel Inlet 6', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_6', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 7 name', {'name': u'Zone 7 Name', 'pyname': u'zone_7_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 7', {'name': u'Distance from Top of Thermal Chimney to Inlet 7', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 7', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 7', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_7', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 7', {'name': u'Cross Sectional Areas of Air Channel Inlet 7', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_7', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 8 name', {'name': u'Zone 8 Name', 'pyname': u'zone_8_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 8', {'name': u'Distance from Top of Thermal Chimney to Inlet 8', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 8', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 8', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_8', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 8', {'name': u'Cross Sectional Areas of Air Channel Inlet 8', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_8', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 9 name', {'name': u'Zone 9 Name', 'pyname': u'zone_9_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 9', {'name': u'Distance from Top of Thermal Chimney to Inlet 9', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 9', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 9', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_9', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 9', {'name': u'Cross Sectional Areas of Air Channel Inlet 9', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_9', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 10 name', {'name': u'Zone 10 Name', 'pyname': u'zone_10_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 10', {'name': u'Distance from Top of Thermal Chimney to Inlet 10', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 10', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 10', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_10', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 10', {'name': u'Cross Sectional Areas of Air Channel Inlet 10', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_10', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 11 name', {'name': u'Zone 11 Name', 'pyname': u'zone_11_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 11', {'name': u'Distance from Top of Thermal Chimney to Inlet 11', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 11', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 11', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_11', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 11', {'name': u'Cross Sectional Areas of Air Channel Inlet 11', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_11', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 12 name', {'name': u'Zone 12 Name', 'pyname': u'zone_12_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 12', {'name': u'Distance from Top of Thermal Chimney to Inlet 12', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 12', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 12', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_12', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 12', {'name': u'Cross Sectional Areas of Air Channel Inlet 12', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_12', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 13 name', {'name': u'Zone 13 Name', 'pyname': u'zone_13_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 13', {'name': u'Distance from Top of Thermal Chimney to Inlet 13', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 13', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 13', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_13', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 13', {'name': u'Cross Sectional Areas of Air Channel Inlet 13', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_13', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 14 name', {'name': u'Zone 14 Name', 'pyname': u'zone_14_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 14', {'name': u'Distance from Top of Thermal Chimney to Inlet 14', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 14', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 14', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_14', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 14', {'name': u'Cross Sectional Areas of Air Channel Inlet 14', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_14', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 15 name', {'name': u'Zone 15 Name', 'pyname': u'zone_15_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 15', {'name': u'Distance from Top of Thermal Chimney to Inlet 15', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 15', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 15', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_15', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 15', {'name': u'Cross Sectional Areas of Air Channel Inlet 15', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_15', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 16 name', {'name': u'Zone 16 Name', 'pyname': u'zone_16_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 16', {'name': u'Distance from Top of Thermal Chimney to Inlet 16', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 16', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 16', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_16', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 16', {'name': u'Cross Sectional Areas of Air Channel Inlet 16', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_16', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 17 name', {'name': u'Zone 17 Name', 'pyname': u'zone_17_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 17', {'name': u'Distance from Top of Thermal Chimney to Inlet 17', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 17', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 17', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_17', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 17', {'name': u'Cross Sectional Areas of Air Channel Inlet 17', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_17', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 18 name', {'name': u'Zone 18 Name', 'pyname': u'zone_18_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 18', {'name': u'Distance from Top of Thermal Chimney to Inlet 18', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 18', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 18', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_18', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 18', {'name': u'Cross Sectional Areas of Air Channel Inlet 18', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_18', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 19 name', {'name': u'Zone 19 Name', 'pyname': u'zone_19_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 19', {'name': u'Distance from Top of Thermal Chimney to Inlet 19', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 19', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 19', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_19', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 19', {'name': u'Cross Sectional Areas of Air Channel Inlet 19', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_19', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'}), (u'zone 20 name', {'name': u'Zone 20 Name', 'pyname': u'zone_20_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'distance from top of thermal chimney to inlet 20', {'name': u'Distance from Top of Thermal Chimney to Inlet 20', 'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm'}), (u'relative ratios of air flow rates passing through zone 20', {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 20', 'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_20', 'maximum': 1.0, 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real'}), (u'cross sectional areas of air channel inlet 20', {'name': u'Cross Sectional Areas of Air Channel Inlet 20', 'pyname': u'cross_sectional_areas_of_air_channel_inlet_20', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm2'})]),
- 'format': None,
- 'group': u'Zone Airflow',
- 'min-fields': 10,
- 'name': u'ZoneThermalChimney',
- 'pyname': u'ZoneThermalChimney',
- 'required-object': False,
- 'unique-object': False}
+              'fields': OrderedDict([(u'name',
+                                      {'name': u'Name',
+                                       'pyname': u'name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': 'alpha'}),
+                                     (u'zone name',
+                                      {'name': u'Zone Name',
+                                       'pyname': u'zone_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'availability schedule name',
+                                      {'name': u'Availability Schedule Name',
+                                       'pyname': u'availability_schedule_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'width of the absorber wall',
+                                      {'name': u'Width of the Absorber Wall',
+                                       'pyname': u'width_of_the_absorber_wall',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'cross sectional area of air channel outlet',
+                                      {'name': u'Cross Sectional Area of Air Channel Outlet',
+                                       'pyname': u'cross_sectional_area_of_air_channel_outlet',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'discharge coefficient',
+                                      {'name': u'Discharge Coefficient',
+                                       'pyname': u'discharge_coefficient',
+                                       'default': 0.8,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'zone 1 name',
+                                      {'name': u'Zone 1 Name',
+                                       'pyname': u'zone_1_name',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 1',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 1',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 1',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 1',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_1',
+                                       'default': 1.0,
+                                       'maximum': 1.0,
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 1',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 1',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_1',
+                                       'required-field': True,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 2 name',
+                                      {'name': u'Zone 2 Name',
+                                       'pyname': u'zone_2_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 2',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 2',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 2',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 2',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_2',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 2',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 2',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_2',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 3 name',
+                                      {'name': u'Zone 3 Name',
+                                       'pyname': u'zone_3_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 3',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 3',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 3',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 3',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_3',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 3',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 3',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_3',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 4 name',
+                                      {'name': u'Zone 4 Name',
+                                       'pyname': u'zone_4_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 4',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 4',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 4',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 4',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_4',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 4',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 4',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_4',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 5 name',
+                                      {'name': u'Zone 5 Name',
+                                       'pyname': u'zone_5_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 5',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 5',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 5',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 5',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_5',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 5',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 5',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_5',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 6 name',
+                                      {'name': u'Zone 6 Name',
+                                       'pyname': u'zone_6_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 6',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 6',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 6',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 6',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_6',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 6',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 6',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_6',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 7 name',
+                                      {'name': u'Zone 7 Name',
+                                       'pyname': u'zone_7_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 7',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 7',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 7',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 7',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_7',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 7',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 7',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_7',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 8 name',
+                                      {'name': u'Zone 8 Name',
+                                       'pyname': u'zone_8_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 8',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 8',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 8',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 8',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_8',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 8',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 8',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_8',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 9 name',
+                                      {'name': u'Zone 9 Name',
+                                       'pyname': u'zone_9_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 9',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 9',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 9',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 9',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_9',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 9',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 9',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_9',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 10 name',
+                                      {'name': u'Zone 10 Name',
+                                       'pyname': u'zone_10_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 10',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 10',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 10',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 10',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_10',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 10',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 10',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_10',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 11 name',
+                                      {'name': u'Zone 11 Name',
+                                       'pyname': u'zone_11_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 11',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 11',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 11',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 11',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_11',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 11',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 11',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_11',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 12 name',
+                                      {'name': u'Zone 12 Name',
+                                       'pyname': u'zone_12_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 12',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 12',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 12',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 12',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_12',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 12',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 12',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_12',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 13 name',
+                                      {'name': u'Zone 13 Name',
+                                       'pyname': u'zone_13_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 13',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 13',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 13',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 13',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_13',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 13',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 13',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_13',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 14 name',
+                                      {'name': u'Zone 14 Name',
+                                       'pyname': u'zone_14_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 14',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 14',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 14',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 14',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_14',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 14',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 14',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_14',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 15 name',
+                                      {'name': u'Zone 15 Name',
+                                       'pyname': u'zone_15_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 15',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 15',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 15',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 15',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_15',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 15',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 15',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_15',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 16 name',
+                                      {'name': u'Zone 16 Name',
+                                       'pyname': u'zone_16_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 16',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 16',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 16',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 16',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_16',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 16',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 16',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_16',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 17 name',
+                                      {'name': u'Zone 17 Name',
+                                       'pyname': u'zone_17_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 17',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 17',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 17',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 17',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_17',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 17',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 17',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_17',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 18 name',
+                                      {'name': u'Zone 18 Name',
+                                       'pyname': u'zone_18_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 18',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 18',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 18',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 18',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_18',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 18',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 18',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_18',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 19 name',
+                                      {'name': u'Zone 19 Name',
+                                       'pyname': u'zone_19_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 19',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 19',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 19',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 19',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_19',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 19',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 19',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_19',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'}),
+                                     (u'zone 20 name',
+                                      {'name': u'Zone 20 Name',
+                                       'pyname': u'zone_20_name',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'autocalculatable': False,
+                                       'type': u'object-list'}),
+                                     (u'distance from top of thermal chimney to inlet 20',
+                                      {'name': u'Distance from Top of Thermal Chimney to Inlet 20',
+                                       'pyname': u'distance_from_top_of_thermal_chimney_to_inlet_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm'}),
+                                     (u'relative ratios of air flow rates passing through zone 20',
+                                      {'name': u'Relative Ratios of Air Flow Rates Passing through Zone 20',
+                                       'pyname': u'relative_ratios_of_air_flow_rates_passing_through_zone_20',
+                                       'maximum': 1.0,
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real'}),
+                                     (u'cross sectional areas of air channel inlet 20',
+                                      {'name': u'Cross Sectional Areas of Air Channel Inlet 20',
+                                       'pyname': u'cross_sectional_areas_of_air_channel_inlet_20',
+                                       'required-field': False,
+                                       'autosizable': False,
+                                       'minimum': 0.0,
+                                       'autocalculatable': False,
+                                       'type': u'real',
+                                       'unit': u'm2'})]),
+              'format': None,
+              'group': u'Zone Airflow',
+              'min-fields': 10,
+              'name': u'ZoneThermalChimney',
+              'pyname': u'ZoneThermalChimney',
+              'required-object': False,
+              'unique-object': False}
 
     @property
     def name(self):
-        """Get name
+        """Get name.
 
         Returns:
             str: the value of `name` or None if not set
+
         """
         return self["Name"]
 
     @name.setter
     def name(self, value=None):
-        """  Corresponds to IDD field `Name`
+        """Corresponds to IDD field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
@@ -4082,22 +6417,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Name"] = value
 
     @property
     def zone_name(self):
-        """Get zone_name
+        """Get zone_name.
 
         Returns:
             str: the value of `zone_name` or None if not set
+
         """
         return self["Zone Name"]
 
     @zone_name.setter
     def zone_name(self, value=None):
-        """  Corresponds to IDD field `Zone Name`
-        Name of zone that is the thermal chimney
+        """Corresponds to IDD field `Zone Name` Name of zone that is the
+        thermal chimney.
 
         Args:
             value (str): value for IDD Field `Zone Name`
@@ -4106,23 +6443,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name
+        """Get availability_schedule_name.
 
         Returns:
             str: the value of `availability_schedule_name` or None if not set
+
         """
         return self["Availability Schedule Name"]
 
     @availability_schedule_name.setter
     def availability_schedule_name(self, value=None):
-        """  Corresponds to IDD field `Availability Schedule Name`
-        Availability schedule name for this system. Schedule value > 0 means the system is available.
-        If this field is blank, the system is always available.
+        """Corresponds to IDD field `Availability Schedule Name` Availability
+        schedule name for this system. Schedule value > 0 means the system is
+        available. If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
@@ -4131,21 +6470,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Availability Schedule Name"] = value
 
     @property
     def width_of_the_absorber_wall(self):
-        """Get width_of_the_absorber_wall
+        """Get width_of_the_absorber_wall.
 
         Returns:
             float: the value of `width_of_the_absorber_wall` or None if not set
+
         """
         return self["Width of the Absorber Wall"]
 
     @width_of_the_absorber_wall.setter
     def width_of_the_absorber_wall(self, value=None):
-        """  Corresponds to IDD field `Width of the Absorber Wall`
+        """Corresponds to IDD field `Width of the Absorber Wall`
 
         Args:
             value (float): value for IDD Field `Width of the Absorber Wall`
@@ -4155,21 +6496,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Width of the Absorber Wall"] = value
 
     @property
     def cross_sectional_area_of_air_channel_outlet(self):
-        """Get cross_sectional_area_of_air_channel_outlet
+        """Get cross_sectional_area_of_air_channel_outlet.
 
         Returns:
             float: the value of `cross_sectional_area_of_air_channel_outlet` or None if not set
+
         """
         return self["Cross Sectional Area of Air Channel Outlet"]
 
     @cross_sectional_area_of_air_channel_outlet.setter
     def cross_sectional_area_of_air_channel_outlet(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Area of Air Channel Outlet`
+        """Corresponds to IDD field `Cross Sectional Area of Air Channel
+        Outlet`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Area of Air Channel Outlet`
@@ -4179,21 +6523,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Area of Air Channel Outlet"] = value
 
     @property
     def discharge_coefficient(self):
-        """Get discharge_coefficient
+        """Get discharge_coefficient.
 
         Returns:
             float: the value of `discharge_coefficient` or None if not set
+
         """
         return self["Discharge Coefficient"]
 
     @discharge_coefficient.setter
     def discharge_coefficient(self, value=0.8):
-        """  Corresponds to IDD field `Discharge Coefficient`
+        """Corresponds to IDD field `Discharge Coefficient`
 
         Args:
             value (float): value for IDD Field `Discharge Coefficient`
@@ -4204,21 +6550,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Discharge Coefficient"] = value
 
     @property
     def zone_1_name(self):
-        """Get zone_1_name
+        """Get zone_1_name.
 
         Returns:
             str: the value of `zone_1_name` or None if not set
+
         """
         return self["Zone 1 Name"]
 
     @zone_1_name.setter
     def zone_1_name(self, value=None):
-        """  Corresponds to IDD field `Zone 1 Name`
+        """Corresponds to IDD field `Zone 1 Name`
 
         Args:
             value (str): value for IDD Field `Zone 1 Name`
@@ -4227,21 +6575,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 1 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_1(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_1
+        """Get distance_from_top_of_thermal_chimney_to_inlet_1.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_1` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 1"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_1.setter
     def distance_from_top_of_thermal_chimney_to_inlet_1(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 1`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 1`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 1`
@@ -4251,21 +6602,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 1"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_1(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_1
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_1.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_1` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 1"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_1.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_1(self, value=1.0):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 1`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_1(
+            self,
+            value=1.0):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 1`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 1`
@@ -4276,21 +6632,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 1"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_1(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_1
+        """Get cross_sectional_areas_of_air_channel_inlet_1.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_1` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 1"]
 
     @cross_sectional_areas_of_air_channel_inlet_1.setter
     def cross_sectional_areas_of_air_channel_inlet_1(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 1`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        1`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 1`
@@ -4300,21 +6660,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 1"] = value
 
     @property
     def zone_2_name(self):
-        """Get zone_2_name
+        """Get zone_2_name.
 
         Returns:
             str: the value of `zone_2_name` or None if not set
+
         """
         return self["Zone 2 Name"]
 
     @zone_2_name.setter
     def zone_2_name(self, value=None):
-        """  Corresponds to IDD field `Zone 2 Name`
+        """Corresponds to IDD field `Zone 2 Name`
 
         Args:
             value (str): value for IDD Field `Zone 2 Name`
@@ -4323,21 +6685,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 2 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_2(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_2
+        """Get distance_from_top_of_thermal_chimney_to_inlet_2.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_2` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 2"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_2.setter
     def distance_from_top_of_thermal_chimney_to_inlet_2(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 2`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 2`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 2`
@@ -4347,21 +6712,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 2"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_2(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_2
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_2.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_2` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 2"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_2.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_2(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 2`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_2(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 2`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 2`
@@ -4371,21 +6741,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 2"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_2(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_2
+        """Get cross_sectional_areas_of_air_channel_inlet_2.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_2` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 2"]
 
     @cross_sectional_areas_of_air_channel_inlet_2.setter
     def cross_sectional_areas_of_air_channel_inlet_2(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 2`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        2`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 2`
@@ -4395,21 +6769,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 2"] = value
 
     @property
     def zone_3_name(self):
-        """Get zone_3_name
+        """Get zone_3_name.
 
         Returns:
             str: the value of `zone_3_name` or None if not set
+
         """
         return self["Zone 3 Name"]
 
     @zone_3_name.setter
     def zone_3_name(self, value=None):
-        """  Corresponds to IDD field `Zone 3 Name`
+        """Corresponds to IDD field `Zone 3 Name`
 
         Args:
             value (str): value for IDD Field `Zone 3 Name`
@@ -4418,21 +6794,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 3 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_3(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_3
+        """Get distance_from_top_of_thermal_chimney_to_inlet_3.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_3` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 3"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_3.setter
     def distance_from_top_of_thermal_chimney_to_inlet_3(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 3`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 3`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 3`
@@ -4442,21 +6821,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 3"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_3(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_3
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_3.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_3` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 3"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_3.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_3(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 3`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_3(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 3`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 3`
@@ -4466,21 +6850,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 3"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_3(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_3
+        """Get cross_sectional_areas_of_air_channel_inlet_3.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_3` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 3"]
 
     @cross_sectional_areas_of_air_channel_inlet_3.setter
     def cross_sectional_areas_of_air_channel_inlet_3(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 3`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        3`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 3`
@@ -4490,21 +6878,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 3"] = value
 
     @property
     def zone_4_name(self):
-        """Get zone_4_name
+        """Get zone_4_name.
 
         Returns:
             str: the value of `zone_4_name` or None if not set
+
         """
         return self["Zone 4 Name"]
 
     @zone_4_name.setter
     def zone_4_name(self, value=None):
-        """  Corresponds to IDD field `Zone 4 Name`
+        """Corresponds to IDD field `Zone 4 Name`
 
         Args:
             value (str): value for IDD Field `Zone 4 Name`
@@ -4513,21 +6903,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 4 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_4(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_4
+        """Get distance_from_top_of_thermal_chimney_to_inlet_4.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_4` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 4"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_4.setter
     def distance_from_top_of_thermal_chimney_to_inlet_4(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 4`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 4`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 4`
@@ -4537,21 +6930,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 4"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_4(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_4
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_4.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_4` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 4"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_4.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_4(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 4`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_4(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 4`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 4`
@@ -4561,21 +6959,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 4"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_4(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_4
+        """Get cross_sectional_areas_of_air_channel_inlet_4.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_4` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 4"]
 
     @cross_sectional_areas_of_air_channel_inlet_4.setter
     def cross_sectional_areas_of_air_channel_inlet_4(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 4`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        4`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 4`
@@ -4585,21 +6987,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 4"] = value
 
     @property
     def zone_5_name(self):
-        """Get zone_5_name
+        """Get zone_5_name.
 
         Returns:
             str: the value of `zone_5_name` or None if not set
+
         """
         return self["Zone 5 Name"]
 
     @zone_5_name.setter
     def zone_5_name(self, value=None):
-        """  Corresponds to IDD field `Zone 5 Name`
+        """Corresponds to IDD field `Zone 5 Name`
 
         Args:
             value (str): value for IDD Field `Zone 5 Name`
@@ -4608,21 +7012,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 5 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_5(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_5
+        """Get distance_from_top_of_thermal_chimney_to_inlet_5.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_5` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 5"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_5.setter
     def distance_from_top_of_thermal_chimney_to_inlet_5(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 5`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 5`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 5`
@@ -4632,21 +7039,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 5"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_5(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_5
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_5.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_5` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 5"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_5.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_5(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 5`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_5(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 5`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 5`
@@ -4656,21 +7068,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 5"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_5(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_5
+        """Get cross_sectional_areas_of_air_channel_inlet_5.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_5` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 5"]
 
     @cross_sectional_areas_of_air_channel_inlet_5.setter
     def cross_sectional_areas_of_air_channel_inlet_5(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 5`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        5`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 5`
@@ -4680,21 +7096,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 5"] = value
 
     @property
     def zone_6_name(self):
-        """Get zone_6_name
+        """Get zone_6_name.
 
         Returns:
             str: the value of `zone_6_name` or None if not set
+
         """
         return self["Zone 6 Name"]
 
     @zone_6_name.setter
     def zone_6_name(self, value=None):
-        """  Corresponds to IDD field `Zone 6 Name`
+        """Corresponds to IDD field `Zone 6 Name`
 
         Args:
             value (str): value for IDD Field `Zone 6 Name`
@@ -4703,21 +7121,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 6 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_6(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_6
+        """Get distance_from_top_of_thermal_chimney_to_inlet_6.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_6` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 6"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_6.setter
     def distance_from_top_of_thermal_chimney_to_inlet_6(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 6`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 6`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 6`
@@ -4727,21 +7148,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 6"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_6(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_6
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_6.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_6` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 6"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_6.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_6(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 6`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_6(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 6`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 6`
@@ -4751,21 +7177,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 6"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_6(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_6
+        """Get cross_sectional_areas_of_air_channel_inlet_6.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_6` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 6"]
 
     @cross_sectional_areas_of_air_channel_inlet_6.setter
     def cross_sectional_areas_of_air_channel_inlet_6(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 6`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        6`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 6`
@@ -4775,21 +7205,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 6"] = value
 
     @property
     def zone_7_name(self):
-        """Get zone_7_name
+        """Get zone_7_name.
 
         Returns:
             str: the value of `zone_7_name` or None if not set
+
         """
         return self["Zone 7 Name"]
 
     @zone_7_name.setter
     def zone_7_name(self, value=None):
-        """  Corresponds to IDD field `Zone 7 Name`
+        """Corresponds to IDD field `Zone 7 Name`
 
         Args:
             value (str): value for IDD Field `Zone 7 Name`
@@ -4798,21 +7230,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 7 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_7(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_7
+        """Get distance_from_top_of_thermal_chimney_to_inlet_7.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_7` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 7"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_7.setter
     def distance_from_top_of_thermal_chimney_to_inlet_7(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 7`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 7`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 7`
@@ -4822,21 +7257,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 7"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_7(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_7
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_7.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_7` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 7"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_7.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_7(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 7`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_7(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 7`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 7`
@@ -4846,21 +7286,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 7"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_7(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_7
+        """Get cross_sectional_areas_of_air_channel_inlet_7.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_7` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 7"]
 
     @cross_sectional_areas_of_air_channel_inlet_7.setter
     def cross_sectional_areas_of_air_channel_inlet_7(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 7`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        7`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 7`
@@ -4870,21 +7314,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 7"] = value
 
     @property
     def zone_8_name(self):
-        """Get zone_8_name
+        """Get zone_8_name.
 
         Returns:
             str: the value of `zone_8_name` or None if not set
+
         """
         return self["Zone 8 Name"]
 
     @zone_8_name.setter
     def zone_8_name(self, value=None):
-        """  Corresponds to IDD field `Zone 8 Name`
+        """Corresponds to IDD field `Zone 8 Name`
 
         Args:
             value (str): value for IDD Field `Zone 8 Name`
@@ -4893,21 +7339,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 8 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_8(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_8
+        """Get distance_from_top_of_thermal_chimney_to_inlet_8.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_8` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 8"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_8.setter
     def distance_from_top_of_thermal_chimney_to_inlet_8(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 8`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 8`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 8`
@@ -4917,21 +7366,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 8"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_8(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_8
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_8.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_8` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 8"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_8.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_8(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 8`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_8(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 8`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 8`
@@ -4941,21 +7395,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 8"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_8(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_8
+        """Get cross_sectional_areas_of_air_channel_inlet_8.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_8` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 8"]
 
     @cross_sectional_areas_of_air_channel_inlet_8.setter
     def cross_sectional_areas_of_air_channel_inlet_8(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 8`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        8`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 8`
@@ -4965,21 +7423,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 8"] = value
 
     @property
     def zone_9_name(self):
-        """Get zone_9_name
+        """Get zone_9_name.
 
         Returns:
             str: the value of `zone_9_name` or None if not set
+
         """
         return self["Zone 9 Name"]
 
     @zone_9_name.setter
     def zone_9_name(self, value=None):
-        """  Corresponds to IDD field `Zone 9 Name`
+        """Corresponds to IDD field `Zone 9 Name`
 
         Args:
             value (str): value for IDD Field `Zone 9 Name`
@@ -4988,21 +7448,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 9 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_9(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_9
+        """Get distance_from_top_of_thermal_chimney_to_inlet_9.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_9` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 9"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_9.setter
     def distance_from_top_of_thermal_chimney_to_inlet_9(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 9`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 9`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 9`
@@ -5012,21 +7475,26 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 9"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_9(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_9
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_9.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_9` or None if not set
+
         """
         return self["Relative Ratios of Air Flow Rates Passing through Zone 9"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_9.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_9(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 9`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_9(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 9`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 9`
@@ -5036,21 +7504,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 9"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_9(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_9
+        """Get cross_sectional_areas_of_air_channel_inlet_9.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_9` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 9"]
 
     @cross_sectional_areas_of_air_channel_inlet_9.setter
     def cross_sectional_areas_of_air_channel_inlet_9(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 9`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        9`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 9`
@@ -5060,21 +7532,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 9"] = value
 
     @property
     def zone_10_name(self):
-        """Get zone_10_name
+        """Get zone_10_name.
 
         Returns:
             str: the value of `zone_10_name` or None if not set
+
         """
         return self["Zone 10 Name"]
 
     @zone_10_name.setter
     def zone_10_name(self, value=None):
-        """  Corresponds to IDD field `Zone 10 Name`
+        """Corresponds to IDD field `Zone 10 Name`
 
         Args:
             value (str): value for IDD Field `Zone 10 Name`
@@ -5083,21 +7557,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 10 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_10(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_10
+        """Get distance_from_top_of_thermal_chimney_to_inlet_10.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_10` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 10"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_10.setter
     def distance_from_top_of_thermal_chimney_to_inlet_10(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 10`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 10`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 10`
@@ -5107,21 +7584,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 10"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_10(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_10
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_10.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_10` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 10"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 10"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_10.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_10(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 10`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_10(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 10`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 10`
@@ -5131,21 +7614,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 10"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_10(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_10
+        """Get cross_sectional_areas_of_air_channel_inlet_10.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_10` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 10"]
 
     @cross_sectional_areas_of_air_channel_inlet_10.setter
     def cross_sectional_areas_of_air_channel_inlet_10(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 10`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        10`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 10`
@@ -5155,21 +7642,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 10"] = value
 
     @property
     def zone_11_name(self):
-        """Get zone_11_name
+        """Get zone_11_name.
 
         Returns:
             str: the value of `zone_11_name` or None if not set
+
         """
         return self["Zone 11 Name"]
 
     @zone_11_name.setter
     def zone_11_name(self, value=None):
-        """  Corresponds to IDD field `Zone 11 Name`
+        """Corresponds to IDD field `Zone 11 Name`
 
         Args:
             value (str): value for IDD Field `Zone 11 Name`
@@ -5178,21 +7667,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 11 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_11(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_11
+        """Get distance_from_top_of_thermal_chimney_to_inlet_11.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_11` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 11"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_11.setter
     def distance_from_top_of_thermal_chimney_to_inlet_11(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 11`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 11`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 11`
@@ -5202,21 +7694,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 11"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_11(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_11
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_11.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_11` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 11"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 11"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_11.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_11(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 11`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_11(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 11`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 11`
@@ -5226,21 +7724,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 11"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_11(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_11
+        """Get cross_sectional_areas_of_air_channel_inlet_11.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_11` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 11"]
 
     @cross_sectional_areas_of_air_channel_inlet_11.setter
     def cross_sectional_areas_of_air_channel_inlet_11(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 11`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        11`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 11`
@@ -5250,21 +7752,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 11"] = value
 
     @property
     def zone_12_name(self):
-        """Get zone_12_name
+        """Get zone_12_name.
 
         Returns:
             str: the value of `zone_12_name` or None if not set
+
         """
         return self["Zone 12 Name"]
 
     @zone_12_name.setter
     def zone_12_name(self, value=None):
-        """  Corresponds to IDD field `Zone 12 Name`
+        """Corresponds to IDD field `Zone 12 Name`
 
         Args:
             value (str): value for IDD Field `Zone 12 Name`
@@ -5273,21 +7777,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 12 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_12(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_12
+        """Get distance_from_top_of_thermal_chimney_to_inlet_12.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_12` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 12"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_12.setter
     def distance_from_top_of_thermal_chimney_to_inlet_12(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 12`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 12`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 12`
@@ -5297,21 +7804,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 12"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_12(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_12
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_12.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_12` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 12"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 12"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_12.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_12(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 12`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_12(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 12`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 12`
@@ -5321,21 +7834,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 12"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_12(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_12
+        """Get cross_sectional_areas_of_air_channel_inlet_12.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_12` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 12"]
 
     @cross_sectional_areas_of_air_channel_inlet_12.setter
     def cross_sectional_areas_of_air_channel_inlet_12(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 12`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        12`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 12`
@@ -5345,21 +7862,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 12"] = value
 
     @property
     def zone_13_name(self):
-        """Get zone_13_name
+        """Get zone_13_name.
 
         Returns:
             str: the value of `zone_13_name` or None if not set
+
         """
         return self["Zone 13 Name"]
 
     @zone_13_name.setter
     def zone_13_name(self, value=None):
-        """  Corresponds to IDD field `Zone 13 Name`
+        """Corresponds to IDD field `Zone 13 Name`
 
         Args:
             value (str): value for IDD Field `Zone 13 Name`
@@ -5368,21 +7887,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 13 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_13(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_13
+        """Get distance_from_top_of_thermal_chimney_to_inlet_13.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_13` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 13"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_13.setter
     def distance_from_top_of_thermal_chimney_to_inlet_13(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 13`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 13`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 13`
@@ -5392,21 +7914,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 13"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_13(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_13
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_13.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_13` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 13"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 13"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_13.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_13(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 13`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_13(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 13`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 13`
@@ -5416,21 +7944,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 13"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_13(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_13
+        """Get cross_sectional_areas_of_air_channel_inlet_13.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_13` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 13"]
 
     @cross_sectional_areas_of_air_channel_inlet_13.setter
     def cross_sectional_areas_of_air_channel_inlet_13(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 13`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        13`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 13`
@@ -5440,21 +7972,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 13"] = value
 
     @property
     def zone_14_name(self):
-        """Get zone_14_name
+        """Get zone_14_name.
 
         Returns:
             str: the value of `zone_14_name` or None if not set
+
         """
         return self["Zone 14 Name"]
 
     @zone_14_name.setter
     def zone_14_name(self, value=None):
-        """  Corresponds to IDD field `Zone 14 Name`
+        """Corresponds to IDD field `Zone 14 Name`
 
         Args:
             value (str): value for IDD Field `Zone 14 Name`
@@ -5463,21 +7997,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 14 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_14(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_14
+        """Get distance_from_top_of_thermal_chimney_to_inlet_14.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_14` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 14"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_14.setter
     def distance_from_top_of_thermal_chimney_to_inlet_14(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 14`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 14`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 14`
@@ -5487,21 +8024,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 14"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_14(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_14
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_14.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_14` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 14"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 14"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_14.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_14(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 14`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_14(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 14`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 14`
@@ -5511,21 +8054,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 14"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_14(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_14
+        """Get cross_sectional_areas_of_air_channel_inlet_14.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_14` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 14"]
 
     @cross_sectional_areas_of_air_channel_inlet_14.setter
     def cross_sectional_areas_of_air_channel_inlet_14(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 14`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        14`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 14`
@@ -5535,21 +8082,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 14"] = value
 
     @property
     def zone_15_name(self):
-        """Get zone_15_name
+        """Get zone_15_name.
 
         Returns:
             str: the value of `zone_15_name` or None if not set
+
         """
         return self["Zone 15 Name"]
 
     @zone_15_name.setter
     def zone_15_name(self, value=None):
-        """  Corresponds to IDD field `Zone 15 Name`
+        """Corresponds to IDD field `Zone 15 Name`
 
         Args:
             value (str): value for IDD Field `Zone 15 Name`
@@ -5558,21 +8107,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 15 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_15(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_15
+        """Get distance_from_top_of_thermal_chimney_to_inlet_15.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_15` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 15"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_15.setter
     def distance_from_top_of_thermal_chimney_to_inlet_15(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 15`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 15`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 15`
@@ -5582,21 +8134,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 15"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_15(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_15
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_15.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_15` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 15"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 15"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_15.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_15(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 15`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_15(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 15`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 15`
@@ -5606,21 +8164,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 15"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_15(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_15
+        """Get cross_sectional_areas_of_air_channel_inlet_15.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_15` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 15"]
 
     @cross_sectional_areas_of_air_channel_inlet_15.setter
     def cross_sectional_areas_of_air_channel_inlet_15(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 15`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        15`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 15`
@@ -5630,21 +8192,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 15"] = value
 
     @property
     def zone_16_name(self):
-        """Get zone_16_name
+        """Get zone_16_name.
 
         Returns:
             str: the value of `zone_16_name` or None if not set
+
         """
         return self["Zone 16 Name"]
 
     @zone_16_name.setter
     def zone_16_name(self, value=None):
-        """  Corresponds to IDD field `Zone 16 Name`
+        """Corresponds to IDD field `Zone 16 Name`
 
         Args:
             value (str): value for IDD Field `Zone 16 Name`
@@ -5653,21 +8217,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 16 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_16(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_16
+        """Get distance_from_top_of_thermal_chimney_to_inlet_16.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_16` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 16"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_16.setter
     def distance_from_top_of_thermal_chimney_to_inlet_16(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 16`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 16`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 16`
@@ -5677,21 +8244,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 16"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_16(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_16
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_16.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_16` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 16"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 16"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_16.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_16(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 16`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_16(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 16`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 16`
@@ -5701,21 +8274,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 16"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_16(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_16
+        """Get cross_sectional_areas_of_air_channel_inlet_16.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_16` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 16"]
 
     @cross_sectional_areas_of_air_channel_inlet_16.setter
     def cross_sectional_areas_of_air_channel_inlet_16(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 16`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        16`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 16`
@@ -5725,21 +8302,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 16"] = value
 
     @property
     def zone_17_name(self):
-        """Get zone_17_name
+        """Get zone_17_name.
 
         Returns:
             str: the value of `zone_17_name` or None if not set
+
         """
         return self["Zone 17 Name"]
 
     @zone_17_name.setter
     def zone_17_name(self, value=None):
-        """  Corresponds to IDD field `Zone 17 Name`
+        """Corresponds to IDD field `Zone 17 Name`
 
         Args:
             value (str): value for IDD Field `Zone 17 Name`
@@ -5748,21 +8327,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 17 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_17(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_17
+        """Get distance_from_top_of_thermal_chimney_to_inlet_17.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_17` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 17"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_17.setter
     def distance_from_top_of_thermal_chimney_to_inlet_17(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 17`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 17`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 17`
@@ -5772,21 +8354,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 17"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_17(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_17
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_17.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_17` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 17"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 17"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_17.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_17(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 17`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_17(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 17`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 17`
@@ -5796,21 +8384,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 17"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_17(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_17
+        """Get cross_sectional_areas_of_air_channel_inlet_17.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_17` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 17"]
 
     @cross_sectional_areas_of_air_channel_inlet_17.setter
     def cross_sectional_areas_of_air_channel_inlet_17(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 17`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        17`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 17`
@@ -5820,21 +8412,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 17"] = value
 
     @property
     def zone_18_name(self):
-        """Get zone_18_name
+        """Get zone_18_name.
 
         Returns:
             str: the value of `zone_18_name` or None if not set
+
         """
         return self["Zone 18 Name"]
 
     @zone_18_name.setter
     def zone_18_name(self, value=None):
-        """  Corresponds to IDD field `Zone 18 Name`
+        """Corresponds to IDD field `Zone 18 Name`
 
         Args:
             value (str): value for IDD Field `Zone 18 Name`
@@ -5843,21 +8437,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 18 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_18(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_18
+        """Get distance_from_top_of_thermal_chimney_to_inlet_18.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_18` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 18"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_18.setter
     def distance_from_top_of_thermal_chimney_to_inlet_18(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 18`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 18`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 18`
@@ -5867,21 +8464,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 18"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_18(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_18
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_18.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_18` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 18"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 18"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_18.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_18(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 18`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_18(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 18`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 18`
@@ -5891,21 +8494,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 18"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_18(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_18
+        """Get cross_sectional_areas_of_air_channel_inlet_18.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_18` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 18"]
 
     @cross_sectional_areas_of_air_channel_inlet_18.setter
     def cross_sectional_areas_of_air_channel_inlet_18(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 18`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        18`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 18`
@@ -5915,21 +8522,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 18"] = value
 
     @property
     def zone_19_name(self):
-        """Get zone_19_name
+        """Get zone_19_name.
 
         Returns:
             str: the value of `zone_19_name` or None if not set
+
         """
         return self["Zone 19 Name"]
 
     @zone_19_name.setter
     def zone_19_name(self, value=None):
-        """  Corresponds to IDD field `Zone 19 Name`
+        """Corresponds to IDD field `Zone 19 Name`
 
         Args:
             value (str): value for IDD Field `Zone 19 Name`
@@ -5938,21 +8547,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 19 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_19(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_19
+        """Get distance_from_top_of_thermal_chimney_to_inlet_19.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_19` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 19"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_19.setter
     def distance_from_top_of_thermal_chimney_to_inlet_19(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 19`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 19`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 19`
@@ -5962,21 +8574,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 19"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_19(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_19
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_19.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_19` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 19"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 19"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_19.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_19(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 19`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_19(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 19`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 19`
@@ -5986,21 +8604,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 19"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_19(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_19
+        """Get cross_sectional_areas_of_air_channel_inlet_19.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_19` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 19"]
 
     @cross_sectional_areas_of_air_channel_inlet_19.setter
     def cross_sectional_areas_of_air_channel_inlet_19(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 19`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        19`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 19`
@@ -6010,21 +8632,23 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 19"] = value
 
     @property
     def zone_20_name(self):
-        """Get zone_20_name
+        """Get zone_20_name.
 
         Returns:
             str: the value of `zone_20_name` or None if not set
+
         """
         return self["Zone 20 Name"]
 
     @zone_20_name.setter
     def zone_20_name(self, value=None):
-        """  Corresponds to IDD field `Zone 20 Name`
+        """Corresponds to IDD field `Zone 20 Name`
 
         Args:
             value (str): value for IDD Field `Zone 20 Name`
@@ -6033,21 +8657,24 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Zone 20 Name"] = value
 
     @property
     def distance_from_top_of_thermal_chimney_to_inlet_20(self):
-        """Get distance_from_top_of_thermal_chimney_to_inlet_20
+        """Get distance_from_top_of_thermal_chimney_to_inlet_20.
 
         Returns:
             float: the value of `distance_from_top_of_thermal_chimney_to_inlet_20` or None if not set
+
         """
         return self["Distance from Top of Thermal Chimney to Inlet 20"]
 
     @distance_from_top_of_thermal_chimney_to_inlet_20.setter
     def distance_from_top_of_thermal_chimney_to_inlet_20(self, value=None):
-        """  Corresponds to IDD field `Distance from Top of Thermal Chimney to Inlet 20`
+        """Corresponds to IDD field `Distance from Top of Thermal Chimney to
+        Inlet 20`
 
         Args:
             value (float): value for IDD Field `Distance from Top of Thermal Chimney to Inlet 20`
@@ -6057,21 +8684,27 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Distance from Top of Thermal Chimney to Inlet 20"] = value
 
     @property
     def relative_ratios_of_air_flow_rates_passing_through_zone_20(self):
-        """Get relative_ratios_of_air_flow_rates_passing_through_zone_20
+        """Get relative_ratios_of_air_flow_rates_passing_through_zone_20.
 
         Returns:
             float: the value of `relative_ratios_of_air_flow_rates_passing_through_zone_20` or None if not set
+
         """
-        return self["Relative Ratios of Air Flow Rates Passing through Zone 20"]
+        return self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 20"]
 
     @relative_ratios_of_air_flow_rates_passing_through_zone_20.setter
-    def relative_ratios_of_air_flow_rates_passing_through_zone_20(self, value=None):
-        """  Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing through Zone 20`
+    def relative_ratios_of_air_flow_rates_passing_through_zone_20(
+            self,
+            value=None):
+        """Corresponds to IDD field `Relative Ratios of Air Flow Rates Passing
+        through Zone 20`
 
         Args:
             value (float): value for IDD Field `Relative Ratios of Air Flow Rates Passing through Zone 20`
@@ -6081,21 +8714,25 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
-        self["Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
+        self[
+            "Relative Ratios of Air Flow Rates Passing through Zone 20"] = value
 
     @property
     def cross_sectional_areas_of_air_channel_inlet_20(self):
-        """Get cross_sectional_areas_of_air_channel_inlet_20
+        """Get cross_sectional_areas_of_air_channel_inlet_20.
 
         Returns:
             float: the value of `cross_sectional_areas_of_air_channel_inlet_20` or None if not set
+
         """
         return self["Cross Sectional Areas of Air Channel Inlet 20"]
 
     @cross_sectional_areas_of_air_channel_inlet_20.setter
     def cross_sectional_areas_of_air_channel_inlet_20(self, value=None):
-        """  Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet 20`
+        """Corresponds to IDD field `Cross Sectional Areas of Air Channel Inlet
+        20`
 
         Args:
             value (float): value for IDD Field `Cross Sectional Areas of Air Channel Inlet 20`
@@ -6105,6 +8742,7 @@ class ZoneThermalChimney(DataObject):
 
         Raises:
             ValueError: if `value` is not a valid value
+
         """
         self["Cross Sectional Areas of Air Channel Inlet 20"] = value
 
