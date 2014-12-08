@@ -207,6 +207,43 @@ print bsd.items()
 
 ```
 
+## Notes
+
+### Field name issues
+
+Keep in mind that pyidf is automatically generated from the specification. For some fields, especially extensible-fields, the field name contains a number where it shouldn't. For example for B...., the specification looks as follows:
+```
+...
+  N3,  \field Vertex 1 X-coordinate
+       \begin-extensible
+       \required-field
+       \units m
+       \type real
+  N4 , \field Vertex 1 Y-coordinate
+       \required-field
+       \units m
+       \type real
+  N5 , \field Vertex 1 Z-coordinate
+       \required-field
+       \units m
+       \type real
+  N6,  \field Vertex 2 X-coordinate
+       \required-field
+       \units m
+       \type real
+  N7,  \field Vertex 2 Y-coordinate
+       \required-field
+       \units m
+       \type real
+  N8,  \field Vertex 2 Z-coordinate
+       \required-field
+       \units m
+       \type real
+...
+```
+
+In pyidf only the 3 fields "Vertex 1 [X|Y|Z]-coordinate" are included in the schema. Extensible fields are implemented as a list of lists containing the values of the extensible fields. Thus field names can contain a number, for example "Vertex 1 X-coordinate", but should be named "Vertex X-coordinate" or "Vertex n X-coordinate" 
+
 ## Library generation
 
 Large parts of this library are generated automatically. In case the library should be rebuilt, for example to fix bugs or generate the library for a different EnergyPlus version, main.py in the generator package need to be executed. Currently generator/V8-2-0-Energy+.idd is used as basis to generate the library. generator/V8-2-0-Energy+Alt.idd contains modified data objects. Every data object in V8-2-0-Energy+Alt.idd overwrites data objects with the same name in the original idd. Generating the library requires the libraries jinja2, autopep8 and docformatter.
