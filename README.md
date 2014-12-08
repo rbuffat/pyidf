@@ -173,14 +173,15 @@ The following code creates a new `BuildingSurfaceDetailed` object and fills the 
 from pyidf.idf import IDF
 from pyidf.thermal_zones_and_surfaces import BuildingSurfaceDetailed
 
+idf = IDF(r"/usr/local/EnergyPlus-8-2-0/ExampleFiles/BasicsFiles/Exercise1A.idf")
 bsd = BuildingSurfaceDetailed()
 for key in bsd.schema['fields']:
     bsd[key] = idf.buildingsurfacedetaileds[0][key]
 bsd.extensibles = idf.buildingsurfacedetaileds[0].extensibles
 bsd.name = "test"
 
-idf = IDF()
-idf.add(bsd)
+idf2 = IDF()
+idf2.add(bsd)
 ```
 
 Extensible fields can be added with add_extensibles. The number of parameters required by this method depends on the number of extensible fields of a data object.
