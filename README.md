@@ -10,7 +10,6 @@ Python library to read, modify and create EnergyPlus idf files.
 
 ## Todos:
 
-* doc
 * field comments not implemented:
   * type: object-list, external-list, node
   * retaincase
@@ -34,6 +33,9 @@ git clone https://github.com/rbuffat/pyidf.git
 cd pyidf
 python setup.py install
 ```
+## Documentation
+
+[Link to pyidf documentation page](https://rbuffat.github.io/pyidf)
 
 ## Usage
 
