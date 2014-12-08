@@ -7,23 +7,14 @@ class {{ obj.class_name }}(DataObject):
     {%- endfor %}
     {%- endif %}
     """
-    schema = {{ obj.schema }}
+    _schema = {{ obj.schema }}
 
 
     {%- for field in obj.fields %}
 
     @property
     def {{field.field_name}}(self):
-        """Get {{ field.field_name }}
-
-        Returns:
-            {{ field.attributes.pytype }}: the value of `{{field.field_name}}` or None if not set
-        """
-        return self["{{ field.internal_name }}"]
-
-    @{{field.field_name}}.setter
-    def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
-        """  Corresponds to IDD field `{{field.internal_name}}`
+        """field `{{ field.internal_name }}`
 
         {%- if field.attributes.deprecated %}
         This field is not really used and will be deleted from the object.
@@ -70,11 +61,19 @@ class {{ obj.class_name }}(DataObject):
                 {%- if field.attributes.missing %}
                 Missing value: {{ field.attributes.missing }}
                 {%- endif %}
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
 
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            {{ field.attributes.pytype }}: the value of `{{field.field_name}}` or None if not set
+        """
+        return self["{{ field.internal_name }}"]
+
+    @{{field.field_name}}.setter
+    def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
+        """  Corresponds to IDD field `{{field.internal_name}}`
+
         """
         self["{{ field.internal_name }}"] = value
     {%- endfor %}

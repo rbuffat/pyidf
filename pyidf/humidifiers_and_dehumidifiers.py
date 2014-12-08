@@ -11,155 +11,72 @@ logger.addHandler(logging.NullHandler())
 
 
 class HumidifierSteamElectric(DataObject):
-
     """ Corresponds to IDD object `Humidifier:Steam:Electric`
         Electrically heated steam humidifier with fan.
     """
-    schema = {'extensible-fields': OrderedDict(),
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'availability schedule name',
-                                      {'name': u'Availability Schedule Name',
-                                       'pyname': u'availability_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'rated capacity',
-                                      {'name': u'Rated Capacity',
-                                       'pyname': u'rated_capacity',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm3/s'}),
-                                     (u'rated power',
-                                      {'name': u'Rated Power',
-                                       'pyname': u'rated_power',
-                                       'required-field': False,
-                                       'autosizable': True,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W'}),
-                                     (u'rated fan power',
-                                      {'name': u'Rated Fan Power',
-                                       'pyname': u'rated_fan_power',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W'}),
-                                     (u'standby power',
-                                      {'name': u'Standby Power',
-                                       'pyname': u'standby_power',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W'}),
-                                     (u'air inlet node name',
-                                      {'name': u'Air Inlet Node Name',
-                                       'pyname': u'air_inlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'air outlet node name',
-                                      {'name': u'Air Outlet Node Name',
-                                       'pyname': u'air_outlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'water storage tank name',
-                                      {'name': u'Water Storage Tank Name',
-                                       'pyname': u'water_storage_tank_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'})]),
-              'format': None,
-              'group': u'Humidifiers and Dehumidifiers',
-              'min-fields': 0,
-              'name': u'Humidifier:Steam:Electric',
-              'pyname': u'HumidifierSteamElectric',
-              'required-object': False,
-              'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'rated capacity', {'name': u'Rated Capacity', 'pyname': u'rated_capacity', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'rated power', {'name': u'Rated Power', 'pyname': u'rated_power', 'required-field': False, 'autosizable': True, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'rated fan power', {'name': u'Rated Fan Power', 'pyname': u'rated_fan_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'standby power', {'name': u'Standby Power', 'pyname': u'standby_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'air inlet node name', {'name': u'Air Inlet Node Name', 'pyname': u'air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'air outlet node name', {'name': u'Air Outlet Node Name', 'pyname': u'air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'water storage tank name', {'name': u'Water Storage Tank Name', 'pyname': u'water_storage_tank_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'})]),
+ 'format': None,
+ 'group': u'Humidifiers and Dehumidifiers',
+ 'min-fields': 0,
+ 'name': u'Humidifier:Steam:Electric',
+ 'pyname': u'HumidifierSteamElectric',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """The value of field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD field `Name`
 
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name.
-
-        Returns:
-            str: the value of `availability_schedule_name` or None if not set
-
-        """
-        return self["Availability Schedule Name"]
-
-    @availability_schedule_name.setter
-    def availability_schedule_name(self, value=None):
-        """Corresponds to IDD field `Availability Schedule Name` Availability
-        schedule name for this system. Schedule value > 0 means the system is
-        available. If this field is blank, the system is always available.
+        """The value of field `Availability Schedule Name`
+        Availability schedule name for this system. Schedule value > 0 means the system is available.
+        If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `availability_schedule_name` or None if not set
+        """
+        return self["Availability Schedule Name"]
+
+    @availability_schedule_name.setter
+    def availability_schedule_name(self, value=None):
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         """
         self["Availability Schedule Name"] = value
 
     @property
     def rated_capacity(self):
-        """Get rated_capacity.
-
-        Returns:
-            float: the value of `rated_capacity` or None if not set
-
-        """
-        return self["Rated Capacity"]
-
-    @rated_capacity.setter
-    def rated_capacity(self, value=None):
-        """  Corresponds to IDD field `Rated Capacity`
+        """The value of field `Rated Capacity`
         Capacity is m3/s of water at 5.05 C
 
         Args:
@@ -168,25 +85,25 @@ class HumidifierSteamElectric(DataObject):
                 IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `rated_capacity` or None if not set
+        """
+        return self["Rated Capacity"]
+
+    @rated_capacity.setter
+    def rated_capacity(self, value=None):
+        """  Corresponds to IDD field `Rated Capacity`
+
         """
         self["Rated Capacity"] = value
 
     @property
     def rated_power(self):
-        """Get rated_power.
-
-        Returns:
-            float: the value of `rated_power` or None if not set
-
-        """
-        return self["Rated Power"]
-
-    @rated_power.setter
-    def rated_power(self, value=None):
-        """  Corresponds to IDD field `Rated Power`
+        """The value of field `Rated Power`
         if autosized the rated power is calculated from the rated capacity
         and enthalpy rise of water from 20.0C to 100.0C steam and assumes
         electric to thermal energy conversion efficiency of 100.0%
@@ -197,25 +114,25 @@ class HumidifierSteamElectric(DataObject):
                 IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `rated_power` or None if not set
+        """
+        return self["Rated Power"]
+
+    @rated_power.setter
+    def rated_power(self, value=None):
+        """  Corresponds to IDD field `Rated Power`
+
         """
         self["Rated Power"] = value
 
     @property
     def rated_fan_power(self):
-        """Get rated_fan_power.
-
-        Returns:
-            float: the value of `rated_fan_power` or None if not set
-
-        """
-        return self["Rated Fan Power"]
-
-    @rated_fan_power.setter
-    def rated_fan_power(self, value=None):
-        """Corresponds to IDD field `Rated Fan Power`
+        """The value of field `Rated Fan Power`
 
         Args:
             value (float): value for IDD Field `Rated Fan Power`
@@ -223,26 +140,25 @@ class HumidifierSteamElectric(DataObject):
                 IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `rated_fan_power` or None if not set
+        """
+        return self["Rated Fan Power"]
+
+    @rated_fan_power.setter
+    def rated_fan_power(self, value=None):
+        """  Corresponds to IDD field `Rated Fan Power`
 
         """
         self["Rated Fan Power"] = value
 
     @property
     def standby_power(self):
-        """Get standby_power.
-
-        Returns:
-            float: the value of `standby_power` or None if not set
-
-        """
-        return self["Standby Power"]
-
-    @standby_power.setter
-    def standby_power(self, value=None):
-        """Corresponds to IDD field `Standby Power`
+        """The value of field `Standby Power`
 
         Args:
             value (float): value for IDD Field `Standby Power`
@@ -250,84 +166,90 @@ class HumidifierSteamElectric(DataObject):
                 IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `standby_power` or None if not set
+        """
+        return self["Standby Power"]
+
+    @standby_power.setter
+    def standby_power(self, value=None):
+        """  Corresponds to IDD field `Standby Power`
 
         """
         self["Standby Power"] = value
 
     @property
     def air_inlet_node_name(self):
-        """Get air_inlet_node_name.
-
-        Returns:
-            str: the value of `air_inlet_node_name` or None if not set
-
-        """
-        return self["Air Inlet Node Name"]
-
-    @air_inlet_node_name.setter
-    def air_inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Air Inlet Node Name`
+        """The value of field `Air Inlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `air_inlet_node_name` or None if not set
+        """
+        return self["Air Inlet Node Name"]
+
+    @air_inlet_node_name.setter
+    def air_inlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Air Inlet Node Name`
 
         """
         self["Air Inlet Node Name"] = value
 
     @property
     def air_outlet_node_name(self):
-        """Get air_outlet_node_name.
-
-        Returns:
-            str: the value of `air_outlet_node_name` or None if not set
-
-        """
-        return self["Air Outlet Node Name"]
-
-    @air_outlet_node_name.setter
-    def air_outlet_node_name(self, value=None):
-        """Corresponds to IDD field `Air Outlet Node Name`
+        """The value of field `Air Outlet Node Name`
 
         Args:
             value (str): value for IDD Field `Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `air_outlet_node_name` or None if not set
+        """
+        return self["Air Outlet Node Name"]
+
+    @air_outlet_node_name.setter
+    def air_outlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Air Outlet Node Name`
 
         """
         self["Air Outlet Node Name"] = value
 
     @property
     def water_storage_tank_name(self):
-        """Get water_storage_tank_name.
-
-        Returns:
-            str: the value of `water_storage_tank_name` or None if not set
-
-        """
-        return self["Water Storage Tank Name"]
-
-    @water_storage_tank_name.setter
-    def water_storage_tank_name(self, value=None):
-        """Corresponds to IDD field `Water Storage Tank Name`
+        """The value of field `Water Storage Tank Name`
 
         Args:
             value (str): value for IDD Field `Water Storage Tank Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `water_storage_tank_name` or None if not set
+        """
+        return self["Water Storage Tank Name"]
+
+    @water_storage_tank_name.setter
+    def water_storage_tank_name(self, value=None):
+        """  Corresponds to IDD field `Water Storage Tank Name`
 
         """
         self["Water Storage Tank Name"] = value
@@ -336,7 +258,6 @@ class HumidifierSteamElectric(DataObject):
 
 
 class DehumidifierDesiccantNoFans(DataObject):
-
     """ Corresponds to IDD object `Dehumidifier:Desiccant:NoFans`
         This object models a solid desiccant dehumidifier. The process
         air stream is the air which is dehumidified. The regeneration air
@@ -349,382 +270,171 @@ class DehumidifierDesiccantNoFans(DataObject):
         desiccant dehumidifier is typically used in an AirLoopHVAC:OutdoorAirSystem,
         but can also be specified in any AirLoopHVAC.
     """
-    schema = {'extensible-fields': OrderedDict(),
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'availability schedule name',
-                                      {'name': u'Availability Schedule Name',
-                                       'pyname': u'availability_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'process air inlet node name',
-                                      {'name': u'Process Air Inlet Node Name',
-                                       'pyname': u'process_air_inlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'process air outlet node name',
-                                      {'name': u'Process Air Outlet Node Name',
-                                       'pyname': u'process_air_outlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'regeneration air inlet node name',
-                                      {'name': u'Regeneration Air Inlet Node Name',
-                                       'pyname': u'regeneration_air_inlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'regeneration fan inlet node name',
-                                      {'name': u'Regeneration Fan Inlet Node Name',
-                                       'pyname': u'regeneration_fan_inlet_node_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'control type',
-                                      {'name': u'Control Type',
-                                       'pyname': u'control_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'LeavingMaximumHumidityRatioSetpoint',
-                                                           u'SystemNodeMaximumHumidityRatioSetpoint'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'leaving maximum humidity ratio setpoint',
-                                      {'name': u'Leaving Maximum Humidity Ratio Setpoint',
-                                       'pyname': u'leaving_maximum_humidity_ratio_setpoint',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'kgWater/kgDryAir'}),
-                                     (u'nominal process air flow rate',
-                                      {'name': u'Nominal Process Air Flow Rate',
-                                       'pyname': u'nominal_process_air_flow_rate',
-                                       'minimum>': 0.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm3/s'}),
-                                     (u'nominal process air velocity',
-                                      {'name': u'Nominal Process Air Velocity',
-                                       'pyname': u'nominal_process_air_velocity',
-                                       'minimum>': 0.0,
-                                       'maximum': 6.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm/s'}),
-                                     (u'rotor power',
-                                      {'name': u'Rotor Power',
-                                       'pyname': u'rotor_power',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 0.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W'}),
-                                     (u'regeneration coil object type',
-                                      {'name': u'Regeneration Coil Object Type',
-                                       'pyname': u'regeneration_coil_object_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Coil:Heating:Electric',
-                                                           u'Coil:Heating:Gas',
-                                                           u'Coil:Heating:Water',
-                                                           u'Coil:Heating:Steam'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'regeneration coil name',
-                                      {'name': u'Regeneration Coil Name',
-                                       'pyname': u'regeneration_coil_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration fan object type',
-                                      {'name': u'Regeneration Fan Object Type',
-                                       'pyname': u'regeneration_fan_object_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Fan:VariableVolume',
-                                                           u'Fan:ConstantVolume'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'regeneration fan name',
-                                      {'name': u'Regeneration Fan Name',
-                                       'pyname': u'regeneration_fan_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'performance model type',
-                                      {'name': u'Performance Model Type',
-                                       'pyname': u'performance_model_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Default',
-                                                           u'UserCurves'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'leaving dry-bulb function of entering dry-bulb and humidity ratio curve name',
-                                      {'name': u'Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name',
-                                       'pyname': u'leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'leaving dry-bulb function of air velocity curve name',
-                                      {'name': u'Leaving Dry-Bulb Function of Air Velocity Curve Name',
-                                       'pyname': u'leaving_drybulb_function_of_air_velocity_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'leaving humidity ratio function of entering dry-bulb and humidity ratio curve name',
-                                      {'name': u'Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name',
-                                       'pyname': u'leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'leaving humidity ratio function of air velocity curve name',
-                                      {'name': u'Leaving Humidity Ratio Function of Air Velocity Curve Name',
-                                       'pyname': u'leaving_humidity_ratio_function_of_air_velocity_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration energy function of entering dry-bulb and humidity ratio curve name',
-                                      {'name': u'Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name',
-                                       'pyname': u'regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration energy function of air velocity curve name',
-                                      {'name': u'Regeneration Energy Function of Air Velocity Curve Name',
-                                       'pyname': u'regeneration_energy_function_of_air_velocity_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration velocity function of entering dry-bulb and humidity ratio curve name',
-                                      {'name': u'Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name',
-                                       'pyname': u'regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration velocity function of air velocity curve name',
-                                      {'name': u'Regeneration Velocity Function of Air Velocity Curve Name',
-                                       'pyname': u'regeneration_velocity_function_of_air_velocity_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'nominal regeneration temperature',
-                                      {'name': u'Nominal Regeneration Temperature',
-                                       'pyname': u'nominal_regeneration_temperature',
-                                       'maximum': 250.0,
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'minimum': 40.0,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'})]),
-              'format': None,
-              'group': u'Humidifiers and Dehumidifiers',
-              'min-fields': 0,
-              'name': u'Dehumidifier:Desiccant:NoFans',
-              'pyname': u'DehumidifierDesiccantNoFans',
-              'required-object': False,
-              'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'process air inlet node name', {'name': u'Process Air Inlet Node Name', 'pyname': u'process_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'process air outlet node name', {'name': u'Process Air Outlet Node Name', 'pyname': u'process_air_outlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air inlet node name', {'name': u'Regeneration Air Inlet Node Name', 'pyname': u'regeneration_air_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration fan inlet node name', {'name': u'Regeneration Fan Inlet Node Name', 'pyname': u'regeneration_fan_inlet_node_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'control type', {'name': u'Control Type', 'pyname': u'control_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'LeavingMaximumHumidityRatioSetpoint', u'SystemNodeMaximumHumidityRatioSetpoint'], 'autocalculatable': False, 'type': 'alpha'}), (u'leaving maximum humidity ratio setpoint', {'name': u'Leaving Maximum Humidity Ratio Setpoint', 'pyname': u'leaving_maximum_humidity_ratio_setpoint', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'kgWater/kgDryAir'}), (u'nominal process air flow rate', {'name': u'Nominal Process Air Flow Rate', 'pyname': u'nominal_process_air_flow_rate', 'minimum>': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'nominal process air velocity', {'name': u'Nominal Process Air Velocity', 'pyname': u'nominal_process_air_velocity', 'minimum>': 0.0, 'maximum': 6.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm/s'}), (u'rotor power', {'name': u'Rotor Power', 'pyname': u'rotor_power', 'required-field': False, 'autosizable': False, 'minimum': 0.0, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'regeneration coil object type', {'name': u'Regeneration Coil Object Type', 'pyname': u'regeneration_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration coil name', {'name': u'Regeneration Coil Name', 'pyname': u'regeneration_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration fan object type', {'name': u'Regeneration Fan Object Type', 'pyname': u'regeneration_fan_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Fan:VariableVolume', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration fan name', {'name': u'Regeneration Fan Name', 'pyname': u'regeneration_fan_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'performance model type', {'name': u'Performance Model Type', 'pyname': u'performance_model_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Default', u'UserCurves'], 'autocalculatable': False, 'type': 'alpha'}), (u'leaving dry-bulb function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving dry-bulb function of air velocity curve name', {'name': u'Leaving Dry-Bulb Function of Air Velocity Curve Name', 'pyname': u'leaving_drybulb_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of entering dry-bulb and humidity ratio curve name', {'name': u'Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'leaving humidity ratio function of air velocity curve name', {'name': u'Leaving Humidity Ratio Function of Air Velocity Curve Name', 'pyname': u'leaving_humidity_ratio_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration energy function of air velocity curve name', {'name': u'Regeneration Energy Function of Air Velocity Curve Name', 'pyname': u'regeneration_energy_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of entering dry-bulb and humidity ratio curve name', {'name': u'Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name', 'pyname': u'regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration velocity function of air velocity curve name', {'name': u'Regeneration Velocity Function of Air Velocity Curve Name', 'pyname': u'regeneration_velocity_function_of_air_velocity_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'nominal regeneration temperature', {'name': u'Nominal Regeneration Temperature', 'pyname': u'nominal_regeneration_temperature', 'maximum': 250.0, 'required-field': False, 'autosizable': False, 'minimum': 40.0, 'autocalculatable': False, 'type': u'real', 'unit': u'C'})]),
+ 'format': None,
+ 'group': u'Humidifiers and Dehumidifiers',
+ 'min-fields': 0,
+ 'name': u'Dehumidifier:Desiccant:NoFans',
+ 'pyname': u'DehumidifierDesiccantNoFans',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """The value of field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD field `Name`
 
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name.
-
-        Returns:
-            str: the value of `availability_schedule_name` or None if not set
-
-        """
-        return self["Availability Schedule Name"]
-
-    @availability_schedule_name.setter
-    def availability_schedule_name(self, value=None):
-        """Corresponds to IDD field `Availability Schedule Name` Availability
-        schedule name for this system. Schedule value > 0 means the system is
-        available. If this field is blank, the system is always available.
+        """The value of field `Availability Schedule Name`
+        Availability schedule name for this system. Schedule value > 0 means the system is available.
+        If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `availability_schedule_name` or None if not set
+        """
+        return self["Availability Schedule Name"]
+
+    @availability_schedule_name.setter
+    def availability_schedule_name(self, value=None):
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         """
         self["Availability Schedule Name"] = value
 
     @property
     def process_air_inlet_node_name(self):
-        """Get process_air_inlet_node_name.
-
-        Returns:
-            str: the value of `process_air_inlet_node_name` or None if not set
-
-        """
-        return self["Process Air Inlet Node Name"]
-
-    @process_air_inlet_node_name.setter
-    def process_air_inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Process Air Inlet Node Name` This is the
-        node entering the process side of the desiccant wheel.
+        """The value of field `Process Air Inlet Node Name`
+        This is the node entering the process side of the desiccant wheel.
 
         Args:
             value (str): value for IDD Field `Process Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `process_air_inlet_node_name` or None if not set
+        """
+        return self["Process Air Inlet Node Name"]
+
+    @process_air_inlet_node_name.setter
+    def process_air_inlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Process Air Inlet Node Name`
 
         """
         self["Process Air Inlet Node Name"] = value
 
     @property
     def process_air_outlet_node_name(self):
-        """Get process_air_outlet_node_name.
-
-        Returns:
-            str: the value of `process_air_outlet_node_name` or None if not set
-
-        """
-        return self["Process Air Outlet Node Name"]
-
-    @process_air_outlet_node_name.setter
-    def process_air_outlet_node_name(self, value=None):
-        """Corresponds to IDD field `Process Air Outlet Node Name` This is the
-        node leaving the process side of the desiccant wheel.
+        """The value of field `Process Air Outlet Node Name`
+        This is the node leaving the process side of the desiccant wheel.
 
         Args:
             value (str): value for IDD Field `Process Air Outlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `process_air_outlet_node_name` or None if not set
+        """
+        return self["Process Air Outlet Node Name"]
+
+    @process_air_outlet_node_name.setter
+    def process_air_outlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Process Air Outlet Node Name`
 
         """
         self["Process Air Outlet Node Name"] = value
 
     @property
     def regeneration_air_inlet_node_name(self):
-        """Get regeneration_air_inlet_node_name.
-
-        Returns:
-            str: the value of `regeneration_air_inlet_node_name` or None if not set
-
-        """
-        return self["Regeneration Air Inlet Node Name"]
-
-    @regeneration_air_inlet_node_name.setter
-    def regeneration_air_inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Air Inlet Node Name` This is
-        the node entering the regeneration side of the desiccant wheel after
-        the regeneration coil.
+        """The value of field `Regeneration Air Inlet Node Name`
+        This is the node entering the regeneration side of the desiccant wheel
+        after the regeneration coil.
 
         Args:
             value (str): value for IDD Field `Regeneration Air Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_inlet_node_name` or None if not set
+        """
+        return self["Regeneration Air Inlet Node Name"]
+
+    @regeneration_air_inlet_node_name.setter
+    def regeneration_air_inlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Air Inlet Node Name`
 
         """
         self["Regeneration Air Inlet Node Name"] = value
 
     @property
     def regeneration_fan_inlet_node_name(self):
-        """Get regeneration_fan_inlet_node_name.
-
-        Returns:
-            str: the value of `regeneration_fan_inlet_node_name` or None if not set
-
-        """
-        return self["Regeneration Fan Inlet Node Name"]
-
-    @regeneration_fan_inlet_node_name.setter
-    def regeneration_fan_inlet_node_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Fan Inlet Node Name` Node for
-        air entering the regeneration fan, mass flow is set by the desiccant
-        dehumidifier module.
+        """The value of field `Regeneration Fan Inlet Node Name`
+        Node for air entering the regeneration fan, mass flow is set
+        by the desiccant dehumidifier module.
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Inlet Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_fan_inlet_node_name` or None if not set
+        """
+        return self["Regeneration Fan Inlet Node Name"]
+
+    @regeneration_fan_inlet_node_name.setter
+    def regeneration_fan_inlet_node_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Fan Inlet Node Name`
 
         """
         self["Regeneration Fan Inlet Node Name"] = value
 
     @property
     def control_type(self):
-        """Get control_type.
-
-        Returns:
-            str: the value of `control_type` or None if not set
-
-        """
-        return self["Control Type"]
-
-    @control_type.setter
-    def control_type(self, value=None):
-        """  Corresponds to IDD field `Control Type`
+        """The value of field `Control Type`
         Type of setpoint control:
         LeavingMaximumHumidityRatioSetpoint means that the unit is controlled
         to deliver air at the Leaving Max Humidity Ratio Setpoint (see below),
@@ -738,25 +448,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Control Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `control_type` or None if not set
+        """
+        return self["Control Type"]
+
+    @control_type.setter
+    def control_type(self, value=None):
+        """  Corresponds to IDD field `Control Type`
+
         """
         self["Control Type"] = value
 
     @property
     def leaving_maximum_humidity_ratio_setpoint(self):
-        """Get leaving_maximum_humidity_ratio_setpoint.
-
-        Returns:
-            float: the value of `leaving_maximum_humidity_ratio_setpoint` or None if not set
-
-        """
-        return self["Leaving Maximum Humidity Ratio Setpoint"]
-
-    @leaving_maximum_humidity_ratio_setpoint.setter
-    def leaving_maximum_humidity_ratio_setpoint(self, value=None):
-        """  Corresponds to IDD field `Leaving Maximum Humidity Ratio Setpoint`
+        """The value of field `Leaving Maximum Humidity Ratio Setpoint`
         Fixed setpoint for maximum process air leaving humidity ratio
         Applicable only when Control Type = LeavingMaximumHumidityRatioSetpoint.
 
@@ -765,52 +475,51 @@ class DehumidifierDesiccantNoFans(DataObject):
                 Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `leaving_maximum_humidity_ratio_setpoint` or None if not set
+        """
+        return self["Leaving Maximum Humidity Ratio Setpoint"]
+
+    @leaving_maximum_humidity_ratio_setpoint.setter
+    def leaving_maximum_humidity_ratio_setpoint(self, value=None):
+        """  Corresponds to IDD field `Leaving Maximum Humidity Ratio Setpoint`
+
         """
         self["Leaving Maximum Humidity Ratio Setpoint"] = value
 
     @property
     def nominal_process_air_flow_rate(self):
-        """Get nominal_process_air_flow_rate.
-
-        Returns:
-            float: the value of `nominal_process_air_flow_rate` or None if not set
-
-        """
-        return self["Nominal Process Air Flow Rate"]
-
-    @nominal_process_air_flow_rate.setter
-    def nominal_process_air_flow_rate(self, value=None):
-        """Corresponds to IDD field `Nominal Process Air Flow Rate` Process air
-        flow rate at nominal conditions.
+        """The value of field `Nominal Process Air Flow Rate`
+        Process air flow rate at nominal conditions
 
         Args:
             value (float): value for IDD Field `Nominal Process Air Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `nominal_process_air_flow_rate` or None if not set
+        """
+        return self["Nominal Process Air Flow Rate"]
+
+    @nominal_process_air_flow_rate.setter
+    def nominal_process_air_flow_rate(self, value=None):
+        """  Corresponds to IDD field `Nominal Process Air Flow Rate`
 
         """
         self["Nominal Process Air Flow Rate"] = value
 
     @property
     def nominal_process_air_velocity(self):
-        """Get nominal_process_air_velocity.
-
-        Returns:
-            float: the value of `nominal_process_air_velocity` or None if not set
-
-        """
-        return self["Nominal Process Air Velocity"]
-
-    @nominal_process_air_velocity.setter
-    def nominal_process_air_velocity(self, value=None):
-        """  Corresponds to IDD field `Nominal Process Air Velocity`
+        """The value of field `Nominal Process Air Velocity`
         Process air velocity at nominal flow
         When using Performance Model Type of Default, must be 2.032 to 4.064 m/s (400 to 800 fpm)
 
@@ -820,26 +529,26 @@ class DehumidifierDesiccantNoFans(DataObject):
                 value <= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `nominal_process_air_velocity` or None if not set
+        """
+        return self["Nominal Process Air Velocity"]
+
+    @nominal_process_air_velocity.setter
+    def nominal_process_air_velocity(self, value=None):
+        """  Corresponds to IDD field `Nominal Process Air Velocity`
+
         """
         self["Nominal Process Air Velocity"] = value
 
     @property
     def rotor_power(self):
-        """Get rotor_power.
-
-        Returns:
-            float: the value of `rotor_power` or None if not set
-
-        """
-        return self["Rotor Power"]
-
-    @rotor_power.setter
-    def rotor_power(self, value=None):
-        """Corresponds to IDD field `Rotor Power` Power input to wheel rotor
-        motor.
+        """The value of field `Rotor Power`
+        Power input to wheel rotor motor
 
         Args:
             value (float): value for IDD Field `Rotor Power`
@@ -847,78 +556,76 @@ class DehumidifierDesiccantNoFans(DataObject):
                 IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `rotor_power` or None if not set
+        """
+        return self["Rotor Power"]
+
+    @rotor_power.setter
+    def rotor_power(self, value=None):
+        """  Corresponds to IDD field `Rotor Power`
 
         """
         self["Rotor Power"] = value
 
     @property
     def regeneration_coil_object_type(self):
-        """Get regeneration_coil_object_type.
-
-        Returns:
-            str: the value of `regeneration_coil_object_type` or None if not set
-
-        """
-        return self["Regeneration Coil Object Type"]
-
-    @regeneration_coil_object_type.setter
-    def regeneration_coil_object_type(self, value=None):
-        """Corresponds to IDD field `Regeneration Coil Object Type` heating
-        coil type works with gas, electric, hot water and steam heating coils.
+        """The value of field `Regeneration Coil Object Type`
+        heating coil type
+        works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Regeneration Coil Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_coil_object_type` or None if not set
+        """
+        return self["Regeneration Coil Object Type"]
+
+    @regeneration_coil_object_type.setter
+    def regeneration_coil_object_type(self, value=None):
+        """  Corresponds to IDD field `Regeneration Coil Object Type`
 
         """
         self["Regeneration Coil Object Type"] = value
 
     @property
     def regeneration_coil_name(self):
-        """Get regeneration_coil_name.
-
-        Returns:
-            str: the value of `regeneration_coil_name` or None if not set
-
-        """
-        return self["Regeneration Coil Name"]
-
-    @regeneration_coil_name.setter
-    def regeneration_coil_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Coil Name` Name of heating
-        coil object for regeneration air.
+        """The value of field `Regeneration Coil Name`
+        Name of heating coil object for regeneration air
 
         Args:
             value (str): value for IDD Field `Regeneration Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_coil_name` or None if not set
+        """
+        return self["Regeneration Coil Name"]
+
+    @regeneration_coil_name.setter
+    def regeneration_coil_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Coil Name`
 
         """
         self["Regeneration Coil Name"] = value
 
     @property
     def regeneration_fan_object_type(self):
-        """Get regeneration_fan_object_type.
-
-        Returns:
-            str: the value of `regeneration_fan_object_type` or None if not set
-
-        """
-        return self["Regeneration Fan Object Type"]
-
-    @regeneration_fan_object_type.setter
-    def regeneration_fan_object_type(self, value=None):
-        """  Corresponds to IDD field `Regeneration Fan Object Type`
+        """The value of field `Regeneration Fan Object Type`
         Type of fan object for regeneration air.  When using the Default
         Performance Model Type (see below), only Fan:VariableVolume is valid.
 
@@ -926,51 +633,50 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Regeneration Fan Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_fan_object_type` or None if not set
+        """
+        return self["Regeneration Fan Object Type"]
+
+    @regeneration_fan_object_type.setter
+    def regeneration_fan_object_type(self, value=None):
+        """  Corresponds to IDD field `Regeneration Fan Object Type`
+
         """
         self["Regeneration Fan Object Type"] = value
 
     @property
     def regeneration_fan_name(self):
-        """Get regeneration_fan_name.
-
-        Returns:
-            str: the value of `regeneration_fan_name` or None if not set
-
-        """
-        return self["Regeneration Fan Name"]
-
-    @regeneration_fan_name.setter
-    def regeneration_fan_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Fan Name` Name of fan object
-        for regeneration air.
+        """The value of field `Regeneration Fan Name`
+        Name of fan object for regeneration air
 
         Args:
             value (str): value for IDD Field `Regeneration Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_fan_name` or None if not set
+        """
+        return self["Regeneration Fan Name"]
+
+    @regeneration_fan_name.setter
+    def regeneration_fan_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Fan Name`
 
         """
         self["Regeneration Fan Name"] = value
 
     @property
     def performance_model_type(self):
-        """Get performance_model_type.
-
-        Returns:
-            str: the value of `performance_model_type` or None if not set
-
-        """
-        return self["Performance Model Type"]
-
-    @performance_model_type.setter
-    def performance_model_type(self, value=None):
-        """  Corresponds to IDD field `Performance Model Type`
+        """The value of field `Performance Model Type`
         Specifies whether the default performance model or user-specified
         curves should be used to model the performance.  The default model
         is a generic solid desiccant wheel using performance curves of the form:
@@ -990,30 +696,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Performance Model Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `performance_model_type` or None if not set
+        """
+        return self["Performance Model Type"]
+
+    @performance_model_type.setter
+    def performance_model_type(self, value=None):
+        """  Corresponds to IDD field `Performance Model Type`
+
         """
         self["Performance Model Type"] = value
 
     @property
-    def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self):
-        """Get leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_
-        curve_name.
-
-        Returns:
-            str: the value of `leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
-
-        """
-        return self[
-            "Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
-
-    @leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
-    def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+    def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
+        """The value of field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
         Leaving dry-bulb of process air as a function of entering dry-bulb
         and entering humidity ratio, biquadratic curve
         Table:TwoIndependentVariables object can also be used
@@ -1025,26 +726,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        self[
-            "Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        return self["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+
+    @leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
+    def leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
+        """  Corresponds to IDD field `Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+
+        """
+        self["Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def leaving_drybulb_function_of_air_velocity_curve_name(self):
-        """Get leaving_drybulb_function_of_air_velocity_curve_name.
-
-        Returns:
-            str: the value of `leaving_drybulb_function_of_air_velocity_curve_name` or None if not set
-
-        """
-        return self["Leaving Dry-Bulb Function of Air Velocity Curve Name"]
-
-    @leaving_drybulb_function_of_air_velocity_curve_name.setter
-    def leaving_drybulb_function_of_air_velocity_curve_name(self, value=None):
-        """  Corresponds to IDD field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
+        """The value of field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
         Leaving dry-bulb of process air as a function of air velocity,
         quadratic curve.
         Table:OneIndependentVariable object can also be used
@@ -1055,30 +755,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `leaving_drybulb_function_of_air_velocity_curve_name` or None if not set
+        """
+        return self["Leaving Dry-Bulb Function of Air Velocity Curve Name"]
+
+    @leaving_drybulb_function_of_air_velocity_curve_name.setter
+    def leaving_drybulb_function_of_air_velocity_curve_name(self, value=None):
+        """  Corresponds to IDD field `Leaving Dry-Bulb Function of Air Velocity Curve Name`
+
         """
         self["Leaving Dry-Bulb Function of Air Velocity Curve Name"] = value
 
     @property
-    def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self):
-        """Get leaving_humidity_ratio_function_of_entering_drybulb_and_humidity
-        _ratio_curve_name.
-
-        Returns:
-            str: the value of `leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
-
-        """
-        return self[
-            "Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
-
-    @leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
-    def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+    def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
+        """The value of field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
         Leaving humidity ratio of process air as a function of entering dry-bulb
         and entering humidity ratio, biquadratic curve
         Table:TwoIndependentVariables object can also be used
@@ -1090,29 +785,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        self[
-            "Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        return self["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+
+    @leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
+    def leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
+        """  Corresponds to IDD field `Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+
+        """
+        self["Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def leaving_humidity_ratio_function_of_air_velocity_curve_name(self):
-        """Get leaving_humidity_ratio_function_of_air_velocity_curve_name.
-
-        Returns:
-            str: the value of `leaving_humidity_ratio_function_of_air_velocity_curve_name` or None if not set
-
-        """
-        return self[
-            "Leaving Humidity Ratio Function of Air Velocity Curve Name"]
-
-    @leaving_humidity_ratio_function_of_air_velocity_curve_name.setter
-    def leaving_humidity_ratio_function_of_air_velocity_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
+        """The value of field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
         Leaving humidity ratio of process air as a function of
         process air velocity, quadratic curve.
         Table:OneIndependentVariable object can also be used
@@ -1123,31 +814,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
-        """
-        self[
-            "Leaving Humidity Ratio Function of Air Velocity Curve Name"] = value
-
-    @property
-    def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self):
-        """Get regeneration_energy_function_of_entering_drybulb_and_humidity_ra
-        tio_curve_name.
 
         Returns:
-            str: the value of `regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
+            str: the value of `leaving_humidity_ratio_function_of_air_velocity_curve_name` or None if not set
+        """
+        return self["Leaving Humidity Ratio Function of Air Velocity Curve Name"]
+
+    @leaving_humidity_ratio_function_of_air_velocity_curve_name.setter
+    def leaving_humidity_ratio_function_of_air_velocity_curve_name(self, value=None):
+        """  Corresponds to IDD field `Leaving Humidity Ratio Function of Air Velocity Curve Name`
 
         """
-        return self[
-            "Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+        self["Leaving Humidity Ratio Function of Air Velocity Curve Name"] = value
 
-    @regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
-    def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+    @property
+    def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
+        """The value of field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
         Regeneration energy [J/kg of water removed] as a function of
         entering dry-bulb and entering humidity ratio, biquadratic curve
         Table:TwoIndependentVariables object can also be used
@@ -1159,28 +844,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        self[
-            "Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        return self["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+
+    @regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
+    def regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+
+        """
+        self["Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def regeneration_energy_function_of_air_velocity_curve_name(self):
-        """Get regeneration_energy_function_of_air_velocity_curve_name.
-
-        Returns:
-            str: the value of `regeneration_energy_function_of_air_velocity_curve_name` or None if not set
-
-        """
-        return self["Regeneration Energy Function of Air Velocity Curve Name"]
-
-    @regeneration_energy_function_of_air_velocity_curve_name.setter
-    def regeneration_energy_function_of_air_velocity_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Regeneration Energy Function of Air Velocity Curve Name`
+        """The value of field `Regeneration Energy Function of Air Velocity Curve Name`
         Regeneration energy [J/kg of water removed] as a function of
         process air velocity, quadratic curve.
         Table:OneIndependentVariable object can also be used
@@ -1191,30 +873,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Regeneration Energy Function of Air Velocity Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_energy_function_of_air_velocity_curve_name` or None if not set
+        """
+        return self["Regeneration Energy Function of Air Velocity Curve Name"]
+
+    @regeneration_energy_function_of_air_velocity_curve_name.setter
+    def regeneration_energy_function_of_air_velocity_curve_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Energy Function of Air Velocity Curve Name`
+
         """
         self["Regeneration Energy Function of Air Velocity Curve Name"] = value
 
     @property
-    def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self):
-        """Get regeneration_velocity_function_of_entering_drybulb_and_humidity_
-        ratio_curve_name.
-
-        Returns:
-            str: the value of `regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
-
-        """
-        return self[
-            "Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
-
-    @regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
-    def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+    def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(self):
+        """The value of field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
         Regeneration velocity [m/s] as a function of
         entering dry-bulb and entering humidity ratio, biquadratic curve
         Table:TwoIndependentVariables object can also be used
@@ -1226,29 +903,25 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name` or None if not set
         """
-        self[
-            "Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
+        return self["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"]
+
+    @regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name.setter
+    def regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name`
+
+        """
+        self["Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name"] = value
 
     @property
     def regeneration_velocity_function_of_air_velocity_curve_name(self):
-        """Get regeneration_velocity_function_of_air_velocity_curve_name.
-
-        Returns:
-            str: the value of `regeneration_velocity_function_of_air_velocity_curve_name` or None if not set
-
-        """
-        return self[
-            "Regeneration Velocity Function of Air Velocity Curve Name"]
-
-    @regeneration_velocity_function_of_air_velocity_curve_name.setter
-    def regeneration_velocity_function_of_air_velocity_curve_name(
-            self,
-            value=None):
-        """  Corresponds to IDD field `Regeneration Velocity Function of Air Velocity Curve Name`
+        """The value of field `Regeneration Velocity Function of Air Velocity Curve Name`
         Regeneration velocity [m/s] as a function of
         process air velocity, quadratic curve.
         Table:OneIndependentVariable object can also be used
@@ -1259,29 +932,28 @@ class DehumidifierDesiccantNoFans(DataObject):
             value (str): value for IDD Field `Regeneration Velocity Function of Air Velocity Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_velocity_function_of_air_velocity_curve_name` or None if not set
         """
-        self[
-            "Regeneration Velocity Function of Air Velocity Curve Name"] = value
+        return self["Regeneration Velocity Function of Air Velocity Curve Name"]
+
+    @regeneration_velocity_function_of_air_velocity_curve_name.setter
+    def regeneration_velocity_function_of_air_velocity_curve_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Velocity Function of Air Velocity Curve Name`
+
+        """
+        self["Regeneration Velocity Function of Air Velocity Curve Name"] = value
 
     @property
     def nominal_regeneration_temperature(self):
-        """Get nominal_regeneration_temperature.
-
-        Returns:
-            float: the value of `nominal_regeneration_temperature` or None if not set
-
-        """
-        return self["Nominal Regeneration Temperature"]
-
-    @nominal_regeneration_temperature.setter
-    def nominal_regeneration_temperature(self, value=None):
-        """Corresponds to IDD field `Nominal Regeneration Temperature` Nominal
-        regen temperature upon which the regen energy modifier curve is based.
-        Not used if Default if chosen for the field Performance Mode Type. 121
-        C is a commonly used value.
+        """The value of field `Nominal Regeneration Temperature`
+        Nominal regen temperature upon which the regen energy modifier
+        curve is based.  Not used if Default if chosen for the field Performance Mode Type.
+        121 C is a commonly used value.
 
         Args:
             value (float): value for IDD Field `Nominal Regeneration Temperature`
@@ -1290,9 +962,18 @@ class DehumidifierDesiccantNoFans(DataObject):
                 value <= 250.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `nominal_regeneration_temperature` or None if not set
+        """
+        return self["Nominal Regeneration Temperature"]
+
+    @nominal_regeneration_temperature.setter
+    def nominal_regeneration_temperature(self, value=None):
+        """  Corresponds to IDD field `Nominal Regeneration Temperature`
 
         """
         self["Nominal Regeneration Temperature"] = value
@@ -1301,7 +982,6 @@ class DehumidifierDesiccantNoFans(DataObject):
 
 
 class DehumidifierDesiccantSystem(DataObject):
-
     """ Corresponds to IDD object `Dehumidifier:Desiccant:System`
         This compound object models a desiccant heat exchanger, an optional
         heater, and associated fans. The process air stream is the air which
@@ -1311,617 +991,438 @@ class DehumidifierDesiccantSystem(DataObject):
         regeneration air streams. The desiccant dehumidifier is typically used
         in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC.
     """
-    schema = {'extensible-fields': OrderedDict(),
-              'fields': OrderedDict([(u'name',
-                                      {'name': u'Name',
-                                       'pyname': u'name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'}),
-                                     (u'availability schedule name',
-                                      {'name': u'Availability Schedule Name',
-                                       'pyname': u'availability_schedule_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'desiccant heat exchanger object type',
-                                      {'name': u'Desiccant Heat Exchanger Object Type',
-                                       'pyname': u'desiccant_heat_exchanger_object_type',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'HeatExchanger:Desiccant:BalancedFlow'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'desiccant heat exchanger name',
-                                      {'name': u'Desiccant Heat Exchanger Name',
-                                       'pyname': u'desiccant_heat_exchanger_name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'sensor node name',
-                                      {'name': u'Sensor Node Name',
-                                       'pyname': u'sensor_node_name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'node'}),
-                                     (u'regeneration air fan object type',
-                                      {'name': u'Regeneration Air Fan Object Type',
-                                       'pyname': u'regeneration_air_fan_object_type',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Fan:OnOff',
-                                                           u'Fan:ConstantVolume'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'regeneration air fan name',
-                                      {'name': u'Regeneration Air Fan Name',
-                                       'pyname': u'regeneration_air_fan_name',
-                                       'required-field': True,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration air fan placement',
-                                      {'name': u'Regeneration Air Fan Placement',
-                                       'pyname': u'regeneration_air_fan_placement',
-                                       'default': u'DrawThrough',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'BlowThrough',
-                                                           u'DrawThrough'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'regeneration air heater object type',
-                                      {'name': u'Regeneration Air Heater Object Type',
-                                       'pyname': u'regeneration_air_heater_object_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Coil:Heating:Electric',
-                                                           u'Coil:Heating:Gas',
-                                                           u'Coil:Heating:Water',
-                                                           u'Coil:Heating:Steam'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'regeneration air heater name',
-                                      {'name': u'Regeneration Air Heater Name',
-                                       'pyname': u'regeneration_air_heater_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'regeneration inlet air setpoint temperature',
-                                      {'name': u'Regeneration Inlet Air Setpoint Temperature',
-                                       'pyname': u'regeneration_inlet_air_setpoint_temperature',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'C'}),
-                                     (u'companion cooling coil object type',
-                                      {'name': u'Companion Cooling Coil Object Type',
-                                       'pyname': u'companion_cooling_coil_object_type',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Coil:Cooling:DX:SingleSpeed',
-                                                           u'Coil:Cooling:DX:TwoStageWithHumidityControlMode'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'companion cooling coil name',
-                                      {'name': u'Companion Cooling Coil Name',
-                                       'pyname': u'companion_cooling_coil_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'object-list'}),
-                                     (u'companion cooling coil upstream of dehumidifier process inlet',
-                                      {'name': u'Companion Cooling Coil Upstream of Dehumidifier Process Inlet',
-                                       'pyname': u'companion_cooling_coil_upstream_of_dehumidifier_process_inlet',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'companion coil regeneration air heating',
-                                      {'name': u'Companion Coil Regeneration Air Heating',
-                                       'pyname': u'companion_coil_regeneration_air_heating',
-                                       'default': u'No',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'accepted-values': [u'Yes',
-                                                           u'No'],
-                                       'autocalculatable': False,
-                                       'type': 'alpha'}),
-                                     (u'exhaust fan maximum flow rate',
-                                      {'name': u'Exhaust Fan Maximum Flow Rate',
-                                       'pyname': u'exhaust_fan_maximum_flow_rate',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'm3/s'}),
-                                     (u'exhaust fan maximum power',
-                                      {'name': u'Exhaust Fan Maximum Power',
-                                       'pyname': u'exhaust_fan_maximum_power',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'real',
-                                       'unit': u'W'}),
-                                     (u'exhaust fan power curve name',
-                                      {'name': u'Exhaust Fan Power Curve Name',
-                                       'pyname': u'exhaust_fan_power_curve_name',
-                                       'required-field': False,
-                                       'autosizable': False,
-                                       'autocalculatable': False,
-                                       'type': u'alpha'})]),
-              'format': None,
-              'group': u'Humidifiers and Dehumidifiers',
-              'min-fields': 8,
-              'name': u'Dehumidifier:Desiccant:System',
-              'pyname': u'DehumidifierDesiccantSystem',
-              'required-object': False,
-              'unique-object': False}
+    _schema = {'extensible-fields': OrderedDict(),
+ 'fields': OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'}), (u'availability schedule name', {'name': u'Availability Schedule Name', 'pyname': u'availability_schedule_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'desiccant heat exchanger object type', {'name': u'Desiccant Heat Exchanger Object Type', 'pyname': u'desiccant_heat_exchanger_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'HeatExchanger:Desiccant:BalancedFlow'], 'autocalculatable': False, 'type': 'alpha'}), (u'desiccant heat exchanger name', {'name': u'Desiccant Heat Exchanger Name', 'pyname': u'desiccant_heat_exchanger_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'sensor node name', {'name': u'Sensor Node Name', 'pyname': u'sensor_node_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'node'}), (u'regeneration air fan object type', {'name': u'Regeneration Air Fan Object Type', 'pyname': u'regeneration_air_fan_object_type', 'required-field': True, 'autosizable': False, 'accepted-values': [u'Fan:OnOff', u'Fan:ConstantVolume'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air fan name', {'name': u'Regeneration Air Fan Name', 'pyname': u'regeneration_air_fan_name', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration air fan placement', {'name': u'Regeneration Air Fan Placement', 'pyname': u'regeneration_air_fan_placement', 'default': u'DrawThrough', 'required-field': False, 'autosizable': False, 'accepted-values': [u'BlowThrough', u'DrawThrough'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater object type', {'name': u'Regeneration Air Heater Object Type', 'pyname': u'regeneration_air_heater_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Heating:Electric', u'Coil:Heating:Gas', u'Coil:Heating:Water', u'Coil:Heating:Steam'], 'autocalculatable': False, 'type': 'alpha'}), (u'regeneration air heater name', {'name': u'Regeneration Air Heater Name', 'pyname': u'regeneration_air_heater_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'regeneration inlet air setpoint temperature', {'name': u'Regeneration Inlet Air Setpoint Temperature', 'pyname': u'regeneration_inlet_air_setpoint_temperature', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'C'}), (u'companion cooling coil object type', {'name': u'Companion Cooling Coil Object Type', 'pyname': u'companion_cooling_coil_object_type', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Coil:Cooling:DX:SingleSpeed', u'Coil:Cooling:DX:TwoStageWithHumidityControlMode'], 'autocalculatable': False, 'type': 'alpha'}), (u'companion cooling coil name', {'name': u'Companion Cooling Coil Name', 'pyname': u'companion_cooling_coil_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'object-list'}), (u'companion cooling coil upstream of dehumidifier process inlet', {'name': u'Companion Cooling Coil Upstream of Dehumidifier Process Inlet', 'pyname': u'companion_cooling_coil_upstream_of_dehumidifier_process_inlet', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'companion coil regeneration air heating', {'name': u'Companion Coil Regeneration Air Heating', 'pyname': u'companion_coil_regeneration_air_heating', 'default': u'No', 'required-field': False, 'autosizable': False, 'accepted-values': [u'Yes', u'No'], 'autocalculatable': False, 'type': 'alpha'}), (u'exhaust fan maximum flow rate', {'name': u'Exhaust Fan Maximum Flow Rate', 'pyname': u'exhaust_fan_maximum_flow_rate', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'm3/s'}), (u'exhaust fan maximum power', {'name': u'Exhaust Fan Maximum Power', 'pyname': u'exhaust_fan_maximum_power', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'W'}), (u'exhaust fan power curve name', {'name': u'Exhaust Fan Power Curve Name', 'pyname': u'exhaust_fan_power_curve_name', 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'alpha'})]),
+ 'format': None,
+ 'group': u'Humidifiers and Dehumidifiers',
+ 'min-fields': 8,
+ 'name': u'Dehumidifier:Desiccant:System',
+ 'pyname': u'DehumidifierDesiccantSystem',
+ 'required-object': False,
+ 'unique-object': False}
 
     @property
     def name(self):
-        """Get name.
-
-        Returns:
-            str: the value of `name` or None if not set
-
-        """
-        return self["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """Corresponds to IDD field `Name`
+        """The value of field `Name`
 
         Args:
             value (str): value for IDD Field `Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD field `Name`
 
         """
         self["Name"] = value
 
     @property
     def availability_schedule_name(self):
-        """Get availability_schedule_name.
-
-        Returns:
-            str: the value of `availability_schedule_name` or None if not set
-
-        """
-        return self["Availability Schedule Name"]
-
-    @availability_schedule_name.setter
-    def availability_schedule_name(self, value=None):
-        """Corresponds to IDD field `Availability Schedule Name` Availability
-        schedule name for this system. Schedule value > 0 means the system is
-        available. If this field is blank, the system is always available.
+        """The value of field `Availability Schedule Name`
+        Availability schedule name for this system. Schedule value > 0 means the system is available.
+        If this field is blank, the system is always available.
 
         Args:
             value (str): value for IDD Field `Availability Schedule Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `availability_schedule_name` or None if not set
+        """
+        return self["Availability Schedule Name"]
+
+    @availability_schedule_name.setter
+    def availability_schedule_name(self, value=None):
+        """  Corresponds to IDD field `Availability Schedule Name`
 
         """
         self["Availability Schedule Name"] = value
 
     @property
     def desiccant_heat_exchanger_object_type(self):
-        """Get desiccant_heat_exchanger_object_type.
-
-        Returns:
-            str: the value of `desiccant_heat_exchanger_object_type` or None if not set
-
-        """
-        return self["Desiccant Heat Exchanger Object Type"]
-
-    @desiccant_heat_exchanger_object_type.setter
-    def desiccant_heat_exchanger_object_type(self, value=None):
-        """Corresponds to IDD field `Desiccant Heat Exchanger Object Type`
+        """The value of field `Desiccant Heat Exchanger Object Type`
 
         Args:
             value (str): value for IDD Field `Desiccant Heat Exchanger Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `desiccant_heat_exchanger_object_type` or None if not set
+        """
+        return self["Desiccant Heat Exchanger Object Type"]
+
+    @desiccant_heat_exchanger_object_type.setter
+    def desiccant_heat_exchanger_object_type(self, value=None):
+        """  Corresponds to IDD field `Desiccant Heat Exchanger Object Type`
 
         """
         self["Desiccant Heat Exchanger Object Type"] = value
 
     @property
     def desiccant_heat_exchanger_name(self):
-        """Get desiccant_heat_exchanger_name.
-
-        Returns:
-            str: the value of `desiccant_heat_exchanger_name` or None if not set
-
-        """
-        return self["Desiccant Heat Exchanger Name"]
-
-    @desiccant_heat_exchanger_name.setter
-    def desiccant_heat_exchanger_name(self, value=None):
-        """Corresponds to IDD field `Desiccant Heat Exchanger Name`
+        """The value of field `Desiccant Heat Exchanger Name`
 
         Args:
             value (str): value for IDD Field `Desiccant Heat Exchanger Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `desiccant_heat_exchanger_name` or None if not set
+        """
+        return self["Desiccant Heat Exchanger Name"]
+
+    @desiccant_heat_exchanger_name.setter
+    def desiccant_heat_exchanger_name(self, value=None):
+        """  Corresponds to IDD field `Desiccant Heat Exchanger Name`
 
         """
         self["Desiccant Heat Exchanger Name"] = value
 
     @property
     def sensor_node_name(self):
-        """Get sensor_node_name.
-
-        Returns:
-            str: the value of `sensor_node_name` or None if not set
-
-        """
-        return self["Sensor Node Name"]
-
-    @sensor_node_name.setter
-    def sensor_node_name(self, value=None):
-        """Corresponds to IDD field `Sensor Node Name`
+        """The value of field `Sensor Node Name`
 
         Args:
             value (str): value for IDD Field `Sensor Node Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `sensor_node_name` or None if not set
+        """
+        return self["Sensor Node Name"]
+
+    @sensor_node_name.setter
+    def sensor_node_name(self, value=None):
+        """  Corresponds to IDD field `Sensor Node Name`
 
         """
         self["Sensor Node Name"] = value
 
     @property
     def regeneration_air_fan_object_type(self):
-        """Get regeneration_air_fan_object_type.
-
-        Returns:
-            str: the value of `regeneration_air_fan_object_type` or None if not set
-
-        """
-        return self["Regeneration Air Fan Object Type"]
-
-    @regeneration_air_fan_object_type.setter
-    def regeneration_air_fan_object_type(self, value=None):
-        """Corresponds to IDD field `Regeneration Air Fan Object Type`
+        """The value of field `Regeneration Air Fan Object Type`
 
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_fan_object_type` or None if not set
+        """
+        return self["Regeneration Air Fan Object Type"]
+
+    @regeneration_air_fan_object_type.setter
+    def regeneration_air_fan_object_type(self, value=None):
+        """  Corresponds to IDD field `Regeneration Air Fan Object Type`
 
         """
         self["Regeneration Air Fan Object Type"] = value
 
     @property
     def regeneration_air_fan_name(self):
-        """Get regeneration_air_fan_name.
-
-        Returns:
-            str: the value of `regeneration_air_fan_name` or None if not set
-
-        """
-        return self["Regeneration Air Fan Name"]
-
-    @regeneration_air_fan_name.setter
-    def regeneration_air_fan_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Air Fan Name`
+        """The value of field `Regeneration Air Fan Name`
 
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_fan_name` or None if not set
+        """
+        return self["Regeneration Air Fan Name"]
+
+    @regeneration_air_fan_name.setter
+    def regeneration_air_fan_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Air Fan Name`
 
         """
         self["Regeneration Air Fan Name"] = value
 
     @property
     def regeneration_air_fan_placement(self):
-        """Get regeneration_air_fan_placement.
-
-        Returns:
-            str: the value of `regeneration_air_fan_placement` or None if not set
-
-        """
-        return self["Regeneration Air Fan Placement"]
-
-    @regeneration_air_fan_placement.setter
-    def regeneration_air_fan_placement(self, value="DrawThrough"):
-        """Corresponds to IDD field `Regeneration Air Fan Placement`
+        """The value of field `Regeneration Air Fan Placement`
 
         Args:
             value (str): value for IDD Field `Regeneration Air Fan Placement`
                 Default value: DrawThrough
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_fan_placement` or None if not set
+        """
+        return self["Regeneration Air Fan Placement"]
+
+    @regeneration_air_fan_placement.setter
+    def regeneration_air_fan_placement(self, value="DrawThrough"):
+        """  Corresponds to IDD field `Regeneration Air Fan Placement`
 
         """
         self["Regeneration Air Fan Placement"] = value
 
     @property
     def regeneration_air_heater_object_type(self):
-        """Get regeneration_air_heater_object_type.
-
-        Returns:
-            str: the value of `regeneration_air_heater_object_type` or None if not set
-
-        """
-        return self["Regeneration Air Heater Object Type"]
-
-    @regeneration_air_heater_object_type.setter
-    def regeneration_air_heater_object_type(self, value=None):
-        """Corresponds to IDD field `Regeneration Air Heater Object Type` works
-        with gas, electric, hot water and steam heating coils.
+        """The value of field `Regeneration Air Heater Object Type`
+        works with gas, electric, hot water and steam heating coils
 
         Args:
             value (str): value for IDD Field `Regeneration Air Heater Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_heater_object_type` or None if not set
+        """
+        return self["Regeneration Air Heater Object Type"]
+
+    @regeneration_air_heater_object_type.setter
+    def regeneration_air_heater_object_type(self, value=None):
+        """  Corresponds to IDD field `Regeneration Air Heater Object Type`
 
         """
         self["Regeneration Air Heater Object Type"] = value
 
     @property
     def regeneration_air_heater_name(self):
-        """Get regeneration_air_heater_name.
-
-        Returns:
-            str: the value of `regeneration_air_heater_name` or None if not set
-
-        """
-        return self["Regeneration Air Heater Name"]
-
-    @regeneration_air_heater_name.setter
-    def regeneration_air_heater_name(self, value=None):
-        """Corresponds to IDD field `Regeneration Air Heater Name`
+        """The value of field `Regeneration Air Heater Name`
 
         Args:
             value (str): value for IDD Field `Regeneration Air Heater Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `regeneration_air_heater_name` or None if not set
+        """
+        return self["Regeneration Air Heater Name"]
+
+    @regeneration_air_heater_name.setter
+    def regeneration_air_heater_name(self, value=None):
+        """  Corresponds to IDD field `Regeneration Air Heater Name`
 
         """
         self["Regeneration Air Heater Name"] = value
 
     @property
     def regeneration_inlet_air_setpoint_temperature(self):
-        """Get regeneration_inlet_air_setpoint_temperature.
-
-        Returns:
-            float: the value of `regeneration_inlet_air_setpoint_temperature` or None if not set
-
-        """
-        return self["Regeneration Inlet Air Setpoint Temperature"]
-
-    @regeneration_inlet_air_setpoint_temperature.setter
-    def regeneration_inlet_air_setpoint_temperature(self, value=None):
-        """Corresponds to IDD field `Regeneration Inlet Air Setpoint
-        Temperature`
+        """The value of field `Regeneration Inlet Air Setpoint Temperature`
 
         Args:
             value (float): value for IDD Field `Regeneration Inlet Air Setpoint Temperature`
                 Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `regeneration_inlet_air_setpoint_temperature` or None if not set
+        """
+        return self["Regeneration Inlet Air Setpoint Temperature"]
+
+    @regeneration_inlet_air_setpoint_temperature.setter
+    def regeneration_inlet_air_setpoint_temperature(self, value=None):
+        """  Corresponds to IDD field `Regeneration Inlet Air Setpoint Temperature`
 
         """
         self["Regeneration Inlet Air Setpoint Temperature"] = value
 
     @property
     def companion_cooling_coil_object_type(self):
-        """Get companion_cooling_coil_object_type.
-
-        Returns:
-            str: the value of `companion_cooling_coil_object_type` or None if not set
-
-        """
-        return self["Companion Cooling Coil Object Type"]
-
-    @companion_cooling_coil_object_type.setter
-    def companion_cooling_coil_object_type(self, value=None):
-        """Corresponds to IDD field `Companion Cooling Coil Object Type`
+        """The value of field `Companion Cooling Coil Object Type`
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Object Type`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `companion_cooling_coil_object_type` or None if not set
+        """
+        return self["Companion Cooling Coil Object Type"]
+
+    @companion_cooling_coil_object_type.setter
+    def companion_cooling_coil_object_type(self, value=None):
+        """  Corresponds to IDD field `Companion Cooling Coil Object Type`
 
         """
         self["Companion Cooling Coil Object Type"] = value
 
     @property
     def companion_cooling_coil_name(self):
-        """Get companion_cooling_coil_name.
-
-        Returns:
-            str: the value of `companion_cooling_coil_name` or None if not set
-
-        """
-        return self["Companion Cooling Coil Name"]
-
-    @companion_cooling_coil_name.setter
-    def companion_cooling_coil_name(self, value=None):
-        """Corresponds to IDD field `Companion Cooling Coil Name`
+        """The value of field `Companion Cooling Coil Name`
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `companion_cooling_coil_name` or None if not set
+        """
+        return self["Companion Cooling Coil Name"]
+
+    @companion_cooling_coil_name.setter
+    def companion_cooling_coil_name(self, value=None):
+        """  Corresponds to IDD field `Companion Cooling Coil Name`
 
         """
         self["Companion Cooling Coil Name"] = value
 
     @property
     def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(self):
-        """Get companion_cooling_coil_upstream_of_dehumidifier_process_inlet.
-
-        Returns:
-            str: the value of `companion_cooling_coil_upstream_of_dehumidifier_process_inlet` or None if not set
-
-        """
-        return self[
-            "Companion Cooling Coil Upstream of Dehumidifier Process Inlet"]
-
-    @companion_cooling_coil_upstream_of_dehumidifier_process_inlet.setter
-    def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(
-            self,
-            value="No"):
-        """Corresponds to IDD field `Companion Cooling Coil Upstream of
-        Dehumidifier Process Inlet` Select Yes if the companion cooling coil is
-        located directly upstream of the desiccant heat exchanger's process air
-        inlet node.
+        """The value of field `Companion Cooling Coil Upstream of Dehumidifier Process Inlet`
+        Select Yes if the companion cooling coil is located directly upstream
+        of the desiccant heat exchanger's process air inlet node.
 
         Args:
             value (str): value for IDD Field `Companion Cooling Coil Upstream of Dehumidifier Process Inlet`
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
 
+        Returns:
+            str: the value of `companion_cooling_coil_upstream_of_dehumidifier_process_inlet` or None if not set
         """
-        self[
-            "Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = value
+        return self["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"]
+
+    @companion_cooling_coil_upstream_of_dehumidifier_process_inlet.setter
+    def companion_cooling_coil_upstream_of_dehumidifier_process_inlet(self, value="No"):
+        """  Corresponds to IDD field `Companion Cooling Coil Upstream of Dehumidifier Process Inlet`
+
+        """
+        self["Companion Cooling Coil Upstream of Dehumidifier Process Inlet"] = value
 
     @property
     def companion_coil_regeneration_air_heating(self):
-        """Get companion_coil_regeneration_air_heating.
-
-        Returns:
-            str: the value of `companion_coil_regeneration_air_heating` or None if not set
-
-        """
-        return self["Companion Coil Regeneration Air Heating"]
-
-    @companion_coil_regeneration_air_heating.setter
-    def companion_coil_regeneration_air_heating(self, value="No"):
-        """Corresponds to IDD field `Companion Coil Regeneration Air Heating`
+        """The value of field `Companion Coil Regeneration Air Heating`
 
         Args:
             value (str): value for IDD Field `Companion Coil Regeneration Air Heating`
                 Default value: No
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `companion_coil_regeneration_air_heating` or None if not set
+        """
+        return self["Companion Coil Regeneration Air Heating"]
+
+    @companion_coil_regeneration_air_heating.setter
+    def companion_coil_regeneration_air_heating(self, value="No"):
+        """  Corresponds to IDD field `Companion Coil Regeneration Air Heating`
 
         """
         self["Companion Coil Regeneration Air Heating"] = value
 
     @property
     def exhaust_fan_maximum_flow_rate(self):
-        """Get exhaust_fan_maximum_flow_rate.
-
-        Returns:
-            float: the value of `exhaust_fan_maximum_flow_rate` or None if not set
-
-        """
-        return self["Exhaust Fan Maximum Flow Rate"]
-
-    @exhaust_fan_maximum_flow_rate.setter
-    def exhaust_fan_maximum_flow_rate(self, value=None):
-        """Corresponds to IDD field `Exhaust Fan Maximum Flow Rate`
+        """The value of field `Exhaust Fan Maximum Flow Rate`
 
         Args:
             value (float): value for IDD Field `Exhaust Fan Maximum Flow Rate`
                 Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `exhaust_fan_maximum_flow_rate` or None if not set
+        """
+        return self["Exhaust Fan Maximum Flow Rate"]
+
+    @exhaust_fan_maximum_flow_rate.setter
+    def exhaust_fan_maximum_flow_rate(self, value=None):
+        """  Corresponds to IDD field `Exhaust Fan Maximum Flow Rate`
 
         """
         self["Exhaust Fan Maximum Flow Rate"] = value
 
     @property
     def exhaust_fan_maximum_power(self):
-        """Get exhaust_fan_maximum_power.
-
-        Returns:
-            float: the value of `exhaust_fan_maximum_power` or None if not set
-
-        """
-        return self["Exhaust Fan Maximum Power"]
-
-    @exhaust_fan_maximum_power.setter
-    def exhaust_fan_maximum_power(self, value=None):
-        """Corresponds to IDD field `Exhaust Fan Maximum Power`
+        """The value of field `Exhaust Fan Maximum Power`
 
         Args:
             value (float): value for IDD Field `Exhaust Fan Maximum Power`
                 Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            float: the value of `exhaust_fan_maximum_power` or None if not set
+        """
+        return self["Exhaust Fan Maximum Power"]
+
+    @exhaust_fan_maximum_power.setter
+    def exhaust_fan_maximum_power(self, value=None):
+        """  Corresponds to IDD field `Exhaust Fan Maximum Power`
 
         """
         self["Exhaust Fan Maximum Power"] = value
 
     @property
     def exhaust_fan_power_curve_name(self):
-        """Get exhaust_fan_power_curve_name.
-
-        Returns:
-            str: the value of `exhaust_fan_power_curve_name` or None if not set
-
-        """
-        return self["Exhaust Fan Power Curve Name"]
-
-    @exhaust_fan_power_curve_name.setter
-    def exhaust_fan_power_curve_name(self, value=None):
-        """  Corresponds to IDD field `Exhaust Fan Power Curve Name`
+        """The value of field `Exhaust Fan Power Curve Name`
         Curve object type must be Curve:Quadratic or Curve:Cubic
         Table:OneIndependentVariable object can also be used
 
@@ -1929,9 +1430,19 @@ class DehumidifierDesiccantSystem(DataObject):
             value (str): value for IDD Field `Exhaust Fan Power Curve Name`
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
-
+                
         Raises:
             ValueError: if `value` is not a valid value
+
+        Returns:
+            str: the value of `exhaust_fan_power_curve_name` or None if not set
+        """
+        return self["Exhaust Fan Power Curve Name"]
+
+    @exhaust_fan_power_curve_name.setter
+    def exhaust_fan_power_curve_name(self, value=None):
+        """  Corresponds to IDD field `Exhaust Fan Power Curve Name`
+
         """
         self["Exhaust Fan Power Curve Name"] = value
 

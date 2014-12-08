@@ -15,7 +15,7 @@ from iddparser import IDDParser
 num_worker_threads = 8
 tidy = True
 
-version = "0.1.2"
+version = "0.1.3"
 
 
 def worker(q, worker):

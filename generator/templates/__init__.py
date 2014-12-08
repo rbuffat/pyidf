@@ -16,7 +16,11 @@ __status__ = "Development"
 
 
 class ValidationLevel(object):
-    """ Validation levels"""
+    """ Validation levels:
+        - no: no validation
+        - warn: issue warnings
+        - transition: try to transition values to follow specification
+        - error: raise exceptions when values are not according specification"""
     no = "no"
     warn = "warm"
     transition = "transition"

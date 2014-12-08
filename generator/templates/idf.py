@@ -380,3 +380,11 @@ class IDF(object):
                 break
         return False
         
+
+    def keys(self):
+        keys = []
+        for group in self._data:
+            for key in self._data[group]:
+                if len(self._data[group][key]) > 0:
+                    keys.append(key)
+        return keys

@@ -7,6 +7,10 @@ import re
 import six
 import pyidf
 from pyidf import ValidationLevel
+{%- for file_name in file_names %}
+from pyidf.{{ file_name }} import *
+{%- endfor %}
+
 
 logger = logging.getLogger("pyidf")
 logger.addHandler(logging.NullHandler())
@@ -14,7 +18,12 @@ logger.addHandler(logging.NullHandler())
 
 class DataObject(object):
 
-    schema = {}
+    _schema = {}
+
+    @property
+    def schema(self):
+        """ Get schema of class"""
+        return self._schema
 
     def __init__(self):
         """ Init data dictionary object
@@ -558,6 +567,14 @@ class DataObject(object):
                 field_txt = "{} {}".format(field['name'], unit)
                 out.append((field_txt, self._to_str(vals[i])))
         return out
+
+    def field(self, name):
+        name_lower = name.lower()
+        if name_lower in self.schema['fields']:
+            return self.schema['fields'][name_lower]
+        elif name_lower in self.schema['extensible-fields']:
+            return self.schema['extensible-fields'][name_lower]
+        return 
 
     def extensible_field_index(self, name):
         return list(self.schema['extensible-fields'].keys()).index(name.lower())
