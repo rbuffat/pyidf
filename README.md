@@ -201,6 +201,10 @@ print bsd[(u'Vertex 1 Y-coordinate', 4)]
 All values with corresponding keys of a data object can be accessed with the method items():
 ```python
 print bsd.items()
+
+ # Output:
+ # [(u'Name', 'test'), (u'Surface Type', 'Wall'), (u'Construction Name', 'LTWALL'), (u'Zone Name', 'ZONE ONE'), (u'Outside Boundary Condition', 'Outdoors'), (u'Outside Boundary Condition Object', None), (u'Sun Exposure', 'SunExposed'), (u'Wind Exposure', 'WindExposed'), (u'View Factor to Ground', 0.5), (u'Number of Vertices', 4.0), ((u'Vertex 1 X-coordinate', 0), 8.0), ((u'Vertex 1 Y-coordinate', 0), 6.0), ((u'Vertex 1 Z-coordinate', 0), 2.7), ((u'Vertex 1 X-coordinate', 1), 8.0), ((u'Vertex 1 Y-coordinate', 1), 6.0), ((u'Vertex 1 Z-coordinate', 1), 0.0), ((u'Vertex 1 X-coordinate', 2), 0.0), ((u'Vertex 1 Y-coordinate', 2), 6.0), ((u'Vertex 1 Z-coordinate', 2), 0.0), ((u'Vertex 1 X-coordinate', 3), 0.0), ((u'Vertex 1 Y-coordinate', 3), 6.0), ((u'Vertex 1 Z-coordinate', 3), 2.7)]
+
 ```
 
 ## Library generation
@@ -209,4 +213,4 @@ Large parts of this library are generated automatically. In case the library sho
 
 ## Alternatives
 
-An alternative Python library to pyidf is [eppy](https://github.com/santoshphilip/eppy).
+An alternative Python library to manipulate EnergyPlus idf files is [eppy](https://github.com/santoshphilip/eppy).
