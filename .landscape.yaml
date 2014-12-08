@@ -1,5 +1,0 @@
-doc-warnings: yes
-ignore-paths: 
-    - generator
-    - tests
-max-line-length: 10000
