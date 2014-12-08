@@ -211,7 +211,7 @@ print bsd.items()
 
 ### Field name issues
 
-Keep in mind that pyidf is automatically generated from the specification. For some fields, especially extensible-fields, the field name contains a number where it shouldn't. For example for B...., the specification looks as follows:
+Keep in mind that pyidf is automatically generated from the specification. For some fields, especially extensible-fields, the field name contains a number where it shouldn't. For example for "BuildingSurface:Detailed", the specification looks as follows:
 ```
 ...
   N3,  \field Vertex 1 X-coordinate
