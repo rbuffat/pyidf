@@ -1,7 +1,7 @@
-""" Python library to read, modify and create EnergyPlus idf files
+"""Python library to read, modify and create EnergyPlus idf files.
 
-    Author: Rene Buffat
-    License: Apache License 2.0
+Author: Rene Buffat
+License: Apache License 2.0
 
 """
 
@@ -16,7 +16,12 @@ __status__ = "Development"
 
 
 class ValidationLevel(object):
-    """ Validation levels"""
+
+    """ Validation levels:
+        - no: no validation
+        - warn: issue warnings
+        - transition: try to transition values to follow specification
+        - error: raise exceptions when values are not according specification"""
     no = "no"
     warn = "warm"
     transition = "transition"

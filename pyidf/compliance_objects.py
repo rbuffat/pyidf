@@ -11,31 +11,38 @@ logger.addHandler(logging.NullHandler())
 
 
 class ComplianceBuilding(DataObject):
+
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
     """
     _schema = {'extensible-fields': OrderedDict(),
- 'fields': OrderedDict([(u'building rotation for appendix g', {'name': u'Building Rotation for Appendix G', 'pyname': u'building_rotation_for_appendix_g', 'default': 0.0, 'required-field': False, 'autosizable': False, 'autocalculatable': False, 'type': u'real', 'unit': u'deg'})]),
- 'format': None,
- 'group': u'Compliance Objects',
- 'min-fields': 1,
- 'name': u'Compliance:Building',
- 'pyname': u'ComplianceBuilding',
- 'required-object': False,
- 'unique-object': True}
+               'fields': OrderedDict([(u'building rotation for appendix g',
+                                       {'name': u'Building Rotation for Appendix G',
+                                        'pyname': u'building_rotation_for_appendix_g',
+                                        'default': 0.0,
+                                        'required-field': False,
+                                        'autosizable': False,
+                                        'autocalculatable': False,
+                                        'type': u'real',
+                                        'unit': u'deg'})]),
+               'format': None,
+               'group': u'Compliance Objects',
+               'min-fields': 1,
+               'name': u'Compliance:Building',
+               'pyname': u'ComplianceBuilding',
+               'required-object': False,
+               'unique-object': True}
 
     @property
     def building_rotation_for_appendix_g(self):
-        """The value of field `Building Rotation for Appendix G`
+        """field `Building Rotation for Appendix G`
         Additional degrees of rotation to be used with the requirement in ASHRAE Standard 90.1 Appendix G
         that states that the baseline building should be rotated in four directions.
 
         Args:
             value (float): value for IDD Field `Building Rotation for Appendix G`
                 Units: deg
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-                
+
         Raises:
             ValueError: if `value` is not a valid value
 
@@ -46,9 +53,7 @@ class ComplianceBuilding(DataObject):
 
     @building_rotation_for_appendix_g.setter
     def building_rotation_for_appendix_g(self, value=None):
-        """  Corresponds to IDD field `Building Rotation for Appendix G`
-
-        """
+        """Corresponds to IDD field `Building Rotation for Appendix G`"""
         self["Building Rotation for Appendix G"] = value
 
 
