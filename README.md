@@ -53,8 +53,10 @@ pyidf.validation_level = ValidationLevel.no
 ### Reading an existing idf file
 
 ```python
+import logging
 from pyidf.idf import IDF
 
+logging.info("start")
 idf = IDF(r"/usr/local/EnergyPlus-8-2-0/ExampleFiles/BasicsFiles/Exercise1A.idf")
 ```
 
