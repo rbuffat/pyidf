@@ -71,6 +71,9 @@ Accessing data objects is possible either by the name of the object:
 ```python
 for building in idf['Building']:
     print building
+
+ # Output:
+ # Building,Exercise 1A,0.0,Country,0.04,0.4,FullInteriorAndExterior,,6
 ```
 
 or by the corresponding property:
@@ -78,6 +81,9 @@ or by the corresponding property:
 ```python
 for building in idf.buildings:
     print building
+
+ # Output:
+ # Building,Exercise 1A,0.0,Country,0.04,0.4,FullInteriorAndExterior,,6
 ```
 
 Both variants return a list of the corresponding data objects present in the idf object. The name of the EnergyPlus data dictionaries were pythonified, for example `BuildingSurface:Detailed` is represented by the Python class `BuildingSurfaceDetailed`. Each data dictionary is located in the module of its group. 
@@ -86,35 +92,68 @@ It is possible to iterate over all data objects of an idf object:
 ```python
 for obj in idf:
     print obj
+
+ # Output:
+ # Version,8.2
+ # Building,Exercise 1A,0.0,Country,0.04,0.4,FullInteriorAndExterior,,6
+ # Timestep,4
+ # SurfaceConvectionAlgorithm:Inside,TARP
+ # ...
 ```
 
 There are two types of fields. Normal fields and extensible fields. Normal fields exists only once while extensible fields can exist multiple times. Normal fields of a data object can similarly be accessed as data objects by their name, corresponding property or additionally by their index:
 
 ```python
 print idf['Building'][0]['Name']
+
+ # Output:
+ # Exercise 1A
 ```
 
 ```python
 print idf.buildings[0].name
+
+ # Output:
+ # Exercise 1A
 ```
 
 ```python
 print idf.buildings[0][0]
+
+ # Output:
+ # Exercise 1A
 ```
 
 The schema of normal fields can be accessed with:
 ```python
 print idf['Building'][0].schema['fields']
+
+ # Output
+ # OrderedDict([(u'name', {'name': u'Name', 'pyname': u'name', 'default': u'NONE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}), ....
 ```
 
 and of extensible fields with:
 ```python
 print idf['Building'][0].schema['extensible-fields']
+
+ # Output:
+ # OrderedDict()  ( object has no extensible-fields)
+```
+
+The schema of a field can be accessed with:
+```python
+print idf['Building'][0].field("Name")
+
+ # Output:
+ # {'name': u'Name', 'pyname': u'name', 'default': u'NONE', 'required-field': True, 'autosizable': False, 'autocalculatable': False, 'type': 'alpha'}
 ```
 
 Extensible fields can be accessed with:
 ```python
 print idf.buildingsurfacedetaileds[0].extensibles
+
+ # Output:
+ # [[8.0, 6.0, 2.7], [8.0, 6.0, 0.0], [0.0, 6.0, 0.0], [0.0, 6.0, 2.7]]
 ```
 
 For example for `BuildingSurface:Detailed` the extensible fields are vertexes consisting of x,y,z values. The following code adds one to all coordinates:
