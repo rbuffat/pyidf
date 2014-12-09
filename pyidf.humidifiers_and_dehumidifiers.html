@@ -76,8 +76,10 @@ but can also be specified in any AirLoopHVAC.</p>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -99,14 +101,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.control_type">
 <code class="descname">control_type</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Type</cite></p>
-<p>Type of setpoint control:
-LeavingMaximumHumidityRatioSetpoint means that the unit is controlled
-to deliver air at the Leaving Max Humidity Ratio Setpoint (see below),
-SystemNodeMaximumHumidityRatioSetpoint means that the leaving humidity
-ratio setpoint is the System Node Humidity Ratio Max property
-of the Process Air Outlet Node.  A Setpoint
-object must be used to control this setpoint.
-Both control types use bypass dampers to prevent overdrying.</p>
+<div class="line-block">
+<div class="line">Type of setpoint control:</div>
+<div class="line">LeavingMaximumHumidityRatioSetpoint means that the unit is controlled</div>
+<div class="line">to deliver air at the Leaving Max Humidity Ratio Setpoint (see below),</div>
+<div class="line">SystemNodeMaximumHumidityRatioSetpoint means that the leaving humidity</div>
+<div class="line">ratio setpoint is the System Node Humidity Ratio Max property</div>
+<div class="line">of the Process Air Outlet Node.  A Setpoint</div>
+<div class="line">object must be used to control this setpoint.</div>
+<div class="line">Both control types use bypass dampers to prevent overdrying.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -128,11 +132,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_drybulb_function_of_air_velocity_curve_name">
 <code class="descname">leaving_drybulb_function_of_air_velocity_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_drybulb_function_of_air_velocity_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Leaving Dry-Bulb Function of Air Velocity Curve Name</cite></p>
-<p>Leaving dry-bulb of process air as a function of air velocity,
-quadratic curve.
-Table:OneIndependentVariable object can also be used
-curve = C1 + C2*v + C3*v**2
-v = process air velocity [m/s]</p>
+<div class="line-block">
+<div class="line">Leaving dry-bulb of process air as a function of air velocity,</div>
+<div class="line">quadratic curve.</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">curve = C1 + C2*v + C3*v**2</div>
+<div class="line">v = process air velocity [m/s]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -154,12 +160,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name">
 <code class="descname">leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_drybulb_function_of_entering_drybulb_and_humidity_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Leaving Dry-Bulb Function of Entering Dry-Bulb and Humidity Ratio Curve Name</cite></p>
-<p>Leaving dry-bulb of process air as a function of entering dry-bulb
-and entering humidity ratio, biquadratic curve
-Table:TwoIndependentVariables object can also be used
-curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-edb = process entering dry-bulb temperature [C]
-ew  = process entering humidity ratio [kgWater/kgDryAir]</p>
+<div class="line-block">
+<div class="line">Leaving dry-bulb of process air as a function of entering dry-bulb</div>
+<div class="line">and entering humidity ratio, biquadratic curve</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew</div>
+<div class="line">edb = process entering dry-bulb temperature [C]</div>
+<div class="line">ew  = process entering humidity ratio [kgWater/kgDryAir]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -181,11 +189,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_air_velocity_curve_name">
 <code class="descname">leaving_humidity_ratio_function_of_air_velocity_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_air_velocity_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Leaving Humidity Ratio Function of Air Velocity Curve Name</cite></p>
-<p>Leaving humidity ratio of process air as a function of
-process air velocity, quadratic curve.
-Table:OneIndependentVariable object can also be used
-curve = C1 + C2*v + C3*v**2
-v = process air velocity [m/s]</p>
+<div class="line-block">
+<div class="line">Leaving humidity ratio of process air as a function of</div>
+<div class="line">process air velocity, quadratic curve.</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">curve = C1 + C2*v + C3*v**2</div>
+<div class="line">v = process air velocity [m/s]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -207,12 +217,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name">
 <code class="descname">leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_humidity_ratio_function_of_entering_drybulb_and_humidity_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Leaving Humidity Ratio Function of Entering Dry-Bulb and Humidity Ratio Curve Name</cite></p>
-<p>Leaving humidity ratio of process air as a function of entering dry-bulb
-and entering humidity ratio, biquadratic curve
-Table:TwoIndependentVariables object can also be used
-curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-edb = process entering dry-bulb temperature [C]
-ew  = process entering humidity ratio [kgWater/kgDryAir]</p>
+<div class="line-block">
+<div class="line">Leaving humidity ratio of process air as a function of entering dry-bulb</div>
+<div class="line">and entering humidity ratio, biquadratic curve</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew</div>
+<div class="line">edb = process entering dry-bulb temperature [C]</div>
+<div class="line">ew  = process entering humidity ratio [kgWater/kgDryAir]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -234,9 +246,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_maximum_humidity_ratio_setpoint">
 <code class="descname">leaving_maximum_humidity_ratio_setpoint</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.leaving_maximum_humidity_ratio_setpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Leaving Maximum Humidity Ratio Setpoint</cite></p>
-<p>Fixed setpoint for maximum process air leaving humidity ratio
-Applicable only when Control Type = LeavingMaximumHumidityRatioSetpoint.
-Units: kgWater/kgDryAir</p>
+<div class="line-block">
+<div class="line">Fixed setpoint for maximum process air leaving humidity ratio</div>
+<div class="line">Applicable only when Control Type = LeavingMaximumHumidityRatioSetpoint.</div>
+<div class="line">Units: kgWater/kgDryAir</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -279,8 +293,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_process_air_flow_rate">
 <code class="descname">nominal_process_air_flow_rate</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_process_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Nominal Process Air Flow Rate</cite></p>
-<p>Process air flow rate at nominal conditions
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Process air flow rate at nominal conditions</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -302,10 +318,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_process_air_velocity">
 <code class="descname">nominal_process_air_velocity</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_process_air_velocity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Nominal Process Air Velocity</cite></p>
-<p>Process air velocity at nominal flow
-When using Performance Model Type of Default, must be 2.032 to 4.064 m/s (400 to 800 fpm)
-Units: m/s
-value &lt;= 6.0</p>
+<div class="line-block">
+<div class="line">Process air velocity at nominal flow</div>
+<div class="line">When using Performance Model Type of Default, must be 2.032 to 4.064 m/s (400 to 800 fpm)</div>
+<div class="line">Units: m/s</div>
+<div class="line">value &lt;= 6.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -327,12 +345,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_regeneration_temperature">
 <code class="descname">nominal_regeneration_temperature</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.nominal_regeneration_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Nominal Regeneration Temperature</cite></p>
-<p>Nominal regen temperature upon which the regen energy modifier
-curve is based.  Not used if Default if chosen for the field Performance Mode Type.
-121 C is a commonly used value.
-Units: C
-value &gt;= 40.0
-value &lt;= 250.0</p>
+<div class="line-block">
+<div class="line">Nominal regen temperature upon which the regen energy modifier</div>
+<div class="line">curve is based.  Not used if Default if chosen for the field Performance Mode Type.</div>
+<div class="line">121 C is a commonly used value.</div>
+<div class="line">Units: C</div>
+<div class="line">value &gt;= 40.0</div>
+<div class="line">value &lt;= 250.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -354,20 +374,22 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.performance_model_type">
 <code class="descname">performance_model_type</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.performance_model_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Performance Model Type</cite></p>
-<p>Specifies whether the default performance model or user-specified
-curves should be used to model the performance.  The default model
-is a generic solid desiccant wheel using performance curves of the form:
-curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*vel + C7*vel**2
-+ C8*edb*ew + C9*edb**2*ew**2 + C10*edb*vel + C11*edb**2*vel**2
-+ C12*ew*vel + C13*ew**2*vel**2 + C14*ALOG(edb) + C15*ALOG(ew) + C16*ALOG(vel)
-edb = process entering dry-bulb temperature [C]
-ew  = process entering humidity ratio [kgWater/kgDryAir]
-vel = process air velocity [m/s]
-If UserCurves are specified, then performance is calculated as follows:
-Leaving Dry-Bulb = (Leaving Dry-Bulb fTW Curve) * (Leaving Dry-Bulb fV Curve)
-Leaving Humidity Ratio = (Leaving Humidity Ratio fTW Curve) * (Leaving Humidity Ratio fV Curve)
-Regen Energy = (Regen Energy fTW Curve) * (Regen Energy fV Curve)
-Regen Velocity = (Regen Velocity fTW Curve) * (Regen Velocity fV Curve)</p>
+<div class="line-block">
+<div class="line">Specifies whether the default performance model or user-specified</div>
+<div class="line">curves should be used to model the performance.  The default model</div>
+<div class="line">is a generic solid desiccant wheel using performance curves of the form:</div>
+<div class="line">curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*vel + C7*vel**2</div>
+<div class="line">+ C8*edb*ew + C9*edb**2*ew**2 + C10*edb*vel + C11*edb**2*vel**2</div>
+<div class="line">+ C12*ew*vel + C13*ew**2*vel**2 + C14*ALOG(edb) + C15*ALOG(ew) + C16*ALOG(vel)</div>
+<div class="line">edb = process entering dry-bulb temperature [C]</div>
+<div class="line">ew  = process entering humidity ratio [kgWater/kgDryAir]</div>
+<div class="line">vel = process air velocity [m/s]</div>
+<div class="line">If UserCurves are specified, then performance is calculated as follows:</div>
+<div class="line">Leaving Dry-Bulb = (Leaving Dry-Bulb fTW Curve) * (Leaving Dry-Bulb fV Curve)</div>
+<div class="line">Leaving Humidity Ratio = (Leaving Humidity Ratio fTW Curve) * (Leaving Humidity Ratio fV Curve)</div>
+<div class="line">Regen Energy = (Regen Energy fTW Curve) * (Regen Energy fV Curve)</div>
+<div class="line">Regen Velocity = (Regen Velocity fTW Curve) * (Regen Velocity fV Curve)</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -389,7 +411,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.process_air_inlet_node_name">
 <code class="descname">process_air_inlet_node_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.process_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Process Air Inlet Node Name</cite></p>
-<p>This is the node entering the process side of the desiccant wheel.</p>
+<div class="line-block">
+<div class="line">This is the node entering the process side of the desiccant wheel.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -411,7 +435,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.process_air_outlet_node_name">
 <code class="descname">process_air_outlet_node_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.process_air_outlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Process Air Outlet Node Name</cite></p>
-<p>This is the node leaving the process side of the desiccant wheel.</p>
+<div class="line-block">
+<div class="line">This is the node leaving the process side of the desiccant wheel.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -433,8 +459,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_air_inlet_node_name">
 <code class="descname">regeneration_air_inlet_node_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_air_inlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Air Inlet Node Name</cite></p>
-<p>This is the node entering the regeneration side of the desiccant wheel
-after the regeneration coil.</p>
+<div class="line-block">
+<div class="line">This is the node entering the regeneration side of the desiccant wheel</div>
+<div class="line">after the regeneration coil.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -456,7 +484,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_coil_name">
 <code class="descname">regeneration_coil_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_coil_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Coil Name</cite></p>
-<p>Name of heating coil object for regeneration air</p>
+<div class="line-block">
+<div class="line">Name of heating coil object for regeneration air</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -478,8 +508,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_coil_object_type">
 <code class="descname">regeneration_coil_object_type</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_coil_object_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Coil Object Type</cite></p>
-<p>heating coil type
-works with gas, electric, hot water and steam heating coils</p>
+<div class="line-block">
+<div class="line">heating coil type</div>
+<div class="line">works with gas, electric, hot water and steam heating coils</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -501,11 +533,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_energy_function_of_air_velocity_curve_name">
 <code class="descname">regeneration_energy_function_of_air_velocity_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_energy_function_of_air_velocity_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Energy Function of Air Velocity Curve Name</cite></p>
-<p>Regeneration energy [J/kg of water removed] as a function of
-process air velocity, quadratic curve.
-Table:OneIndependentVariable object can also be used
-curve = C1 + C2*v + C3*v**2
-v = process air velocity [m/s]</p>
+<div class="line-block">
+<div class="line">Regeneration energy [J/kg of water removed] as a function of</div>
+<div class="line">process air velocity, quadratic curve.</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">curve = C1 + C2*v + C3*v**2</div>
+<div class="line">v = process air velocity [m/s]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -527,12 +561,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name">
 <code class="descname">regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_energy_function_of_entering_drybulb_and_humidity_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Energy Function of Entering Dry-Bulb and Humidity Ratio Curve Name</cite></p>
-<p>Regeneration energy [J/kg of water removed] as a function of
-entering dry-bulb and entering humidity ratio, biquadratic curve
-Table:TwoIndependentVariables object can also be used
-curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-edb = process entering dry-bulb temperature [C]
-ew  = process entering humidity ratio [kgWater/kgDryAir]</p>
+<div class="line-block">
+<div class="line">Regeneration energy [J/kg of water removed] as a function of</div>
+<div class="line">entering dry-bulb and entering humidity ratio, biquadratic curve</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew</div>
+<div class="line">edb = process entering dry-bulb temperature [C]</div>
+<div class="line">ew  = process entering humidity ratio [kgWater/kgDryAir]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -554,8 +590,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_inlet_node_name">
 <code class="descname">regeneration_fan_inlet_node_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_inlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Fan Inlet Node Name</cite></p>
-<p>Node for air entering the regeneration fan, mass flow is set
-by the desiccant dehumidifier module.</p>
+<div class="line-block">
+<div class="line">Node for air entering the regeneration fan, mass flow is set</div>
+<div class="line">by the desiccant dehumidifier module.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -577,7 +615,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_name">
 <code class="descname">regeneration_fan_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Fan Name</cite></p>
-<p>Name of fan object for regeneration air</p>
+<div class="line-block">
+<div class="line">Name of fan object for regeneration air</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -599,8 +639,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_object_type">
 <code class="descname">regeneration_fan_object_type</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_fan_object_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Fan Object Type</cite></p>
-<p>Type of fan object for regeneration air.  When using the Default
-Performance Model Type (see below), only Fan:VariableVolume is valid.</p>
+<div class="line-block">
+<div class="line">Type of fan object for regeneration air.  When using the Default</div>
+<div class="line">Performance Model Type (see below), only Fan:VariableVolume is valid.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -622,11 +664,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_velocity_function_of_air_velocity_curve_name">
 <code class="descname">regeneration_velocity_function_of_air_velocity_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_velocity_function_of_air_velocity_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Velocity Function of Air Velocity Curve Name</cite></p>
-<p>Regeneration velocity [m/s] as a function of
-process air velocity, quadratic curve.
-Table:OneIndependentVariable object can also be used
-curve = C1 + C2*v + C3*v**2
-v = process air velocity [m/s]</p>
+<div class="line-block">
+<div class="line">Regeneration velocity [m/s] as a function of</div>
+<div class="line">process air velocity, quadratic curve.</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">curve = C1 + C2*v + C3*v**2</div>
+<div class="line">v = process air velocity [m/s]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -648,12 +692,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name">
 <code class="descname">regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.regeneration_velocity_function_of_entering_drybulb_and_humidity_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Velocity Function of Entering Dry-Bulb and Humidity Ratio Curve Name</cite></p>
-<p>Regeneration velocity [m/s] as a function of
-entering dry-bulb and entering humidity ratio, biquadratic curve
-Table:TwoIndependentVariables object can also be used
-curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew
-edb = process entering dry-bulb temperature [C]
-ew  = process entering humidity ratio [kgWater/kgDryAir]</p>
+<div class="line-block">
+<div class="line">Regeneration velocity [m/s] as a function of</div>
+<div class="line">entering dry-bulb and entering humidity ratio, biquadratic curve</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">curve = C1 + C2*edb + C3*edb**2 + C4*ew + C5*ew**2 + C6*edb*ew</div>
+<div class="line">edb = process entering dry-bulb temperature [C]</div>
+<div class="line">ew  = process entering humidity ratio [kgWater/kgDryAir]</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -675,9 +721,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.rotor_power">
 <code class="descname">rotor_power</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantNoFans.rotor_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotor Power</cite></p>
-<p>Power input to wheel rotor motor
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">Power input to wheel rotor motor</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -713,8 +761,10 @@ in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -736,7 +786,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating">
 <code class="descname">companion_coil_regeneration_air_heating</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.companion_coil_regeneration_air_heating" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Companion Coil Regeneration Air Heating</cite></p>
-<p>Default value: No</p>
+<div class="line-block">
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -800,9 +852,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet">
 <code class="descname">companion_cooling_coil_upstream_of_dehumidifier_process_inlet</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.companion_cooling_coil_upstream_of_dehumidifier_process_inlet" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Companion Cooling Coil Upstream of Dehumidifier Process Inlet</cite></p>
-<p>Select Yes if the companion cooling coil is located directly upstream
-of the desiccant heat exchanger&#8217;s process air inlet node.
-Default value: No</p>
+<div class="line-block">
+<div class="line">Select Yes if the companion cooling coil is located directly upstream</div>
+<div class="line">of the desiccant heat exchanger&#8217;s process air inlet node.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -866,7 +920,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_maximum_flow_rate">
 <code class="descname">exhaust_fan_maximum_flow_rate</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Fan Maximum Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -888,7 +944,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_maximum_power">
 <code class="descname">exhaust_fan_maximum_power</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_maximum_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Fan Maximum Power</cite></p>
-<p>Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -910,8 +968,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_power_curve_name">
 <code class="descname">exhaust_fan_power_curve_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.exhaust_fan_power_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Fan Power Curve Name</cite></p>
-<p>Curve object type must be Curve:Quadratic or Curve:Cubic
-Table:OneIndependentVariable object can also be used</p>
+<div class="line-block">
+<div class="line">Curve object type must be Curve:Quadratic or Curve:Cubic</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -996,7 +1056,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_air_fan_placement">
 <code class="descname">regeneration_air_fan_placement</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_air_fan_placement" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Air Fan Placement</cite></p>
-<p>Default value: DrawThrough</p>
+<div class="line-block">
+<div class="line">Default value: DrawThrough</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1039,7 +1101,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_air_heater_object_type">
 <code class="descname">regeneration_air_heater_object_type</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_air_heater_object_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Air Heater Object Type</cite></p>
-<p>works with gas, electric, hot water and steam heating coils</p>
+<div class="line-block">
+<div class="line">works with gas, electric, hot water and steam heating coils</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1061,7 +1125,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_inlet_air_setpoint_temperature">
 <code class="descname">regeneration_inlet_air_setpoint_temperature</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.DehumidifierDesiccantSystem.regeneration_inlet_air_setpoint_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Regeneration Inlet Air Setpoint Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1154,8 +1220,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1198,9 +1266,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_capacity">
 <code class="descname">rated_capacity</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Capacity</cite></p>
-<p>Capacity is m3/s of water at 5.05 C
-Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">Capacity is m3/s of water at 5.05 C</div>
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1222,8 +1292,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_fan_power">
 <code class="descname">rated_fan_power</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_fan_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Fan Power</cite></p>
-<p>Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1245,11 +1317,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_power">
 <code class="descname">rated_power</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.rated_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power</cite></p>
-<p>if autosized the rated power is calculated from the rated capacity
-and enthalpy rise of water from 20.0C to 100.0C steam and assumes
-electric to thermal energy conversion efficiency of 100.0%
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">if autosized the rated power is calculated from the rated capacity</div>
+<div class="line">and enthalpy rise of water from 20.0C to 100.0C steam and assumes</div>
+<div class="line">electric to thermal energy conversion efficiency of 100.0%</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1269,8 +1343,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.standby_power">
 <code class="descname">standby_power</code><a class="headerlink" href="#pyidf.humidifiers_and_dehumidifiers.HumidifierSteamElectric.standby_power" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Standby Power</cite></p>
-<p>Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

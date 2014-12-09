@@ -90,9 +90,11 @@ specification and is assumed to be a missing value</li>
 <dt id="pyidf.demand_limiting_controls.DemandManagerAssignmentList.billing_period_schedule_name">
 <code class="descname">billing_period_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerAssignmentList.billing_period_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Billing Period Schedule Name</cite></p>
-<p>This field should reference the same schedule as the month schedule name field of the
-UtilityCost:Tariff object, if used.
-If blank, defaults to regular divisions between months.</p>
+<div class="line-block">
+<div class="line">This field should reference the same schedule as the month schedule name field of the</div>
+<div class="line">UtilityCost:Tariff object, if used.</div>
+<div class="line">If blank, defaults to regular divisions between months.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -177,7 +179,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerAssignmentList.demand_window_length">
 <code class="descname">demand_window_length</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerAssignmentList.demand_window_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Demand Window Length</cite></p>
-<p>Units: minutes</p>
+<div class="line-block">
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -247,9 +251,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerAssignmentList.peak_period_schedule_name">
 <code class="descname">peak_period_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerAssignmentList.peak_period_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Peak Period Schedule Name</cite></p>
-<p>This field should reference the same schedule as the period schedule name field of the
-UtilityCost:Tariff object, if used.
-If blank, defaults to always on peak.</p>
+<div class="line-block">
+<div class="line">This field should reference the same schedule as the period schedule name field of the</div>
+<div class="line">UtilityCost:Tariff object, if used.</div>
+<div class="line">If blank, defaults to always on peak.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -295,8 +301,10 @@ specification and is assumed to be a missing value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerElectricEquipment.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerElectricEquipment.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -345,7 +353,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerElectricEquipment.limit_step_change">
 <code class="descname">limit_step_change</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerElectricEquipment.limit_step_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Limit Step Change</cite></p>
-<p>Not yet implemented</p>
+<div class="line-block">
+<div class="line">Not yet implemented</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -367,7 +377,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerElectricEquipment.maximum_limit_fraction">
 <code class="descname">maximum_limit_fraction</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerElectricEquipment.maximum_limit_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Limit Fraction</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -389,8 +401,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerElectricEquipment.minimum_limit_duration">
 <code class="descname">minimum_limit_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerElectricEquipment.minimum_limit_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Limit Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -433,8 +447,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerElectricEquipment.rotation_duration">
 <code class="descname">rotation_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerElectricEquipment.rotation_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotation Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -501,8 +517,10 @@ specification and is assumed to be a missing value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerExteriorLights.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerExteriorLights.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -551,7 +569,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerExteriorLights.limit_step_change">
 <code class="descname">limit_step_change</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerExteriorLights.limit_step_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Limit Step Change</cite></p>
-<p>Not yet implemented</p>
+<div class="line-block">
+<div class="line">Not yet implemented</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -573,7 +593,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerExteriorLights.maximum_limit_fraction">
 <code class="descname">maximum_limit_fraction</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerExteriorLights.maximum_limit_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Limit Fraction</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -595,8 +617,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerExteriorLights.minimum_limit_duration">
 <code class="descname">minimum_limit_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerExteriorLights.minimum_limit_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Limit Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -639,8 +663,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerExteriorLights.rotation_duration">
 <code class="descname">rotation_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerExteriorLights.rotation_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotation Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -707,8 +733,10 @@ specification and is assumed to be a missing value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerLights.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerLights.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -757,7 +785,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerLights.limit_step_change">
 <code class="descname">limit_step_change</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerLights.limit_step_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Limit Step Change</cite></p>
-<p>Not yet implemented</p>
+<div class="line-block">
+<div class="line">Not yet implemented</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -779,7 +809,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerLights.maximum_limit_fraction">
 <code class="descname">maximum_limit_fraction</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerLights.maximum_limit_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Limit Fraction</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -801,8 +833,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerLights.minimum_limit_duration">
 <code class="descname">minimum_limit_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerLights.minimum_limit_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Limit Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -845,8 +879,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerLights.rotation_duration">
 <code class="descname">rotation_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerLights.rotation_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotation Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -913,8 +949,10 @@ specification and is assumed to be a missing value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -942,7 +980,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.maximum_cooling_setpoint_reset">
 <code class="descname">maximum_cooling_setpoint_reset</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.maximum_cooling_setpoint_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Cooling Setpoint Reset</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -964,7 +1004,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.maximum_heating_setpoint_reset">
 <code class="descname">maximum_heating_setpoint_reset</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.maximum_heating_setpoint_reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Heating Setpoint Reset</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -986,8 +1028,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.minimum_reset_duration">
 <code class="descname">minimum_reset_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.minimum_reset_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Reset Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1051,7 +1095,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.reset_step_change">
 <code class="descname">reset_step_change</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.reset_step_change" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Reset Step Change</cite></p>
-<p>Not yet implemented</p>
+<div class="line-block">
+<div class="line">Not yet implemented</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1073,8 +1119,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.demand_limiting_controls.DemandManagerThermostats.rotation_duration">
 <code class="descname">rotation_duration</code><a class="headerlink" href="#pyidf.demand_limiting_controls.DemandManagerThermostats.rotation_duration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotation Duration</cite></p>
-<p>If blank, duration defaults to the timestep
-Units: minutes</p>
+<div class="line-block">
+<div class="line">If blank, duration defaults to the timestep</div>
+<div class="line">Units: minutes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

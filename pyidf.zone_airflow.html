@@ -71,9 +71,11 @@ unbalanced flows will be added in quadrature.</p>
 <dt id="pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.air_balance_method">
 <code class="descname">air_balance_method</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.air_balance_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Balance Method</cite></p>
-<p>None: Only perform simple calculations without using a combined zone outdoor air.
-Quadrature: A combined outdoor air is used in the quadrature sum.
-Default value: Quadrature</p>
+<div class="line-block">
+<div class="line">None: Only perform simple calculations without using a combined zone outdoor air.</div>
+<div class="line">Quadrature: A combined outdoor air is used in the quadrature sum.</div>
+<div class="line">Default value: Quadrature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -95,7 +97,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage">
 <code class="descname">induced_outdoor_air_due_to_unbalanced_duct_leakage</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.induced_outdoor_air_due_to_unbalanced_duct_leakage" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Induced Outdoor Air Due to Unbalanced Duct Leakage</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -117,8 +121,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name">
 <code class="descname">induced_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneAirBalanceOutdoorAir.induced_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Induced Outdoor Air Schedule Name</cite></p>
-<p>This schedule contains the fraction values applied to the Induced Outdoor Air given in the
-previous input field (0.0 - 1.0).</p>
+<div class="line-block">
+<div class="line">This schedule contains the fraction values applied to the Induced Outdoor Air given in the</div>
+<div class="line">previous input field (0.0 - 1.0).</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -193,9 +199,11 @@ delivering it to a space.</p>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.airflow_outlet_area">
 <code class="descname">airflow_outlet_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.airflow_outlet_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Airflow Outlet Area</cite></p>
-<p>User have to specify effective area when outlet area is relatively bigger than the cross sectional area
-of cooltower. If the number of outlet is more than one, assume the air passes through only one.
-Units: m2</p>
+<div class="line-block">
+<div class="line">User have to specify effective area when outlet area is relatively bigger than the cross sectional area</div>
+<div class="line">of cooltower. If the number of outlet is more than one, assume the air passes through only one.</div>
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -217,8 +225,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -240,8 +250,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.effective_tower_height">
 <code class="descname">effective_tower_height</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.effective_tower_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Effective Tower Height</cite></p>
-<p>This field is from either the spray or the wet pad to the top of the outlet.
-Units: m</p>
+<div class="line-block">
+<div class="line">This field is from either the spray or the wet pad to the top of the outlet.</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -263,9 +275,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.flow_control_type">
 <code class="descname">flow_control_type</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.flow_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Control Type</cite></p>
-<p>Water flow schedule should be selected when the water flow rate is known.
-Wind-driven flow should be selected when the water flow rate is unknown.
-Default value: WindDrivenFlow</p>
+<div class="line-block">
+<div class="line">Water flow schedule should be selected when the water flow rate is known.</div>
+<div class="line">Wind-driven flow should be selected when the water flow rate is unknown.</div>
+<div class="line">Default value: WindDrivenFlow</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -287,7 +301,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.fraction_of_flow_schedule">
 <code class="descname">fraction_of_flow_schedule</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.fraction_of_flow_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Flow Schedule</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -309,7 +325,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.fraction_of_water_loss">
 <code class="descname">fraction_of_water_loss</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.fraction_of_water_loss" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Water Loss</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -331,7 +349,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.maximum_air_flow_rate">
 <code class="descname">maximum_air_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.maximum_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Air Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -353,7 +373,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.maximum_water_flow_rate">
 <code class="descname">maximum_water_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.maximum_water_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Water Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -375,10 +397,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.minimum_indoor_temperature">
 <code class="descname">minimum_indoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.minimum_indoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Indoor Temperature</cite></p>
-<p>This field is to specify the indoor temperature below which cooltower is shutoff.
-Units: C
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">This field is to specify the indoor temperature below which cooltower is shutoff.</div>
+<div class="line">Units: C</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -442,7 +466,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -464,7 +490,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCoolTowerShower.water_supply_storage_tank_name">
 <code class="descname">water_supply_storage_tank_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCoolTowerShower.water_supply_storage_tank_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Water Supply Storage Tank Name</cite></p>
-<p>In case of stand alone tank or underground water, leave this input blank</p>
+<div class="line-block">
+<div class="line">In case of stand alone tank or underground water, leave this input blank</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -516,7 +544,9 @@ statement affects the energy balance of both zones.</p>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.air_changes_per_hour">
 <code class="descname">air_changes_per_hour</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Changes per Hour</cite></p>
-<p>Units: 1/hr</p>
+<div class="line-block">
+<div class="line">Units: 1/hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -538,10 +568,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.delta_temperature">
 <code class="descname">delta_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.delta_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature</cite></p>
-<p>This field contains the constant temperature differential between source and
-receiving zones below which cross mixing is shutoff. This value must be greater
-than or equal to zero.
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">This field contains the constant temperature differential between source and</div>
+<div class="line">receiving zones below which cross mixing is shutoff. This value must be greater</div>
+<div class="line">than or equal to zero.</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -563,8 +595,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.delta_temperature_schedule_name">
 <code class="descname">delta_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.delta_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature Schedule Name</cite></p>
-<p>This schedule contains the temperature differential between source and receiving
-zones versus time below which cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the temperature differential between source and receiving</div>
+<div class="line">zones versus time below which cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -586,7 +620,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -608,14 +644,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.design_flow_rate_calculation_method">
 <code class="descname">design_flow_rate_calculation_method</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.design_flow_rate_calculation_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate Calculation Method</cite></p>
-<p>The entered calculation method is used to create the maximum amount of ventilation
-for this set of attributes
-Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate
-Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate
-AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-&#8220;Vdesign&#8221; in Equation is the result.
-Default value: Flow/Zone</p>
+<div class="line-block">
+<div class="line">The entered calculation method is used to create the maximum amount of ventilation</div>
+<div class="line">for this set of attributes</div>
+<div class="line">Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate</div>
+<div class="line">Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate</div>
+<div class="line">Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate</div>
+<div class="line">AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate</div>
+<div class="line">&#8220;Vdesign&#8221; in Equation is the result.</div>
+<div class="line">Default value: Flow/Zone</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -637,7 +675,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.flow_rate_per_person">
 <code class="descname">flow_rate_per_person</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.flow_rate_per_person" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Person</cite></p>
-<p>Units: m3/s-person</p>
+<div class="line-block">
+<div class="line">Units: m3/s-person</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -659,7 +699,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.flow_rate_per_zone_floor_area">
 <code class="descname">flow_rate_per_zone_floor_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.flow_rate_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Zone Floor Area</cite></p>
-<p>Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -681,8 +723,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.maximum_outdoor_temperature_schedule_name">
 <code class="descname">maximum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.maximum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time above which
-cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time above which</div>
+<div class="line">cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -704,8 +748,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.maximum_source_zone_temperature_schedule_name">
 <code class="descname">maximum_source_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.maximum_source_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Source Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the source zone dry-bulb temperature versus time above
-which cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the source zone dry-bulb temperature versus time above</div>
+<div class="line">which cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -727,8 +773,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.maximum_zone_temperature_schedule_name">
 <code class="descname">maximum_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.maximum_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time above which
-cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time above which</div>
+<div class="line">cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -750,8 +798,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.minimum_outdoor_temperature_schedule_name">
 <code class="descname">minimum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.minimum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time below which
-cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time below which</div>
+<div class="line">cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -773,8 +823,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.minimum_source_zone_temperature_schedule_name">
 <code class="descname">minimum_source_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.minimum_source_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Source Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the source zone dry-bulb temperature versus time below
-which cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the source zone dry-bulb temperature versus time below</div>
+<div class="line">which cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -796,8 +848,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneCrossMixing.minimum_zone_temperature_schedule_name">
 <code class="descname">minimum_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneCrossMixing.minimum_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time below which
-cross mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time below which</div>
+<div class="line">cross mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -912,7 +966,9 @@ Earthtube=Edesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd*
 <dt id="pyidf.zone_airflow.ZoneEarthtube.amplitude_of_soil_surface_temperature">
 <code class="descname">amplitude_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.amplitude_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Amplitude of Soil Surface Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -934,7 +990,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.average_soil_surface_temperature">
 <code class="descname">average_soil_surface_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.average_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Average Soil Surface Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -956,8 +1014,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.constant_term_flow_coefficient">
 <code class="descname">constant_term_flow_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.constant_term_flow_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Constant Term Flow Coefficient</cite></p>
-<p>&#8220;A&#8221; in Equation
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">&#8220;A&#8221; in Equation</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -979,8 +1039,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.delta_temperature">
 <code class="descname">delta_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.delta_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature</cite></p>
-<p>This is the temperature difference between indoor and outdoor below which the earth tube is shut off
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">This is the temperature difference between indoor and outdoor below which the earth tube is shut off</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1002,8 +1064,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>&#8220;Edesign&#8221; in Equation
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">&#8220;Edesign&#8221; in Equation</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1025,7 +1089,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.earthtube_type">
 <code class="descname">earthtube_type</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.earthtube_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Earthtube Type</cite></p>
-<p>Default value: Natural</p>
+<div class="line-block">
+<div class="line">Default value: Natural</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1047,8 +1113,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.fan_pressure_rise">
 <code class="descname">fan_pressure_rise</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.fan_pressure_rise" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fan Pressure Rise</cite></p>
-<p>pressure rise across the fan
-Units: Pa</p>
+<div class="line-block">
+<div class="line">pressure rise across the fan</div>
+<div class="line">Units: Pa</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1070,7 +1138,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.fan_total_efficiency">
 <code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fan Total Efficiency</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1092,10 +1162,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.maximum_zone_temperature_when_heating">
 <code class="descname">maximum_zone_temperature_when_heating</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.maximum_zone_temperature_when_heating" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Zone Temperature when Heating</cite></p>
-<p>this is the indoor temperature above which the earth tube is shut off
-Units: C
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the indoor temperature above which the earth tube is shut off</div>
+<div class="line">Units: C</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1117,10 +1189,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.minimum_zone_temperature_when_cooling">
 <code class="descname">minimum_zone_temperature_when_cooling</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.minimum_zone_temperature_when_cooling" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Zone Temperature when Cooling</cite></p>
-<p>this is the indoor temperature below which the earth tube is shut off
-Units: C
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the indoor temperature below which the earth tube is shut off</div>
+<div class="line">Units: C</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1142,7 +1216,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.phase_constant_of_soil_surface_temperature">
 <code class="descname">phase_constant_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.phase_constant_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Phase Constant of Soil Surface Temperature</cite></p>
-<p>Units: days</p>
+<div class="line-block">
+<div class="line">Units: days</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1164,8 +1240,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.pipe_depth_under_ground_surface">
 <code class="descname">pipe_depth_under_ground_surface</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.pipe_depth_under_ground_surface" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Depth Under Ground Surface</cite></p>
-<p>Units: m
-Default value: 3.0</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">Default value: 3.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1187,8 +1265,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.pipe_length">
 <code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.pipe_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Length</cite></p>
-<p>Units: m
-Default value: 15.0</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">Default value: 15.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1210,8 +1290,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.pipe_radius">
 <code class="descname">pipe_radius</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.pipe_radius" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Radius</cite></p>
-<p>Units: m
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1233,8 +1315,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.pipe_thermal_conductivity">
 <code class="descname">pipe_thermal_conductivity</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.pipe_thermal_conductivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Thermal Conductivity</cite></p>
-<p>Units: W/m-K
-Default value: 200.0</p>
+<div class="line-block">
+<div class="line">Units: W/m-K</div>
+<div class="line">Default value: 200.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1256,8 +1340,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.pipe_thickness">
 <code class="descname">pipe_thickness</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.pipe_thickness" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Thickness</cite></p>
-<p>Units: m
-Default value: 0.2</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">Default value: 0.2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1300,7 +1386,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.soil_condition">
 <code class="descname">soil_condition</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.soil_condition" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Condition</cite></p>
-<p>Default value: HeavyAndDamp</p>
+<div class="line-block">
+<div class="line">Default value: HeavyAndDamp</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1322,7 +1410,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.temperature_term_flow_coefficient">
 <code class="descname">temperature_term_flow_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.temperature_term_flow_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Term Flow Coefficient</cite></p>
-<p>&#8220;B&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;B&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1344,7 +1434,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.velocity_squared_term_flow_coefficient">
 <code class="descname">velocity_squared_term_flow_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.velocity_squared_term_flow_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Squared Term Flow Coefficient</cite></p>
-<p>&#8220;D&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;D&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1366,7 +1458,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneEarthtube.velocity_term_flow_coefficient">
 <code class="descname">velocity_term_flow_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneEarthtube.velocity_term_flow_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Term Flow Coefficient</cite></p>
-<p>&#8220;C&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;C&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1420,7 +1514,9 @@ to all the zones in the ZoneList.</p>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.air_changes_per_hour">
 <code class="descname">air_changes_per_hour</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Changes per Hour</cite></p>
-<p>Units: 1/hr</p>
+<div class="line-block">
+<div class="line">Units: 1/hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1442,8 +1538,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.constant_term_coefficient">
 <code class="descname">constant_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.constant_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Constant Term Coefficient</cite></p>
-<p>&#8220;A&#8221; in Equation
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">&#8220;A&#8221; in Equation</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1465,8 +1563,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>Units: m3/s
-IP-Units: ft3/min</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: ft3/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1488,15 +1588,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method">
 <code class="descname">design_flow_rate_calculation_method</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.design_flow_rate_calculation_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate Calculation Method</cite></p>
-<p>The entered calculation method is used to create the maximum amount of infiltration
-for this set of attributes
-Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate
-Flow/Area =&gt; Flow per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-Flow/ExteriorArea =&gt; Flow per Exterior Surface Area - Value * Exterior Surface Area (zone) = Design Flow Rate
-Flow/ExteriorWallArea =&gt; Flow per Exterior Surface Area - Value * Exterior Wall Surface Area (zone) = Design Flow Rate
-AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-&#8220;Idesign&#8221; in Equation is the result.
-Default value: Flow/Zone</p>
+<div class="line-block">
+<div class="line">The entered calculation method is used to create the maximum amount of infiltration</div>
+<div class="line">for this set of attributes</div>
+<div class="line">Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate</div>
+<div class="line">Flow/Area =&gt; Flow per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate</div>
+<div class="line">Flow/ExteriorArea =&gt; Flow per Exterior Surface Area - Value * Exterior Surface Area (zone) = Design Flow Rate</div>
+<div class="line">Flow/ExteriorWallArea =&gt; Flow per Exterior Surface Area - Value * Exterior Wall Surface Area (zone) = Design Flow Rate</div>
+<div class="line">AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate</div>
+<div class="line">&#8220;Idesign&#8221; in Equation is the result.</div>
+<div class="line">Default value: Flow/Zone</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1518,9 +1620,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area">
 <code class="descname">flow_per_exterior_surface_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.flow_per_exterior_surface_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow per Exterior Surface Area</cite></p>
-<p>use key Flow/ExteriorArea for all exterior surface area
-use key Flow/ExteriorWallArea to include only exterior wall area
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">use key Flow/ExteriorArea for all exterior surface area</div>
+<div class="line">use key Flow/ExteriorWallArea to include only exterior wall area</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1542,7 +1646,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area">
 <code class="descname">flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow per Zone Floor Area</cite></p>
-<p>Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1606,7 +1712,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.temperature_term_coefficient">
 <code class="descname">temperature_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.temperature_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Term Coefficient</cite></p>
-<p>&#8220;B&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;B&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1628,7 +1736,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.velocity_squared_term_coefficient">
 <code class="descname">velocity_squared_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.velocity_squared_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Squared Term Coefficient</cite></p>
-<p>&#8220;D&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;D&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1650,7 +1760,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.velocity_term_coefficient">
 <code class="descname">velocity_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationDesignFlowRate.velocity_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Term Coefficient</cite></p>
-<p>&#8220;C&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;C&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1703,9 +1815,11 @@ Infiltration=FSchedule * (AL /1000) SQRT(Cs*|(Tzone-Todb)| +  Cw*WindSpd**2 )</p
 <dt id="pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area">
 <code class="descname">effective_air_leakage_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.effective_air_leakage_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Effective Air Leakage Area</cite></p>
-<p>&#8220;AL&#8221; in Equation
-units are cm2 (square centimeters)
-Units: cm2</p>
+<div class="line-block">
+<div class="line">&#8220;AL&#8221; in Equation</div>
+<div class="line">units are cm2 (square centimeters)</div>
+<div class="line">Units: cm2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1769,7 +1883,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.stack_coefficient">
 <code class="descname">stack_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.stack_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Stack Coefficient</cite></p>
-<p>&#8220;Cs&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;Cs&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1791,7 +1907,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.wind_coefficient">
 <code class="descname">wind_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationEffectiveLeakageArea.wind_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Wind Coefficient</cite></p>
-<p>&#8220;Cw&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;Cw&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1844,7 +1962,9 @@ Infiltration=FSchedule * SQRT( (c * Cs*|(Tzone-Todb)|**n)**2 + (c* Cw*(s * WindS
 <dt id="pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.flow_coefficient">
 <code class="descname">flow_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.flow_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Coefficient</cite></p>
-<p>&#8220;c&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;c&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1887,8 +2007,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.pressure_exponent">
 <code class="descname">pressure_exponent</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.pressure_exponent" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pressure Exponent</cite></p>
-<p>&#8220;n&#8221; in Equation
-Default value: 0.67</p>
+<div class="line-block">
+<div class="line">&#8220;n&#8221; in Equation</div>
+<div class="line">Default value: 0.67</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1931,7 +2053,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.shelter_factor">
 <code class="descname">shelter_factor</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.shelter_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Shelter Factor</cite></p>
-<p>&#8220;s&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;s&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1953,7 +2077,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.stack_coefficient">
 <code class="descname">stack_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.stack_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Stack Coefficient</cite></p>
-<p>&#8220;Cs&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;Cs&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1975,7 +2101,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.wind_coefficient">
 <code class="descname">wind_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneInfiltrationFlowCoefficient.wind_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Wind Coefficient</cite></p>
-<p>&#8220;Cw&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;Cw&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2030,7 +2158,9 @@ discretion.</p>
 <dt id="pyidf.zone_airflow.ZoneMixing.air_changes_per_hour">
 <code class="descname">air_changes_per_hour</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Changes per Hour</cite></p>
-<p>Units: 1/hr</p>
+<div class="line-block">
+<div class="line">Units: 1/hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2052,9 +2182,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.delta_temperature">
 <code class="descname">delta_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.delta_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature</cite></p>
-<p>This field contains the constant temperature differential between source and
-receiving zones below which mixing is shutoff.
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">This field contains the constant temperature differential between source and</div>
+<div class="line">receiving zones below which mixing is shutoff.</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2076,8 +2208,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.delta_temperature_schedule_name">
 <code class="descname">delta_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.delta_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature Schedule Name</cite></p>
-<p>This schedule contains the temperature differential between source and receiving
-zones versus time below which mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the temperature differential between source and receiving</div>
+<div class="line">zones versus time below which mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2099,7 +2233,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2121,14 +2257,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.design_flow_rate_calculation_method">
 <code class="descname">design_flow_rate_calculation_method</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.design_flow_rate_calculation_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate Calculation Method</cite></p>
-<p>The entered calculation method is used to create the maximum amount of ventilation
-for this set of attributes
-Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate
-Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate
-AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-&#8220;Vdesign&#8221; in Equation is the result.
-Default value: Flow/Zone</p>
+<div class="line-block">
+<div class="line">The entered calculation method is used to create the maximum amount of ventilation</div>
+<div class="line">for this set of attributes</div>
+<div class="line">Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate</div>
+<div class="line">Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate</div>
+<div class="line">Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate</div>
+<div class="line">AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate</div>
+<div class="line">&#8220;Vdesign&#8221; in Equation is the result.</div>
+<div class="line">Default value: Flow/Zone</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2150,7 +2288,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.flow_rate_per_person">
 <code class="descname">flow_rate_per_person</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.flow_rate_per_person" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Person</cite></p>
-<p>Units: m3/s-person</p>
+<div class="line-block">
+<div class="line">Units: m3/s-person</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2172,7 +2312,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.flow_rate_per_zone_floor_area">
 <code class="descname">flow_rate_per_zone_floor_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.flow_rate_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Zone Floor Area</cite></p>
-<p>Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2194,8 +2336,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.maximum_outdoor_temperature_schedule_name">
 <code class="descname">maximum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.maximum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time above which
-mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time above which</div>
+<div class="line">mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2217,8 +2361,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.maximum_source_zone_temperature_schedule_name">
 <code class="descname">maximum_source_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.maximum_source_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Source Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the source zone dry-bulb temperature versus time above
-which mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the source zone dry-bulb temperature versus time above</div>
+<div class="line">which mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2240,8 +2386,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.maximum_zone_temperature_schedule_name">
 <code class="descname">maximum_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.maximum_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the zone dry-bulb temperature versus time above which
-mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the zone dry-bulb temperature versus time above which</div>
+<div class="line">mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2263,8 +2411,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.minimum_outdoor_temperature_schedule_name">
 <code class="descname">minimum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.minimum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time below which
-mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time below which</div>
+<div class="line">mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2286,8 +2436,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.minimum_source_zone_temperature_schedule_name">
 <code class="descname">minimum_source_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.minimum_source_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Source Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the source zone dry-bulb temperature versus time below
-which mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the source zone dry-bulb temperature versus time below</div>
+<div class="line">which mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2309,8 +2461,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneMixing.minimum_zone_temperature_schedule_name">
 <code class="descname">minimum_zone_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneMixing.minimum_zone_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Zone Temperature Schedule Name</cite></p>
-<p>This schedule contains the zone dry-bulb temperature versus time below which
-mixing is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the zone dry-bulb temperature versus time below which</div>
+<div class="line">mixing is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2429,9 +2583,11 @@ refrigerated space if that space were modeled as a zone instead of using the obj
 <dt id="pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_area">
 <code class="descname">door_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Door Area</cite></p>
-<p>Units: m2
-Default value: 9.0
-value &lt;= 400.0</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+<div class="line">Default value: 9.0</div>
+<div class="line">value &lt;= 400.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2453,9 +2609,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_height">
 <code class="descname">door_height</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Door Height</cite></p>
-<p>Units: m
-Default value: 3.0
-value &lt;= 50.0</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">Default value: 3.0</div>
+<div class="line">value &lt;= 50.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2477,11 +2635,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_protection_type">
 <code class="descname">door_protection_type</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneRefrigerationDoorMixing.door_protection_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Door Protection Type</cite></p>
-<p>Door protection can reduce the air flow through a refrigeration door
-The default value is &#8220;None&#8221;
-Choices: &#8220;None&#8221;, &#8220;AirCurtain&#8221;, and &#8220;StripCurtain&#8221;
-A strip curtain reduces the air flow more than an air curtain
-Default value: None</p>
+<div class="line-block">
+<div class="line">Door protection can reduce the air flow through a refrigeration door</div>
+<div class="line">The default value is &#8220;None&#8221;</div>
+<div class="line">Choices: &#8220;None&#8221;, &#8220;AirCurtain&#8221;, and &#8220;StripCurtain&#8221;</div>
+<div class="line">A strip curtain reduces the air flow more than an air curtain</div>
+<div class="line">Default value: None</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2524,12 +2684,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneRefrigerationDoorMixing.schedule_name">
 <code class="descname">schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneRefrigerationDoorMixing.schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Schedule Name</cite></p>
-<p>This schedule defines the fraction of the time the refrigeration door is open
-For example, if the warehouse is closed at night and there are no door openings
-between two zones, the value for that time period would be 0.
-If doors were propped open, the value  over that time period would be 1.0
-If the doors were open about 20% of the time, the value over that period would be 0.2
-Schedule values must lie between 0 and 1.0</p>
+<div class="line-block">
+<div class="line">This schedule defines the fraction of the time the refrigeration door is open</div>
+<div class="line">For example, if the warehouse is closed at night and there are no door openings</div>
+<div class="line">between two zones, the value for that time period would be 0.</div>
+<div class="line">If doors were propped open, the value  over that time period would be 1.0</div>
+<div class="line">If the doors were open about 20% of the time, the value over that period would be 0.2</div>
+<div class="line">Schedule values must lie between 0 and 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2603,8 +2765,10 @@ transmissivity.</p>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2626,7 +2790,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet">
 <code class="descname">cross_sectional_area_of_air_channel_outlet</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_area_of_air_channel_outlet" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Area of Air Channel Outlet</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2648,7 +2814,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_1</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 1</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2670,7 +2838,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_10</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_10" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 10</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2692,7 +2862,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_11</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_11" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 11</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2714,7 +2886,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_12</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_12" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 12</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2736,7 +2910,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_13</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_13" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 13</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2758,7 +2934,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_14</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_14" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 14</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2780,7 +2958,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_15</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_15" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 15</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2802,7 +2982,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_16</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_16" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 16</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2824,7 +3006,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_17</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_17" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 17</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2846,7 +3030,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_18</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_18" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 18</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2868,7 +3054,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_19</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_19" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 19</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2890,7 +3078,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_2</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 2</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2912,7 +3102,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_20</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_20" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 20</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2934,7 +3126,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_3</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 3</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2956,7 +3150,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_4</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_4" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 4</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2978,7 +3174,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_5</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_5" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 5</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3000,7 +3198,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_6</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_6" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 6</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3022,7 +3222,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_7</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_7" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 7</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3044,7 +3246,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_8</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_8" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 8</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3066,7 +3270,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9">
 <code class="descname">cross_sectional_areas_of_air_channel_inlet_9</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.cross_sectional_areas_of_air_channel_inlet_9" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cross Sectional Areas of Air Channel Inlet 9</cite></p>
-<p>Units: m2</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3088,8 +3294,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.discharge_coefficient">
 <code class="descname">discharge_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.discharge_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Discharge Coefficient</cite></p>
-<p>Default value: 0.8
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 0.8</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3111,7 +3319,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_1</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 1</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3133,7 +3343,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_10</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_10" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 10</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3155,7 +3367,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_11</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_11" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 11</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3177,7 +3391,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_12</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_12" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 12</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3199,7 +3415,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_13</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_13" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 13</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3221,7 +3439,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_14</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_14" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 14</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3243,7 +3463,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_15</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_15" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 15</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3265,7 +3487,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_16</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_16" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 16</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3287,7 +3511,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_17</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_17" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 17</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3309,7 +3535,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_18</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_18" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 18</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3331,7 +3559,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_19</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_19" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 19</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3353,7 +3583,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_2</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 2</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3375,7 +3607,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_20</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_20" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 20</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3397,7 +3631,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_3</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 3</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3419,7 +3655,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_4</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_4" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 4</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3441,7 +3679,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_5</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_5" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 5</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3463,7 +3703,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_6</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_6" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 6</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3485,7 +3727,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_7</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_7" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 7</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3507,7 +3751,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_8</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_8" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 8</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3529,7 +3775,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9">
 <code class="descname">distance_from_top_of_thermal_chimney_to_inlet_9</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.distance_from_top_of_thermal_chimney_to_inlet_9" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Distance from Top of Thermal Chimney to Inlet 9</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3572,8 +3820,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_1</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_1" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 1</cite></p>
-<p>Default value: 1.0
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3595,7 +3845,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_10</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_10" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 10</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3617,7 +3869,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_11</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_11" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 11</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3639,7 +3893,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_12</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_12" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 12</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3661,7 +3917,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_13</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_13" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 13</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3683,7 +3941,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_14</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_14" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 14</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3705,7 +3965,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_15</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_15" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 15</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3727,7 +3989,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_16</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_16" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 16</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3749,7 +4013,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_17</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_17" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 17</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3771,7 +4037,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_18</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_18" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 18</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3793,7 +4061,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_19</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_19" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 19</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3815,7 +4085,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_2</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 2</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3837,7 +4109,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_20</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_20" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 20</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3859,7 +4133,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_3</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_3" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 3</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3881,7 +4157,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_4</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_4" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 4</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3903,7 +4181,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_5</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_5" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 5</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3925,7 +4205,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_6</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_6" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 6</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3947,7 +4229,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_7</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_7" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 7</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3969,7 +4253,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_8</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_8" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 8</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3991,7 +4277,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9">
 <code class="descname">relative_ratios_of_air_flow_rates_passing_through_zone_9</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.relative_ratios_of_air_flow_rates_passing_through_zone_9" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relative Ratios of Air Flow Rates Passing through Zone 9</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4013,7 +4301,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.width_of_the_absorber_wall">
 <code class="descname">width_of_the_absorber_wall</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.width_of_the_absorber_wall" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Width of the Absorber Wall</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4455,7 +4745,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneThermalChimney.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneThermalChimney.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>Name of zone that is the thermal chimney</p>
+<div class="line-block">
+<div class="line">Name of zone that is the thermal chimney</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4488,7 +4780,9 @@ to all the zones in the ZoneList.</p>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.air_changes_per_hour">
 <code class="descname">air_changes_per_hour</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Changes per Hour</cite></p>
-<p>Units: 1/hr</p>
+<div class="line-block">
+<div class="line">Units: 1/hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4510,8 +4804,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.constant_term_coefficient">
 <code class="descname">constant_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.constant_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Constant Term Coefficient</cite></p>
-<p>&#8220;A&#8221; in Equation
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">&#8220;A&#8221; in Equation</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4533,14 +4829,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.delta_temperature">
 <code class="descname">delta_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.delta_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature</cite></p>
-<p>This is the temperature differential between indoor and outdoor below which ventilation is shutoff.
-If ((IndoorTemp - OutdoorTemp) &lt; DeltaTemperature) then ventilation is not allowed.
-For example, if delta temperature is 2C, ventilation is assumed to be available if the outside air temperature
-is at least 2C cooler than the zone air temperature. The values for this field can include negative numbers.
-This allows ventilation to occur even if the outdoor temperature is above the indoor temperature.
-Units: deltaC
-Default value: -100.0
-value &gt;= -100.0</p>
+<div class="line-block">
+<div class="line">This is the temperature differential between indoor and outdoor below which ventilation is shutoff.</div>
+<div class="line">If ((IndoorTemp - OutdoorTemp) &lt; DeltaTemperature) then ventilation is not allowed.</div>
+<div class="line">For example, if delta temperature is 2C, ventilation is assumed to be available if the outside air temperature</div>
+<div class="line">is at least 2C cooler than the zone air temperature. The values for this field can include negative numbers.</div>
+<div class="line">This allows ventilation to occur even if the outdoor temperature is above the indoor temperature.</div>
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4562,8 +4860,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.delta_temperature_schedule_name">
 <code class="descname">delta_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.delta_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature Schedule Name</cite></p>
-<p>This schedule contains the temperature differential between indoor and outdoor
-versus time below which ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the temperature differential between indoor and outdoor</div>
+<div class="line">versus time below which ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4585,7 +4885,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4607,14 +4909,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method">
 <code class="descname">design_flow_rate_calculation_method</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.design_flow_rate_calculation_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate Calculation Method</cite></p>
-<p>The entered calculation method is used to create the maximum amount of ventilation
-for this set of attributes
-Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate
-Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate
-Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate
-AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate
-&#8220;Vdesign&#8221; in Equation is the result.
-Default value: Flow/Zone</p>
+<div class="line-block">
+<div class="line">The entered calculation method is used to create the maximum amount of ventilation</div>
+<div class="line">for this set of attributes</div>
+<div class="line">Choices: Flow/Zone =&gt; Design Flow Rate &#8211; simply enter Design Flow Rate</div>
+<div class="line">Flow/Area =&gt; Flow Rate per Zone Floor Area - Value * Floor Area (zone) = Design Flow Rate</div>
+<div class="line">Flow/Person =&gt; Flow Rate per Person - Value * #people = Design Flow Rate</div>
+<div class="line">AirChanges/Hour =&gt; Air Changes per Hour - Value * Floor Volume (zone) adjusted for m3/s = Design Volume Flow Rate</div>
+<div class="line">&#8220;Vdesign&#8221; in Equation is the result.</div>
+<div class="line">Default value: Flow/Zone</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4636,8 +4940,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.fan_pressure_rise">
 <code class="descname">fan_pressure_rise</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.fan_pressure_rise" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fan Pressure Rise</cite></p>
-<p>pressure rise across the fan
-Units: Pa</p>
+<div class="line-block">
+<div class="line">pressure rise across the fan</div>
+<div class="line">Units: Pa</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4659,7 +4965,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.fan_total_efficiency">
 <code class="descname">fan_total_efficiency</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.fan_total_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fan Total Efficiency</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4681,7 +4989,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.flow_rate_per_person">
 <code class="descname">flow_rate_per_person</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.flow_rate_per_person" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Person</cite></p>
-<p>Units: m3/s-person</p>
+<div class="line-block">
+<div class="line">Units: m3/s-person</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4703,7 +5013,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area">
 <code class="descname">flow_rate_per_zone_floor_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.flow_rate_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Rate per Zone Floor Area</cite></p>
-<p>Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4725,11 +5037,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_indoor_temperature">
 <code class="descname">maximum_indoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_indoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Indoor Temperature</cite></p>
-<p>this is the indoor temperature above which ventilation is shutoff
-Units: C
-Default value: 100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the indoor temperature above which ventilation is shutoff</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4751,8 +5065,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name">
 <code class="descname">maximum_indoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_indoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Indoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time above which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time above which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4774,11 +5090,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_outdoor_temperature">
 <code class="descname">maximum_outdoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature</cite></p>
-<p>this is the outdoor temperature above which ventilation is shutoff
-Units: C
-Default value: 100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the outdoor temperature above which ventilation is shutoff</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4800,8 +5118,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name">
 <code class="descname">maximum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time above which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time above which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4823,10 +5143,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_wind_speed">
 <code class="descname">maximum_wind_speed</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.maximum_wind_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Wind Speed</cite></p>
-<p>this is the outdoor wind speed above which ventilation is shutoff
-Units: m/s
-Default value: 40.0
-value &lt;= 40.0</p>
+<div class="line-block">
+<div class="line">this is the outdoor wind speed above which ventilation is shutoff</div>
+<div class="line">Units: m/s</div>
+<div class="line">Default value: 40.0</div>
+<div class="line">value &lt;= 40.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4848,11 +5170,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_indoor_temperature">
 <code class="descname">minimum_indoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_indoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Indoor Temperature</cite></p>
-<p>this is the indoor temperature below which ventilation is shutoff
-Units: C
-Default value: -100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the indoor temperature below which ventilation is shutoff</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4874,8 +5198,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name">
 <code class="descname">minimum_indoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_indoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Indoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time below which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time below which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4897,11 +5223,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_outdoor_temperature">
 <code class="descname">minimum_outdoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature</cite></p>
-<p>this is the outdoor temperature below which ventilation is shutoff
-Units: C
-Default value: -100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">this is the outdoor temperature below which ventilation is shutoff</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4923,8 +5251,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name">
 <code class="descname">minimum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.minimum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time below which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time below which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -4988,7 +5318,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.temperature_term_coefficient">
 <code class="descname">temperature_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.temperature_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Term Coefficient</cite></p>
-<p>&#8220;B&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;B&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5010,7 +5342,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.velocity_squared_term_coefficient">
 <code class="descname">velocity_squared_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.velocity_squared_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Squared Term Coefficient</cite></p>
-<p>&#8220;D&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;D&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5032,7 +5366,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.velocity_term_coefficient">
 <code class="descname">velocity_term_coefficient</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.velocity_term_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Velocity Term Coefficient</cite></p>
-<p>&#8220;C&#8221; in Equation</p>
+<div class="line-block">
+<div class="line">&#8220;C&#8221; in Equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5054,7 +5390,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationDesignFlowRate.ventilation_type">
 <code class="descname">ventilation_type</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationDesignFlowRate.ventilation_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Ventilation Type</cite></p>
-<p>Default value: Natural</p>
+<div class="line-block">
+<div class="line">Default value: Natural</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5108,11 +5446,13 @@ Total Ventilation = SQRT((Ventilation Wind)^2 + (Ventilation Stack)^2)</p>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.delta_temperature">
 <code class="descname">delta_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.delta_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature</cite></p>
-<p>This is the temperature differential between indoor and outdoor below
-which ventilation is shutoff.
-Units: deltaC
-Default value: -100.0
-value &gt;= -100.0</p>
+<div class="line-block">
+<div class="line">This is the temperature differential between indoor and outdoor below</div>
+<div class="line">which ventilation is shutoff.</div>
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5134,8 +5474,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name">
 <code class="descname">delta_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.delta_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Delta Temperature Schedule Name</cite></p>
-<p>This schedule contains the temperature differential between indoor and outdoor
-versus time below which ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the temperature differential between indoor and outdoor</div>
+<div class="line">versus time below which ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5157,13 +5499,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening">
 <code class="descname">discharge_coefficient_for_opening</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.discharge_coefficient_for_opening" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Discharge Coefficient for Opening</cite></p>
-<p>This is the discharge coefficient used to calculate stack effect.
-&#8220;Cd&#8221; in the stack equation and the maximum value is 1.0.
-When the input is Autocalculate, the following equation is used to calculate the
-coefficient:
-Cd = 0.4 + 0.0045*|(Tzone-Todb)|
-Default value: &#8220;Autocalculate&#8221;
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the discharge coefficient used to calculate stack effect.</div>
+<div class="line">&#8220;Cd&#8221; in the stack equation and the maximum value is 1.0.</div>
+<div class="line">When the input is Autocalculate, the following equation is used to calculate the</div>
+<div class="line">coefficient:</div>
+<div class="line">Cd = 0.4 + 0.0045*|(Tzone-Todb)|</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5183,10 +5527,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.effective_angle">
 <code class="descname">effective_angle</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.effective_angle" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Effective Angle</cite></p>
-<p>This field is defined as normal angle of the opening area and is used when input
-field Opening Effectiveness = Autocalculate.
-Units: deg
-value &lt; 360.0</p>
+<div class="line-block">
+<div class="line">This field is defined as normal angle of the opening area and is used when input</div>
+<div class="line">field Opening Effectiveness = Autocalculate.</div>
+<div class="line">Units: deg</div>
+<div class="line">value &lt; 360.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5208,10 +5554,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.height_difference">
 <code class="descname">height_difference</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.height_difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Height Difference</cite></p>
-<p>This is the height difference between the midpoint of an opening and
-the neutral pressure level.
-&#8220;DH&#8221; in the stack equation.
-Units: m</p>
+<div class="line-block">
+<div class="line">This is the height difference between the midpoint of an opening and</div>
+<div class="line">the neutral pressure level.</div>
+<div class="line">&#8220;DH&#8221; in the stack equation.</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5233,11 +5581,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature">
 <code class="descname">maximum_indoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Indoor Temperature</cite></p>
-<p>This is the indoor temperature above which ventilation is shutoff.
-Units: C
-Default value: 100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">This is the indoor temperature above which ventilation is shutoff.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5259,8 +5609,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name">
 <code class="descname">maximum_indoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_indoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Indoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time above which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time above which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5282,11 +5634,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature">
 <code class="descname">maximum_outdoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature</cite></p>
-<p>This is the outdoor temperature above which ventilation is shutoff.
-Units: C
-Default value: 100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">This is the outdoor temperature above which ventilation is shutoff.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5308,8 +5662,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name">
 <code class="descname">maximum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time above which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time above which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5331,10 +5687,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_wind_speed">
 <code class="descname">maximum_wind_speed</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.maximum_wind_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Wind Speed</cite></p>
-<p>This is the outdoor wind speed above which ventilation is shutoff.
-Units: m/s
-Default value: 40.0
-value &lt;= 40.0</p>
+<div class="line-block">
+<div class="line">This is the outdoor wind speed above which ventilation is shutoff.</div>
+<div class="line">Units: m/s</div>
+<div class="line">Default value: 40.0</div>
+<div class="line">value &lt;= 40.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5356,11 +5714,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature">
 <code class="descname">minimum_indoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Indoor Temperature</cite></p>
-<p>This is the indoor temperature below which ventilation is shutoff.
-Units: C
-Default value: -100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">This is the indoor temperature below which ventilation is shutoff.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5382,8 +5742,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name">
 <code class="descname">minimum_indoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_indoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Indoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the indoor temperature versus time below which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the indoor temperature versus time below which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5405,11 +5767,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature">
 <code class="descname">minimum_outdoor_temperature</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature</cite></p>
-<p>This is the outdoor temperature below which ventilation is shutoff.
-Units: C
-Default value: -100.0
-value &gt;= -100.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">This is the outdoor temperature below which ventilation is shutoff.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -100.0</div>
+<div class="line">value &gt;= -100.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5431,8 +5795,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name">
 <code class="descname">minimum_outdoor_temperature_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.minimum_outdoor_temperature_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature Schedule Name</cite></p>
-<p>This schedule contains the outdoor temperature versus time below which
-ventilation is shutoff.</p>
+<div class="line-block">
+<div class="line">This schedule contains the outdoor temperature versus time below which</div>
+<div class="line">ventilation is shutoff.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5475,8 +5841,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_area">
 <code class="descname">opening_area</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Opening Area</cite></p>
-<p>This is the opening area used to calculate stack effect and wind driven ventilation.
-Units: m2</p>
+<div class="line-block">
+<div class="line">This is the opening area used to calculate stack effect and wind driven ventilation.</div>
+<div class="line">Units: m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5498,8 +5866,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name">
 <code class="descname">opening_area_fraction_schedule_name</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_area_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Opening Area Fraction Schedule Name</cite></p>
-<p>This schedule contains the fraction values applied to the opening area given in the previous
-input field (0.0 - 1.0).</p>
+<div class="line-block">
+<div class="line">This schedule contains the fraction values applied to the opening area given in the previous</div>
+<div class="line">input field (0.0 - 1.0).</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5521,15 +5891,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_effectiveness">
 <code class="descname">opening_effectiveness</code><a class="headerlink" href="#pyidf.zone_airflow.ZoneVentilationWindandStackOpenArea.opening_effectiveness" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Opening Effectiveness</cite></p>
-<p>This field is used to calculate wind driven ventilation.
-&#8220;Cw&#8221; in the wind-driven equation and the maximum value is 1.0.
-When the input is Autocalculate, the program calculates Cw based on an angle between
-wind direction and effective angle
-Cw = 0.55 at angle = 0, and Cw = 0.3 at angle=180
-Linear interpolation is used to calculate Cw based on the above two values.
-Units: dimensionless
-Default value: &#8220;Autocalculate&#8221;
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This field is used to calculate wind driven ventilation.</div>
+<div class="line">&#8220;Cw&#8221; in the wind-driven equation and the maximum value is 1.0.</div>
+<div class="line">When the input is Autocalculate, the program calculates Cw based on an angle between</div>
+<div class="line">wind direction and effective angle</div>
+<div class="line">Cw = 0.55 at angle = 0, and Cw = 0.3 at angle=180</div>
+<div class="line">Linear interpolation is used to calculate Cw based on the above two values.</div>
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

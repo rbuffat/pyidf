@@ -106,7 +106,9 @@ specification and is assumed to be a missing value</li>
 <dt id="pyidf.node.Branch.maximum_flow_rate">
 <code class="descname">maximum_flow_rate</code><a class="headerlink" href="#pyidf.node.Branch.maximum_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -147,12 +149,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.Branch.pressure_drop_curve_name">
 <code class="descname">pressure_drop_curve_name</code><a class="headerlink" href="#pyidf.node.Branch.pressure_drop_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pressure Drop Curve Name</cite></p>
-<p>Optional field to include this branch in plant pressure drop calculations
-This field is only relevant for branches in PlantLoops and CondenserLoops
-Air loops do not account for pressure drop using this field
-Valid curve types are: Curve:Functional:PressureDrop or
-one of Curve:{Linear,Quadratic,Cubic,Exponent}&#8217;)
-Table:OneIndependentVariable object can also be used</p>
+<div class="line-block">
+<div class="line">Optional field to include this branch in plant pressure drop calculations</div>
+<div class="line">This field is only relevant for branches in PlantLoops and CondenserLoops</div>
+<div class="line">Air loops do not account for pressure drop using this field</div>
+<div class="line">Valid curve types are: Curve:Functional:PressureDrop or</div>
+<div class="line">one of Curve:{Linear,Quadratic,Cubic,Exponent}&#8217;)</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -569,9 +573,11 @@ an OutdoorAir:NodeList object.</p>
 <dt id="pyidf.node.OutdoorAirNode.height_above_ground">
 <code class="descname">height_above_ground</code><a class="headerlink" href="#pyidf.node.OutdoorAirNode.height_above_ground" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Height Above Ground</cite></p>
-<p>A value less than zero indicates that the height will be ignored and the weather file conditions will be used.
-Units: m
-Default value: -1.0</p>
+<div class="line-block">
+<div class="line">A value less than zero indicates that the height will be ignored and the weather file conditions will be used.</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: -1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -884,7 +890,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeIndoor.environment_type">
 <code class="descname">environment_type</code><a class="headerlink" href="#pyidf.node.PipeIndoor.environment_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Environment Type</cite></p>
-<p>Default value: Zone</p>
+<div class="line-block">
+<div class="line">Default value: Zone</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -969,8 +977,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeIndoor.pipe_inside_diameter">
 <code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeIndoor.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Inside Diameter</cite></p>
-<p>Units: m
-IP-Units: in</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">IP-Units: in</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -992,7 +1002,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeIndoor.pipe_length">
 <code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeIndoor.pipe_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Length</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1127,8 +1139,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeOutdoor.pipe_inside_diameter">
 <code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Inside Diameter</cite></p>
-<p>Units: m
-IP-Units: in</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+<div class="line">IP-Units: in</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1150,7 +1164,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeOutdoor.pipe_length">
 <code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeOutdoor.pipe_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Length</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1182,8 +1198,10 @@ HeatExchanger:Surface</p>
 <dt id="pyidf.node.PipeUnderground.amplitude_of_soil_surface_temperature">
 <code class="descname">amplitude_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.amplitude_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Amplitude of Soil Surface Temperature</cite></p>
-<p>optional
-Units: C</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1205,8 +1223,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeUnderground.average_soil_surface_temperature">
 <code class="descname">average_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.average_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Average Soil Surface Temperature</cite></p>
-<p>optional
-Units: C</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1312,8 +1332,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeUnderground.phase_constant_of_soil_surface_temperature">
 <code class="descname">phase_constant_of_soil_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipeUnderground.phase_constant_of_soil_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Phase Constant of Soil Surface Temperature</cite></p>
-<p>optional
-Units: days</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Units: days</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1335,9 +1357,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeUnderground.pipe_inside_diameter">
 <code class="descname">pipe_inside_diameter</code><a class="headerlink" href="#pyidf.node.PipeUnderground.pipe_inside_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Inside Diameter</cite></p>
-<p>pipe thickness is defined in the Construction object
-Units: m
-IP-Units: in</p>
+<div class="line-block">
+<div class="line">pipe thickness is defined in the Construction object</div>
+<div class="line">Units: m</div>
+<div class="line">IP-Units: in</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1359,7 +1383,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipeUnderground.pipe_length">
 <code class="descname">pipe_length</code><a class="headerlink" href="#pyidf.node.PipeUnderground.pipe_length" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Length</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1447,10 +1473,12 @@ specification and is assumed to be a missing value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop">
 <code class="descname">convergence_criterion_for_the_outer_cartesian_domain_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Convergence Criterion for the Outer Cartesian Domain Iteration Loop</cite></p>
-<p>Units: deltaC
-Default value: 0.001
-value &gt;= 1e-06
-value &lt;= 0.5</p>
+<div class="line-block">
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.001</div>
+<div class="line">value &gt;= 1e-06</div>
+<div class="line">value &lt;= 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1472,8 +1500,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.depth_of_basement_wall_in_ground_domain">
 <code class="descname">depth_of_basement_wall_in_ground_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.depth_of_basement_wall_in_ground_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Depth of Basement Wall In Ground Domain</cite></p>
-<p>Required only if Domain Has Basement Interaction
-Units: m</p>
+<div class="line-block">
+<div class="line">Required only if Domain Has Basement Interaction</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1495,14 +1525,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter">
 <code class="descname">evapotranspiration_ground_cover_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.evapotranspiration_ground_cover_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Evapotranspiration Ground Cover Parameter</cite></p>
-<p>This specifies the ground cover effects during evapotranspiration
-calculations.  The value roughly represents the following cases:
-= 0   : concrete or other solid, non-permeable ground surface material
-= 0.5 : short grass, much like a manicured lawn
-= 1   : standard reference state (12 cm grass)
-= 1.5 : wild growth
-Default value: 0.4
-value &lt;= 1.5</p>
+<div class="line-block">
+<div class="line">This specifies the ground cover effects during evapotranspiration</div>
+<div class="line">calculations.  The value roughly represents the following cases:</div>
+<div class="line">= 0   : concrete or other solid, non-permeable ground surface material</div>
+<div class="line">= 0.5 : short grass, much like a manicured lawn</div>
+<div class="line">= 1   : standard reference state (12 cm grass)</div>
+<div class="line">= 1.5 : wild growth</div>
+<div class="line">Default value: 0.4</div>
+<div class="line">value &lt;= 1.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1530,7 +1562,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature">
 <code class="descname">kusudaachenbach_average_amplitude_of_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_amplitude_of_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Kusuda-Achenbach Average Amplitude of Surface Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1552,7 +1586,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_surface_temperature">
 <code class="descname">kusudaachenbach_average_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_average_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Kusuda-Achenbach Average Surface Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1574,7 +1610,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature">
 <code class="descname">kusudaachenbach_phase_shift_of_minimum_surface_temperature</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.kusudaachenbach_phase_shift_of_minimum_surface_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Kusuda-Achenbach Phase Shift of Minimum Surface Temperature</cite></p>
-<p>Units: days</p>
+<div class="line-block">
+<div class="line">Units: days</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1596,9 +1634,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop">
 <code class="descname">maximum_iterations_in_the_outer_cartesian_domain_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Iterations in the Outer Cartesian Domain Iteration Loop</cite></p>
-<p>Default value: 500
-value &gt;= 3
-value &lt;= 10000</p>
+<div class="line-block">
+<div class="line">Default value: 500</div>
+<div class="line">value &gt;= 3</div>
+<div class="line">value &lt;= 10000</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1641,7 +1681,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model">
 <code class="descname">name_of_basement_floor_boundary_condition_model</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.name_of_basement_floor_boundary_condition_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Name of Basement Floor Boundary Condition Model</cite></p>
-<p>Required only if Domain Has Basement Interaction</p>
+<div class="line-block">
+<div class="line">Required only if Domain Has Basement Interaction</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1663,7 +1705,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model">
 <code class="descname">name_of_basement_wall_boundary_condition_model</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.name_of_basement_wall_boundary_condition_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Name of Basement Wall Boundary Condition Model</cite></p>
-<p>Required only if Domain Has Basement Interaction</p>
+<div class="line-block">
+<div class="line">Required only if Domain Has Basement Interaction</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1685,7 +1729,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain">
 <code class="descname">number_of_pipe_circuits_entered_for_this_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.number_of_pipe_circuits_entered_for_this_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Pipe Circuits Entered for this Domain</cite></p>
-<p>value &gt;= 1</p>
+<div class="line-block">
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1707,7 +1753,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width">
 <code class="descname">shift_pipe_x_coordinates_by_basement_width</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.shift_pipe_x_coordinates_by_basement_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Shift Pipe X Coordinates By Basement Width</cite></p>
-<p>Required only if Domain Has Basement Interaction</p>
+<div class="line-block">
+<div class="line">Required only if Domain Has Basement Interaction</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1729,7 +1777,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.soil_density">
 <code class="descname">soil_density</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_density" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Density</cite></p>
-<p>Units: kg/m3</p>
+<div class="line-block">
+<div class="line">Units: kg/m3</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1751,9 +1801,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction">
 <code class="descname">soil_moisture_content_volume_fraction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Moisture Content Volume Fraction</cite></p>
-<p>Units: percent
-Default value: 30.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">Units: percent</div>
+<div class="line">Default value: 30.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1775,9 +1827,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation">
 <code class="descname">soil_moisture_content_volume_fraction_at_saturation</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_moisture_content_volume_fraction_at_saturation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Moisture Content Volume Fraction at Saturation</cite></p>
-<p>Units: percent
-Default value: 50.0
-value &lt;= 100.0</p>
+<div class="line-block">
+<div class="line">Units: percent</div>
+<div class="line">Default value: 50.0</div>
+<div class="line">value &lt;= 100.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1799,9 +1853,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.soil_specific_heat">
 <code class="descname">soil_specific_heat</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_specific_heat" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Specific Heat</cite></p>
-<p>This is a dry soil property, which is adjusted for freezing effects
-by the simulation algorithm.
-Units: J/kg-K</p>
+<div class="line-block">
+<div class="line">This is a dry soil property, which is adjusted for freezing effects</div>
+<div class="line">by the simulation algorithm.</div>
+<div class="line">Units: J/kg-K</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1823,7 +1879,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.soil_thermal_conductivity">
 <code class="descname">soil_thermal_conductivity</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.soil_thermal_conductivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Soil Thermal Conductivity</cite></p>
-<p>Units: W/m-K</p>
+<div class="line-block">
+<div class="line">Units: W/m-K</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1845,9 +1903,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction">
 <code class="descname">this_domain_includes_basement_surface_interaction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.this_domain_includes_basement_surface_interaction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>This Domain Includes Basement Surface Interaction</cite></p>
-<p>if Yes, then the following basement inputs are used
-if No, then the following basement inputs are <em>ignored</em>
-Default value: No</p>
+<div class="line-block">
+<div class="line">if Yes, then the following basement inputs are used</div>
+<div class="line">if No, then the following basement inputs are <em>ignored</em></div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1869,8 +1929,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.width_of_basement_floor_in_ground_domain">
 <code class="descname">width_of_basement_floor_in_ground_domain</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.width_of_basement_floor_in_ground_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Width of Basement Floor in Ground Domain</cite></p>
-<p>Required only if Domain Has Basement Interaction
-Units: m</p>
+<div class="line-block">
+<div class="line">Required only if Domain Has Basement Interaction</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1892,11 +1954,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.xdirection_geometric_coefficient">
 <code class="descname">xdirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xdirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>X-Direction Geometric Coefficient</cite></p>
-<p>optional
-Only used if mesh type is symmetric geometric
-Default value: 1.3
-value &gt;= 1.0
-value &lt;= 2.0</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Only used if mesh type is symmetric geometric</div>
+<div class="line">Default value: 1.3</div>
+<div class="line">value &gt;= 1.0</div>
+<div class="line">value &lt;= 2.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1918,8 +1982,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_density_parameter">
 <code class="descname">xdirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xdirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>X-Direction Mesh Density Parameter</cite></p>
-<p>If mesh type is symmetric geometric, this should be an even number.
-Default value: 4</p>
+<div class="line-block">
+<div class="line">If mesh type is symmetric geometric, this should be an even number.</div>
+<div class="line">Default value: 4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1962,8 +2028,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.xmax">
 <code class="descname">xmax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.xmax" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Xmax</cite></p>
-<p>Domain extent in the local &#8216;X&#8217; direction
-Units: m</p>
+<div class="line-block">
+<div class="line">Domain extent in the local &#8216;X&#8217; direction</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1985,11 +2053,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.ydirection_geometric_coefficient">
 <code class="descname">ydirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ydirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Y-Direction Geometric Coefficient</cite></p>
-<p>optional
-Only used if mesh type is symmetric geometric
-Default value: 1.3
-value &gt;= 1.0
-value &lt;= 2.0</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Only used if mesh type is symmetric geometric</div>
+<div class="line">Default value: 1.3</div>
+<div class="line">value &gt;= 1.0</div>
+<div class="line">value &lt;= 2.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2011,8 +2081,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_density_parameter">
 <code class="descname">ydirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ydirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Y-Direction Mesh Density Parameter</cite></p>
-<p>If mesh type is symmetric geometric, this should be an even number.
-Default value: 4</p>
+<div class="line-block">
+<div class="line">If mesh type is symmetric geometric, this should be an even number.</div>
+<div class="line">Default value: 4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2055,8 +2127,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.ymax">
 <code class="descname">ymax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.ymax" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Ymax</cite></p>
-<p>Domain extent in the local &#8216;Y&#8217; direction
-Units: m</p>
+<div class="line-block">
+<div class="line">Domain extent in the local &#8216;Y&#8217; direction</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2078,11 +2152,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.zdirection_geometric_coefficient">
 <code class="descname">zdirection_geometric_coefficient</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zdirection_geometric_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Z-Direction Geometric Coefficient</cite></p>
-<p>optional
-Only used if mesh type is symmetric geometric
-Default value: 1.3
-value &gt;= 1.0
-value &lt;= 2.0</p>
+<div class="line-block">
+<div class="line">optional</div>
+<div class="line">Only used if mesh type is symmetric geometric</div>
+<div class="line">Default value: 1.3</div>
+<div class="line">value &gt;= 1.0</div>
+<div class="line">value &lt;= 2.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2104,8 +2180,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_density_parameter">
 <code class="descname">zdirection_mesh_density_parameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zdirection_mesh_density_parameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Z-Direction Mesh Density Parameter</cite></p>
-<p>If mesh type is symmetric geometric, this should be an even number.
-Default value: 4</p>
+<div class="line-block">
+<div class="line">If mesh type is symmetric geometric, this should be an even number.</div>
+<div class="line">Default value: 4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2148,8 +2226,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundDomain.zmax">
 <code class="descname">zmax</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundDomain.zmax" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zmax</cite></p>
-<p>Domain extent in the local &#8216;Y&#8217; direction
-Units: m</p>
+<div class="line-block">
+<div class="line">Domain extent in the local &#8216;Y&#8217; direction</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2239,10 +2319,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop">
 <code class="descname">convergence_criterion_for_the_inner_radial_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.convergence_criterion_for_the_inner_radial_iteration_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Convergence Criterion for the Inner Radial Iteration Loop</cite></p>
-<p>Units: deltaC
-Default value: 0.001
-value &gt;= 1e-06
-value &lt;= 0.5</p>
+<div class="line-block">
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.001</div>
+<div class="line">value &gt;= 1e-06</div>
+<div class="line">value &lt;= 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2264,7 +2346,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.design_flow_rate">
 <code class="descname">design_flow_rate</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.design_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2292,9 +2376,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop">
 <code class="descname">maximum_iterations_in_the_inner_radial_iteration_loop</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.maximum_iterations_in_the_inner_radial_iteration_loop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Iterations in the Inner Radial Iteration Loop</cite></p>
-<p>Default value: 500
-value &gt;= 3
-value &lt;= 10000</p>
+<div class="line-block">
+<div class="line">Default value: 500</div>
+<div class="line">value &gt;= 3</div>
+<div class="line">value &lt;= 10000</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2337,7 +2423,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit">
 <code class="descname">number_of_pipe_segments_entered_for_this_pipe_circuit</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_pipe_segments_entered_for_this_pipe_circuit" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Pipe Segments Entered for this Pipe Circuit</cite></p>
-<p>value &gt;= 1</p>
+<div class="line-block">
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2359,9 +2447,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region">
 <code class="descname">number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Soil Nodes in the Inner Radial Near Pipe Mesh Region</cite></p>
-<p>Default value: 3
-value &gt;= 1
-value &lt;= 15</p>
+<div class="line-block">
+<div class="line">Default value: 3</div>
+<div class="line">value &gt;= 1</div>
+<div class="line">value &lt;= 15</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2383,7 +2473,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_density">
 <code class="descname">pipe_density</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_density" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Density</cite></p>
-<p>Units: kg/m3</p>
+<div class="line-block">
+<div class="line">Units: kg/m3</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2405,7 +2497,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_inner_diameter">
 <code class="descname">pipe_inner_diameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_inner_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Inner Diameter</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2427,7 +2521,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_outer_diameter">
 <code class="descname">pipe_outer_diameter</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_outer_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Outer Diameter</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2449,7 +2545,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_specific_heat">
 <code class="descname">pipe_specific_heat</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_specific_heat" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Specific Heat</cite></p>
-<p>Units: J/kg-K</p>
+<div class="line-block">
+<div class="line">Units: J/kg-K</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2471,7 +2569,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity">
 <code class="descname">pipe_thermal_conductivity</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.pipe_thermal_conductivity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pipe Thermal Conductivity</cite></p>
-<p>Units: W/m-K</p>
+<div class="line-block">
+<div class="line">Units: W/m-K</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2493,8 +2593,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region">
 <code class="descname">radial_thickness_of_inner_radial_near_pipe_mesh_region</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeCircuit.radial_thickness_of_inner_radial_near_pipe_mesh_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Radial Thickness of Inner Radial Near Pipe Mesh Region</cite></p>
-<p>Required because it must be selected by user instead of being
-inferred from circuit/domain object inputs.</p>
+<div class="line-block">
+<div class="line">Required because it must be selected by user instead of being</div>
+<div class="line">inferred from circuit/domain object inputs.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2526,9 +2628,11 @@ in the local z-direction, at a given x, y location in the domain</p>
 <dt id="pyidf.node.PipingSystemUndergroundPipeSegment.flow_direction">
 <code class="descname">flow_direction</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.flow_direction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Direction</cite></p>
-<p>This segment will be simulated such that the flow is in the
-selected direction.  This can allow for detailed analysis
-of circuiting effects in a single domain.</p>
+<div class="line-block">
+<div class="line">This segment will be simulated such that the flow is in the</div>
+<div class="line">selected direction.  This can allow for detailed analysis</div>
+<div class="line">of circuiting effects in a single domain.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2571,11 +2675,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeSegment.x_position">
 <code class="descname">x_position</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.x_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>X Position</cite></p>
-<p>This segment will be centered at this distance from the x=0
-domain surface or the basement wall surface, based on whether
-a basement exists in this domain and the selection of the
-shift input field found in the domain object.
-Units: m</p>
+<div class="line-block">
+<div class="line">This segment will be centered at this distance from the x=0</div>
+<div class="line">domain surface or the basement wall surface, based on whether</div>
+<div class="line">a basement exists in this domain and the selection of the</div>
+<div class="line">shift input field found in the domain object.</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2597,10 +2703,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.node.PipingSystemUndergroundPipeSegment.y_position">
 <code class="descname">y_position</code><a class="headerlink" href="#pyidf.node.PipingSystemUndergroundPipeSegment.y_position" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Y Position</cite></p>
-<p>This segment will be centered at this distance away from the
-ground surface; thus this value represents the burial depth
-of this pipe segment.
-Units: m</p>
+<div class="line-block">
+<div class="line">This segment will be centered at this distance away from the</div>
+<div class="line">ground surface; thus this value represents the burial depth</div>
+<div class="line">of this pipe segment.</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

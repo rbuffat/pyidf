@@ -123,7 +123,9 @@ temperature) will be used.</p>
 <dt id="pyidf.room_air_models.RoomAirModelType.air_temperature_coupling_strategy">
 <code class="descname">air_temperature_coupling_strategy</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.air_temperature_coupling_strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Air Temperature Coupling Strategy</cite></p>
-<p>Default value: Direct</p>
+<div class="line-block">
+<div class="line">Default value: Direct</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -166,20 +168,22 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirModelType.roomair_modeling_type">
 <code class="descname">roomair_modeling_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirModelType.roomair_modeling_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Room-Air Modeling Type</cite></p>
-<p>Complete mixing air model
-UserDefined Room Air Temperature Patterns
-needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone
-Mundt roomair model for displacement ventilation with single floor air node
-needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone
-(UCSD three-node displacement ventilation model)
-needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone
-(UCSD two-zone cross ventilation model)
-needs RoomAirSettings:CrossVentilation object referencing this Zone
-2-Node UFAD model for interior zones
-needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone
-(2-Node UFAD model for exterior zones)
-needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone
-Default value: Mixing</p>
+<div class="line-block">
+<div class="line">Complete mixing air model</div>
+<div class="line">UserDefined Room Air Temperature Patterns</div>
+<div class="line">needs RoomAir:TemperaturePattern:UserDefined object referencing this Zone</div>
+<div class="line">Mundt roomair model for displacement ventilation with single floor air node</div>
+<div class="line">needs RoomAirSettings:OneNodeDisplacementVentilation object referencing this Zone</div>
+<div class="line">(UCSD three-node displacement ventilation model)</div>
+<div class="line">needs RoomAirSettings:ThreeNodeDisplacementVentilation object referencing this Zone</div>
+<div class="line">(UCSD two-zone cross ventilation model)</div>
+<div class="line">needs RoomAirSettings:CrossVentilation object referencing this Zone</div>
+<div class="line">2-Node UFAD model for interior zones</div>
+<div class="line">needs RoomAirSettings:UnderFloorAirDistributionInterior object referencing this Zone</div>
+<div class="line">(2-Node UFAD model for exterior zones)</div>
+<div class="line">needs RoomAirSettings:UnderFloorAirDistributionExterior object referencing this Zone</div>
+<div class="line">Default value: Mixing</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -230,7 +234,9 @@ Define an air node for some types of nodal room air models</p>
 <dt id="pyidf.room_air_models.RoomAirNode.height_of_nodal_control_volume_center">
 <code class="descname">height_of_nodal_control_volume_center</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirNode.height_of_nodal_control_volume_center" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Height of Nodal Control Volume Center</cite></p>
-<p>Units: m</p>
+<div class="line-block">
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -768,9 +774,11 @@ Used with RoomAirModelType = CrossVentilation.</p>
 <dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation">
 <code class="descname">airflow_region_used_for_thermal_comfort_evaluation</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.airflow_region_used_for_thermal_comfort_evaluation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Airflow Region Used for Thermal Comfort Evaluation</cite></p>
-<p>Required field whenever thermal comfort is predicted
-defines Air temperature and Airflow velocity that will be used in the Fanger model
-conditions must refer to one of the two regions: jet or recirculation</p>
+<div class="line-block">
+<div class="line">Required field whenever thermal comfort is predicted</div>
+<div class="line">defines Air temperature and Airflow velocity that will be used in the Fanger model</div>
+<div class="line">conditions must refer to one of the two regions: jet or recirculation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -792,9 +800,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.gain_distribution_schedule_name">
 <code class="descname">gain_distribution_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.gain_distribution_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gain Distribution Schedule Name</cite></p>
-<p>Distribution of the convective heat gains between the jet and recirculation zones.
-0&lt;= Accepted Value &lt;= 1.
-In the CV model 1 means all convective gains in the jet region.</p>
+<div class="line-block">
+<div class="line">Distribution of the convective heat gains between the jet and recirculation zones.</div>
+<div class="line">0&lt;= Accepted Value &lt;= 1.</div>
+<div class="line">In the CV model 1 means all convective gains in the jet region.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -816,7 +826,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsCrossVentilation.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsCrossVentilation.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>Name of Zone being described. Any existing zone name</p>
+<div class="line-block">
+<div class="line">Name of Zone being described. Any existing zone name</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -846,7 +858,9 @@ The Mundt model for displacement ventilation</p>
 <dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air">
 <code class="descname">fraction_of_convective_internal_loads_added_to_floor_air</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_convective_internal_loads_added_to_floor_air" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Convective Internal Loads Added to Floor Air</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -868,7 +882,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air">
 <code class="descname">fraction_of_infiltration_internal_loads_added_to_floor_air</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsOneNodeDisplacementVentilation.fraction_of_infiltration_internal_loads_added_to_floor_air" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Infiltration Internal Loads Added to Floor Air</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -919,9 +935,11 @@ The UCSD model for Displacement Ventilation</p>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height">
 <code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.comfort_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Comfort Height</cite></p>
-<p>Height at which air temperature is calculated for comfort purposes
-Units: m
-Default value: 1.1</p>
+<div class="line-block">
+<div class="line">Height at which air temperature is calculated for comfort purposes</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -943,9 +961,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name">
 <code class="descname">gain_distribution_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.gain_distribution_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gain Distribution Schedule Name</cite></p>
-<p>Distribution of the convective heat gains between the occupied and mixed zones.
-0&lt;= Accepted Value &lt;= 1.
-In the DV model 1 means all convective gains in the lower layer.</p>
+<div class="line-block">
+<div class="line">Distribution of the convective heat gains between the occupied and mixed zones.</div>
+<div class="line">0&lt;= Accepted Value &lt;= 1.</div>
+<div class="line">In the DV model 1 means all convective gains in the lower layer.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -967,10 +987,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant">
 <code class="descname">number_of_plumes_per_occupant</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.number_of_plumes_per_occupant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Plumes per Occupant</cite></p>
-<p>Used only in the UCSD displacement ventilation model.
-Effective number of separate plumes per occupant in the occupied zone.
-Plumes that merge together in the occupied zone count as one.
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Used only in the UCSD displacement ventilation model.</div>
+<div class="line">Effective number of separate plumes per occupant in the occupied zone.</div>
+<div class="line">Plumes that merge together in the occupied zone count as one.</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -992,14 +1014,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting">
 <code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
-<p>Minimum temperature difference between predicted upper and lower layer
-temperatures above which DV auxilliary outputs are calculated.
-These outputs are &#8216;DV Transition Height&#8217;, &#8216;DV Fraction Min Recommended Flow Rate&#8217;
-&#8216;DV Average Temp Gradient&#8217; and &#8216;DV Maximum Temp Gradient&#8217;.  They
-are set to negative values when the temperature difference is less than the
-threshold and the output &#8216;DV Zone Is Mixed&#8217; is set to 1
-Units: deltaC
-Default value: 0.4</p>
+<div class="line-block">
+<div class="line">Minimum temperature difference between predicted upper and lower layer</div>
+<div class="line">temperatures above which DV auxilliary outputs are calculated.</div>
+<div class="line">These outputs are &#8216;DV Transition Height&#8217;, &#8216;DV Fraction Min Recommended Flow Rate&#8217;</div>
+<div class="line">&#8216;DV Average Temp Gradient&#8217; and &#8216;DV Maximum Temp Gradient&#8217;.  They</div>
+<div class="line">are set to negative values when the temperature difference is less than the</div>
+<div class="line">threshold and the output &#8216;DV Zone Is Mixed&#8217; is set to 1</div>
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1021,9 +1045,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height">
 <code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.thermostat_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Height</cite></p>
-<p>Height of thermostat/temperature control sensor above floor
-Units: m
-Default value: 1.1</p>
+<div class="line-block">
+<div class="line">Height of thermostat/temperature control sensor above floor</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1045,7 +1071,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsThreeNodeDisplacementVentilation.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>Name of Zone being described. Any existing zone name</p>
+<div class="line-block">
+<div class="line">Name of Zone being described. Any existing zone name</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1078,8 +1106,10 @@ coming from a warm window. Used with RoomAirModelType = CrossVentilation.</p>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2">
 <code class="descname">coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient A in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
-<p>Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1099,8 +1129,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2">
 <code class="descname">coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient B in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
-<p>Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1120,8 +1152,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2">
 <code class="descname">coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
-<p>Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1141,8 +1175,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2">
 <code class="descname">coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
-<p>Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1162,8 +1198,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2">
 <code class="descname">coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</cite></p>
-<p>Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1183,9 +1221,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height">
 <code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.comfort_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Comfort Height</cite></p>
-<p>Height at which Air temperature is calculated for comfort purposes
-Units: m
-Default value: 1.1</p>
+<div class="line-block">
+<div class="line">Height at which Air temperature is calculated for comfort purposes</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1207,8 +1247,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser">
 <code class="descname">design_effective_area_of_diffuser</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.design_effective_area_of_diffuser" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Effective Area of Diffuser</cite></p>
-<p>Units: m2
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1228,9 +1270,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical">
 <code class="descname">diffuser_slot_angle_from_vertical</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.diffuser_slot_angle_from_vertical" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Diffuser Slot Angle from Vertical</cite></p>
-<p>Units: deg
-Default value: &#8220;autocalculate&#8221;
-value &lt;= 90.0</p>
+<div class="line-block">
+<div class="line">Units: deg</div>
+<div class="line">Default value: &#8220;autocalculate&#8221;</div>
+<div class="line">value &lt;= 90.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1250,7 +1294,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type">
 <code class="descname">floor_diffuser_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.floor_diffuser_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Floor Diffuser Type</cite></p>
-<p>Default value: Swirl</p>
+<div class="line-block">
+<div class="line">Default value: Swirl</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1272,7 +1318,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone">
 <code class="descname">number_of_diffusers_per_zone</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.number_of_diffusers_per_zone" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Diffusers per Zone</cite></p>
-<p>Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1292,8 +1340,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume">
 <code class="descname">power_per_plume</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.power_per_plume" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Power per Plume</cite></p>
-<p>Units: W
-Default value: &#8220;autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+<div class="line">Default value: &#8220;autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1313,13 +1363,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting">
 <code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
-<p>Minimum temperature difference between upper and lower layer
-temperatures above which UFAD auxilliary outputs are calculated.
-These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They
-are set to zero values when the temperature difference is less than the
-threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1
-Units: deltaC
-Default value: 0.4</p>
+<div class="line-block">
+<div class="line">Minimum temperature difference between upper and lower layer</div>
+<div class="line">temperatures above which UFAD auxilliary outputs are calculated.</div>
+<div class="line">These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They</div>
+<div class="line">are set to zero values when the temperature difference is less than the</div>
+<div class="line">threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1</div>
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1341,9 +1393,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height">
 <code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.thermostat_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Height</cite></p>
-<p>Height of thermostat/temperature control sensor above floor
-Units: m
-Default value: 1.2</p>
+<div class="line-block">
+<div class="line">Height of thermostat/temperature control sensor above floor</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1365,9 +1419,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.transition_height">
 <code class="descname">transition_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.transition_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Transition Height</cite></p>
-<p>User-specified height above floor of boundary between occupied and upper subzones
-Units: m
-Default value: 1.7</p>
+<div class="line-block">
+<div class="line">User-specified height above floor of boundary between occupied and upper subzones</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.7</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1387,7 +1443,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionExterior.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>Name of Zone being described. Any existing zone name</p>
+<div class="line-block">
+<div class="line">Name of Zone being described. Any existing zone name</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1422,9 +1480,11 @@ Used with RoomAirModelType = UnderFloorAirDistributionInterior.</p>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a">
 <code class="descname">coefficient_a</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_a" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient A</cite></p>
-<p>Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Coefficient A in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</div>
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1444,9 +1504,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b">
 <code class="descname">coefficient_b</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_b" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient B</cite></p>
-<p>Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Coefficient B in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</div>
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1466,9 +1528,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c">
 <code class="descname">coefficient_c</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_c" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient C</cite></p>
-<p>Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Coefficient C in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</div>
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1488,9 +1552,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d">
 <code class="descname">coefficient_d</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_d" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient D</cite></p>
-<p>Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Coefficient D in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</div>
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1510,9 +1576,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e">
 <code class="descname">coefficient_e</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.coefficient_e" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient E</cite></p>
-<p>Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2
-Kc is the fraction of the total zone load attributable to the lower subzone
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Coefficient E in Formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2</div>
+<div class="line">Kc is the fraction of the total zone load attributable to the lower subzone</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1532,9 +1600,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height">
 <code class="descname">comfort_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.comfort_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Comfort Height</cite></p>
-<p>Height at which air temperature is calculated for comfort purposes
-Units: m
-Default value: 1.1</p>
+<div class="line-block">
+<div class="line">Height at which air temperature is calculated for comfort purposes</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1556,8 +1626,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser">
 <code class="descname">design_effective_area_of_diffuser</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.design_effective_area_of_diffuser" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Effective Area of Diffuser</cite></p>
-<p>Units: m2
-Default value: &#8220;Autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Units: m2</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1577,9 +1649,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical">
 <code class="descname">diffuser_slot_angle_from_vertical</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.diffuser_slot_angle_from_vertical" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Diffuser Slot Angle from Vertical</cite></p>
-<p>Units: deg
-Default value: &#8220;Autocalculate&#8221;
-value &lt;= 90.0</p>
+<div class="line-block">
+<div class="line">Units: deg</div>
+<div class="line">Default value: &#8220;Autocalculate&#8221;</div>
+<div class="line">value &lt;= 90.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1599,7 +1673,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type">
 <code class="descname">floor_diffuser_type</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.floor_diffuser_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Floor Diffuser Type</cite></p>
-<p>Default value: Swirl</p>
+<div class="line-block">
+<div class="line">Default value: Swirl</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1621,8 +1697,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers">
 <code class="descname">number_of_diffusers</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.number_of_diffusers" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Diffusers</cite></p>
-<p>Total number of diffusers in this zone
-Default value: &#8220;autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Total number of diffusers in this zone</div>
+<div class="line">Default value: &#8220;autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1642,8 +1720,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume">
 <code class="descname">power_per_plume</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.power_per_plume" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Power per Plume</cite></p>
-<p>Units: W
-Default value: &#8220;autocalculate&#8221;</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+<div class="line">Default value: &#8220;autocalculate&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1663,13 +1743,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting">
 <code class="descname">temperature_difference_threshold_for_reporting</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.temperature_difference_threshold_for_reporting" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Difference Threshold for Reporting</cite></p>
-<p>Minimum temperature difference between predicted upper and lower layer
-temperatures above which UFAD auxilliary outputs are calculated.
-These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They
-are set to zero values when the temperature difference is less than the
-threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1
-Units: deltaC
-Default value: 0.4</p>
+<div class="line-block">
+<div class="line">Minimum temperature difference between predicted upper and lower layer</div>
+<div class="line">temperatures above which UFAD auxilliary outputs are calculated.</div>
+<div class="line">These outputs are &#8216;UF Transition Height&#8217;and &#8216;UF Average Temp Gradient&#8217;.  They</div>
+<div class="line">are set to zero values when the temperature difference is less than the</div>
+<div class="line">threshold and the output &#8216;UF Zone Is Mixed&#8217; is set to 1</div>
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1691,9 +1773,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height">
 <code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.thermostat_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Height</cite></p>
-<p>Height of thermostat/temperature control sensor above floor
-Units: m
-Default value: 1.2</p>
+<div class="line-block">
+<div class="line">Height of thermostat/temperature control sensor above floor</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1715,9 +1799,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.transition_height">
 <code class="descname">transition_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.transition_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Transition Height</cite></p>
-<p>user-specified height above floor of boundary between occupied and upper subzones
-Units: m
-Default value: 1.7</p>
+<div class="line-block">
+<div class="line">user-specified height above floor of boundary between occupied and upper subzones</div>
+<div class="line">Units: m</div>
+<div class="line">Default value: 1.7</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1737,7 +1823,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirSettingsUnderFloorAirDistributionInterior.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>Name of Zone with underfloor air distribution</p>
+<div class="line-block">
+<div class="line">Name of Zone with underfloor air distribution</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1768,7 +1856,9 @@ Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name">
 <code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
-<p>reference this entry in Schedule Name</p>
+<div class="line-block">
+<div class="line">reference this entry in Schedule Name</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1790,8 +1880,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.exhaust_air_offset">
 <code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Air Offset</cite></p>
-<p>= (Texhaust - Mean Air Temp) deg C
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Texhaust - Mean Air Temp) deg C</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1834,8 +1926,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.return_air_offset">
 <code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.return_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Return Air Offset</cite></p>
-<p>= (Tleaving - Mean Air Temp )
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Tleaving - Mean Air Temp )</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1857,8 +1951,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.temperature_gradient">
 <code class="descname">temperature_gradient</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.temperature_gradient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Gradient</cite></p>
-<p>Slope of temperature change in vertical direction
-Units: K/m</p>
+<div class="line-block">
+<div class="line">Slope of temperature change in vertical direction</div>
+<div class="line">Units: K/m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1880,8 +1976,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.thermostat_offset">
 <code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternConstantGradient.thermostat_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Offset</cite></p>
-<p>= (Temp at thermostat- Mean Air Temp)
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Temp at thermostat- Mean Air Temp)</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1939,7 +2037,9 @@ specification and is assumed to be a missing value</li>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name">
 <code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
-<p>this value should appear in as a schedule value</p>
+<div class="line-block">
+<div class="line">this value should appear in as a schedule value</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1961,13 +2061,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.exhaust_air_offset">
 <code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Air Offset</cite></p>
-<p>= (Temp exhaust - Mean Air Temp) deg C
-the remaining fields have pairs that describe the relative
-temperature pattern in the vertical direction of a zone
-Zeta is the nondimensional height (in z-direction). on [0..1]
-DeltaTai =  (Tai - MAT) in units of deg. C
-relative deg C on [-10.0 .. 20.0 ]
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Temp exhaust - Mean Air Temp) deg C</div>
+<div class="line">the remaining fields have pairs that describe the relative</div>
+<div class="line">temperature pattern in the vertical direction of a zone</div>
+<div class="line">Zeta is the nondimensional height (in z-direction). on [0..1]</div>
+<div class="line">DeltaTai =  (Tai - MAT) in units of deg. C</div>
+<div class="line">relative deg C on [-10.0 .. 20.0 ]</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2016,8 +2118,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.return_air_offset">
 <code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.return_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Return Air Offset</cite></p>
-<p>= (Temp leaving - Mean Air Temp ) deg C
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Temp leaving - Mean Air Temp ) deg C</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2039,8 +2143,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.thermostat_offset">
 <code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternNondimensionalHeight.thermostat_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Offset</cite></p>
-<p>= (Temp at thermostat- Mean Air Temp)
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Temp at thermostat- Mean Air Temp)</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2097,7 +2203,9 @@ specification and is assumed to be a missing value</li>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name">
 <code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
-<p>reference this entry in schedule</p>
+<div class="line-block">
+<div class="line">reference this entry in schedule</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2119,8 +2227,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.exhaust_air_offset">
 <code class="descname">exhaust_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.exhaust_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Air Offset</cite></p>
-<p>= (Texhaust - Mean Air Temp) deg C
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Texhaust - Mean Air Temp) deg C</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2169,8 +2279,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.return_air_offset">
 <code class="descname">return_air_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.return_air_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Return Air Offset</cite></p>
-<p>= (Tleaving - Mean Air Temp ) deg C
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Tleaving - Mean Air Temp ) deg C</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2192,8 +2304,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.thermostat_offset">
 <code class="descname">thermostat_offset</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternSurfaceMapping.thermostat_offset" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Offset</cite></p>
-<p>= (Temp at thermostat- Mean Air Temp)
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">= (Temp at thermostat- Mean Air Temp)</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2224,7 +2338,9 @@ Used in combination with RoomAir:TemperaturePattern:UserDefined.</p>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name">
 <code class="descname">control_integer_for_pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.control_integer_for_pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Integer for Pattern Control Schedule Name</cite></p>
-<p>reference this entry in Schedule Name</p>
+<div class="line-block">
+<div class="line">reference this entry in Schedule Name</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2246,8 +2362,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.exhaust_air_height">
 <code class="descname">exhaust_air_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.exhaust_air_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Exhaust Air Height</cite></p>
-<p>= Distance from floor of zone
-Units: m</p>
+<div class="line-block">
+<div class="line">= Distance from floor of zone</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2290,7 +2408,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_heat_rate_bound">
 <code class="descname">lower_heat_rate_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_heat_rate_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Lower Heat Rate Bound</cite></p>
-<p>Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2312,7 +2432,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_temperature_bound">
 <code class="descname">lower_temperature_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.lower_temperature_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Lower Temperature Bound</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2355,8 +2477,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.return_air_height">
 <code class="descname">return_air_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.return_air_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Return Air Height</cite></p>
-<p>= Distance from floor of zone
-Units: m</p>
+<div class="line-block">
+<div class="line">= Distance from floor of zone</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2378,8 +2502,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_lower_bound">
 <code class="descname">temperature_gradient_lower_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_lower_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Gradient Lower Bound</cite></p>
-<p>Slope of temperature change in vertical direction
-Units: K/m</p>
+<div class="line-block">
+<div class="line">Slope of temperature change in vertical direction</div>
+<div class="line">Units: K/m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2401,8 +2527,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_upper_bound">
 <code class="descname">temperature_gradient_upper_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.temperature_gradient_upper_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Gradient Upper  Bound</cite></p>
-<p>Slope of temperature change in vertical direction
-Units: K/m</p>
+<div class="line-block">
+<div class="line">Slope of temperature change in vertical direction</div>
+<div class="line">Units: K/m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2424,8 +2552,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.thermostat_height">
 <code class="descname">thermostat_height</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.thermostat_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Height</cite></p>
-<p>= Distance from floor of zone
-Units: m</p>
+<div class="line-block">
+<div class="line">= Distance from floor of zone</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2447,7 +2577,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_heat_rate_bound">
 <code class="descname">upper_heat_rate_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_heat_rate_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Upper Heat Rate Bound</cite></p>
-<p>Units: W</p>
+<div class="line-block">
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2469,7 +2601,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_temperature_bound">
 <code class="descname">upper_temperature_bound</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternTwoGradient.upper_temperature_bound" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Upper Temperature Bound</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2500,9 +2634,11 @@ temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.</p
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this model. Schedule value &gt; 0 means the model is
-active. Schedule value = 0 means the model is inactive and the zone will be modeled
-as fully mixed (Mixing). If this field is blank, the model is always active.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this model. Schedule value &gt; 0 means the model is</div>
+<div class="line">active. Schedule value = 0 means the model is inactive and the zone will be modeled</div>
+<div class="line">as fully mixed (Mixing). If this field is blank, the model is always active.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2545,9 +2681,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name">
 <code class="descname">pattern_control_schedule_name</code><a class="headerlink" href="#pyidf.room_air_models.RoomAirTemperaturePatternUserDefined.pattern_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pattern Control Schedule Name</cite></p>
-<p>The schedule should contain integer values that
-correspond to unique Control Integer fields in
-one of the RoomAir:TemperaturePattern:* objects.</p>
+<div class="line-block">
+<div class="line">The schedule should contain integer values that</div>
+<div class="line">correspond to unique Control Integer fields in</div>
+<div class="line">one of the RoomAir:TemperaturePattern:* objects.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

@@ -70,9 +70,11 @@ Site:HeightVariation objects, specifically the Terrain field.</p>
 <dt id="pyidf.simulation_parameters.Building.loads_convergence_tolerance_value">
 <code class="descname">loads_convergence_tolerance_value</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.loads_convergence_tolerance_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Loads Convergence Tolerance Value</cite></p>
-<p>Loads Convergence Tolerance Value is a fraction of load
-Default value: 0.04
-value &lt;= 0.5</p>
+<div class="line-block">
+<div class="line">Loads Convergence Tolerance Value is a fraction of load</div>
+<div class="line">Default value: 0.04</div>
+<div class="line">value &lt;= 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -94,9 +96,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.maximum_number_of_warmup_days">
 <code class="descname">maximum_number_of_warmup_days</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.maximum_number_of_warmup_days" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Number of Warmup Days</cite></p>
-<p>EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.
-This field&#8217;s value should NOT be set less than 25.
-Default value: 25</p>
+<div class="line-block">
+<div class="line">EnergyPlus will only use as many warmup days as needed to reach convergence tolerance.</div>
+<div class="line">This field&#8217;s value should NOT be set less than 25.</div>
+<div class="line">Default value: 25</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -118,12 +122,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.minimum_number_of_warmup_days">
 <code class="descname">minimum_number_of_warmup_days</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.minimum_number_of_warmup_days" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Number of Warmup Days</cite></p>
-<p>The minimum number of warmup days that produce enough temperature and flux history
-to start EnergyPlus simulation for all reference buildings was suggested to be 6.
-When this field is greater than the maximum warmup days defined previous field
-the maximum number of warmup days will be reset to the minimum value entered here.
-Warmup days will be set to be the value you entered when it is less than the default 6.
-Default value: 6</p>
+<div class="line-block">
+<div class="line">The minimum number of warmup days that produce enough temperature and flux history</div>
+<div class="line">to start EnergyPlus simulation for all reference buildings was suggested to be 6.</div>
+<div class="line">When this field is greater than the maximum warmup days defined previous field</div>
+<div class="line">the maximum number of warmup days will be reset to the minimum value entered here.</div>
+<div class="line">Warmup days will be set to be the value you entered when it is less than the default 6.</div>
+<div class="line">Default value: 6</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -145,7 +151,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.name">
 <code class="descname">name</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Name</cite></p>
-<p>Default value: NONE</p>
+<div class="line-block">
+<div class="line">Default value: NONE</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -167,8 +175,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.north_axis">
 <code class="descname">north_axis</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.north_axis" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>North Axis</cite></p>
-<p>degrees from true North
-Units: deg</p>
+<div class="line-block">
+<div class="line">degrees from true North</div>
+<div class="line">Units: deg</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -190,8 +200,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.solar_distribution">
 <code class="descname">solar_distribution</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.solar_distribution" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Solar Distribution</cite></p>
-<p>MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections
-Default value: FullExterior</p>
+<div class="line-block">
+<div class="line">MinimalShadowing | FullExterior | FullInteriorAndExterior | FullExteriorWithReflections | FullInteriorAndExteriorWithReflections</div>
+<div class="line">Default value: FullExterior</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -213,9 +225,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.temperature_convergence_tolerance_value">
 <code class="descname">temperature_convergence_tolerance_value</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.temperature_convergence_tolerance_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Convergence Tolerance Value</cite></p>
-<p>Units: deltaC
-Default value: 0.4
-value &lt;= 0.5</p>
+<div class="line-block">
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: 0.4</div>
+<div class="line">value &lt;= 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -237,8 +251,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.Building.terrain">
 <code class="descname">terrain</code><a class="headerlink" href="#pyidf.simulation_parameters.Building.terrain" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Terrain</cite></p>
-<p>Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest
-Default value: Suburbs</p>
+<div class="line-block">
+<div class="line">Country=FlatOpenCountry | Suburbs=CountryTownsSuburbs | City=CityCenter | Ocean=body of water (5km) | Urban=Urban-Industrial-Forest</div>
+<div class="line">Default value: Suburbs</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -269,8 +285,10 @@ This item is an advanced feature that should be used only with caution.</p>
 <dt id="pyidf.simulation_parameters.ConvergenceLimits.maximum_hvac_iterations">
 <code class="descname">maximum_hvac_iterations</code><a class="headerlink" href="#pyidf.simulation_parameters.ConvergenceLimits.maximum_hvac_iterations" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum HVAC Iterations</cite></p>
-<p>Default value: 20
-value &gt;= 1</p>
+<div class="line-block">
+<div class="line">Default value: 20</div>
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -292,10 +310,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ConvergenceLimits.maximum_plant_iterations">
 <code class="descname">maximum_plant_iterations</code><a class="headerlink" href="#pyidf.simulation_parameters.ConvergenceLimits.maximum_plant_iterations" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Plant Iterations</cite></p>
-<p>Controls the maximum number of plant system solver iterations within a single HVAC iteration
-Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems
-Default value: 8
-value &gt;= 2</p>
+<div class="line-block">
+<div class="line">Controls the maximum number of plant system solver iterations within a single HVAC iteration</div>
+<div class="line">Smaller values might decrease runtime but could decrease solution accuracy for complicated plant systems</div>
+<div class="line">Default value: 8</div>
+<div class="line">value &gt;= 2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -317,11 +337,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ConvergenceLimits.minimum_plant_iterations">
 <code class="descname">minimum_plant_iterations</code><a class="headerlink" href="#pyidf.simulation_parameters.ConvergenceLimits.minimum_plant_iterations" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Plant Iterations</cite></p>
-<p>Controls the minimum number of plant system solver iterations within a single HVAC iteration
-Larger values will increase runtime but might improve solution accuracy for complicated plant systems
-Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.
-Default value: 2
-value &gt;= 1</p>
+<div class="line-block">
+<div class="line">Controls the minimum number of plant system solver iterations within a single HVAC iteration</div>
+<div class="line">Larger values will increase runtime but might improve solution accuracy for complicated plant systems</div>
+<div class="line">Complex plants include: several interconnected loops, heat recovery, thermal load following generators, etc.</div>
+<div class="line">Default value: 2</div>
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -343,11 +365,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ConvergenceLimits.minimum_system_timestep">
 <code class="descname">minimum_system_timestep</code><a class="headerlink" href="#pyidf.simulation_parameters.ConvergenceLimits.minimum_system_timestep" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum System Timestep</cite></p>
-<p>0 sets the minimum to the zone timestep (ref: Timestep)
-1 is normal (ratchet down to 1 minute)
-setting greater than zone timestep (in minutes) will effectively set to zone timestep
-Units: minutes
-value &lt;= 60</p>
+<div class="line-block">
+<div class="line">0 sets the minimum to the zone timestep (ref: Timestep)</div>
+<div class="line">1 is normal (ratchet down to 1 minute)</div>
+<div class="line">setting greater than zone timestep (in minutes) will effectively set to zone timestep</div>
+<div class="line">Units: minutes</div>
+<div class="line">value &lt;= 60</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -382,7 +406,9 @@ Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)</p>
 <dt id="pyidf.simulation_parameters.HeatBalanceAlgorithm.algorithm">
 <code class="descname">algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceAlgorithm.algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Algorithm</cite></p>
-<p>Default value: ConductionTransferFunction</p>
+<div class="line-block">
+<div class="line">Default value: ConductionTransferFunction</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -404,9 +430,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceAlgorithm.maximum_surface_convection_heat_transfer_coefficient_value">
 <code class="descname">maximum_surface_convection_heat_transfer_coefficient_value</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceAlgorithm.maximum_surface_convection_heat_transfer_coefficient_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Surface Convection Heat Transfer Coefficient Value</cite></p>
-<p>Units: W/m2-K
-Default value: 1000.0
-value &gt;= 1.0</p>
+<div class="line-block">
+<div class="line">Units: W/m2-K</div>
+<div class="line">Default value: 1000.0</div>
+<div class="line">value &gt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -428,8 +456,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceAlgorithm.minimum_surface_convection_heat_transfer_coefficient_value">
 <code class="descname">minimum_surface_convection_heat_transfer_coefficient_value</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceAlgorithm.minimum_surface_convection_heat_transfer_coefficient_value" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Surface Convection Heat Transfer Coefficient Value</cite></p>
-<p>Units: W/m2-K
-Default value: 0.1</p>
+<div class="line-block">
+<div class="line">Units: W/m2-K</div>
+<div class="line">Default value: 0.1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -451,9 +481,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceAlgorithm.surface_temperature_upper_limit">
 <code class="descname">surface_temperature_upper_limit</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceAlgorithm.surface_temperature_upper_limit" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Surface Temperature Upper Limit</cite></p>
-<p>Units: C
-Default value: 200.0
-value &gt;= 200.0</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+<div class="line">Default value: 200.0</div>
+<div class="line">value &gt;= 200.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -484,7 +516,9 @@ algorithm for surface heat transfer modeling.</p>
 <dt id="pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.difference_scheme">
 <code class="descname">difference_scheme</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.difference_scheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Difference Scheme</cite></p>
-<p>Default value: FullyImplicitFirstOrder</p>
+<div class="line-block">
+<div class="line">Default value: FullyImplicitFirstOrder</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -506,9 +540,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.inside_face_surface_temperature_convergence_criteria">
 <code class="descname">inside_face_surface_temperature_convergence_criteria</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.inside_face_surface_temperature_convergence_criteria" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Inside Face Surface Temperature Convergence Criteria</cite></p>
-<p>Default value: 0.002
-value &gt;= 1e-07
-value &lt;= 0.01</p>
+<div class="line-block">
+<div class="line">Default value: 0.002</div>
+<div class="line">value &gt;= 1e-07</div>
+<div class="line">value &lt;= 0.01</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -530,9 +566,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.relaxation_factor">
 <code class="descname">relaxation_factor</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.relaxation_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Relaxation Factor</cite></p>
-<p>Default value: 1.0
-value &gt;= 0.01
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+<div class="line">value &gt;= 0.01</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -554,8 +592,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.space_discretization_constant">
 <code class="descname">space_discretization_constant</code><a class="headerlink" href="#pyidf.simulation_parameters.HeatBalanceSettingsConductionFiniteDifference.space_discretization_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Space Discretization Constant</cite></p>
-<p>increase or decrease number of nodes
-Default value: 3.0</p>
+<div class="line-block">
+<div class="line">increase or decrease number of nodes</div>
+<div class="line">Default value: 3.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -585,8 +625,10 @@ used to support various efforts in time reduction for simulation including threa
 <dt id="pyidf.simulation_parameters.ProgramControl.number_of_threads_allowed">
 <code class="descname">number_of_threads_allowed</code><a class="headerlink" href="#pyidf.simulation_parameters.ProgramControl.number_of_threads_allowed" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Threads Allowed</cite></p>
-<p>This is currently used only in the Interior Radiant Exchange module &#8211; view factors on # surfaces
-if value is 0, then maximum number allowed will be used.</p>
+<div class="line-block">
+<div class="line">This is currently used only in the Interior Radiant Exchange module &#8211; view factors on # surfaces</div>
+<div class="line">if value is 0, then maximum number allowed will be used.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -616,13 +658,15 @@ This object is used to control details of the solar, shading, and daylighting mo
 <dt id="pyidf.simulation_parameters.ShadowCalculation.calculation_frequency">
 <code class="descname">calculation_frequency</code><a class="headerlink" href="#pyidf.simulation_parameters.ShadowCalculation.calculation_frequency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Calculation Frequency</cite></p>
-<p>enter number of days
-this field is only used if the previous field is set to AverageOverDaysInFrequency
-0=Use Default Periodic Calculation|&lt;else&gt; calculate every &lt;value&gt; day
-only really applicable to RunPeriods
-warning issued if &gt;31
-Default value: 20
-value &gt;= 1</p>
+<div class="line-block">
+<div class="line">enter number of days</div>
+<div class="line">this field is only used if the previous field is set to AverageOverDaysInFrequency</div>
+<div class="line">0=Use Default Periodic Calculation|&lt;else&gt; calculate every &lt;value&gt; day</div>
+<div class="line">only really applicable to RunPeriods</div>
+<div class="line">warning issued if &gt;31</div>
+<div class="line">Default value: 20</div>
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -644,9 +688,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ShadowCalculation.calculation_method">
 <code class="descname">calculation_method</code><a class="headerlink" href="#pyidf.simulation_parameters.ShadowCalculation.calculation_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Calculation Method</cite></p>
-<p>choose calculation method. note that TimestepFrequency is only needed for certain cases
-and can increase execution time significantly.
-Default value: AverageOverDaysInFrequency</p>
+<div class="line-block">
+<div class="line">choose calculation method. note that TimestepFrequency is only needed for certain cases</div>
+<div class="line">and can increase execution time significantly.</div>
+<div class="line">Default value: AverageOverDaysInFrequency</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -668,9 +714,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ShadowCalculation.maximum_figures_in_shadow_overlap_calculations">
 <code class="descname">maximum_figures_in_shadow_overlap_calculations</code><a class="headerlink" href="#pyidf.simulation_parameters.ShadowCalculation.maximum_figures_in_shadow_overlap_calculations" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Figures in Shadow Overlap Calculations</cite></p>
-<p>Number of allowable figures in shadow overlap calculations
-Default value: 15000
-value &gt;= 200</p>
+<div class="line-block">
+<div class="line">Number of allowable figures in shadow overlap calculations</div>
+<div class="line">Default value: 15000</div>
+<div class="line">value &gt;= 200</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -692,8 +740,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ShadowCalculation.polygon_clipping_algorithm">
 <code class="descname">polygon_clipping_algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.ShadowCalculation.polygon_clipping_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Polygon Clipping Algorithm</cite></p>
-<p>Advanced Feature.  Internal default is SutherlandHodgman
-Refer to InputOutput Reference and Engineering Reference for more information</p>
+<div class="line-block">
+<div class="line">Advanced Feature.  Internal default is SutherlandHodgman</div>
+<div class="line">Refer to InputOutput Reference and Engineering Reference for more information</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -715,10 +765,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ShadowCalculation.sky_diffuse_modeling_algorithm">
 <code class="descname">sky_diffuse_modeling_algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.ShadowCalculation.sky_diffuse_modeling_algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Sky Diffuse Modeling Algorithm</cite></p>
-<p>Advanced Feature.  Internal default is SimpleSkyDiffuseModeling
-If you have shading elements that change transmittance over the
-year, you may wish to choose the detailed method.
-Refer to InputOutput Reference and Engineering Reference for more information</p>
+<div class="line-block">
+<div class="line">Advanced Feature.  Internal default is SimpleSkyDiffuseModeling</div>
+<div class="line">If you have shading elements that change transmittance over the</div>
+<div class="line">year, you may wish to choose the detailed method.</div>
+<div class="line">Refer to InputOutput Reference and Engineering Reference for more information</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -753,9 +805,11 @@ run or an error will result.</p>
 <dt id="pyidf.simulation_parameters.SimulationControl.do_plant_sizing_calculation">
 <code class="descname">do_plant_sizing_calculation</code><a class="headerlink" href="#pyidf.simulation_parameters.SimulationControl.do_plant_sizing_calculation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Do Plant Sizing Calculation</cite></p>
-<p>If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects
-and autosize fields.
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, Plant sizing is accomplished from corresponding Sizing:Plant objects</div>
+<div class="line">and autosize fields.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -777,10 +831,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.SimulationControl.do_system_sizing_calculation">
 <code class="descname">do_system_sizing_calculation</code><a class="headerlink" href="#pyidf.simulation_parameters.SimulationControl.do_system_sizing_calculation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Do System Sizing Calculation</cite></p>
-<p>If Yes, System sizing is accomplished from corresponding Sizing:System objects
-and autosize fields.
-If Yes, Zone sizing (previous field) must also be Yes.
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, System sizing is accomplished from corresponding Sizing:System objects</div>
+<div class="line">and autosize fields.</div>
+<div class="line">If Yes, Zone sizing (previous field) must also be Yes.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -802,9 +858,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.SimulationControl.do_zone_sizing_calculation">
 <code class="descname">do_zone_sizing_calculation</code><a class="headerlink" href="#pyidf.simulation_parameters.SimulationControl.do_zone_sizing_calculation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Do Zone Sizing Calculation</cite></p>
-<p>If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects
-and autosize fields.
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, Zone sizing is accomplished from corresponding Sizing:Zone objects</div>
+<div class="line">and autosize fields.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -826,8 +884,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.SimulationControl.run_simulation_for_sizing_periods">
 <code class="descname">run_simulation_for_sizing_periods</code><a class="headerlink" href="#pyidf.simulation_parameters.SimulationControl.run_simulation_for_sizing_periods" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Run Simulation for Sizing Periods</cite></p>
-<p>If Yes, SizingPeriod:* objects are executed and results from those may be displayed..
-Default value: Yes</p>
+<div class="line-block">
+<div class="line">If Yes, SizingPeriod:* objects are executed and results from those may be displayed..</div>
+<div class="line">Default value: Yes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -849,8 +909,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.SimulationControl.run_simulation_for_weather_file_run_periods">
 <code class="descname">run_simulation_for_weather_file_run_periods</code><a class="headerlink" href="#pyidf.simulation_parameters.SimulationControl.run_simulation_for_weather_file_run_periods" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Run Simulation for Weather File Run Periods</cite></p>
-<p>If Yes, RunPeriod:* objects are executed and results from those may be displayed..
-Default value: Yes</p>
+<div class="line-block">
+<div class="line">If Yes, RunPeriod:* objects are executed and results from those may be displayed..</div>
+<div class="line">Default value: Yes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -880,12 +942,14 @@ Default indoor surface heat transfer convection algorithm to be used for all zon
 <dt id="pyidf.simulation_parameters.SurfaceConvectionAlgorithmInside.algorithm">
 <code class="descname">algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.SurfaceConvectionAlgorithmInside.algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Algorithm</cite></p>
-<p>Simple = constant value natural convection (ASHRAE)
-TARP = variable natural convection based on temperature difference (ASHRAE, Walton)
-CeilingDiffuser = ACH-based forced and mixed convection correlations
-for ceiling diffuser configuration with simple natural convection limit
-AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions
-Default value: TARP</p>
+<div class="line-block">
+<div class="line">Simple = constant value natural convection (ASHRAE)</div>
+<div class="line">TARP = variable natural convection based on temperature difference (ASHRAE, Walton)</div>
+<div class="line">CeilingDiffuser = ACH-based forced and mixed convection correlations</div>
+<div class="line">for ceiling diffuser configuration with simple natural convection limit</div>
+<div class="line">AdaptiveConvectionAlgorithm = dynamic selection of convection models based on conditions</div>
+<div class="line">Default value: TARP</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -915,12 +979,14 @@ Default outside surface heat transfer convection algorithm to be used for all zo
 <dt id="pyidf.simulation_parameters.SurfaceConvectionAlgorithmOutside.algorithm">
 <code class="descname">algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.SurfaceConvectionAlgorithmOutside.algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Algorithm</cite></p>
-<p>SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model
-TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.
-MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces
-DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces
-AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions
-Default value: DOE-2</p>
+<div class="line-block">
+<div class="line">SimpleCombined = Combined radiation and convection coefficient using simple ASHRAE model</div>
+<div class="line">TARP = correlation from models developed by ASHRAE, Walton, and Sparrow et. al.</div>
+<div class="line">MoWiTT = correlation from measurements by Klems and Yazdanian for smooth surfaces</div>
+<div class="line">DOE-2 = correlation from measurements by Klems and Yazdanian for rough surfaces</div>
+<div class="line">AdaptiveConvectionAlgorithm = dynamic selection of correlations based on conditions</div>
+<div class="line">Default value: DOE-2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -953,16 +1019,18 @@ transfer and load calculations.</p>
 <dt id="pyidf.simulation_parameters.Timestep.number_of_timesteps_per_hour">
 <code class="descname">number_of_timesteps_per_hour</code><a class="headerlink" href="#pyidf.simulation_parameters.Timestep.number_of_timesteps_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Timesteps per Hour</cite></p>
-<p>Number in hour: normal validity 4 to 60: 6 suggested
-Must be evenly divisible into 60
-Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60
-Normal 6 is mimimum as lower values may cause inaccuracies
-A minimum value of 20 is suggested for both ConductionFiniteDifference
-and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms
-A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).
-Default value: 6
-value &gt;= 1
-value &lt;= 60</p>
+<div class="line-block">
+<div class="line">Number in hour: normal validity 4 to 60: 6 suggested</div>
+<div class="line">Must be evenly divisible into 60</div>
+<div class="line">Allowable values include 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, and 60</div>
+<div class="line">Normal 6 is mimimum as lower values may cause inaccuracies</div>
+<div class="line">A minimum value of 20 is suggested for both ConductionFiniteDifference</div>
+<div class="line">and CombinedHeatAndMoistureFiniteElement surface heat balance alogorithms</div>
+<div class="line">A minimum of 12 is suggested for simulations involving a Vegetated Roof (Material:RoofVegetation).</div>
+<div class="line">Default value: 6</div>
+<div class="line">value &gt;= 1</div>
+<div class="line">value &lt;= 60</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -992,7 +1060,9 @@ Specifies the EnergyPlus version of the IDF file.</p>
 <dt id="pyidf.simulation_parameters.Version.version_identifier">
 <code class="descname">version_identifier</code><a class="headerlink" href="#pyidf.simulation_parameters.Version.version_identifier" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Version Identifier</cite></p>
-<p>Default value: 7.0</p>
+<div class="line-block">
+<div class="line">Default value: 7.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1022,8 +1092,10 @@ Determines which contaminant concentration will be simulates.</p>
 <dt id="pyidf.simulation_parameters.ZoneAirContaminantBalance.carbon_dioxide_concentration">
 <code class="descname">carbon_dioxide_concentration</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirContaminantBalance.carbon_dioxide_concentration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Carbon Dioxide Concentration</cite></p>
-<p>If Yes, CO2 simulation will be performed.
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, CO2 simulation will be performed.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1045,8 +1117,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneAirContaminantBalance.generic_contaminant_concentration">
 <code class="descname">generic_contaminant_concentration</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirContaminantBalance.generic_contaminant_concentration" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Generic Contaminant Concentration</cite></p>
-<p>If Yes, generic contaminant simulation will be performed.
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, generic contaminant simulation will be performed.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1068,7 +1142,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneAirContaminantBalance.outdoor_carbon_dioxide_schedule_name">
 <code class="descname">outdoor_carbon_dioxide_schedule_name</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirContaminantBalance.outdoor_carbon_dioxide_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Carbon Dioxide Schedule Name</cite></p>
-<p>Schedule values should be in parts per million (ppm)</p>
+<div class="line-block">
+<div class="line">Schedule values should be in parts per million (ppm)</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1090,8 +1166,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneAirContaminantBalance.outdoor_generic_contaminant_schedule_name">
 <code class="descname">outdoor_generic_contaminant_schedule_name</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirContaminantBalance.outdoor_generic_contaminant_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Generic Contaminant Schedule Name</cite></p>
-<p>Schedule values should be generic contaminant concentration in parts per
-million (ppm)</p>
+<div class="line-block">
+<div class="line">Schedule values should be generic contaminant concentration in parts per</div>
+<div class="line">million (ppm)</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1121,7 +1199,9 @@ Determines which algorithm will be used to solve the zone air heat balance.</p>
 <dt id="pyidf.simulation_parameters.ZoneAirHeatBalanceAlgorithm.algorithm">
 <code class="descname">algorithm</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirHeatBalanceAlgorithm.algorithm" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Algorithm</cite></p>
-<p>Default value: ThirdOrderBackwardDifference</p>
+<div class="line-block">
+<div class="line">Default value: ThirdOrderBackwardDifference</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1153,21 +1233,23 @@ air flow to the base infiltration air flow for source zones only.</p>
 <dt id="pyidf.simulation_parameters.ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance">
 <code class="descname">adjust_zone_mixing_for_zone_air_mass_flow_balance</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirMassFlowConservation.adjust_zone_mixing_for_zone_air_mass_flow_balance" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Adjust Zone Mixing For Zone Air Mass Flow Balance</cite></p>
-<p>If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow
-and additional infiltration air flow may be added if required in order to balance the
-zone air mass flow.
-This optional choice input field allows users triggering the zone air mass flow
-balance calculation when desired. This global object has two choice KEYs: Yes and
-No. If this input field is specified as Yes, then EnergyPlus attempts to enforce
-the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus
-calculation defaults to zone air mass flow balance that does not include zone mixing
-objects and that assumes self-balanced simple flow objects per the default procedure,
-which may not necessarily enforce zone mass conservation unless the user specified
-a balanced flow to begin with. Mass conservation is enforced both for the receiving
-and source zones if there is at least one mixing object defined. The default input
-is No. (Note that No input may also results in balanced flow depending on the
-system specified).
-Default value: No</p>
+<div class="line-block">
+<div class="line">If Yes, Zone mixing object flow rates are adjusted to balance the zone air mass flow</div>
+<div class="line">and additional infiltration air flow may be added if required in order to balance the</div>
+<div class="line">zone air mass flow.</div>
+<div class="line">This optional choice input field allows users triggering the zone air mass flow</div>
+<div class="line">balance calculation when desired. This global object has two choice KEYs: Yes and</div>
+<div class="line">No. If this input field is specified as Yes, then EnergyPlus attempts to enforce</div>
+<div class="line">the zone air mass flow conservation, or else if it is specified as No, then EnergyPlus</div>
+<div class="line">calculation defaults to zone air mass flow balance that does not include zone mixing</div>
+<div class="line">objects and that assumes self-balanced simple flow objects per the default procedure,</div>
+<div class="line">which may not necessarily enforce zone mass conservation unless the user specified</div>
+<div class="line">a balanced flow to begin with. Mass conservation is enforced both for the receiving</div>
+<div class="line">and source zones if there is at least one mixing object defined. The default input</div>
+<div class="line">is No. (Note that No input may also results in balanced flow depending on the</div>
+<div class="line">system specified).</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1189,20 +1271,22 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneAirMassFlowConservation.source_zone_infiltration_treatment">
 <code class="descname">source_zone_infiltration_treatment</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneAirMassFlowConservation.source_zone_infiltration_treatment" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Source Zone Infiltration Treatment</cite></p>
-<p>This input field allows user to choose how zone infiltration flow is treated during
-the zone air mass flow balance calculation.
-It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this
-input is specified as AddInfiltrationFlow, then energy plus adds infiltration air
-mass flow on top of the base flow, which is calculated using the infiltration object
-user inputs, in order to balance the zone air mass flow.  The additional infiltration
-air mass flow is not self-balanced.  If this input is specified as
-AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using
-the infiltration object user inputs in order to balance the zone air mass flow. If it
-is not required to adjust the base infiltration air flow calculated from the user
-specified infiltration object inputs, then the base infiltration air mass flow
-is assumed self-balanced. If the above input field specified as &#8220;No&#8221;, then this input
-field has no impact on the simulation.
-Default value: AddInfiltrationFlow</p>
+<div class="line-block">
+<div class="line">This input field allows user to choose how zone infiltration flow is treated during</div>
+<div class="line">the zone air mass flow balance calculation.</div>
+<div class="line">It has two choice KEYs: AddInfiltrationFlow and AdjustInfiltrationFlow.  If this</div>
+<div class="line">input is specified as AddInfiltrationFlow, then energy plus adds infiltration air</div>
+<div class="line">mass flow on top of the base flow, which is calculated using the infiltration object</div>
+<div class="line">user inputs, in order to balance the zone air mass flow.  The additional infiltration</div>
+<div class="line">air mass flow is not self-balanced.  If this input is specified as</div>
+<div class="line">AdjustInfiltrationFlow, then energy plus may adjust the base flow calculated using</div>
+<div class="line">the infiltration object user inputs in order to balance the zone air mass flow. If it</div>
+<div class="line">is not required to adjust the base infiltration air flow calculated from the user</div>
+<div class="line">specified infiltration object inputs, then the base infiltration air mass flow</div>
+<div class="line">is assumed self-balanced. If the above input field specified as &#8220;No&#8221;, then this input</div>
+<div class="line">field has no impact on the simulation.</div>
+<div class="line">Default value: AddInfiltrationFlow</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1232,8 +1316,10 @@ Multiplier altering the relative capacitance of the air compared to an empty zon
 <dt id="pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.carbon_dioxide_capacity_multiplier">
 <code class="descname">carbon_dioxide_capacity_multiplier</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.carbon_dioxide_capacity_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Carbon Dioxide Capacity Multiplier</cite></p>
-<p>Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Used to alter the capacitance of zone air with respect to zone air carbob dioxide concentration</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1255,8 +1341,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.generic_contaminant_capacity_multiplier">
 <code class="descname">generic_contaminant_capacity_multiplier</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.generic_contaminant_capacity_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Generic Contaminant Capacity Multiplier</cite></p>
-<p>Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Used to alter the capacitance of zone air with respect to zone air generic contaminant concentration</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1278,8 +1366,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.humidity_capacity_multiplier">
 <code class="descname">humidity_capacity_multiplier</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.humidity_capacity_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Humidity Capacity Multiplier</cite></p>
-<p>Used to alter the capacitance of zone air with respect to moisture or humidity ratio
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Used to alter the capacitance of zone air with respect to moisture or humidity ratio</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1301,8 +1391,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.temperature_capacity_multiplier">
 <code class="descname">temperature_capacity_multiplier</code><a class="headerlink" href="#pyidf.simulation_parameters.ZoneCapacitanceMultiplierResearchSpecial.temperature_capacity_multiplier" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Temperature Capacity Multiplier</cite></p>
-<p>Used to alter the capacitance of zone air with respect to heat or temperature
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Used to alter the capacitance of zone air with respect to heat or temperature</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

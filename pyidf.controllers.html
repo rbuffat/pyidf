@@ -463,8 +463,10 @@ specification and is assumed to be a missing value</li>
 <dt id="pyidf.controllers.ControllerMechanicalVentilation.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.
-Schedule values greater than 0 indicate mechanical ventilation is enabled</p>
+<div class="line-block">
+<div class="line">If this field is blank, the controller uses the values from the associated Controller:OutdoorAir.</div>
+<div class="line">Schedule values greater than 0 indicate mechanical ventilation is enabled</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -486,7 +488,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerMechanicalVentilation.demand_controlled_ventilation">
 <code class="descname">demand_controlled_ventilation</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.demand_controlled_ventilation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Demand Controlled Ventilation</cite></p>
-<p>Default value: No</p>
+<div class="line-block">
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -535,7 +539,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerMechanicalVentilation.system_outdoor_air_method">
 <code class="descname">system_outdoor_air_method</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.system_outdoor_air_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>System Outdoor Air Method</cite></p>
-<p>Default value: VentilationRateProcedure</p>
+<div class="line-block">
+<div class="line">Default value: VentilationRateProcedure</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -557,8 +563,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction">
 <code class="descname">zone_maximum_outdoor_air_fraction</code><a class="headerlink" href="#pyidf.controllers.ControllerMechanicalVentilation.zone_maximum_outdoor_air_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Maximum Outdoor Air Fraction</cite></p>
-<p>Units: dimensionless
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -589,7 +597,9 @@ fixed, proportional, scheduled, economizer, and demand-controlled ventilation.</
 <dt id="pyidf.controllers.ControllerOutdoorAir.actuator_node_name">
 <code class="descname">actuator_node_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.actuator_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Actuator Node Name</cite></p>
-<p>Outdoor air inlet node entering the first pre-treat component if any</p>
+<div class="line-block">
+<div class="line">Outdoor air inlet node entering the first pre-treat component if any</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -611,12 +621,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio">
 <code class="descname">control_high_indoor_humidity_based_on_outdoor_humidity_ratio</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.control_high_indoor_humidity_based_on_outdoor_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control High Indoor Humidity Based on Outdoor Humidity Ratio</cite></p>
-<p>If No is selected, the outdoor air flow rate is modified any time indoor relative
-humidity is above the humidistat setpoint. If Yes is selected, the outdoor air
-flow rate is modified any time the indoor relative humidity is above the humidistat
-setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.
-This field is only used when the field High Humidity Control = Yes.
-Default value: Yes</p>
+<div class="line-block">
+<div class="line">If No is selected, the outdoor air flow rate is modified any time indoor relative</div>
+<div class="line">humidity is above the humidistat setpoint. If Yes is selected, the outdoor air</div>
+<div class="line">flow rate is modified any time the indoor relative humidity is above the humidistat</div>
+<div class="line">setpoint and the outdoor humidity ratio is less than the indoor humidity ratio.</div>
+<div class="line">This field is only used when the field High Humidity Control = Yes.</div>
+<div class="line">Default value: Yes</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -638,7 +650,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_control_action_type">
 <code class="descname">economizer_control_action_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_control_action_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Control Action Type</cite></p>
-<p>Default value: ModulateFlow</p>
+<div class="line-block">
+<div class="line">Default value: ModulateFlow</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -660,7 +674,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_control_type">
 <code class="descname">economizer_control_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Control Type</cite></p>
-<p>Default value: NoEconomizer</p>
+<div class="line-block">
+<div class="line">Default value: NoEconomizer</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -682,10 +698,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature">
 <code class="descname">economizer_maximum_limit_dewpoint_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_dewpoint_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Maximum Limit Dewpoint Temperature</cite></p>
-<p>Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb
-economizer control type. No input or blank input means this limit is not operative.
-Limit is applied regardless of economizer control type.
-Units: C</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor dewpoint temperature limit for FixedDewPointAndDryBulb</div>
+<div class="line">economizer control type. No input or blank input means this limit is not operative.</div>
+<div class="line">Limit is applied regardless of economizer control type.</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -707,10 +725,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature">
 <code class="descname">economizer_maximum_limit_drybulb_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_drybulb_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Maximum Limit Dry-Bulb Temperature</cite></p>
-<p>Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb
-economizer control type. No input or blank input means this limit is
-not operative. Limit is applied regardless of economizer control type.
-Units: C</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor dry-bulb temperature limit for FixedDryBulb</div>
+<div class="line">economizer control type. No input or blank input means this limit is</div>
+<div class="line">not operative. Limit is applied regardless of economizer control type.</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -732,10 +752,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_enthalpy">
 <code class="descname">economizer_maximum_limit_enthalpy</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_maximum_limit_enthalpy" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Maximum Limit Enthalpy</cite></p>
-<p>Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.
-No input or blank input means this limit is not operative
-Limit is applied regardless of economizer control type.
-Units: J/kg</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor enthalpy limit for FixedEnthalpy economizer control type.</div>
+<div class="line">No input or blank input means this limit is not operative</div>
+<div class="line">Limit is applied regardless of economizer control type.</div>
+<div class="line">Units: J/kg</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -757,10 +779,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature">
 <code class="descname">economizer_minimum_limit_drybulb_temperature</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.economizer_minimum_limit_drybulb_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Economizer Minimum Limit Dry-Bulb Temperature</cite></p>
-<p>Enter the minimum outdoor dry-bulb temperature limit for economizer control.
-No input or blank input means this limit is not operative
-Limit is applied regardless of economizer control type.
-Units: C</p>
+<div class="line-block">
+<div class="line">Enter the minimum outdoor dry-bulb temperature limit for economizer control.</div>
+<div class="line">No input or blank input means this limit is not operative</div>
+<div class="line">Limit is applied regardless of economizer control type.</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -782,11 +806,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.electronic_enthalpy_limit_curve_name">
 <code class="descname">electronic_enthalpy_limit_curve_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.electronic_enthalpy_limit_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Electronic Enthalpy Limit Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-Enter the name of a quadratic or cubic curve which defines the maximum outdoor
-humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy
-economizer control type. No input or blank input means this limit is not operative
-Limit is applied regardless of economizer control type.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">Enter the name of a quadratic or cubic curve which defines the maximum outdoor</div>
+<div class="line">humidity ratio (function of outdoor dry-bulb temperature) for ElectronicEnthalpy</div>
+<div class="line">economizer control type. No input or blank input means this limit is not operative</div>
+<div class="line">Limit is applied regardless of economizer control type.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -808,13 +834,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.heat_recovery_bypass_control_type">
 <code class="descname">heat_recovery_bypass_control_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.heat_recovery_bypass_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Bypass Control Type</cite></p>
-<p>BypassWhenWithinEconomizerLimits specifies that heat recovery
-is active only when the economizer is off because conditions
-are outside the economizer control limits
-BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer
-controls to allow heat recovery when economizer is active
-(within limits) but the outdoor air flow rate is at the minimum.
-Default value: BypassWhenWithinEconomizerLimits</p>
+<div class="line-block">
+<div class="line">BypassWhenWithinEconomizerLimits specifies that heat recovery</div>
+<div class="line">is active only when the economizer is off because conditions</div>
+<div class="line">are outside the economizer control limits</div>
+<div class="line">BypassWhenOAFlowGreaterThanMinimum specifies enhanced economizer</div>
+<div class="line">controls to allow heat recovery when economizer is active</div>
+<div class="line">(within limits) but the outdoor air flow rate is at the minimum.</div>
+<div class="line">Default value: BypassWhenWithinEconomizerLimits</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -836,11 +864,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.high_humidity_control">
 <code class="descname">high_humidity_control</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.high_humidity_control" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>High Humidity Control</cite></p>
-<p>Optional field to enable modified outdoor air flow rates based on zone relative humidity.
-Select Yes to modify outdoor air flow rate based on a zone humidistat.
-Select No to disable this feature.
-If the field Economizer Control Type = NoEconomizer, then this option is disabled.
-Default value: No</p>
+<div class="line-block">
+<div class="line">Optional field to enable modified outdoor air flow rates based on zone relative humidity.</div>
+<div class="line">Select Yes to modify outdoor air flow rate based on a zone humidistat.</div>
+<div class="line">Select No to disable this feature.</div>
+<div class="line">If the field Economizer Control Type = NoEconomizer, then this option is disabled.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -862,11 +892,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio">
 <code class="descname">high_humidity_outdoor_air_flow_ratio</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.high_humidity_outdoor_air_flow_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>High Humidity Outdoor Air Flow Ratio</cite></p>
-<p>Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air
-flow rates are active based on high indoor humidity.
-The minimum value must be greater than 0.
-This field is only used when the field High Humidity Control = Yes.
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Enter the ratio of outdoor air to the maximum outdoor air flow rate when modified air</div>
+<div class="line">flow rates are active based on high indoor humidity.</div>
+<div class="line">The minimum value must be greater than 0.</div>
+<div class="line">This field is only used when the field High Humidity Control = Yes.</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -888,8 +920,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.humidistat_control_zone_name">
 <code class="descname">humidistat_control_zone_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.humidistat_control_zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Humidistat Control Zone Name</cite></p>
-<p>Enter the name of the zone where the humidistat is located.
-This field is only used when the field High Humidity Control = Yes.</p>
+<div class="line-block">
+<div class="line">Enter the name of the zone where the humidistat is located.</div>
+<div class="line">This field is only used when the field High Humidity Control = Yes.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -911,7 +945,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.lockout_type">
 <code class="descname">lockout_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.lockout_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Lockout Type</cite></p>
-<p>Default value: NoLockout</p>
+<div class="line-block">
+<div class="line">Default value: NoLockout</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -933,7 +969,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name">
 <code class="descname">maximum_fraction_of_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.maximum_fraction_of_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Fraction of Outdoor Air Schedule Name</cite></p>
-<p>schedule values multiply the design/mixed air flow rate</p>
+<div class="line-block">
+<div class="line">schedule values multiply the design/mixed air flow rate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -955,7 +993,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.maximum_outdoor_air_flow_rate">
 <code class="descname">maximum_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.maximum_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Air Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -975,9 +1015,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.mechanical_ventilation_controller_name">
 <code class="descname">mechanical_ventilation_controller_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.mechanical_ventilation_controller_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Mechanical Ventilation Controller Name</cite></p>
-<p>Enter the name of a Controller:MechanicalVentilation object.
-Optional field for defining outdoor ventilation air based on flow rate per unit floor
-area and flow rate per person. Simplified method of demand-controlled ventilation.</p>
+<div class="line-block">
+<div class="line">Enter the name of a Controller:MechanicalVentilation object.</div>
+<div class="line">Optional field for defining outdoor ventilation air based on flow rate per unit floor</div>
+<div class="line">area and flow rate per person. Simplified method of demand-controlled ventilation.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -999,7 +1041,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name">
 <code class="descname">minimum_fraction_of_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_fraction_of_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Fraction of Outdoor Air Schedule Name</cite></p>
-<p>schedule values multiply the design/mixed air flow rate</p>
+<div class="line-block">
+<div class="line">schedule values multiply the design/mixed air flow rate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1021,7 +1065,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.minimum_limit_type">
 <code class="descname">minimum_limit_type</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_limit_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Limit Type</cite></p>
-<p>Default value: ProportionalMinimum</p>
+<div class="line-block">
+<div class="line">Default value: ProportionalMinimum</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1043,7 +1089,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_flow_rate">
 <code class="descname">minimum_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Air Flow Rate</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1063,7 +1111,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_schedule_name">
 <code class="descname">minimum_outdoor_air_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.minimum_outdoor_air_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Air Schedule Name</cite></p>
-<p>Schedule values multiply the minimum outdoor air flow rate</p>
+<div class="line-block">
+<div class="line">Schedule values multiply the minimum outdoor air flow rate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1169,11 +1219,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerOutdoorAir.time_of_day_economizer_control_schedule_name">
 <code class="descname">time_of_day_economizer_control_schedule_name</code><a class="headerlink" href="#pyidf.controllers.ControllerOutdoorAir.time_of_day_economizer_control_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Time of Day Economizer Control Schedule Name</cite></p>
-<p>Optional schedule to simulate &#8220;push-button&#8221; type economizer control.
-Schedule values greater than 0 indicate time-of-day economizer control is enabled.
-Economizer control may be used with or without the high humidity control option.
-When used together, high humidity control has priority over economizer control.
-If the field Economizer Control Type = NoEconomizer, then this option is disabled.</p>
+<div class="line-block">
+<div class="line">Optional schedule to simulate &#8220;push-button&#8221; type economizer control.</div>
+<div class="line">Schedule values greater than 0 indicate time-of-day economizer control is enabled.</div>
+<div class="line">Economizer control may be used with or without the high humidity control option.</div>
+<div class="line">When used together, high humidity control has priority over economizer control.</div>
+<div class="line">If the field Economizer Control Type = NoEconomizer, then this option is disabled.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1207,9 +1259,11 @@ CoilSystem:Cooling:Water:HeatexchangerAssisted.</p>
 <dt id="pyidf.controllers.ControllerWaterCoil.action">
 <code class="descname">action</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.action" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Action</cite></p>
-<p>Leave blank to have this automatically selected from coil type.
-Chilled water coils should be reverse action
-Hot water coils should be normal action</p>
+<div class="line-block">
+<div class="line">Leave blank to have this automatically selected from coil type.</div>
+<div class="line">Chilled water coils should be reverse action</div>
+<div class="line">Hot water coils should be normal action</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1273,11 +1327,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerWaterCoil.control_variable">
 <code class="descname">control_variable</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.control_variable" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Control Variable</cite></p>
-<p>keys HumidityRatio or TemperatureAndHumidityRatio
-requires a ZoneControl:Humidistat object along
-with SetpointManager:SingleZone:Humidity:Maximum,
-SetpointManager:MultiZone:MaximumHumidity:Average, or
-SetpointManager:Multizone:Humidity:Maximum object</p>
+<div class="line-block">
+<div class="line">keys HumidityRatio or TemperatureAndHumidityRatio</div>
+<div class="line">requires a ZoneControl:Humidistat object along</div>
+<div class="line">with SetpointManager:SingleZone:Humidity:Maximum,</div>
+<div class="line">SetpointManager:MultiZone:MaximumHumidity:Average, or</div>
+<div class="line">SetpointManager:Multizone:Humidity:Maximum object</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1299,8 +1355,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerWaterCoil.controller_convergence_tolerance">
 <code class="descname">controller_convergence_tolerance</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.controller_convergence_tolerance" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Controller Convergence Tolerance</cite></p>
-<p>Units: deltaC
-Default value: &#8220;autosize&#8221;</p>
+<div class="line-block">
+<div class="line">Units: deltaC</div>
+<div class="line">Default value: &#8220;autosize&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1320,7 +1378,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerWaterCoil.maximum_actuated_flow">
 <code class="descname">maximum_actuated_flow</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.maximum_actuated_flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Actuated Flow</cite></p>
-<p>Units: m3/s</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1340,8 +1400,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.controllers.ControllerWaterCoil.minimum_actuated_flow">
 <code class="descname">minimum_actuated_flow</code><a class="headerlink" href="#pyidf.controllers.ControllerWaterCoil.minimum_actuated_flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Actuated Flow</cite></p>
-<p>Units: m3/s
-Default value: 1e-07</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">Default value: 1e-07</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

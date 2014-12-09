@@ -89,9 +89,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour">
 <code class="descname">outdoor_air_flow_air_changes_per_hour</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_air_changes_per_hour" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Flow Air Changes per Hour</cite></p>
-<p>This input should be used if the field Outdoor Air Method is AirChanges/Hour.
-This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum
-Units: 1/hr</p>
+<div class="line-block">
+<div class="line">This input should be used if the field Outdoor Air Method is AirChanges/Hour.</div>
+<div class="line">This input is used if the field Outdoor Air Method is AirChanges/Hour, Sum, or Maximum</div>
+<div class="line">Units: 1/hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -113,11 +115,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_person">
 <code class="descname">outdoor_air_flow_per_person</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_person" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Flow per Person</cite></p>
-<p>0.00944 m3/s is equivalent to 20 cfm per person
-This input should be used if the field Outdoor Air Method is Flow/Person.
-This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum
-Units: m3/s-person
-Default value: 0.00944</p>
+<div class="line-block">
+<div class="line">0.00944 m3/s is equivalent to 20 cfm per person</div>
+<div class="line">This input should be used if the field Outdoor Air Method is Flow/Person.</div>
+<div class="line">This input is used if the field Outdoor Air Method is Flow/Person, Sum, or Maximum</div>
+<div class="line">Units: m3/s-person</div>
+<div class="line">Default value: 0.00944</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -139,9 +143,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone">
 <code class="descname">outdoor_air_flow_per_zone</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Flow per Zone</cite></p>
-<p>This input should be used if the field Outdoor Air Method is Flow/Zone.
-This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input should be used if the field Outdoor Air Method is Flow/Zone.</div>
+<div class="line">This input is used if the field Outdoor Air Method is Flow/Zone, Sum, or Maximum</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -163,9 +169,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area">
 <code class="descname">outdoor_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Flow per Zone Floor Area</cite></p>
-<p>This input should be used if the field Outdoor Air Method is Flow/Area.
-This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">This input should be used if the field Outdoor Air Method is Flow/Area.</div>
+<div class="line">This input is used if the field Outdoor Air Method is Flow/Area, Sum, or Maximum</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -187,8 +195,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name">
 <code class="descname">outdoor_air_flow_rate_fraction_schedule_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_flow_rate_fraction_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Flow Rate Fraction Schedule Name</cite></p>
-<p>Schedule values are multiplied by the Outdoor Air Flow rate calculated using
-the previous four inputs. Schedule values are limited to 0 to 1.</p>
+<div class="line-block">
+<div class="line">Schedule values are multiplied by the Outdoor Air Flow rate calculated using</div>
+<div class="line">the previous four inputs. Schedule values are limited to 0 to 1.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -210,11 +220,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_method">
 <code class="descname">outdoor_air_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationOutdoorAir.outdoor_air_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Outdoor Air Method</cite></p>
-<p>Flow/Person =&gt; Outdoor Air Flow per Person * Occupancy = Design Flow Rate,
-Flow/Area =&gt; Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,
-Flow/Zone =&gt; Outdoor Air Flow per Zone = Design Flow Rate,
-AirChanges/Hour =&gt; Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate
-Default value: Flow/Person</p>
+<div class="line-block">
+<div class="line">Flow/Person =&gt; Outdoor Air Flow per Person * Occupancy = Design Flow Rate,</div>
+<div class="line">Flow/Area =&gt; Outdoor Air Flow per Zone Floor Area * Zone Floor Area = Design Flow Rate,</div>
+<div class="line">Flow/Zone =&gt; Outdoor Air Flow per Zone = Design Flow Rate,</div>
+<div class="line">AirChanges/Hour =&gt; Outdoor Air Flow Air Changes per Hour * Zone Volume adjusted for m3/s = Design Flow Rate</div>
+<div class="line">Default value: Flow/Person</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -267,8 +279,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode">
 <code class="descname">zone_air_distribution_effectiveness_in_cooling_mode</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Air Distribution Effectiveness in Cooling Mode</cite></p>
-<p>Units: dimensionless
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -290,8 +304,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode">
 <code class="descname">zone_air_distribution_effectiveness_in_heating_mode</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_in_heating_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Air Distribution Effectiveness in Heating Mode</cite></p>
-<p>Units: dimensionless
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -313,8 +329,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name">
 <code class="descname">zone_air_distribution_effectiveness_schedule_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_air_distribution_effectiveness_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Air Distribution Effectiveness Schedule Name</cite></p>
-<p>optionally used to replace Zone Air Distribution Effectiveness in Cooling and
-Heating Mode</p>
+<div class="line-block">
+<div class="line">optionally used to replace Zone Air Distribution Effectiveness in Cooling and</div>
+<div class="line">Heating Mode</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -336,7 +354,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction">
 <code class="descname">zone_secondary_recirculation_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneAirDistribution.zone_secondary_recirculation_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Secondary Recirculation Fraction</cite></p>
-<p>Units: dimensionless</p>
+<div class="line-block">
+<div class="line">Units: dimensionless</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -367,17 +387,19 @@ are referenced by other objects.</p>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method">
 <code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
-<p>Enter the method used to determine the cooling supply air volume flow rate.
-None is used when a cooling coil is not included in the Zone HVAC Equip or this field
-may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the supply air volume
-flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air volume flow rate
-is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area
-value specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply air volume
-is determined from a user specified fraction and the autosized cooling supply air flow rate
-value determined by the simulation. FlowPerCoolingCapacity =&gt; is selected when the supply
-air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity
-determined by the simulation.
-Default value: SupplyAirFlowRate</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the cooling supply air volume flow rate.</div>
+<div class="line">None is used when a cooling coil is not included in the Zone HVAC Equip or this field</div>
+<div class="line">may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the supply air volume</div>
+<div class="line">flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air volume flow rate</div>
+<div class="line">is determined from total floor area served by the Zone HVAC unit and Flow Per Floor Area</div>
+<div class="line">value specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply air volume</div>
+<div class="line">is determined from a user specified fraction and the autosized cooling supply air flow rate</div>
+<div class="line">value determined by the simulation. FlowPerCoolingCapacity =&gt; is selected when the supply</div>
+<div class="line">air volume is determined from user specified flow per Cooling Capacity and Cooling Capacity</div>
+<div class="line">determined by the simulation.</div>
+<div class="line">Default value: SupplyAirFlowRate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -399,9 +421,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity">
 <code class="descname">cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity</cite></p>
-<p>Enter the design cooling capacity. Required field when the cooling design capacity method
-CoolingDesignCapacity.
-Units: W</p>
+<div class="line-block">
+<div class="line">Enter the design cooling capacity. Required field when the cooling design capacity method</div>
+<div class="line">CoolingDesignCapacity.</div>
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -421,15 +445,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_method">
 <code class="descname">cooling_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity Method</cite></p>
-<p>Enter the method used to determine the cooling design capacity for scalable sizing.
-None is used when a cooling coils is not included in the Zone HVAC Equipment or
-this field may be blank. If this input field is left blank, then the design cooling
-capacity is set to zero. CoolingDesignCapacity =&gt; selected when the design cooling capacity
-value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling
-capacity is determine from user specified cooling capacity per floor area and zone floor area.
-FractionOfAutosizedCoolingCapacity =&gt; is selected when the design cooling capacity is
-determined from a user specified fraction and the auto-sized design cooling capacity.
-Default value: None</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the cooling design capacity for scalable sizing.</div>
+<div class="line">None is used when a cooling coils is not included in the Zone HVAC Equipment or</div>
+<div class="line">this field may be blank. If this input field is left blank, then the design cooling</div>
+<div class="line">capacity is set to zero. CoolingDesignCapacity =&gt; selected when the design cooling capacity</div>
+<div class="line">value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling</div>
+<div class="line">capacity is determine from user specified cooling capacity per floor area and zone floor area.</div>
+<div class="line">FractionOfAutosizedCoolingCapacity =&gt; is selected when the design cooling capacity is</div>
+<div class="line">determined from a user specified fraction and the auto-sized design cooling capacity.</div>
+<div class="line">Default value: None</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -451,9 +477,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area">
 <code class="descname">cooling_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity Per Floor Area</cite></p>
-<p>Enter the cooling design capacity per zone floor area. Required field when the cooling design
-capacity method field is CapacityPerFloorArea.
-Units: W/m2</p>
+<div class="line-block">
+<div class="line">Enter the cooling design capacity per zone floor area. Required field when the cooling design</div>
+<div class="line">capacity method field is CapacityPerFloorArea.</div>
+<div class="line">Units: W/m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -475,10 +503,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate">
 <code class="descname">cooling_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Supply Air Flow Rate</cite></p>
-<p>Enter the magnitude of supply air volume flow rate during cooling operation.
-Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.
-This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Enter the magnitude of supply air volume flow rate during cooling operation.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Cooling Operation is SupplyAirFlowRate.</div>
+<div class="line">This field may be blank if a cooling coil is not included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -498,10 +528,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area">
 <code class="descname">cooling_design_supply_air_flow_rate_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Supply Air Flow Rate Per Floor Area</cite></p>
-<p>Enter the cooling supply air volume flow rate per total conditioned floor area.
-Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.
-This field may be blank if a cooling coil is not included in the Zone HVAC equipment.
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Enter the cooling supply air volume flow rate per total conditioned floor area.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Cooling Operation is FlowPerFloorArea.</div>
+<div class="line">This field may be blank if a cooling coil is not included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -523,11 +555,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity">
 <code class="descname">cooling_design_supply_air_flow_rate_per_unit_cooling_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.cooling_design_supply_air_flow_rate_per_unit_cooling_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></p>
-<p>Enter the cooling supply air volume flow rate unit cooling capacity.
-Required field when Supply air Flow Rate Method During Cooling Operation is
-FlowPerCoolingCapacity. This field may be blank if a cooling coil is not
-included in the Zone HVAC equipment.
-Units: m3/s-W</p>
+<div class="line-block">
+<div class="line">Enter the cooling supply air volume flow rate unit cooling capacity.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Cooling Operation is</div>
+<div class="line">FlowPerCoolingCapacity. This field may be blank if a cooling coil is not</div>
+<div class="line">included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s-W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -549,8 +583,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity">
 <code class="descname">fraction_of_autosized_cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Cooling Design Capacity</cite></p>
-<p>Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
-design capacity method field is FractionOfAutosizedCoolingCapacity.</p>
+<div class="line-block">
+<div class="line">Enter the fraction of auto-sized cooling design capacity. Required field when the cooling</div>
+<div class="line">design capacity method field is FractionOfAutosizedCoolingCapacity.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -572,10 +608,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate">
 <code class="descname">fraction_of_autosized_cooling_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_cooling_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Cooling Design Supply Air Flow Rate</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
-Required field when Supply air Flow Rate Method During Cooling Operation is
-FractionOfAutosizedCoolingAirflow.
-This field may be blank if a cooling coil is not included in the Zone HVAC equipment.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Cooling Operation is</div>
+<div class="line">FractionOfAutosizedCoolingAirflow.</div>
+<div class="line">This field may be blank if a cooling coil is not included in the Zone HVAC equipment.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -597,8 +635,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity">
 <code class="descname">fraction_of_autosized_heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_autosized_heating_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Heating Design Capacity</cite></p>
-<p>Enter the fraction of auto-sized heating design capacity. Required field when capacity the
-heating design capacity method field is FractionOfAutosizedHeatingCapacity.</p>
+<div class="line-block">
+<div class="line">Enter the fraction of auto-sized heating design capacity. Required field when capacity the</div>
+<div class="line">heating design capacity method field is FractionOfAutosizedHeatingCapacity.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -620,9 +660,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required">
 <code class="descname">fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_cooling_supply_air_flow_rate_when_no_clg_or_htg_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Design Cooling Supply Air Flow Rate When No Clg or Htg Required</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
-Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
-is FractionOfAutosizedCoolingAirflow.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method When No Cooling or Heating is Required</div>
+<div class="line">is FractionOfAutosizedCoolingAirflow.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -644,9 +686,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required">
 <code class="descname">fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_design_heating_supply_air_flow_rate_when_no_clg_or_htg_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Design Heating Supply Air Flow Rate When No Clg or Htg Required</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
-Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
-is FractionOfAutosizedHeatingAirflow.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method When No Cooling or Heating is Required</div>
+<div class="line">is FractionOfAutosizedHeatingAirflow.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -668,10 +712,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate">
 <code class="descname">fraction_of_heating_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.fraction_of_heating_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Heating Design Supply Air Flow Rate</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
-Required field when Supply air Flow Rate Method During Heating Operation is
-FractionOfAutosizedHeatingAirflow.
-This field may be blank if a heating coil is not included in the Zone HVAC equipment.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Heating Operation is</div>
+<div class="line">FractionOfAutosizedHeatingAirflow.</div>
+<div class="line">This field may be blank if a heating coil is not included in the Zone HVAC equipment.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -693,17 +739,19 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_air_flow_method">
 <code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Air Flow Method</cite></p>
-<p>Enter the method used to determine the heating supply air volume flow rate.
-None is used when a heating coil is not included in the Zone HVAC Equipment or this field may
-be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the heating supply air volume
-flow rate is specified.  FlowPerFloorArea =&gt; selected when the supply air volume flow rate is
-determined from total floor area served by a Zone HVAC unit and user specified value of Flow
-Per Floor Area. FractionOfAutosizedHeatingAirflow =&gt; is selected when the supply air volume
-is determined from a user specified fraction and the Autosized heating supply air flow rate
-value determined by the simulation. FlowPerHeatingCapacity =&gt; is selected when the supply
-air volume is determined from user specified flow per Heating Capacity and Heating Capacity
-determined by the simulation.
-Default value: SupplyAirFlowRate</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the heating supply air volume flow rate.</div>
+<div class="line">None is used when a heating coil is not included in the Zone HVAC Equipment or this field may</div>
+<div class="line">be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the heating supply air volume</div>
+<div class="line">flow rate is specified.  FlowPerFloorArea =&gt; selected when the supply air volume flow rate is</div>
+<div class="line">determined from total floor area served by a Zone HVAC unit and user specified value of Flow</div>
+<div class="line">Per Floor Area. FractionOfAutosizedHeatingAirflow =&gt; is selected when the supply air volume</div>
+<div class="line">is determined from a user specified fraction and the Autosized heating supply air flow rate</div>
+<div class="line">value determined by the simulation. FlowPerHeatingCapacity =&gt; is selected when the supply</div>
+<div class="line">air volume is determined from user specified flow per Heating Capacity and Heating Capacity</div>
+<div class="line">determined by the simulation.</div>
+<div class="line">Default value: SupplyAirFlowRate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -725,9 +773,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity">
 <code class="descname">heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity</cite></p>
-<p>Enter the design heating capacity. Required field when the heating design capacity method
-HeatingDesignCapacity.
-Units: W</p>
+<div class="line-block">
+<div class="line">Enter the design heating capacity. Required field when the heating design capacity method</div>
+<div class="line">HeatingDesignCapacity.</div>
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -747,15 +797,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_method">
 <code class="descname">heating_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity Method</cite></p>
-<p>Enter the method used to determine the heating design capacity for scalable sizing.
-None is used when a heating coil is not included in the Zone HVAC Equipment or
-this field may be blank. If this input field is left blank, then the design heating
-capacity is set to zero. HeatingDesignCapacity =&gt; selected when the design heating capacity
-value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling
-capacity is determine from user specified heating capacity per flow area and zone floor area.
-FractionOfAutosizedHeatingCapacity =&gt; is selected when the design heating capacity is
-determined from a user specified fraction and the auto-sized design heating capacity
-Default value: None</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the heating design capacity for scalable sizing.</div>
+<div class="line">None is used when a heating coil is not included in the Zone HVAC Equipment or</div>
+<div class="line">this field may be blank. If this input field is left blank, then the design heating</div>
+<div class="line">capacity is set to zero. HeatingDesignCapacity =&gt; selected when the design heating capacity</div>
+<div class="line">value is specified or auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling</div>
+<div class="line">capacity is determine from user specified heating capacity per flow area and zone floor area.</div>
+<div class="line">FractionOfAutosizedHeatingCapacity =&gt; is selected when the design heating capacity is</div>
+<div class="line">determined from a user specified fraction and the auto-sized design heating capacity</div>
+<div class="line">Default value: None</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -777,9 +829,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area">
 <code class="descname">heating_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity Per Floor Area</cite></p>
-<p>Enter the heating design capacity per zone floor area. Required field when the heating design
-capacity method field is CapacityPerFloorArea.
-Units: W/m2</p>
+<div class="line-block">
+<div class="line">Enter the heating design capacity per zone floor area. Required field when the heating design</div>
+<div class="line">capacity method field is CapacityPerFloorArea.</div>
+<div class="line">Units: W/m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -801,10 +855,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate">
 <code class="descname">heating_design_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Supply Air Flow Rate</cite></p>
-<p>Enter the magnitude of the supply air volume flow rate during heating operation.
-Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.
-This field may be blank if a heating coil is not included in the Zone HVAC equipment.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Enter the magnitude of the supply air volume flow rate during heating operation.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Heating Operation is SupplyAirFlowRate.</div>
+<div class="line">This field may be blank if a heating coil is not included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -824,10 +880,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area">
 <code class="descname">heating_design_supply_air_flow_rate_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Supply Air Flow Rate Per Floor Area</cite></p>
-<p>Enter the heating supply air volume flow rate per total conditioned floor area.
-Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.
-This field may be blank if a heating coil is not included in the Zone HVAC equipment.
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Enter the heating supply air volume flow rate per total conditioned floor area.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Heating Operation is FlowPerFloorArea.</div>
+<div class="line">This field may be blank if a heating coil is not included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -849,11 +907,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity">
 <code class="descname">heating_design_supply_air_flow_rate_per_unit_heating_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.heating_design_supply_air_flow_rate_per_unit_heating_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Supply Air Flow Rate Per Unit Heating Capacity</cite></p>
-<p>Enter the supply air volume flow rate per unit heating capacity.
-Required field when Supply air Flow Rate Method During Heating Operation is
-FlowPerHeatingCapacity.
-This field may be blank if a heating coil is not included in the Zone HVAC equipment.
-Units: m3/s-W</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate per unit heating capacity.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Heating Operation is</div>
+<div class="line">FlowPerHeatingCapacity.</div>
+<div class="line">This field may be blank if a heating coil is not included in the Zone HVAC equipment.</div>
+<div class="line">Units: m3/s-W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -896,17 +956,19 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required">
 <code class="descname">supply_air_flow_rate_method_when_no_cooling_or_heating_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Air Flow Rate Method When No Cooling or Heating is Required</cite></p>
-<p>Enter the method used to determine the supply air volume flow rate When No Cooling or Heating
-is Required. None is used when a cooling or heating coils is not included in the Zone HVAC
-Equipment or this field may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the
-supply air volume flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air
-volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per
-Floor Area is specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply
-air volume is determined from a user specified fraction and the Autosized cooling supply
-air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow =&gt; is
-selected when the supply air volume is determined from a user specified fraction and the
-Autosized heating supply air flow rate value determined by the simulation.
-Default value: SupplyAirFlowRate</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the supply air volume flow rate When No Cooling or Heating</div>
+<div class="line">is Required. None is used when a cooling or heating coils is not included in the Zone HVAC</div>
+<div class="line">Equipment or this field may be blank. SupplyAirFlowRate =&gt; selected when the magnitude of the</div>
+<div class="line">supply air volume flow rate is specified. FlowPerFloorArea =&gt; selected when the supply air</div>
+<div class="line">volume flow rate is determined from total floor area served by the Zone HVAC unit and Flow Per</div>
+<div class="line">Floor Area is specified. FractionOfAutosizedCoolingAirflow =&gt; is selected when the supply</div>
+<div class="line">air volume is determined from a user specified fraction and the Autosized cooling supply</div>
+<div class="line">air flow rate value determined by the simulation. FractionOfAutosizedHeatingAirflow =&gt; is</div>
+<div class="line">selected when the supply air volume is determined from a user specified fraction and the</div>
+<div class="line">Autosized heating supply air flow rate value determined by the simulation.</div>
+<div class="line">Default value: SupplyAirFlowRate</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -928,10 +990,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required">
 <code class="descname">supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Air Flow Rate Per Floor Area When No Clg or Htg is Required</cite></p>
-<p>Enter the supply air volume flow rate per total floor area.
-Required field when Supply air Flow Rate Method When No Cooling or Heating is Required
-is FlowPerFloorArea.
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate per total floor area.</div>
+<div class="line">Required field when Supply air Flow Rate Method When No Cooling or Heating is Required</div>
+<div class="line">is FlowPerFloorArea.</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -953,10 +1017,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required">
 <code class="descname">supply_air_flow_rate_when_no_cooling_or_heating_is_required</code><a class="headerlink" href="#pyidf.hvac_design_objects.DesignSpecificationZoneHvacSizing.supply_air_flow_rate_when_no_cooling_or_heating_is_required" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Air Flow Rate When No Cooling or Heating is Required</cite></p>
-<p>Enter the magnitude of the supply air volume flow rate during when no cooling or heating
-is required. Required field when Supply air Flow Rate Method When No Cooling or Heating
-is Required is SupplyAirFlowRate.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Enter the magnitude of the supply air volume flow rate during when no cooling or heating</div>
+<div class="line">is required. Required field when Supply air Flow Rate Method When No Cooling or Heating</div>
+<div class="line">is Required is SupplyAirFlowRate.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1021,7 +1087,9 @@ which is used to smooth the peak load across more than one timestep.</p>
 <dt id="pyidf.hvac_design_objects.SizingParameters.cooling_sizing_factor">
 <code class="descname">cooling_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.cooling_sizing_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Sizing Factor</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1043,7 +1111,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingParameters.heating_sizing_factor">
 <code class="descname">heating_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.heating_sizing_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Sizing Factor</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1065,10 +1135,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingParameters.timesteps_in_averaging_window">
 <code class="descname">timesteps_in_averaging_window</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingParameters.timesteps_in_averaging_window" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Timesteps in Averaging Window</cite></p>
-<p>blank =&gt; set the timesteps in averaging window to
-Number of Timesteps per Hour resulting in a 1 hour averaging window
-default is number of timesteps for 1 hour averaging window
-value &gt;= 1</p>
+<div class="line-block">
+<div class="line">blank =&gt; set the timesteps in averaging window to</div>
+<div class="line">Number of Timesteps per Hour resulting in a 1 hour averaging window</div>
+<div class="line">default is number of timesteps for 1 hour averaging window</div>
+<div class="line">value &gt;= 1</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1101,7 +1173,9 @@ flow rates are then summed for use in calculating the Plant Loop flow rates.</p>
 <dt id="pyidf.hvac_design_objects.SizingPlant.design_loop_exit_temperature">
 <code class="descname">design_loop_exit_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.design_loop_exit_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Loop Exit Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1123,7 +1197,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingPlant.loop_design_temperature_difference">
 <code class="descname">loop_design_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.loop_design_temperature_difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Loop Design Temperature Difference</cite></p>
-<p>Units: deltaC</p>
+<div class="line-block">
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1166,7 +1242,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingPlant.plant_or_condenser_loop_name">
 <code class="descname">plant_or_condenser_loop_name</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingPlant.plant_or_condenser_loop_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Plant or Condenser Loop Name</cite></p>
-<p>Enter the name of a PlantLoop or a CondenserLoop object</p>
+<div class="line-block">
+<div class="line">Enter the name of a PlantLoop or a CondenserLoop object</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1197,7 +1275,9 @@ system design air flow, heating capacity, and cooling capacity.</p>
 <dt id="pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_cooling">
 <code class="descname">a_100_outdoor_air_in_cooling</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_cooling" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>100% Outdoor Air in Cooling</cite></p>
-<p>Default value: No</p>
+<div class="line-block">
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1219,7 +1299,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_heating">
 <code class="descname">a_100_outdoor_air_in_heating</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.a_100_outdoor_air_in_heating" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>100% Outdoor Air in Heating</cite></p>
-<p>Default value: No</p>
+<div class="line-block">
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1262,8 +1344,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_humidity_ratio">
 <code class="descname">central_cooling_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Central Cooling Design Supply Air Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir
-Default value: 0.008</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+<div class="line">Default value: 0.008</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1285,7 +1369,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_temperature">
 <code class="descname">central_cooling_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_cooling_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Central Cooling Design Supply Air Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1307,8 +1393,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_humidity_ratio">
 <code class="descname">central_heating_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Central Heating Design Supply Air Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir
-Default value: 0.008</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+<div class="line">Default value: 0.008</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1330,7 +1418,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_temperature">
 <code class="descname">central_heating_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.central_heating_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Central Heating Design Supply Air Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1352,7 +1442,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_method">
 <code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
-<p>Default value: DesignDay</p>
+<div class="line-block">
+<div class="line">Default value: DesignDay</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1374,10 +1466,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_rate">
 <code class="descname">cooling_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Air Flow Rate</cite></p>
-<p>This input is used if Cooling Design Air Flow Method is Flow/System
-This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.
-If using zone multipliers, this value must be large enough to serve the multiplied zones.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input is used if Cooling Design Air Flow Method is Flow/System</div>
+<div class="line">This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.</div>
+<div class="line">If using zone multipliers, this value must be large enough to serve the multiplied zones.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1399,10 +1493,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity">
 <code class="descname">cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity</cite></p>
-<p>Enter the design cooling capacity. Required field when the cooling design capacity method
-CoolingDesignCapacity.
-Units: W
-Default value: &#8220;autosize&#8221;</p>
+<div class="line-block">
+<div class="line">Enter the design cooling capacity. Required field when the cooling design capacity method</div>
+<div class="line">CoolingDesignCapacity.</div>
+<div class="line">Units: W</div>
+<div class="line">Default value: &#8220;autosize&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1422,16 +1518,18 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_method">
 <code class="descname">cooling_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity Method</cite></p>
-<p>Enter the method used to determine the system cooling design capacity for scalable sizing.
-None is used when a cooling coils is not included in an airloop or this field may be blank.
-If this input field is left blank, then the design cooling capacity is set to zero.
-CoolingDesignCapacity =&gt; selected when the design cooling capacity value is specified or
-auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling capacity is determined
-from user specified cooling capacity per floor area and total floor area of cooled zones
-served by an airloop. FractionOfAutosizedCoolingCapacity =&gt; is selected when the design
-cooling capacity is determined from a user specified fraction and the auto-sized design
-cooling capacity of the system.
-Default value: CoolingDesignCapacity</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the system cooling design capacity for scalable sizing.</div>
+<div class="line">None is used when a cooling coils is not included in an airloop or this field may be blank.</div>
+<div class="line">If this input field is left blank, then the design cooling capacity is set to zero.</div>
+<div class="line">CoolingDesignCapacity =&gt; selected when the design cooling capacity value is specified or</div>
+<div class="line">auto-sized. CapacityPerFloorArea =&gt; selected when the design cooling capacity is determined</div>
+<div class="line">from user specified cooling capacity per floor area and total floor area of cooled zones</div>
+<div class="line">served by an airloop. FractionOfAutosizedCoolingCapacity =&gt; is selected when the design</div>
+<div class="line">cooling capacity is determined from a user specified fraction and the auto-sized design</div>
+<div class="line">cooling capacity of the system.</div>
+<div class="line">Default value: CoolingDesignCapacity</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1453,9 +1551,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_per_floor_area">
 <code class="descname">cooling_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.cooling_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Capacity Per Floor Area</cite></p>
-<p>Enter the cooling design capacity per total floor area of cooled zones served by an airloop.
-Required field when the cooling design capacity method field is CapacityPerFloorArea.
-Units: W/m2</p>
+<div class="line-block">
+<div class="line">Enter the cooling design capacity per total floor area of cooled zones served by an airloop.</div>
+<div class="line">Required field when the cooling design capacity method field is CapacityPerFloorArea.</div>
+<div class="line">Units: W/m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1477,8 +1577,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.design_outdoor_air_flow_rate">
 <code class="descname">design_outdoor_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_outdoor_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Outdoor Air Flow Rate</cite></p>
-<p>Units: m3/s
-Default value: &#8220;autosize&#8221;</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">Default value: &#8220;autosize&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1498,10 +1600,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity">
 <code class="descname">design_supply_air_flow_rate_per_unit_cooling_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_cooling_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Supply Air Flow Rate Per Unit Cooling Capacity</cite></p>
-<p>Enter the supply air volume flow rate per unit cooling capacity.
-Required field when Supply air Flow Rate Method During Cooling Operation is
-FlowPerCoolingCapacity.
-Units: m3/s-W</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate per unit cooling capacity.</div>
+<div class="line">Required field when Supply air Flow Rate Method During Cooling Operation is</div>
+<div class="line">FlowPerCoolingCapacity.</div>
+<div class="line">Units: m3/s-W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1523,10 +1627,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity">
 <code class="descname">design_supply_air_flow_rate_per_unit_heating_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.design_supply_air_flow_rate_per_unit_heating_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Design Supply Air Flow Rate Per Unit Heating Capacity</cite></p>
-<p>Enter the heating supply air volume flow rate per unit heating capacity.
-Required field when Supply air Flow Rate Method during heating operation is
-FlowPerHeatingCapacity.
-Units: m3/s-W</p>
+<div class="line-block">
+<div class="line">Enter the heating supply air volume flow rate per unit heating capacity.</div>
+<div class="line">Required field when Supply air Flow Rate Method during heating operation is</div>
+<div class="line">FlowPerHeatingCapacity.</div>
+<div class="line">Units: m3/s-W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1548,8 +1654,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_cooling_design_capacity">
 <code class="descname">fraction_of_autosized_cooling_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_cooling_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Cooling Design Capacity</cite></p>
-<p>Enter the fraction of auto-sized cooling design capacity. Required field when the cooling
-design capacity method field is FractionOfAutosizedCoolingCapacity.</p>
+<div class="line-block">
+<div class="line">Enter the fraction of auto-sized cooling design capacity. Required field when the cooling</div>
+<div class="line">design capacity method field is FractionOfAutosizedCoolingCapacity.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1571,9 +1679,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate">
 <code class="descname">fraction_of_autosized_design_cooling_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
-Required field when Supply air Flow Rate Method during cooling operation is
-FractionOfAutosizedCoolingAirflow.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method during cooling operation is</div>
+<div class="line">FractionOfAutosizedCoolingAirflow.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1595,9 +1705,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3">
 <code class="descname">fraction_of_autosized_design_cooling_supply_air_flow_rate_v3</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Design Cooling Supply Air Flow Rate v3</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
-Required field when Supply air Flow Rate Method during heating operation is
-FractionOfAutosizedCoolingAirflow.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method during heating operation is</div>
+<div class="line">FractionOfAutosizedCoolingAirflow.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1619,9 +1731,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate">
 <code class="descname">fraction_of_autosized_design_heating_supply_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_design_heating_supply_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Design Heating Supply Air Flow Rate</cite></p>
-<p>Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
-Required field when Supply air Flow Rate Method during heating operation is
-FractionOfAutosizedHeatingAirflow.</p>
+<div class="line-block">
+<div class="line">Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.</div>
+<div class="line">Required field when Supply air Flow Rate Method during heating operation is</div>
+<div class="line">FractionOfAutosizedHeatingAirflow.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1643,8 +1757,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_heating_design_capacity">
 <code class="descname">fraction_of_autosized_heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.fraction_of_autosized_heating_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Autosized Heating Design Capacity</cite></p>
-<p>Enter the fraction of auto-sized heating design capacity. Required field when capacity the
-heating design capacity method field is FractionOfAutosizedHeatingCapacity.</p>
+<div class="line-block">
+<div class="line">Enter the fraction of auto-sized heating design capacity. Required field when capacity the</div>
+<div class="line">heating design capacity method field is FractionOfAutosizedHeatingCapacity.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1666,7 +1782,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_method">
 <code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Air Flow Method</cite></p>
-<p>Default value: DesignDay</p>
+<div class="line-block">
+<div class="line">Default value: DesignDay</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1688,10 +1806,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_rate">
 <code class="descname">heating_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Air Flow Rate</cite></p>
-<p>This input is used if Heating Design Air Flow Method is Flow/System
-This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.
-If using zone multipliers, this value must be large enough to serve the multiplied zones.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input is used if Heating Design Air Flow Method is Flow/System</div>
+<div class="line">This value will <em>not</em> be multiplied by any sizing factor or by zone multipliers.</div>
+<div class="line">If using zone multipliers, this value must be large enough to serve the multiplied zones.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1713,10 +1833,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity">
 <code class="descname">heating_design_capacity</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity</cite></p>
-<p>Enter the design heating capacity. Required field when the heating design capacity method
-HeatingDesignCapacity.
-Units: W
-Default value: &#8220;autosize&#8221;</p>
+<div class="line-block">
+<div class="line">Enter the design heating capacity. Required field when the heating design capacity method</div>
+<div class="line">HeatingDesignCapacity.</div>
+<div class="line">Units: W</div>
+<div class="line">Default value: &#8220;autosize&#8221;</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1736,16 +1858,18 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_method">
 <code class="descname">heating_design_capacity_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity Method</cite></p>
-<p>Enter the method used to determine the heating design capacity for scalable sizing.
-None is used when a heating coil not included in an airloop or this field may be blank.
-If this input field is left blank, then the design heating capacity is set to zero.
-HeatingDesignCapacity =&gt; selected when the design heating capacity value is specified or
-auto-sized. CapacityPerFloorArea =&gt; selected when the design heating capacity is determined
-from user specified heating capacity per flow area and total floor area of heated zones
-served by an airloop. FractionOfAutosizedHeatingCapacity =&gt; is selected when the design
-heating capacity is determined from a user specified fraction and the auto-sized design
-heating capacity of the system.
-Default value: HeatingDesignCapacity</p>
+<div class="line-block">
+<div class="line">Enter the method used to determine the heating design capacity for scalable sizing.</div>
+<div class="line">None is used when a heating coil not included in an airloop or this field may be blank.</div>
+<div class="line">If this input field is left blank, then the design heating capacity is set to zero.</div>
+<div class="line">HeatingDesignCapacity =&gt; selected when the design heating capacity value is specified or</div>
+<div class="line">auto-sized. CapacityPerFloorArea =&gt; selected when the design heating capacity is determined</div>
+<div class="line">from user specified heating capacity per flow area and total floor area of heated zones</div>
+<div class="line">served by an airloop. FractionOfAutosizedHeatingCapacity =&gt; is selected when the design</div>
+<div class="line">heating capacity is determined from a user specified fraction and the auto-sized design</div>
+<div class="line">heating capacity of the system.</div>
+<div class="line">Default value: HeatingDesignCapacity</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1767,9 +1891,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_per_floor_area">
 <code class="descname">heating_design_capacity_per_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.heating_design_capacity_per_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Capacity Per Floor Area</cite></p>
-<p>Enter the heating design capacity per zone floor area. Required field when the heating design
-capacity method field is CapacityPerFloorArea.
-Units: W/m2</p>
+<div class="line-block">
+<div class="line">Enter the heating design capacity per zone floor area. Required field when the heating design</div>
+<div class="line">capacity method field is CapacityPerFloorArea.</div>
+<div class="line">Units: W/m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1791,7 +1917,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.minimum_system_air_flow_ratio">
 <code class="descname">minimum_system_air_flow_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.minimum_system_air_flow_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum System Air Flow Ratio</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1813,7 +1941,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.precool_design_humidity_ratio">
 <code class="descname">precool_design_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.precool_design_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Precool Design Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1835,7 +1965,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.precool_design_temperature">
 <code class="descname">precool_design_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.precool_design_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Precool Design Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1857,7 +1989,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.preheat_design_humidity_ratio">
 <code class="descname">preheat_design_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.preheat_design_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Preheat Design Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1879,7 +2013,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.preheat_design_temperature">
 <code class="descname">preheat_design_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.preheat_design_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Preheat Design Temperature</cite></p>
-<p>Units: C</p>
+<div class="line-block">
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1901,7 +2037,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.sizing_option">
 <code class="descname">sizing_option</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.sizing_option" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Sizing Option</cite></p>
-<p>Default value: NonCoincident</p>
+<div class="line-block">
+<div class="line">Default value: NonCoincident</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1923,9 +2061,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation">
 <code class="descname">supply_air_flow_rate_per_floor_area_during_cooling_operation</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_cooling_operation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Air Flow Rate Per Floor Area During Cooling Operation</cite></p>
-<p>Enter the cooling supply air volume flow rate per total conditioned floor area.
-Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Enter the cooling supply air volume flow rate per total conditioned floor area.</div>
+<div class="line">Required field when Supply air Flow Rate Method during cooling operation is FlowPerFloorArea.</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1947,9 +2087,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation">
 <code class="descname">supply_air_flow_rate_per_floor_area_during_heating_operation</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.supply_air_flow_rate_per_floor_area_during_heating_operation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Air Flow Rate Per Floor Area During Heating Operation</cite></p>
-<p>Enter the heating supply air volume flow rate per total conditioned floor area.
-Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.
-Units: m3/s-m2</p>
+<div class="line-block">
+<div class="line">Enter the heating supply air volume flow rate per total conditioned floor area.</div>
+<div class="line">Required field when Supply air Flow Rate Method during heating operation is FlowPerFloorArea.</div>
+<div class="line">Units: m3/s-m2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1971,7 +2113,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.system_outdoor_air_method">
 <code class="descname">system_outdoor_air_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.system_outdoor_air_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>System Outdoor Air Method</cite></p>
-<p>Default value: ZoneSum</p>
+<div class="line-block">
+<div class="line">Default value: ZoneSum</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1993,11 +2137,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.type_of_load_to_size_on">
 <code class="descname">type_of_load_to_size_on</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.type_of_load_to_size_on" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Type of Load to Size On</cite></p>
-<p>Specifies the basis for sizing the system supply air flow rate
-Sensible and VentilationRequirement are the only available options
-Sensible uses the zone design air flow rates
-VentilationRequirement uses the system ventilation requirement
-Default value: Sensible</p>
+<div class="line-block">
+<div class="line">Specifies the basis for sizing the system supply air flow rate</div>
+<div class="line">Sensible and VentilationRequirement are the only available options</div>
+<div class="line">Sensible uses the zone design air flow rates</div>
+<div class="line">VentilationRequirement uses the system ventilation requirement</div>
+<div class="line">Default value: Sensible</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2019,8 +2165,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingSystem.zone_maximum_outdoor_air_fraction">
 <code class="descname">zone_maximum_outdoor_air_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingSystem.zone_maximum_outdoor_air_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Maximum Outdoor Air Fraction</cite></p>
-<p>Units: dimensionless
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2053,7 +2201,9 @@ for system level and zone component design calculations.</p>
 <dt id="pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_method">
 <code class="descname">cooling_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Air Flow Method</cite></p>
-<p>Default value: DesignDay</p>
+<div class="line-block">
+<div class="line">Default value: DesignDay</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2075,10 +2225,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_rate">
 <code class="descname">cooling_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Design Air Flow Rate</cite></p>
-<p>This input is used if Cooling Design Air Flow Method is Flow/Zone
-This value will be multiplied by the global or zone sizing factor and
-by zone multipliers.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input is used if Cooling Design Air Flow Method is Flow/Zone</div>
+<div class="line">This value will be multiplied by the global or zone sizing factor and</div>
+<div class="line">by zone multipliers.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2100,8 +2252,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow">
 <code class="descname">cooling_minimum_air_flow</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Minimum Air Flow</cite></p>
-<p>This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input is used if Cooling Design Air Flow Method is DesignDayWithLimit</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2123,9 +2277,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_fraction">
 <code class="descname">cooling_minimum_air_flow_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Minimum Air Flow Fraction</cite></p>
-<p>fraction of the Cooling design Air Flow Rate
-This input is currently used in sizing the Fan minimum Flow Rate.
-It does not currently affect other component autosizing.</p>
+<div class="line-block">
+<div class="line">fraction of the Cooling design Air Flow Rate</div>
+<div class="line">This input is currently used in sizing the Fan minimum Flow Rate.</div>
+<div class="line">It does not currently affect other component autosizing.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2147,10 +2303,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_per_zone_floor_area">
 <code class="descname">cooling_minimum_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.cooling_minimum_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Minimum Air Flow per Zone Floor Area</cite></p>
-<p>default is .15 cfm/ft2
-This input is used if Cooling Design Air Flow Method is DesignDayWithLimit
-Units: m3/s-m2
-Default value: 0.000762</p>
+<div class="line-block">
+<div class="line">default is .15 cfm/ft2</div>
+<div class="line">This input is used if Cooling Design Air Flow Method is DesignDayWithLimit</div>
+<div class="line">Units: m3/s-m2</div>
+<div class="line">Default value: 0.000762</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2214,7 +2372,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_method">
 <code class="descname">heating_design_air_flow_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Air Flow Method</cite></p>
-<p>Default value: DesignDay</p>
+<div class="line-block">
+<div class="line">Default value: DesignDay</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2236,10 +2396,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_rate">
 <code class="descname">heating_design_air_flow_rate</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_design_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Design Air Flow Rate</cite></p>
-<p>This input is used if Heating Design Air Flow Method is Flow/Zone.
-This value will be multiplied by the global or zone sizing factor and
-by zone multipliers.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">This input is used if Heating Design Air Flow Method is Flow/Zone.</div>
+<div class="line">This value will be multiplied by the global or zone sizing factor and</div>
+<div class="line">by zone multipliers.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2261,10 +2423,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow">
 <code class="descname">heating_maximum_air_flow</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Maximum Air Flow</cite></p>
-<p>default is 300 cfm
-This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
-Units: m3/s
-Default value: 0.1415762</p>
+<div class="line-block">
+<div class="line">default is 300 cfm</div>
+<div class="line">This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.</div>
+<div class="line">Units: m3/s</div>
+<div class="line">Default value: 0.1415762</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2286,9 +2450,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_fraction">
 <code class="descname">heating_maximum_air_flow_fraction</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Maximum Air Flow Fraction</cite></p>
-<p>fraction of the Heating Design Air Flow Rate
-This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
-Default value: 0.3</p>
+<div class="line-block">
+<div class="line">fraction of the Heating Design Air Flow Rate</div>
+<div class="line">This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.</div>
+<div class="line">Default value: 0.3</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2310,11 +2476,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_per_zone_floor_area">
 <code class="descname">heating_maximum_air_flow_per_zone_floor_area</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.heating_maximum_air_flow_per_zone_floor_area" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Maximum Air Flow per Zone Floor Area</cite></p>
-<p>default is .40 cfm/ft2
-This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.
-This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.
-Units: m3/s-m2
-Default value: 0.002032</p>
+<div class="line-block">
+<div class="line">default is .40 cfm/ft2</div>
+<div class="line">This field is used to size the heating design flow rate when Heating Design Air Flow Method = Flow/Zone.</div>
+<div class="line">This input is used for autosizing components when Heating Design Air Flow Method = DesignDayWithLimit.</div>
+<div class="line">Units: m3/s-m2</div>
+<div class="line">Default value: 0.002032</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2336,7 +2504,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_humidity_ratio">
 <code class="descname">zone_cooling_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Cooling Design Supply Air Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2358,9 +2528,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature">
 <code class="descname">zone_cooling_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Cooling Design Supply Air Temperature</cite></p>
-<p>Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-Supply Air Temperature Input Method = SupplyAirTemperature
-Units: C</p>
+<div class="line-block">
+<div class="line">Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design</div>
+<div class="line">Supply Air Temperature Input Method = SupplyAirTemperature</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2382,11 +2554,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_difference">
 <code class="descname">zone_cooling_design_supply_air_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Cooling Design Supply Air Temperature Difference</cite></p>
-<p>Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design
-Supply Air Temperature Input Method = TemperatureDifference
-The absolute value of this field will be subtracted from the zone temperature
-at peak load to calculate the Zone Cooling Design Supply Air Temperature.
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">Zone Cooling Design Supply Air Temperature is only used when Zone Cooling Design</div>
+<div class="line">Supply Air Temperature Input Method = TemperatureDifference</div>
+<div class="line">The absolute value of this field will be subtracted from the zone temperature</div>
+<div class="line">at peak load to calculate the Zone Cooling Design Supply Air Temperature.</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2408,7 +2582,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_input_method">
 <code class="descname">zone_cooling_design_supply_air_temperature_input_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_design_supply_air_temperature_input_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Cooling Design Supply Air Temperature Input Method</cite></p>
-<p>Default value: SupplyAirTemperature</p>
+<div class="line-block">
+<div class="line">Default value: SupplyAirTemperature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2430,7 +2606,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_cooling_sizing_factor">
 <code class="descname">zone_cooling_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_cooling_sizing_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Cooling Sizing Factor</cite></p>
-<p>if blank or zero, global cooling sizing factor from Sizing:Parameters is used.</p>
+<div class="line-block">
+<div class="line">if blank or zero, global cooling sizing factor from Sizing:Parameters is used.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2452,7 +2630,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_humidity_ratio">
 <code class="descname">zone_heating_design_supply_air_humidity_ratio</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_humidity_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Heating Design Supply Air Humidity Ratio</cite></p>
-<p>Units: kgWater/kgDryAir</p>
+<div class="line-block">
+<div class="line">Units: kgWater/kgDryAir</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2474,9 +2654,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature">
 <code class="descname">zone_heating_design_supply_air_temperature</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Heating Design Supply Air Temperature</cite></p>
-<p>Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-Supply Air Temperature Input Method = SupplyAirTemperature
-Units: C</p>
+<div class="line-block">
+<div class="line">Zone Heating Design Supply Air Temperature is only used when Zone Heating Design</div>
+<div class="line">Supply Air Temperature Input Method = SupplyAirTemperature</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2498,11 +2680,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_difference">
 <code class="descname">zone_heating_design_supply_air_temperature_difference</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Heating Design Supply Air Temperature Difference</cite></p>
-<p>Zone Heating Design Supply Air Temperature is only used when Zone Heating Design
-Supply Air Temperature Input Method = TemperatureDifference
-The absolute value of this field will be added to the zone temperature
-at peak load to calculate the Zone Heating Design Supply Air Temperature.
-Units: deltaC</p>
+<div class="line-block">
+<div class="line">Zone Heating Design Supply Air Temperature is only used when Zone Heating Design</div>
+<div class="line">Supply Air Temperature Input Method = TemperatureDifference</div>
+<div class="line">The absolute value of this field will be added to the zone temperature</div>
+<div class="line">at peak load to calculate the Zone Heating Design Supply Air Temperature.</div>
+<div class="line">Units: deltaC</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2524,7 +2708,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_input_method">
 <code class="descname">zone_heating_design_supply_air_temperature_input_method</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_design_supply_air_temperature_input_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Heating Design Supply Air Temperature Input Method</cite></p>
-<p>Default value: SupplyAirTemperature</p>
+<div class="line-block">
+<div class="line">Default value: SupplyAirTemperature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2546,7 +2732,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.hvac_design_objects.SizingZone.zone_heating_sizing_factor">
 <code class="descname">zone_heating_sizing_factor</code><a class="headerlink" href="#pyidf.hvac_design_objects.SizingZone.zone_heating_sizing_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Heating Sizing Factor</cite></p>
-<p>if blank or zero, global heating sizing factor from Sizing:Parameters is used.</p>
+<div class="line-block">
+<div class="line">if blank or zero, global heating sizing factor from Sizing:Parameters is used.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

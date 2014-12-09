@@ -69,11 +69,13 @@ units. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and ZoneTerminalUnitLis
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.availability_schedule_name">
 <code class="descname">availability_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.availability_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Availability Schedule Name</cite></p>
-<p>Availability schedule name for this system. Schedule value &gt; 0 means the system is available.
-If this field is blank, the system is always available.
-Enter the name of a schedule that defines the availability of the unit.
-Schedule values of 0 denote the unit is off. All other values denote the unit is available.
-If this field is left blank, the unit is available the entire simulation.</p>
+<div class="line-block">
+<div class="line">Availability schedule name for this system. Schedule value &gt; 0 means the system is available.</div>
+<div class="line">If this field is blank, the system is always available.</div>
+<div class="line">Enter the name of a schedule that defines the availability of the unit.</div>
+<div class="line">Schedule values of 0 denote the unit is off. All other values denote the unit is available.</div>
+<div class="line">If this field is left blank, the unit is available the entire simulation.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -95,12 +97,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_capacity">
 <code class="descname">basin_heater_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Basin Heater Capacity</cite></p>
-<p>This field is only used for Condenser Type = EvaporativelyCooled and for periods
-when the basin heater is available (field Basin Heater Operating Schedule Name).
-For this situation, the heater maintains the basin water temperature at the basin heater
-setpoint temperature when the outdoor air temperature falls below the setpoint temperature.
-The basin heater only operates when the DX coil is off.
-Units: W/K</p>
+<div class="line-block">
+<div class="line">This field is only used for Condenser Type = EvaporativelyCooled and for periods</div>
+<div class="line">when the basin heater is available (field Basin Heater Operating Schedule Name).</div>
+<div class="line">For this situation, the heater maintains the basin water temperature at the basin heater</div>
+<div class="line">setpoint temperature when the outdoor air temperature falls below the setpoint temperature.</div>
+<div class="line">The basin heater only operates when the DX coil is off.</div>
+<div class="line">Units: W/K</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -122,11 +126,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_operating_schedule_name">
 <code class="descname">basin_heater_operating_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_operating_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Basin Heater Operating Schedule Name</cite></p>
-<p>This field is only used for Condenser Type = EvaporativelyCooled.
-Schedule values greater than 0 allow the basin heater to operate whenever the outdoor
-air dry-bulb temperature is below the basin heater setpoint temperature.
-If a schedule name is not entered, the basin heater is allowed to operate
-throughout the entire simulation.</p>
+<div class="line-block">
+<div class="line">This field is only used for Condenser Type = EvaporativelyCooled.</div>
+<div class="line">Schedule values greater than 0 allow the basin heater to operate whenever the outdoor</div>
+<div class="line">air dry-bulb temperature is below the basin heater setpoint temperature.</div>
+<div class="line">If a schedule name is not entered, the basin heater is allowed to operate</div>
+<div class="line">throughout the entire simulation.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -148,11 +154,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_setpoint_temperature">
 <code class="descname">basin_heater_setpoint_temperature</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.basin_heater_setpoint_temperature" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Basin Heater Setpoint Temperature</cite></p>
-<p>This field is only used for Condenser Type = EvaporativelyCooled.
-Enter the outdoor dry-bulb temperature when the basin heater turns on.
-Units: C
-Default value: 2.0
-value &gt;= 2.0</p>
+<div class="line-block">
+<div class="line">This field is only used for Condenser Type = EvaporativelyCooled.</div>
+<div class="line">Enter the outdoor dry-bulb temperature when the basin heater turns on.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 2.0</div>
+<div class="line">value &gt;= 2.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -174,9 +182,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_inlet_node_name">
 <code class="descname">condenser_inlet_node_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_inlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Condenser Inlet Node Name</cite></p>
-<p>Choose an outside air node name or leave this field blank to use weather data.
-If this field is blank, the Condenser Type is assumed to be AirCooled.
-This input must be specified if Condenser Type = WaterCooled.</p>
+<div class="line-block">
+<div class="line">Choose an outside air node name or leave this field blank to use weather data.</div>
+<div class="line">If this field is blank, the Condenser Type is assumed to be AirCooled.</div>
+<div class="line">This input must be specified if Condenser Type = WaterCooled.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -198,8 +208,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_outlet_node_name">
 <code class="descname">condenser_outlet_node_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_outlet_node_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Condenser Outlet Node Name</cite></p>
-<p>Enter a water outlet node name if Condenser Type = WaterCooled.
-Leave this field blank if Condenser Type = Air or EvaporativelyCooled.</p>
+<div class="line-block">
+<div class="line">Enter a water outlet node name if Condenser Type = WaterCooled.</div>
+<div class="line">Leave this field blank if Condenser Type = Air or EvaporativelyCooled.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -221,8 +233,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_type">
 <code class="descname">condenser_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.condenser_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Condenser Type</cite></p>
-<p>Select either an air-cooled, evaporatively-cooled or water-cooled condenser.
-Default value: AirCooled</p>
+<div class="line-block">
+<div class="line">Select either an air-cooled, evaporatively-cooled or water-cooled condenser.</div>
+<div class="line">Default value: AirCooled</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -244,12 +258,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_boundary_curve_name">
 <code class="descname">cooling_capacity_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Capacity Ratio Boundary Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve object is used to allow separate low and high cooling capacity ratio
-performance curves. This curve represents a line passing through the points where
-performance changes. The curve calculates outdoor dry-bulb temperature given weighted
-average indoor wet-bulb temperature. If a single performance curve is used,
-leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve object is used to allow separate low and high cooling capacity ratio</div>
+<div class="line">performance curves. This curve represents a line passing through the points where</div>
+<div class="line">performance changes. The curve calculates outdoor dry-bulb temperature given weighted</div>
+<div class="line">average indoor wet-bulb temperature. If a single performance curve is used,</div>
+<div class="line">leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -271,12 +287,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name">
 <code class="descname">cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Capacity Ratio Modifier Function of High Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-This curve object is used to describe the high outdoor temperature
-performance curve used to describe cooling capacity ratio.
-This curve is used when a single performance curve does not accurately describe
-cooling capacity ratio as a function of temperature.
-If a single performance curve is used, leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">This curve object is used to describe the high outdoor temperature</div>
+<div class="line">performance curve used to describe cooling capacity ratio.</div>
+<div class="line">This curve is used when a single performance curve does not accurately describe</div>
+<div class="line">cooling capacity ratio as a function of temperature.</div>
+<div class="line">If a single performance curve is used, leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -298,11 +316,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name">
 <code class="descname">cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter a curve name that represents full load cooling capacity ratio as a
-function of outdoor dry-bulb temperature and indoor wet-bulb temperature.
-Up to two curves are allowed if the performance cannot be represented by a single curve.
-The following two fields are used if two curves are required.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter a curve name that represents full load cooling capacity ratio as a</div>
+<div class="line">function of outdoor dry-bulb temperature and indoor wet-bulb temperature.</div>
+<div class="line">Up to two curves are allowed if the performance cannot be represented by a single curve.</div>
+<div class="line">The following two fields are used if two curves are required.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -324,11 +344,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_combination_ratio_correction_factor_curve_name">
 <code class="descname">cooling_combination_ratio_correction_factor_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_combination_ratio_correction_factor_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Combination Ratio Correction Factor Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve defines how rated capacity changes when the total indoor terminal unit cooling
-capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.
-If this field is left blank, the model assumes total indoor terminal unit cooling
-capacity is equal to the Gross Rated Total Cooling Capacity defined above.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve defines how rated capacity changes when the total indoor terminal unit cooling</div>
+<div class="line">capacity is greater than the Gross Rated Total Cooling Capacity defined in this object.</div>
+<div class="line">If this field is left blank, the model assumes total indoor terminal unit cooling</div>
+<div class="line">capacity is equal to the Gross Rated Total Cooling Capacity defined above.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -350,12 +372,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_boundary_curve_name">
 <code class="descname">cooling_energy_input_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Energy Input Ratio Boundary Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve object is used to allow separate low and high cooling energy input ratio
-performance curves. This curve represents a line passing through the points where
-performance changes. The curve calculates outdoor dry-bulb temperature given weighted
-average indoor wet-bulb temperature. If a single performance curve is used,
-leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve object is used to allow separate low and high cooling energy input ratio</div>
+<div class="line">performance curves. This curve represents a line passing through the points where</div>
+<div class="line">performance changes. The curve calculates outdoor dry-bulb temperature given weighted</div>
+<div class="line">average indoor wet-bulb temperature. If a single performance curve is used,</div>
+<div class="line">leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -377,12 +401,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name">
 <code class="descname">cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-Enter a curve name that represents cooling energy ratio as a function of
-part-load ratio for part-load ratios greater than 1. Part-load ratios
-can exceed 1 in variable speed compresson systems.
-If this field is left blank, the model assumes energy is proportional to
-part-load ratio.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">Enter a curve name that represents cooling energy ratio as a function of</div>
+<div class="line">part-load ratio for part-load ratios greater than 1. Part-load ratios</div>
+<div class="line">can exceed 1 in variable speed compresson systems.</div>
+<div class="line">If this field is left blank, the model assumes energy is proportional to</div>
+<div class="line">part-load ratio.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -404,11 +430,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name">
 <code class="descname">cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-This curve object is used to describe the high outdoor temperature
-performance curve used to describe cooling energy ratio.
-This curve is used when a single performance curve does not accurately describe
-cooling energy ratio as a function of temperature</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">This curve object is used to describe the high outdoor temperature</div>
+<div class="line">performance curve used to describe cooling energy ratio.</div>
+<div class="line">This curve is used when a single performance curve does not accurately describe</div>
+<div class="line">cooling energy ratio as a function of temperature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -430,11 +458,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name">
 <code class="descname">cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-Enter a curve name that represents cooling energy ratio as a function of
-part-load ratio for part-load ratios less than or equal to 1.
-If this field is left blank, the model assumes energy is proportional to
-part-load ratio.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">Enter a curve name that represents cooling energy ratio as a function of</div>
+<div class="line">part-load ratio for part-load ratios less than or equal to 1.</div>
+<div class="line">If this field is left blank, the model assumes energy is proportional to</div>
+<div class="line">part-load ratio.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -456,9 +486,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name">
 <code class="descname">cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter a curve name that represents cooling energy ratio as a function of
-outdoor dry-bulb temperature and indoor wet-bulb temperature</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter a curve name that represents cooling energy ratio as a function of</div>
+<div class="line">outdoor dry-bulb temperature and indoor wet-bulb temperature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -480,9 +512,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_partload_fraction_correlation_curve_name">
 <code class="descname">cooling_partload_fraction_correlation_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.cooling_partload_fraction_correlation_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Cooling Part-Load Fraction Correlation Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve defines the cycling losses when the heat pump compressor cycles on and off
-below the Minimum Heat Pump Part-Load Ratio specified in the field below.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve defines the cycling losses when the heat pump compressor cycles on and off</div>
+<div class="line">below the Minimum Heat Pump Part-Load Ratio specified in the field below.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -504,10 +538,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.crankcase_heater_power_per_compressor">
 <code class="descname">crankcase_heater_power_per_compressor</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.crankcase_heater_power_per_compressor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Crankcase Heater Power per Compressor</cite></p>
-<p>Enter the value of the resistive heater located in the compressor(s). This heater
-is used to warm the refrigerant and oil when the compressor is off.
-Units: W
-Default value: 33.0</p>
+<div class="line-block">
+<div class="line">Enter the value of the resistive heater located in the compressor(s). This heater</div>
+<div class="line">is used to warm the refrigerant and oil when the compressor is off.</div>
+<div class="line">Units: W</div>
+<div class="line">Default value: 33.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -529,9 +565,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_control">
 <code class="descname">defrost_control</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_control" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Defrost Control</cite></p>
-<p>Choose a defrost control type. Either use a fixed Timed defrost period or select
-OnDemand to defrost only when necessary.
-Default value: Timed</p>
+<div class="line-block">
+<div class="line">Choose a defrost control type. Either use a fixed Timed defrost period or select</div>
+<div class="line">OnDemand to defrost only when necessary.</div>
+<div class="line">Default value: Timed</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -553,8 +591,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name">
 <code class="descname">defrost_energy_input_ratio_modifier_function_of_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Defrost Energy Input Ratio Modifier Function of Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-A valid performance curve must be used if reversecycle defrost strategy is selected.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">A valid performance curve must be used if reversecycle defrost strategy is selected.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -576,10 +616,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_strategy">
 <code class="descname">defrost_strategy</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Defrost Strategy</cite></p>
-<p>Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling
-to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater
-to melt the frost.
-Default value: Resistive</p>
+<div class="line-block">
+<div class="line">Select a defrost strategy. Reverse cycle reverses the operating mode from heating to cooling</div>
+<div class="line">to melt frost formation on the condenser coil. The resistive strategy uses a resitive heater</div>
+<div class="line">to melt the frost.</div>
+<div class="line">Default value: Resistive</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -601,10 +643,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_time_period_fraction">
 <code class="descname">defrost_time_period_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.defrost_time_period_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Defrost Time Period Fraction</cite></p>
-<p>Fraction of time in defrost mode.
-Only applicable if timed defrost control is specified.
-Units: dimensionless
-Default value: 0.058333</p>
+<div class="line-block">
+<div class="line">Fraction of time in defrost mode.</div>
+<div class="line">Only applicable if timed defrost control is specified.</div>
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 0.058333</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -626,8 +670,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode">
 <code class="descname">equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Equivalent Piping Length used for Piping Correction Factor in Cooling Mode</cite></p>
-<p>Enter the equivalent length of the farthest terminal unit from the condenser
-Units: m</p>
+<div class="line-block">
+<div class="line">Enter the equivalent length of the farthest terminal unit from the condenser</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -649,8 +695,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode">
 <code class="descname">equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Equivalent Piping Length used for Piping Correction Factor in Heating Mode</cite></p>
-<p>Enter the equivalent length of the farthest terminal unit from the condenser
-Units: m</p>
+<div class="line-block">
+<div class="line">Enter the equivalent length of the farthest terminal unit from the condenser</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -672,9 +720,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_air_flow_rate">
 <code class="descname">evaporative_condenser_air_flow_rate</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_air_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Evaporative Condenser Air Flow Rate</cite></p>
-<p>Used to calculate evaporative condenser water use.
-This field is only used when the Condenser Type = EvaporativelyCooled.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Used to calculate evaporative condenser water use.</div>
+<div class="line">This field is only used when the Condenser Type = EvaporativelyCooled.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -694,11 +744,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_effectiveness">
 <code class="descname">evaporative_condenser_effectiveness</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_effectiveness" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Evaporative Condenser Effectiveness</cite></p>
-<p>Enter the effectiveness of the evaporatively cooled condenser.
-This field is only used when the Condenser Type = EvaporativelyCooled.
-Units: dimensionless
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">Enter the effectiveness of the evaporatively cooled condenser.</div>
+<div class="line">This field is only used when the Condenser Type = EvaporativelyCooled.</div>
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -720,9 +772,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_pump_rated_power_consumption">
 <code class="descname">evaporative_condenser_pump_rated_power_consumption</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.evaporative_condenser_pump_rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Evaporative Condenser Pump Rated Power Consumption</cite></p>
-<p>Rated power consumed by the evaporative condenser&#8217;s water pump.
-This field is only used when the Condenser Type = EvaporativelyCooled.
-Units: W</p>
+<div class="line-block">
+<div class="line">Rated power consumed by the evaporative condenser&#8217;s water pump.</div>
+<div class="line">This field is only used when the Condenser Type = EvaporativelyCooled.</div>
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -742,7 +796,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.fuel_type">
 <code class="descname">fuel_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.fuel_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fuel Type</cite></p>
-<p>Default value: Electricity</p>
+<div class="line-block">
+<div class="line">Default value: Electricity</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -764,11 +820,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_cooling_cop">
 <code class="descname">gross_rated_cooling_cop</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_cooling_cop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gross Rated Cooling COP</cite></p>
-<p>Enter the coefficient of performance at rated conditions or leave blank to use default.
-COP includes compressor and condenser fan electrical energy input
-COP does not include supply fan heat or supply fan electric power input
-Units: W/W
-Default value: 3.3</p>
+<div class="line-block">
+<div class="line">Enter the coefficient of performance at rated conditions or leave blank to use default.</div>
+<div class="line">COP includes compressor and condenser fan electrical energy input</div>
+<div class="line">COP does not include supply fan heat or supply fan electric power input</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 3.3</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -790,9 +848,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_capacity">
 <code class="descname">gross_rated_heating_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gross Rated Heating Capacity</cite></p>
-<p>Enter the heating capacity in watts at rated conditions or set to autosize.
-Heating capacity not accounting for the effect of supply air fan heat
-Units: W</p>
+<div class="line-block">
+<div class="line">Enter the heating capacity in watts at rated conditions or set to autosize.</div>
+<div class="line">Heating capacity not accounting for the effect of supply air fan heat</div>
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -812,10 +872,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_cop">
 <code class="descname">gross_rated_heating_cop</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_heating_cop" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gross Rated Heating COP</cite></p>
-<p>COP includes compressor and condenser fan electrical energy input
-COP does not include supply fan heat or supply fan electrical energy input
-Units: W/W
-Default value: 3.4</p>
+<div class="line-block">
+<div class="line">COP includes compressor and condenser fan electrical energy input</div>
+<div class="line">COP does not include supply fan heat or supply fan electrical energy input</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 3.4</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -837,9 +899,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_total_cooling_capacity">
 <code class="descname">gross_rated_total_cooling_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.gross_rated_total_cooling_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Gross Rated Total Cooling Capacity</cite></p>
-<p>Enter the total cooling capacity in watts at rated conditions or set to autosize.
-Total cooling capacity not accounting for the effect of supply air fan heat
-Units: W</p>
+<div class="line-block">
+<div class="line">Enter the total cooling capacity in watts at rated conditions or set to autosize.</div>
+<div class="line">Total cooling capacity not accounting for the effect of supply air fan heat</div>
+<div class="line">Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -859,7 +923,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_name">
 <code class="descname">heat_pump_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Pump Name</cite></p>
-<p>Enter a unique name for this variable refrigerant flow heat pump.</p>
+<div class="line-block">
+<div class="line">Enter a unique name for this variable refrigerant flow heat pump.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -881,8 +947,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_waste_heat_recovery">
 <code class="descname">heat_pump_waste_heat_recovery</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_pump_waste_heat_recovery" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Pump Waste Heat Recovery</cite></p>
-<p>This field is reserved for future use. The only valid choice is No.
-Default value: No</p>
+<div class="line-block">
+<div class="line">This field is reserved for future use. The only valid choice is No.</div>
+<div class="line">Default value: No</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -904,10 +972,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_modifier_curve_name">
 <code class="descname">heat_recovery_cooling_capacity_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Cooling Capacity Modifier Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter the name of a performance curve which represents
-the change in cooling capacity when heat recovery is active
-A default constant of 0.9 is used if this input is blank</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter the name of a performance curve which represents</div>
+<div class="line">the change in cooling capacity when heat recovery is active</div>
+<div class="line">A default constant of 0.9 is used if this input is blank</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -929,10 +999,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_time_constant">
 <code class="descname">heat_recovery_cooling_capacity_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_capacity_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Cooling Capacity Time Constant</cite></p>
-<p>Enter the time constant used to model the transition
-from cooling only mode to heat recovery mode
-Units: hr
-Default value: 0.15</p>
+<div class="line-block">
+<div class="line">Enter the time constant used to model the transition</div>
+<div class="line">from cooling only mode to heat recovery mode</div>
+<div class="line">Units: hr</div>
+<div class="line">Default value: 0.15</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -954,10 +1026,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_modifier_curve_name">
 <code class="descname">heat_recovery_cooling_energy_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Cooling Energy Modifier Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter the name of a performance curve which represents
-the change in cooling energy when heat recovery is active
-A default constant of 1.1 is used if this input is blank</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter the name of a performance curve which represents</div>
+<div class="line">the change in cooling energy when heat recovery is active</div>
+<div class="line">A default constant of 1.1 is used if this input is blank</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -979,9 +1053,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_time_constant">
 <code class="descname">heat_recovery_cooling_energy_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_cooling_energy_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Cooling Energy Time Constant</cite></p>
-<p>Enter the time constant used to model the transition
-from cooling only mode to heat recovery mode
-Units: hr</p>
+<div class="line-block">
+<div class="line">Enter the time constant used to model the transition</div>
+<div class="line">from cooling only mode to heat recovery mode</div>
+<div class="line">Units: hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1003,10 +1079,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_modifier_curve_name">
 <code class="descname">heat_recovery_heating_capacity_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Heating Capacity Modifier Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter the name of a performance curve which represents
-the change in heating capacity when heat recovery is active
-A default constant of 1.1 is used if this input is blank</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter the name of a performance curve which represents</div>
+<div class="line">the change in heating capacity when heat recovery is active</div>
+<div class="line">A default constant of 1.1 is used if this input is blank</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1028,10 +1106,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_time_constant">
 <code class="descname">heat_recovery_heating_capacity_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_capacity_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Heating Capacity Time Constant</cite></p>
-<p>Enter the time constant used to model the transition
-from cooling only mode to heat recovery mode
-Units: hr
-Default value: 0.15</p>
+<div class="line-block">
+<div class="line">Enter the time constant used to model the transition</div>
+<div class="line">from cooling only mode to heat recovery mode</div>
+<div class="line">Units: hr</div>
+<div class="line">Default value: 0.15</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1053,10 +1133,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_modifier_curve_name">
 <code class="descname">heat_recovery_heating_energy_modifier_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_modifier_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Heating Energy Modifier Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter the name of a performance curve which represents
-the change in heating electric consumption rate when heat recovery is active
-A default constant of 1.1 is used if this input is blank</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter the name of a performance curve which represents</div>
+<div class="line">the change in heating electric consumption rate when heat recovery is active</div>
+<div class="line">A default constant of 1.1 is used if this input is blank</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1078,9 +1160,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_time_constant">
 <code class="descname">heat_recovery_heating_energy_time_constant</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heat_recovery_heating_energy_time_constant" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heat Recovery Heating Energy Time Constant</cite></p>
-<p>Enter the time constant used to model the transition
-from cooling only mode to heat recovery mode
-Units: hr</p>
+<div class="line-block">
+<div class="line">Enter the time constant used to model the transition</div>
+<div class="line">from cooling only mode to heat recovery mode</div>
+<div class="line">Units: hr</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1102,13 +1186,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_boundary_curve_name">
 <code class="descname">heating_capacity_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Capacity Ratio Boundary Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve object is used to allow separate low and high heating capacity ratio
-performance curves. This curve represents a line passing through the points where
-performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
-given weighted average indoor dry-bulb temperature. See Heating Performance Curve
-Outdoor Temperature Type input below to determine which outdoor temperature type to use.
-If a single performance curve is used, leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve object is used to allow separate low and high heating capacity ratio</div>
+<div class="line">performance curves. This curve represents a line passing through the points where</div>
+<div class="line">performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature</div>
+<div class="line">given weighted average indoor dry-bulb temperature. See Heating Performance Curve</div>
+<div class="line">Outdoor Temperature Type input below to determine which outdoor temperature type to use.</div>
+<div class="line">If a single performance curve is used, leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1130,12 +1216,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name">
 <code class="descname">heating_capacity_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Capacity Ratio Modifier Function of High Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-This curve object is used to describe the high outdoor temperature
-performance curve used to describe heating capacity ratio.
-This curve is used when a single performance curve does not accurately describe
-heating capacity ratio as a function of temperature.
-If a single performance curve is used, leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">This curve object is used to describe the high outdoor temperature</div>
+<div class="line">performance curve used to describe heating capacity ratio.</div>
+<div class="line">This curve is used when a single performance curve does not accurately describe</div>
+<div class="line">heating capacity ratio as a function of temperature.</div>
+<div class="line">If a single performance curve is used, leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1157,14 +1245,16 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name">
 <code class="descname">heating_capacity_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Capacity Ratio Modifier Function of Low Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter a curve name that represents full load heating capacity ratio as a
-function of outdoor wet-bulb temperature and indoor dry-bulb temperature.
-Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
-See Heating Performance Curve Outdoor Temperature Type input below to determine which
-outdoor temperature type to use.
-Up to two curves are allowed if the performance cannot be represented by a single curve.
-The following two fields are used if two curves are required.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter a curve name that represents full load heating capacity ratio as a</div>
+<div class="line">function of outdoor wet-bulb temperature and indoor dry-bulb temperature.</div>
+<div class="line">Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.</div>
+<div class="line">See Heating Performance Curve Outdoor Temperature Type input below to determine which</div>
+<div class="line">outdoor temperature type to use.</div>
+<div class="line">Up to two curves are allowed if the performance cannot be represented by a single curve.</div>
+<div class="line">The following two fields are used if two curves are required.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1186,11 +1276,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_combination_ratio_correction_factor_curve_name">
 <code class="descname">heating_combination_ratio_correction_factor_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_combination_ratio_correction_factor_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Combination Ratio Correction Factor Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve defines how rated capacity changes when the total indoor terminal unit heating
-capacity is greater than the Gross Rated Heating Capacity defined in this object.
-If this field is left blank, the model assumes total indoor terminal unit heating
-capacity is equal to the Gross Rated Heating Capacity defined above.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve defines how rated capacity changes when the total indoor terminal unit heating</div>
+<div class="line">capacity is greater than the Gross Rated Heating Capacity defined in this object.</div>
+<div class="line">If this field is left blank, the model assumes total indoor terminal unit heating</div>
+<div class="line">capacity is equal to the Gross Rated Heating Capacity defined above.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1212,13 +1304,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_boundary_curve_name">
 <code class="descname">heating_energy_input_ratio_boundary_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_boundary_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Energy Input Ratio Boundary Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve object is used to allow separate low and high heating energy input ratio
-performance curves. This curve represents a line passing through the points where
-performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature
-given weighted average indoor dry-bulb temperature. See Heating Performance Curve
-Outdoor Temperature Type input below to determine which outdoor temperature type to use.
-If a single performance curve is used, leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve object is used to allow separate low and high heating energy input ratio</div>
+<div class="line">performance curves. This curve represents a line passing through the points where</div>
+<div class="line">performance changes. The curve calculates outdoor dry-bulb or wet-bulb temperature</div>
+<div class="line">given weighted average indoor dry-bulb temperature. See Heating Performance Curve</div>
+<div class="line">Outdoor Temperature Type input below to determine which outdoor temperature type to use.</div>
+<div class="line">If a single performance curve is used, leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1240,8 +1334,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name">
 <code class="descname">heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve represents the heating energy input ratio for part-load ratios greater than 1.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve represents the heating energy input ratio for part-load ratios greater than 1.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1263,9 +1359,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name">
 <code class="descname">heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Energy Input Ratio Modifier Function of High Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-This curve object is used to allow separate performance curves for heating energy.
-If a single performance curve is used, leave this field blank.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">This curve object is used to allow separate performance curves for heating energy.</div>
+<div class="line">If a single performance curve is used, leave this field blank.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1287,8 +1385,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name">
 <code class="descname">heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve represents the heating energy input ratio for part-load ratios less than 1.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve represents the heating energy input ratio for part-load ratios less than 1.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1310,12 +1410,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name">
 <code class="descname">heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name</cite></p>
-<p>Table:TwoIndependentVariables object can also be used
-Enter a curve name that represents heating energy ratio as a function of
-outdoor wet-bulb temperature and indoor dry-bulb temperature
-Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.
-See Heating Performance Curve Outdoor Temperature Type input below to determine which
-outdoor temperature type to use.</p>
+<div class="line-block">
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">Enter a curve name that represents heating energy ratio as a function of</div>
+<div class="line">outdoor wet-bulb temperature and indoor dry-bulb temperature</div>
+<div class="line">Outdoor dry-bulb temperature may be used if wet-bulb temperature data is unavailable.</div>
+<div class="line">See Heating Performance Curve Outdoor Temperature Type input below to determine which</div>
+<div class="line">outdoor temperature type to use.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1337,9 +1439,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_partload_fraction_correlation_curve_name">
 <code class="descname">heating_partload_fraction_correlation_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_partload_fraction_correlation_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Part-Load Fraction Correlation Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-This curve defines the cycling losses when the heat pump compressor cycles on and off
-below the Minimum Heat Pump Part-Load Ratio specified in the following field.</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">This curve defines the cycling losses when the heat pump compressor cycles on and off</div>
+<div class="line">below the Minimum Heat Pump Part-Load Ratio specified in the following field.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1361,10 +1465,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_performance_curve_outdoor_temperature_type">
 <code class="descname">heating_performance_curve_outdoor_temperature_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.heating_performance_curve_outdoor_temperature_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Heating Performance Curve Outdoor Temperature Type</cite></p>
-<p>Determines temperature type for heating capacity curves and heating energy curves.
-This input determines whether the outdoor air dry-bulb or wet-bulb temperature
-is used to evaluate these curves.
-Default value: WetBulbTemperature</p>
+<div class="line-block">
+<div class="line">Determines temperature type for heating capacity curves and heating energy curves.</div>
+<div class="line">This input determines whether the outdoor air dry-bulb or wet-bulb temperature</div>
+<div class="line">is used to evaluate these curves.</div>
+<div class="line">Default value: WetBulbTemperature</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1386,13 +1492,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_capacity_fraction">
 <code class="descname">initial_heat_recovery_cooling_capacity_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_capacity_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Initial Heat Recovery Cooling Capacity Fraction</cite></p>
-<p>Enter the fractional capacity available at the start
-of heat recovery mode. The capacity exponentially approaches
-the steady-state value according to the inputs for
-Heat Recovery Cooling Capacity Modifier and Heat Recovery
-Cooling Capacity Time Constant
-Units: W/W
-Default value: 0.5</p>
+<div class="line-block">
+<div class="line">Enter the fractional capacity available at the start</div>
+<div class="line">of heat recovery mode. The capacity exponentially approaches</div>
+<div class="line">the steady-state value according to the inputs for</div>
+<div class="line">Heat Recovery Cooling Capacity Modifier and Heat Recovery</div>
+<div class="line">Cooling Capacity Time Constant</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1414,13 +1522,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_energy_fraction">
 <code class="descname">initial_heat_recovery_cooling_energy_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_cooling_energy_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Initial Heat Recovery Cooling Energy Fraction</cite></p>
-<p>Enter the fractional electric consumption rate at the start
-of heat recovery mode. The electric consumption rate exponentially
-approaches the steady-state value according to the inputs for
-Heat Recovery Cooling Energy Modifier and Heat Recovery
-Cooling Energy Time Constant
-Units: W/W
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Enter the fractional electric consumption rate at the start</div>
+<div class="line">of heat recovery mode. The electric consumption rate exponentially</div>
+<div class="line">approaches the steady-state value according to the inputs for</div>
+<div class="line">Heat Recovery Cooling Energy Modifier and Heat Recovery</div>
+<div class="line">Cooling Energy Time Constant</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1442,13 +1552,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_capacity_fraction">
 <code class="descname">initial_heat_recovery_heating_capacity_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_capacity_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Initial Heat Recovery Heating Capacity Fraction</cite></p>
-<p>Enter the fractional capacity available at the start
-of heat recovery mode. The capacity exponentially approaches
-the steady-state value according to the inputs for
-Heat Recovery Heating Capacity Modifier and Heat Recovery
-Heating Capacity Time Constant
-Units: W/W
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Enter the fractional capacity available at the start</div>
+<div class="line">of heat recovery mode. The capacity exponentially approaches</div>
+<div class="line">the steady-state value according to the inputs for</div>
+<div class="line">Heat Recovery Heating Capacity Modifier and Heat Recovery</div>
+<div class="line">Heating Capacity Time Constant</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1470,13 +1582,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_energy_fraction">
 <code class="descname">initial_heat_recovery_heating_energy_fraction</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.initial_heat_recovery_heating_energy_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Initial Heat Recovery Heating Energy Fraction</cite></p>
-<p>Enter the fractional electric consumption rate at the start
-of heat recovery mode. The electric consumption rate exponentially
-approaches the steady-state value according to the inputs for
-Heat Recovery Cooling Energy Modifier and Heat Recovery
-Cooling Energy Time Constant
-Units: W/W
-Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Enter the fractional electric consumption rate at the start</div>
+<div class="line">of heat recovery mode. The electric consumption rate exponentially</div>
+<div class="line">approaches the steady-state value according to the inputs for</div>
+<div class="line">Heat Recovery Cooling Energy Modifier and Heat Recovery</div>
+<div class="line">Cooling Energy Time Constant</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1498,9 +1612,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.master_thermostat_priority_control_type">
 <code class="descname">master_thermostat_priority_control_type</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.master_thermostat_priority_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Master Thermostat Priority Control Type</cite></p>
-<p>Choose a thermostat control logic scheme. If these control types fail to control zone
-temperature within a reasonable limit, consider using multiple VRF systems
-Default value: MasterThermostatPriority</p>
+<div class="line-block">
+<div class="line">Choose a thermostat control logic scheme. If these control types fail to control zone</div>
+<div class="line">temperature within a reasonable limit, consider using multiple VRF systems</div>
+<div class="line">Default value: MasterThermostatPriority</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1522,9 +1638,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_crankcase_heater">
 <code class="descname">maximum_outdoor_drybulb_temperature_for_crankcase_heater</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_crankcase_heater" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Dry-Bulb Temperature for Crankcase Heater</cite></p>
-<p>Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
-Units: C
-Default value: 5.0</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor temperature above which the crankcase heaters are disabled.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 5.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1546,9 +1664,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_defrost_operation">
 <code class="descname">maximum_outdoor_drybulb_temperature_for_defrost_operation</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_drybulb_temperature_for_defrost_operation" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Dry-bulb Temperature for Defrost Operation</cite></p>
-<p>Enter the maximum outdoor temperature above which the crankcase heaters are disabled.
-Units: C
-Default value: 5.0</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor temperature above which the crankcase heaters are disabled.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 5.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1570,10 +1690,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_cooling_mode">
 <code class="descname">maximum_outdoor_temperature_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature in Cooling Mode</cite></p>
-<p>Enter the maximum outdoor temperature allowed for cooling operation.
-Cooling is disabled above this temperature.
-Units: C
-Default value: 43.0</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor temperature allowed for cooling operation.</div>
+<div class="line">Cooling is disabled above this temperature.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 43.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1595,9 +1717,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heat_recovery_mode">
 <code class="descname">maximum_outdoor_temperature_in_heat_recovery_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heat_recovery_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature in Heat Recovery Mode</cite></p>
-<p>The maximum outdoor temperature above which heat
-recovery mode will not operate.
-Units: C</p>
+<div class="line-block">
+<div class="line">The maximum outdoor temperature above which heat</div>
+<div class="line">recovery mode will not operate.</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1619,9 +1743,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heating_mode">
 <code class="descname">maximum_outdoor_temperature_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.maximum_outdoor_temperature_in_heating_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Outdoor Temperature in Heating Mode</cite></p>
-<p>Enter the maximum outdoor temperature allowed for heating operation.
-Units: C
-Default value: 16.0</p>
+<div class="line-block">
+<div class="line">Enter the maximum outdoor temperature allowed for heating operation.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: 16.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1643,11 +1769,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_heat_pump_partload_ratio">
 <code class="descname">minimum_heat_pump_partload_ratio</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_heat_pump_partload_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Heat Pump Part-Load Ratio</cite></p>
-<p>Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is
-below this value, the heat pump compressor will cycle to meet the cooling or heating
-demand.
-Units: dimensionless
-Default value: 0.15</p>
+<div class="line-block">
+<div class="line">Enter the minimum heat pump part-load ratio (PLR). When the cooling or heating PLR is</div>
+<div class="line">below this value, the heat pump compressor will cycle to meet the cooling or heating</div>
+<div class="line">demand.</div>
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 0.15</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1669,10 +1797,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_cooling_mode">
 <code class="descname">minimum_outdoor_temperature_in_cooling_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_cooling_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature in Cooling Mode</cite></p>
-<p>Enter the minimum outdoor temperature allowed for cooling operation.
-Cooling is disabled below this temperature.
-Units: C
-Default value: -6.0</p>
+<div class="line-block">
+<div class="line">Enter the minimum outdoor temperature allowed for cooling operation.</div>
+<div class="line">Cooling is disabled below this temperature.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -6.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1694,9 +1824,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heat_recovery_mode">
 <code class="descname">minimum_outdoor_temperature_in_heat_recovery_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heat_recovery_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature in Heat Recovery Mode</cite></p>
-<p>The minimum outdoor temperature below which heat
-recovery mode will not operate.
-Units: C</p>
+<div class="line-block">
+<div class="line">The minimum outdoor temperature below which heat</div>
+<div class="line">recovery mode will not operate.</div>
+<div class="line">Units: C</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1718,9 +1850,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heating_mode">
 <code class="descname">minimum_outdoor_temperature_in_heating_mode</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.minimum_outdoor_temperature_in_heating_mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Outdoor Temperature in Heating Mode</cite></p>
-<p>Enter the minimum outdoor temperature allowed for cooling operation.
-Units: C
-Default value: -20.0</p>
+<div class="line-block">
+<div class="line">Enter the minimum outdoor temperature allowed for cooling operation.</div>
+<div class="line">Units: C</div>
+<div class="line">Default value: -20.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1742,10 +1876,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.number_of_compressors">
 <code class="descname">number_of_compressors</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.number_of_compressors" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Number of Compressors</cite></p>
-<p>Enter the total number of compressor. This input is used only for crankcase
-heater calculations.
-Units: dimensionless
-Default value: 2</p>
+<div class="line-block">
+<div class="line">Enter the total number of compressor. This input is used only for crankcase</div>
+<div class="line">heater calculations.</div>
+<div class="line">Units: dimensionless</div>
+<div class="line">Default value: 2</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1767,11 +1903,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_cooling_mode_coefficient">
 <code class="descname">piping_correction_factor_for_height_in_cooling_mode_coefficient</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_cooling_mode_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Piping Correction Factor for Height in Cooling Mode Coefficient</cite></p>
-<p>PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-where L = length, H = height, and CR = combination ratio
-specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
-Units: 1/m</p>
+<div class="line-block">
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H</div>
+<div class="line">where L = length, H = height, and CR = combination ratio</div>
+<div class="line">specifies coefficient a4 (or a6 for biquadratic) in the PCF equation</div>
+<div class="line">Units: 1/m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1793,11 +1931,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_heating_mode_coefficient">
 <code class="descname">piping_correction_factor_for_height_in_heating_mode_coefficient</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_height_in_heating_mode_coefficient" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Piping Correction Factor for Height in Heating Mode Coefficient</cite></p>
-<p>PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-where L = length, H = height, and CR = combination ratio
-specifies coefficient a4 (or a6 for biquadratic) in the PCF equation
-Units: 1/m</p>
+<div class="line-block">
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H</div>
+<div class="line">where L = length, H = height, and CR = combination ratio</div>
+<div class="line">specifies coefficient a4 (or a6 for biquadratic) in the PCF equation</div>
+<div class="line">Units: 1/m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1819,12 +1959,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_cooling_mode_curve_name">
 <code class="descname">piping_correction_factor_for_length_in_cooling_mode_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_cooling_mode_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Piping Correction Factor for Length in Cooling Mode Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-Table:TwoIndependentVariables object can also be used
-PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)
-where L = length and CR = combination ratio
-specifies coefficients for a0, a1, a2, and a3 in the PCF equation</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR)</div>
+<div class="line">where L = length and CR = combination ratio</div>
+<div class="line">specifies coefficients for a0, a1, a2, and a3 in the PCF equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1846,12 +1988,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_heating_mode_curve_name">
 <code class="descname">piping_correction_factor_for_length_in_heating_mode_curve_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.piping_correction_factor_for_length_in_heating_mode_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Piping Correction Factor for Length in Heating Mode Curve Name</cite></p>
-<p>Table:OneIndependentVariable object can also be used
-Table:TwoIndependentVariables object can also be used
-PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H
-PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H
-where L = length and CR = combination ratio
-specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation</p>
+<div class="line-block">
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+<div class="line">Table:TwoIndependentVariables object can also be used</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*L^3 + a4*H</div>
+<div class="line">PCF = a0 + a1*L + a2*L^2 + a3*CR + a4*CR^2 + a5*(L)(CR) + a6*H</div>
+<div class="line">where L = length and CR = combination ratio</div>
+<div class="line">specifies coefficients for a0, a1, a2, and a3 (or a0-a5 for biquadratic) in the PCF equation</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1873,13 +2017,15 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio">
 <code class="descname">rated_heating_capacity_sizing_ratio</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.rated_heating_capacity_sizing_ratio" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Heating Capacity Sizing Ratio</cite></p>
-<p>If the Gross Rated Heating Capacity is autosized, the heating capacity is sized
-to be equal to the cooling capacity multiplied by this sizing ratio. The zone
-terminal unit heating coils are also sized using this ratio unless the sizing
-ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.
-Units: W/W
-Default value: 1.0
-value &gt;= 1.0</p>
+<div class="line-block">
+<div class="line">If the Gross Rated Heating Capacity is autosized, the heating capacity is sized</div>
+<div class="line">to be equal to the cooling capacity multiplied by this sizing ratio. The zone</div>
+<div class="line">terminal unit heating coils are also sized using this ratio unless the sizing</div>
+<div class="line">ratio input in the ZoneHVAC:TerminalUnit:VariableRefrigerantFlow object is entered.</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 1.0</div>
+<div class="line">value &gt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1901,11 +2047,13 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.ratio_of_compressor_size_to_total_compressor_capacity">
 <code class="descname">ratio_of_compressor_size_to_total_compressor_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.ratio_of_compressor_size_to_total_compressor_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Ratio of Compressor Size to Total Compressor Capacity</cite></p>
-<p>Enter the ratio of the first stage compressor to total compressor capacity.
-All other compressors are assumed to be equally sized. This inputs is used
-only for crankcase heater calculations.
-Units: W/W
-Default value: 0.5</p>
+<div class="line-block">
+<div class="line">Enter the ratio of the first stage compressor to total compressor capacity.</div>
+<div class="line">All other compressors are assumed to be equally sized. This inputs is used</div>
+<div class="line">only for crankcase heater calculations.</div>
+<div class="line">Units: W/W</div>
+<div class="line">Default value: 0.5</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1927,10 +2075,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.resistive_defrost_heater_capacity">
 <code class="descname">resistive_defrost_heater_capacity</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.resistive_defrost_heater_capacity" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Resistive Defrost Heater Capacity</cite></p>
-<p>Enter the size of the resistive defrost heating element.
-Only applicable if resistive defrost strategy is specified
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">Enter the size of the resistive defrost heating element.</div>
+<div class="line">Only applicable if resistive defrost strategy is specified</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1950,7 +2100,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.supply_water_storage_tank_name">
 <code class="descname">supply_water_storage_tank_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.supply_water_storage_tank_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Supply Water Storage Tank Name</cite></p>
-<p>A separate storage tank may be used to supply an evaporatively cooled condenser.</p>
+<div class="line-block">
+<div class="line">A separate storage tank may be used to supply an evaporatively cooled condenser.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1972,8 +2124,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.thermostat_priority_schedule_name">
 <code class="descname">thermostat_priority_schedule_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.thermostat_priority_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Thermostat Priority Schedule Name</cite></p>
-<p>this field is required if Master Thermostat Priority Control Type is Scheduled.
-Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.</p>
+<div class="line-block">
+<div class="line">this field is required if Master Thermostat Priority Control Type is Scheduled.</div>
+<div class="line">Schedule values of 0 denote cooling, 1 for heating, and all other values disable the system.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1995,8 +2149,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.vertical_height_used_for_piping_correction_factor">
 <code class="descname">vertical_height_used_for_piping_correction_factor</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.vertical_height_used_for_piping_correction_factor" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Vertical Height used for Piping Correction Factor</cite></p>
-<p>Enter the height difference between the highest and lowest terminal unit
-Units: m</p>
+<div class="line-block">
+<div class="line">Enter the height difference between the highest and lowest terminal unit</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2018,8 +2174,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.water_condenser_volume_flow_rate">
 <code class="descname">water_condenser_volume_flow_rate</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.water_condenser_volume_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Water Condenser Volume Flow Rate</cite></p>
-<p>Only used when Condenser Type = WaterCooled.
-Units: m3/s</p>
+<div class="line-block">
+<div class="line">Only used when Condenser Type = WaterCooled.</div>
+<div class="line">Units: m3/s</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2039,7 +2197,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_name_for_master_thermostat_location">
 <code class="descname">zone_name_for_master_thermostat_location</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_name_for_master_thermostat_location" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name for Master Thermostat Location</cite></p>
-<p>Enter the name of the zone where the master thermostat is located.</p>
+<div class="line-block">
+<div class="line">Enter the name of the zone where the master thermostat is located.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2061,8 +2221,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_terminal_unit_list_name">
 <code class="descname">zone_terminal_unit_list_name</code><a class="headerlink" href="#pyidf.variable_refrigerant_flow_equipment.AirConditionerVariableRefrigerantFlow.zone_terminal_unit_list_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Terminal Unit List Name</cite></p>
-<p>Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this
-heat pump.</p>
+<div class="line-block">
+<div class="line">Enter the name of a ZoneTerminalUnitList. This list connects zone terminal units to this</div>
+<div class="line">heat pump.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />

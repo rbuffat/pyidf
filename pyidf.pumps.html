@@ -119,7 +119,9 @@ This Headered pump object describes a pump bank with more than 1 pump in paralle
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme">
 <code class="descname">flow_sequencing_control_scheme</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.flow_sequencing_control_scheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Sequencing Control Scheme</cite></p>
-<p>Default value: Sequential</p>
+<div class="line-block">
+<div class="line">Default value: Sequential</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -141,7 +143,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
 <code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -184,10 +188,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.motor_efficiency">
 <code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Motor Efficiency</cite></p>
-<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
-an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the motor efficiency only. When the Rated Power Consumption if autosized,</div>
+<div class="line">an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -272,7 +278,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.pump_control_type">
 <code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Control Type</cite></p>
-<p>Default value: Continuous</p>
+<div class="line-block">
+<div class="line">Default value: Continuous</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -294,9 +302,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name">
 <code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
-<p>Modifies the rated flow rate of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rated flow rate of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -318,12 +328,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>If the field is not autosized set to the power consumed by the pump bank
-when all the pumps are running at nominal flow
-If this field is autosized, an impeller efficiency of 0.78 is assumed.
-autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">If the field is not autosized set to the power consumed by the pump bank</div>
+<div class="line">when all the pumps are running at nominal flow</div>
+<div class="line">If this field is autosized, an impeller efficiency of 0.78 is assumed.</div>
+<div class="line">autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -343,10 +355,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.rated_pump_head">
 <code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Pump Head</cite></p>
-<p>default head is 60 feet
-Units: Pa
-IP-Units: ftH2O
-Default value: 179352.0</p>
+<div class="line-block">
+<div class="line">default head is 60 feet</div>
+<div class="line">Units: Pa</div>
+<div class="line">IP-Units: ftH2O</div>
+<div class="line">Default value: 179352.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -368,9 +382,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction">
 <code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
-<p>optional. If zone identified in previous field then this determines
-the split between convection and radiation for the skin losses
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">optional. If zone identified in previous field then this determines</div>
+<div class="line">the split between convection and radiation for the skin losses</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -392,10 +408,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.total_rated_flow_rate">
 <code class="descname">total_rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.total_rated_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Total Rated Flow Rate</cite></p>
-<p>If the field is not autosized set to the flow rate to
-the total flow when all pumps are running at full load
-Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">If the field is not autosized set to the flow rate to</div>
+<div class="line">the total flow when all pumps are running at full load</div>
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -415,7 +433,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsConstantSpeed.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsConstantSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>optional, if used pump losses transfered to zone as internal gains</p>
+<div class="line-block">
+<div class="line">optional, if used pump losses transfered to zone as internal gains</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -466,7 +486,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_2_of_the_part_load_performance_curve">
 <code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -530,7 +552,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme">
 <code class="descname">flow_sequencing_control_scheme</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.flow_sequencing_control_scheme" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Flow Sequencing Control Scheme</cite></p>
-<p>Default value: Sequential</p>
+<div class="line-block">
+<div class="line">Default value: Sequential</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -552,7 +576,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
 <code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -595,8 +621,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction">
 <code class="descname">minimum_flow_rate_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.minimum_flow_rate_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Flow Rate Fraction</cite></p>
-<p>This value can be zero and will be defaulted to that if not specified.
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This value can be zero and will be defaulted to that if not specified.</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -618,10 +646,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.motor_efficiency">
 <code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Motor Efficiency</cite></p>
-<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
-an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the motor efficiency only. When the Rated Power Consumption if autosized,</div>
+<div class="line">an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -706,7 +736,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.pump_control_type">
 <code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Control Type</cite></p>
-<p>Default value: Continuous</p>
+<div class="line-block">
+<div class="line">Default value: Continuous</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -728,9 +760,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name">
 <code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
-<p>Modifies the rated flow rate of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rated flow rate of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -752,12 +786,14 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>If the field is not autosized set to the power consumed by the pump bank
-when all the pumps are running at nominal flow
-If this field is autosized, an impeller efficiency of 0.78 is assumed.
-autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">If the field is not autosized set to the power consumed by the pump bank</div>
+<div class="line">when all the pumps are running at nominal flow</div>
+<div class="line">If this field is autosized, an impeller efficiency of 0.78 is assumed.</div>
+<div class="line">autosized Rated Power Consumption = Total Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -777,10 +813,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.rated_pump_head">
 <code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Pump Head</cite></p>
-<p>default head is 60 feet
-Units: Pa
-IP-Units: ftH2O
-Default value: 179352.0</p>
+<div class="line-block">
+<div class="line">default head is 60 feet</div>
+<div class="line">Units: Pa</div>
+<div class="line">IP-Units: ftH2O</div>
+<div class="line">Default value: 179352.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -802,9 +840,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction">
 <code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
-<p>optional. If zone identified in previous field then this determines
-the split between convection and radiation for the skin losses
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">optional. If zone identified in previous field then this determines</div>
+<div class="line">the split between convection and radiation for the skin losses</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -826,10 +866,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.total_rated_flow_rate">
 <code class="descname">total_rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.total_rated_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Total Rated Flow Rate</cite></p>
-<p>If the field is not autosized set to the flow rate to
-the total flow when all pumps are running at full load
-Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">If the field is not autosized set to the flow rate to</div>
+<div class="line">the total flow when all pumps are running at full load</div>
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -849,7 +891,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.HeaderedPumpsVariableSpeed.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.HeaderedPumpsVariableSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>optional, if used pump losses transfered to zone as internal gains</p>
+<div class="line-block">
+<div class="line">optional, if used pump losses transfered to zone as internal gains</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -879,7 +923,9 @@ This pump model is described in the ASHRAE secondary HVAC toolkit.</p>
 <dt id="pyidf.pumps.PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
 <code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -901,8 +947,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.impeller_diameter">
 <code class="descname">impeller_diameter</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.impeller_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Impeller Diameter</cite></p>
-<p>&#8220;D&#8221; in above expression in field A6
-Units: m</p>
+<div class="line-block">
+<div class="line">&#8220;D&#8221; in above expression in field A6</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -945,10 +993,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.motor_efficiency">
 <code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Motor Efficiency</cite></p>
-<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
-an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the motor efficiency only. When the Rated Power Consumption if autosized,</div>
+<div class="line">an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1012,7 +1062,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.pump_control_type">
 <code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Control Type</cite></p>
-<p>Default value: Continuous</p>
+<div class="line-block">
+<div class="line">Default value: Continuous</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1034,15 +1086,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.pump_curve_name">
 <code class="descname">pump_curve_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Curve Name</cite></p>
-<p>This references any single independent variable polynomial curve in order to
-do pressure vs. flow calculations for this pump.  The available types are then:
-Linear, Quadratic, Cubic, and Quartic
-The non-dimensional pump pressure relationship is of the following form:
-(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-Where the nondimensional variables are defined as:
-delP = rho * ((N/60)^2) * (D^2) * psi
-mdot = rho * (N/60) * (D^3) * phi
-Table:OneIndependentVariable object can also be used</p>
+<div class="line-block">
+<div class="line">This references any single independent variable polynomial curve in order to</div>
+<div class="line">do pressure vs. flow calculations for this pump.  The available types are then:</div>
+<div class="line">Linear, Quadratic, Cubic, and Quartic</div>
+<div class="line">The non-dimensional pump pressure relationship is of the following form:</div>
+<div class="line">(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)</div>
+<div class="line">Where the nondimensional variables are defined as:</div>
+<div class="line">delP = rho * ((N/60)^2) * (D^2) * psi</div>
+<div class="line">mdot = rho * (N/60) * (D^3) * phi</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1064,9 +1118,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.pump_flow_rate_schedule_name">
 <code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
-<p>Modifies the rated flow rate of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rated flow rate of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1088,8 +1144,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.rated_flow_rate">
 <code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Flow Rate</cite></p>
-<p>Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1109,10 +1167,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
-autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">If this field is autosized, an impeller efficiency of 0.78 is assumed.</div>
+<div class="line">autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1132,10 +1192,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.rated_pump_head">
 <code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Pump Head</cite></p>
-<p>default head is 60 feet
-Units: Pa
-IP-Units: ftH2O
-Default value: 179352.0</p>
+<div class="line-block">
+<div class="line">default head is 60 feet</div>
+<div class="line">Units: Pa</div>
+<div class="line">IP-Units: ftH2O</div>
+<div class="line">Default value: 179352.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1157,8 +1219,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.rotational_speed">
 <code class="descname">rotational_speed</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.rotational_speed" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rotational Speed</cite></p>
-<p>&#8220;N&#8221; in above expression in field A6
-Units: rev/min</p>
+<div class="line-block">
+<div class="line">&#8220;N&#8221; in above expression in field A6</div>
+<div class="line">Units: rev/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1180,9 +1244,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.skin_loss_radiative_fraction">
 <code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
-<p>optional. If zone identified in previous field then this determines
-the split between convection and radiation for the skin losses
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">optional. If zone identified in previous field then this determines</div>
+<div class="line">the split between convection and radiation for the skin losses</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1204,7 +1270,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpConstantSpeed.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpConstantSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>optional, if used pump losses transfered to zone as internal gains</p>
+<div class="line-block">
+<div class="line">optional, if used pump losses transfered to zone as internal gains</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1255,7 +1323,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.coefficient_2_of_the_part_load_performance_curve">
 <code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1319,7 +1389,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream">
 <code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1341,8 +1413,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.impeller_diameter">
 <code class="descname">impeller_diameter</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.impeller_diameter" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Impeller Diameter</cite></p>
-<p>&#8220;D&#8221; in above expression in field A6
-Units: m</p>
+<div class="line-block">
+<div class="line">&#8220;D&#8221; in above expression in field A6</div>
+<div class="line">Units: m</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1385,7 +1459,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.maximum_pressure_schedule">
 <code class="descname">maximum_pressure_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.maximum_pressure_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum Pressure Schedule</cite></p>
-<p>Units: Pa</p>
+<div class="line-block">
+<div class="line">Units: Pa</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1407,7 +1483,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.maximum_rpm_schedule">
 <code class="descname">maximum_rpm_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.maximum_rpm_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Maximum RPM Schedule</cite></p>
-<p>Units: Rotations Per Minute</p>
+<div class="line-block">
+<div class="line">Units: Rotations Per Minute</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1429,9 +1507,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.minimum_flow_rate">
 <code class="descname">minimum_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Flow Rate</cite></p>
-<p>This value can be zero and will be defaulted to that if not specified.
-Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">This value can be zero and will be defaulted to that if not specified.</div>
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1453,7 +1533,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.minimum_pressure_schedule">
 <code class="descname">minimum_pressure_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_pressure_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum Pressure Schedule</cite></p>
-<p>Units: Pa</p>
+<div class="line-block">
+<div class="line">Units: Pa</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1475,7 +1557,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.minimum_rpm_schedule">
 <code class="descname">minimum_rpm_schedule</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.minimum_rpm_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Minimum RPM Schedule</cite></p>
-<p>Units: Rotations Per Minute</p>
+<div class="line-block">
+<div class="line">Units: Rotations Per Minute</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1497,10 +1581,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.motor_efficiency">
 <code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.motor_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Motor Efficiency</cite></p>
-<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
-an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the motor efficiency only. When the Rated Power Consumption if autosized,</div>
+<div class="line">an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1564,7 +1650,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.pump_control_type">
 <code class="descname">pump_control_type</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_control_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Control Type</cite></p>
-<p>Default value: Continuous</p>
+<div class="line-block">
+<div class="line">Default value: Continuous</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1586,15 +1674,17 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.pump_curve_name">
 <code class="descname">pump_curve_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_curve_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Curve Name</cite></p>
-<p>This references any single independent variable polynomial curve in order to
-do pressure vs. flow calculations for this pump.  The available types are then:
-Linear, Quadratic, Cubic, and Quartic
-The non-dimensional pump pressure relationship is of the following form:
-(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)
-Where the nondimensional variables are defined as:
-delP = rho * ((N/60)^2) * (D^2) * psi
-mdot = rho * (N/60) * (D^3) * phi
-Table:OneIndependentVariable object can also be used</p>
+<div class="line-block">
+<div class="line">This references any single independent variable polynomial curve in order to</div>
+<div class="line">do pressure vs. flow calculations for this pump.  The available types are then:</div>
+<div class="line">Linear, Quadratic, Cubic, and Quartic</div>
+<div class="line">The non-dimensional pump pressure relationship is of the following form:</div>
+<div class="line">(psi = C4*phi^4 + C3*phi^3 + C2*phi^2 + C1*phi + C0)</div>
+<div class="line">Where the nondimensional variables are defined as:</div>
+<div class="line">delP = rho * ((N/60)^2) * (D^2) * psi</div>
+<div class="line">mdot = rho * (N/60) * (D^3) * phi</div>
+<div class="line">Table:OneIndependentVariable object can also be used</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1616,9 +1706,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.pump_flow_rate_schedule_name">
 <code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
-<p>Modifies the rated flow rate of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rated flow rate of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1640,9 +1732,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.pump_rpm_schedule_name">
 <code class="descname">pump_rpm_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.pump_rpm_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump rpm Schedule Name</cite></p>
-<p>Modifies the rpm of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rpm of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1664,8 +1758,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.rated_flow_rate">
 <code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Flow Rate</cite></p>
-<p>Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1685,10 +1781,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
-autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">If this field is autosized, an impeller efficiency of 0.78 is assumed.</div>
+<div class="line">autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1708,10 +1806,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.rated_pump_head">
 <code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.rated_pump_head" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Pump Head</cite></p>
-<p>default head is 60 feet
-Units: Pa
-IP-Units: ftH2O
-Default value: 179352.0</p>
+<div class="line-block">
+<div class="line">default head is 60 feet</div>
+<div class="line">Units: Pa</div>
+<div class="line">IP-Units: ftH2O</div>
+<div class="line">Default value: 179352.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1733,9 +1833,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.skin_loss_radiative_fraction">
 <code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
-<p>optional. If zone identified in previous field then this determines
-the split between convection and radiation for the skin losses
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">optional. If zone identified in previous field then this determines</div>
+<div class="line">the split between convection and radiation for the skin losses</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1778,7 +1880,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeed.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeed.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>optional, if used pump losses transfered to zone as internal gains</p>
+<div class="line-block">
+<div class="line">optional, if used pump losses transfered to zone as internal gains</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1830,7 +1934,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.coefficient_2_of_the_part_load_performance_curve">
 <code class="descname">coefficient_2_of_the_part_load_performance_curve</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.coefficient_2_of_the_part_load_performance_curve" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Coefficient 2 of the Part Load Performance Curve</cite></p>
-<p>Default value: 1.0</p>
+<div class="line-block">
+<div class="line">Default value: 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1894,7 +2000,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream">
 <code class="descname">fraction_of_motor_inefficiencies_to_fluid_stream</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.fraction_of_motor_inefficiencies_to_fluid_stream" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Fraction of Motor Inefficiencies to Fluid Stream</cite></p>
-<p>value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -1937,10 +2045,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.motor_efficiency">
 <code class="descname">motor_efficiency</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.motor_efficiency" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Motor Efficiency</cite></p>
-<p>This is the motor efficiency only. When the Rated Power Consumption if autosized,
-an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.
-Default value: 0.9
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">This is the motor efficiency only. When the Rated Power Consumption if autosized,</div>
+<div class="line">an impeller efficiency of 0.78 is assumed in addition to the motor efficiency.</div>
+<div class="line">Default value: 0.9</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2004,9 +2114,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.pump_flow_rate_schedule_name">
 <code class="descname">pump_flow_rate_schedule_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.pump_flow_rate_schedule_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Pump Flow Rate Schedule Name</cite></p>
-<p>Modifies the rated flow rate of the pump on a time basis. Default is
-that the pump is on and runs according to its other operational requirements
-specified above.  The schedule is for special pump operations.</p>
+<div class="line-block">
+<div class="line">Modifies the rated flow rate of the pump on a time basis. Default is</div>
+<div class="line">that the pump is on and runs according to its other operational requirements</div>
+<div class="line">specified above.  The schedule is for special pump operations.</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2028,8 +2140,10 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_flow_rate">
 <code class="descname">rated_flow_rate</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_flow_rate" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Flow Rate</cite></p>
-<p>Units: m3/s
-IP-Units: gal/min</p>
+<div class="line-block">
+<div class="line">Units: m3/s</div>
+<div class="line">IP-Units: gal/min</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2049,10 +2163,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_power_consumption">
 <code class="descname">rated_power_consumption</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_power_consumption" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Power Consumption</cite></p>
-<p>If this field is autosized, an impeller efficiency of 0.78 is assumed.
-autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)
-Units: W
-IP-Units: W</p>
+<div class="line-block">
+<div class="line">If this field is autosized, an impeller efficiency of 0.78 is assumed.</div>
+<div class="line">autosized Rated Power Consumption = Rated Flow Rate * Rated Pump Head / (0.78 * Motor Efficiency)</div>
+<div class="line">Units: W</div>
+<div class="line">IP-Units: W</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2072,10 +2188,12 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.rated_pump_head">
 <code class="descname">rated_pump_head</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.rated_pump_head" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Rated Pump Head</cite></p>
-<p>default head is 60 feet
-Units: Pa
-IP-Units: ftH2O
-Default value: 179352.0</p>
+<div class="line-block">
+<div class="line">default head is 60 feet</div>
+<div class="line">Units: Pa</div>
+<div class="line">IP-Units: ftH2O</div>
+<div class="line">Default value: 179352.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2097,9 +2215,11 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.skin_loss_radiative_fraction">
 <code class="descname">skin_loss_radiative_fraction</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.skin_loss_radiative_fraction" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Skin Loss Radiative Fraction</cite></p>
-<p>optional. If zone identified in previous field then this determines
-the split between convection and radiation for the skin losses
-value &lt;= 1.0</p>
+<div class="line-block">
+<div class="line">optional. If zone identified in previous field then this determines</div>
+<div class="line">the split between convection and radiation for the skin losses</div>
+<div class="line">value &lt;= 1.0</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -2121,7 +2241,9 @@ if <cite>value</cite> is not a valid value</td>
 <dt id="pyidf.pumps.PumpVariableSpeedCondensate.zone_name">
 <code class="descname">zone_name</code><a class="headerlink" href="#pyidf.pumps.PumpVariableSpeedCondensate.zone_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>field <cite>Zone Name</cite></p>
-<p>optional, if used pump losses transfered to zone as internal gains</p>
+<div class="line-block">
+<div class="line">optional, if used pump losses transfered to zone as internal gains</div>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
